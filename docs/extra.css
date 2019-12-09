@@ -1,0 +1,55 @@
+.wy-side-nav-search {
+    background-color: #1FA87D;
+}
+
+.wy-side-nav-search input[type="text"] {
+    border-color: transparent;
+}
+
+.wy-nav-content {
+    margin: initial;
+}
+
+// .wy-nav-side {
+//     background-color: #1FA87D;
+// }
+
+.rst-content div[role=navigation], footer {
+   font-size: 0.85em;
+   color: #999;
+}
+
+.rst-content div[role=navigation] hr {
+    margin-top: 6px;
+}
+
+footer hr {
+    margin-bottom: 6px;
+}
+
+.rst-footer-buttons {
+    display: none;
+}
+
+a.icon-home, a.icon-home:hover {
+    display: inline-block;
+    padding: 4px 4px 4px 21px;
+    /* TODO: add this when logo is ready */
+    /*background: transparent url(logo.svg) center left no-repeat;*/
+    background-size: 1.2em;
+    margin-top: 0.2em;
+    margin-bottom: 1em;
+}
+
+
+.fa-home::before, .icon-home::before {
+    content: "";
+}
+
+.wy-nav-top a {
+    margin: -2em;
+    /* TODO: add this when logo is ready */
+    /*background: transparent url(logo.svg) center left no-repeat;*/
+    background-size: 1.2em;
+    padding: 4px 4px 4px 24px;
+}

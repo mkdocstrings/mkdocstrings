@@ -1,0 +1,24 @@
+{
+    "template": "https://github.com/pawamoy/cookie-poetry",
+    "commit": "39e751de4fda3c136fee27778e661365a47b9b2a",
+    "context": {
+        "cookiecutter": {
+            "project_name": "mkdocstrings",
+            "project_description": "Automatic documentation from docstrings, for mkdocs.",
+            "author_fullname": "Timothée Mazzucotelli",
+            "author_email": "pawamoy@pm.me",
+            "author_username": "pawamoy",
+            "repository_provider": "gitlab.com",
+            "repository_namespace": "pawamoy",
+            "repository_name": "mkdocstrings",
+            "copyright_holder": "Timothée Mazzucotelli",
+            "copyright_holder_email": "pawamoy@pm.me",
+            "copyright_date": "2019",
+            "copyright_license": "ISC License",
+            "python_package_distribution_name": "mkdocstrings",
+            "python_package_import_name": "mkdocstrings",
+            "python_package_command_line_name": "mkdocstrings",
+            "_template": "https://github.com/pawamoy/cookie-poetry"
+        }
+    }
+}

@@ -1,0 +1,65 @@
+variables:
+    PIP_CACHE_DIR: "${CI_PROJECT_DIR}/.cache/pip"
+
+cache:
+  key: "${CI_JOB_NAME}"
+  paths:
+    - .cache/pip
+    - .venv
+
+stages:
+  - quality
+  - tests
+
+.install-deps-template: &install-deps
+  before_script:
+    - pip install poetry
+    - poetry --version
+    - poetry config settings.virtualenvs.in-project true
+    - poetry install -vv
+
+# Quality jobs
+
+.quality-template: &quality
+  <<: *install-deps
+  image: python:3.6
+  stage: quality
+
+check-bandit:
+  <<: *quality
+  script: make check-bandit
+
+check-black:
+  <<: *quality
+  script: make check-black
+
+check-flake8:
+  <<: *quality
+  script: make check-flake8
+
+check-isort:
+  <<: *quality
+  script: make check-isort
+
+check-safety:
+  <<: *quality
+  script: make check-safety
+
+# Tests jobs
+
+.test-template: &test
+  <<: *install-deps
+  stage: tests
+  script: make test
+
+python3.6:
+  <<: *test
+  image: python:3.6
+
+python3.7:
+  <<: *test
+  image: python:3.7
+
+python3.8:
+  <<: *test
+  image: python:3.8

@@ -1,0 +1,44 @@
+body { background-color: #0c0e15; }
+#header { background: #111; }
+h1 { color: #c797e6; }
+h2.stats { color: #eee; }
+
+.stats span { border: none; border-radius: 0; }
+.stats span.run { background: #797; }
+.stats span.run.show_run { background: #4b4; }
+.stats span.mis { background: #977; }
+.stats span.mis.show_mis { background: #bb4444; }
+.stats span.exc { background: #454545; }
+.stats span.exc.show_exc { background: #252525; }
+.stats span.par { background: #997; }
+.stats span.par.show_par { background: #bb4; }
+
+.text p { border-left: 2px solid #111; }
+.text p.run.show_run { background: #4b4; }
+.text p.run.show_run span { color: #111; }
+.text p.mis.show_mis { background: #b44; }
+.text p.mis.show_mis span { color: #111; }
+.text p.par { border-left: 2px solid #ff0; }
+.text p.par.show_par { background: #bb4; }
+.text p.par.show_par span { color: #111; }
+
+.text .com { color: #666; }
+.text .key { color: #708fcc; }
+.text .str { color: #b9d78b; }
+.text .nam { color: #b1c2df; }
+.text .op { color: #7cbdd5; font-weight: bold; }
+.text .num { color: #e88e70; font-weight: bold; }
+
+#index tr.file { color: #eee; }
+#index td.name, #index th.name { color: #eee; }
+#index th { color: #eee; }
+#index th:hover { color: #111; }
+#index th.headerSortDown, #index th.headerSortUp { color: #111; }
+#index td.name a { color: #eee; }
+#index tr.total td, #index tr.total_dynamic td { color: #eee; }
+#index tr.file:hover { color: #111; }
+#index tr.file:hover td.name { color: #111; }
+#index tr.file:hover td.name a { color: #111; }
+
+#scroll_marker { background: #222; border-left: 1px solid #666; }
+#scroll_marker .marker { background: #b1c2df; }
