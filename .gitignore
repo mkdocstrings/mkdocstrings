@@ -9,3 +9,4 @@ tests/tmp/*
 !tests/tmp/.gitkeep
 pip-wheel-metadata/
 .pytest_cache/
+.python-version

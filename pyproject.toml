@@ -39,9 +39,14 @@ safety = "^1.8"
 sphinx = "^1.8"
 sphinx-rtd-theme = "^0.4.2"
 toml = "^0.10.0"
+mkdocs = "^1.0"
+mkdocs-material = "^4.5"
 
 [tool.poetry.scripts]
 mkdocstrings = "mkdocstrings.cli:main"
+
+[tool.poetry.plugins."mkdocs.plugins"]
+mkdocstrings = "mkdocstrings.plugin:MkdocstringsPlugin"
 
 [tool.black]
 line-length = 120

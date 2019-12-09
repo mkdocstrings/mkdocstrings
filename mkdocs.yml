@@ -1,0 +1,20 @@
+site_name: mkdocstrings
+
+nav:
+  - Overview: "readme.md"
+  - Reference: "reference.md"
+  - Contributing: "contributing.md"
+  - Code of Conduct: "code_of_conduct.md"
+  - Changelog: "changelog.md"
+  - Credits: "credits.md"
+
+theme:
+    name: "material"
+
+
+markdown_extensions:
+  - admonition
+  - codehilite
+
+plugins:
+  - mkdocstrings

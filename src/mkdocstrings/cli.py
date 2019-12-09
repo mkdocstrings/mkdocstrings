@@ -16,6 +16,7 @@ Also see http://click.pocoo.org/5/setuptools/#setuptools-integration.
 """
 
 import argparse
+import re
 
 
 def main(args=None):
@@ -23,7 +24,23 @@ def main(args=None):
     parser = get_parser()
     args = parser.parse_args(args=args)
 
+    classes_filters = ["!^_[^_]", "!^__weakref__$"]
+    classes_filters = [(f, re.compile(f.lstrip("!"))) for f in classes_filters]
+    for name in ["_hello", "__weakref__", "__weakref", "__weakref__hehe", "__init__", "__init__hehe"]:
+        print("should keep", name, should_keep(name, classes_filters))
+
     return 0
+
+
+def should_keep(name, filters):
+    keep = True
+    for f, regex in filters:
+        is_matching = bool(regex.match(name))
+        if is_matching:
+            if str(f).startswith("!"):
+                is_matching = not is_matching
+            keep = is_matching
+    return keep
 
 
 def get_parser():
