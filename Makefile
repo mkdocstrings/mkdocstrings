@@ -80,11 +80,6 @@ publish:  ## Publish the latest built version on PyPI.
 setup:  ## Setup the development environment.
 	poetry install
 
-.PHONY: readme
-readme:  ## Regenerate README.md.
-	poetry run ./scripts/gen-readme-data.py | \
-		poetry run jinja2 --strict -o README.md --format=json scripts/templates/README.md -
-
 .PHONY: test
 test: clean-tests  ## Run the tests using pytest.
 	poetry run pytest -n auto -k "$(K)" 2>/dev/null
