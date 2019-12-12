@@ -1,9 +1,3 @@
-<!--
-IMPORTANT:
-  This file is generated from the template at 'scripts/templates/README.md'.
-  Please update the template instead of this file.
--->
-
 # mkdocstrings
 [![pipeline status](https://gitlab.com/pawamoy/mkdocstrings/badges/master/pipeline.svg)](https://gitlab.com/pawamoy/mkdocstrings/pipelines)
 [![coverage report](https://gitlab.com/pawamoy/mkdocstrings/badges/master/coverage.svg)](https://gitlab.com/pawamoy/mkdocstrings/commits/master)
@@ -11,6 +5,10 @@ IMPORTANT:
 [![pypi version](https://img.shields.io/pypi/v/mkdocstrings.svg)](https://pypi.org/project/mkdocstrings/)
 
 Automatic documentation from docstrings, for mkdocs.
+
+This plugin is still in alpha status. Here is how it looks with the [mkdocs-material theme](https://squidfunk.github.io/mkdocs-material/) for now:
+
+![screenshot_mkdocstrings](https://user-images.githubusercontent.com/3999221/70753392-f4282d00-1d34-11ea-987c-0e9372227617.png)
 
 ## Requirements
 mkdocstrings requires Python 3.6 or above.
@@ -48,14 +46,16 @@ python3.6 -m pip install --user pipx
 pipx install --python python3.6 mkdocstrings
 ```
 
-## Usage (as a library)
-TODO
+## Usage
 
-## Usage (command-line)
+```yaml
+# mkdocs.yml
+plugins:
+  - mkdocstrings
 ```
-usage: mkdocstrings [-h]
 
-optional arguments:
-  -h, --help  show this help message and exit
+```markdown
+# Reference
 
+::: my_library.my_module.my_class
 ```
