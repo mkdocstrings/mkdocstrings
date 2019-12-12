@@ -1,2 +1,3 @@
+# mkdocstrings.plugin
 
-::: mkdocstrings.MkdocstringsPlugin
+::: mkdocstrings.plugin

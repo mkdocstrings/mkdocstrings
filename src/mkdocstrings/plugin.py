@@ -1,49 +1,118 @@
+import ast
 import importlib
 import inspect
-import re
-import ast
-from pprint import pprint
 import os
-import json
+import re
+from functools import lru_cache
 
-from mkdocs.plugins import BasePlugin
 from mkdocs.config.config_options import Type
+from mkdocs.plugins import BasePlugin
+
+# TODO: option to display complete path instead of name for root_object
+# TODO: option to change initial heading level per autodoc instruction
+# TODO: option to group by category or not (if not grouped: alphabetical order)
+# TODO: option to add category headers (if grouped)
+# TODO: add a way to reference other objects in docstrings
+# TODO: add source code pages (with links back to the documentation)
+
+# TODO: use type annotations
+# TODO: get classes and functions signatures (steal code from mkautodoc)
+# TODO: get attributes types and signatures parameters types from type annotations or docstring
+
+# TODO: steal code from mkautodoc to create a markdown extension (better to render HTML)
+
+# TODO: parse google-style blocks
+#       change to admonitions for simple blocks
+#       parse Args, Raises and Returns to get types and messages
+
+# TODO: support more properties:
+#       generators, coroutines, awaitable (see inspect.is...), decorators?
+#       metaclass, dataclass
+#       optional (parameters with default values)
+
+# TODO: pick attributes without docstrings?
+
+# TODO: write tests
 
 # TODO: make sure to recurse correctly (module's modules, class' classes, etc.)
-# TODO: filter elements based on configuration filters (see cli.should_keep)
-# TODO: get classes and functions signatures
-# TODO: get attributes types and signatures parameters types from type annotations or docstring
-# TODO: parse google-style blocks
-# TODO: support more properties: generators, coroutines, awaitable (see inspect.is...), decorators?
-# FIXME: change append_name_property method and its usage, because it's ugly.
-# TODO: create separate methods to check name properties (special, private, etc.)
-#       as it makes no sense to declare a class or a module as "class-private", or a class as "special"
-#       but maybe I'm wrong (check behavior with tests fixtures)
-# TODO: pick attributes without docstrings?
-# TODO: use a proper class for elements (type, name, path, doctring, properties)
+# TODO: discover package's submodules
+
+# TODO: option to void special methods' docstrings
+#       when they are equal to the built-in ones (ex: "Return str(self)." for __str__)
+
+# TODO: option not to write root group header if it's the only group
+
 
 RECURSIVE_NODES = (ast.If, ast.IfExp, ast.Try, ast.With, ast.ExceptHandler)
-"""I'm the RECURSIVE_NODES docstring."""
-
-NAMED_RECURSIVE_NODES = (ast.ClassDef, ast.FunctionDef)
+"""The AST nodes that are recursively walked while searching for documented attributes in Python source."""
 
 # exactly two leading underscores, exactly two trailing underscores
 # since we enforce one non-underscore after the two leading underscores,
 # we put the rest in an optional group
 RE_SPECIAL = re.compile(r"^__[^_]([\w_]*[^_])?__$")
+"""Regular expression to match special names like `__name__`."""
 
 # at least two leading underscores, at most one trailing underscore
 # since we enforce one non-underscore before the last,
 # we make the previous characters optional with an asterisk
 RE_CLASS_PRIVATE = re.compile(r"^__[\w_]*[^_]_?$")
+"""Regular expression to match class-private names like `__name`."""
 
 # at most one leading underscore, then whatever
 RE_PRIVATE = re.compile(r"^_[^_][\w_]*$")
+"""Regular expression to match private names like `_name`."""
+
+
+def is_special_name(name: str) -> bool:
+    """Check if name is a special name."""
+    return bool(RE_SPECIAL.match(name))
+
+
+def is_class_private_name(name: str) -> bool:
+    """Check if name is a class-private name."""
+    return bool(RE_CLASS_PRIVATE.match(name))
+
+
+def is_private_name(name: str) -> bool:
+    """Check if name is a private name."""
+    return bool(RE_PRIVATE.match(name))
+
+
+CATEGORY_ATTRIBUTE = "attribute"
+CATEGORY_METHOD = "method"
+CATEGORY_FUNCTION = "function"
+CATEGORY_MODULE = "module"
+CATEGORY_CLASS = "class"
+
+NAME_SPECIAL = ("special", is_special_name)
+NAME_CLASS_PRIVATE = ("class-private", is_class_private_name)
+NAME_PRIVATE = ("private", is_private_name)
+
+NAME_PROPERTIES = {
+    CATEGORY_ATTRIBUTE: [NAME_SPECIAL, NAME_CLASS_PRIVATE, NAME_PRIVATE],
+    CATEGORY_METHOD: [NAME_SPECIAL, NAME_PRIVATE],
+    CATEGORY_FUNCTION: [NAME_PRIVATE],
+    CATEGORY_CLASS: [NAME_PRIVATE],
+    CATEGORY_MODULE: [NAME_SPECIAL, NAME_PRIVATE],
+}
 
 
 class Object:
-    def __init__(self, object_type, name, path, docstring, properties, signature=None):
-        self.object_type = object_type
+    """
+    Class to store information about a Python object.
+
+    - the object category (ex: module, function, class, method or attribute)
+    - the object path (ex: `package.submodule.class.inner_class.method`
+    - the object name (ex: `__init__`)
+    - the object docstring
+    - the object properties, depending on its category (ex: special, classmethod, etc.)
+    - the object signature (soon)
+
+    Each instance additionally stores references to its children, grouped by category (see Attributes).
+    """
+
+    def __init__(self, category, name, path, docstring, properties, signature=None):
+        self.category = category
         self.name = name
         self.signature = signature or ""
         self.path = path
@@ -51,76 +120,115 @@ class Object:
         self.properties = properties
         self.parent = None
 
+        self._path_map = {}
+
         self.attributes = []
+        """List of all the object's attributes."""
         self.methods = []
+        """List of all the object's methods."""
         self.functions = []
+        """List of all the object's functions."""
         self.modules = []
+        """List of all the object's submodules."""
         self.classes = []
+        """List of all the object's classes."""
         self.children = []
+        """List of all the object's children."""
 
     def __str__(self):
         return self.path
 
     @property
     def parent_path(self):
+        """The parent's path, computed from the current path."""
         return self.path.rsplit(".", 1)[0]
 
     def add_child(self, obj):
+        """Add an object as a child of this object."""
+        if obj.parent_path != self.path:
+            return
+
         self.children.append(obj)
         {
-            "attribute": self.attributes,
-            "method": self.methods,
-            "function": self.functions,
-            "module": self.modules,
-            "class": self.classes,
-        }.get(obj.object_type).append(obj)
+            CATEGORY_ATTRIBUTE: self.attributes,
+            CATEGORY_METHOD: self.methods,
+            CATEGORY_FUNCTION: self.functions,
+            CATEGORY_MODULE: self.modules,
+            CATEGORY_CLASS: self.classes,
+        }.get(obj.category).append(obj)
         obj.parent = self
 
+        self._path_map[obj.path] = obj
+
     def add_children(self, children):
+        """Add a list of objects as children of this object."""
         for child in children:
             self.add_child(child)
 
-    def render(self, heading=1, hide_nodoc=False):
-        if hide_nodoc and not self.docstring:
-            return
-        print(f"{'#' * heading} {self.name}")
-        print(self.docstring)
-        print()
+    def dispatch_attributes(self, attributes):
+        for attribute in attributes:
+            try:
+                attach_to = self._path_map[attribute.parent_path]
+            except KeyError:
+                pass
+            else:
+                attach_to.attributes.append(attribute)
+
+    def render(self, heading=1, hide_no_doc=True):
+        """
+        Render this object as Markdown.
+
+        This is dirty and will be refactored as a Markdown extension soon.
+        """
+        lines = []
+
+        if self.docstring or not hide_no_doc:
+            lines.append(f"{'#' * heading} `{self.name}`\n")
+
+            properties = ", ".join(self.properties)
+            if properties:
+                lines.append(f"*({properties})*  ")
+
+            lines.append(self.docstring)
+            lines.append("")
+
         if self.attributes:
-            print(f"{'#' * (heading + 1)} Attributes")
-            print()
-            for attribute in self.attributes:
-                attribute.render(heading + 2)
-                print()
+            lines.append(f"{'#' * (heading + 1)} Attributes")
+            lines.append("")
+            for attribute in sorted(self.attributes, key=lambda o: o.name.lower()):
+                lines.append(attribute.render(heading + 2))
+                lines.append("")
         if self.classes:
-            print(f"{'#' * (heading + 1)} Classes")
-            print()
-            for class_ in self.classes:
-                class_.render(heading + 2)
-                print()
+            lines.append(f"{'#' * (heading + 1)} Classes")
+            lines.append("")
+            for class_ in sorted(self.classes, key=lambda o: o.name.lower()):
+                lines.append(class_.render(heading + 2))
+                lines.append("")
         if self.methods:
-            print(f"{'#' * (heading + 1)} Methods")
-            print()
-            for method in self.methods:
-                method.render(heading + 2)
-                print()
+            lines.append(f"{'#' * (heading + 1)} Methods")
+            lines.append("")
+            for method in sorted(self.methods, key=lambda o: o.name.lower()):
+                lines.append(method.render(heading + 2))
+                lines.append("")
         if self.functions:
-            print(f"{'#' * (heading + 1)} Functions")
-            print()
-            for function in self.functions:
-                function.render(heading + 2)
-                print()
+            lines.append(f"{'#' * (heading + 1)} Functions")
+            lines.append("")
+            for function in sorted(self.functions, key=lambda o: o.name.lower()):
+                lines.append(function.render(heading + 2))
+                lines.append("")
+        return "\n".join(lines)
 
 
 class MkdocstringsPlugin(BasePlugin):
-    """Doc."""
+    """The mkdocstrings plugin to use in your mkdocs configuration file."""
 
     config_scheme = (
-        ("global_classes_filters", Type(tuple, default=("!^_[^_]", "!^__weakref__$"))),
-        ("global_modules_filters", Type(tuple, default=())),
+        ("global_filters", Type(list, default=["!^_[^_]", "!^__weakref__$"])),
         ("docstring_above_attribute", Type(bool, default=False)),
     )
-    """A class attribute."""
+
+    _testing_filters = 0
+    """This should NOT appear."""
 
     def __init__(self, *args, **kwargs):
         super(MkdocstringsPlugin, self).__init__()
@@ -128,30 +236,8 @@ class MkdocstringsPlugin(BasePlugin):
         self.type_node2 = None
         self.get_attribute_names_and_docstring = None
         self._attributes_cache = {}
-        self.hide_nodoc = True
-        self.group_by_type = True
-        self.group_heading = {
-            "attribute": "Attributes",
-            "method": "Methods",
-            "function": "Functions",
-            "class": "Classes",
-            "module": "Modules"
-        }
-        self.extra_heading = 1 if self.group_by_type else 0
-
-        # TEST STUFF -----------------------------------------
-
-        self.__class_private_var = 0
-        """Class private var!"""
-
-        self._MkdocstringsPlugin__false_class_private = 0
-        """False class private var!"""
-
-        self.some_varrrrr = 0
-        """My varrrrr doc."""
-
-        self.__special_var__ = 0
-        """My special var."""
+        self.hide_no_doc = True
+        self.global_filters = []
 
     @staticmethod
     def node_is_docstring(node):
@@ -176,6 +262,7 @@ class MkdocstringsPlugin(BasePlugin):
         return names
 
     def on_config(self, config, **kwargs):
+        self.global_filters = [(f, re.compile(f.lstrip("!"))) for f in self.config["global_filters"]]
         if self.config["docstring_above_attribute"]:
 
             def getter(node1, node2):
@@ -226,28 +313,33 @@ class MkdocstringsPlugin(BasePlugin):
                     raise ImportError("No module named '%s'" % obj_parent_modules[0])
                 objects.insert(0, obj_parent_modules.pop(-1))
 
-        module = parent_module
         current_object = parent_module
         for obj in objects:
             current_object = getattr(current_object, obj)
         module = inspect.getmodule(current_object)
         return module, current_object
 
+    @lru_cache(maxsize=None)
+    def filter_name_out(self, name):
+        keep = True
+        for f, regex in self.global_filters:
+            is_matching = bool(regex.match(name))
+            if is_matching:
+                if str(f).startswith("!"):
+                    is_matching = not is_matching
+                keep = is_matching
+        return not keep
+
     def on_page_markdown(self, markdown, page, **kwargs):
         lines = markdown.split("\n")
-        for line in lines:
+        modified_lines = lines[::]
+        for i, line in enumerate(lines):
             if line.startswith("::: "):
                 import_string = line.replace("::: ", "")
                 root_object = self.get_object_documentation(import_string)
-                root_object.render()
-        print(flush=True)
-        return markdown
-
-    def get_or_set_cached_attribute_documentation(self, module):
-        module_path = module.__file__
-        if module_path not in self._attributes_cache:
-            self._attributes_cache[module_path] = self.get_attributes(module)
-        return self._attributes_cache[module_path]
+                new_lines = root_object.render(heading=2)
+                modified_lines[i] = new_lines
+        return "\n".join(modified_lines)
 
     def get_object_documentation(self, import_string):
         module, obj = self.import_object(import_string)
@@ -262,19 +354,24 @@ class MkdocstringsPlugin(BasePlugin):
             root_object = self.get_function_documentation(obj, path)
         else:
             raise ValueError(f"{obj}:{type(obj)} not yet supported")
-        attributes = self.get_or_set_cached_attribute_documentation(module)
-        attributes = list(filter(lambda x: x.path.startswith(path), attributes))
-        root_object.add_children(attributes)
+        attributes = self.get_attributes(module)
+        root_object.dispatch_attributes([a for a in attributes if not self.filter_name_out(a.name)])
         return root_object
 
     def get_module_documentation(self, module, path):
         module_name = path.split(".")[-1]
-        properties = []
-        if os.path.splitext(os.path.basename(module.__file__))[0] == "__init__":
-            properties.append("special")
-        properties = self.append_name_property(module_name, properties)
-        root_object = Object(object_type="module", name=module_name, path=path, docstring=inspect.getdoc(module), properties=properties)
+        module_file_basename = os.path.splitext(os.path.basename(module.__file__))[0]
+        properties = self.get_name_properties(module_file_basename, CATEGORY_MODULE)
+        root_object = Object(
+            category=CATEGORY_MODULE,
+            name=module_name,
+            path=path,
+            docstring=inspect.getdoc(module),
+            properties=properties,
+        )
         for member_name, member in inspect.getmembers(module):
+            if self.filter_name_out(member_name):
+                continue
             member_path = f"{path}.{member_name}"
             if inspect.isclass(member) and inspect.getmodule(member) == module:
                 root_object.add_child(self.get_class_documentation(member, member_path))
@@ -284,48 +381,84 @@ class MkdocstringsPlugin(BasePlugin):
 
     def get_class_documentation(self, class_, path):
         class_name = class_.__name__
-        root_object = Object(object_type="class", name=class_name, path=path, docstring=inspect.getdoc(class_), properties=self.append_name_property(class_name))
+        root_object = Object(
+            category=CATEGORY_CLASS,
+            name=class_name,
+            path=path,
+            docstring=inspect.getdoc(class_),
+            properties=self.get_name_properties(class_name, CATEGORY_CLASS),
+        )
         for member_name, member in sorted(class_.__dict__.items()):
+            if self.filter_name_out(member_name):
+                continue
             member_path = f"{path}.{member_name}"
             if inspect.isclass(member):
                 root_object.add_child(self.get_class_documentation(member, member_path))
                 continue
 
             docstring = inspect.getdoc(getattr(class_, member_name))
-            properties = self.append_name_property(member_name)
             if isinstance(member, classmethod):
                 root_object.add_child(
-                    Object(object_type="method", name=member_name, path=member_path, docstring=docstring, properties=properties + ["classmethod"])
+                    Object(
+                        category=CATEGORY_METHOD,
+                        name=member_name,
+                        path=member_path,
+                        docstring=docstring,
+                        properties=self.get_name_properties(member_name, CATEGORY_METHOD) + ["classmethod"],
+                    )
                 )
             elif isinstance(member, staticmethod):
                 root_object.add_child(
-                    Object(object_type="method", name=member_name, path=member_path, docstring=docstring, properties=properties + ["staticmethod"])
+                    Object(
+                        category=CATEGORY_METHOD,
+                        name=member_name,
+                        path=member_path,
+                        docstring=docstring,
+                        properties=self.get_name_properties(member_name, CATEGORY_METHOD) + ["staticmethod"],
+                    )
                 )
             elif isinstance(member, type(lambda: 0)):  # regular method
-                root_object.add_child(Object(object_type="method", name=member_name, path=member_path, docstring=docstring, properties=properties))
+                root_object.add_child(
+                    Object(
+                        category=CATEGORY_METHOD,
+                        name=member_name,
+                        path=member_path,
+                        docstring=docstring,
+                        properties=self.get_name_properties(member_name, CATEGORY_METHOD),
+                    )
+                )
             elif isinstance(member, property):
-                properties.append("property")
+                properties = ["property"]
                 if member.fset is None:
                     properties.append("readonly")
-                root_object.add_child(Object(object_type="attribute", name=member_name, path=member_path, docstring=docstring, properties=properties))
+                root_object.add_child(
+                    Object(
+                        category=CATEGORY_ATTRIBUTE,
+                        name=member_name,
+                        path=member_path,
+                        docstring=docstring,
+                        properties=properties + self.get_name_properties(member_name, CATEGORY_ATTRIBUTE),
+                    )
+                )
         return root_object
 
     def get_function_documentation(self, function, path):
         function_name = function.__name__
         return Object(
-            object_type="function",
+            category=CATEGORY_FUNCTION,
             name=function_name,
             path=path,
             docstring=inspect.getdoc(function),
-            properties=self.append_name_property(function_name),
+            properties=self.get_name_properties(function_name, CATEGORY_FUNCTION),
         )
 
+    @lru_cache(maxsize=None)
     def get_attributes(self, module):
         with open(module.__file__) as stream:
             code = stream.read()
         initial_ast_body = ast.parse(code).body
 
-        # don't use module docstring (only useful if allow docstrings above assignments
+        # don't use module docstring (only useful if we allow docstrings above assignments)
         if self.node_is_docstring(initial_ast_body[0]):
             initial_ast_body = initial_ast_body[1:]
 
@@ -354,74 +487,19 @@ class MkdocstringsPlugin(BasePlugin):
                 for name in names:
                     documented_attributes.append(
                         Object(
-                            object_type="attribute",
+                            category=CATEGORY_ATTRIBUTE,
                             path=f"{name_prefix}.{name}",
                             name=name,
                             docstring=docstring,
-                            properties=self.append_name_property(name, properties),
+                            properties=properties + self.get_name_properties(name, CATEGORY_ATTRIBUTE),
                         )
                     )
             previous_node = node
         return documented_attributes
 
-    @staticmethod
-    def is_special_name(name):
-        return bool(RE_SPECIAL.match(name))
-
-    @staticmethod
-    def is_class_private_name(name):
-        return bool(RE_CLASS_PRIVATE.match(name))
-
-    @staticmethod
-    def is_private_name(name):
-        return bool(RE_PRIVATE.match(name))
-
-    def append_name_property(self, name, properties=None):
-        if not properties:
-            properties = []
-        else:
-            properties = properties[::]
-        if self.is_special_name(name):
-            properties.append("special")
-        elif self.is_class_private_name(name):
-            properties.append("class-private")
-        elif self.is_private_name(name):
-            properties.append("private")
+    def get_name_properties(self, name, category):
+        properties = []
+        for prop in NAME_PROPERTIES[category]:
+            if prop[1](name):
+                properties.append(prop[0])
         return properties
-
-    # TEST STUFF ---------------------------------------------------------------
-
-    class InnerClass:
-        """I have some doc."""
-
-        def hello(self):
-            """I do nothing."""
-
-    @classmethod
-    def im_a_class_method(cls):
-        pass
-
-    @staticmethod
-    def im_a_static_method():
-        pass
-
-    @property
-    def im_a_property(self):
-        return None
-
-    @im_a_property.setter
-    def im_a_property(self, value):
-        pass
-
-    @property
-    def im_a_readonly_property(self):
-        return None
-
-    some_var = 0
-    """I'm the some_var docstring."""
-
-    __class_private_classvar = 0
-    """Class class private var!"""
-
-    _MkdocstringsPlugin__false_classclass_private = 0
-    """False class class private var!"""
