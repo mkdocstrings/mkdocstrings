@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-PY_SRC := src/ tests/ scripts/*.py docs/conf.py
+PY_SRC := src/ tests/ scripts/*.py
 
 .PHONY: build
 build:  ## Build the package wheel and sdist.

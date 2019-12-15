@@ -1,21 +1,40 @@
 site_name: mkdocstrings
+site_description: Automatic documentation from docstrings, for mkdocs.
+site_url: https://mkdocstrings.github.io/
+repo_url: https://github.com/pawamoy/mkdocstrings
+repo_name: pawamoy/mkdocstrings
 
 nav:
-  - Overview: "readme.md"
-  - Reference: "reference.md"
+  - Overview: "index.md"
+  - Reference:
+    - plugin.py: "reference/plugin.md"
+    - documenter.py: "reference/documenter.md"
   - Contributing: "contributing.md"
   - Code of Conduct: "code_of_conduct.md"
   - Changelog: "changelog.md"
   - Credits: "credits.md"
 
 theme:
-    name: "material"
+  name: "material"
+
+extra_css:
+  - custom.css
 
 
 markdown_extensions:
   - admonition
   - codehilite
+  - attr_list
+  - wikilinks:
+      base_url: "/reference/"
+      end_url: ""
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
 
 plugins:
+  - search
   - mkdocstrings
 

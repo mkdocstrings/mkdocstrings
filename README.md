@@ -50,6 +50,7 @@ pipx install --python python3.6 mkdocstrings
 
 ```yaml
 # mkdocs.yml
+
 plugins:
   - mkdocstrings
 ```

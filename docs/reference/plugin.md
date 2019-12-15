@@ -1,3 +1,1 @@
-# mkdocstrings.plugin
-
 ::: mkdocstrings.plugin

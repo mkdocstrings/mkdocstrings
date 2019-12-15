@@ -23,24 +23,21 @@ python = "^3.6"
 
 [tool.poetry.dev-dependencies]
 bandit = "^1.5"
-black = { version = "*", allows-prereleases = true }
-coverage = { version = "=5.0a8", allows-prereleases = true }
+black = { version = "*", allow-prereleases = true }
+coverage = { version = "=5.0a8", allow-prereleases = true }
 flake8 = "^3.6"
 ipython = "^7.2"
 isort = { version = "^4.3", extras = ["pyproject"] }
 jinja2-cli = "^0.7.0"
+mkdocs = "^1.0"
+mkdocs-material = "^4.5"
 pylint = { git = "https://github.com/PyCQA/pylint" }
 pytest = "^4.3"
 pytest-cov = "^2.8"
 pytest-sugar = "^0.9.2"
 pytest-xdist = "^1.26"
-recommonmark = "^0.6.0"
 safety = "^1.8"
-sphinx = "^1.8"
-sphinx-rtd-theme = "^0.4.2"
 toml = "^0.10.0"
-mkdocs = "^1.0"
-mkdocs-material = "^4.5"
 
 [tool.poetry.scripts]
 mkdocstrings = "mkdocstrings.cli:main"
