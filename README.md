@@ -51,7 +51,23 @@ pipx install --python python3.6 mkdocstrings
 ```yaml
 # mkdocs.yml
 
+# designed to work best with material theme
+theme:
+  name: "material"
+
+# these extensions are required for best results
+markdown_extensions:
+  - admonition
+  - codehilite
+  - attr_list
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - toc:
+      permalink: true
+
 plugins:
+  - search
   - mkdocstrings
 ```
 
@@ -59,4 +75,37 @@ plugins:
 # Reference
 
 ::: my_library.my_module.my_class
+```
+
+You can reference objects from other modules in your docstrings:
+
+```python
+def some_function():
+    """
+    This is my function.
+
+    It references [another function][package.submodule.function].
+    It also references another object directly: [package.submodule.SuperClass][].
+    """
+    pass
+```
+
+Add some style:
+
+```css
+.md-content p {
+  padding-left: 30px;
+}
+
+.md-content ul {
+  padding-left: 20px !important;
+}
+
+.md-content h2 {
+  margin-top: 60px;
+}
+
+.md-content h3 {
+  margin-top: 40px;
+}
 ```

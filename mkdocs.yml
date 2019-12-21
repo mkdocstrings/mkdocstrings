@@ -25,14 +25,11 @@ markdown_extensions:
   - admonition
   - codehilite
   - attr_list
-  - wikilinks:
-      base_url: "/reference/"
-      end_url: ""
-  - toc:
-      permalink: true
   - pymdownx.details
   - pymdownx.superfences
   - pymdownx.inlinehilite
+  - toc:
+      permalink: true
 
 plugins:
   - search

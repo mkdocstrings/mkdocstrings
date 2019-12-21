@@ -166,7 +166,7 @@ class Object:
     Class to store information about a Python object.
 
     - the object category (ex: module, function, class, method or attribute)
-    - the object path (ex: `package.submodule.class.inner_class.method`
+    - the object path (ex: `package.submodule.class.inner_class.method`)
     - the object name (ex: `__init__`)
     - the object docstring
     - the object properties, depending on its category (ex: special, classmethod, etc.)
@@ -275,6 +275,12 @@ class Object:
             params.append(value)
         return ", ".join(params)
 
+    def render_references(self, base_url: str):
+        lines = [f"[{self.path}]: {base_url}#{self.path}"]
+        for child in self.children:
+            lines.append(child.render_references(base_url))
+        return "\n".join(lines)
+
     def render(self, heading: int = 1, **config):
         """
         Render this object as Markdown.
@@ -362,11 +368,7 @@ class Object:
 
 
 class Documenter:
-    """
-    Class that contains the object documentation loading mechanisms.
-
-    Trying out the wikilinks extension: a reference to [Object][mkdocstrings.documenter.Object].
-    """
+    """Class that contains the object documentation loading mechanisms."""
 
     def __init__(self, global_filters):
         self.global_filters = [(f, re.compile(f.lstrip("!"))) for f in global_filters]
