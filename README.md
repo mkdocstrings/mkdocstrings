@@ -39,13 +39,6 @@ With `pip`:
 python3.6 -m pip install mkdocstrings
 ```
 
-With [`pipx`](https://github.com/cs01/pipx):
-```bash
-python3.6 -m pip install --user pipx
-
-pipx install --python python3.6 mkdocstrings
-```
-
 ## Usage
 
 ```yaml
