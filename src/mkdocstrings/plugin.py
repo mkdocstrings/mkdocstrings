@@ -6,19 +6,11 @@ from mkdocs.plugins import BasePlugin
 
 from .documenter import Documenter
 
+# TODO: show source file in source code blocks titles
+
 # TODO: option to change initial heading level per autodoc instruction
-# TODO: add a way to reference other objects in docstrings
-#       build all references in an mkdocs event
-#       append/fix all those references in a post action
 
 # TODO: use type annotations
-# TODO: get attributes types and signatures parameters types from type annotations or docstring
-
-# TODO: steal code from mkautodoc to create a markdown extension (better to render HTML)
-
-# TODO: parse google-style blocks
-#       change to admonitions for simple blocks
-#       parse Args, Raises and Returns to get types and messages
 
 # TODO: support more properties:
 #       generators, coroutines, awaitable (see inspect.is...), decorators?

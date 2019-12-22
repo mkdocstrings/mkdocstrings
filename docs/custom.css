@@ -21,3 +21,15 @@
 .md-content h6 {
   margin-top: 10px;
 }
+
+.md-contents summary {
+  margin-left: 20px !important;
+}
+
+.md-content div.admonition {
+  margin-left: 20px;
+}
+
+.md-content table {
+  margin-left: 28px !important;
+}
