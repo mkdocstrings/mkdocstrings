@@ -5,11 +5,11 @@ import importlib
 import inspect
 import os
 import re
+import textwrap
 from collections import namedtuple
 from functools import lru_cache
 from types import ModuleType
-import textwrap
-from typing import Any, Callable, List, Optional, Pattern, Tuple, Type, Union, Dict, GenericMeta
+from typing import Any, Callable, Dict, GenericMeta, List, Optional, Pattern, Tuple, Type, Union
 
 RECURSIVE_NODES = (ast.If, ast.IfExp, ast.Try, ast.With, ast.ExceptHandler)
 

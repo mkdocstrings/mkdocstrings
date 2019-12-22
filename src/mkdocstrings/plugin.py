@@ -1,9 +1,7 @@
 """Plugin module docstring."""
 
-from markdown import Markdown
 from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
-from bs4 import BeautifulSoup
 
 from .documenter import Documenter
 
@@ -61,7 +59,7 @@ class MkdocstringsPlugin(BasePlugin):
 
     def on_nav(self, nav, **kwargs):
         for page in nav.pages:
-            with open(page.file.abs_src_path, 'r') as file:
+            with open(page.file.abs_src_path, "r") as file:
                 markdown = file.read()
             lines = markdown.split("\n")
             in_code_block = False
@@ -73,10 +71,7 @@ class MkdocstringsPlugin(BasePlugin):
                     if import_string not in self.objects:
                         root_object = self.documenter.get_object_documentation(import_string)
                         self.references.append(root_object.render_references(page.abs_url))
-                        mapping_value = {
-                            "object": root_object,
-                            "page": page.abs_url
-                        }
+                        mapping_value = {"object": root_object, "page": page.abs_url}
                         self.objects[import_string] = mapping_value
                         if import_string != root_object.path:
                             self.objects[root_object.path] = mapping_value
@@ -134,4 +129,3 @@ class MkdocstringsPlugin(BasePlugin):
             levels.pop()
         new_html = "\n".join(new_lines)
         return new_html
-
