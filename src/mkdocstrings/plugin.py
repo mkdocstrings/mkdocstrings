@@ -3,6 +3,7 @@
 from markdown import Markdown
 from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
+from bs4 import BeautifulSoup
 
 from .documenter import Documenter
 
@@ -99,3 +100,38 @@ class MkdocstringsPlugin(BasePlugin):
                 modified_lines[i] = new_lines
         modified_lines.extend(self.references)
         return "\n".join(modified_lines)
+
+    def on_page_content(self, html, page, **kwargs):
+        if page.abs_url not in self.pages_with_docstrings:
+            return html
+        lines = html.split("\n")
+        new_lines = lines[::]
+        levels = [0]
+        inserted = 0
+        for i, line in enumerate(lines):
+            if line.startswith("<h"):
+                level = int(line[2])
+                if level > levels[-1]:
+                    new_lines.insert(i + 1 + inserted, '<div class="autodoc">')
+                    inserted += 1
+                    levels.append(level)
+                elif level == levels[-1]:
+                    new_lines.insert(i + inserted, "</div>")
+                    inserted += 1
+                    new_lines.insert(i + 1 + inserted, '<div class="autodoc">')
+                    inserted += 1
+                else:
+                    while level < levels[-1]:
+                        new_lines.insert(i + inserted, "</div>")
+                        inserted += 1
+                        levels.pop()
+                    new_lines.insert(i + inserted, "</div>")
+                    inserted += 1
+                    new_lines.insert(i + 1 + inserted, '<div class="autodoc">')
+                    inserted += 1
+        while levels[-1] > 0:
+            new_lines.append("</div>")
+            levels.pop()
+        new_html = "\n".join(new_lines)
+        return new_html
+

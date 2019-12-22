@@ -8,7 +8,7 @@ Automatic documentation from docstrings, for mkdocs.
 
 This plugin is still in alpha status. Here is how it looks with the [mkdocs-material theme](https://squidfunk.github.io/mkdocs-material/) for now:
 
-![screenshot_mkdocstrings](https://user-images.githubusercontent.com/3999221/70753392-f4282d00-1d34-11ea-987c-0e9372227617.png)
+![mkdocstrings](https://user-images.githubusercontent.com/3999221/71327911-e467d000-250e-11ea-83e7-a81ec59f41e2.gif)
 
 ## Requirements
 mkdocstrings requires Python 3.6 or above.
@@ -93,19 +93,8 @@ def some_function():
 Add some style:
 
 ```css
-.md-content p {
-  padding-left: 30px;
-}
-
-.md-content ul {
-  padding-left: 20px !important;
-}
-
-.md-content h2 {
-  margin-top: 60px;
-}
-
-.md-content h3 {
-  margin-top: 40px;
+div.autodoc {
+  padding-left: 25px;
+  border-left: 4px solid rgba(230, 230, 230);
 }
 ```

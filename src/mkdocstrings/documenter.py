@@ -226,10 +226,10 @@ def get_param_info(signature, param_name):
     parameter = signature.parameters[param_name]
     param_default = param_type = ""
     if parameter.annotation is not parameter.empty:
-        if isinstance(parameter.annotation, GenericMeta):
-            param_type = str(parameter.annotation).replace("typing.", "")
-        else:
+        if inspect.isclass(parameter.annotation) and not isinstance(parameter.annotation, GenericMeta):
             param_type = parameter.annotation.__name__
+        else:
+            param_type = str(parameter.annotation).replace("typing.", "")
     if parameter.kind is parameter.VAR_KEYWORD:
         param_name = f"**{param_name}"
     if parameter.default is not parameter.empty:
@@ -240,10 +240,10 @@ def get_param_info(signature, param_name):
 def get_return_type(signature):
     ret = signature.return_annotation
     if ret is not signature.empty:
-        if isinstance(ret, GenericMeta):
-            ret_type = str(ret).replace("typing.", "")
-        else:
+        if inspect.isclass(ret) and not isinstance(ret, GenericMeta):
             ret_type = ret.__name__
+        else:
+            ret_type = str(ret).replace("typing.", "")
     else:
         ret_type = ""
     return ret_type
@@ -283,24 +283,30 @@ def parse_docstring(docstring: str, signature) -> str:
                     params[name] = description.lstrip(" ")
                 j += 1
             new_lines.append("**Parameters**\n")
-            new_lines.append("| Name | Type | Default | Description |")
-            new_lines.append("| ---- | ---- | ------- | ----------- |")
+            new_lines.append("| Name | Type | Description |")
+            new_lines.append("| ---- | ---- | ----------- |")
             for param_name, param_description in params.items():
                 param_name, param_default, param_type = get_param_info(signature, param_name)
-                new_lines.append(f"| {param_name} | {param_type} | {param_default} | {param_description} |")
+                # if param_default:
+                #     param_default = f"`{param_default}`"
+                new_lines.append(f"| `{param_name}` | `{param_type}` | {param_description} |")
             new_lines.append("")
             i = j - 1
         elif lines[i].lower() in ("raise:", "raises:", "except:", "exceptions:"):
             j = i + 1
+            name = None
             while j < len(lines) and lines[j].startswith("    "):
-                name, description = lines[j].lstrip(" ").split(":", 1)
-                exceptions[name] = description.lstrip(" ")
+                if lines[j].startswith("      ") and exceptions[name]:
+                    exceptions[name] += " " + lines[j].lstrip(" ")
+                else:
+                    name, description = lines[j].lstrip(" ").split(":", 1)
+                    exceptions[name] = description.lstrip(" ")
                 j += 1
             new_lines.append("**Exceptions**\n")
             new_lines.append("| Type | Description |")
             new_lines.append("| ---- | ----------- |")
             for exception_name, exception_description in exceptions.items():
-                new_lines.append(f"| {exception_name} | {exception_description} |")
+                new_lines.append(f"| `{exception_name}` | {exception_description} |")
             new_lines.append("")
             i = j - 1
         elif lines[i].lower() in ("return:", "returns:"):
@@ -312,13 +318,13 @@ def parse_docstring(docstring: str, signature) -> str:
             new_lines.append("**Returns**\n")
             new_lines.append("| Type | Description |")
             new_lines.append("| ---- | ----------- |")
-            new_lines.append(f"| {get_return_type(signature)} | {returns} |")
+            new_lines.append(f"| `{get_return_type(signature)}` | {returns} |")
             new_lines.append("")
             i = j - 1
         elif lines[i].lower() in ADMONITIONS.keys():
             j = i + 1
             admonition = []
-            while j < len(lines) and lines[j].startswith("    "):
+            while j < len(lines) and lines[j].startswith("    ") or lines[j] == "":
                 admonition.append(lines[j])
                 j += 1
             new_lines.append(f"!!! {ADMONITIONS[lines[i].lower()]}")
@@ -644,6 +650,7 @@ class Documenter:
                         docstring=docstring,
                         properties=properties + get_name_properties(member_name, CATEGORY_ATTRIBUTE),
                         source=source,
+                        signature=inspect.signature(actual_member.fget),
                     )
                 )
         return root_object
