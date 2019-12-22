@@ -1,35 +1,4 @@
-.md-content p {
-  padding-left: 30px;
-}
-
-.md-content ul {
-  padding-left: 20px !important;
-}
-
-.md-content h2 {
-  margin-top: 60px;
-}
-.md-content h3 {
-  margin-top: 40px;
-}
-.md-content h4 {
-  margin-top: 30px;
-}
-.md-content h5 {
-  margin-top: 20px;
-}
-.md-content h6 {
-  margin-top: 10px;
-}
-
-.md-contents summary {
-  margin-left: 20px !important;
-}
-
-.md-content div.admonition {
-  margin-left: 20px;
-}
-
-.md-content table {
-  margin-left: 28px !important;
+div.autodoc {
+  padding-left: 25px;
+  border-left: 4px solid rgba(230, 230, 230);
 }
