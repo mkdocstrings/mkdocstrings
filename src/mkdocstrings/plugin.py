@@ -104,7 +104,7 @@ class MkdocstringsPlugin(BasePlugin):
         levels = [0]
         inserted = 0
         for i, line in enumerate(lines):
-            if line.startswith("<h"):
+            if line.startswith("<h") and line[2].isnumeric():
                 level = int(line[2])
                 if level > levels[-1]:
                     new_lines.insert(i + 1 + inserted, '<div class="autodoc">')
