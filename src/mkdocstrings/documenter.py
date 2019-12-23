@@ -230,6 +230,9 @@ def get_param_info(signature, param_name):
             param_type = parameter.annotation.__name__
         else:
             param_type = str(parameter.annotation).replace("typing.", "")
+        optional_param = re.match(r"^Union\[([^,]+), NoneType\]$", param_type)
+        if optional_param:
+            param_type = f"Optional[{optional_param.group(1)}]"
     if parameter.kind is parameter.VAR_KEYWORD:
         param_name = f"**{param_name}"
     if parameter.default is not parameter.empty:
@@ -283,13 +286,15 @@ def parse_docstring(docstring: str, signature) -> str:
                     params[name] = description.lstrip(" ")
                 j += 1
             new_lines.append("**Parameters**\n")
-            new_lines.append("| Name | Type | Description |")
-            new_lines.append("| ---- | ---- | ----------- |")
+            new_lines.append("| Name | Type | Description | Default |")
+            new_lines.append("| ---- | ---- | ----------- | ------- |")
             for param_name, param_description in params.items():
                 param_name, param_default, param_type = get_param_info(signature, param_name)
-                # if param_default:
-                #     param_default = f"`{param_default}`"
-                new_lines.append(f"| `{param_name}` | `{param_type}` | {param_description} |")
+                if param_default:
+                    param_default = f"`{param_default}`"
+                else:
+                    param_default = "*required*"
+                new_lines.append(f"| `{param_name}` | `{param_type}` | {param_description} | {param_default} |")
             new_lines.append("")
             i = j - 1
         elif lines[i].lower() in ("raise:", "raises:", "except:", "exceptions:"):
