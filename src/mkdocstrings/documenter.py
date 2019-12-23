@@ -324,7 +324,7 @@ def parse_docstring(docstring: str, signature) -> str:
         elif lines[i].lower() in ADMONITIONS.keys():
             j = i + 1
             admonition = []
-            while j < len(lines) and lines[j].startswith("    ") or lines[j] == "":
+            while j < len(lines) and (lines[j].startswith("    ") or lines[j] == ""):
                 admonition.append(lines[j])
                 j += 1
             new_lines.append(f"!!! {ADMONITIONS[lines[i].lower()]}")
