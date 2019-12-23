@@ -286,13 +286,15 @@ def parse_docstring(docstring: str, signature) -> str:
                     params[name] = description.lstrip(" ")
                 j += 1
             new_lines.append("**Parameters**\n")
-            new_lines.append("| Name | Type | Description |")
-            new_lines.append("| ---- | ---- | ----------- |")
+            new_lines.append("| Name | Type | Description | Default |")
+            new_lines.append("| ---- | ---- | ----------- | ------- |")
             for param_name, param_description in params.items():
                 param_name, param_default, param_type = get_param_info(signature, param_name)
-                # if param_default:
-                #     param_default = f"`{param_default}`"
-                new_lines.append(f"| `{param_name}` | `{param_type}` | {param_description} |")
+                if param_default:
+                    param_default = f"`{param_default}`"
+                else:
+                    param_default = "*required*"
+                new_lines.append(f"| `{param_name}` | `{param_type}` | {param_description} | {param_default} |")
             new_lines.append("")
             i = j - 1
         elif lines[i].lower() in ("raise:", "raises:", "except:", "exceptions:"):
