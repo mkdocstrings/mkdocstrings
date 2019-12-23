@@ -230,6 +230,9 @@ def get_param_info(signature, param_name):
             param_type = parameter.annotation.__name__
         else:
             param_type = str(parameter.annotation).replace("typing.", "")
+        optional_param = re.match(r"^Union\[([^,]+), NoneType\]$", param_type)
+        if optional_param:
+            param_type = f"Optional[{optional_param.group(1)}]"
     if parameter.kind is parameter.VAR_KEYWORD:
         param_name = f"**{param_name}"
     if parameter.default is not parameter.empty:
