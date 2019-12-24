@@ -9,7 +9,15 @@ import textwrap
 from collections import namedtuple
 from functools import lru_cache
 from types import ModuleType
-from typing import Any, Callable, Dict, GenericMeta, List, Optional, Pattern, Tuple, Type, Union
+from typing import Any, Callable, Dict, List, Optional, Pattern, Tuple, Type, Union
+
+try:
+    from typing import GenericMeta  # python 3.6
+except ImportError:
+    # in 3.7, GenericMeta doesn't exist but we don't need it
+    class GenericMeta(type):
+        pass
+
 
 RECURSIVE_NODES = (ast.If, ast.IfExp, ast.Try, ast.With, ast.ExceptHandler)
 
