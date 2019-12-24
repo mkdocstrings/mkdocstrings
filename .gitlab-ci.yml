@@ -15,7 +15,7 @@ stages:
   before_script:
     - pip install poetry
     - poetry --version
-    - poetry config settings.virtualenvs.in-project true
+    - poetry config virtualenvs.in-project true
     - poetry install -vv
 
 # Quality jobs
