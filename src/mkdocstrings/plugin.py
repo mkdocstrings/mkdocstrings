@@ -4,6 +4,7 @@ from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
 
 from .documenter import Documenter
+from .extension import MkdocstringsExtension
 
 # TODO: show source file in source code blocks titles
 
@@ -55,6 +56,8 @@ class MkdocstringsPlugin(BasePlugin):
     def on_config(self, config, **kwargs):
         """Initializes a [Documenter][mkdocstrings.documenter.Documenter]."""
         self.documenter = Documenter(self.config["global_filters"])
+        extension = MkdocstringsExtension(self)
+        config["markdown_extensions"].append(extension)
         return config
 
     def on_nav(self, nav, **kwargs):
@@ -79,7 +82,7 @@ class MkdocstringsPlugin(BasePlugin):
                             self.pages_with_docstrings.append(page.abs_url)
         return nav
 
-    def on_page_markdown(self, markdown, page, **kwargs):
+    def _on_page_markdown(self, markdown, page, **kwargs):
         if page.abs_url not in self.pages_with_docstrings:
             return markdown
         lines = markdown.split("\n")
@@ -96,7 +99,7 @@ class MkdocstringsPlugin(BasePlugin):
         modified_lines.extend(self.references)
         return "\n".join(modified_lines)
 
-    def on_page_content(self, html, page, **kwargs):
+    def _on_page_content(self, html, page, **kwargs):
         if page.abs_url not in self.pages_with_docstrings:
             return html
         lines = html.split("\n")
