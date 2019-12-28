@@ -10,6 +10,36 @@ This plugin is still in alpha status. Here is how it looks with the [mkdocs-mate
 
 ![mkdocstrings](https://user-images.githubusercontent.com/3999221/71327911-e467d000-250e-11ea-83e7-a81ec59f41e2.gif)
 
+## Features
+- **Works great with Material theme:** `mkdocstrings` was designed to work best with
+  the great [Material theme](https://squidfunk.github.io/mkdocs-material/).
+- **Support for type annotations:** `mkdocstrings` uses your type annotations to display parameters types
+  or return types.
+- **Recursive documentation of Python objects:** just write the module dotted-path, and you get the full module docs.
+  No need to ask for each class, function, etc.
+- **Support for documented attribute:** attributes (variables) followed by a docstring (triple-quoted string) will
+  be recognized by `mkdocstrings`, in modules, classes and even in `__init__` methods.
+- **Support for objects properties:** `mkdocstrings` will know if a method is a `staticmethod`, a `classmethod` or else,
+  it will also know if a property is read-only or writable, and more! These properties will be displayed
+  next to the object signature.
+- **Every object has a TOC entry and a unique permalink:** the navigation is greatly improved! Click the anchor
+  next to the object signature to get its permalink, which is its Python dotted-path.
+- **Auto-reference other objects:** `mkdocstrings` makes it possible to reference other Python objects from your
+  markdown files, and even from your docstrings, with the classic Markdown syntax:
+  `[this object][package.module.object]` or directly with `[package.module.object][]`.
+- **Google-style sections support in docstrings:** `mkdocstrings` understands `Arguments:`, `Raises:`
+  and `Returns:` sections. It will even keep the section order in the generated docs.
+- **Support for source code display:** `mkdocstrings` can add a collapsible div containing the source code of the
+  Python object, directly below its signature, with the right line numbers.
+- **Admonition support in docstrings:** blocks like `Note: ` or `Warning: ` will be transformed
+  to their [admonition](https://squidfunk.github.io/mkdocs-material/extensions/admonition/) equivalent.
+  *We do not support nested admonitions in docstrings!*
+- **Sane defaults:** you should be able to just drop the plugin in your configuration and enjoy your auto-generated docs.
+- **Configurable:** *(soon)* `mkdocstrings` is configurable globally, and per autodoc instruction.
+
+To get an example of what is possible, check `mkdocstrings`'
+own [documentation](https://pawamoy.github.io/mkdocstrings), generated with itself.
+
 ## Requirements
 mkdocstrings requires Python 3.6 or above.
 
@@ -64,6 +94,8 @@ plugins:
   - mkdocstrings
 ```
 
+In one of your markdown files:
+
 ```markdown
 # Reference
 
@@ -83,11 +115,18 @@ def some_function():
     pass
 ```
 
-Add some style:
+Add some style in `docs/custom.css`:
 
 ```css
 div.autodoc {
   padding-left: 25px;
   border-left: 4px solid rgba(230, 230, 230);
 }
+```
+
+And add it to your configuration:
+
+```yaml
+extra_css:
+  - custom.css
 ```
