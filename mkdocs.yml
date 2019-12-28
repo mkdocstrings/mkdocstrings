@@ -23,7 +23,8 @@ extra_css:
 
 markdown_extensions:
   - admonition
-  - codehilite
+  - codehilite:
+      guess_lang: false
   - attr_list
   - pymdownx.details
   - pymdownx.superfences
