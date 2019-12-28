@@ -130,3 +130,68 @@ And add it to your configuration:
 extra_css:
   - custom.css
 ```
+
+## Docstrings format
+Your docstrings must follow a particular format, otherwise `mkdocstrings` will throw an exception.
+This will be improved to be more robust over time.
+
+```python
+from typing import Optional
+
+def my_function(param1: int, param2: Optional[str] = None) -> str:
+    """
+    A short description of this function.
+
+    A longer description of this function.
+    You can use more lines.
+
+        This is code block,
+        as usual.
+
+    ```python
+    s = "This is a Python code block :)"
+    ```
+
+    Arguments:
+        param1: An integer?
+        param2: A string? If you have a long description,
+          you can split it on multiple lines.
+          Just remember to indent those lines with at least two more spaces.
+               They will all be concatenated in one line, so do not try to
+             use complex markup here.
+
+    Important:
+        Note how we omitted the type hints next to the parameters names.
+        Usually you would write something like `param1 (int): ...`,
+        but `mkdocstrings` gets the type information from the signature, so it's not needed here.
+
+    Exceptions are written the same.
+
+    Raises:
+        OSError: Explain when this error is thrown.
+        RuntimeError: Explain as well.
+          Multi-line description, etc.
+
+    Let's see the return value section now.
+    
+    Returns:
+        A description of the value that is returned.
+        Again multiple lines are allowed. They will also be concatenated to one line,
+        so do not use complex markup here.
+
+    Note:
+        Other words are supported:
+        
+        - `Args`, `Arguments`, `Params` and `Parameters` for the parameters.
+        - `Raise`, `Raises`, `Except`, and `Exceptions` for exceptions.
+        - `Return` or `Returns` for return value.
+
+        They are all case-insensitive, so you can write `RETURNS:` or `params:`.
+    """
+    return f"{param2}{param1}"
+```
+
+This docstring would be rendered like this (had to take two screenshots, so it's not perfectly aligned):
+
+![image](https://user-images.githubusercontent.com/3999221/71548405-f41f6280-29ad-11ea-939e-d02a16232aa0.png)
+![image](https://user-images.githubusercontent.com/3999221/71548413-ff728e00-29ad-11ea-95a5-d61e990be6c4.png)
