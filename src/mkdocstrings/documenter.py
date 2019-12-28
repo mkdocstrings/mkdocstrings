@@ -5,8 +5,8 @@ import importlib
 import inspect
 import os
 import re
+import sys
 import textwrap
-from collections import namedtuple
 from functools import lru_cache
 from types import ModuleType
 from typing import Any, Callable, Dict, List, Optional, Pattern, Tuple, Type, Union
@@ -93,20 +93,19 @@ class Object:
     """
 
     NAME_PROPERTIES = []
+    toc_signature = ""
 
     def __init__(
         self,
         name: str,
         path: str,
         file_path: str,
-        docstring: str,
+        docstring: "Docstring",
         properties: Optional[List[str]] = None,
-        signature: Optional[inspect.Signature] = None,
         source: Optional[str] = None,
         file: Optional[str] = None,
     ) -> None:
         self.name = name
-        self.signature = signature or ""
         self.path = path
         self.file_path = file_path
         self.docstring = docstring or ""
@@ -135,23 +134,35 @@ class Object:
 
     @property
     def is_module(self):
-        return False
+        return isinstance(self, Module)
 
     @property
     def is_class(self):
-        return False
+        return isinstance(self, Class)
 
     @property
     def is_function(self):
-        return False
+        return isinstance(self, Function)
 
     @property
     def is_method(self):
-        return False
+        return isinstance(self, Method)
 
     @property
     def is_attribute(self):
-        return False
+        return isinstance(self, Attribute)
+
+    @property
+    def relative_file_path(self):
+        path_parts = self.path.split(".")
+        file_path_parts = self.file_path.split("/")
+        file_path_parts[-1] = file_path_parts[-1].split(".", 1)[0]
+        while path_parts[-1] != file_path_parts[-1]:
+            path_parts.pop()
+        while path_parts and path_parts[-1] == file_path_parts[-1]:
+            path_parts.pop()
+            file_path_parts.pop()
+        return self.file_path[len("/".join(file_path_parts)) + 1 :]
 
     @property
     def name_to_check(self):
@@ -171,7 +182,12 @@ class Object:
         return self.path.rsplit(".", 1)[0]
 
     def add_child(self, obj: Union["Attribute", "Method", "Function", "Module", "Class"]) -> None:
-        """Add an object as a child of this object."""
+        """
+        Add an object as a child of this object.
+
+        Parameters:
+            obj: An instance of documented object.
+        """
         if obj.parent_path != self.path:
             return
 
@@ -206,13 +222,12 @@ class Object:
                 attach_to.children.append(attribute)
                 attribute.parent = attach_to
 
-    def render_references(self, base_url: str):
-        lines = [f"[{self.path}]: {base_url}#{self.path}"]
-        for child in self.children:
-            lines.append(child.render_references(base_url))
-        return "\n".join(lines)
+    def should_be_displayed(self):
+        return bool(
+            self.docstring.original_value or not self.parent or any(c.should_be_displayed() for c in self.children)
+        )
 
-    def render(self, heading: int = 1, **config: Dict[str, Any]) -> str:
+    def render(self, heading: int = 1, config: Dict[str, Any] = None) -> str:
         """
         Render this object as Markdown.
 
@@ -225,57 +240,105 @@ class Object:
         Returns:
             The rendered Markdown.
         """
+        if not config:
+            config = {}
+
         lines = []
 
         show_top_object_heading = config.pop("show_top_object_heading", True)
-        show_top_object_full_path = config.pop("show_top_object_full_path", False)
+
         if show_top_object_heading:
-            if self.docstring or not config["hide_no_doc"] or not self.parent:
-                signature = ""
-                toc_signature = ""
-                if self.is_function or self.is_method:
-                    if self.signature:
-                        signature = f"({render_signature(self.signature)})"
-                    toc_signature = "()"
-                elif self.is_attribute:
-                    if "property" in self.properties:
-                        signature = f": {get_return_type(self.signature)}"
-                    else:
-                        signature = f": {self.signature}"
-                object_heading = f"`:::python {self.path if show_top_object_full_path else self.name}{signature}`"
-                object_permalink = self.path.replace("__", r"\_\_")
-                object_toc = self.name.replace("__", r"\_\_") + toc_signature
-
-                properties = ", ".join(self.properties)
-                if properties:
-                    object_heading += f"*({properties})*"
-
-                lines.append(
-                    f"{'#' * heading} {object_heading} {{: #{object_permalink} data-toc-label='{object_toc}' }}"
-                )
-
-                if config["add_source_details"] and self.source:
-                    lines.append("")
-                    lines.append(f'??? note "Show source code"')
-                    lines.append(f'    ```python linenums="{self.source[1]}"')
-                    lines.append(textwrap.indent("".join(self.source[0]), "    "))
-                    lines.append("    ```")
-                    lines.append("")
+            lines.append(self.render_heading(heading, config) + "\n")
 
         if self.docstring:
-            lines.append(parse_docstring(self.docstring, self.signature))
-            lines.append("")
+            lines.append(self.render_docstring() + "\n")
 
         if config["group_by_categories"]:
-            lines.append(self.render_categories(heading + 1, **config,))
+            lines.append(self.render_categories(heading + 1, config))
         else:
             for child in sorted(self.children, key=lambda o: o.name.lower()):
-                lines.append(child.render(heading + 1, **config,))
+                lines.append(child.render(heading + 1, config))
                 lines.append("")
 
         return "\n".join(lines)
 
-    def render_categories(self, heading: int, **config):
+    def render_references(self, base_url: str):
+        lines = [f"[{self.path}]: {base_url}#{self.path}"]
+        for child in self.children:
+            lines.append(child.render_references(base_url))
+        return "\n".join(lines)
+
+    def render_heading(self, heading, config):
+        show_top_object_full_path = config.pop("show_top_object_full_path", False)
+
+        lines = []
+
+        if not config["hide_no_doc"] or self.should_be_displayed():
+            signature = self.render_signature()
+            object_heading = f"`:::python {self.path if show_top_object_full_path else self.name}{signature}`"
+            object_permalink = self.path.replace("__", r"\_\_")
+            object_toc = self.name.replace("__", r"\_\_") + self.toc_signature
+
+            if self.properties:
+                object_heading += f"*({', '.join(self.properties)})*"
+
+            lines.append(f"{'#' * heading} {object_heading} {{: #{object_permalink} data-toc-label='{object_toc}' }}")
+
+            lines.append(self.render_source(config))
+
+        return "\n".join(lines)
+
+    def render_signature(self):
+        return ""
+
+    def render_docstring(self):
+        lines = []
+
+        for block_type, block in self.docstring.blocks:
+            if block_type == "markdown":
+                lines.extend(block)
+            elif block_type == "parameters":
+                lines.append("**Parameters**\n")
+                lines.append("| Name | Type | Description | Default |")
+                lines.append("| ---- | ---- | ----------- | ------- |")
+                for parameter in block:
+                    default = parameter.default_string
+                    default = f"`{default}`" if default else "*required*"
+                    lines.append(
+                        f"| `{parameter.name}` | `{parameter.annotation_string}` | {parameter.description} | {default} |"
+                    )
+                lines.append("")
+            elif block_type == "exceptions":
+                lines.append("**Exceptions**\n")
+                lines.append("| Type | Description |")
+                lines.append("| ---- | ----------- |")
+                for exception in block:
+                    lines.append(f"| `{exception.annotation_string}` | {exception.description} |")
+                lines.append("")
+            elif block_type == "return":
+                lines.append("**Returns**\n")
+                lines.append("| Type | Description |")
+                lines.append("| ---- | ----------- |")
+                lines.append(f"| `{block.annotation_string}` | {block.description} |")
+                lines.append("")
+            elif block_type == "admonition":
+                lines.append(f"!!! {block[0]}")
+                lines.extend(block[1:])
+
+        return "\n".join(lines)
+
+    def render_source(self, config):
+        lines = []
+        if config["add_source_details"] and self.source:
+            lines.append("")
+            lines.append(f'??? note "Show source code in {self.relative_file_path}"')
+            lines.append(f'    ```python linenums="{self.source[1]}"')
+            lines.append(textwrap.indent("".join(self.source[0]), "    "))
+            lines.append("    ```")
+            lines.append("")
+        return "\n".join(lines)
+
+    def render_categories(self, heading, config):
         extra_level = 1 if config["show_groups_headings"] else 0
         lines = []
 
@@ -284,38 +347,34 @@ class Object:
                 lines.append(f"{'#' * heading} Attributes")
                 lines.append("")
             for attribute in sorted(self.attributes, key=lambda o: o.name.lower()):
-                lines.append(attribute.render(heading + extra_level, **config))
+                lines.append(attribute.render(heading + extra_level, config))
                 lines.append("")
         if self.classes:
             if config["show_groups_headings"]:
                 lines.append(f"{'#' * heading} Classes")
                 lines.append("")
             for class_ in sorted(self.classes, key=lambda o: o.name.lower()):
-                lines.append(class_.render(heading + extra_level, **config))
+                lines.append(class_.render(heading + extra_level, config))
                 lines.append("")
         if self.methods:
             if config["show_groups_headings"]:
                 lines.append(f"{'#' * heading} Methods")
                 lines.append("")
             for method in sorted(self.methods, key=lambda o: o.name.lower()):
-                lines.append(method.render(heading + extra_level, **config))
+                lines.append(method.render(heading + extra_level, config))
                 lines.append("")
         if self.functions:
             if config["show_groups_headings"]:
                 lines.append(f"{'#' * heading} Functions")
                 lines.append("")
             for function in sorted(self.functions, key=lambda o: o.name.lower()):
-                lines.append(function.render(heading + extra_level, **config))
+                lines.append(function.render(heading + extra_level, config))
                 lines.append("")
         return "\n".join(lines)
 
 
 class Module(Object):
     NAME_PROPERTIES = [NAME_SPECIAL, NAME_PRIVATE]
-
-    @property
-    def is_module(self):
-        return True
 
     @property
     def file_name(self):
@@ -329,33 +388,221 @@ class Module(Object):
 class Class(Object):
     NAME_PROPERTIES = [NAME_PRIVATE]
 
-    @property
-    def is_class(self):
-        return True
+
+class FunctionOrMethod(Object):
+    toc_signature = "()"
+
+    def render_signature(self):
+        if self.docstring.signature:
+            # credits to https://github.com/tomchristie/mkautodoc
+            params = []
+            render_pos_only_separator = True
+            render_kw_only_separator = True
+            for parameter in self.docstring.signature.parameters.values():
+                value = parameter.name
+                if parameter.default is not parameter.empty:
+                    value = f"{value}={parameter.default!r}"
+                if parameter.kind is parameter.VAR_POSITIONAL:
+                    render_kw_only_separator = False
+                    value = f"*{value}"
+                elif parameter.kind is parameter.VAR_KEYWORD:
+                    value = f"**{value}"
+                elif parameter.kind is parameter.POSITIONAL_ONLY:
+                    if render_pos_only_separator:
+                        render_pos_only_separator = False
+                        params.append("/")
+                elif parameter.kind is parameter.KEYWORD_ONLY:
+                    if render_kw_only_separator:
+                        render_kw_only_separator = False
+                        params.append("*")
+                params.append(value)
+            return f"({', '.join(params)})"
+        return ""
 
 
-class Function(Object):
+class Function(FunctionOrMethod):
     NAME_PROPERTIES = [NAME_PRIVATE]
 
-    @property
-    def is_function(self):
-        return True
 
-
-class Method(Object):
+class Method(FunctionOrMethod):
     NAME_PROPERTIES = [NAME_SPECIAL, NAME_PRIVATE]
-
-    @property
-    def is_method(self):
-        return True
 
 
 class Attribute(Object):
     NAME_PROPERTIES = [NAME_SPECIAL, NAME_CLASS_PRIVATE, NAME_PRIVATE]
 
+    def render_signature(self):
+        if "property" in self.properties:
+            try:
+                return f": {self.docstring.return_object.annotation_string}"
+            except AttributeError:
+                return AnnotatedObject(self.docstring.signature.return_annotation, "").annotation_string
+        return f": {self.docstring.signature}"
+
+
+class AnnotatedObject:
+    def __init__(self, annotation, description):
+        self.annotation = annotation
+        self.description = description
+
     @property
-    def is_attribute(self):
-        return True
+    def annotation_string(self):
+        if inspect.isclass(self.annotation) and not isinstance(self.annotation, GenericMeta):
+            return self.annotation.__name__
+        return str(self.annotation).replace("typing.", "")
+
+
+class Parameter(AnnotatedObject):
+    def __init__(self, name, annotation, description, kind, default=inspect.Signature.empty):
+        super().__init__(annotation, description)
+        self.name = name
+        self.kind = kind
+        self.default = default
+
+    @property
+    def optional(self):
+        return self.default is not inspect.Signature.empty
+
+    @property
+    def required(self):
+        return not self.optional
+
+    @property
+    def annotation_string(self):
+        s = AnnotatedObject.annotation_string.fget(self)
+        optional_param = re.match(r"^Union\[([^,]+), NoneType\]$", s)
+        if optional_param:
+            s = f"Optional[{optional_param.group(1)}]"
+        optional_union_param = re.match(r"^Union\[(.+), NoneType\]$", s)
+        if optional_union_param:
+            s = f"Optional[Union[{optional_union_param.group(1)}]]"
+        return s
+
+    @property
+    def default_string(self):
+        if self.default is inspect.Signature.empty:
+            return ""
+        return str(self.default)
+
+
+class Docstring:
+    def __init__(self, value, signature=None):
+        self.original_value = value
+        self.signature = signature
+        self.return_object = None
+        self.blocks = self.parse()
+
+    # return a list of tuples of the form:
+    # [("type", value), ...]
+    # type being "markdown", "parameters", "exceptions", or "return"
+    # and value respectively being a string, a list of Parameter, a list of AnnotatedObject, and an AnnotatedObject
+    # This allows to respect the user's docstring order.
+    # While rendering:
+    # Sections like Note: and Warning: in markdown values should be regex-replaced by their admonition equivalent,
+    # up to maximum 2 levels of indentation, and only if admonition is registered. Add a configuration option for this.
+    # Then the markdown values are transformed by a Markdown transformation.
+    def parse(self) -> List[Tuple[str, Union[List[str, AnnotatedObject, Parameter], AnnotatedObject]]]:
+        """
+        Parse a docstring!
+
+        Note:
+            to try notes.
+
+        Returns:
+            The docstring converted to a nice markdown text.
+        """
+        parameters = []
+        exceptions = []
+        blocks = []
+        current_block = []
+
+        lines = self.original_value.split("\n")
+        i = 0
+
+        while i < len(lines):
+            line_lower = lines[i].lower()
+            if line_lower in ("args:", "arguments:", "params:", "parameters:"):
+                if current_block:
+                    blocks.append(("markdown", current_block))
+                    current_block = []
+                block, i = self.read_block_items(lines, i + 1)
+                for param_line in block:
+                    name, description = param_line.lstrip(" ").split(": ")
+                    try:
+                        signature_param = self.signature.parameters[name]
+                    except AttributeError:
+                        print(f"no type annotation for parameter {name}", file=sys.stderr)
+                    else:
+                        parameters.append(
+                            Parameter(
+                                name=name,
+                                annotation=signature_param.annotation,
+                                description=description.lstrip(" "),
+                                default=signature_param.default,
+                                kind=signature_param.kind,
+                            )
+                        )
+                blocks.append(("parameters", parameters))
+                parameters = []
+            elif line_lower in ("raise:", "raises:", "except:", "exceptions:"):
+                if current_block:
+                    blocks.append(("markdown", current_block))
+                    current_block = []
+                block, i = self.read_block_items(lines, i + 1)
+                for exception_line in block:
+                    annotation, description = exception_line.split(": ")
+                    exceptions.append(AnnotatedObject(annotation, description.lstrip(" ")))
+                blocks.append(("exceptions", exceptions))
+                exceptions = []
+            elif line_lower in ("return:", "returns:"):
+                if current_block:
+                    blocks.append(("markdown", current_block))
+                    current_block = []
+                block, i = self.read_block(lines, i + 1)
+                try:
+                    self.return_object = AnnotatedObject(self.signature.return_annotation, " ".join(block))
+                    blocks.append(("return", self.return_object))
+                except AttributeError:
+                    print("no return type annotation", file=sys.stderr)
+            elif line_lower in ADMONITIONS.keys():
+                if current_block:
+                    blocks.append(("markdown", current_block))
+                    current_block = []
+                admonition, i = self.read_block(lines, i + 1)
+                admonition.insert(0, ADMONITIONS[line_lower])
+                blocks.append(("admonition", admonition))
+                # new_lines.append(f"!!! {ADMONITIONS[line_lower]}")
+                # new_lines.append("\n".join(admonition))
+                # new_lines.append("")
+            else:
+                current_block.append(lines[i])
+            i += 1
+
+        if current_block and any(current_block):
+            blocks.append(("markdown", current_block))
+
+        return blocks
+
+    @staticmethod
+    def read_block_items(lines, start_index):
+        i = start_index
+        block = []
+        while i < len(lines) and lines[i].startswith("    "):
+            if block and lines[i].startswith("      "):
+                block[-1] += " " + lines[i].lstrip(" ")
+            else:
+                block.append(lines[i])
+            i += 1
+        return block, i - 1
+
+    @staticmethod
+    def read_block(lines, start_index):
+        i = start_index
+        block = []
+        while i < len(lines) and (lines[i].startswith("    ") or lines[i] == ""):
+            block.append(lines[i])
+            i += 1
+        return block, i - 1
 
 
 class Documenter:
@@ -387,7 +634,9 @@ class Documenter:
     def get_module_documentation(self, module: ModuleType) -> Module:
         path = module.__name__
         name = path.split(".")[-1]
-        root_object = Module(name=name, path=path, file_path=module.__file__, docstring=inspect.getdoc(module),)
+        root_object = Module(
+            name=name, path=path, file_path=module.__file__, docstring=Docstring(inspect.getdoc(module))
+        )
         for member_name, member in filter(lambda m: not self.filter_name_out(m[0]), inspect.getmembers(module)):
             if inspect.isclass(member) and inspect.getmodule(member) == module:
                 root_object.add_child(self.get_class_documentation(member, module))
@@ -405,8 +654,7 @@ class Documenter:
             name=class_name,
             path=path,
             file_path=file_path,
-            docstring=textwrap.dedent(class_.__doc__ or ""),
-            signature=inspect.signature(class_),
+            docstring=Docstring(textwrap.dedent(class_.__doc__ or ""), inspect.signature(class_)),
         )
 
         for member_name, member in sorted(filter(lambda m: not self.filter_name_out(m[0]), class_.__dict__.items())):
@@ -417,7 +665,7 @@ class Documenter:
             member_class = properties = signature = None
             member_path = f"{path}.{member_name}"
             actual_member = getattr(class_, member_name)
-            docstring = inspect.getdoc(actual_member)
+            docstring = inspect.getdoc(actual_member) or ""
             try:
                 source = inspect.getsourcelines(actual_member)
             except TypeError:
@@ -445,10 +693,9 @@ class Documenter:
                         name=member_name,
                         path=member_path,
                         file_path=file_path,
-                        docstring=docstring,
+                        docstring=Docstring(docstring, signature),
                         properties=properties,
                         source=source,
-                        signature=signature,
                     )
                 )
         return root_object
@@ -462,9 +709,8 @@ class Documenter:
             name=function_name,
             path=path,
             file_path=module.__file__,
-            docstring=inspect.getdoc(function),
+            docstring=Docstring(inspect.getdoc(function) or "", inspect.signature(function)),
             source=inspect.getsourcelines(function),
-            signature=inspect.signature(function),
         )
 
     @lru_cache(maxsize=None)
@@ -574,9 +820,8 @@ def _get_attributes(
                         name=name,
                         path=f"{name_prefix}.{name}",
                         file_path=file_path,
-                        docstring=attr_info["docstring"],
+                        docstring=Docstring(attr_info["docstring"], attr_info["signature"]),
                         properties=properties,
-                        signature=attr_info["signature"],
                     )
                 )
         previous_node = node
@@ -597,7 +842,7 @@ def import_object(path: str) -> Tuple[ModuleType, Any]:
         path: the dot-separated path of the object.
 
     Returns:
-        tuple: the imported module and obtained object.
+        The imported module and obtained object.
     """
     if not path:
         raise ValueError(f"path must be a valid Python path, not {path}")
@@ -620,151 +865,3 @@ def import_object(path: str) -> Tuple[ModuleType, Any]:
         current_object = getattr(current_object, obj)
     module = inspect.getmodule(current_object)
     return module, current_object
-
-
-def render_signature(signature):
-    # credits to https://github.com/tomchristie/mkautodoc
-    params = []
-    render_pos_only_separator = True
-    render_kw_only_separator = True
-    for parameter in signature.parameters.values():
-        value = parameter.name
-        if parameter.default is not parameter.empty:
-            value = f"{value}={parameter.default!r}"
-        if parameter.kind is parameter.VAR_POSITIONAL:
-            render_kw_only_separator = False
-            value = f"*{value}"
-        elif parameter.kind is parameter.VAR_KEYWORD:
-            value = f"**{value}"
-        elif parameter.kind is parameter.POSITIONAL_ONLY:
-            if render_pos_only_separator:
-                render_pos_only_separator = False
-                params.append("/")
-        elif parameter.kind is parameter.KEYWORD_ONLY:
-            if render_kw_only_separator:
-                render_kw_only_separator = False
-                params.append("*")
-        params.append(value)
-    return ", ".join(params)
-
-
-def get_param_info(signature, param_name):
-    parameter = signature.parameters[param_name]
-    param_default = param_type = ""
-    if parameter.annotation is not parameter.empty:
-        if inspect.isclass(parameter.annotation) and not isinstance(parameter.annotation, GenericMeta):
-            param_type = parameter.annotation.__name__
-        else:
-            param_type = str(parameter.annotation).replace("typing.", "")
-        optional_param = re.match(r"^Union\[([^,]+), NoneType\]$", param_type)
-        if optional_param:
-            param_type = f"Optional[{optional_param.group(1)}]"
-    if parameter.kind is parameter.VAR_KEYWORD:
-        param_name = f"**{param_name}"
-    if parameter.default is not parameter.empty:
-        param_default = str(parameter.default)
-    return namedtuple("Param", "name default type")(param_name, param_default, param_type)
-
-
-def get_return_type(signature):
-    ret = signature.return_annotation
-    if ret is not signature.empty:
-        if inspect.isclass(ret) and not isinstance(ret, GenericMeta):
-            ret_type = ret.__name__
-        else:
-            ret_type = str(ret).replace("typing.", "")
-    else:
-        ret_type = ""
-    return ret_type
-
-
-def parse_docstring(docstring: str, signature: inspect.Signature) -> str:
-    """
-    Parse a docstring!
-
-    Note:
-        to try notes.
-
-    Args:
-        docstring: This is the docstring to parse.
-        signature: The signature returned by inspect.
-
-    Raises:
-        OSError: no it doesn't lol.
-
-    Returns:
-        markdown: the docstring converted to a nice markdown text.
-    """
-    params = {}
-    exceptions = {}
-    returns = ""
-    lines = docstring.split("\n")
-    new_lines = []
-    i = 0
-    while i < len(lines):
-        if lines[i].lower() in ("args:", "arguments:", "params:", "parameters:"):
-            j = i + 1
-            name = None
-            while j < len(lines) and lines[j].startswith("    "):
-                if lines[j].startswith("      ") and params[name]:
-                    params[name] += " " + lines[j].lstrip(" ")
-                else:
-                    name, description = lines[j].lstrip(" ").split(":", 1)
-                    params[name] = description.lstrip(" ")
-                j += 1
-            new_lines.append("**Parameters**\n")
-            new_lines.append("| Name | Type | Description | Default |")
-            new_lines.append("| ---- | ---- | ----------- | ------- |")
-            for param_name, param_description in params.items():
-                param_name, param_default, param_type = get_param_info(signature, param_name)
-                if param_default:
-                    param_default = f"`{param_default}`"
-                else:
-                    param_default = "*required*"
-                new_lines.append(f"| `{param_name}` | `{param_type}` | {param_description} | {param_default} |")
-            new_lines.append("")
-            i = j - 1
-        elif lines[i].lower() in ("raise:", "raises:", "except:", "exceptions:"):
-            j = i + 1
-            name = None
-            while j < len(lines) and lines[j].startswith("    "):
-                if lines[j].startswith("      ") and exceptions[name]:
-                    exceptions[name] += " " + lines[j].lstrip(" ")
-                else:
-                    name, description = lines[j].lstrip(" ").split(":", 1)
-                    exceptions[name] = description.lstrip(" ")
-                j += 1
-            new_lines.append("**Exceptions**\n")
-            new_lines.append("| Type | Description |")
-            new_lines.append("| ---- | ----------- |")
-            for exception_name, exception_description in exceptions.items():
-                new_lines.append(f"| `{exception_name}` | {exception_description} |")
-            new_lines.append("")
-            i = j - 1
-        elif lines[i].lower() in ("return:", "returns:"):
-            j = i + 1
-            while j < len(lines) and lines[j].startswith("    "):
-                description = lines[j].lstrip(" ")
-                returns += " " + description
-                j += 1
-            new_lines.append("**Returns**\n")
-            new_lines.append("| Type | Description |")
-            new_lines.append("| ---- | ----------- |")
-            new_lines.append(f"| `{get_return_type(signature)}` | {returns} |")
-            new_lines.append("")
-            i = j - 1
-        elif lines[i].lower() in ADMONITIONS.keys():
-            j = i + 1
-            admonition = []
-            while j < len(lines) and (lines[j].startswith("    ") or lines[j] == ""):
-                admonition.append(lines[j])
-                j += 1
-            new_lines.append(f"!!! {ADMONITIONS[lines[i].lower()]}")
-            new_lines.append("\n".join(admonition))
-            new_lines.append("")
-            i = j - 1
-        else:
-            new_lines.append(lines[i])
-        i += 1
-
-    return "\n".join(new_lines)
