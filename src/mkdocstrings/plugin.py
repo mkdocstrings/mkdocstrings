@@ -4,6 +4,7 @@ from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
 
 from .documenter import Documenter
+from .renderer import MarkdownRenderer, render_references
 
 config = {
     "show_top_object_heading": False,
@@ -46,7 +47,7 @@ class MkdocstringsPlugin(BasePlugin):
                     import_string = line.replace("::: ", "")
                     if import_string not in self.objects:
                         root_object = self.documenter.get_object_documentation(import_string)
-                        self.references.append(root_object.render_references(page.abs_url))
+                        self.references.append(render_references(root_object, page.abs_url))
                         mapping_value = {"object": root_object, "page": page.abs_url}
                         self.objects[import_string] = mapping_value
                         if import_string != root_object.path:
@@ -61,19 +62,20 @@ class MkdocstringsPlugin(BasePlugin):
         lines = markdown.split("\n")
         modified_lines = lines[::]
         for i, line in enumerate(lines):
-            config_copy = dict(config)
             if line.startswith("::: "):
+                renderer = MarkdownRenderer(dict(config))
                 import_string = line.replace("::: ", "")
                 root_object = self.objects[import_string]["object"]
-                heading = 2 if config_copy["show_top_object_heading"] else 1
-                new_lines = root_object.render(heading, config_copy)
-                modified_lines[i] = new_lines
+                heading = 2 if config["show_top_object_heading"] else 1
+                modified_lines[i] = "\n".join(renderer.render(root_object, heading))
         modified_lines.extend(self.references)
         return "\n".join(modified_lines)
 
     def on_page_content(self, html, page, **kwargs):
         if page.abs_url not in self.pages_with_docstrings:
             return html
+        div = '<div class="autodoc">'
+        end_div = "</div>"
         lines = html.split("\n")
         new_lines = lines[::]
         levels = [0]
@@ -82,25 +84,25 @@ class MkdocstringsPlugin(BasePlugin):
             if line.startswith("<h") and line[2].isnumeric():
                 level = int(line[2])
                 if level > levels[-1]:
-                    new_lines.insert(i + 1 + inserted, '<div class="autodoc">')
+                    new_lines.insert(i + 1 + inserted, div)
                     inserted += 1
                     levels.append(level)
                 elif level == levels[-1]:
-                    new_lines.insert(i + inserted, "</div>")
+                    new_lines.insert(i + inserted, end_div)
                     inserted += 1
-                    new_lines.insert(i + 1 + inserted, '<div class="autodoc">')
+                    new_lines.insert(i + 1 + inserted, div)
                     inserted += 1
                 else:
                     while level < levels[-1]:
-                        new_lines.insert(i + inserted, "</div>")
+                        new_lines.insert(i + inserted, end_div)
                         inserted += 1
                         levels.pop()
-                    new_lines.insert(i + inserted, "</div>")
+                    new_lines.insert(i + inserted, end_div)
                     inserted += 1
-                    new_lines.insert(i + 1 + inserted, '<div class="autodoc">')
+                    new_lines.insert(i + 1 + inserted, div)
                     inserted += 1
         while levels[-1] > 0:
-            new_lines.append("</div>")
+            new_lines.append(end_div)
             levels.pop()
         new_html = "\n".join(new_lines)
         return new_html

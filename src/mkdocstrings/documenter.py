@@ -1,22 +1,86 @@
-"""Documenter module docstring."""
+"""
+This module is responsible for loading the documentation from Python objects and rendering it to Markdown.
+
+Here is how to use it:
+
+1. instantiate a [`Documenter`][mkdocstrings.documenter.Documenter] instance with user configuration
+    (currently only global filters).
+2. get an instance of a subclass of [`Object`][mkdocstrings.documenter.Object]
+    ([`Module`][mkdocstrings.documenter.Module], [`Class`][mkdocstrings.documenter.Class],
+    [`Method`][mkdocstrings.documenter.Method], [`Function`][mkdocstrings.documenter.Function],
+    or [`Attribute`][mkdocstrings.documenter.Attribute]) with the documenter's `get_object_documentation` method.
+    The method takes the dotted-path to an object as argument.
+3. get Markdown contents by calling the documented object's [`render`][mkdocstrings.documenter.Object.render] method
+    with more configuration options (should be refactored).
+
+Here is how we proceed:
+
+1. The documentation for an object is obtained recursively, by walking through its children objects (module classes,
+    module functions, class methods, class attributes, class nested classes, etc.). Each one of the object is
+    instantiated using its correct category (Module, Class, Method, or Function). The children of an object
+    are organized into these same categories: [`modules`][mkdocstrings.documenter.Object.modules],
+    [`classes`][mkdocstrings.documenter.Object.classes], [`methods`][mkdocstrings.documenter.Object.methods],
+    and [`functions`][mkdocstrings.documenter.Object.functions].
+2. The attributes documentation is obtained by parsing the code with the `ast` module. We simply search for
+    "assignment" or "annotated assignment" nodes followed by "docstring" nodes (expressions or strings). Attribute
+    children are stored in an object's [`attributes`][mkdocstrings.documenter.Object.attributes] attribute by
+    dispatching them onto the object thanks to their dotted-paths.
+3. Each docstring is parsed to build a list of "docstring sections". Such a section can be a markdown block of lines,
+    a block of parameters, a block of exceptions, an admonition, or the information about the return value.
+    Exceptions and the return value are instances of [`AnnotatedObject`][mkdocstrings.documenter.AnnotatedObject],
+    while parameters are instances of the [`Parameter`][mkdocstrings.documenter.Parameter] class, which is a subclass of
+    `AnnotatedObject`. To build these sections, we search for blocks matching the
+    [Google style](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html) for docstrings.
+
+    For example:
+
+    ```
+    Note:
+        This is a note.
+    ```
+
+    ...will be parsed as a "note" admonition, while:
+
+    ```
+    Arguments:
+        param1: Description of param1.
+        param2: Description of param2.
+
+    Raises:
+        OSError: When this exception is raised.
+        RuntimeError: When this exception is raised.
+
+    Returns:
+        Description of the return value.
+    ```
+
+    ...will be parsed as "parameters", "exceptions" and "return" sections.
+
+    Important:
+        Note the absence of type hints in the arguments and returns section: in `mkdocstrings`, the types are
+        obtained using type annotations (using the `typing` module and builtin types), and not from type hints.
+        It means that you must use type annotations in the signature of your function/method, or add a type
+        annotation to an attribute.
+
+        For example:
+
+        ```python
+        def my_function(param1: int, param2: Optional[str] = None) -> typing.Dict[int, str]:
+            pass
+        ```
+"""
 
 import ast
 import importlib
 import inspect
 import os
 import re
-import sys
 import textwrap
 from functools import lru_cache
 from types import ModuleType
 from typing import Any, Callable, Dict, List, Optional, Pattern, Tuple, Type, Union
 
-try:
-    from typing import GenericMeta  # python 3.6
-except ImportError:
-    # in 3.7, GenericMeta doesn't exist but we don't need it
-    class GenericMeta(type):
-        pass
+from .docstrings import AnnotatedObject, Docstring
 
 
 RECURSIVE_NODES = (ast.If, ast.IfExp, ast.Try, ast.With, ast.ExceptHandler)
@@ -44,75 +108,43 @@ NAME_SPECIAL = ("special", lambda n: bool(RE_SPECIAL.match(n)))
 NAME_CLASS_PRIVATE = ("class-private", lambda n: bool(RE_CLASS_PRIVATE.match(n)))
 NAME_PRIVATE = ("private", lambda n: bool(RE_PRIVATE.match(n)))
 
-ADMONITIONS = {
-    "note:": "note",
-    "see also:": "seealso",
-    "abstract:": "abstract",
-    "summary:": "summary",
-    "tldr:": "tldr",
-    "info:": "info",
-    "information:": "info",
-    "todo:": "todo",
-    "tip:": "tip",
-    "hint:": "hint",
-    "important:": "important",
-    "success:": "success",
-    "check:": "check",
-    "done:": "done",
-    "question:": "question",
-    "help:": "help",
-    "faq:": "faq",
-    "warning:": "warning",
-    "caution:": "caution",
-    "attention:": "attention",
-    "failure:": "failure",
-    "fail:": "fail",
-    "missing:": "missing",
-    "danger:": "danger",
-    "error:": "error",
-    "bug:": "bug",
-    "example:": "example",
-    "snippet:": "snippet",
-    "quote:": "quote",
-    "cite:": "cite",
-}
-
 
 class Object:
     """
-    Class to store information about a Python object.
+    Generic class to store information about a Python object.
 
-    - the object category (ex: module, function, class, method or attribute)
-    - the object path (ex: `package.submodule.class.inner_class.method`)
-    - the object name (ex: `__init__`)
-    - the object docstring
-    - the object properties, depending on its category (ex: special, classmethod, etc.)
-    - the object signature (soon)
-
-    Each instance additionally stores references to its children, grouped by category (see Attributes).
+    Each instance additionally stores references to its children, grouped by category.
     """
 
     NAME_PROPERTIES = []
-    toc_signature = ""
+    TOC_SIGNATURE = ""
 
     def __init__(
         self,
         name: str,
         path: str,
         file_path: str,
-        docstring: "Docstring",
+        docstring: Optional["Docstring"] = None,
         properties: Optional[List[str]] = None,
-        source: Optional[str] = None,
-        file: Optional[str] = None,
+        source: Optional[Tuple[int, List[str]]] = None,
     ) -> None:
+        """
+
+        Parameters:
+            name: The object name, like `__init__` or `MyClass`.
+            path: The object dotted-path, like `package.submodule.class.inner_class.method`.
+            file_path: The full file path of the object's module, like `/full/path/to/package/submodule.py`.
+            docstring: A `Docstring` instance
+            properties: A list of properties like `special`, `classmethod`, etc.
+            source: A tuple with the object source code lines as a list, and the starting line in the object's module.
+        """
         self.name = name
         self.path = path
         self.file_path = file_path
-        self.docstring = docstring or ""
+        self.docstring = docstring
         self.properties = properties or []
         self.parent = None
-        self.source = source or ""
-        self.file = file or ""
+        self.source = source
 
         self._path_map = {}
 
@@ -222,155 +254,10 @@ class Object:
                 attach_to.children.append(attribute)
                 attribute.parent = attach_to
 
-    def should_be_displayed(self):
+    def has_contents(self):
         return bool(
-            self.docstring.original_value or not self.parent or any(c.should_be_displayed() for c in self.children)
+            self.docstring.original_value or not self.parent or any(c.has_contents() for c in self.children)
         )
-
-    def render(self, heading: int = 1, config: Dict[str, Any] = None) -> str:
-        """
-        Render this object as Markdown.
-
-        This is dirty and will be refactored as a Markdown extension soon.
-
-        Parameters:
-            heading: The initial level of heading to use.
-            config: The rendering configuration dictionary.
-
-        Returns:
-            The rendered Markdown.
-        """
-        if not config:
-            config = {}
-
-        lines = []
-
-        show_top_object_heading = config.pop("show_top_object_heading", True)
-
-        if show_top_object_heading:
-            lines.append(self.render_heading(heading, config) + "\n")
-
-        if self.docstring:
-            lines.append(self.render_docstring() + "\n")
-
-        if config["group_by_categories"]:
-            lines.append(self.render_categories(heading + 1, config))
-        else:
-            for child in sorted(self.children, key=lambda o: o.name.lower()):
-                lines.append(child.render(heading + 1, config))
-                lines.append("")
-
-        return "\n".join(lines)
-
-    def render_references(self, base_url: str):
-        lines = [f"[{self.path}]: {base_url}#{self.path}"]
-        for child in self.children:
-            lines.append(child.render_references(base_url))
-        return "\n".join(lines)
-
-    def render_heading(self, heading, config):
-        show_top_object_full_path = config.pop("show_top_object_full_path", False)
-
-        lines = []
-
-        if not config["hide_no_doc"] or self.should_be_displayed():
-            signature = self.render_signature()
-            object_heading = f"`:::python {self.path if show_top_object_full_path else self.name}{signature}`"
-            object_permalink = self.path.replace("__", r"\_\_")
-            object_toc = self.name.replace("__", r"\_\_") + self.toc_signature
-
-            if self.properties:
-                object_heading += f"*({', '.join(self.properties)})*"
-
-            lines.append(f"{'#' * heading} {object_heading} {{: #{object_permalink} data-toc-label='{object_toc}' }}")
-
-            lines.append(self.render_source(config))
-
-        return "\n".join(lines)
-
-    def render_signature(self):
-        return ""
-
-    def render_docstring(self):
-        lines = []
-
-        for block_type, block in self.docstring.blocks:
-            if block_type == "markdown":
-                lines.extend(block)
-            elif block_type == "parameters":
-                lines.append("**Parameters**\n")
-                lines.append("| Name | Type | Description | Default |")
-                lines.append("| ---- | ---- | ----------- | ------- |")
-                for parameter in block:
-                    default = parameter.default_string
-                    default = f"`{default}`" if default else "*required*"
-                    lines.append(
-                        f"| `{parameter.name}` | `{parameter.annotation_string}` | {parameter.description} | {default} |"
-                    )
-                lines.append("")
-            elif block_type == "exceptions":
-                lines.append("**Exceptions**\n")
-                lines.append("| Type | Description |")
-                lines.append("| ---- | ----------- |")
-                for exception in block:
-                    lines.append(f"| `{exception.annotation_string}` | {exception.description} |")
-                lines.append("")
-            elif block_type == "return":
-                lines.append("**Returns**\n")
-                lines.append("| Type | Description |")
-                lines.append("| ---- | ----------- |")
-                lines.append(f"| `{block.annotation_string}` | {block.description} |")
-                lines.append("")
-            elif block_type == "admonition":
-                lines.append(f"!!! {block[0]}")
-                lines.extend(block[1:])
-
-        return "\n".join(lines)
-
-    def render_source(self, config):
-        lines = []
-        if config["add_source_details"] and self.source:
-            lines.append("")
-            lines.append(f'??? note "Show source code in {self.relative_file_path}"')
-            lines.append(f'    ```python linenums="{self.source[1]}"')
-            lines.append(textwrap.indent("".join(self.source[0]), "    "))
-            lines.append("    ```")
-            lines.append("")
-        return "\n".join(lines)
-
-    def render_categories(self, heading, config):
-        extra_level = 1 if config["show_groups_headings"] else 0
-        lines = []
-
-        if self.attributes:
-            if config["show_groups_headings"]:
-                lines.append(f"{'#' * heading} Attributes")
-                lines.append("")
-            for attribute in sorted(self.attributes, key=lambda o: o.name.lower()):
-                lines.append(attribute.render(heading + extra_level, config))
-                lines.append("")
-        if self.classes:
-            if config["show_groups_headings"]:
-                lines.append(f"{'#' * heading} Classes")
-                lines.append("")
-            for class_ in sorted(self.classes, key=lambda o: o.name.lower()):
-                lines.append(class_.render(heading + extra_level, config))
-                lines.append("")
-        if self.methods:
-            if config["show_groups_headings"]:
-                lines.append(f"{'#' * heading} Methods")
-                lines.append("")
-            for method in sorted(self.methods, key=lambda o: o.name.lower()):
-                lines.append(method.render(heading + extra_level, config))
-                lines.append("")
-        if self.functions:
-            if config["show_groups_headings"]:
-                lines.append(f"{'#' * heading} Functions")
-                lines.append("")
-            for function in sorted(self.functions, key=lambda o: o.name.lower()):
-                lines.append(function.render(heading + extra_level, config))
-                lines.append("")
-        return "\n".join(lines)
 
 
 class Module(Object):
@@ -389,220 +276,16 @@ class Class(Object):
     NAME_PROPERTIES = [NAME_PRIVATE]
 
 
-class FunctionOrMethod(Object):
-    toc_signature = "()"
-
-    def render_signature(self):
-        if self.docstring.signature:
-            # credits to https://github.com/tomchristie/mkautodoc
-            params = []
-            render_pos_only_separator = True
-            render_kw_only_separator = True
-            for parameter in self.docstring.signature.parameters.values():
-                value = parameter.name
-                if parameter.default is not parameter.empty:
-                    value = f"{value}={parameter.default!r}"
-                if parameter.kind is parameter.VAR_POSITIONAL:
-                    render_kw_only_separator = False
-                    value = f"*{value}"
-                elif parameter.kind is parameter.VAR_KEYWORD:
-                    value = f"**{value}"
-                elif parameter.kind is parameter.POSITIONAL_ONLY:
-                    if render_pos_only_separator:
-                        render_pos_only_separator = False
-                        params.append("/")
-                elif parameter.kind is parameter.KEYWORD_ONLY:
-                    if render_kw_only_separator:
-                        render_kw_only_separator = False
-                        params.append("*")
-                params.append(value)
-            return f"({', '.join(params)})"
-        return ""
-
-
-class Function(FunctionOrMethod):
+class Function(Object):
     NAME_PROPERTIES = [NAME_PRIVATE]
 
 
-class Method(FunctionOrMethod):
+class Method(Object):
     NAME_PROPERTIES = [NAME_SPECIAL, NAME_PRIVATE]
 
 
 class Attribute(Object):
     NAME_PROPERTIES = [NAME_SPECIAL, NAME_CLASS_PRIVATE, NAME_PRIVATE]
-
-    def render_signature(self):
-        if "property" in self.properties:
-            try:
-                return f": {self.docstring.return_object.annotation_string}"
-            except AttributeError:
-                return AnnotatedObject(self.docstring.signature.return_annotation, "").annotation_string
-        return f": {self.docstring.signature}"
-
-
-class AnnotatedObject:
-    def __init__(self, annotation, description):
-        self.annotation = annotation
-        self.description = description
-
-    @property
-    def annotation_string(self):
-        if inspect.isclass(self.annotation) and not isinstance(self.annotation, GenericMeta):
-            return self.annotation.__name__
-        return str(self.annotation).replace("typing.", "")
-
-
-class Parameter(AnnotatedObject):
-    def __init__(self, name, annotation, description, kind, default=inspect.Signature.empty):
-        super().__init__(annotation, description)
-        self.name = name
-        self.kind = kind
-        self.default = default
-
-    @property
-    def optional(self):
-        return self.default is not inspect.Signature.empty
-
-    @property
-    def required(self):
-        return not self.optional
-
-    @property
-    def annotation_string(self):
-        s = AnnotatedObject.annotation_string.fget(self)
-        optional_param = re.match(r"^Union\[([^,]+), NoneType\]$", s)
-        if optional_param:
-            s = f"Optional[{optional_param.group(1)}]"
-        optional_union_param = re.match(r"^Union\[(.+), NoneType\]$", s)
-        if optional_union_param:
-            s = f"Optional[Union[{optional_union_param.group(1)}]]"
-        return s
-
-    @property
-    def default_string(self):
-        if self.default is inspect.Signature.empty:
-            return ""
-        return str(self.default)
-
-
-class Docstring:
-    def __init__(self, value, signature=None):
-        self.original_value = value
-        self.signature = signature
-        self.return_object = None
-        self.blocks = self.parse()
-
-    # return a list of tuples of the form:
-    # [("type", value), ...]
-    # type being "markdown", "parameters", "exceptions", or "return"
-    # and value respectively being a string, a list of Parameter, a list of AnnotatedObject, and an AnnotatedObject
-    # This allows to respect the user's docstring order.
-    # While rendering:
-    # Sections like Note: and Warning: in markdown values should be regex-replaced by their admonition equivalent,
-    # up to maximum 2 levels of indentation, and only if admonition is registered. Add a configuration option for this.
-    # Then the markdown values are transformed by a Markdown transformation.
-    def parse(self) -> List[Tuple[str, Union[List[str, AnnotatedObject, Parameter], AnnotatedObject]]]:
-        """
-        Parse a docstring!
-
-        Note:
-            to try notes.
-
-        Returns:
-            The docstring converted to a nice markdown text.
-        """
-        parameters = []
-        exceptions = []
-        blocks = []
-        current_block = []
-
-        lines = self.original_value.split("\n")
-        i = 0
-
-        while i < len(lines):
-            line_lower = lines[i].lower()
-            if line_lower in ("args:", "arguments:", "params:", "parameters:"):
-                if current_block:
-                    blocks.append(("markdown", current_block))
-                    current_block = []
-                block, i = self.read_block_items(lines, i + 1)
-                for param_line in block:
-                    name, description = param_line.lstrip(" ").split(": ")
-                    try:
-                        signature_param = self.signature.parameters[name]
-                    except AttributeError:
-                        print(f"no type annotation for parameter {name}", file=sys.stderr)
-                    else:
-                        parameters.append(
-                            Parameter(
-                                name=name,
-                                annotation=signature_param.annotation,
-                                description=description.lstrip(" "),
-                                default=signature_param.default,
-                                kind=signature_param.kind,
-                            )
-                        )
-                blocks.append(("parameters", parameters))
-                parameters = []
-            elif line_lower in ("raise:", "raises:", "except:", "exceptions:"):
-                if current_block:
-                    blocks.append(("markdown", current_block))
-                    current_block = []
-                block, i = self.read_block_items(lines, i + 1)
-                for exception_line in block:
-                    annotation, description = exception_line.split(": ")
-                    exceptions.append(AnnotatedObject(annotation, description.lstrip(" ")))
-                blocks.append(("exceptions", exceptions))
-                exceptions = []
-            elif line_lower in ("return:", "returns:"):
-                if current_block:
-                    blocks.append(("markdown", current_block))
-                    current_block = []
-                block, i = self.read_block(lines, i + 1)
-                try:
-                    self.return_object = AnnotatedObject(self.signature.return_annotation, " ".join(block))
-                    blocks.append(("return", self.return_object))
-                except AttributeError:
-                    print("no return type annotation", file=sys.stderr)
-            elif line_lower in ADMONITIONS.keys():
-                if current_block:
-                    blocks.append(("markdown", current_block))
-                    current_block = []
-                admonition, i = self.read_block(lines, i + 1)
-                admonition.insert(0, ADMONITIONS[line_lower])
-                blocks.append(("admonition", admonition))
-                # new_lines.append(f"!!! {ADMONITIONS[line_lower]}")
-                # new_lines.append("\n".join(admonition))
-                # new_lines.append("")
-            else:
-                current_block.append(lines[i])
-            i += 1
-
-        if current_block and any(current_block):
-            blocks.append(("markdown", current_block))
-
-        return blocks
-
-    @staticmethod
-    def read_block_items(lines, start_index):
-        i = start_index
-        block = []
-        while i < len(lines) and lines[i].startswith("    "):
-            if block and lines[i].startswith("      "):
-                block[-1] += " " + lines[i].lstrip(" ")
-            else:
-                block.append(lines[i])
-            i += 1
-        return block, i - 1
-
-    @staticmethod
-    def read_block(lines, start_index):
-        i = start_index
-        block = []
-        while i < len(lines) and (lines[i].startswith("    ") or lines[i] == ""):
-            block.append(lines[i])
-            i += 1
-        return block, i - 1
 
 
 class Documenter:
@@ -680,6 +363,8 @@ class Documenter:
                 member_class = Method
                 signature = inspect.signature(actual_member)
             elif isinstance(member, type(lambda: 0)):  # regular method
+                if RE_SPECIAL.match(member_name) and docstring == inspect.getdoc(getattr(int, member_name)):
+                    docstring = ""
                 member_class = Method
                 signature = inspect.signature(actual_member)
             elif isinstance(member, property):
