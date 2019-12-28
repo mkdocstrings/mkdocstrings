@@ -5,30 +5,6 @@ from mkdocs.plugins import BasePlugin
 
 from .documenter import Documenter
 
-# TODO: show source file in source code blocks titles
-
-# TODO: option to change initial heading level per autodoc instruction
-
-# TODO: use type annotations
-
-# TODO: support more properties:
-#       generators, coroutines, awaitable (see inspect.is...), decorators?
-#       metaclass, dataclass
-#       optional (parameters with default values)
-
-# TODO: pick attributes without docstrings?
-
-# TODO: write tests
-
-# TODO: make sure to recurse correctly (module's modules, class' classes, etc.)
-# TODO: discover package's submodules
-
-# TODO: option to void special methods' docstrings
-#       when they are equal to the built-in ones (ex: "Return str(self)." for __str__)
-
-# TODO: option not to write root group header if it's the only group
-# TODO: option to move __init__ docstring to class docstring
-
 config = {
     "show_top_object_heading": False,
     "show_top_object_full_path": True,
@@ -85,13 +61,12 @@ class MkdocstringsPlugin(BasePlugin):
         lines = markdown.split("\n")
         modified_lines = lines[::]
         for i, line in enumerate(lines):
-            # if line.startswith("<p>::: ") or line.startswith("::: "):
+            config_copy = dict(config)
             if line.startswith("::: "):
                 import_string = line.replace("::: ", "")
-                # import_string = line.replace("::: ", "").replace("<p>", "").replace("</p>", "")
                 root_object = self.objects[import_string]["object"]
-                heading = 2 if config["show_top_object_heading"] else 1
-                new_lines = root_object.render(heading, **config)
+                heading = 2 if config_copy["show_top_object_heading"] else 1
+                new_lines = root_object.render(heading, config_copy)
                 modified_lines[i] = new_lines
         modified_lines.extend(self.references)
         return "\n".join(modified_lines)
