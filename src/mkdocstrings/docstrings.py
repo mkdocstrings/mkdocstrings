@@ -1,7 +1,6 @@
 import inspect
 import re
 import sys
-
 from typing import List, Tuple, Union
 
 from .utils import annotation_to_string

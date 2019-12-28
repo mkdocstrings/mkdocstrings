@@ -82,7 +82,6 @@ from typing import Any, Callable, Dict, List, Optional, Pattern, Tuple, Type, Un
 
 from .docstrings import AnnotatedObject, Docstring
 
-
 RECURSIVE_NODES = (ast.If, ast.IfExp, ast.Try, ast.With, ast.ExceptHandler)
 
 # exactly two leading underscores, exactly two trailing underscores
@@ -255,9 +254,7 @@ class Object:
                 attribute.parent = attach_to
 
     def has_contents(self):
-        return bool(
-            self.docstring.original_value or not self.parent or any(c.has_contents() for c in self.children)
-        )
+        return bool(self.docstring.original_value or not self.parent or any(c.has_contents() for c in self.children))
 
 
 class Module(Object):

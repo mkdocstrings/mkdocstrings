@@ -1,9 +1,17 @@
 import textwrap
+
 from .utils import annotation_to_string
 
 
 class MarkdownRenderer:
-    def __init__(self, top_config, group_by_categories=True, show_groups_headings=False, hide_no_doc=True, add_source_details=True):
+    def __init__(
+        self,
+        top_config,
+        group_by_categories=True,
+        show_groups_headings=False,
+        hide_no_doc=True,
+        add_source_details=True,
+    ):
         self.top_config = top_config
         self.group_by_categories = group_by_categories
         self.show_groups_headings = show_groups_headings
@@ -31,7 +39,8 @@ class MarkdownRenderer:
                 module_heading += f" *({', '.join(obj.properties)})*"
 
             lines.append(
-                f"{'#' * heading_level} {module_heading} {{: #{module_permalink} data-toc-label='{module_toc_title}' }}")
+                f"{'#' * heading_level} {module_heading} {{: #{module_permalink} data-toc-label='{module_toc_title}' }}"
+            )
 
             if self.add_source_details and obj.source:
                 lines.append(f'\n??? note "Show source code in {obj.relative_file_path}"')
