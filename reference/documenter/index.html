@@ -296,13 +296,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mkdocstrings.documenter.Documenter.__init__" class="md-nav__link">
-    __init__()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#mkdocstrings.documenter.Documenter.get_object_documentation" class="md-nav__link">
     get_object_documentation()
   </a>
@@ -379,13 +372,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#mkdocstrings.documenter.Object.__str__" class="md-nav__link">
-    __str__()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#mkdocstrings.documenter.Object.add_child" class="md-nav__link">
     add_child()
   </a>
@@ -399,13 +385,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#mkdocstrings.documenter.Object.render" class="md-nav__link">
-    render()
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -414,13 +393,6 @@
         <li class="md-nav__item">
   <a href="#mkdocstrings.documenter.import_object" class="md-nav__link">
     import_object()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mkdocstrings.documenter.parse_docstring" class="md-nav__link">
-    parse_docstring()
   </a>
   
 </li>
@@ -516,13 +488,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mkdocstrings.documenter.Documenter.__init__" class="md-nav__link">
-    __init__()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#mkdocstrings.documenter.Documenter.get_object_documentation" class="md-nav__link">
     get_object_documentation()
   </a>
@@ -599,13 +564,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#mkdocstrings.documenter.Object.__str__" class="md-nav__link">
-    __str__()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#mkdocstrings.documenter.Object.add_child" class="md-nav__link">
     add_child()
   </a>
@@ -619,13 +577,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#mkdocstrings.documenter.Object.render" class="md-nav__link">
-    render()
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -634,13 +585,6 @@
         <li class="md-nav__item">
   <a href="#mkdocstrings.documenter.import_object" class="md-nav__link">
     import_object()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mkdocstrings.documenter.parse_docstring" class="md-nav__link">
-    parse_docstring()
   </a>
   
 </li>
@@ -666,45 +610,95 @@
                 
                   <h1>documenter.py</h1>
                 
-                <p>Documenter module docstring.</p>
+                <p>This module is responsible for loading the documentation from Python objects and rendering it to Markdown.</p>
+<p>Here is how to use it:</p>
+<ol>
+<li>instantiate a <a href="/reference/documenter/#mkdocstrings.documenter.Documenter"><code>Documenter</code></a> instance with user configuration
+    (currently only global filters).</li>
+<li>get an instance of a subclass of <a href="/reference/documenter/#mkdocstrings.documenter.Object"><code>Object</code></a>
+    (<a href="/reference/documenter/#mkdocstrings.documenter.Module"><code>Module</code></a>, <a href="/reference/documenter/#mkdocstrings.documenter.Class"><code>Class</code></a>,
+    <a href="/reference/documenter/#mkdocstrings.documenter.Method"><code>Method</code></a>, <a href="/reference/documenter/#mkdocstrings.documenter.Function"><code>Function</code></a>,
+    or <a href="/reference/documenter/#mkdocstrings.documenter.Attribute"><code>Attribute</code></a>) with the documenter's <code>get_object_documentation</code> method.
+    The method takes the dotted-path to an object as argument.</li>
+<li>get Markdown contents by calling the documented object's [<code>render</code>][mkdocstrings.documenter.Object.render] method
+    with more configuration options (should be refactored).</li>
+</ol>
+<p>Here is how we proceed:</p>
+<ol>
+<li>The documentation for an object is obtained recursively, by walking through its children objects (module classes,
+    module functions, class methods, class attributes, class nested classes, etc.). Each one of the object is
+    instantiated using its correct category (Module, Class, Method, or Function). The children of an object
+    are organized into these same categories: <a href="/reference/documenter/#mkdocstrings.documenter.Object.modules"><code>modules</code></a>,
+    <a href="/reference/documenter/#mkdocstrings.documenter.Object.classes"><code>classes</code></a>, <a href="/reference/documenter/#mkdocstrings.documenter.Object.methods"><code>methods</code></a>,
+    and <a href="/reference/documenter/#mkdocstrings.documenter.Object.functions"><code>functions</code></a>.</li>
+<li>The attributes documentation is obtained by parsing the code with the <code>ast</code> module. We simply search for
+    "assignment" or "annotated assignment" nodes followed by "docstring" nodes (expressions or strings). Attribute
+    children are stored in an object's <a href="/reference/documenter/#mkdocstrings.documenter.Object.attributes"><code>attributes</code></a> attribute by
+    dispatching them onto the object thanks to their dotted-paths.</li>
+<li>
+<p>Each docstring is parsed to build a list of "docstring sections". Such a section can be a markdown block of lines,
+    a block of parameters, a block of exceptions, an admonition, or the information about the return value.
+    Exceptions and the return value are instances of [<code>AnnotatedObject</code>][mkdocstrings.documenter.AnnotatedObject],
+    while parameters are instances of the [<code>Parameter</code>][mkdocstrings.documenter.Parameter] class, which is a subclass of
+    <code>AnnotatedObject</code>. To build these sections, we search for blocks matching the
+    <a href="https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html">Google style</a> for docstrings.</p>
+<p>For example:</p>
+<div class="codehilite"><pre><span></span>Note:
+    This is a note.
+</pre></div>
+
+<p>...will be parsed as a "note" admonition, while:</p>
+<div class="codehilite"><pre><span></span>Arguments:
+    param1: Description of param1.
+    param2: Description of param2.
+
+Raises:
+    OSError: When this exception is raised.
+    RuntimeError: When this exception is raised.
+
+Returns:
+    Description of the return value.
+</pre></div>
+
+<p>...will be parsed as "parameters", "exceptions" and "return" sections.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Note the absence of type hints in the arguments and returns section: in <code>mkdocstrings</code>, the types are
+obtained using type annotations (using the <code>typing</code> module and builtin types), and not from type hints.
+It means that you must use type annotations in the signature of your function/method, or add a type
+annotation to an attribute.</p>
+<p>For example:</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">param1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param2</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+</div>
+</li>
+</ol>
 <h2 id="mkdocstrings.documenter.Documenter"><code class="codehilite"><span class="n">Documenter</span></code><a class="headerlink" href="#mkdocstrings.documenter.Documenter" title="Permanent link">&para;</a></h2>
 <div class="autodoc">
 <p>Class that contains the object documentation loading mechanisms.</p>
-<h3 id="mkdocstrings.documenter.Documenter.__init__"><code class="codehilite"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_filters</span><span class="p">)</span></code><em>(special)</em><a class="headerlink" href="#mkdocstrings.documenter.Documenter.__init__" title="Permanent link">&para;</a></h3>
-<div class="autodoc">
-<details class="note"><summary>Show source code</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>534
-535</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">global_filters</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">global_filters</span> <span class="o">=</span> <span class="p">[(</span><span class="n">f</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;!&quot;</span><span class="p">)))</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">global_filters</span><span class="p">]</span>
-</pre></div>
-</td></tr></table>
-
-</details>
-<p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</div>
 <h3 id="mkdocstrings.documenter.Documenter.get_object_documentation"><code class="codehilite"><span class="n">get_object_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">import_string</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.documenter.Documenter.get_object_documentation" title="Permanent link">&para;</a></h3>
 <div class="autodoc">
-<details class="note"><summary>Show source code</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>537
-538
-539
-540
-541
-542
-543
-544
-545
-546
-547
-548
-549
-550
-551
-552
-553
-554
-555
-556
-557
-558</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">get_object_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">import_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Object</span><span class="p">:</span>
+<details class="note"><summary>Show source code in mkdocstrings/documenter.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">get_object_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">import_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Attribute</span><span class="p">,</span> <span class="n">Method</span><span class="p">,</span> <span class="n">Function</span><span class="p">,</span> <span class="n">Module</span><span class="p">,</span> <span class="n">Class</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Documenting to see return type.</span>
 
@@ -712,18 +706,15 @@
 <span class="sd">            The object with all its children populated.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">module</span><span class="p">,</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">import_object</span><span class="p">(</span><span class="n">import_string</span><span class="p">)</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">attributes</span> <span class="o">=</span> <span class="n">get_attributes</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismodule</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-            <span class="n">root_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_module_documentation</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+            <span class="n">root_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_module_documentation</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{path}</span><span class="s2">.</span><span class="si">{obj.__name__}</span><span class="s2">&quot;</span>
-            <span class="n">root_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_class_documentation</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+            <span class="n">root_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_class_documentation</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isfunction</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{path}</span><span class="s2">.</span><span class="si">{obj.__name__}</span><span class="s2">&quot;</span>
-            <span class="n">root_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_function_documentation</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+            <span class="n">root_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_function_documentation</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">module</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{obj}</span><span class="s2">:{type(obj)} not yet supported&quot;</span><span class="p">)</span>
-        <span class="n">attributes</span> <span class="o">=</span> <span class="n">get_attributes</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
         <span class="n">root_object</span><span class="o">.</span><span class="n">dispatch_attributes</span><span class="p">([</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">attributes</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_name_out</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="p">)])</span>
         <span class="k">return</span> <span class="n">root_object</span>
 </pre></div>
@@ -741,7 +732,7 @@
 </thead>
 <tbody>
 <tr>
-<td><code class="codehilite"><span class="err">Object</span></code></td>
+<td><code>Union[mkdocstrings.documenter.Attribute, mkdocstrings.documenter.Method, mkdocstrings.documenter.Function, mkdocstrings.documenter.Module, mkdocstrings.documenter.Class]</code></td>
 <td>The object with all its children populated.</td>
 </tr>
 </tbody>
@@ -750,349 +741,44 @@
 </div>
 <h2 id="mkdocstrings.documenter.Object"><code class="codehilite"><span class="n">Object</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object" title="Permanent link">&para;</a></h2>
 <div class="autodoc">
-<p>Class to store information about a Python object.</p>
-<ul>
-<li>the object category (ex: module, function, class, method or attribute)</li>
-<li>the object path (ex: <code class="codehilite"><span class="err">package.submodule.class.inner_class.method</span></code>)</li>
-<li>the object name (ex: <code class="codehilite"><span class="err">__init__</span></code>)</li>
-<li>the object docstring</li>
-<li>the object properties, depending on its category (ex: special, classmethod, etc.)</li>
-<li>the object signature (soon)</li>
-</ul>
-<p>Each instance additionally stores references to its children, grouped by category (see Attributes).</p>
-<h3 id="mkdocstrings.documenter.Object.attributes"><code class="codehilite"><span class="n">attributes</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.attributes" title="Permanent link">&para;</a></h3>
+<p>Generic class to store information about a Python object.</p>
+<p>Each instance additionally stores references to its children, grouped by category.</p>
+<h3 id="mkdocstrings.documenter.Object.attributes"><code class="codehilite"><span class="n">attributes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Attribute</span><span class="p">]</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.attributes" title="Permanent link">&para;</a></h3>
 <div class="autodoc">
 <p>List of all the object's attributes.</p>
 </div>
-<h3 id="mkdocstrings.documenter.Object.children"><code class="codehilite"><span class="n">children</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.children" title="Permanent link">&para;</a></h3>
+<h3 id="mkdocstrings.documenter.Object.children"><code class="codehilite"><span class="n">children</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Attribute</span><span class="p">,</span> <span class="n">Method</span><span class="p">,</span> <span class="n">Function</span><span class="p">,</span> <span class="n">Module</span><span class="p">,</span> <span class="n">Class</span><span class="p">]]</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.children" title="Permanent link">&para;</a></h3>
 <div class="autodoc">
 <p>List of all the object's children.</p>
 </div>
-<h3 id="mkdocstrings.documenter.Object.classes"><code class="codehilite"><span class="n">classes</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.classes" title="Permanent link">&para;</a></h3>
+<h3 id="mkdocstrings.documenter.Object.classes"><code class="codehilite"><span class="n">classes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Class</span><span class="p">]</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.classes" title="Permanent link">&para;</a></h3>
 <div class="autodoc">
 <p>List of all the object's classes.</p>
 </div>
-<h3 id="mkdocstrings.documenter.Object.functions"><code class="codehilite"><span class="n">functions</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.functions" title="Permanent link">&para;</a></h3>
+<h3 id="mkdocstrings.documenter.Object.functions"><code class="codehilite"><span class="n">functions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Function</span><span class="p">]</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.functions" title="Permanent link">&para;</a></h3>
 <div class="autodoc">
 <p>List of all the object's functions.</p>
 </div>
-<h3 id="mkdocstrings.documenter.Object.methods"><code class="codehilite"><span class="n">methods</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.methods" title="Permanent link">&para;</a></h3>
+<h3 id="mkdocstrings.documenter.Object.methods"><code class="codehilite"><span class="n">methods</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Method</span><span class="p">]</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.methods" title="Permanent link">&para;</a></h3>
 <div class="autodoc">
 <p>List of all the object's methods.</p>
 </div>
-<h3 id="mkdocstrings.documenter.Object.modules"><code class="codehilite"><span class="n">modules</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.modules" title="Permanent link">&para;</a></h3>
+<h3 id="mkdocstrings.documenter.Object.modules"><code class="codehilite"><span class="n">modules</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Module</span><span class="p">]</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.modules" title="Permanent link">&para;</a></h3>
 <div class="autodoc">
 <p>List of all the object's submodules.</p>
 </div>
-<h3 id="mkdocstrings.documenter.Object.parent_path"><code class="codehilite"><span class="n">parent_path</span></code><em>(property, readonly)</em><a class="headerlink" href="#mkdocstrings.documenter.Object.parent_path" title="Permanent link">&para;</a></h3>
+<h3 id="mkdocstrings.documenter.Object.parent_path"><code class="codehilite"><span class="n">parent_path</span><span class="p">:</span> <span class="nb">str</span></code> <em>(property, readonly)</em><a class="headerlink" href="#mkdocstrings.documenter.Object.parent_path" title="Permanent link">&para;</a></h3>
 <div class="autodoc">
 <p>The parent's path, computed from the current path.</p>
 </div>
-<h3 id="mkdocstrings.documenter.Object.__init__"><code class="codehilite"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">docstring</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">signature</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><em>(special)</em><a class="headerlink" href="#mkdocstrings.documenter.Object.__init__" title="Permanent link">&para;</a></h3>
+<h3 id="mkdocstrings.documenter.Object.__init__"><code class="codehilite"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">docstring</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.__init__" title="Permanent link">&para;</a></h3>
 <div class="autodoc">
-<details class="note"><summary>Show source code</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>355
-356
-357
-358
-359
-360
-361
-362
-363
-364
-365
-366
-367
-368
-369
-370
-371
-372
-373
-374
-375
-376
-377
-378
-379
-380
-381
-382
-383
-384
-385
-386
-387
-388
-389</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">category</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">docstring</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">properties</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-        <span class="n">signature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">source</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">file</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">category</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">signature</span> <span class="o">=</span> <span class="n">signature</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">docstring</span> <span class="o">=</span> <span class="n">docstring</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span> <span class="o">=</span> <span class="n">properties</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">source</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">file</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_path_map</span> <span class="o">=</span> <span class="p">{}</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="sd">&quot;&quot;&quot;List of all the object&#39;s attributes.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">methods</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="sd">&quot;&quot;&quot;List of all the object&#39;s methods.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">functions</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="sd">&quot;&quot;&quot;List of all the object&#39;s functions.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">modules</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="sd">&quot;&quot;&quot;List of all the object&#39;s submodules.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">classes</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="sd">&quot;&quot;&quot;List of all the object&#39;s classes.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="sd">&quot;&quot;&quot;List of all the object&#39;s children.&quot;&quot;&quot;</span>
-</pre></div>
-</td></tr></table>
-
-</details>
-<p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</div>
-<h3 id="mkdocstrings.documenter.Object.__str__"><code class="codehilite"><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code><em>(special)</em><a class="headerlink" href="#mkdocstrings.documenter.Object.__str__" title="Permanent link">&para;</a></h3>
-<div class="autodoc">
-<details class="note"><summary>Show source code</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>391
-392</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span>
-</pre></div>
-</td></tr></table>
-
-</details>
-<p>Return str(self).</p>
-</div>
-<h3 id="mkdocstrings.documenter.Object.add_child"><code class="codehilite"><span class="n">add_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.add_child" title="Permanent link">&para;</a></h3>
-<div class="autodoc">
-<details class="note"><summary>Show source code</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>399
-400
-401
-402
-403
-404
-405
-406
-407
-408
-409
-410
-411
-412
-413
-414</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">add_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="s2">&quot;Object&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Add an object as a child of this object.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent_path</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
-            <span class="k">return</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="n">CATEGORY_ATTRIBUTE</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">,</span>
-            <span class="n">CATEGORY_METHOD</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">methods</span><span class="p">,</span>
-            <span class="n">CATEGORY_FUNCTION</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">functions</span><span class="p">,</span>
-            <span class="n">CATEGORY_MODULE</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">modules</span><span class="p">,</span>
-            <span class="n">CATEGORY_CLASS</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">,</span>
-        <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">category</span><span class="p">)</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-        <span class="n">obj</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_path_map</span><span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span>
-</pre></div>
-</td></tr></table>
-
-</details>
-<p>Add an object as a child of this object.</p>
-</div>
-<h3 id="mkdocstrings.documenter.Object.add_children"><code class="codehilite"><span class="n">add_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">children</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.add_children" title="Permanent link">&para;</a></h3>
-<div class="autodoc">
-<details class="note"><summary>Show source code</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>416
-417
-418
-419</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">add_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">children</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;Object&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Add a list of objects as children of this object.&quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
-</pre></div>
-</td></tr></table>
-
-</details>
-<p>Add a list of objects as children of this object.</p>
-</div>
-<h3 id="mkdocstrings.documenter.Object.render"><code class="codehilite"><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">heading</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">config</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.render" title="Permanent link">&para;</a></h3>
-<div class="autodoc">
-<details class="note"><summary>Show source code</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>438
-439
-440
-441
-442
-443
-444
-445
-446
-447
-448
-449
-450
-451
-452
-453
-454
-455
-456
-457
-458
-459
-460
-461
-462
-463
-464
-465
-466
-467
-468
-469
-470
-471
-472
-473
-474
-475
-476
-477
-478
-479
-480
-481
-482
-483
-484
-485
-486
-487
-488
-489
-490
-491
-492
-493
-494</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">heading</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Render this object as Markdown.</span>
-
-<span class="sd">        This is dirty and will be refactored as a Markdown extension soon.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            heading: The initial level of heading to use.</span>
-<span class="sd">            config: The rendering configuration dictionary.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            The rendered Markdown.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="n">show_top_object_heading</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;show_top_object_heading&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-        <span class="n">show_top_object_full_path</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;show_top_object_full_path&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">show_top_object_heading</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">docstring</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;hide_no_doc&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
-                <span class="n">signature</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-                <span class="n">toc_signature</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="ow">in</span> <span class="p">(</span><span class="n">CATEGORY_FUNCTION</span><span class="p">,</span> <span class="n">CATEGORY_METHOD</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">signature</span><span class="p">:</span>
-                        <span class="n">signature</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;({render_signature(self.signature)})&quot;</span>
-                    <span class="n">toc_signature</span> <span class="o">=</span> <span class="s2">&quot;()&quot;</span>
-                <span class="n">object_heading</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;`:::python {self.path if show_top_object_full_path else self.name}</span><span class="si">{signature}</span><span class="s2">`&quot;</span>
-                <span class="n">object_permalink</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\_\_&quot;</span><span class="p">)</span>
-                <span class="n">object_toc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\_\_&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">toc_signature</span>
-
-                <span class="n">properties</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">properties</span><span class="p">:</span>
-                    <span class="n">object_heading</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;*(</span><span class="si">{properties}</span><span class="s2">)*&quot;</span>
-
-                <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;{&#39;#&#39; * heading} </span><span class="si">{object_heading}</span><span class="s2"> {{: #</span><span class="si">{object_permalink}</span><span class="s2"> data-toc-label=&#39;</span><span class="si">{object_toc}</span><span class="s2">&#39; }}&quot;</span>
-                <span class="p">)</span>
-
-                <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;add_source_details&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">:</span>
-                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;??? note &quot;Show source code&quot;&#39;</span><span class="p">)</span>
-                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;    ```python linenums=&quot;</span><span class="si">{self.source[1]}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
-                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">textwrap</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="s2">&quot;    &quot;</span><span class="p">))</span>
-                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;    ```&quot;</span><span class="p">)</span>
-                    <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">docstring</span><span class="p">:</span>
-            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parse_docstring</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">docstring</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">signature</span><span class="p">))</span>
-            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;group_by_categories&quot;</span><span class="p">]:</span>
-            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">render_categories</span><span class="p">(</span><span class="n">heading</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">config</span><span class="p">,))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="n">o</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
-                <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">heading</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">config</span><span class="p">,))</span>
-                <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
-</pre></div>
-</td></tr></table>
-
-</details>
-<p>Render this object as Markdown.</p>
-<p>This is dirty and will be refactored as a Markdown extension soon.</p>
-<p><strong>Parameters</strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code class="codehilite"><span class="err">heading</span></code></td>
-<td><code class="codehilite"><span class="err">int</span></code></td>
-<td>The initial level of heading to use.</td>
-</tr>
-<tr>
-<td><code class="codehilite"><span class="err">**config</span></code></td>
-<td><code class="codehilite"><span class="err">Dict[str, Any]</span></code></td>
-<td>The rendering configuration dictionary.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Returns</strong></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code class="codehilite"><span class="err">str</span></code></td>
-<td>The rendered Markdown.</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<h2 id="mkdocstrings.documenter.import_object"><code class="codehilite"><span class="n">import_object</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.documenter.import_object" title="Permanent link">&para;</a></h2>
-<div class="autodoc">
-<details class="note"><summary>Show source code</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>126
+<details class="note"><summary>Show source code in mkdocstrings/documenter.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>121
+122
+123
+124
+125
+126
 127
 128
 129
@@ -1127,8 +813,230 @@
 158
 159
 160
-161
-162</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">import_object</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ModuleType</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+161</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">docstring</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;Docstring&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">properties</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">source</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            name: The object name, like `__init__` or `MyClass`.</span>
+<span class="sd">            path: The object dotted-path, like `package.submodule.class.inner_class.method`.</span>
+<span class="sd">            file_path: The full file path of the object&#39;s module, like `/full/path/to/package/submodule.py`.</span>
+<span class="sd">            docstring: A `Docstring` instance</span>
+<span class="sd">            properties: A list of properties like `special`, `classmethod`, etc.</span>
+<span class="sd">            source: A tuple with the object source code lines as a list, and the starting line in the object&#39;s module.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="n">file_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">docstring</span> <span class="o">=</span> <span class="n">docstring</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">properties</span> <span class="o">=</span> <span class="n">properties</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">source</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_path_map</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Attribute</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="sd">&quot;&quot;&quot;List of all the object&#39;s attributes.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">methods</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Method</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="sd">&quot;&quot;&quot;List of all the object&#39;s methods.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">functions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Function</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="sd">&quot;&quot;&quot;List of all the object&#39;s functions.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Module</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="sd">&quot;&quot;&quot;List of all the object&#39;s submodules.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Class</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="sd">&quot;&quot;&quot;List of all the object&#39;s classes.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Attribute</span><span class="p">,</span> <span class="n">Method</span><span class="p">,</span> <span class="n">Function</span><span class="p">,</span> <span class="n">Module</span><span class="p">,</span> <span class="n">Class</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="sd">&quot;&quot;&quot;List of all the object&#39;s children.&quot;&quot;&quot;</span>
+</pre></div>
+</td></tr></table>
+
+</details>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>str</code></td>
+<td>The object name, like <code>__init__</code> or <code>MyClass</code>.</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>path</code></td>
+<td><code>str</code></td>
+<td>The object dotted-path, like <code>package.submodule.class.inner_class.method</code>.</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>file_path</code></td>
+<td><code>str</code></td>
+<td>The full file path of the object's module, like <code>/full/path/to/package/submodule.py</code>.</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>docstring</code></td>
+<td><code>Optional[_ForwardRef('Docstring')]</code></td>
+<td>A <code>Docstring</code> instance</td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><code>properties</code></td>
+<td><code>Optional[List[str]]</code></td>
+<td>A list of properties like <code>special</code>, <code>classmethod</code>, etc.</td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td><code>Optional[Union[Tuple[int, List[str]]]]</code></td>
+<td>A tuple with the object source code lines as a list, and the starting line in the object's module.</td>
+<td><code>None</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="mkdocstrings.documenter.Object.add_child"><code class="codehilite"><span class="n">add_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.add_child" title="Permanent link">&para;</a></h3>
+<div class="autodoc">
+<details class="note"><summary>Show source code in mkdocstrings/documenter.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">add_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Attribute&quot;</span><span class="p">,</span> <span class="s2">&quot;Method&quot;</span><span class="p">,</span> <span class="s2">&quot;Function&quot;</span><span class="p">,</span> <span class="s2">&quot;Module&quot;</span><span class="p">,</span> <span class="s2">&quot;Class&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add an object as a child of this object.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            obj: An instance of documented object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent_path</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">is_module</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">obj</span><span class="o">.</span><span class="n">is_class</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">obj</span><span class="o">.</span><span class="n">is_function</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">obj</span><span class="o">.</span><span class="n">is_method</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">methods</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">obj</span><span class="o">.</span><span class="n">is_attribute</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_path_map</span><span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span>
+</pre></div>
+</td></tr></table>
+
+</details>
+<p>Add an object as a child of this object.</p>
+<p><strong>Parameters</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj</code></td>
+<td><code>Union[_ForwardRef('Attribute'), _ForwardRef('Method'), _ForwardRef('Function'), _ForwardRef('Module'), _ForwardRef('Class')]</code></td>
+<td>An instance of documented object.</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="mkdocstrings.documenter.Object.add_children"><code class="codehilite"><span class="n">add_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">children</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.add_children" title="Permanent link">&para;</a></h3>
+<div class="autodoc">
+<details class="note"><summary>Show source code in mkdocstrings/documenter.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>240
+241
+242
+243</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">add_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">children</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Attribute&quot;</span><span class="p">,</span> <span class="s2">&quot;Method&quot;</span><span class="p">,</span> <span class="s2">&quot;Function&quot;</span><span class="p">,</span> <span class="s2">&quot;Module&quot;</span><span class="p">,</span> <span class="s2">&quot;Class&quot;</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Add a list of objects as children of this object.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+
+</details>
+<p>Add a list of objects as children of this object.</p>
+</div>
+</div>
+<h2 id="mkdocstrings.documenter.import_object"><code class="codehilite"><span class="n">import_object</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.documenter.import_object" title="Permanent link">&para;</a></h2>
+<div class="autodoc">
+<details class="note"><summary>Show source code in mkdocstrings/documenter.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">import_object</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ModuleType</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Transform a path into an actual Python object.</span>
 
@@ -1142,7 +1050,7 @@
 <span class="sd">        path: the dot-separated path of the object.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        tuple: the imported module and obtained object.</span>
+<span class="sd">        The imported module and obtained object.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;path must be a valid Python path, not </span><span class="si">{path}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -1173,8 +1081,8 @@
 <p>The path can be arbitrary long. You can pass the path to a package,
 a module, a class, a function or a global variable, as deep as you
 want, as long as the deepest module is importable through
-<code class="codehilite"><span class="err">importlib.import_module</span></code> and each object is obtainable through
-the <code class="codehilite"><span class="err">getattr</span></code> method. Local objects will not work.</p>
+<code>importlib.import_module</code> and each object is obtainable through
+the <code>getattr</code> method. Local objects will not work.</p>
 <p><strong>Parameters</strong></p>
 <table>
 <thead>
@@ -1182,13 +1090,15 @@ the <code class="codehilite"><span class="err">getattr</span></code> method. Loc
 <th>Name</th>
 <th>Type</th>
 <th>Description</th>
+<th>Default</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code class="codehilite"><span class="err">path</span></code></td>
-<td><code class="codehilite"><span class="err">str</span></code></td>
+<td><code>path</code></td>
+<td><code>str</code></td>
 <td>the dot-separated path of the object.</td>
+<td><em>required</em></td>
 </tr>
 </tbody>
 </table>
@@ -1202,240 +1112,8 @@ the <code class="codehilite"><span class="err">getattr</span></code> method. Loc
 </thead>
 <tbody>
 <tr>
-<td><code class="codehilite"><span class="err">Tuple[module, Any]</span></code></td>
-<td>tuple: the imported module and obtained object.</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="mkdocstrings.documenter.parse_docstring"><code class="codehilite"><span class="n">parse_docstring</span><span class="p">(</span><span class="n">docstring</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.documenter.parse_docstring" title="Permanent link">&para;</a></h2>
-<div class="autodoc">
-<details class="note"><summary>Show source code</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>252
-253
-254
-255
-256
-257
-258
-259
-260
-261
-262
-263
-264
-265
-266
-267
-268
-269
-270
-271
-272
-273
-274
-275
-276
-277
-278
-279
-280
-281
-282
-283
-284
-285
-286
-287
-288
-289
-290
-291
-292
-293
-294
-295
-296
-297
-298
-299
-300
-301
-302
-303
-304
-305
-306
-307
-308
-309
-310
-311
-312
-313
-314
-315
-316
-317
-318
-319
-320
-321
-322
-323
-324
-325
-326
-327
-328
-329
-330
-331
-332
-333
-334
-335
-336
-337
-338</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">parse_docstring</span><span class="p">(</span><span class="n">docstring</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">signature</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Parse a docstring!</span>
-
-<span class="sd">    Note:</span>
-<span class="sd">        to try notes.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        docstring: this is the docstring to parse.</span>
-
-<span class="sd">    Raises:</span>
-<span class="sd">        OSError: no it doesn&#39;t lol.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        markdown: the docstring converted to a nice markdown text.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">exceptions</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">returns</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">lines</span> <span class="o">=</span> <span class="n">docstring</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">new_lines</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;args:&quot;</span><span class="p">,</span> <span class="s2">&quot;arguments:&quot;</span><span class="p">,</span> <span class="s2">&quot;params:&quot;</span><span class="p">,</span> <span class="s2">&quot;parameters:&quot;</span><span class="p">):</span>
-            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="ow">and</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;    &quot;</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;      &quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">params</span><span class="p">[</span><span class="n">name</span><span class="p">]:</span>
-                    <span class="n">params</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">name</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-                    <span class="n">params</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">description</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-                <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;**Parameters**</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;| Name | Type | Description |&quot;</span><span class="p">)</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;| ---- | ---- | ----------- |&quot;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">param_description</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="n">param_name</span><span class="p">,</span> <span class="n">param_default</span><span class="p">,</span> <span class="n">param_type</span> <span class="o">=</span> <span class="n">get_param_info</span><span class="p">(</span><span class="n">signature</span><span class="p">,</span> <span class="n">param_name</span><span class="p">)</span>
-                <span class="c1"># if param_default:</span>
-                <span class="c1">#     param_default = f&quot;`{param_default}`&quot;</span>
-                <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;| `</span><span class="si">{param_name}</span><span class="s2">` | `</span><span class="si">{param_type}</span><span class="s2">` | </span><span class="si">{param_description}</span><span class="s2"> |&quot;</span><span class="p">)</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="k">elif</span> <span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;raise:&quot;</span><span class="p">,</span> <span class="s2">&quot;raises:&quot;</span><span class="p">,</span> <span class="s2">&quot;except:&quot;</span><span class="p">,</span> <span class="s2">&quot;exceptions:&quot;</span><span class="p">):</span>
-            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="ow">and</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;    &quot;</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;      &quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">exceptions</span><span class="p">[</span><span class="n">name</span><span class="p">]:</span>
-                    <span class="n">exceptions</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">name</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-                    <span class="n">exceptions</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">description</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-                <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;**Exceptions**</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;| Type | Description |&quot;</span><span class="p">)</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;| ---- | ----------- |&quot;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">exception_name</span><span class="p">,</span> <span class="n">exception_description</span> <span class="ow">in</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;| `</span><span class="si">{exception_name}</span><span class="s2">` | </span><span class="si">{exception_description}</span><span class="s2"> |&quot;</span><span class="p">)</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="k">elif</span> <span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;return:&quot;</span><span class="p">,</span> <span class="s2">&quot;returns:&quot;</span><span class="p">):</span>
-            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="ow">and</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;    &quot;</span><span class="p">):</span>
-                <span class="n">description</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-                <span class="n">returns</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">description</span>
-                <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;**Returns**</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;| Type | Description |&quot;</span><span class="p">)</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;| ---- | ----------- |&quot;</span><span class="p">)</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;| `{get_return_type(signature)}` | </span><span class="si">{returns}</span><span class="s2"> |&quot;</span><span class="p">)</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="k">elif</span> <span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">ADMONITIONS</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="n">admonition</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="ow">and</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;    &quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
-                <span class="n">admonition</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-                <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;!!! {ADMONITIONS[lines[i].lower()]}&quot;</span><span class="p">)</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">admonition</span><span class="p">))</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">new_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-
-    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">new_lines</span><span class="p">)</span>
-</pre></div>
-</td></tr></table>
-
-</details>
-<p>Parse a docstring!</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>to try notes.</p>
-</div>
-<p><strong>Parameters</strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code class="codehilite"><span class="err">docstring</span></code></td>
-<td><code class="codehilite"><span class="err">str</span></code></td>
-<td>this is the docstring to parse.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Exceptions</strong></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code class="codehilite"><span class="err">OSError</span></code></td>
-<td>no it doesn't lol.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Returns</strong></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code class="codehilite"><span class="err">str</span></code></td>
-<td>markdown: the docstring converted to a nice markdown text.</td>
+<td><code>Tuple[module, Any]</code></td>
+<td>The imported module and obtained object.</td>
 </tr>
 </tbody>
 </table>

@@ -413,7 +413,7 @@
 simply create a new <a href="https://gitlab.com/pawamoy/mkdocstrings/issues/new">issue</a>.
 Try to be as descriptive as possible.</p>
 <h3 id="bug-fixes-new-features-and-documentation">Bug fixes, new features and documentation<a class="headerlink" href="#bug-fixes-new-features-and-documentation" title="Permanent link">&para;</a></h3>
-<p>This project is developed using <a href="https://github.com/sdispater/poetry"><code class="codehilite"><span class="err">poetry</span></code></a>.
+<p>This project is developed using <a href="https://github.com/sdispater/poetry"><code>poetry</code></a>.
 Follow the recommended installation method:</p>
 <div class="codehilite"><pre><span></span>curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py <span class="p">|</span> python
 </pre></div>
@@ -422,8 +422,8 @@ Follow the recommended installation method:</p>
 <ol>
 <li>Fork the repository <a href="https://gitlab.com/pawamoy/mkdocstrings">on gitlab.com</a>;</li>
 <li>Clone it on your machine;</li>
-<li>Go into the directory, and run <code class="codehilite"><span class="err">poetry install</span></code> to setup the development environment;</li>
-<li>Create a new branch with <code class="codehilite"><span class="err">git checkout -b bug-fix-or-feature-name</span></code>;</li>
+<li>Go into the directory, and run <code>poetry install</code> to setup the development environment;</li>
+<li>Create a new branch with <code>git checkout -b bug-fix-or-feature-name</code>;</li>
 <li>Code!</li>
 <li><strong>Write tests. Run them all.</strong> The commands to run the tests are:
    <div class="codehilite"><pre><span></span>poetry run pytest  <span class="c1"># to run all tests sequentially</span>
@@ -432,13 +432,13 @@ poetry run pytest -n <span class="m">4</span>  <span class="c1"># to run tests i
 poetry run pytest tests/test_api.py  <span class="c1"># to run tests in a specific file</span>
 </pre></div></li>
 </ol>
-<p><code class="codehilite"><span class="err">pytest</span></code> provides the <code class="codehilite"><span class="err">-k</span></code> option to select tests based on their names:</p>
+<p><code>pytest</code> provides the <code>-k</code> option to select tests based on their names:</p>
 <div class="codehilite"><pre><span></span>poetry run pytest -k <span class="s2">&quot;api and remove&quot;</span>
 poetry run pytest -k <span class="s2">&quot;utils or stats&quot;</span>
 </pre></div>
 
-<p>See the <a href="https://docs.pytest.org/en/latest/example/markers.html#using-k-expr-to-select-tests-based-on-their-name">documentation for the <code class="codehilite"><span class="err">-k</span></code> option</a> for more examples.</p>
-<p>A <a href="Makefile">Makefile</a> is available for convenience: <code class="codehilite"><span class="err">make test</span></code>.
+<p>See the <a href="https://docs.pytest.org/en/latest/example/markers.html#using-k-expr-to-select-tests-based-on-their-name">documentation for the <code>-k</code> option</a> for more examples.</p>
+<p>A <a href="Makefile">Makefile</a> is available for convenience: <code>make test</code>.
 1. When the tests pass, commit
   (make sure to have atomic commits and contextual commit messages!
   <a href="https://gitlab.com/pawamoy/mkdocstrings/compare">Check out this awesome blog post by Chris Beams for more information.</a>)
