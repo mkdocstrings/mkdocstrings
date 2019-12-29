@@ -78,9 +78,9 @@ import re
 import textwrap
 from functools import lru_cache
 from types import ModuleType
-from typing import Any, Callable, Dict, List, Optional, Pattern, Tuple, Type, Union
+from typing import Any, Callable, List, Optional, Pattern, Tuple, Type, Union
 
-from .docstrings import AnnotatedObject, Docstring
+from .docstrings import Docstring
 
 RECURSIVE_NODES = (ast.If, ast.IfExp, ast.Try, ast.With, ast.ExceptHandler)
 
@@ -360,8 +360,16 @@ class Documenter:
                 member_class = Method
                 signature = inspect.signature(actual_member)
             elif isinstance(member, type(lambda: 0)):  # regular method
-                if RE_SPECIAL.match(member_name) and docstring == inspect.getdoc(getattr(int, member_name)):
-                    docstring = ""
+                if RE_SPECIAL.match(member_name):
+                    parent_classes = class_.__mro__[1:]
+                    for parent_class in parent_classes:
+                        try:
+                            parent_member = getattr(parent_class, member_name)
+                        except AttributeError:
+                            pass
+                        else:
+                            if docstring == inspect.getdoc(parent_member):
+                                docstring = ""
                 member_class = Method
                 signature = inspect.signature(actual_member)
             elif isinstance(member, property):
