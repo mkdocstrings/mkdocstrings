@@ -370,6 +370,7 @@ class Documenter:
                         else:
                             if docstring == inspect.getdoc(parent_member):
                                 docstring = ""
+                                break
                 member_class = Method
                 signature = inspect.signature(actual_member)
             elif isinstance(member, property):
