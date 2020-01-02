@@ -9,6 +9,8 @@ nav:
   - Reference:
     - plugin.py: "reference/plugin.md"
     - documenter.py: "reference/documenter.md"
+    - docstrings.py: "reference/docstrings.md"
+    - renderer.py: "reference/renderer.md"
   - Contributing: "contributing.md"
   - Code of Conduct: "code_of_conduct.md"
   - Changelog: "changelog.md"
