@@ -10,8 +10,6 @@ Here is how to use it:
     [`Method`][mkdocstrings.documenter.Method], [`Function`][mkdocstrings.documenter.Function],
     or [`Attribute`][mkdocstrings.documenter.Attribute]) with the documenter's `get_object_documentation` method.
     The method takes the dotted-path to an object as argument.
-3. get Markdown contents by calling the documented object's [`render`][mkdocstrings.documenter.Object.render] method
-    with more configuration options (should be refactored).
 
 Here is how we proceed:
 
@@ -27,8 +25,8 @@ Here is how we proceed:
     dispatching them onto the object thanks to their dotted-paths.
 3. Each docstring is parsed to build a list of "docstring sections". Such a section can be a markdown block of lines,
     a block of parameters, a block of exceptions, an admonition, or the information about the return value.
-    Exceptions and the return value are instances of [`AnnotatedObject`][mkdocstrings.documenter.AnnotatedObject],
-    while parameters are instances of the [`Parameter`][mkdocstrings.documenter.Parameter] class, which is a subclass of
+    Exceptions and the return value are instances of [`AnnotatedObject`][mkdocstrings.docstrings.AnnotatedObject],
+    while parameters are instances of the [`Parameter`][mkdocstrings.docstrings.Parameter] class, which is a subclass of
     `AnnotatedObject`. To build these sections, we search for blocks matching the
     [Google style](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html) for docstrings.
 
@@ -145,7 +143,7 @@ class Object:
         self.parent = None
         self.source = source
 
-        self._path_map = {}
+        self._path_map = {self.path: self}
 
         self.attributes: List[Attribute] = []
         """List of all the object's attributes."""
@@ -288,7 +286,9 @@ class Attribute(Object):
 class Documenter:
     """Class that contains the object documentation loading mechanisms."""
 
-    def __init__(self, global_filters):
+    def __init__(self, global_filters=None):
+        if not global_filters:
+            global_filters = []
         self.global_filters = [(f, re.compile(f.lstrip("!"))) for f in global_filters]
 
     def get_object_documentation(self, import_string: str) -> Union[Attribute, Method, Function, Module, Class]:
@@ -317,7 +317,7 @@ class Documenter:
         root_object = Module(
             name=name, path=path, file_path=module.__file__, docstring=Docstring(inspect.getdoc(module))
         )
-        for member_name, member in filter(lambda m: not self.filter_name_out(m[0]), inspect.getmembers(module)):
+        for member_name, member in (m for m in inspect.getmembers(module) if not self.filter_name_out(m[0])):
             if inspect.isclass(member) and inspect.getmodule(member) == module:
                 root_object.add_child(self.get_class_documentation(member, module))
             elif inspect.isfunction(member) and inspect.getmodule(member) == module:
@@ -406,6 +406,8 @@ class Documenter:
 
     @lru_cache(maxsize=None)
     def filter_name_out(self, name: str) -> bool:
+        if not self.global_filters:
+            return False
         keep = True
         for f, regex in self.global_filters:
             is_matching = bool(regex.match(name))

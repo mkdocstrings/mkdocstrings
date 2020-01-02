@@ -84,7 +84,7 @@ class Parameter(AnnotatedObject):
 
 class Docstring:
     def __init__(self, value, signature=None):
-        self.original_value = value
+        self.original_value = value or ""
         self.signature = signature
         self.return_object = None
         self.blocks = self.parse()
