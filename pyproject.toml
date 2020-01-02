@@ -4,14 +4,14 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "mkdocstrings"
-version = "0.6.0"
+version = "0.6.1"
 description = "Automatic documentation from docstrings, for mkdocs."
 authors = ["Timothée Mazzucotelli <pawamoy@pm.me>"]
 license = "ISC License"
 readme = "README.md"
-repository = "https://gitlab.com/pawamoy/mkdocstrings"
-homepage = "https://gitlab.com/pawamoy/mkdocstrings"
-keywords = []
+repository = "https://github.com/pawamoy/mkdocstrings"
+homepage = "https://github.com/pawamoy/mkdocstrings"
+keywords = ["mkdocs", "mkdocs-plugin", "docstrings", "autodoc"]
 packages = [ { include = "mkdocstrings", from = "src" } ]
 include = [
     "README.md",
