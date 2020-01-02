@@ -445,14 +445,20 @@ def node_to_names(node: ast.Assign) -> dict:
 
 
 def node_to_annotated_names(node: ast.AnnAssign) -> dict:
-    name = node.target.attr
+    try:
+        name = node.target.id
+    except AttributeError:
+        name = node.target.attr
     lineno = node.lineno
     return {"names": [name], "lineno": lineno, "signature": node_to_annotation(node)}
 
 
 def node_to_annotation(node) -> str:
     if isinstance(node, ast.AnnAssign):
-        annotation = node.annotation.value.id
+        try:
+            annotation = node.annotation.id
+        except AttributeError:
+            annotation = node.annotation.value.id
         if hasattr(node.annotation, "slice"):
             annotation += f"[{node_to_annotation(node.annotation.slice.value)}]"
         return annotation
