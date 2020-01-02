@@ -366,11 +366,11 @@ class Documenter:
                         try:
                             parent_member = getattr(parent_class, member_name)
                         except AttributeError:
-                            pass
+                            continue
                         else:
                             if docstring == inspect.getdoc(parent_member):
                                 docstring = ""
-                                break
+                            break
                 member_class = Method
                 signature = inspect.signature(actual_member)
             elif isinstance(member, property):
