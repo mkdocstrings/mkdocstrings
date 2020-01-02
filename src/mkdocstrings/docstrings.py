@@ -1,7 +1,7 @@
 import inspect
 import re
 import sys
-from typing import List, Tuple, Union
+from typing import List
 
 from .utils import annotation_to_string
 
@@ -37,6 +37,10 @@ ADMONITIONS = {
     "quote:": "quote",
     "cite:": "cite",
 }
+
+TITLES_PARAMETERS = ("args:", "arguments:", "params:", "parameters:")
+TITLES_EXCEPTIONS = ("raise:", "raises:", "except:", "exceptions:")
+TITLES_RETURN = ("return:", "returns:")
 
 
 class AnnotatedObject:
@@ -82,11 +86,23 @@ class Parameter(AnnotatedObject):
         return str(self.default)
 
 
+class Section:
+    class Type:
+        MARKDOWN = "markdown"
+        PARAMETERS = "parameters"
+        EXCEPTIONS = "exceptions"
+        RETURN = "return"
+        ADMONITION = "admonition"
+
+    def __init__(self, section_type, value):
+        self.type = section_type
+        self.value = value
+
+
 class Docstring:
     def __init__(self, value, signature=None):
         self.original_value = value or ""
         self.signature = signature
-        self.return_object = None
         self.blocks = self.parse()
 
     # return a list of tuples of the form:
@@ -98,7 +114,7 @@ class Docstring:
     # Sections like Note: and Warning: in markdown values should be regex-replaced by their admonition equivalent,
     # up to maximum 2 levels of indentation, and only if admonition is registered. Add a configuration option for this.
     # Then the markdown values are transformed by a Markdown transformation.
-    def parse(self) -> List[Tuple[str, Union[List[Union[str, AnnotatedObject, Parameter]], AnnotatedObject]]]:
+    def parse(self) -> List[Section]:
         """
         Parse a docstring!
 
@@ -108,9 +124,7 @@ class Docstring:
         Returns:
             The docstring converted to a nice markdown text.
         """
-        parameters = []
-        exceptions = []
-        blocks = []
+        sections = []
         current_block = []
 
         in_code_block = False
@@ -120,65 +134,35 @@ class Docstring:
 
         while i < len(lines):
             line_lower = lines[i].lower()
-            if line_lower in ("args:", "arguments:", "params:", "parameters:"):
+            if line_lower in TITLES_PARAMETERS:
                 if current_block:
-                    blocks.append(("markdown", current_block))
+                    sections.append(Section(Section.Type.MARKDOWN, current_block))
                     current_block = []
-                block, i = self.read_block_items(lines, i + 1)
-                for param_line in block:
-                    name, description = param_line.lstrip(" ").split(":", 1)
-                    try:
-                        signature_param = self.signature.parameters[name]
-                    except AttributeError:
-                        print(f"no type annotation for parameter {name}", file=sys.stderr)
-                    else:
-                        parameters.append(
-                            Parameter(
-                                name=name,
-                                annotation=signature_param.annotation,
-                                description=description.lstrip(" "),
-                                default=signature_param.default,
-                                kind=signature_param.kind,
-                            )
-                        )
-                blocks.append(("parameters", parameters))
-                parameters = []
-            elif line_lower in ("raise:", "raises:", "except:", "exceptions:"):
+                section, i = self.read_parameters_section(lines, i + 1)
+                sections.append(section)
+            elif line_lower in TITLES_EXCEPTIONS:
                 if current_block:
-                    blocks.append(("markdown", current_block))
+                    sections.append(Section(Section.Type.MARKDOWN, current_block))
                     current_block = []
-                block, i = self.read_block_items(lines, i + 1)
-                for exception_line in block:
-                    annotation, description = exception_line.split(": ")
-                    exceptions.append(AnnotatedObject(annotation, description.lstrip(" ")))
-                blocks.append(("exceptions", exceptions))
-                exceptions = []
-            elif line_lower in ("return:", "returns:"):
+                section, i = self.read_exceptions_section(lines, i + 1)
+                sections.append(section)
+            elif line_lower in TITLES_RETURN:
                 if current_block:
-                    blocks.append(("markdown", current_block))
+                    sections.append(Section(Section.Type.MARKDOWN, current_block))
                     current_block = []
-                block, i = self.read_block(lines, i + 1)
-                try:
-                    self.return_object = AnnotatedObject(self.signature.return_annotation, " ".join(block))
-                    blocks.append(("return", self.return_object))
-                except AttributeError:
-                    print("no return type annotation", file=sys.stderr)
+                section, i = self.read_return_section(lines, i + 1)
+                if section:
+                    sections.append(section)
             elif (
                 not line_lower.startswith("     ")
                 and line_lower.lstrip(" ") in ADMONITIONS.keys()
                 and not in_code_block
             ):
                 if current_block:
-                    blocks.append(("markdown", current_block))
+                    sections.append(Section(Section.Type.MARKDOWN, current_block))
                     current_block = []
-                admonition, i = self.read_block(lines, i + 1)
-                key = line_lower.lstrip(" ")
-                leading_spaces = len(line_lower) - len(key)
-                admonition.insert(0, (leading_spaces, ADMONITIONS[key]))
-                blocks.append(("admonition", admonition))
-                # new_lines.append(f"!!! {ADMONITIONS[line_lower]}")
-                # new_lines.append("\n".join(admonition))
-                # new_lines.append("")
+                section, i = self.read_admonition(line_lower, lines, i + 1)
+                sections.append(section)
             elif line_lower.lstrip(" ").startswith("```"):
                 in_code_block = not in_code_block
                 current_block.append(lines[i])
@@ -186,10 +170,10 @@ class Docstring:
                 current_block.append(lines[i])
             i += 1
 
-        if current_block and any(current_block):
-            blocks.append(("markdown", current_block))
+        if current_block:
+            sections.append(Section(Section.Type.MARKDOWN, current_block))
 
-        return blocks
+        return sections
 
     @staticmethod
     def read_block_items(lines, start_index):
@@ -211,3 +195,48 @@ class Docstring:
             block.append(lines[i])
             i += 1
         return block, i - 1
+
+    def read_parameters_section(self, lines, start_index):
+        parameters = []
+        block, i = self.read_block_items(lines, start_index)
+        for param_line in block:
+            name, description = param_line.lstrip(" ").split(":", 1)
+            try:
+                signature_param = self.signature.parameters[name]
+            except AttributeError:
+                print(f"no type annotation for parameter {name}", file=sys.stderr)
+            else:
+                parameters.append(
+                    Parameter(
+                        name=name,
+                        annotation=signature_param.annotation,
+                        description=description.lstrip(" "),
+                        default=signature_param.default,
+                        kind=signature_param.kind,
+                    )
+                )
+        return Section(Section.Type.PARAMETERS, parameters), i
+
+    def read_exceptions_section(self, lines, start_index):
+        exceptions = []
+        block, i = self.read_block_items(lines, start_index)
+        for exception_line in block:
+            annotation, description = exception_line.split(": ")
+            exceptions.append(AnnotatedObject(annotation, description.lstrip(" ")))
+        return Section(Section.Type.EXCEPTIONS, exceptions), i
+
+    def read_admonition(self, first_line, lines, start_index):
+        admonition, i = self.read_block(lines, start_index)
+        key = first_line.lstrip(" ")
+        leading_spaces = len(first_line) - len(key)
+        admonition.insert(0, (leading_spaces, ADMONITIONS[key]))
+        return Section(Section.Type.ADMONITION, admonition), i
+
+    def read_return_section(self, lines, start_index):
+        block, i = self.read_block(lines, start_index)
+        try:
+            return_object = AnnotatedObject(self.signature.return_annotation, " ".join(block))
+        except AttributeError:
+            print("no return type annotation", file=sys.stderr)
+            return None, i
+        return Section(Section.Type.RETURN, return_object), i

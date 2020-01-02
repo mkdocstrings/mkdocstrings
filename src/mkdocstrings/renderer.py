@@ -1,5 +1,6 @@
 import textwrap
 
+from .docstrings import Section
 from .utils import annotation_to_string
 
 
@@ -94,36 +95,36 @@ def render_references(obj, base_url: str):
 
 
 def render_docstring(obj, lines):
-    for block_type, block in obj.docstring.blocks:
-        if block_type == "markdown":
-            lines.extend(block)
-        elif block_type == "parameters":
+    for section in obj.docstring.blocks:
+        if section.type == Section.Type.MARKDOWN:
+            lines.extend(section.value)
+        elif section.type == Section.Type.PARAMETERS:
             lines.append("**Parameters**\n")
             lines.append("| Name | Type | Description | Default |")
             lines.append("| ---- | ---- | ----------- | ------- |")
-            for parameter in block:
+            for parameter in section.value:
                 default = parameter.default_string
                 default = f"`{default}`" if default else "*required*"
                 lines.append(
                     f"| `{parameter.name}` | `{parameter.annotation_string}` | {parameter.description} | {default} |"
                 )
             lines.append("")
-        elif block_type == "exceptions":
+        elif section.type == Section.Type.EXCEPTIONS:
             lines.append("**Exceptions**\n")
             lines.append("| Type | Description |")
             lines.append("| ---- | ----------- |")
-            for exception in block:
+            for exception in section.value:
                 lines.append(f"| `{exception.annotation_string}` | {exception.description} |")
             lines.append("")
-        elif block_type == "return":
+        elif section.type == Section.Type.RETURN:
             lines.append("**Returns**\n")
             lines.append("| Type | Description |")
             lines.append("| ---- | ----------- |")
-            lines.append(f"| `{block.annotation_string}` | {block.description} |")
+            lines.append(f"| `{section.value.annotation_string}` | {section.value.description} |")
             lines.append("")
-        elif block_type == "admonition":
-            lines.append(f"{' ' * block[0][0]}!!! {block[0][1]}")
-            lines.extend(block[1:])
+        elif section.type == Section.Type.ADMONITION:
+            lines.append(f"{' ' * section.value[0][0]}!!! {section.value[0][1]}")
+            lines.extend(section.value[1:])
     lines.append("")
 
 
