@@ -1,10 +1,12 @@
 """Plugin module docstring."""
 
+from markdown import Markdown
 from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
+from mkdocs.structure.toc import get_toc
 
 from .documenter import Documenter
-from .renderer import MarkdownRenderer, render_references
+from .renderer import MarkdownRenderer, insert_divs, render_references
 
 config = {
     "show_top_object_heading": False,
@@ -27,11 +29,38 @@ class MkdocstringsPlugin(BasePlugin):
         self.documenter = None
         self.objects = {}
         self.pages_with_docstrings = []
-        self.references = []
+        self._references = []
+        self._main_config = None
+
+    @property
+    def references(self):
+        return "\n\n" + "\n".join(self._references)
+
+    def get_combined_extensions(self):
+        extensions = self._main_config["markdown_extensions"]
+        configs = self._main_config["mdx_configs"] or {}
+        for ext, ext_config in {
+            "admonition": {},
+            "codehilite": {},
+            "attr_list": {},
+            "pymdownx.details": {},
+            "pymdownx.superfences": {},
+            "pymdownx.inlinehilite": {},
+            "toc": {"permalink": True},
+        }.items():
+            if ext not in extensions:
+                extensions.append(ext)
+                configs[ext] = ext_config
+            else:
+                if ext not in configs:
+                    configs[ext] = {}
+                configs[ext].update(ext_config)
+        return extensions, configs
 
     def on_config(self, config, **kwargs):
         """Initializes a [Documenter][mkdocstrings.documenter.Documenter]."""
         self.documenter = Documenter(self.config["global_filters"])
+        self._main_config = config
         return config
 
     def on_nav(self, nav, **kwargs):
@@ -47,7 +76,7 @@ class MkdocstringsPlugin(BasePlugin):
                     import_string = line.replace("::: ", "")
                     if import_string not in self.objects:
                         root_object = self.documenter.get_object_documentation(import_string)
-                        self.references.append(render_references(root_object, page.abs_url))
+                        self._references.append(render_references(root_object, page.abs_url))
                         mapping_value = {"object": root_object, "page": page.abs_url}
                         self.objects[import_string] = mapping_value
                         if import_string != root_object.path:
@@ -57,9 +86,16 @@ class MkdocstringsPlugin(BasePlugin):
         return nav
 
     def on_page_markdown(self, markdown, page, **kwargs):
+        return f"{markdown}{self.references}"
+
+    def on_page_content(self, html, page, **kwargs):
         if page.abs_url not in self.pages_with_docstrings:
-            return markdown
-        lines = markdown.split("\n")
+            return html
+
+        extensions, configs = self.get_combined_extensions()
+        md = Markdown(extensions=extensions, extension_configs=configs)
+
+        lines = page.markdown.split("\n")
         modified_lines = lines[::]
         for i, line in enumerate(lines):
             if line.startswith("::: "):
@@ -68,41 +104,9 @@ class MkdocstringsPlugin(BasePlugin):
                 root_object = self.objects[import_string]["object"]
                 heading = 2 if config["show_top_object_heading"] else 1
                 modified_lines[i] = "\n".join(renderer.render(root_object, heading))
-        modified_lines.extend(self.references)
-        return "\n".join(modified_lines)
 
-    def on_page_content(self, html, page, **kwargs):
-        if page.abs_url not in self.pages_with_docstrings:
-            return html
-        div = '<div class="autodoc">'
-        end_div = "</div>"
-        lines = html.split("\n")
-        new_lines = lines[::]
-        levels = [0]
-        inserted = 0
-        for i, line in enumerate(lines):
-            if line.startswith("<h") and line[2].isnumeric():
-                level = int(line[2])
-                if level > levels[-1]:
-                    new_lines.insert(i + 1 + inserted, div)
-                    inserted += 1
-                    levels.append(level)
-                elif level == levels[-1]:
-                    new_lines.insert(i + inserted, end_div)
-                    inserted += 1
-                    new_lines.insert(i + 1 + inserted, div)
-                    inserted += 1
-                else:
-                    while level < levels[-1]:
-                        new_lines.insert(i + inserted, end_div)
-                        inserted += 1
-                        levels.pop()
-                    new_lines.insert(i + inserted, end_div)
-                    inserted += 1
-                    new_lines.insert(i + 1 + inserted, div)
-                    inserted += 1
-        while levels[-1] > 0:
-            new_lines.append(end_div)
-            levels.pop()
-        new_html = "\n".join(new_lines)
-        return new_html
+        modified_lines.append(self.references)
+        markdown_contents = "\n".join(modified_lines)
+        html = insert_divs(md.convert(markdown_contents))
+        page.toc = get_toc(getattr(md, 'toc', ''))
+        return html

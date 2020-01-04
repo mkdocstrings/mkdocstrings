@@ -1,7 +1,10 @@
 import textwrap
-
+import re
 from .docstrings import Section
 from .utils import annotation_to_string
+
+
+RE_AUTODOC_TITLE = re.compile(r'<h[1-6] id="([\w.]+)"><code class="codehilite">')
 
 
 class MarkdownRenderer:
@@ -159,3 +162,38 @@ def render_signature(obj):
                 params.append(value)
             return f"({', '.join(params)})"
     return ""
+
+
+def insert_divs(html):
+    div = '<div class="autodoc">'
+    end_div = "</div>"
+    lines = html.split("\n")
+    new_lines = lines[::]
+    levels = [0]
+    inserted = 0
+    for i, line in enumerate(lines):
+        if RE_AUTODOC_TITLE.match(line):
+            level = int(line[2])
+            if level > levels[-1]:
+                new_lines.insert(i + 1 + inserted, div)
+                inserted += 1
+                levels.append(level)
+            elif level == levels[-1]:
+                new_lines.insert(i + inserted, end_div)
+                inserted += 1
+                new_lines.insert(i + 1 + inserted, div)
+                inserted += 1
+            else:
+                while level < levels[-1]:
+                    new_lines.insert(i + inserted, end_div)
+                    inserted += 1
+                    levels.pop()
+                new_lines.insert(i + inserted, end_div)
+                inserted += 1
+                new_lines.insert(i + 1 + inserted, div)
+                inserted += 1
+    while levels[-1] > 0:
+        new_lines.append(end_div)
+        levels.pop()
+    new_html = "\n".join(new_lines)
+    return new_html

@@ -78,17 +78,6 @@ python3.6 -m pip install mkdocstrings
 theme:
   name: "material"
 
-# these extensions are required for best results
-markdown_extensions:
-  - admonition
-  - codehilite
-  - attr_list
-  - pymdownx.details
-  - pymdownx.superfences
-  - pymdownx.inlinehilite
-  - toc:
-      permalink: true
-
 plugins:
   - search
   - mkdocstrings
