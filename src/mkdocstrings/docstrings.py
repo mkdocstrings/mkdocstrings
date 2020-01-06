@@ -64,12 +64,20 @@ class Parameter(AnnotatedObject):
         self.default = default
 
     @property
-    def optional(self):
+    def is_optional(self):
         return self.default is not inspect.Signature.empty
 
     @property
-    def required(self):
-        return not self.optional
+    def is_required(self):
+        return not self.is_optional
+
+    @property
+    def is_args(self):
+        return self.kind is inspect.Parameter.VAR_POSITIONAL
+
+    @property
+    def is_kwargs(self):
+        return self.kind is inspect.Parameter.VAR_KEYWORD
 
     @property
     def annotation_string(self):
@@ -80,9 +88,13 @@ class Parameter(AnnotatedObject):
 
     @property
     def default_string(self):
-        if self.default is inspect.Signature.empty:
+        if self.is_kwargs:
+            return "{}"
+        elif self.is_args:
+            return "()"
+        elif self.is_required:
             return ""
-        return str(self.default)
+        return repr(self.default)
 
 
 class Section:
@@ -116,6 +128,9 @@ class Docstring:
     def parse(self) -> List[Section]:
         """
         Parse a docstring!
+
+        Parameters:
+            kwargs: Some kwargs.
 
         Note:
             to try notes.

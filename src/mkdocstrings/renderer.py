@@ -106,10 +106,15 @@ def render_docstring(obj, lines):
             lines.append("| Name | Type | Description | Default |")
             lines.append("| ---- | ---- | ----------- | ------- |")
             for parameter in section.value:
+                name = parameter.name
+                if parameter.is_kwargs:
+                    name = f"**{name}"
+                elif parameter.is_args:
+                    name = f"*{name}"
                 default = parameter.default_string
                 default = f"`{default}`" if default else "*required*"
                 lines.append(
-                    f"| `{parameter.name}` | `{parameter.annotation_string}` | {parameter.description} | {default} |"
+                    f"| `{name}` | `{parameter.annotation_string}` | {parameter.description} | {default} |"
                 )
             lines.append("")
         elif section.type == Section.Type.EXCEPTIONS:
@@ -154,11 +159,11 @@ def render_signature(obj):
                 elif parameter.kind is parameter.POSITIONAL_ONLY:
                     if render_pos_only_separator:
                         render_pos_only_separator = False
-                        params.append("/")
+                        value = "/"
                 elif parameter.kind is parameter.KEYWORD_ONLY:
                     if render_kw_only_separator:
                         render_kw_only_separator = False
-                        params.append("*")
+                        value = "*"
                 params.append(value)
             return f"({', '.join(params)})"
     return ""
