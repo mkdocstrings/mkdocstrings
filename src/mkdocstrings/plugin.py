@@ -41,7 +41,7 @@ class MkdocstringsPlugin(BasePlugin):
         configs = self._main_config["mdx_configs"] or {}
         for ext, ext_config in {
             "admonition": {},
-            "codehilite": {},
+            "codehilite": {"guess_lang": False},
             "attr_list": {},
             "pymdownx.details": {},
             "pymdownx.superfences": {},
