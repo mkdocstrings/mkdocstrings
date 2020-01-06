@@ -330,8 +330,9 @@ class Documenter:
             pass
         else:
             for _, modname, _ in pkgutil.iter_modules(package_path):
-                parent, submodule = import_object(f"{name}.{modname}")
-                root_object.add_child(self.get_module_documentation(submodule))
+                if not self.filter_name_out(modname):
+                    parent, submodule = import_object(f"{name}.{modname}")
+                    root_object.add_child(self.get_module_documentation(submodule))
 
         return root_object
 
