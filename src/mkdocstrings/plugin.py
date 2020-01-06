@@ -1,9 +1,11 @@
 """Plugin module docstring."""
+import sys
 
 from markdown import Markdown
 from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
 from mkdocs.structure.toc import get_toc
+from mkdocs.utils import log
 
 from .documenter import Documenter
 from .renderer import MarkdownRenderer, insert_divs, render_references
@@ -21,7 +23,10 @@ config = {
 class MkdocstringsPlugin(BasePlugin):
     """The mkdocstrings plugin to use in your mkdocs configuration file."""
 
-    config_scheme = (("global_filters", MkType(list, default=["!^_[^_]", "!^__weakref__$"])),)
+    config_scheme = (
+        ("global_filters", MkType(list, default=["!^_[^_]", "!^__weakref__$"])),
+        ("watch", MkType(list, default=[])),
+    )
 
     def __init__(self, *args, **kwargs) -> None:
         super(MkdocstringsPlugin, self).__init__()
@@ -31,6 +36,7 @@ class MkdocstringsPlugin(BasePlugin):
         self.pages_with_docstrings = []
         self._references = []
         self._main_config = None
+        self._sys = set(sys.modules.keys())
 
     @property
     def references(self):
@@ -56,6 +62,30 @@ class MkdocstringsPlugin(BasePlugin):
                     configs[ext] = {}
                 configs[ext].update(ext_config)
         return extensions, configs
+
+    def clear(self):
+        self.documenter = None
+        self.objects = {}
+        self.pages_with_docstrings = []
+        self._references = []
+        self._main_config = None
+        self._sys = set(sys.modules.keys())
+
+    def on_serve(self, server, config, **kwargs):
+        builder = list(server.watcher._tasks.values())[0]["func"]
+
+        def unload_and_rebuild():
+            diff = set(sys.modules.keys()) - self._sys
+            log.info(f"mkdocstrings: Unloading modules loaded after mkdocstrings plugin was instantiated ({len(diff)} modules)")
+            for module in diff:
+                del sys.modules[module]
+            self.clear()
+            builder()
+
+        for element in self.config["watch"]:
+            log.info(f"mkdocstrings: Adding directory '{element}' to watcher")
+            server.watch(element, unload_and_rebuild)
+        return server
 
     def on_config(self, config, **kwargs):
         """Initializes a [Documenter][mkdocstrings.documenter.Documenter]."""

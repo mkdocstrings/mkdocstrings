@@ -27,14 +27,10 @@ markdown_extensions:
   - admonition
   - codehilite:
       guess_lang: false
-  - attr_list
-  - pymdownx.details
   - pymdownx.superfences
-  - pymdownx.inlinehilite
-  - toc:
-      permalink: true
 
 plugins:
   - search
-  - mkdocstrings
-
+  - mkdocstrings:
+      watch:
+        - src/mkdocstrings
