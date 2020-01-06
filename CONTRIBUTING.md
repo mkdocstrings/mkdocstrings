@@ -17,38 +17,40 @@ curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.p
 
 Then follow these instructions:
 
-1. Fork the repository [on gitlab.com][2];
+1. Fork the repository [on github.com][2];
 1. Clone it on your machine;
 1. Go into the directory, and run `poetry install` to setup the development environment;
 1. Create a new branch with `git checkout -b bug-fix-or-feature-name`;
 1. Code!
 1. **Write tests. Run them all.** The commands to run the tests are:
-   ```bash
-   poetry run pytest  # to run all tests sequentially
-   poetry run pytest -v  # to print one test per line
-   poetry run pytest -n 4  # to run tests in parallel (4 workers)
-   poetry run pytest tests/test_api.py  # to run tests in a specific file
-   ```
 
-   `pytest` provides the `-k` option to select tests based on their names:
+    ```bash
+    poetry run pytest  # to run all tests sequentially
+    poetry run pytest -v  # to print one test per line
+    poetry run pytest -n 4  # to run tests in parallel (4 workers)
+    poetry run pytest tests/test_api.py  # to run tests in a specific file
+    ```
 
-   ```bash
-   poetry run pytest -k "api and remove"
-   poetry run pytest -k "utils or stats"
-   ```
+    `pytest` provides the `-k` option to select tests based on their names:
 
-   See the [documentation for the `-k` option][3] for more examples.
+    ```bash
+    poetry run pytest -k "api and remove"
+    poetry run pytest -k "utils or stats"
+    ```
 
-   A [Makefile](Makefile) is available for convenience: `make test`.
+    See the [documentation for the `-k` option][3] for more examples.
+
+    A [Makefile](Makefile) is available for convenience: `make test`.
+
 1. When the tests pass, commit
-  (make sure to have atomic commits and contextual commit messages!
-  [Check out this awesome blog post by Chris Beams for more information.][4])
+    (make sure to have atomic commits and contextual commit messages!
+    [Check out this awesome blog post by Chris Beams for more information.][4])
 1. Push;
 1. ...and finally, create a new [pull/merge request][5]!
-   Make sure to follow the guidelines.
+    Make sure to follow the guidelines.
 
-[1]: https://gitlab.com/pawamoy/mkdocstrings/issues/new
-[2]: https://gitlab.com/pawamoy/mkdocstrings
+[1]: https://github.com/pawamoy/mkdocstrings/issues/new
+[2]: https://github.com/pawamoy/mkdocstrings
 [3]: https://docs.pytest.org/en/latest/example/markers.html#using-k-expr-to-select-tests-based-on-their-name
-[5]: http://chris.beams.io/posts/git-commit/
-[4]: https://gitlab.com/pawamoy/mkdocstrings/compare
+[4]: http://chris.beams.io/posts/git-commit/
+[5]: https://github.com/pawamoy/mkdocstrings/compare

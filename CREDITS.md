@@ -7,7 +7,7 @@ IMPORTANT:
 # Credits
 These projects were used to build `mkdocstrings`. **Thank you!**
 
-[![`python`](https://www.vectorlogo.zone/logos/python/python-ar21.svg)](https://www.python.org/) |
+[`python`](https://www.python.org/) |
 [`poetry`](https://poetry.eustace.io/) |
 [`cookie-poetry`](https://github.com/pawamoy/cookie-poetry)
 
@@ -26,29 +26,22 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`pytest-cov`](https://github.com/pytest-dev/pytest-cov) |
 [`pytest-sugar`](http://pivotfinland.com/pytest-sugar/) |
 [`pytest-xdist`](https://github.com/pytest-dev/pytest-xdist) |
-[`recommonmark`](https://github.com/rtfd/recommonmark) |
 [`safety`](https://github.com/pyupio/safety) |
-[`Sphinx`](http://sphinx-doc.org/) |
-[`sphinx-rtd-theme`](https://github.com/rtfd/sphinx_rtd_theme/) |
 [`toml`](https://github.com/uiri/toml)
 
 ### Indirect dependencies
-[`alabaster`](https://alabaster.readthedocs.io) |
 [`apipkg`](https://github.com/pytest-dev/apipkg) |
 [`appdirs`](http://github.com/ActiveState/appdirs) |
 [`appnope`](http://github.com/minrk/appnope) |
 [`astroid`](https://github.com/PyCQA/astroid) |
 [`atomicwrites`](https://github.com/untitaker/python-atomicwrites) |
 [`attrs`](https://www.attrs.org/) |
-[`Babel`](http://babel.pocoo.org/) |
 [`backcall`](https://github.com/takluyver/backcall) |
 [`certifi`](https://certifi.io/) |
 [`chardet`](https://github.com/chardet/chardet) |
 [`Click`](https://palletsprojects.com/p/click/) |
 [`colorama`](https://github.com/tartley/colorama) |
-[![`commonmark`](https://www.vectorlogo.zone/logos/commonmark/commonmark-ar21.svg)](https://github.com/rtfd/commonmark.py) |
 [`decorator`](https://github.com/micheles/decorator) |
-[`docutils`](http://docutils.sourceforge.net/) |
 [`dparse`](https://github.com/jayfk/dparse) |
 [`entrypoints`](https://github.com/takluyver/entrypoints) |
 [`execnet`](https://execnet.readthedocs.io/en/latest/) |
@@ -56,11 +49,10 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`GitPython`](https://github.com/gitpython-developers/GitPython) |
 [`htmlmin`](https://htmlmin.readthedocs.io/en/latest/) |
 [`idna`](https://github.com/kjd/idna) |
-[`imagesize`](https://github.com/shibukawa/imagesize_py) |
 [`importlib-metadata`](http://importlib-metadata.readthedocs.io/) |
 [`ipython-genutils`](http://ipython.org) |
 [`jedi`](https://github.com/davidhalter/jedi) |
-[![`Jinja2`](https://www.vectorlogo.zone/logos/pocoo_jinja/pocoo_jinja-ar21.svg)](https://palletsprojects.com/p/jinja/) |
+[`Jinja2`](https://palletsprojects.com/p/jinja/) |
 [`jsmin`](https://github.com/tikitu/jsmin/) |
 [`lazy-object-proxy`](https://github.com/ionelmc/python-lazy-object-proxy) |
 [`livereload`](https://github.com/lepture/python-livereload) |
@@ -86,14 +78,11 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`pymdown-extensions`](https://github.com/facelessuser/pymdown-extensions) |
 [`pyparsing`](https://github.com/pyparsing/pyparsing/) |
 [`pytest-forked`](https://github.com/pytest-dev/pytest-forked) |
-[`pytz`](http://pythonhosted.org/pytz) |
 [`PyYAML`](https://github.com/yaml/pyyaml) |
 [`regex`](https://bitbucket.org/mrabarnett/mrab-regex) |
 [`requests`](http://python-requests.org) |
 [`six`](https://github.com/benjaminp/six) |
 [`smmap2`](https://github.com/gitpython-developers/smmap) |
-[`snowballstemmer`](https://github.com/snowballstem/snowball) |
-[`sphinxcontrib-websupport`](http://sphinx-doc.org/) |
 [`stevedore`](https://docs.openstack.org/stevedore/latest/) |
 [`termcolor`](http://pypi.python.org/pypi/termcolor) |
 [`tornado`](http://www.tornadoweb.org/) |
@@ -105,6 +94,3 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`zipp`](https://github.com/jaraco/zipp)
 
 **[More credits from the author](http://pawamoy.github.io/credits/)**
-
-*See one of your project without the logo? Make sure it's available on [VectorLogoZone](https://www.vectorlogo.zone/)
-([GitHub repo](https://github.com/VectorLogoZone/vectorlogozone)) and open an issue or send a pull/merge request!*
