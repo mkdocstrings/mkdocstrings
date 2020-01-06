@@ -72,6 +72,7 @@ import ast
 import importlib
 import inspect
 import os
+import pkgutil
 import re
 import textwrap
 from functools import lru_cache
@@ -322,6 +323,16 @@ class Documenter:
                 root_object.add_child(self.get_class_documentation(member, module))
             elif inspect.isfunction(member) and inspect.getmodule(member) == module:
                 root_object.add_child(self.get_function_documentation(member, module))
+
+        try:
+            package_path = module.__path__
+        except AttributeError:
+            pass
+        else:
+            for _, modname, _ in pkgutil.iter_modules(package_path):
+                parent, submodule = import_object(f"{name}.{modname}")
+                root_object.add_child(self.get_module_documentation(submodule))
+
         return root_object
 
     def get_class_documentation(self, class_: Type[Any], module: Optional[ModuleType] = None) -> Class:
