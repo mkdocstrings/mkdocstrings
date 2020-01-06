@@ -76,7 +76,9 @@ class MkdocstringsPlugin(BasePlugin):
 
         def unload_and_rebuild():
             diff = set(sys.modules.keys()) - self._sys
-            log.info(f"mkdocstrings: Unloading modules loaded after mkdocstrings plugin was instantiated ({len(diff)} modules)")
+            log.info(
+                f"mkdocstrings: Unloading modules loaded after mkdocstrings plugin was instantiated ({len(diff)} modules)"
+            )
             for module in diff:
                 del sys.modules[module]
             self.clear()
