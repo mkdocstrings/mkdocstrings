@@ -42,6 +42,9 @@ TITLES_PARAMETERS = ("args:", "arguments:", "params:", "parameters:")
 TITLES_EXCEPTIONS = ("raise:", "raises:", "except:", "exceptions:")
 TITLES_RETURN = ("return:", "returns:")
 
+RE_OPTIONAL = re.compile(r"Union\[(.+), NoneType\]")
+RE_FORWARD_REF = re.compile(r"_ForwardRef\('([^']+)'\)")
+
 
 class AnnotatedObject:
     def __init__(self, annotation, description):
@@ -71,12 +74,8 @@ class Parameter(AnnotatedObject):
     @property
     def annotation_string(self):
         s = AnnotatedObject.annotation_string.fget(self)
-        optional_param = re.match(r"^Union\[([^,]+), NoneType\]$", s)
-        if optional_param:
-            s = f"Optional[{optional_param.group(1)}]"
-        optional_union_param = re.match(r"^Union\[(.+), NoneType\]$", s)
-        if optional_union_param:
-            s = f"Optional[Union[{optional_union_param.group(1)}]]"
+        s = RE_FORWARD_REF.sub(lambda match: match.group(1), s)
+        s = RE_OPTIONAL.sub(lambda match: f"Optional[{rebuild_optional(match.group(1))}]", s)
         return s
 
     @property
@@ -240,3 +239,15 @@ class Docstring:
             print("no return type annotation", file=sys.stderr)
             return None, i
         return Section(Section.Type.RETURN, return_object), i
+
+
+def rebuild_optional(matched_group):
+    brackets_level = 0
+    for char in matched_group:
+        if char == "," and brackets_level == 0:
+            return f"Union[{matched_group}]"
+        elif char == "[":
+            brackets_level += 1
+        elif char == "]":
+            brackets_level -= 1
+    return matched_group
