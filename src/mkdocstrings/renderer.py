@@ -1,8 +1,8 @@
-import textwrap
 import re
+import textwrap
+
 from .docstrings import Section
 from .utils import annotation_to_string
-
 
 RE_AUTODOC_TITLE = re.compile(r'<h[1-6] id="([\w.]+)"><code class="codehilite">')
 

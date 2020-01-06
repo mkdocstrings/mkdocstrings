@@ -108,5 +108,5 @@ class MkdocstringsPlugin(BasePlugin):
         modified_lines.append(self.references)
         markdown_contents = "\n".join(modified_lines)
         html = insert_divs(md.convert(markdown_contents))
-        page.toc = get_toc(getattr(md, 'toc', ''))
+        page.toc = get_toc(getattr(md, "toc", ""))
         return html
