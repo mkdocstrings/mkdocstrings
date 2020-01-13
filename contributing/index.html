@@ -269,6 +269,30 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../reference/docstrings/" title="docstrings.py" class="md-nav__link">
+      docstrings.py
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../reference/renderer/" title="renderer.py" class="md-nav__link">
+      renderer.py
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -406,13 +430,13 @@
                   <a href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/contributing.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h1>
+                <h1 id="contributing">Contributing</h1>
 <p>Contributions are welcome, and they are greatly appreciated!</p>
 <p>Every little bit helps, and credit will always be given.</p>
 <p>For bug reports, feature requests, and feedback,
-simply create a new <a href="https://gitlab.com/pawamoy/mkdocstrings/issues/new">issue</a>.
+simply create a new <a href="https://github.com/pawamoy/mkdocstrings/issues/new">issue</a>.
 Try to be as descriptive as possible.</p>
-<h3 id="bug-fixes-new-features-and-documentation">Bug fixes, new features and documentation<a class="headerlink" href="#bug-fixes-new-features-and-documentation" title="Permanent link">&para;</a></h3>
+<h3 id="bug-fixes-new-features-and-documentation">Bug fixes, new features and documentation</h3>
 <p>This project is developed using <a href="https://github.com/sdispater/poetry"><code>poetry</code></a>.
 Follow the recommended installation method:</p>
 <div class="codehilite"><pre><span></span>curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py <span class="p">|</span> python
@@ -420,31 +444,36 @@ Follow the recommended installation method:</p>
 
 <p>Then follow these instructions:</p>
 <ol>
-<li>Fork the repository <a href="https://gitlab.com/pawamoy/mkdocstrings">on gitlab.com</a>;</li>
+<li>Fork the repository <a href="https://github.com/pawamoy/mkdocstrings">on github.com</a>;</li>
 <li>Clone it on your machine;</li>
 <li>Go into the directory, and run <code>poetry install</code> to setup the development environment;</li>
 <li>Create a new branch with <code>git checkout -b bug-fix-or-feature-name</code>;</li>
 <li>Code!</li>
-<li><strong>Write tests. Run them all.</strong> The commands to run the tests are:
-   <div class="codehilite"><pre><span></span>poetry run pytest  <span class="c1"># to run all tests sequentially</span>
+<li>
+<p><strong>Write tests. Run them all.</strong> The commands to run the tests are:</p>
+<div class="codehilite"><pre><span></span>poetry run pytest  <span class="c1"># to run all tests sequentially</span>
 poetry run pytest -v  <span class="c1"># to print one test per line</span>
 poetry run pytest -n <span class="m">4</span>  <span class="c1"># to run tests in parallel (4 workers)</span>
 poetry run pytest tests/test_api.py  <span class="c1"># to run tests in a specific file</span>
-</pre></div></li>
-</ol>
+</pre></div>
+
 <p><code>pytest</code> provides the <code>-k</code> option to select tests based on their names:</p>
 <div class="codehilite"><pre><span></span>poetry run pytest -k <span class="s2">&quot;api and remove&quot;</span>
 poetry run pytest -k <span class="s2">&quot;utils or stats&quot;</span>
 </pre></div>
 
 <p>See the <a href="https://docs.pytest.org/en/latest/example/markers.html#using-k-expr-to-select-tests-based-on-their-name">documentation for the <code>-k</code> option</a> for more examples.</p>
-<p>A <a href="Makefile">Makefile</a> is available for convenience: <code>make test</code>.
-1. When the tests pass, commit
-  (make sure to have atomic commits and contextual commit messages!
-  <a href="https://gitlab.com/pawamoy/mkdocstrings/compare">Check out this awesome blog post by Chris Beams for more information.</a>)
-1. Push;
-1. ...and finally, create a new <a href="http://chris.beams.io/posts/git-commit/">pull/merge request</a>!
-   Make sure to follow the guidelines.</p>
+<p>A <a href="Makefile">Makefile</a> is available for convenience: <code>make test</code>.</p>
+</li>
+<li>
+<p>When the tests pass, commit
+    (make sure to have atomic commits and contextual commit messages!
+    <a href="http://chris.beams.io/posts/git-commit/">Check out this awesome blog post by Chris Beams for more information.</a>)</p>
+</li>
+<li>Push;</li>
+<li>...and finally, create a new <a href="https://github.com/pawamoy/mkdocstrings/compare">pull/merge request</a>!
+    Make sure to follow the guidelines.</li>
+</ol>
                 
                   
                 
@@ -466,7 +495,7 @@ poetry run pytest -k <span class="s2">&quot;utils or stats&quot;</span>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../reference/documenter/" title="documenter.py" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../reference/renderer/" title="renderer.py" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -475,7 +504,7 @@ poetry run pytest -k <span class="s2">&quot;utils or stats&quot;</span>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                documenter.py
+                renderer.py
               </span>
             </div>
           </a>

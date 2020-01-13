@@ -408,6 +408,30 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../docstrings/" title="docstrings.py" class="md-nav__link">
+      docstrings.py
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../renderer/" title="renderer.py" class="md-nav__link">
+      renderer.py
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -620,8 +644,6 @@
     <a href="/reference/documenter/#mkdocstrings.documenter.Method"><code>Method</code></a>, <a href="/reference/documenter/#mkdocstrings.documenter.Function"><code>Function</code></a>,
     or <a href="/reference/documenter/#mkdocstrings.documenter.Attribute"><code>Attribute</code></a>) with the documenter's <code>get_object_documentation</code> method.
     The method takes the dotted-path to an object as argument.</li>
-<li>get Markdown contents by calling the documented object's [<code>render</code>][mkdocstrings.documenter.Object.render] method
-    with more configuration options (should be refactored).</li>
 </ol>
 <p>Here is how we proceed:</p>
 <ol>
@@ -638,8 +660,8 @@
 <li>
 <p>Each docstring is parsed to build a list of "docstring sections". Such a section can be a markdown block of lines,
     a block of parameters, a block of exceptions, an admonition, or the information about the return value.
-    Exceptions and the return value are instances of [<code>AnnotatedObject</code>][mkdocstrings.documenter.AnnotatedObject],
-    while parameters are instances of the [<code>Parameter</code>][mkdocstrings.documenter.Parameter] class, which is a subclass of
+    Exceptions and the return value are instances of <a href="/reference/docstrings/#mkdocstrings.docstrings.AnnotatedObject"><code>AnnotatedObject</code></a>,
+    while parameters are instances of the <a href="/reference/docstrings/#mkdocstrings.docstrings.Parameter"><code>Parameter</code></a> class, which is a subclass of
     <code>AnnotatedObject</code>. To build these sections, we search for blocks matching the
     <a href="https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html">Google style</a> for docstrings.</p>
 <p>For example:</p>
@@ -680,8 +702,7 @@ annotation to an attribute.</p>
 <p>Class that contains the object documentation loading mechanisms.</p>
 <h3 id="mkdocstrings.documenter.Documenter.get_object_documentation"><code class="codehilite"><span class="n">get_object_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">import_string</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.documenter.Documenter.get_object_documentation" title="Permanent link">&para;</a></h3>
 <div class="autodoc">
-<details class="note"><summary>Show source code in mkdocstrings/documenter.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>294
-295
+<details class="note"><summary>Show source code in mkdocstrings/documenter.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>295
 296
 297
 298
@@ -698,7 +719,8 @@ annotation to an attribute.</p>
 309
 310
 311
-312</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">get_object_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">import_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Attribute</span><span class="p">,</span> <span class="n">Method</span><span class="p">,</span> <span class="n">Function</span><span class="p">,</span> <span class="n">Module</span><span class="p">,</span> <span class="n">Class</span><span class="p">]:</span>
+312
+313</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">get_object_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">import_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Attribute</span><span class="p">,</span> <span class="n">Method</span><span class="p">,</span> <span class="n">Function</span><span class="p">,</span> <span class="n">Module</span><span class="p">,</span> <span class="n">Class</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Documenting to see return type.</span>
 
@@ -773,7 +795,8 @@ annotation to an attribute.</p>
 </div>
 <h3 id="mkdocstrings.documenter.Object.__init__"><code class="codehilite"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">docstring</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.__init__" title="Permanent link">&para;</a></h3>
 <div class="autodoc">
-<details class="note"><summary>Show source code in mkdocstrings/documenter.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>121
+<details class="note"><summary>Show source code in mkdocstrings/documenter.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>120
+121
 122
 123
 124
@@ -812,8 +835,7 @@ annotation to an attribute.</p>
 157
 158
 159
-160
-161</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+160</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -840,7 +862,7 @@ annotation to an attribute.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">source</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_path_map</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_path_map</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">:</span> <span class="bp">self</span><span class="p">}</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Attribute</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="sd">&quot;&quot;&quot;List of all the object&#39;s attributes.&quot;&quot;&quot;</span>
@@ -889,7 +911,7 @@ annotation to an attribute.</p>
 </tr>
 <tr>
 <td><code>docstring</code></td>
-<td><code>Optional[_ForwardRef('Docstring')]</code></td>
+<td><code>Optional[Docstring]</code></td>
 <td>A <code>Docstring</code> instance</td>
 <td><code>None</code></td>
 </tr>
@@ -901,7 +923,7 @@ annotation to an attribute.</p>
 </tr>
 <tr>
 <td><code>source</code></td>
-<td><code>Optional[Union[Tuple[int, List[str]]]]</code></td>
+<td><code>Optional[Tuple[int, List[str]]]</code></td>
 <td>A tuple with the object source code lines as a list, and the starting line in the object's module.</td>
 <td><code>None</code></td>
 </tr>
@@ -910,7 +932,8 @@ annotation to an attribute.</p>
 </div>
 <h3 id="mkdocstrings.documenter.Object.add_child"><code class="codehilite"><span class="n">add_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.add_child" title="Permanent link">&para;</a></h3>
 <div class="autodoc">
-<details class="note"><summary>Show source code in mkdocstrings/documenter.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>215
+<details class="note"><summary>Show source code in mkdocstrings/documenter.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>214
+215
 216
 217
 218
@@ -932,8 +955,7 @@ annotation to an attribute.</p>
 234
 235
 236
-237
-238</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">add_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Attribute&quot;</span><span class="p">,</span> <span class="s2">&quot;Method&quot;</span><span class="p">,</span> <span class="s2">&quot;Function&quot;</span><span class="p">,</span> <span class="s2">&quot;Module&quot;</span><span class="p">,</span> <span class="s2">&quot;Class&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+237</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">add_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Attribute&quot;</span><span class="p">,</span> <span class="s2">&quot;Method&quot;</span><span class="p">,</span> <span class="s2">&quot;Function&quot;</span><span class="p">,</span> <span class="s2">&quot;Module&quot;</span><span class="p">,</span> <span class="s2">&quot;Class&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add an object as a child of this object.</span>
 
@@ -975,7 +997,7 @@ annotation to an attribute.</p>
 <tbody>
 <tr>
 <td><code>obj</code></td>
-<td><code>Union[_ForwardRef('Attribute'), _ForwardRef('Method'), _ForwardRef('Function'), _ForwardRef('Module'), _ForwardRef('Class')]</code></td>
+<td><code>Union[Attribute, Method, Function, Module, Class]</code></td>
 <td>An instance of documented object.</td>
 <td><em>required</em></td>
 </tr>
@@ -984,10 +1006,10 @@ annotation to an attribute.</p>
 </div>
 <h3 id="mkdocstrings.documenter.Object.add_children"><code class="codehilite"><span class="n">add_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">children</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.documenter.Object.add_children" title="Permanent link">&para;</a></h3>
 <div class="autodoc">
-<details class="note"><summary>Show source code in mkdocstrings/documenter.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>240
+<details class="note"><summary>Show source code in mkdocstrings/documenter.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>239
+240
 241
-242
-243</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">add_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">children</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Attribute&quot;</span><span class="p">,</span> <span class="s2">&quot;Method&quot;</span><span class="p">,</span> <span class="s2">&quot;Function&quot;</span><span class="p">,</span> <span class="s2">&quot;Module&quot;</span><span class="p">,</span> <span class="s2">&quot;Class&quot;</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+242</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">add_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">children</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Attribute&quot;</span><span class="p">,</span> <span class="s2">&quot;Method&quot;</span><span class="p">,</span> <span class="s2">&quot;Function&quot;</span><span class="p">,</span> <span class="s2">&quot;Module&quot;</span><span class="p">,</span> <span class="s2">&quot;Class&quot;</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Add a list of objects as children of this object.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
@@ -1000,43 +1022,43 @@ annotation to an attribute.</p>
 </div>
 <h2 id="mkdocstrings.documenter.import_object"><code class="codehilite"><span class="n">import_object</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.documenter.import_object" title="Permanent link">&para;</a></h2>
 <div class="autodoc">
-<details class="note"><summary>Show source code in mkdocstrings/documenter.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>513
-514
-515
-516
-517
-518
-519
-520
-521
-522
-523
-524
-525
-526
-527
-528
-529
-530
-531
-532
-533
-534
-535
-536
-537
-538
-539
-540
-541
-542
+<details class="note"><summary>Show source code in mkdocstrings/documenter.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>542
 543
 544
 545
 546
 547
 548
-549</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">import_object</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ModuleType</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">import_object</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">ModuleType</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Transform a path into an actual Python object.</span>
 
@@ -1154,13 +1176,13 @@ the <code>getattr</code> method. Local objects will not work.</p>
           </a>
         
         
-          <a href="../../contributing/" title="Contributing" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../docstrings/" title="docstrings.py" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Contributing
+                docstrings.py
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

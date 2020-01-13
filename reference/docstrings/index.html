@@ -13,7 +13,7 @@
         <meta name="description" content="Automatic documentation from docstrings, for mkdocs.">
       
       
-        <link rel="canonical" href="https://mkdocstrings.github.io/reference/plugin/">
+        <link rel="canonical" href="https://mkdocstrings.github.io/reference/docstrings/">
       
       
       
@@ -40,7 +40,7 @@
     
     
       
-        <title>plugin.py - mkdocstrings</title>
+        <title>docstrings.py - mkdocstrings</title>
       
     
     
@@ -83,7 +83,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#mkdocstrings.plugin.MkdocstringsPlugin" tabindex="1" class="md-skip">
+      <a href="#mkdocstrings.docstrings.Docstring" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -109,7 +109,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                plugin.py
+                docstrings.py
               
             </span>
           
@@ -251,58 +251,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        plugin.py
-      </label>
-    
-    <a href="./" title="plugin.py" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../plugin/" title="plugin.py" class="md-nav__link">
       plugin.py
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#mkdocstrings.plugin.MkdocstringsPlugin" class="md-nav__link">
-    MkdocstringsPlugin
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mkdocstrings.plugin.MkdocstringsPlugin.on_config" class="md-nav__link">
-    on_config()
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
         
@@ -322,11 +275,58 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../docstrings/" title="docstrings.py" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        docstrings.py
+      </label>
+    
+    <a href="./" title="docstrings.py" class="md-nav__link md-nav__link--active">
       docstrings.py
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocstrings.docstrings.Docstring" class="md-nav__link">
+    Docstring
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mkdocstrings.docstrings.Docstring.parse" class="md-nav__link">
+    parse()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -414,16 +414,16 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#mkdocstrings.plugin.MkdocstringsPlugin" class="md-nav__link">
-    MkdocstringsPlugin
+  <a href="#mkdocstrings.docstrings.Docstring" class="md-nav__link">
+    Docstring
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mkdocstrings.plugin.MkdocstringsPlugin.on_config" class="md-nav__link">
-    on_config()
+  <a href="#mkdocstrings.docstrings.Docstring.parse" class="md-nav__link">
+    parse()
   </a>
   
 </li>
@@ -449,31 +449,158 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/reference/plugin.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/reference/docstrings.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>plugin.py</h1>
+                  <h1>docstrings.py</h1>
                 
-                <p>Plugin module docstring.</p>
-<h2 id="mkdocstrings.plugin.MkdocstringsPlugin"><code class="codehilite"><span class="n">MkdocstringsPlugin</span></code><a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin" title="Permanent link">&para;</a></h2>
+                <h2 id="mkdocstrings.docstrings.Docstring"><code class="codehilite"><span class="n">Docstring</span></code><a class="headerlink" href="#mkdocstrings.docstrings.Docstring" title="Permanent link">&para;</a></h2>
 <div class="autodoc">
-<p>The mkdocstrings plugin to use in your mkdocs configuration file.</p>
-<h3 id="mkdocstrings.plugin.MkdocstringsPlugin.on_config"><code class="codehilite"><span class="n">on_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_config" title="Permanent link">&para;</a></h3>
+<h3 id="mkdocstrings.docstrings.Docstring.parse"><code class="codehilite"><span class="n">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.docstrings.Docstring.parse" title="Permanent link">&para;</a></h3>
 <div class="autodoc">
-<details class="note"><summary>Show source code in mkdocstrings/plugin.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>92
-93
-94
-95
-96</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">on_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initializes a [Documenter][mkdocstrings.documenter.Documenter].&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">documenter</span> <span class="o">=</span> <span class="n">Documenter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;global_filters&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span> <span class="o">=</span> <span class="n">config</span>
-        <span class="k">return</span> <span class="n">config</span>
+<details class="note"><summary>Show source code in mkdocstrings/docstrings.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Section</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse a docstring!</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            to try notes.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The docstring converted to a nice markdown text.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sections</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">current_block</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">in_code_block</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">original_value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+            <span class="n">line_lower</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">line_lower</span> <span class="ow">in</span> <span class="n">TITLES_PARAMETERS</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">current_block</span><span class="p">:</span>
+                    <span class="n">sections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Section</span><span class="p">(</span><span class="n">Section</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">MARKDOWN</span><span class="p">,</span> <span class="n">current_block</span><span class="p">))</span>
+                    <span class="n">current_block</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">section</span><span class="p">,</span> <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_parameters_section</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">sections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">line_lower</span> <span class="ow">in</span> <span class="n">TITLES_EXCEPTIONS</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">current_block</span><span class="p">:</span>
+                    <span class="n">sections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Section</span><span class="p">(</span><span class="n">Section</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">MARKDOWN</span><span class="p">,</span> <span class="n">current_block</span><span class="p">))</span>
+                    <span class="n">current_block</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">section</span><span class="p">,</span> <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_exceptions_section</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">sections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">line_lower</span> <span class="ow">in</span> <span class="n">TITLES_RETURN</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">current_block</span><span class="p">:</span>
+                    <span class="n">sections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Section</span><span class="p">(</span><span class="n">Section</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">MARKDOWN</span><span class="p">,</span> <span class="n">current_block</span><span class="p">))</span>
+                    <span class="n">current_block</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">section</span><span class="p">,</span> <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_return_section</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">section</span><span class="p">:</span>
+                    <span class="n">sections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="p">(</span>
+                <span class="ow">not</span> <span class="n">line_lower</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;     &quot;</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="n">line_lower</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ADMONITIONS</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                <span class="ow">and</span> <span class="ow">not</span> <span class="n">in_code_block</span>
+            <span class="p">):</span>
+                <span class="k">if</span> <span class="n">current_block</span><span class="p">:</span>
+                    <span class="n">sections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Section</span><span class="p">(</span><span class="n">Section</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">MARKDOWN</span><span class="p">,</span> <span class="n">current_block</span><span class="p">))</span>
+                    <span class="n">current_block</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">section</span><span class="p">,</span> <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_admonition</span><span class="p">(</span><span class="n">line_lower</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">sections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">section</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">line_lower</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;```&quot;</span><span class="p">):</span>
+                <span class="n">in_code_block</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">in_code_block</span>
+                <span class="n">current_block</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">current_block</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">current_block</span><span class="p">:</span>
+            <span class="n">sections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Section</span><span class="p">(</span><span class="n">Section</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">MARKDOWN</span><span class="p">,</span> <span class="n">current_block</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">sections</span>
 </pre></div>
 </td></tr></table>
 
 </details>
-<p>Initializes a <a href="/reference/documenter/#mkdocstrings.documenter.Documenter">Documenter</a>.</p>
+<p>Parse a docstring!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>to try notes.</p>
+</div>
+<p><strong>Returns</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>List[mkdocstrings.docstrings.Section]</code></td>
+<td>The docstring converted to a nice markdown text.</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
                 
@@ -497,7 +624,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../.." title="Overview" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../documenter/" title="documenter.py" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -506,19 +633,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Overview
+                documenter.py
               </span>
             </div>
           </a>
         
         
-          <a href="../documenter/" title="documenter.py" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../renderer/" title="renderer.py" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                documenter.py
+                renderer.py
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
