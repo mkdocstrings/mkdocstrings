@@ -129,9 +129,6 @@ class Docstring:
         """
         Parse a docstring!
 
-        Parameters:
-            kwargs: Some kwargs.
-
         Note:
             to try notes.
 
