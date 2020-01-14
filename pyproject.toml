@@ -26,6 +26,7 @@ bandit = "^1.5"
 black = { version = "*", allow-prereleases = true }
 coverage = { version = "=5.0a8", allow-prereleases = true }
 flake8 = "^3.6"
+git-changelog = "^0.2.0"
 ipython = "^7.2"
 isort = { version = "^4.3", extras = ["pyproject"] }
 jinja2-cli = "^0.7.0"
