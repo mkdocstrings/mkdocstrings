@@ -211,7 +211,11 @@ class Docstring:
         parameters = []
         block, i = self.read_block_items(lines, start_index)
         for param_line in block:
-            name, description = param_line.lstrip(" ").split(":", 1)
+            try:
+                name, description = param_line.lstrip(" ").split(":", 1)
+            except Exception as e:
+                print(f"Failed to get 'name: description' pair from '{param_line}'")
+                continue
             try:
                 signature_param = self.signature.parameters[name]
             except AttributeError:
