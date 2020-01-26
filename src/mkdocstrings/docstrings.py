@@ -212,7 +212,14 @@ class Docstring:
         block, i = self.read_block_items(lines, start_index)
         for param_line in block:
             try:
-                name, description = param_line.lstrip(" ").split(":", 1)
+                name_with_type, description = param_line.lstrip(" ").split(":", 1)
+                paren_index = name_with_type.find("(")
+                if paren_index != -1:
+                    # name (type)
+                    name = name_with_type[0:paren_index].strip()
+                else:
+                    # no type, just use name as-is
+                    name = name_with_type
             except Exception as e:
                 print(f"Failed to get 'name: description' pair from '{param_line}'")
                 continue
