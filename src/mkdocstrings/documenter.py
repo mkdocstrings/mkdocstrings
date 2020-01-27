@@ -347,7 +347,7 @@ class Documenter:
         except ValueError:
             print(f"Failed to get signature for {class_name}")
             signature = inspect.Signature()
-        docstring = Docstring(textwrap.dedent(class_.__doc__ or ""),)
+        docstring = Docstring(textwrap.dedent(class_.__doc__ or ""), signature)
         root_object = Class(name=class_name, path=path, file_path=file_path, docstring=docstring,)
 
         for member_name, member in sorted(filter(lambda m: not self.filter_name_out(m[0]), class_.__dict__.items())):
