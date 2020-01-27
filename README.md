@@ -149,8 +149,8 @@ def my_function(param1: int, param2: Optional[str] = None) -> str:
                They will all be concatenated in one line, so do not try to
              use complex markup here.
 
-    Important:
-        Note how we omitted the type hints next to the parameters names.
+    Note:
+        We omitted the type hints next to the parameters names.
         Usually you would write something like `param1 (int): ...`,
         but `mkdocstrings` gets the type information from the signature, so it's not needed here.
 
@@ -162,7 +162,7 @@ def my_function(param1: int, param2: Optional[str] = None) -> str:
           Multi-line description, etc.
 
     Let's see the return value section now.
-    
+
     Returns:
         A description of the value that is returned.
         Again multiple lines are allowed. They will also be concatenated to one line,
@@ -170,7 +170,7 @@ def my_function(param1: int, param2: Optional[str] = None) -> str:
 
     Note:
         Other words are supported:
-        
+
         - `Args`, `Arguments`, `Params` and `Parameters` for the parameters.
         - `Raise`, `Raises`, `Except`, and `Exceptions` for exceptions.
         - `Return` or `Returns` for return value.
