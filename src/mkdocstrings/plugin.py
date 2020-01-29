@@ -8,7 +8,8 @@ from mkdocs.structure.toc import get_toc
 from mkdocs.utils import log
 
 from .documenter import Documenter
-from .renderer import MarkdownRenderer, insert_divs, render_references
+from .extension import MkdocstringsExtension
+from .renderer import MarkdownRenderer, insert_divs
 
 config = {
     "show_top_object_heading": False,
@@ -93,6 +94,8 @@ class MkdocstringsPlugin(BasePlugin):
         """Initializes a [Documenter][mkdocstrings.documenter.Documenter]."""
         self.documenter = Documenter(self.config["global_filters"])
         self._main_config = config
+        extension = MkdocstringsExtension(self)
+        config["markdown_extensions"].append(extension)
         return config
 
     def on_nav(self, nav, **kwargs):
@@ -108,7 +111,7 @@ class MkdocstringsPlugin(BasePlugin):
                     import_string = line.replace("::: ", "")
                     if import_string not in self.objects:
                         root_object = self.documenter.get_object_documentation(import_string)
-                        self._references.append(render_references(root_object, page.abs_url))
+                        self._references.append(MarkdownRenderer.render_references(root_object, page.abs_url))
                         mapping_value = {"object": root_object, "page": page.abs_url}
                         self.objects[import_string] = mapping_value
                         if import_string != root_object.path:
@@ -117,10 +120,10 @@ class MkdocstringsPlugin(BasePlugin):
                             self.pages_with_docstrings.append(page.abs_url)
         return nav
 
-    def on_page_markdown(self, markdown, page, **kwargs):
+    def _on_page_markdown(self, markdown, page, **kwargs):
         return f"{markdown}{self.references}"
 
-    def on_page_content(self, html, page, **kwargs):
+    def _on_page_content(self, html, page, **kwargs):
         if page.abs_url not in self.pages_with_docstrings:
             return html
 
