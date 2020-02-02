@@ -4,6 +4,8 @@ from markdown.blockprocessors import BlockProcessor
 from markdown.util import etree
 import re
 
+from .renderer import HTMLRenderer
+
 
 class AutoDocProcessor(BlockProcessor):
     CLASSNAME = "autodoc"
@@ -31,29 +33,26 @@ class AutoDocProcessor(BlockProcessor):
         if m:
             block = block[m.end() :]  # removes the first line
 
-        block, theRest = self.detab(block)
+        block, the_rest = self.detab(block)
 
         if m:
             import_string = m.group(1)
-            item = self.plugin.objects[import_string]
+            item = self.plugin.objects[import_string]["object"]
 
-            autodoc_div = etree.SubElement(parent, "div")
-            autodoc_div.set("class", self.CLASSNAME)
+            # for line in block.splitlines():
+            #     if line.startswith(":config_option:"):
+            #         pass  # do something
 
-            self.render_signature(autodoc_div, item, import_string)
-            for line in block.splitlines():
-                if line.startswith(":docstring:"):
-                    docstring = trim_docstring(item.__doc__)
-                    self.render_docstring(autodoc_div, item, docstring)
-                elif line.startswith(":members:"):
-                    members = line.split()[1:] or None
-                    self.render_members(autodoc_div, item, members=members)
+            config = dict(self.plugin.display_config)
+            renderer = HTMLRenderer(self.md, config)
+            heading = 2 if self.plugin.display_config["show_top_object_heading"] else 1
+            renderer.render(item, heading, parent)
 
-        if theRest:
+        if the_rest:
             # This block contained unindented line(s) after the first indented
             # line. Insert these lines as the first block of the master blocks
             # list for future processing.
-            blocks.insert(0, theRest)
+            blocks.insert(0, the_rest)
 
 
 class MkdocstringsExtension(Extension):

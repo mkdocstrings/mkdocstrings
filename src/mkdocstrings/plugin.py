@@ -11,15 +11,6 @@ from .documenter import Documenter
 from .extension import MkdocstringsExtension
 from .renderer import MarkdownRenderer, insert_divs
 
-config = {
-    "show_top_object_heading": False,
-    "show_top_object_full_path": True,
-    "group_by_categories": True,
-    "show_groups_headings": False,
-    "hide_no_doc": True,
-    "add_source_details": True,
-}
-
 
 class MkdocstringsPlugin(BasePlugin):
     """The mkdocstrings plugin to use in your mkdocs configuration file."""
@@ -28,6 +19,15 @@ class MkdocstringsPlugin(BasePlugin):
         ("global_filters", MkType(list, default=["!^_[^_]", "!^__weakref__$"])),
         ("watch", MkType(list, default=[])),
     )
+
+    display_config = {
+        "show_top_object_heading": False,
+        "show_top_object_full_path": True,
+        "group_by_categories": True,
+        "show_groups_headings": False,
+        "hide_no_doc": True,
+        "add_source_details": True,
+    }
 
     def __init__(self, *args, **kwargs) -> None:
         super(MkdocstringsPlugin, self).__init__()
@@ -120,7 +120,7 @@ class MkdocstringsPlugin(BasePlugin):
                             self.pages_with_docstrings.append(page.abs_url)
         return nav
 
-    def _on_page_markdown(self, markdown, page, **kwargs):
+    def on_page_markdown(self, markdown, page, **kwargs):
         return f"{markdown}{self.references}"
 
     def _on_page_content(self, html, page, **kwargs):
@@ -134,10 +134,10 @@ class MkdocstringsPlugin(BasePlugin):
         modified_lines = lines[::]
         for i, line in enumerate(lines):
             if line.startswith("::: "):
-                renderer = MarkdownRenderer(dict(config))
+                renderer = MarkdownRenderer(dict(self.display_config))
                 import_string = line.replace("::: ", "")
                 root_object = self.objects[import_string]["object"]
-                heading = 2 if config["show_top_object_heading"] else 1
+                heading = 2 if self.display_config["show_top_object_heading"] else 1
                 modified_lines[i] = "\n".join(renderer.render(root_object, heading))
 
         modified_lines.append(self.references)
