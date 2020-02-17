@@ -35,10 +35,31 @@ This plugin is still in alpha status. Here is how it looks with the [mkdocs-mate
   to their [admonition](https://squidfunk.github.io/mkdocs-material/extensions/admonition/) equivalent.
   *We do not support nested admonitions in docstrings!*
 - **Sane defaults:** you should be able to just drop the plugin in your configuration and enjoy your auto-generated docs.
-- **Configurable:** *(soon)* `mkdocstrings` is configurable globally, and per autodoc instruction.
 
 To get an example of what is possible, check `mkdocstrings`'
 own [documentation](https://pawamoy.github.io/mkdocstrings), generated with itself.
+
+## Roadmap
+- [x] It all started with a Proof of Concept.
+  I familiarized myself with mkdocs and its plugin system,
+  wrote quick and dirty code to retrieve Python objects with their docstrings
+  and generate markdown from it. Markdown was automatically rendered to HTML
+  in the mkdocs rendering process. It worked well but was really messy and not
+  flexible at all.
+- [x] I started designing a better architecture (mkdocs plugin + markdown extension),
+  see [issue #28](https://github.com/pawamoy/mkdocstrings/issues/28)
+- [x] I still packaged it (with Poetry :heart:) and released a first version to try it on real projects.
+- [x] Some people tried it as well, contributed (thanks a lot!) and then
+  someone with a lot of followers starred it and it got more attention.
+- [x] It was the end of the year and the beginning of a new one, and I started a new job
+  so my time was very limited. There were a few bug fixes, but overall slow progress.
+- [ ] Efforts are being put to implement the desired architecture. Once it's done,
+  it will be easier to contribute and things will move faster. It's just a bit hard right now
+  because of my limited time, and the task requiring more than a few consecutive minutes to be done
+  (more like a few consecutive hours).
+- [ ] At this point I'll make a new release (still 0.x of course)
+- [ ] And obviously we'll need an extensive test suite to ensure quality :slightly_smiling_face:
+- [ ] We'll make mkdocstrings configurable (for selecting objects and rendering them)
 
 ## Requirements
 mkdocstrings requires Python 3.6 or above.
