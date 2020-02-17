@@ -20,6 +20,8 @@ include = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
+pydocload = { git = "https://github.com/pawamoy/pydocload" }
+docstring-parser = "^0.6"
 
 [tool.poetry.dev-dependencies]
 bandit = "^1.5"

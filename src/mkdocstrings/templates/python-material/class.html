@@ -1,0 +1,21 @@
+<div class="doc doc-object doc-class">
+  {% if config.show_top_object_heading and not config.hide_no_doc and class.has_contents %}
+    <h{{ config.heading_level }}
+        id="{{ class.path }}"
+        class="doc doc-heading"
+        data-toc-label="{{ class.name }}">
+      <code>{% if config.show top_object_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}</code>
+      {% if class.properties %}
+        <span class="doc doc-properties">
+          {% for property in class.properties %}
+            <small class="doc doc-property doc-property-{{ property }}"><code>{{ property }}</code></small>
+          {% endfor %}
+        </span>
+      {% endif %}
+      <a class="headerlink" href="#{{ class.path }}" title="Permanent link">¶</a>
+    </h{{ config.heading_level }}>
+  {% endif %}
+  {% if class.docstring %}
+    {% include "docstring.html" with docstring=class.docstring %}
+  {% endif %}
+</div>

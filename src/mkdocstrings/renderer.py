@@ -3,12 +3,12 @@ import textwrap
 
 from markdown import Markdown
 from markdown.util import etree
-from markdown.extensions.codehilite import CodeHilite
 from pymdownx.highlight import Highlight
 
 from .docstrings import Section
 from .utils import annotation_to_string
 
+Element = etree.Element
 RE_AUTODOC_TITLE = re.compile(r'<h[1-6] id="([\w.]+)"><code class="codehilite">')
 
 
@@ -190,8 +190,7 @@ class HTMLRenderer:
         self.add_source_details = add_source_details
 
     def render(self, obj, heading_level, parent):
-        elem = etree.SubElement(parent, "div")
-        elem.set("class", "autodoc")
+        elem = etree.SubElement(parent, "div", {"class": "autodoc"})
         self.render_object(obj, heading_level, elem)
         return elem
 
@@ -202,30 +201,35 @@ class HTMLRenderer:
         if show_top_object_heading and (not self.hide_no_doc or obj.has_contents()):
             signature = self.render_signature(obj)
             object_heading = f"{obj.path if show_top_object_full_path else obj.name}{signature}"
-            object_heading = Highlight().highlight(src=object_heading, language="python", inline=True)
+            object_heading.replace("_", "\\_")
+            object_heading = Highlight().highlight(src=object_heading, language="python", inline=True, css_class="codehilite")
             object_permalink = obj.path
             object_toc_title = obj.name
             if obj.is_method or obj.is_function:
                 object_toc_title += "()"
 
-            if obj.properties:
-                object_heading += f" <em>({', '.join(obj.properties)})</em>"
+            # if obj.properties:
+            #     object_heading += f" <em>({', '.join(obj.properties)})</em>"
 
             elem_heading = etree.SubElement(elem, f"h{min(6, heading_level)}")
             elem_heading.set("class", "autodoc-signature")
             elem_heading.set("data-toc-label", object_toc_title)
             elem_heading.set("id", object_permalink)
-            elem_heading.text = object_heading
+            elem_heading.append(object_heading)
+            permalink = Element("a", {"class": "headerlink", "href": f"#{object_permalink}", "title": "Permanent link"})
+            permalink.text = "¶"
+            elem_heading.append(permalink)
 
             if self.add_source_details and obj.source:
                 elem_source = etree.SubElement(elem, "details")
                 elem_source_summary = etree.SubElement(elem_source, "summary")
                 elem_source_summary.text = f"Show source code in {obj.relative_file_path}"
-                elem_source.text = CodeHilite(
-                    src=textwrap.indent("".join(obj.source[0]), "    "),
-                    linenums=obj.source[1],
-                    lang="python"
-                ).hilite()
+                h = Highlight(guess_lang=False).highlight(
+                    src=textwrap.dedent(textwrap.indent("".join(obj.source[0]), "    ")),
+                    language="python",
+                    linestart=obj.source[1]
+                )
+                elem_source.append(etree.XML(h))
 
         if obj.docstring:
             self.render_docstring(obj, elem)
