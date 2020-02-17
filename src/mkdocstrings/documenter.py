@@ -185,14 +185,14 @@ class Object:
     @property
     def relative_file_path(self):
         path_parts = self.path.split(".")
-        file_path_parts = self.file_path.split("/")
+        file_path_parts = self.file_path.split(os.sep)
         file_path_parts[-1] = file_path_parts[-1].split(".", 1)[0]
         while path_parts[-1] != file_path_parts[-1]:
             path_parts.pop()
         while path_parts and path_parts[-1] == file_path_parts[-1]:
             path_parts.pop()
             file_path_parts.pop()
-        return self.file_path[len("/".join(file_path_parts)) + 1 :]
+        return self.file_path[len(os.path.join(*file_path_parts)) + 1 :]
 
     @property
     def name_to_check(self):
