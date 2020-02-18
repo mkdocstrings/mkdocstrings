@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v0.7.1](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.1) ([compare](https://github.com/pawamoy/mkdocstrings/compare/v0.7.0...v0.7.1)) - 2020-02-18
+
+### Bug Fixes
+- Replace literal slash with os.sep for Windows compatibility ([70f9af5](https://github.com/pawamoy/mkdocstrings/commit/70f9af5e33cda694cda33870c84a770c853d84b5)).
+
+
 ## [v0.7.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.0) ([compare](https://github.com/pawamoy/mkdocstrings/compare/v0.6.1...v0.7.0)) - 2020-01-13
 
 ### Bug Fixes

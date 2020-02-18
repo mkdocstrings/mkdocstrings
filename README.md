@@ -53,8 +53,8 @@ own [documentation](https://pawamoy.github.io/mkdocstrings), generated with itse
   someone with a lot of followers starred it and it got more attention.
 - [x] **January 2020:** It was the end of the year and the beginning of a new one, and I started a new job
   so my time was very limited. There were a few bug fixes, but overall slow progress.
-- [ ] **February 2020:** Efforts are being put to implement the desired architecture. Once it's done,
-  it will be easier to contribute and things will move faster. It's just a bit hard right now
+- [ ] **February 2020:** Efforts are being put into the implementation of the desired architecture.
+  Once it's done, it will be easier to contribute and things will move faster. It's just a bit hard right now
   because of my limited time, and the task requiring more than a few consecutive minutes to be done
   (more like a few consecutive hours).
 - [ ] **Mars 2020:** At this point I'll make a new release (still 0.x of course)
