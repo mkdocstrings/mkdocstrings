@@ -47,7 +47,7 @@ class MarkdownRenderer:
             )
 
             if self.add_source_details and obj.source:
-                lines.append(f'\n??? note "Show source code in {obj.relative_file_path}"')
+                lines.append(f'\n??? note "Show source code in `{obj.relative_file_path}`"')
                 lines.append(f'    ```python linenums="{obj.source[1]}"')
                 lines.append(textwrap.indent("".join(obj.source[0]), "    "))
                 lines.append("    ```\n")
