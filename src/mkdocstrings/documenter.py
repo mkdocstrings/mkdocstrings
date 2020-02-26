@@ -80,6 +80,8 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any, Callable, List, Optional, Pattern, Tuple, Type, Union
 
+from mkdocs.utils import log
+
 from .docstrings import Docstring
 
 RECURSIVE_NODES = (ast.If, ast.IfExp, ast.Try, ast.With, ast.ExceptHandler)
@@ -373,6 +375,9 @@ class Documenter:
             docstring = inspect.getdoc(actual_member) or ""
             try:
                 source = inspect.getsourcelines(actual_member)
+            except OSError as error:
+                log.warning(f"Could not read source for object {member_path}: {error}")
+                source = ""
             except TypeError:
                 source = ""
 
