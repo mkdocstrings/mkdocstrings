@@ -97,12 +97,6 @@ RE_CLASS_PRIVATE: Pattern = re.compile(r"^__[\w_]*[^_]_?$")
 # at most one leading underscore, then whatever
 RE_PRIVATE: Pattern = re.compile(r"^_[^_][\w_]*$")
 
-CATEGORY_ATTRIBUTE = "attribute"
-CATEGORY_METHOD = "method"
-CATEGORY_FUNCTION = "function"
-CATEGORY_MODULE = "module"
-CATEGORY_CLASS = "class"
-
 NAME_SPECIAL = ("special", lambda n: bool(RE_SPECIAL.match(n)))
 NAME_CLASS_PRIVATE = ("class-private", lambda n: bool(RE_CLASS_PRIVATE.match(n)))
 NAME_PRIVATE = ("private", lambda n: bool(RE_PRIVATE.match(n)))
@@ -248,6 +242,7 @@ class Object:
             self.add_child(child)
 
     def dispatch_attributes(self, attributes: List["Attribute"]) -> None:
+        self.ascend_children_path_maps()
         for attribute in attributes:
             try:
                 attach_to = self._path_map[attribute.parent_path]
@@ -257,6 +252,11 @@ class Object:
                 attach_to.attributes.append(attribute)
                 attach_to.children.append(attribute)
                 attribute.parent = attach_to
+
+    def ascend_children_path_maps(self):
+        for child in self.children:
+            self._path_map.update(child.ascend_children_path_maps())
+        return self._path_map
 
     def has_contents(self):
         return bool(self.docstring.original_value or not self.parent or any(c.has_contents() for c in self.children))
@@ -342,11 +342,17 @@ class Documenter:
 
         return root_object
 
-    def get_class_documentation(self, class_: Type[Any], module: Optional[ModuleType] = None) -> Class:
+    def get_class_documentation(
+        self, class_: Type[Any], module: Optional[ModuleType] = None, parent_classes: Optional[List[str]] = None
+    ) -> Class:
         if module is None:
             module = inspect.getmodule(class_)
         class_name = class_.__name__
-        path = f"{module.__name__}.{class_name}"
+        path = module.__name__
+        parent_classes = parent_classes or []
+        if parent_classes:
+            path = ".".join([path] + parent_classes)
+        path = f"{path}.{class_name}"
         file_path = module.__file__
         try:
             signature = inspect.signature(class_)
@@ -358,7 +364,7 @@ class Documenter:
 
         for member_name, member in sorted(filter(lambda m: not self.filter_name_out(m[0]), class_.__dict__.items())):
             if inspect.isclass(member):
-                root_object.add_child(self.get_class_documentation(member))
+                root_object.add_child(self.get_class_documentation(member, module, parent_classes + [class_name]))
                 continue
 
             member_class = properties = signature = None
