@@ -22,7 +22,7 @@ If you want mkdocstrings to document your code you have to use the right docstri
 ### Configuring the docs
 
 Like in mkdocs you configure your docs in the *mkdocs.yml*.  
-All the files, for example the *index.md* refere to a file in the *docs/* folder in your repo.  
+All the files in the nav, for example the *index.md* refer to a file in the *docs/* folder in your repo.  
 If the *index.md* should be the same as the *README.md* you can create a symlink with  
 `ln -rs ../README.md index.md`  
 
@@ -66,9 +66,9 @@ To add your documented source to you documentation you have to add the reference
 Add some custom css
 
 ```css
-// docs/custom.css
+/* docs/custom.css */
 
-// Just some example css
+/* Just some example css */
 body{
     background: red
 }
