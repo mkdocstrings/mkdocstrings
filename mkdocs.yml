@@ -6,7 +6,7 @@ repo_name: pawamoy/mkdocstrings
 
 nav:
   - Overview: "index.md"
-  - FAQ: "faq.md"
+  - Frequently Asked Questions: "faq.md"
   - Reference:
     - plugin.py: "reference/plugin.md"
     - documenter.py: "reference/documenter.md"
