@@ -9,6 +9,8 @@ except ImportError:
 
 
 def annotation_to_string(annotation):
+    if annotation is inspect.Signature.empty:
+        return ""
     if inspect.isclass(annotation) and not isinstance(annotation, GenericMeta):
         return annotation.__name__
     return str(annotation).replace("typing.", "")

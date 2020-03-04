@@ -44,7 +44,6 @@ TITLES_RETURN = ("return:", "returns:")
 
 RE_OPTIONAL = re.compile(r"Union\[(.+), NoneType\]")
 RE_FORWARD_REF = re.compile(r"_ForwardRef\('([^']+)'\)")
-RE_EMPTY = re.compile(r"_empty")
 
 
 class AnnotatedObject:
@@ -83,9 +82,8 @@ class Parameter(AnnotatedObject):
     @property
     def annotation_string(self):
         s = AnnotatedObject.annotation_string.fget(self)
-        s = RE_EMPTY.sub("", s)
-        s = RE_OPTIONAL.sub(lambda match: match.group(1), s)
         s = RE_FORWARD_REF.sub(lambda match: match.group(1), s)
+        s = RE_OPTIONAL.sub(lambda match: f"Optional[{rebuild_optional(match.group(1))}]", s)
         return s
 
     @property
