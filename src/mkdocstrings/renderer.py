@@ -113,7 +113,8 @@ def render_docstring(obj, lines):
                     name = f"*{name}"
                 default = parameter.default_string
                 default = f"`{default}`" if default else "*required*"
-                lines.append(f"| `{name}` | `{parameter.annotation_string}` | {parameter.description} | {default} |")
+                type_annotation = f"`{parameter.annotation_string}`" if parameter.annotation_string else ""
+                lines.append(f"| `{name}` | {type_annotation} | {parameter.description} | {default} |")
             lines.append("")
         elif section.type == Section.Type.EXCEPTIONS:
             lines.append("**Exceptions**\n")
