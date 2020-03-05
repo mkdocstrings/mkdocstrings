@@ -80,6 +80,8 @@ class MkdocstringsPlugin(BasePlugin):
                 f"mkdocstrings: Unloading modules loaded after mkdocstrings plugin was instantiated ({len(diff)} modules)"
             )
             for module in diff:
+                if "numpy" in module:
+                    continue
                 del sys.modules[module]
             self.clear()
             builder()
