@@ -1,8 +1,9 @@
-from markdown import Markdown
-from markdown.extensions import Extension
-from markdown.blockprocessors import BlockProcessor
-from markdown.util import etree
 import re
+
+from markdown import Markdown
+from markdown.blockprocessors import BlockProcessor
+from markdown.extensions import Extension
+from markdown.util import etree
 
 from .renderer import HTMLRenderer
 
@@ -11,19 +12,19 @@ class AutoDocProcessor(BlockProcessor):
     CLASSNAME = "autodoc"
     RE = re.compile(r"(?:^|\n)::: ?([:a-zA-Z0-9_.]*) *(?:\n|$)")
 
-    def __init__(self, parser, md, plugin):
+    def __init__(self, parser, md, store):
         super().__init__(parser=parser)
         self.md = md
-        self.plugin = plugin
+        self.store = store
 
     def test(self, parent: etree.Element, block: etree.Element) -> bool:
         sibling = self.lastChild(parent)
         bool1 = self.RE.search(block)
         bool2 = (
-                block.startswith(" " * self.tab_length)
-                and sibling is not None
-                and sibling.get("class", "").find(self.CLASSNAME) != -1
-            )
+            block.startswith(" " * self.tab_length)
+            and sibling is not None
+            and sibling.get("class", "").find(self.CLASSNAME) != -1
+        )
         return bool(bool1 or bool2)
 
     def run(self, parent: etree.Element, blocks: etree.Element) -> None:
@@ -36,12 +37,11 @@ class AutoDocProcessor(BlockProcessor):
         block, the_rest = self.detab(block)
 
         if m:
-            import_string = m.group(1)
-            item = self.plugin.objects[import_string]["object"]
-
-            # for line in block.splitlines():
-            #     if line.startswith(":config_option:"):
-            #         pass  # do something
+            identifier = m.group(1)
+            for line in block.splitlines():
+                if line.startswith(":config_option:"):
+                    pass  # do something
+            item = self.store[identifier]["object"]
 
             config = dict(self.plugin.display_config)
             renderer = HTMLRenderer(self.md, config)
@@ -56,11 +56,14 @@ class AutoDocProcessor(BlockProcessor):
 
 
 class MkdocstringsExtension(Extension):
-    def __init__(self, plugin, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.plugin = plugin
+        self._store = {}
 
     def extendMarkdown(self, md: Markdown) -> None:
         md.registerExtension(self)
-        processor = AutoDocProcessor(md.parser, md, self.plugin)
+        processor = AutoDocProcessor(md.parser, md, self._store)
         md.parser.blockprocessors.register(processor, "mkdocstrings", 110)
+
+    def store(self, selection_hash, data, renderer):
+        self._store[selection_hash] = {"data": data, "renderer": renderer}

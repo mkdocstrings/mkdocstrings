@@ -5,7 +5,6 @@ from markdown import Markdown
 from markdown.util import etree
 from pymdownx.highlight import Highlight
 
-from .docstrings import Section
 from .utils import annotation_to_string
 
 Element = etree.Element
@@ -118,7 +117,9 @@ class MarkdownRenderer:
                         name = f"*{name}"
                     default = parameter.default_string
                     default = f"`{default}`" if default else "*required*"
-                    lines.append(f"| `{name}` | `{parameter.annotation_string}` | {parameter.description} | {default} |")
+                    lines.append(
+                        f"| `{name}` | `{parameter.annotation_string}` | {parameter.description} | {default} |"
+                    )
                 lines.append("")
             elif section.type == Section.Type.EXCEPTIONS:
                 lines.append("**Exceptions**\n")
@@ -202,7 +203,9 @@ class HTMLRenderer:
             signature = self.render_signature(obj)
             object_heading = f"{obj.path if show_top_object_full_path else obj.name}{signature}"
             object_heading.replace("_", "\\_")
-            object_heading = Highlight().highlight(src=object_heading, language="python", inline=True, css_class="codehilite")
+            object_heading = Highlight().highlight(
+                src=object_heading, language="python", inline=True, css_class="codehilite"
+            )
             object_permalink = obj.path
             object_toc_title = obj.name
             if obj.is_method or obj.is_function:
@@ -227,7 +230,7 @@ class HTMLRenderer:
                 h = Highlight(guess_lang=False).highlight(
                     src=textwrap.dedent(textwrap.indent("".join(obj.source[0]), "    ")),
                     language="python",
-                    linestart=obj.source[1]
+                    linestart=obj.source[1],
                 )
                 elem_source.append(etree.XML(h))
 
@@ -299,7 +302,7 @@ class HTMLRenderer:
                         f"<code>{name}</code>",
                         f"<code>{parameter.annotation_string}</code>",
                         parameter.description,
-                        default
+                        default,
                     ):
                         etree.SubElement(tr, "td").text = cell
             elif section.type == Section.Type.EXCEPTIONS:
