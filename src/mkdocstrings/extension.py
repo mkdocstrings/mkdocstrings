@@ -1,11 +1,11 @@
+import json
 import re
 
+import yaml
 from markdown import Markdown
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.util import etree
-
-from .renderer import HTMLRenderer
 
 
 class AutoDocProcessor(BlockProcessor):
@@ -38,15 +38,14 @@ class AutoDocProcessor(BlockProcessor):
 
         if m:
             identifier = m.group(1)
-            for line in block.splitlines():
-                if line.startswith(":config_option:"):
-                    pass  # do something
-            item = self.store[identifier]["object"]
+            config = yaml.safe_load(block) or {}
+            selection_hash = hash(json.dumps({identifier: config.get("collector", {})}, sort_keys=True))
 
-            config = dict(self.plugin.display_config)
-            renderer = HTMLRenderer(self.md, config)
-            heading = 2 if self.plugin.display_config["show_top_object_heading"] else 1
-            renderer.render(item, heading, parent)
+            item = self.store[selection_hash]
+            renderer, data = item["renderer"], item["data"]
+            renderer.update_env(self.md)
+
+            parent.append(etree.XML(renderer.render(data)))
 
         if the_rest:
             # This block contained unindented line(s) after the first indented

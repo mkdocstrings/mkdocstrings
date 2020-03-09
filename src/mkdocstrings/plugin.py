@@ -1,6 +1,7 @@
-from collections import namedtuple
+from pathlib import Path
 
 import yaml
+from jinja2 import Environment, FileSystemLoader
 from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
 from mkdocs.utils import log
@@ -18,18 +19,10 @@ class MkdocstringsPlugin(BasePlugin):
         ("watch", MkType(list, default=[])),
     )
 
-    display_config = {
-        "show_top_object_heading": False,
-        "show_top_object_full_path": True,
-        "group_by_categories": True,
-        "show_groups_headings": False,
-        "hide_no_doc": True,
-        "add_source_details": True,
-    }
-
     def __init__(self, *args, **kwargs) -> None:
         super(MkdocstringsPlugin, self).__init__()
         self.mkdocstrings_extension = None
+        self.env = None
 
     def on_serve(self, server, config, **kwargs):
         builder = list(server.watcher._tasks.values())[0]["func"]
@@ -39,12 +32,10 @@ class MkdocstringsPlugin(BasePlugin):
         return server
 
     def on_config(self, config, **kwargs):
+        self.env = Environment(loader=FileSystemLoader(Path(__file__).parent / "templates"))
         self.mkdocstrings_extension = MkdocstringsExtension()
         config["markdown_extensions"].append(self.mkdocstrings_extension)
         return config
-
-    def on_env(self, env, config, files, **kwargs):
-        return env
 
     def on_nav(self, nav, **kwargs):
         instructions_by_handler = {}
@@ -59,7 +50,9 @@ class MkdocstringsPlugin(BasePlugin):
             rendering = for_rendering(instructions)
             collected = handler.get_collection(selection)
             for selection_hash, (identifier, item) in collected.items():
-                self.mkdocstrings_extension.store(selection_hash, item, handler.renderer_class(**rendering[identifier]))
+                self.mkdocstrings_extension.store(
+                    selection_hash, item, handler.renderer_class(env=self.env, config=rendering[identifier])
+                )
 
         return nav
 
@@ -98,7 +91,7 @@ def get_instructions(markdown):
             config_lines = []
 
             i += 1
-            while i < len(lines) and (lines[i].startswith("    ") or not lines[i].strip()):
+            while i < len(lines) and lines[i].startswith("    "):
                 config_lines.append(lines[i])
                 i += 1
 

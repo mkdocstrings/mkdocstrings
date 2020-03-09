@@ -1,14 +1,28 @@
 import importlib
 import json
 
+from markdown import Markdown
+
 
 class BaseRenderer:
-    def __init__(self, **kwargs):
-        for attr, value in kwargs.items():
-            setattr(self, attr, value)
+    DEFAULT_CONFIG = {}
+
+    def __init__(self, env, config):
+        self.env = env
+        self.theme = "material"
+        self.config = self.DEFAULT_CONFIG
+        self.config.update(config)
 
     def render(self, data):
         raise NotImplementedError
+
+    def update_env(self, md):
+        md = Markdown(extensions=md.registeredExtensions)
+
+        def convert_markdown(text):
+            return md.convert(text)
+
+        self.env.filters["convert_markdown"] = convert_markdown
 
 
 class BaseHandler:

@@ -1,11 +1,11 @@
 <div class="doc doc-object doc-module">
-  {% if config.show_top_object_heading and not config.hide_no_doc and module.has_contents %}
-    <h{{ config.heading_level }}
+  {% if not config.hide_no_doc or module.has_contents %}
+    <h{{ heading_level }}
         id="{{ module.path }}"
         class="doc doc-heading"
         data-toc-label="{{ module.name }}">
-      <code>{% if config.show top_object_full_path %}{{ module.path }}{% else %}{{ module.name }}{% endif %}</code>
-      {% if module.properties %}
+      <code>{% if config.show_top_object_full_path %}{{ module.path }}{% else %}{{ module.name }}{% endif %}</code>
+      {%- if module.properties %}
         <span class="doc doc-properties">
           {% for property in module.properties %}
             <small class="doc doc-property doc-property-{{ property }}"><code>{{ property }}</code></small>
@@ -13,10 +13,12 @@
         </span>
       {% endif %}
       <a class="headerlink" href="#{{ module.path }}" title="Permanent link">¶</a>
-    </h{{ config.heading_level }}>
+    </h{{ heading_level }}>
   {% endif %}
   {% if module.docstring %}
-    {% include "docstring.html" with docstring=module.docstring %}
+    {% with docstring = module.docstring %}
+      {% include "docstring.html" with context %}
+    {% endwith %}
   {% endif %}
 
 </div>
