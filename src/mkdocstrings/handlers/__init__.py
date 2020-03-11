@@ -1,19 +1,20 @@
 import importlib
-import json
+from pathlib import Path
 
+from jinja2 import Environment, FileSystemLoader
 from markdown import Markdown
 
 
+HANDLERS_CACHE = {}
+
+
 class BaseRenderer:
-    DEFAULT_CONFIG = {}
+    DEFAULT_RENDERING_OPTS = {}
 
-    def __init__(self, env, config):
-        self.env = env
-        self.theme = "material"
-        self.config = self.DEFAULT_CONFIG
-        self.config.update(config)
+    def __init__(self, directory, theme):
+        self.env = Environment(loader=FileSystemLoader(Path(__file__).parent.parent / "templates" / directory / theme))
 
-    def render(self, data):
+    def render(self, data, config):
         raise NotImplementedError
 
     def update_env(self, md):
@@ -25,21 +26,24 @@ class BaseRenderer:
         self.env.filters["convert_markdown"] = convert_markdown
 
 
-class BaseHandler:
-    def __init__(self, renderer_class):
-        self.renderer_class = renderer_class
+class BaseCollector:
+    DEFAULT_SELECTION_OPTS = {}
 
-    def get_collection(self, selection):
-        collected = self.collect(selection)
-        return {
-            hash(json.dumps({identifier: config}, sort_keys=True)): (identifier, collected[identifier])
-            for identifier, config in selection.items()
-        }
-
-    def collect(self, selection):
+    def collect(self, identifier, config):
         raise NotImplementedError
+
+    def teardown(self):
+        pass
+
+
+class BaseHandler:
+    def __init__(self, collector, renderer):
+        self.collector = collector
+        self.renderer = renderer
 
 
 def get_handler(name):
-    module = importlib.import_module(f"mkdocstrings.handlers.{name}")
-    return module.handler
+    if name not in HANDLERS_CACHE:
+        module = importlib.import_module(f"mkdocstrings.handlers.{name}")
+        HANDLERS_CACHE[name] = module.get_handler()
+    return HANDLERS_CACHE[name]

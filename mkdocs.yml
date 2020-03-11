@@ -31,3 +31,11 @@ plugins:
   - mkdocstrings:
       watch:
         - src/mkdocstrings
+      handlers:
+        python:
+          selection:
+            global_filters:
+              - "!^__weakref__$"
+              - "!^_[^_]"
+          rendering:
+            hide_no_doc: true
