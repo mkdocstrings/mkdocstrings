@@ -4,7 +4,7 @@
         id="{{ class.path }}"
         class="doc doc-heading"
         data-toc-label="{{ class.name }}">
-      <code>{% if config.show top_object_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}</code>
+      <code>{% if config.show_top_object_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}</code>
       {% if class.properties %}
         <span class="doc doc-properties">
           {% for property in class.properties %}
@@ -16,6 +16,8 @@
     </h{{ config.heading_level }}>
   {% endif %}
   {% if class.docstring %}
-    {% include "docstring.html" with docstring=class.docstring %}
+  {% with docstring = class.docstring %}
+    {% include "docstring.html" with context %}
+  {% endwith %}
   {% endif %}
 </div>

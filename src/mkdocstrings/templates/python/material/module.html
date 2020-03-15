@@ -20,5 +20,20 @@
       {% include "docstring.html" with context %}
     {% endwith %}
   {% endif %}
+  {% for attribute in module.attributes %}
+  {% include "attribute.html" with context %}
+  {% endfor %}
+  {% for method in module.methods %}
+  {% include "method.html" with context %}
+  {% endfor %}
+  {% for function in module.functions %}
+  {% include "function.html" with context %}
+  {% endfor %}
+  {% for module in module.modules %}
+  {% include "module.html" with context %}
+  {% endfor %}
+  {% for class in module.classes %}
+  {% include "class.html" with context %}
+  {% endfor %}
 
 </div>
