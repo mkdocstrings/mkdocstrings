@@ -35,7 +35,7 @@ class PythonCollector(BaseCollector):
     DEFAULT_SELECTION_OPTS = {}
 
     def __init__(self):
-        self.process = Popen(["pydocload"], universal_newlines=True, stderr=PIPE, stdout=PIPE, stdin=PIPE, bufsize=-1)
+        self.process = Popen(["pytkdocs"], universal_newlines=True, stderr=PIPE, stdout=PIPE, stdin=PIPE, bufsize=-1)
 
     def collect(self, identifier, config: dict) -> dict:
         json_input = json.dumps(

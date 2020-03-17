@@ -20,5 +20,5 @@
       {% include "docstring.html" with context %}
     {% endwith %}
   {% endif %}
-
+  {% with obj = module %}{% include "children.html" with context %}{% endwith %}
 </div>
