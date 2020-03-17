@@ -1,6 +1,8 @@
 import json
 from subprocess import PIPE, Popen
 
+from mkdocs.utils import log
+
 from . import BaseHandler, BaseRenderer, BaseCollector
 
 
@@ -47,6 +49,9 @@ class PythonCollector(BaseCollector):
 
         print(json_input, file=self.process.stdin, flush=True)
         stdout = self.process.stdout.readline()
+        # TODO: find a way to read stderr without blocking (most of the time stderr will be empty)
+        # https://stackoverflow.com/questions/375427/non-blocking-read-on-a-subprocess-pipe-in-python
+        # stderr = self.process.stderr.read()
         # if stderr:
         #     log.error(stderr)
         return json.loads(stdout)[0]

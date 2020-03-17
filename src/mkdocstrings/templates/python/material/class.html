@@ -16,9 +16,6 @@
     </h{{ config.heading_level }}>
   {% endif %}
   {% if class.docstring %}
-    {% with docstring = class.docstring %}
-      {% include "docstring.html" with context %}
-    {% endwith %}
   {% endif %}
   {% with obj = class %}{% include "children.html" with context %}{% endwith %}
 </div>

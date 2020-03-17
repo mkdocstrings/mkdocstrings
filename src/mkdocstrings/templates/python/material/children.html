@@ -1,0 +1,15 @@
+{% for attribute in obj.attributes %}
+  {% include "attribute.html" with context %}
+{% endfor %}
+{% for class in obj.classes %}
+  {% include "class.html" with context %}
+{% endfor %}
+{% for function in obj.functions %}
+  {% include "function.html" with context %}
+{% endfor %}
+{% for method in obj.methods %}
+  {% include "method.html" with context %}
+{% endfor %}
+{% for module in obj.modules %}
+  {% include "module.html" with context %}
+{% endfor %}

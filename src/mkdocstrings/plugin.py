@@ -43,6 +43,11 @@ class MkdocstringsPlugin(BasePlugin):
         config["markdown_extensions"].append(self.mkdocstrings_extension)
         return config
 
+    # TODO: update the un-rendered links using references collected in the extension
+    # how to remember the page URL associated to an identifier?
+
+    # TODO: run collectors teardown methods at the very end
+
 
 def get_instructions(markdown: str) -> Generator[Tuple[str, dict], Tuple[str, dict], Tuple[str, dict]]:
     """
