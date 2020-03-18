@@ -9,6 +9,10 @@ from pymdownx.highlight import Highlight
 HANDLERS_CACHE = {}
 
 
+class CollectionError(Exception):
+    pass
+
+
 class BaseRenderer:
     DEFAULT_RENDERING_OPTS = {}
 

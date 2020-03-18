@@ -1,9 +1,10 @@
 import json
 from subprocess import PIPE, Popen
+import os
 
 from mkdocs.utils import log
 
-from . import BaseCollector, BaseHandler, BaseRenderer
+from . import BaseCollector, BaseHandler, BaseRenderer, CollectionError
 
 
 class PythonRenderer(BaseRenderer):
@@ -52,36 +53,42 @@ class PythonCollector(BaseCollector):
     DEFAULT_CONFIG = {}
 
     def __init__(self):
-        self.process = Popen(["pytkdocs"], universal_newlines=True, stderr=PIPE, stdout=PIPE, stdin=PIPE, bufsize=-1)
+        log.debug("mkdocstrings.handlers.python: Opening 'pytkdocs' subprocess")
+        env = os.environ.copy()
+        env["PYTHONUNBUFFERED"] = "1"
+        self.process = Popen(["pytkdocs"], universal_newlines=True, stderr=PIPE, stdout=PIPE, stdin=PIPE, bufsize=-1, env=env)
 
     def collect(self, identifier, config: dict) -> dict:
-        json_input = json.dumps({"global_config": {}, "objects": [{"path": identifier, "config": config}],})
+        log.debug("mkdocstrings.handlers.python: Preparing input")
+        json_input = json.dumps({"global_config": {}, "objects": [{"path": identifier, "config": config}]})
 
+        log.debug("mkdocstrings.handlers.python: Writing to process' stdin")
         print(json_input, file=self.process.stdin, flush=True)
+
+        log.debug("mkdocstrings.handlers.python: Reading process' stdout")
         stdout = self.process.stdout.readline()
-        # TODO: find a way to read stderr without blocking (most of the time stderr will be empty)
-        # https://stackoverflow.com/questions/375427/non-blocking-read-on-a-subprocess-pipe-in-python
-        # stderr = self.process.stderr.read()
-        # if stderr:
-        #     log.error(stderr)
-        result = json.loads(stdout)[0]
 
-        # Reconstruct categories lists
-        def rebuild_category_lists(obj):
-            obj["attributes"] = [obj["children"][path] for path in obj["attributes"]]
-            obj["classes"] = [obj["children"][path] for path in obj["classes"]]
-            obj["functions"] = [obj["children"][path] for path in obj["functions"]]
-            obj["methods"] = [obj["children"][path] for path in obj["methods"]]
-            obj["modules"] = [obj["children"][path] for path in obj["modules"]]
-            obj["children"] = [v for k, v in obj["children"].items()]
-            for child in obj["children"]:
-                rebuild_category_lists(child)
+        log.debug("mkdocstrings.handlers.python: Loading JSON output as Python object")
+        try:
+            result = json.loads(stdout)
+        except json.decoder.JSONDecodeError as error:
+            log.error("mkdocstrings.handlers.python: Error while loading JSON")
+            raise CollectionError(str(error))
 
+        if "error" in result:
+            log.error(f"mkdocstrings.handlers.python: Collection failed: {result['error']}")
+            raise CollectionError(result["error"])
+
+        # We always collect only one object at a time
+        result = result[0]
+
+        log.debug("mkdocstrings.handlers.python: Rebuilding categories and children lists")
         rebuild_category_lists(result)
 
         return result
 
     def teardown(self):
+        log.debug("mkdocstrings.handlers.python: Tearing process down")
         self.process.terminate()
         self.process = None
 
@@ -92,3 +99,14 @@ class PythonHandler(BaseHandler):
 
 def get_handler():
     return PythonHandler(collector=PythonCollector(), renderer=PythonRenderer("python", "material"))
+
+
+def rebuild_category_lists(obj):
+    obj["attributes"] = [obj["children"][path] for path in obj["attributes"]]
+    obj["classes"] = [obj["children"][path] for path in obj["classes"]]
+    obj["functions"] = [obj["children"][path] for path in obj["functions"]]
+    obj["methods"] = [obj["children"][path] for path in obj["methods"]]
+    obj["modules"] = [obj["children"][path] for path in obj["modules"]]
+    obj["children"] = [v for k, v in obj["children"].items()]
+    for child in obj["children"]:
+        rebuild_category_lists(child)

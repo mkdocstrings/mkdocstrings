@@ -50,7 +50,7 @@ class MkdocstringsPlugin(BasePlugin):
         """On serve hook."""
         builder = list(server.watcher._tasks.values())[0]["func"]
         for element in self.config["watch"]:
-            log.info(f"mkdocstrings: Adding directory '{element}' to watcher")
+            log.debug(f"mkdocstrings.plugin: Adding directory '{element}' to watcher")
             server.watch(element, builder)
         return server
 
@@ -63,13 +63,13 @@ class MkdocstringsPlugin(BasePlugin):
         - [`my ref`][mkdocstrings.plugin]
         - [mkdocstrings.plugin][]
         """
-        log.info("mkdocstrings: Adding extension to the list")
+        log.debug("mkdocstrings.plugin: Adding extension to the list")
         self.mkdocstrings_extension = MkdocstringsExtension(plugin_config=self.config)
         config["markdown_extensions"].append(self.mkdocstrings_extension)
         return config
 
     def on_page_content(self, html, page, config, files, **kwargs):
-        log.info(f"mkdocstrings: Mapping identifiers to URLs for page {page.abs_url}")
+        log.debug(f"mkdocstrings.plugin: Mapping identifiers to URLs for page {page.file.src_path}")
         for item in page.toc.items:
             self.map_urls(page.abs_url, item)
         return html
@@ -80,7 +80,7 @@ class MkdocstringsPlugin(BasePlugin):
             self.map_urls(base_url, child)
 
     def on_post_page(self, output, page, config, **kwargs):
-        log.info(f"mkdocstrings: Fixing broken references in page {page.abs_url}")
+        log.debug(f"mkdocstrings.plugin: Fixing broken references in page {page.file.src_path}")
         soup = BeautifulSoup(output, "html.parser")
         tags = soup.find_all(refs)
         for tag in tags:
@@ -89,6 +89,8 @@ class MkdocstringsPlugin(BasePlugin):
             new_str = DIRECT_REF.sub(self.fix_ref, new_str)
             if new_str != tag_str:
                 tag.replace_with(BeautifulSoup(new_str, "html.parser"))
+            else:
+                log.warning(f"mkdocstrings.plugin: Reference '{new_str}' in page {page.file.src_path} could not be fixed")
         return soup.prettify()
 
     def fix_ref(self, match):
@@ -105,7 +107,7 @@ class MkdocstringsPlugin(BasePlugin):
             return f'<a href="{url}">{title or identifier}</a>'
 
     def on_post_build(self, config, **kwargs):
-        log.info("mkdocstrings: Tearing handlers down")
+        log.debug("mkdocstrings.plugin: Tearing handlers down")
         teardown()
 
 

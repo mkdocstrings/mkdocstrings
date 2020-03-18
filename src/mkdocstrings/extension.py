@@ -7,7 +7,9 @@ from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from xml.etree.ElementTree import Element, XML
 
-from .handlers import get_handler
+from mkdocs.utils import log
+
+from .handlers import get_handler, CollectionError
 
 
 class AutoDocProcessor(BlockProcessor):
@@ -40,16 +42,28 @@ class AutoDocProcessor(BlockProcessor):
 
         if m:
             identifier = m.group(1)
+            log.debug(f"mkdocstrings.extension: Matched '::: {identifier}'")
             config = yaml.safe_load(block) or {}
 
             handler_name = self.get_handler_name(config)
+            log.debug(f"mkdocstrings.extension: Using handler '{handler_name}'")
             handler = get_handler(handler_name)
+            log.debug("mkdocstrings.extension: Updating renderer's env")
             handler.renderer.update_env(self.md)
 
             selection, rendering = self.get_item_configs(handler_name, config)
 
-            data = handler.collector.collect(identifier, selection)
+            log.debug("mkdocstrings.extension: Collecting data")
+            try:
+                data = handler.collector.collect(identifier, selection)
+            except CollectionError:
+                log.error(f"mkdocstrings.extension: Could not collect '{identifier}'")
+                return
+
+            log.debug("mkdocstrings.extension: Rendering templates")
             rendered = handler.renderer.render(data, rendering)
+
+            log.debug("mkdocstrings.extension: Loading HTML back into XML tree")
             as_xml = XML(rendered)
             parent.append(as_xml)
 
