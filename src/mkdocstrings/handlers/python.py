@@ -83,6 +83,7 @@ class PythonCollector(BaseCollector):
 
     def teardown(self):
         self.process.terminate()
+        self.process = None
 
 
 class PythonHandler(BaseHandler):

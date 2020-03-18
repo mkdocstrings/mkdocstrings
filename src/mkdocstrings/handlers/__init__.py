@@ -69,3 +69,12 @@ def get_handler(name):
         module = importlib.import_module(f"mkdocstrings.handlers.{name}")
         HANDLERS_CACHE[name] = module.get_handler()
     return HANDLERS_CACHE[name]
+
+
+def teardown():
+    for handler in HANDLERS_CACHE.values():
+        handler.collector.teardown()
+        del handler.collector
+        del handler.renderer
+        del handler
+    HANDLERS_CACHE.clear()
