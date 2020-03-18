@@ -1,10 +1,21 @@
 <div class="doc doc-object doc-class">
-  {% if not config.hide_no_doc and class.has_contents %}
-    <h{{ config.heading_level }}
+
+  {% if root %}
+    {% set show_full_path = config.show_root_full_path %}
+    {% set root = False %}
+  {% else %}
+    {% set show_full_path = config.show_object_full_path %}
+  {% endif %}
+
+  {% if (not root or config.show_root_heading) and (config.show_if_no_docstring or class.has_contents) %}
+
+    <h{{ heading_level }}
         id="{{ class.path }}"
         class="doc doc-heading"
         data-toc-label="{{ class.name }}">
-      <code>{% if config.show_top_object_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}</code>
+
+      <code>{% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}</code>
+
       {% if class.properties %}
         <span class="doc doc-properties">
           {% for property in class.properties %}
@@ -12,10 +23,22 @@
           {% endfor %}
         </span>
       {% endif %}
+
       <a class="headerlink" href="#{{ class.path }}" title="Permanent link">¶</a>
-    </h{{ config.heading_level }}>
+
+    </h{{ heading_level }}>
+
   {% endif %}
+
   {% if class.docstring %}
+    {% with docstring = module.docstring %}
+      {% include "docstring.html" with context %}
+    {% endwith %}
   {% endif %}
-  {% with obj = class %}{% include "children.html" with context %}{% endwith %}
+
+  {% with obj = class %}
+    {% set heading_level = heading_level + 1 %}
+    {% include "children.html" with context %}
+  {% endwith %}
+
 </div>

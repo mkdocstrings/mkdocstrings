@@ -3,27 +3,42 @@ from subprocess import PIPE, Popen
 
 from mkdocs.utils import log
 
-from . import BaseHandler, BaseRenderer, BaseCollector
+from . import BaseCollector, BaseHandler, BaseRenderer
 
 
 class PythonRenderer(BaseRenderer):
-    DEFAULT_RENDERING_OPTS = {
-        "show_top_object_heading": False,
-        "show_top_object_full_path": True,
-        "group_by_categories": True,
-        "show_groups_headings": False,
-        "hide_no_doc": True,
-        "add_source_details": True,
+    DEFAULT_CONFIG = {
+        "show_root_heading": False,
+        "show_root_full_path": True,
+        "show_object_full_path": False,
+        "show_category_heading": False,
+        "show_if_no_docstring": False,
+        "show_source": True,
+        "group_by_category": True,
+        "heading_level": 2,
     }
 
     def render(self, data, config):
-        final_config = dict(self.DEFAULT_RENDERING_OPTS)
+        final_config = dict(self.DEFAULT_CONFIG)
         final_config.update(config)
+
         template = self.env.get_template(f"{data['category']}.html")
-        return template.render(**{"config": final_config, data["category"]: data, "heading_level": 2})
+
+        # Heading level is a "state" variable, that will change at each step
+        # of the rendering recursion. Therefore, it's easier to use it as a plain value
+        # instead of as an item of a dictionary reference.
+        heading_level = final_config.pop("heading_level")
+
+        return template.render(
+            **{"config": final_config, data["category"]: data, "heading_level": heading_level, "root": True}
+        )
 
     def update_env(self, md):
         super(PythonRenderer, self).update_env(md)
+        self.env.trim_blocks = True
+        self.env.lstrip_blocks = True
+        self.env.keep_trailing_newline = False
+
         # TODO: actually do this when we have a proper Google-Style docstring Markdown extension
         # md = Markdown(extensions=md.registeredExtensions + ["google_style_docstrings_markdown_extension"])
         #
@@ -34,18 +49,13 @@ class PythonRenderer(BaseRenderer):
 
 
 class PythonCollector(BaseCollector):
-    DEFAULT_SELECTION_OPTS = {}
+    DEFAULT_CONFIG = {}
 
     def __init__(self):
         self.process = Popen(["pytkdocs"], universal_newlines=True, stderr=PIPE, stdout=PIPE, stdin=PIPE, bufsize=-1)
 
     def collect(self, identifier, config: dict) -> dict:
-        json_input = json.dumps(
-            {
-                "global_config": {},
-                "objects": [{"path": identifier, "config": config}],
-            }
-        )
+        json_input = json.dumps({"global_config": {}, "objects": [{"path": identifier, "config": config}],})
 
         print(json_input, file=self.process.stdin, flush=True)
         stdout = self.process.stdout.readline()
@@ -54,7 +64,22 @@ class PythonCollector(BaseCollector):
         # stderr = self.process.stderr.read()
         # if stderr:
         #     log.error(stderr)
-        return json.loads(stdout)[0]
+        result = json.loads(stdout)[0]
+
+        # Reconstruct categories lists
+        def rebuild_category_lists(obj):
+            obj["attributes"] = [obj["children"][path] for path in obj["attributes"]]
+            obj["classes"] = [obj["children"][path] for path in obj["classes"]]
+            obj["functions"] = [obj["children"][path] for path in obj["functions"]]
+            obj["methods"] = [obj["children"][path] for path in obj["methods"]]
+            obj["modules"] = [obj["children"][path] for path in obj["modules"]]
+            obj["children"] = [v for k, v in obj["children"].items()]
+            for child in obj["children"]:
+                rebuild_category_lists(child)
+
+        rebuild_category_lists(result)
+
+        return result
 
     def teardown(self):
         self.process.terminate()

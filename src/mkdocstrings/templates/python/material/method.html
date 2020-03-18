@@ -1,0 +1,50 @@
+<div class="doc doc-object doc-method">
+
+  {% if root %}
+    {% set show_full_path = config.show_root_full_path %}
+    {% set root = False %}
+  {% else %}
+    {% set show_full_path = config.show_object_full_path %}
+  {% endif %}
+
+  {% if (not root or config.show_root_heading) and (config.show_if_no_docstring or method.has_contents) %}
+
+    <h{{ heading_level }}
+        id="{{ method.path }}"
+        class="doc doc-heading"
+        data-toc-label="{{ method.name }}()">
+
+      <code class="highlight language-python">
+        {% filter highlight(language="python", inline=True) %}
+          {% if show_full_path %}{{ method.path }}{% else %}{{ method.name }}{% endif %}{{ method.docstring.signature }}
+        {% endfilter %}
+      </code>
+
+      {% if method.properties %}
+        <span class="doc doc-properties">
+          {% for property in method.properties %}
+            <small class="doc doc-property doc-property-{{ property }}"><code>{{ property }}</code></small>
+          {% endfor %}
+        </span>
+      {% endif %}
+
+      <a class="headerlink" href="#{{ method.path }}" title="Permanent link">¶</a>
+
+    </h{{ heading_level }}>
+
+  {% endif %}
+
+  {% if config.show_source and method.source %}
+    <details>
+      <summary>Show source code in <code>{{ method.relative_file_path }}</code></summary>
+      {{ method.source[0]|highlight(language="python", linestart=method.source[1]) }}
+    </details>
+  {% endif %}
+
+  {% if method.docstring %}
+    {% with docstring = method.docstring %}
+      {% include "docstring.html" with context %}
+    {% endwith %}
+  {% endif %}
+
+</div>

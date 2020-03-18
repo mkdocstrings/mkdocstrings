@@ -5,7 +5,7 @@ import yaml
 from markdown import Markdown
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
-from markdown.util import etree
+from xml.etree.ElementTree import Element, XML
 
 from .handlers import get_handler
 
@@ -19,7 +19,7 @@ class AutoDocProcessor(BlockProcessor):
         self.md = md
         self._plugin_config = plugin_config
 
-    def test(self, parent: etree.Element, block: etree.Element) -> bool:
+    def test(self, parent: Element, block: Element) -> bool:
         sibling = self.lastChild(parent)
         bool1 = self.RE.search(block)
         bool2 = (
@@ -29,7 +29,7 @@ class AutoDocProcessor(BlockProcessor):
         )
         return bool(bool1 or bool2)
 
-    def run(self, parent: etree.Element, blocks: etree.Element) -> None:
+    def run(self, parent: Element, blocks: Element) -> None:
         block = blocks.pop(0)
         m = self.RE.search(block)
 
@@ -50,7 +50,8 @@ class AutoDocProcessor(BlockProcessor):
 
             data = handler.collector.collect(identifier, selection)
             rendered = handler.renderer.render(data, rendering)
-            parent.append(etree.XML(rendered))
+            as_xml = XML(rendered)
+            parent.append(as_xml)
 
         if the_rest:
             # This block contained unindented line(s) after the first indented

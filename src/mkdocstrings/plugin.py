@@ -53,6 +53,12 @@ def get_instructions(markdown: str) -> Generator[Tuple[str, dict], Tuple[str, di
     """
     Read autodoc instructions.
 
+    ```python
+    s = "Trying a Python code block."
+    ```
+
+        Trying a generic code block.
+
     Parameters:
         markdown: The text to read instructions from.
 
