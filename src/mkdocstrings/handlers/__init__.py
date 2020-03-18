@@ -1,6 +1,18 @@
+"""
+Base module for handlers.
+
+This module contains the base classes for implementing collectors, renderers, and the combination of the two: handlers.
+
+It also provides two methods:
+
+- `get_handler`, that will cache handlers into the `HANDLERS_CACHE` dictionary.
+- `teardown`, that will teardown all the cached handlers, and then clear the cache.
+"""
+
 import importlib
 import textwrap
 from pathlib import Path
+from typing import Any, Type
 
 from jinja2 import Environment, FileSystemLoader
 from markdown import Markdown
@@ -9,27 +21,62 @@ from pymdownx.highlight import Highlight
 HANDLERS_CACHE = {}
 
 
+DataType = Type["T"]
+
+
 class CollectionError(Exception):
-    pass
+    """An exception raised when some collection of data failed."""
 
 
 class BaseRenderer:
-    DEFAULT_RENDERING_OPTS = {}
+    """
+    The base renderer class.
 
-    def __init__(self, directory, theme):
+    Inherit from this class to implement a renderer.
+
+    You will have to implement the `render` method.
+    You can also override the `update_env` method, to add more filters to the Jinja environment,
+    making them available in your Jinja templates.
+    """
+
+    def __init__(self, directory: str, theme: str) -> None:
+        """
+        Initialization method.
+
+        Arguments:
+            directory: The name of the directory containing the themes for this renderer.
+            theme: The name of theme to use.
+        """
         self.env = Environment(loader=FileSystemLoader(Path(__file__).parent.parent / "templates" / directory / theme))
 
-    def render(self, data, config):
+    def render(self, data: DataType, config: dict) -> str:
+        """
+        Render a template using provided data and configuration options.
+
+        Arguments:
+            data: The collected data to render.
+            config: The rendering options.
+
+        Returns:
+            The renderer template as HTML.
+        """
         raise NotImplementedError
 
-    def update_env(self, md):
+    def update_env(self, md: Markdown) -> None:
+        """
+        Update the Jinja environment.
+
+        Arguments:
+            md: The Markdown instance. Useful to add functions able to convert Markdown into the environment filters.
+        """
+        # FIXME: see https://github.com/tomchristie/mkautodoc/issues/14
         md = Markdown(extensions=md.registeredExtensions)
 
         def convert_markdown(text):
             return md.convert(text)
 
         def highlight(src, guess_lang=False, language=None, inline=False, linenums=False, linestart=1):
-            result = Highlight(use_pygments=False, guess_lang=guess_lang, linenums=linenums).highlight(
+            result = Highlight(use_pygments=True, guess_lang=guess_lang, linenums=linenums).highlight(
                 src=textwrap.dedent(textwrap.indent("".join(src), "    ")),
                 language=language,
                 linestart=linestart,
@@ -37,10 +84,7 @@ class BaseRenderer:
             )
             if inline:
                 return result.text
-                # placeholder = md.htmlStash.store(result.text)
-                # return placeholder
             return result
-            # return md.htmlStash.store(result)
 
         def any_plus(seq, attribute=None):
             if attribute is None:
@@ -53,22 +97,60 @@ class BaseRenderer:
 
 
 class BaseCollector:
-    DEFAULT_SELECTION_OPTS = {}
+    """
+    The base collector class.
 
-    def collect(self, identifier, config):
+    Inherit from this class to implement a collector.
+
+    You will have to implement the `collect` method.
+    You can also implement the `teardown` method.
+    """
+
+    def collect(self, identifier: str, config: dict) -> DataType:
+        """
+        Collect data given an identifier and selection configuration.
+
+        In the implementation, you typically call a subprocess that returns JSON, and load that JSON again into
+        a Python dictionary for example, though the implementation is completely free.
+
+        Args:
+            identifier: An identifier for which to collect data. For example, in Python,
+              it would be 'mkdocstrings.handlers' to collect documentation about the handlers module.
+              It can be anything that you can feed to the tool of your choice.
+            config: Configuration options for the tool you use to collect data. Typically called "selection" because
+              these options modify how the objects or documentation are "selected" in the source code.
+
+        Returns:
+            Anything you want, as long as you can feed it to the renderer `render` method.
+        """
         raise NotImplementedError
 
-    def teardown(self):
-        pass
+    def teardown(self) -> None:
+        """Placeholder to remember this method can be implemented."""
 
 
 class BaseHandler:
+    """
+    The base handler class.
+
+    Inherit from this class to implement a handler.
+
+    It's usually just a combination of a collector and a renderer, but you can make it as complex as you need.
+    """
+
     def __init__(self, collector, renderer):
+        """
+        Initialization method.
+
+        Arguments:
+            collector: A collector instance.
+            renderer: A renderer instance.
+        """
         self.collector = collector
         self.renderer = renderer
 
 
-def get_handler(name):
+def get_handler(name) -> BaseHandler:
     if name not in HANDLERS_CACHE:
         module = importlib.import_module(f"mkdocstrings.handlers.{name}")
         HANDLERS_CACHE[name] = module.get_handler()

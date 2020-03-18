@@ -8,10 +8,9 @@ Trying auto references:
 
 Done.
 """
+import logging
 import re
-from typing import Generator, Tuple
 
-import yaml
 from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
 from mkdocs.utils import log
@@ -28,8 +27,7 @@ SELECTION_OPTS_KEY = "selection"
 RENDERING_OPTS_KEY = "rendering"
 """This is the name of the rendering parameter."""
 
-DIRECT_REF = re.compile(r"\[(?P<identifier>.*?)\]\[\]")
-TITLED_REF = re.compile(r"\[(?P<title>.*?)\]\[(?P<identifier>.+?)\]")
+AUTO_REF = re.compile(r"\[(?P<title>.*?)\]\[(?P<identifier>.*?)\]")
 
 
 class MkdocstringsPlugin(BasePlugin):
@@ -42,6 +40,13 @@ class MkdocstringsPlugin(BasePlugin):
     )
 
     def __init__(self, *args, **kwargs) -> None:
+        """
+        Initialization method.
+
+        Arguments:
+            args: Whatever.
+            kwargs: As well.
+        """
         super(MkdocstringsPlugin, self).__init__()
         self.mkdocstrings_extension = None
         self.url_map = {}
@@ -80,23 +85,27 @@ class MkdocstringsPlugin(BasePlugin):
             self.map_urls(base_url, child)
 
     def on_post_page(self, output, page, config, **kwargs):
-        log.debug(f"mkdocstrings.plugin: Fixing broken references in page {page.file.src_path}")
+        log.debug(f"mkdocstrings.plugin: Fixing references in page {page.file.src_path}")
         soup = BeautifulSoup(output, "html.parser")
         tags = soup.find_all(refs)
         for tag in tags:
             tag_str = str(tag)
-            new_str = TITLED_REF.sub(self.fix_ref, tag_str)
-            new_str = DIRECT_REF.sub(self.fix_ref, new_str)
+            new_str = AUTO_REF.sub(self.fix_ref, tag_str)
             if new_str != tag_str:
                 tag.replace_with(BeautifulSoup(new_str, "html.parser"))
             else:
-                log.warning(f"mkdocstrings.plugin: Reference '{new_str}' in page {page.file.src_path} could not be fixed")
-        return soup.prettify()
+                if log.isEnabledFor(logging.WARNING):
+                    ref_list = [i[1] for i in AUTO_REF.findall(tag_str)]
+                    for ref in ref_list:
+                        log.warning(f"mkdocstrings.plugin: Reference '{ref}' in page {page.file.src_path} was not mapped: could not fix it")
+        return str(soup)
 
     def fix_ref(self, match):
         groups = match.groupdict()
         identifier = groups["identifier"]
-        title = groups.get("title")
+        title = groups["title"]
+        if title and not identifier:
+            identifier, title = title, identifier
         try:
             url = self.url_map[identifier]
         except KeyError:
@@ -112,6 +121,4 @@ class MkdocstringsPlugin(BasePlugin):
 
 
 def refs(tag):
-    if not tag.find_parent("code") and not tag.name == "code" and (DIRECT_REF.match(tag.text) or TITLED_REF.match(tag.text)):
-        return True
-    return False
+    return tag.name in ("p", "li", "td") and AUTO_REF.search(tag.text)

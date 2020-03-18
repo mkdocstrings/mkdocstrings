@@ -7,7 +7,12 @@ repo_name: pawamoy/mkdocstrings
 nav:
   - Overview: "index.md"
   - Reference:
+    - handlers:
+      - Base: "reference/handlers/__init__.md"
+      - python.py: "reference/handlers/python.md"
+    - extension.py: "reference/extension.md"
     - plugin.py: "reference/plugin.md"
+    - utils.py: "reference/utils.md"
   - Contributing: "contributing.md"
   - Code of Conduct: "code_of_conduct.md"
   - Changelog: "changelog.md"
@@ -19,23 +24,16 @@ theme:
 extra_css:
   - custom.css
 
-
 markdown_extensions:
   - admonition
   - codehilite:
       guess_lang: false
   - pymdownx.superfences
+  - toc:
+      permalink: true
 
 plugins:
   - search
   - mkdocstrings:
       watch:
         - src/mkdocstrings
-      handlers:
-        python:
-          selection:
-            global_filters:
-              - "!^__weakref__$"
-              - "!^_[^_]"
-          rendering:
-            hide_no_doc: true

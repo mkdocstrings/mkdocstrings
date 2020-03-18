@@ -1,8 +1,8 @@
-import json
 import re
 
 import yaml
 from markdown import Markdown
+from markdown.util import AtomicString
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from xml.etree.ElementTree import Element, XML
@@ -10,6 +10,14 @@ from xml.etree.ElementTree import Element, XML
 from mkdocs.utils import log
 
 from .handlers import get_handler, CollectionError
+
+
+def brute_cast_atomic(tree):
+    if tree.text:
+        tree.text = AtomicString(tree.text)
+    for child in tree:
+        brute_cast_atomic(child)
+    return tree
 
 
 class AutoDocProcessor(BlockProcessor):
@@ -65,6 +73,7 @@ class AutoDocProcessor(BlockProcessor):
 
             log.debug("mkdocstrings.extension: Loading HTML back into XML tree")
             as_xml = XML(rendered)
+            as_xml = brute_cast_atomic(as_xml)
             parent.append(as_xml)
 
         if the_rest:
@@ -86,9 +95,9 @@ class AutoDocProcessor(BlockProcessor):
 
     def get_item_configs(self, handler_name, config):
         handler_config = self.get_handler_config(handler_name)
-        item_selection_config = dict(handler_config.get("selection"))
+        item_selection_config = dict(handler_config.get("selection", {}))
         item_selection_config.update(config.get("selection", {}))
-        item_rendering_config = dict(handler_config.get("rendering"))
+        item_rendering_config = dict(handler_config.get("rendering", {}))
         item_rendering_config.update(config.get("rendering", {}))
         return item_selection_config, item_rendering_config
 

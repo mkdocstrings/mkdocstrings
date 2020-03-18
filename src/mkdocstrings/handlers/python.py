@@ -27,7 +27,7 @@ class PythonRenderer(BaseRenderer):
 
         # Heading level is a "state" variable, that will change at each step
         # of the rendering recursion. Therefore, it's easier to use it as a plain value
-        # instead of as an item of a dictionary reference.
+        # instead of as an item in a dictionary.
         heading_level = final_config.pop("heading_level")
 
         return template.render(
@@ -72,7 +72,7 @@ class PythonCollector(BaseCollector):
         try:
             result = json.loads(stdout)
         except json.decoder.JSONDecodeError as error:
-            log.error("mkdocstrings.handlers.python: Error while loading JSON")
+            log.error(f"mkdocstrings.handlers.python: Error while loading JSON: {stdout}")
             raise CollectionError(str(error))
 
         if "error" in result:

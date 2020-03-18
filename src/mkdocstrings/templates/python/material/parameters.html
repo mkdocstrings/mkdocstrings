@@ -13,7 +13,7 @@
       <tr>
         <td><code>{{ parameter.name }}</code></td>
         <td><code>{{ parameter.annotation }}</code></td>
-        <td>{{ parameter.description }}</td>
+        <td>{{ parameter.description|convert_markdown }}</td>
         <td><code>{{ parameter.default }}</code></td>
       </tr>
     {% endfor %}

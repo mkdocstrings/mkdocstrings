@@ -1,4 +1,14 @@
-div.autodoc {
+div.doc-contents {
   padding-left: 25px;
   border-left: 4px solid rgba(230, 230, 230);
+  margin-bottom: 40px;
+}
+
+h4.doc::before {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+h5.doc-heading {
+  text-transform: none !important;
 }
