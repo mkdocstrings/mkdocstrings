@@ -11,14 +11,13 @@ Done.
 import logging
 import re
 
+from bs4 import BeautifulSoup
 from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
 from mkdocs.utils import log
-from bs4 import BeautifulSoup
 
-from .handlers import teardown
 from .extension import MkdocstringsExtension
-
+from .handlers import teardown
 
 # TODO: make this configurable
 DEFAULT_HANDLER = "python"
@@ -97,7 +96,9 @@ class MkdocstringsPlugin(BasePlugin):
                 if log.isEnabledFor(logging.WARNING):
                     ref_list = [i[1] for i in AUTO_REF.findall(tag_str)]
                     for ref in ref_list:
-                        log.warning(f"mkdocstrings.plugin: Reference '{ref}' in page {page.file.src_path} was not mapped: could not fix it")
+                        log.warning(
+                            f"mkdocstrings.plugin: Reference '{ref}' in page {page.file.src_path} was not mapped: could not fix it"
+                        )
         return str(soup)
 
     def fix_ref(self, match):

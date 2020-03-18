@@ -1,6 +1,6 @@
 import json
-from subprocess import PIPE, Popen
 import os
+from subprocess import PIPE, Popen  # nosec: would sockets be better? what else?
 
 from mkdocs.utils import log
 
@@ -56,7 +56,9 @@ class PythonCollector(BaseCollector):
         log.debug("mkdocstrings.handlers.python: Opening 'pytkdocs' subprocess")
         env = os.environ.copy()
         env["PYTHONUNBUFFERED"] = "1"
-        self.process = Popen(["pytkdocs"], universal_newlines=True, stderr=PIPE, stdout=PIPE, stdin=PIPE, bufsize=-1, env=env)
+        self.process = Popen(  # nosec: there's no way to give the full path to the executable, is there?
+            ["pytkdocs"], universal_newlines=True, stderr=PIPE, stdout=PIPE, stdin=PIPE, bufsize=-1, env=env
+        )
 
     def collect(self, identifier, config: dict) -> dict:
         log.debug("mkdocstrings.handlers.python: Preparing input")

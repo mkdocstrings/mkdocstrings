@@ -12,7 +12,7 @@ It also provides two methods:
 import importlib
 import textwrap
 from pathlib import Path
-from typing import Any, Type
+from typing import Type
 
 from jinja2 import Environment, FileSystemLoader
 from markdown import Markdown
@@ -47,7 +47,9 @@ class BaseRenderer:
             directory: The name of the directory containing the themes for this renderer.
             theme: The name of theme to use.
         """
-        self.env = Environment(loader=FileSystemLoader(Path(__file__).parent.parent / "templates" / directory / theme))
+        self.env = Environment(
+            autoescape=True, loader=FileSystemLoader(Path(__file__).parent.parent / "templates" / directory / theme)
+        )
 
     def render(self, data: DataType, config: dict) -> str:
         """

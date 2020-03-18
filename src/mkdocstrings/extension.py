@@ -1,15 +1,14 @@
 import re
+from xml.etree.ElementTree import XML, Element  # nosec: we choose trust the XML input
 
 import yaml
 from markdown import Markdown
-from markdown.util import AtomicString
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
-from xml.etree.ElementTree import Element, XML
-
+from markdown.util import AtomicString
 from mkdocs.utils import log
 
-from .handlers import get_handler, CollectionError
+from .handlers import CollectionError, get_handler
 
 
 def brute_cast_atomic(tree):
