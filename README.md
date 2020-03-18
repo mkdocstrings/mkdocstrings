@@ -53,14 +53,16 @@ own [documentation](https://pawamoy.github.io/mkdocstrings), generated with itse
   someone with a lot of followers starred it and it got more attention.
 - [x] **January 2020:** It was the end of the year and the beginning of a new one, and I started a new job
   so my time was very limited. There were a few bug fixes, but overall slow progress.
-- [ ] **February 2020:** Efforts are being put into the implementation of the desired architecture.
-  Once it's done, it will be easier to contribute and things will move faster. It's just a bit hard right now
+- [x] **February 2020:** Efforts were put into the implementation of the desired architecture.
+  *"Once it's done, it will be easier to contribute and things will move faster. It's just a bit hard right now
   because of my limited time, and the task requiring more than a few consecutive minutes to be done
-  (more like a few consecutive hours).
-- [ ] **Mars 2020:** At this point I'll make a new release (still 0.x of course)
-- [ ] **Mars 2020:** And obviously we'll need an extensive test suite to ensure quality :slightly_smiling_face:
-- [ ] **Mars-April 2020:** We'll make mkdocstrings configurable (for selecting objects and rendering them)
-- [ ] **April 2020:** Work the backlog!
+  (more like a few consecutive hours)"*.
+- [ ] **March 2020:** Due to the COVID-19 pandemic, I'll spend the second half of March (and probably more!) at home,
+  so I'll be able to work more on my open-source projects, especially `mkdocstrings`.
+- [ ] **April 2020:** At this point I'll make a new release (still 0.x of course)
+- [ ] **April 2020:** And obviously we'll need an extensive test suite to ensure quality :slightly_smiling_face:
+- [ ] **May 2020:** Refine the templates.
+- [ ] **June 2020:** Work the backlog!
 
 ## Requirements
 mkdocstrings requires Python 3.6 or above.
