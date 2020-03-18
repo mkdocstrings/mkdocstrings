@@ -20,7 +20,7 @@ include = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
-pydocload = { git = "https://github.com/pawamoy/pydocload" }
+pytkdocs = { git = "https://github.com/pawamoy/py-tkdocs" }
 docstring-parser = "^0.6"
 
 [tool.poetry.dev-dependencies]
