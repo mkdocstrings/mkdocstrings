@@ -32,19 +32,19 @@
 
     </h{{ heading_level }}>
 
-  {% endif %}
+    {% if config.show_source and function.source %}
+      <details>
+        <summary>Show source code in <code>{{ function.relative_file_path }}</code></summary>
+        {{ function.source[0]|highlight(language="python", linestart=function.source[1]) }}
+      </details>
+    {% endif %}
 
-  {% if config.show_source and function.source %}
-    <details>
-      <summary>Show source code in <code>{{ function.relative_file_path }}</code></summary>
-      {{ function.source[0]|highlight(language="python", linestart=function.source[1]) }}
-    </details>
-  {% endif %}
+    {% if function.docstring %}
+      {% with docstring = function.docstring %}
+        {% include "docstring.html" with context %}
+      {% endwith %}
+    {% endif %}
 
-  {% if function.docstring %}
-    {% with docstring = function.docstring %}
-      {% include "docstring.html" with context %}
-    {% endwith %}
   {% endif %}
 
 </div>

@@ -31,7 +31,7 @@
   {% endif %}
 
   {% if class.docstring %}
-    {% with docstring = module.docstring %}
+    {% with docstring = class.docstring %}
       {% include "docstring.html" with context %}
     {% endwith %}
   {% endif %}
