@@ -25,7 +25,14 @@
 
     {% else %}
       {% set heading_level = heading_level - 1 %}
-      <span id="{{ module.path }}"></span>
+      {% if config.show_root_toc_entry %}
+        <h6 class="hidden-toc"
+            href="#{{ module.path }}"
+            id="{{ module.path }}"
+            data-toc-label="{{ module.path }}"
+            style="visibility: hidden; width: 0; height: 0;">
+        </h6>
+      {% endif %}
     {% endif %}
 
     <div class="doc doc-contents {% if root %}first{% endif %}">
@@ -34,6 +41,7 @@
       {% endwith %}
 
       {% with obj = module %}
+        {% set root = False %}
         {% set heading_level = heading_level + 1 %}
         {% include "children.html" with context %}
       {% endwith %}
@@ -42,5 +50,3 @@
   </div>
 
 {% endif %}
-
-{% set root = False %}
