@@ -1,3 +1,7 @@
+"""
+This module implements a handler for the Python language.
+"""
+
 import json
 import os
 from subprocess import PIPE, Popen  # nosec: would sockets be better? what else?
@@ -60,7 +64,7 @@ class PythonCollector(BaseCollector):
             ["pytkdocs"], universal_newlines=True, stderr=PIPE, stdout=PIPE, stdin=PIPE, bufsize=-1, env=env
         )
 
-    def collect(self, identifier, config: dict) -> dict:
+    def collect(self, identifier: str, config: dict) -> dict:
         log.debug("mkdocstrings.handlers.python: Preparing input")
         json_input = json.dumps({"global_config": {}, "objects": [{"path": identifier, "config": config}]})
 
@@ -78,7 +82,10 @@ class PythonCollector(BaseCollector):
             raise CollectionError(str(error))
 
         if "error" in result:
-            log.error(f"mkdocstrings.handlers.python: Collection failed: {result['error']}")
+            message = f"mkdocstrings.handlers.python: Collection failed: {result['error']}"
+            if "traceback" in result:
+                message += f"\n{result['traceback']}"
+            log.error(message)
             raise CollectionError(result["error"])
 
         # We always collect only one object at a time

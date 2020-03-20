@@ -1,57 +1,119 @@
 """
-This is the plugin module.
+This module contains the `mkdocs` plugin.
 
-Trying auto references:
+The plugin instantiates a Markdown extension ([`MkdocstringsExtension`][mkdocstrings.extension.MkdocstringsExtension]),
+and adds it to the list of Markdown extensions used by `mkdocs`
+during the [`on_config` event hook](https://www.mkdocs.org/user-guide/plugins/#on_config).
 
-- [mkdocstrings.plugin.MkdocstringsPlugin][]
-- [`get_instructions`][mkdocstrings.plugin.get_instructions]
+After each page is processed by the Markdown converter, this plugin stores absolute URLs of every HTML anchors
+it finds to later be able to fix unresolved references.
+It stores them during the [`on_page_contents` event hook](https://www.mkdocs.org/user-guide/plugins/#on_page_contents).
 
-Done.
+Just before writing the final HTML to the disc, during the
+[`on_post_page` event hook](https://www.mkdocs.org/user-guide/plugins/#on_post_page),
+this plugin searches for references of the form `[identifier][]` or `[title][identifier]` that were not resolved,
+and fixes them using the previously stored identifier-URL mapping.
+
+Once the documentation is built, the [`on_post_build` event hook](https://www.mkdocs.org/user-guide/plugins/#on_post_build)
+is triggered and calls the [`handlers.teardown()` method][mkdocstrings.handlers.teardown]. This method is used
+to teardown the [handlers][mkdocstrings.handlers] that were instantiated during documentation buildup.
+
+Finally, when serving the documentation, it can add directories to watch
+during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on_serve).
 """
-import logging
-import re
 
-from bs4 import BeautifulSoup
+import logging
+import random
+import re
+import string
+from typing import Callable, List, Match, Tuple, Pattern
+
+from bs4 import BeautifulSoup, NavigableString, Tag
 from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
+from mkdocs.structure.pages import Page
+from mkdocs.structure.toc import AnchorLink
 from mkdocs.utils import log
 
 from .extension import MkdocstringsExtension
 from .handlers import teardown
 
-# TODO: make this configurable
-DEFAULT_HANDLER = "python"
+SELECTION_OPTS_KEY: str = "selection"
+"""The name of the selection parameter in YAML configuration blocks."""
+RENDERING_OPTS_KEY: str = "rendering"
+"""The name of the rendering parameter in YAML configuration blocks."""
 
-SELECTION_OPTS_KEY = "selection"
-RENDERING_OPTS_KEY = "rendering"
-"""This is the name of the rendering parameter."""
-
-AUTO_REF = re.compile(r"\[(?P<title>.*?)\]\[(?P<identifier>.*?)\]")
+AUTO_REF: Pattern = re.compile(r"\[(?P<title>.+?)\]\[(?P<identifier>.*?)\]")
+"""
+A regular expression to match unresolved Markdown references
+in the [`on_post_page` hook][mkdocstrings.plugin.MkdocstringsPlugin.on_post_page].
+"""
 
 
 class MkdocstringsPlugin(BasePlugin):
-    """This is the plugin class."""
+    """
+    An `mkdocs` plugin.
 
-    config_scheme = (
+    This plugin defines the following event hooks:
+
+    - `on_config`
+    - `on_page_contents`
+    - `on_post_page`
+    - `on_post_build`
+    - `on_serve`
+
+    Check the [Developing Plugins](https://www.mkdocs.org/user-guide/plugins/#developing-plugins) page of `mkdocs`
+    for more information about its plugin system..
+    """
+
+    config_scheme: Tuple[Tuple[str, MkType]] = (
         ("watch", MkType(list, default=[])),
         ("handlers", MkType(dict, default={})),
         ("default_handler", MkType(str, default="python")),
     )
+    """
+    The configuration options of `mkdocstrings`, written in `mkdocs.yml`.
+    
+    Available options are:
+    
+    - __`watch`__: A list of directories to watch. Only used when serving the documentation with mkdocs.
+       Whenever a file changes in one of directories, the whole documentation is built again, and the browser refreshed.
+    - __`default_handler`__: The default handler to use. The value is the name of the handler module. Default is "python".
+    - __`handlers`__: Global configuration of handlers. You can set global configuration per handler, applied everywhere,
+      but overridable in each "autodoc" instruction. Example:
+       
+    ```yaml
+    plugins:
+      - mkdocstrings:
+          handlers:
+            python:
+              selection:
+                selection_opt: true
+              rendering:
+                 rendering_opt: "value"
+            rust:
+              selection:
+                selection_opt: 2
+    ```
+    """
 
-    def __init__(self, *args, **kwargs) -> None:
-        """
-        Initialization method.
-
-        Arguments:
-            args: Whatever.
-            kwargs: As well.
-        """
+    def __init__(self) -> None:
         super(MkdocstringsPlugin, self).__init__()
         self.mkdocstrings_extension = None
         self.url_map = {}
 
     def on_serve(self, server, config, **kwargs):
-        """On serve hook."""
+        """
+        Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).
+
+        In this hook, we add the directories specified in the plugin's configuration to the list of directories
+        watched by `mkdocs`. Whenever a change occur in one of these directories, the documentation is built again
+        and the site reloaded.
+
+        Note:
+            The implementation is a hack. We are retrieving the watch function from a protected attribute.
+            See issue https://github.com/mkdocs/mkdocs/issues/1952 for more information.
+        """
         builder = list(server.watcher._tasks.values())[0]["func"]
         for element in self.config["watch"]:
             log.debug(f"mkdocstrings.plugin: Adding directory '{element}' to watcher")
@@ -60,12 +122,13 @@ class MkdocstringsPlugin(BasePlugin):
 
     def on_config(self, config, **kwargs):
         """
-        On config hook.
+        Hook for the [`on_config` event](https://www.mkdocs.org/user-guide/plugins/#on_config).
 
-        What about references in docstrings and code blocks?
+        In this hook, we instantiate our [`MkdocstringsExtension`][mkdocstrings.extension.MkdocstringsExtension]
+        and add it to the list of Markdown extensions used by `mkdocs`.
 
-        - [`my ref`][mkdocstrings.plugin]
-        - [mkdocstrings.plugin][]
+        We pass this plugin's configuration dictionary to the extension when instantiating it (it will need it
+        later when processing markdown to get handlers and their global configurations).
         """
         log.debug("mkdocstrings.plugin: Adding extension to the list")
         self.mkdocstrings_extension = MkdocstringsExtension(plugin_config=self.config)
@@ -73,53 +136,173 @@ class MkdocstringsPlugin(BasePlugin):
         return config
 
     def on_page_content(self, html, page, config, files, **kwargs):
+        """
+        Hook for the [`on_page_contents` event](https://www.mkdocs.org/user-guide/plugins/#on_page_contents).
+
+        In this hook, we map the IDs of every anchor found in the table of contents to the anchors absolute URLs.
+        This mapping will be used later to fix unresolved reference of the form `[title][identifier]` or
+        `[identifier][]`.
+        """
         log.debug(f"mkdocstrings.plugin: Mapping identifiers to URLs for page {page.file.src_path}")
         for item in page.toc.items:
             self.map_urls(page.abs_url, item)
         return html
 
-    def map_urls(self, base_url, anchor):
+    def map_urls(self, base_url: str, anchor: AnchorLink) -> None:
+        """
+        Recurse on every anchor to map its ID to its absolute URL.
+
+        This method populates `self.url_map` by side-effect.
+
+        Arguments:
+            base_url: The base URL to use as a prefix for each anchor's relative URL.
+            anchor: The anchor to process and to recurse on.
+        """
         self.url_map[anchor.id] = base_url + anchor.url
         for child in anchor.children:
             self.map_urls(base_url, child)
 
-    def on_post_page(self, output, page, config, **kwargs):
-        log.debug(f"mkdocstrings.plugin: Fixing references in page {page.file.src_path}")
-        soup = BeautifulSoup(output, "html.parser")
-        tags = soup.find_all(refs)
-        for tag in tags:
-            tag_str = str(tag)
-            new_str = AUTO_REF.sub(self.fix_ref, tag_str)
-            if new_str != tag_str:
-                tag.replace_with(BeautifulSoup(new_str, "html.parser"))
-            else:
-                if log.isEnabledFor(logging.WARNING):
-                    ref_list = [i[1] for i in AUTO_REF.findall(tag_str)]
-                    for ref in ref_list:
-                        log.warning(
-                            f"mkdocstrings.plugin: Reference '{ref}' in page {page.file.src_path} was not mapped: could not fix it"
-                        )
-        return str(soup)
+    def on_post_page(self, output: str, page: Page, config, **kwargs) -> str:
+        """
+        Hook for the [`on_post_page` event](https://www.mkdocs.org/user-guide/plugins/#on_post_page).
 
-    def fix_ref(self, match):
-        groups = match.groupdict()
-        identifier = groups["identifier"]
-        title = groups["title"]
-        if title and not identifier:
-            identifier, title = title, identifier
-        try:
-            url = self.url_map[identifier]
-        except KeyError:
-            if title:
+        In this hook, we try to fix unresolved references of the form `[title][identifier]` or `[identifier][]`.
+        Doing that allows the user of `mkdocstrings` to cross-reference objects in their documentation strings.
+        It uses the native Markdown syntax so it's easy to remember and use.
+
+        We log a warning for each reference that we couldn't map to an URL, but try to be smart and ignore identifiers
+        that do not look legitimate (sometimes documentation can contain strings matching
+        our [`AUTO_REF`][mkdocstrings.plugin.AUTO_REF] regular expression that did not intend to reference anything).
+        We currently ignore references when their identifier contains a space or a slash.
+        """
+        log.debug(f"mkdocstrings.plugin: Fixing references in page {page.file.src_path}")
+
+        placeholder = Placeholder()
+        while re.search(placeholder.seed, output) or any(placeholder.seed in url for url in self.url_map.values()):
+            placeholder.set_seed()
+
+        unmapped, unintended = [], []
+        soup = BeautifulSoup(output, "html.parser")
+        placeholder.replace_code_tags(soup)
+        fixed_soup = AUTO_REF.sub(self.fix_ref(unmapped, unintended), str(soup))
+
+        if unmapped or unintended:
+            # We do nothing with unintended refs, but still skip replacing the tag i
+            if unmapped and log.isEnabledFor(logging.WARNING):
+                for ref in unmapped:
+                    log.warning(
+                        f"mkdocstrings.plugin: {page.file.src_path}: Could not fix ref '[{ref}]'.\n    "
+                        f"The referenced object was not both collected and rendered."
+                    )
+
+        return placeholder.restore_code_tags(fixed_soup)
+
+    def fix_ref(self, unmapped: List[str], unintended: List[str]) -> Callable:
+        def inner(match: Match):
+            """
+            A function used as the `repl` argument of [`re.sub`](https://docs.python.org/3/library/re.html#re.sub).
+
+            When there is a match on a string, this function is called and given the match object.
+            It then returns the string that should replace the portion of the string that matched.
+
+            In our context, we match Markdown references and replace them with HTML links.
+
+            When the matched reference's identifier contains a space or slash, we append the identifier to the outer
+            `unintended` list to tell the caller that this unresolved reference should be ignored as it's probably
+            not intended as a reference.
+
+            When the matched reference's identifier was not mapped to an URL, we append the identifier to the outer
+            `unmapped` list. It generally means the user is trying to cross-reference an object that was not collected
+            and rendered, making it impossible to link to it. We catch this exception in the caller to issue a warning.
+
+            Arguments:
+                match: A [`match` object](https://docs.python.org/3/library/re.html#match-objects).
+
+            Returns:
+                The string that will replace the matched portion of a string.
+            """
+            groups = match.groupdict()
+            identifier = groups["identifier"]
+            title = groups["title"]
+
+            if title and not identifier:
+                identifier, title = title, identifier
+
+            try:
+                url = self.url_map[identifier]
+            except KeyError:
+                if " " in identifier or "/" in identifier:
+                    # invalid identifier, must not be a intended reference
+                    unintended.append(identifier)
+                else:
+                    unmapped.append(identifier)
+
+                if not title:
+                    return f"[{identifier}][]"
                 return f"[{title}][{identifier}]"
-            return f"[{identifier}][]"
-        else:
+
+            # TODO: we could also use a config option to ignore some identifiers
+            # and to map others to URLs, something like:
+            # references:
+            #   ignore:
+            #     - "USERNAME:PASSWORD@"
+            #   map:
+            #     some-id: https://example.com
+
             return f'<a href="{url}">{title or identifier}</a>'
 
-    def on_post_build(self, config, **kwargs):
+        return inner
+
+    def on_post_build(self, config, **kwargs) -> None:
+        """
+        Hook for the [`on_post_build` event](https://www.mkdocs.org/user-guide/plugins/#on_post_build).
+
+        This hook is used to teardown all the handlers that were instantiated and cached during documentation buildup.
+
+        For example, the [Python handler's collector][mkdocstrings.handlers.python.PythonCollector] opens a subprocess
+        in the background and keeps it open to feed it the "autodoc" instructions and get back JSON data. Therefore,
+        it must close it at some point, and it does it in its
+        [`teardown()` method][mkdocstrings.handlers.python.PythonCollector.teardown] which is indirectly called by
+        this hook.
+        """
         log.debug("mkdocstrings.plugin: Tearing handlers down")
         teardown()
 
 
-def refs(tag):
-    return tag.name in ("p", "li", "td") and AUTO_REF.search(tag.text)
+class Placeholder:
+    def __init__(self):
+        self.ids = {}
+        self.seed = None
+        self.set_seed()
+
+    def store(self, value):
+        i = self.get_id()
+        while i in self.ids:
+            i = self.get_id()
+        self.ids[i] = value
+        return i
+
+    def get_id(self):
+        return f"{self.seed}{random.randint(0, 1000000)}"
+
+    def set_seed(self):
+        self.seed = "".join(random.choices(string.ascii_letters + string.digits, k=16))
+
+    def replace_code_tags(self, soup):
+        def recursive_replace(tag):
+            if hasattr(tag, "contents"):
+                for i in range(len(tag.contents)):
+                    child = tag.contents[i]
+                    if child.name == "code":
+                        tag.contents[i] = NavigableString(self.store(str(child)))
+                    else:
+                        recursive_replace(child)
+
+        recursive_replace(soup)
+
+    def restore_code_tags(self, soup_str):
+        def replace_placeholder(match):
+            placeholder = match.groups()[0]
+            return self.ids[placeholder]
+
+        return re.sub(rf"({self.seed}\d+)", replace_placeholder, soup_str)

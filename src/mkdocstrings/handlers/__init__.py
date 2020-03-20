@@ -47,9 +47,8 @@ class BaseRenderer:
             directory: The name of the directory containing the themes for this renderer.
             theme: The name of theme to use.
         """
-        self.env = Environment(
-            autoescape=True, loader=FileSystemLoader(Path(__file__).parent.parent / "templates" / directory / theme)
-        )
+        # FIXME: set again autoescape=True, but disable escaping when converting markdown in templates
+        self.env = Environment(loader=FileSystemLoader(Path(__file__).parent.parent / "templates" / directory / theme))
 
     def render(self, data: DataType, config: dict) -> str:
         """
@@ -159,7 +158,8 @@ def get_handler(name) -> BaseHandler:
     return HANDLERS_CACHE[name]
 
 
-def teardown():
+def teardown() -> None:
+    """Teardown all cached handlers."""
     for handler in HANDLERS_CACHE.values():
         handler.collector.teardown()
         del handler.collector

@@ -8,7 +8,7 @@ nav:
   - Overview: "index.md"
   - Reference:
     - handlers:
-      - Base: "reference/handlers/__init__.md"
+      - __init__.py: "reference/handlers/__init__.md"
       - python.py: "reference/handlers/python.md"
     - extension.py: "reference/extension.md"
     - plugin.py: "reference/plugin.md"
