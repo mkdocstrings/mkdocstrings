@@ -17,7 +17,7 @@
       <code class="highlight">
         {% filter highlight(language="python", inline=True) %}
           {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}
-          {% if attribute.docstring.signature %}: {{ attribute.docstring.signature }}{% endif %}
+          {% if attribute.type %}: {{ attribute.type }}{% endif %}
         {% endfilter %}
       </code>
 

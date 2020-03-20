@@ -1,28 +1,34 @@
-{% if root %}
-  {% set show_full_path = config.show_root_full_path %}
-  {% set root = False %}
-{% else %}
-  {% set show_full_path = config.show_object_full_path %}
-{% endif %}
-
-{% if (not root or config.show_root_heading) and (config.show_if_no_docstring or module.has_contents) %}
+{% if config.show_if_no_docstring or module.has_contents %}
 
   <div class="doc doc-object doc-module">
 
-    <h{{ heading_level }}
-        id="{{ module.path }}"
-        class="doc doc-heading"
-        data-toc-label="{{ module.name }}">
+    {% if not root or config.show_root_heading %}
 
-      <code>{% if show_full_path %}{{ module.path }}{% else %}{{ module.name }}{% endif %}</code>
+      {% if root %}
+        {% set show_full_path = config.show_root_full_path %}
+      {% else %}
+        {% set show_full_path = config.show_object_full_path %}
+      {% endif %}
 
-      {% with properties = module.properties %}
-        {% include "properties.html" with context %}
-      {% endwith %}
+      <h{{ heading_level }}
+          id="{{ module.path }}"
+          class="doc doc-heading"
+          data-toc-label="{{ module.name }}">
 
-    </h{{ heading_level }}>
+        <code>{% if show_full_path %}{{ module.path }}{% else %}{{ module.name }}{% endif %}</code>
 
-    <div class="doc doc-contents">
+        {% with properties = module.properties %}
+          {% include "properties.html" with context %}
+        {% endwith %}
+
+      </h{{ heading_level }}>
+
+    {% else %}
+      {% set heading_level = heading_level - 1 %}
+      <span id="{{ module.path }}"></span>
+    {% endif %}
+
+    <div class="doc doc-contents {% if root %}first{% endif %}">
       {% with docstring = module.docstring %}
         {% include "docstring.html" with context %}
       {% endwith %}
@@ -36,3 +42,5 @@
   </div>
 
 {% endif %}
+
+{% set root = False %}
