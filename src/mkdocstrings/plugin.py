@@ -26,9 +26,10 @@ import logging
 import random
 import re
 import string
-from typing import Callable, List, Match, Tuple, Pattern
+from typing import Callable, List, Match, Pattern, Tuple
 
-from bs4 import BeautifulSoup, NavigableString, Tag
+from bs4 import BeautifulSoup
+from bs4.element import NavigableString
 from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
 from mkdocs.structure.pages import Page
@@ -73,15 +74,15 @@ class MkdocstringsPlugin(BasePlugin):
     )
     """
     The configuration options of `mkdocstrings`, written in `mkdocs.yml`.
-    
+
     Available options are:
-    
+
     - __`watch`__: A list of directories to watch. Only used when serving the documentation with mkdocs.
        Whenever a file changes in one of directories, the whole documentation is built again, and the browser refreshed.
     - __`default_handler`__: The default handler to use. The value is the name of the handler module. Default is "python".
     - __`handlers`__: Global configuration of handlers. You can set global configuration per handler, applied everywhere,
       but overridable in each "autodoc" instruction. Example:
-       
+
     ```yaml
     plugins:
       - mkdocstrings:
@@ -283,7 +284,7 @@ class Placeholder:
         return i
 
     def get_id(self):
-        return f"{self.seed}{random.randint(0, 1000000)}"
+        return f"{self.seed}{random.randint(0, 1000000)}"  # nosec: it's not for security/cryptographic purposes
 
     def set_seed(self):
         self.seed = "".join(random.choices(string.ascii_letters + string.digits, k=16))
