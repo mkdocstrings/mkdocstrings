@@ -21,12 +21,11 @@ include = [
 [tool.poetry.dependencies]
 python = "^3.6"
 pytkdocs = { git = "https://github.com/pawamoy/py-tkdocs" }
-docstring-parser = "^0.6"
 
 [tool.poetry.dev-dependencies]
 bandit = "^1.5"
 black = { version = "*", allow-prereleases = true }
-coverage = { version = "=5.0a8", allow-prereleases = true }
+coverage = "^5.0.4"
 flake8 = "^3.6"
 git-changelog = "^0.2.0"
 ipython = "^7.2"

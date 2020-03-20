@@ -53,6 +53,20 @@ class PythonRenderer(BaseRenderer):
         #
         # self.env.filters["convert_docstring"] = convert_docstring
 
+        # def break_args(signature, align=False):
+        #     signature = signature.replace("\n", "")
+        #     name, args = signature.split("(", 1)
+        #     name = name.rstrip(" ")
+        #     args = args.rstrip(")").split(", ")
+        #     if not align:
+        #         args = ",\n    ".join(args)
+        #         return f"{name}(\n    {args}\n)"
+        #     else:
+        #         indent = " " * (name + 1)
+        #         arg0 = args.pop(0)
+        #         args = f",\n{indent}".join(args)
+        #         return f"{name}({arg0}\n{indent}{args})"
+
 
 class PythonCollector(BaseCollector):
     DEFAULT_CONFIG = {}
@@ -62,7 +76,13 @@ class PythonCollector(BaseCollector):
         env = os.environ.copy()
         env["PYTHONUNBUFFERED"] = "1"
         self.process = Popen(  # nosec: there's no way to give the full path to the executable, is there?
-            ["pytkdocs"], universal_newlines=True, stderr=PIPE, stdout=PIPE, stdin=PIPE, bufsize=-1, env=env
+            ["pytkdocs", "--line-by-line"],
+            universal_newlines=True,
+            stderr=PIPE,
+            stdout=PIPE,
+            stdin=PIPE,
+            bufsize=-1,
+            env=env,
         )
 
     def collect(self, identifier: str, config: dict) -> dict:
@@ -89,8 +109,17 @@ class PythonCollector(BaseCollector):
             log.error(message)
             raise CollectionError(result["error"])
 
+        if result["loading_errors"]:
+            for error in result["loading_errors"]:
+                log.warning(f"mkdocstrings.handlers.python: {error}")
+
+        if result["parsing_errors"]:
+            for path, errors in result["parsing_errors"].items():
+                for error in errors:
+                    log.warning(f"mkdocstrings.handlers.python: {path}: {error}")
+
         # We always collect only one object at a time
-        result = result[0]
+        result = result["objects"][0]
 
         log.debug("mkdocstrings.handlers.python: Rebuilding categories and children lists")
         rebuild_category_lists(result)

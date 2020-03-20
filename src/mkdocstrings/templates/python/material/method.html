@@ -16,8 +16,8 @@
           data-toc-label="{{ method.name }}()">
 
         <code class="highlight language-python">
+          {% if show_full_path %}{{ method.path }}{% else %}{{ method.name }}{% endif %}
           {% filter highlight(language="python", inline=True) %}
-            {% if show_full_path %}{{ method.path }}{% else %}{{ method.name }}{% endif %}
             {% with signature = method.docstring.signature %}{% include "signature.html" with context %}{% endwith %}
           {% endfilter %}
         </code>

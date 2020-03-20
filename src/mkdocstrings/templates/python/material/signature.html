@@ -11,7 +11,7 @@
           {% set render_kw_only_separator = False %}*, {% endif %}
       {% endif %}
       {% if "default" in parameter %}
-        {% set default = "=" + parameter.default %}
+        {% set default = "=" + parameter.default|safe %}
       {% endif %}
       {% if parameter.kind == "VAR_POSITIONAL" %}*
         {% set render_kw_only_separator = False %}

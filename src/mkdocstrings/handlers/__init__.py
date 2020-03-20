@@ -78,12 +78,13 @@ class BaseRenderer:
         def convert_markdown(text):
             return do_mark_safe(md.convert(text))
 
-        def highlight(src, guess_lang=False, language=None, inline=False, linenums=False, linestart=1):
+        def highlight(src, guess_lang=False, language=None, inline=False, dedent=True, linenums=False, linestart=1):
+            if isinstance(src, list):
+                src = "".join(src)
+            if dedent:
+                src = textwrap.dedent(src)
             result = Highlight(use_pygments=True, guess_lang=guess_lang, linenums=linenums).highlight(
-                src=textwrap.dedent(textwrap.indent("".join(src), "    ")),
-                language=language,
-                linestart=linestart,
-                inline=inline,
+                src=src, language=language, linestart=linestart, inline=inline,
             )
             if inline:
                 return do_mark_safe(result.text)
