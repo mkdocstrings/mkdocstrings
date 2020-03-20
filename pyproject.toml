@@ -5,7 +5,7 @@ build-backend = "poetry.masonry.api"
 [tool.poetry]
 name = "mkdocstrings"
 version = "0.7.0"
-description = "Automatic documentation from docstrings, for mkdocs."
+description = "Automatic documentation from sources, for mkdocs."
 authors = ["Timothée Mazzucotelli <pawamoy@pm.me>"]
 license = "ISC License"
 readme = "README.md"

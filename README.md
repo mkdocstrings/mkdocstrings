@@ -4,41 +4,68 @@
 [![documentation](https://img.shields.io/badge/docs-latest-green.svg?style=flat)](https://pawamoy.github.io/mkdocstrings)
 [![pypi version](https://img.shields.io/pypi/v/mkdocstrings.svg)](https://pypi.org/project/mkdocstrings/)
 
-Automatic documentation from docstrings, for mkdocs.
+Automatic documentation from sources, for mkdocs.
 
-This plugin is still in alpha status. Here is how it looks with the [mkdocs-material theme](https://squidfunk.github.io/mkdocs-material/) for now:
-
-![mkdocstrings](https://user-images.githubusercontent.com/3999221/71327911-e467d000-250e-11ea-83e7-a81ec59f41e2.gif)
+- [Features](#features)
+    - [Python handler features](#python-handler-features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
 
 ## Features
-- **Works great with Material theme:** `mkdocstrings` was designed to work best with
-  the great [Material theme](https://squidfunk.github.io/mkdocs-material/).
-- **Support for type annotations:** `mkdocstrings` uses your type annotations to display parameters types
-  or return types.
-- **Recursive documentation of Python objects:** just write the module dotted-path, and you get the full module docs.
-  No need to ask for each class, function, etc.
-- **Support for documented attribute:** attributes (variables) followed by a docstring (triple-quoted string) will
-  be recognized by `mkdocstrings`, in modules, classes and even in `__init__` methods.
-- **Support for objects properties:** `mkdocstrings` will know if a method is a `staticmethod`, a `classmethod` or else,
-  it will also know if a property is read-only or writable, and more! These properties will be displayed
-  next to the object signature.
-- **Every object has a TOC entry and a unique permalink:** the navigation is greatly improved! Click the anchor
-  next to the object signature to get its permalink, which is its Python dotted-path.
-- **Auto-reference other objects:** `mkdocstrings` makes it possible to reference other Python objects from your
-  markdown files, and even from your docstrings, with the classic Markdown syntax:
-  `[this object][package.module.object]` or directly with `[package.module.object][]`.
-- **Google-style sections support in docstrings:** `mkdocstrings` understands `Arguments:`, `Raises:`
-  and `Returns:` sections. It will even keep the section order in the generated docs.
-- **Support for source code display:** `mkdocstrings` can add a collapsible div containing the source code of the
-  Python object, directly below its signature, with the right line numbers.
-- **Admonition support in docstrings:** blocks like `Note: ` or `Warning: ` will be transformed
-  to their [admonition](https://squidfunk.github.io/mkdocs-material/extensions/admonition/) equivalent.
-  *We do not support nested admonitions in docstrings!*
+
+- **Language agnostic:** just like `mkdocs`, `mkdocstrings` is written in Python but is language-agnostic. It means
+  you can use for any language, as long as you implement a [`handler`][mkdocstrings.handlers] for it. Currently, we
+  only have a [Python handler][mkdocstrings.handlers.python]. Maybe you'd like to contribute another one :wink:?
+- **Multiple themes support:** each handler can offer multiple themes. Currently, we only offer the
+  :star: [Material theme](https://squidfunk.github.io/mkdocs-material/) :star: for the Python handler.
+- **Cross-references to other objects:** `mkdocstrings` makes it possible to reference other headings from your
+  Markdown files with the classic Markdown syntax: `[identifier][]` or `[title][identifier]`. This feature is language
+  agnostic as well: you can cross-reference any heading that appear in your Markdown pages.
+  If the handler for a particular language renders headings for documented objects, you'll be able to reference them!
+- **Inline injection in Markdown:** instead of generating Markdown files, `mkdocstrings` allows you to inject
+  documentation anywhere in your Markdown contents. The syntax is simple: `::: identifier` followed by a 4-spaces
+  indented YAML block. The identifier and YAML configuration will be passed to the appropriate handler
+  to collect and render documentation.
+- **Global and local configuration:** each handler can be configured globally in `mkdocs.yml`, and locally for each
+  "autodoc" instruction.
+- **Watch source code directories:** you can tell `mkdocstrings` to add directories to be watched by `mkdocs` when
+  serving the documentation, for auto-reload.
 - **Sane defaults:** you should be able to just drop the plugin in your configuration and enjoy your auto-generated docs.
-- **Configurable:** *(soon)* `mkdocstrings` is configurable globally, and per autodoc instruction.
+
+Here is how it looks for Python documentation,
+with the [mkdocs-material theme](https://squidfunk.github.io/mkdocs-material/):
+
+![mkdocstrings_gif1](https://user-images.githubusercontent.com/3999221/77157604-fb807480-6aa1-11ea-99e0-d092371d4de0.gif)
+![mkdocstrings_gif2](https://user-images.githubusercontent.com/3999221/77157838-7184db80-6aa2-11ea-9f9a-fe77405202de.gif)
+  
+### Python handler features
+
+- **Data collection from source code**: collection of the object-tree and the docstrings is done by
+  [`pytkdocs`](https://github.com/pawamoy/pytkdocs). The following features are possible thanks to it:
+    - **Support for type annotations:** `pytkdocs` collects your type annotations and `mkdocstrings` uses them
+      to display parameters types or return types. 
+    - **Recursive documentation of Python objects:** just use the module dotted-path as identifier, and you get the full
+      module docs. You don't need to inject documentation for each class, function, etc.
+    - **Support for documented attribute:** attributes (variables) followed by a docstring (triple-quoted string) will
+      be recognized by `pytkdocs` in modules, classes and even in `__init__` methods.
+    - **Support for objects properties:** `pytkdocs` detects if a method is a `staticmethod`, a `classmethod`, etc.,
+      it also detects if a property is read-only or writable, and more! These properties will be displayed
+      next to the object signature by `mkdocstrings`.
+    - **Google-style sections support in docstrings:** `pytkdocs` understands `Arguments:`, `Raises:`
+      and `Returns:` sections, and returns structured data for `mkdocstrings` to render them.
+    - **Admonition support in docstrings:** blocks like `Note: ` or `Warning: ` will be transformed
+      to their [admonition](https://squidfunk.github.io/mkdocs-material/extensions/admonition/) equivalent.
+      *We do not support nested admonitions in docstrings!*
+- **Every object has a TOC entry:** we render a heading for each object, meaning `mkdocs` picks them into the Table
+  of Contents, which is nicely display by the Material theme. Thanks to `mkdocstrings` cross-reference ability,
+  you can even reference other objects within your docstrings, with the classic Markdown syntax:
+  `[this object][package.module.object]` or directly with `[package.module.object][]`
+- **Source code display:** `mkdocstrings` can add a collapsible div containing the highlighted source code
+  of the Python object.
 
 To get an example of what is possible, check `mkdocstrings`'
-own [documentation](https://pawamoy.github.io/mkdocstrings), generated with itself.
+own [documentation](https://pawamoy.github.io/mkdocstrings), auto-generated from sources by itself of course.
 
 ## Requirements
 mkdocstrings requires Python 3.6 or above.
@@ -73,25 +100,36 @@ python3.6 -m pip install mkdocstrings
 
 ```yaml
 # mkdocs.yml
-
-# designed to work best with material theme
 theme:
   name: "material"
 
 plugins:
   - search
-  - mkdocstrings
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          rendering:
+            show_source: true
+      watch:
+        - src/my_library
 ```
 
 In one of your markdown files:
 
-```markdown
+```yaml
 # Reference
 
 ::: my_library.my_module.my_class
+    rendering:
+      show_source: false
+
+
+::: org.jpackage.BestOfTheBestFactoryInterface
+    handler: java  # we don't have a java handler yet, it's just an example
 ```
 
-You can reference objects from other modules in your docstrings:
+In documentation strings (written in Markdown), you can reference objects from other places:
 
 ```python
 def some_function():
@@ -107,80 +145,16 @@ def some_function():
 Add some style in `docs/custom.css`:
 
 ```css
-div.autodoc {
+div.doc-contents:not(.first) {
   padding-left: 25px;
   border-left: 4px solid rgba(230, 230, 230);
+  margin-bottom: 80px;
 }
 ```
 
-And add it to your configuration:
+And add it to your `mkdocs.yml`:
 
 ```yaml
 extra_css:
   - custom.css
 ```
-
-## Docstrings format
-Your docstrings must follow a particular format, otherwise `mkdocstrings` will throw an exception.
-This will be improved to be more robust over time.
-
-```python
-from typing import Optional
-
-def my_function(param1: int, param2: Optional[str] = None) -> str:
-    """
-    A short description of this function.
-
-    A longer description of this function.
-    You can use more lines.
-
-        This is code block,
-        as usual.
-
-    ```python
-    s = "This is a Python code block :)"
-    ```
-
-    Arguments:
-        param1: An integer?
-        param2: A string? If you have a long description,
-          you can split it on multiple lines.
-          Just remember to indent those lines with at least two more spaces.
-               They will all be concatenated in one line, so do not try to
-             use complex markup here.
-
-    Note:
-        We omitted the type hints next to the parameters names.
-        Usually you would write something like `param1 (int): ...`,
-        but `mkdocstrings` gets the type information from the signature, so it's not needed here.
-
-    Exceptions are written the same.
-
-    Raises:
-        OSError: Explain when this error is thrown.
-        RuntimeError: Explain as well.
-          Multi-line description, etc.
-
-    Let's see the return value section now.
-
-    Returns:
-        A description of the value that is returned.
-        Again multiple lines are allowed. They will also be concatenated to one line,
-        so do not use complex markup here.
-
-    Note:
-        Other words are supported:
-
-        - `Args`, `Arguments`, `Params` and `Parameters` for the parameters.
-        - `Raise`, `Raises`, `Except`, and `Exceptions` for exceptions.
-        - `Return` or `Returns` for return value.
-
-        They are all case-insensitive, so you can write `RETURNS:` or `params:`.
-    """
-    return f"{param2}{param1}"
-```
-
-This docstring would be rendered like this (had to take two screenshots, so it's not perfectly aligned):
-
-![image](https://user-images.githubusercontent.com/3999221/71548405-f41f6280-29ad-11ea-939e-d02a16232aa0.png)
-![image](https://user-images.githubusercontent.com/3999221/71548413-ff728e00-29ad-11ea-95a5-d61e990be6c4.png)

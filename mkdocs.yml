@@ -6,6 +6,8 @@ repo_name: pawamoy/mkdocstrings
 
 nav:
   - Overview: "index.md"
+  - Handlers:
+    - Python: "handlers/python.md"
   - Reference:
     - handlers:
       - __init__.py: "reference/handlers/__init__.md"
@@ -29,6 +31,7 @@ markdown_extensions:
   - codehilite:
       guess_lang: false
   - pymdownx.superfences
+  - pymdownx.emoji
   - toc:
       permalink: true
 
