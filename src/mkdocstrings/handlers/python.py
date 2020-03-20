@@ -14,6 +14,7 @@ from . import BaseCollector, BaseHandler, BaseRenderer, CollectionError
 class PythonRenderer(BaseRenderer):
     DEFAULT_CONFIG = {
         "show_root_heading": False,
+        "show_root_toc_entry": True,
         "show_root_full_path": True,
         "show_object_full_path": False,
         "show_category_heading": False,
