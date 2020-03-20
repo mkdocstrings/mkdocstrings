@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Type
 
 from jinja2 import Environment, FileSystemLoader
+from jinja2.filters import do_mark_safe
 from markdown import Markdown
 from pymdownx.highlight import Highlight
 
@@ -47,8 +48,9 @@ class BaseRenderer:
             directory: The name of the directory containing the themes for this renderer.
             theme: The name of theme to use.
         """
-        # FIXME: set again autoescape=True, but disable escaping when converting markdown in templates
-        self.env = Environment(loader=FileSystemLoader(Path(__file__).parent.parent / "templates" / directory / theme))
+        self.env = Environment(
+            autoescape=True, loader=FileSystemLoader(Path(__file__).parent.parent / "templates" / directory / theme)
+        )
 
     def render(self, data: DataType, config: dict) -> str:
         """
@@ -74,7 +76,7 @@ class BaseRenderer:
         md = Markdown(extensions=md.registeredExtensions)
 
         def convert_markdown(text):
-            return md.convert(text)
+            return do_mark_safe(md.convert(text))
 
         def highlight(src, guess_lang=False, language=None, inline=False, linenums=False, linestart=1):
             result = Highlight(use_pygments=True, guess_lang=guess_lang, linenums=linenums).highlight(
@@ -84,8 +86,8 @@ class BaseRenderer:
                 inline=inline,
             )
             if inline:
-                return result.text
-            return result
+                return do_mark_safe(result.text)
+            return do_mark_safe(result)
 
         def any_plus(seq, attribute=None):
             if attribute is None:
