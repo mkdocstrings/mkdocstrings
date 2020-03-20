@@ -6,6 +6,12 @@
 
 Automatic documentation from sources, for mkdocs.
 
+---
+
+![mkdocstrings_gif1](https://user-images.githubusercontent.com/3999221/77157604-fb807480-6aa1-11ea-99e0-d092371d4de0.gif)
+
+---
+
 - [Features](#features)
     - [Python handler features](#python-handler-features)
 - [Requirements](#requirements)
@@ -32,12 +38,6 @@ Automatic documentation from sources, for mkdocs.
 - **Watch source code directories:** you can tell `mkdocstrings` to add directories to be watched by `mkdocs` when
   serving the documentation, for auto-reload.
 - **Sane defaults:** you should be able to just drop the plugin in your configuration and enjoy your auto-generated docs.
-
-Here is how it looks for Python documentation,
-with the [mkdocs-material theme](https://squidfunk.github.io/mkdocs-material/):
-
-![mkdocstrings_gif1](https://user-images.githubusercontent.com/3999221/77157604-fb807480-6aa1-11ea-99e0-d092371d4de0.gif)
-![mkdocstrings_gif2](https://user-images.githubusercontent.com/3999221/77157838-7184db80-6aa2-11ea-9f9a-fe77405202de.gif)
   
 ### Python handler features
 
@@ -63,9 +63,12 @@ with the [mkdocs-material theme](https://squidfunk.github.io/mkdocs-material/):
   `[this object][package.module.object]` or directly with `[package.module.object][]`
 - **Source code display:** `mkdocstrings` can add a collapsible div containing the highlighted source code
   of the Python object.
-
+  
 To get an example of what is possible, check `mkdocstrings`'
-own [documentation](https://pawamoy.github.io/mkdocstrings), auto-generated from sources by itself of course.
+own [documentation](https://pawamoy.github.io/mkdocstrings), auto-generated from sources by itself of course,
+and the following GIF:
+
+![mkdocstrings_gif2](https://user-images.githubusercontent.com/3999221/77157838-7184db80-6aa2-11ea-9f9a-fe77405202de.gif)
 
 ## Requirements
 mkdocstrings requires Python 3.6 or above.
