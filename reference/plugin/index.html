@@ -470,7 +470,7 @@
 <a class="headerlink" href="#mkdocstrings.plugin" title="Permanent link">¶</a></h6>
 <div class="doc doc-contents first">
 <p>This module contains the <code>mkdocs</code> plugin.</p>
-<p>The plugin instantiates a Markdown extension (<a href="https://pawamoy.github.io/mkdocstrings/mkdocstrings/reference/extension/#mkdocstrings.extension.MkdocstringsExtension"><code>MkdocstringsExtension</code></a>),
+<p>The plugin instantiates a Markdown extension (<a href="https://pawamoy.github.io/mkdocstrings/reference/extension/#mkdocstrings.extension.MkdocstringsExtension"><code>MkdocstringsExtension</code></a>),
 and adds it to the list of Markdown extensions used by <code>mkdocs</code>
 during the <a href="https://www.mkdocs.org/user-guide/plugins/#on_config"><code>on_config</code> event hook</a>.</p>
 <p>After each page is processed by the Markdown converter, this plugin stores absolute URLs of every HTML anchors
@@ -481,8 +481,8 @@ It stores them during the <a href="https://www.mkdocs.org/user-guide/plugins/#on
 this plugin searches for references of the form <code>[identifier][]</code> or <code>[title][identifier]</code> that were not resolved,
 and fixes them using the previously stored identifier-URL mapping.</p>
 <p>Once the documentation is built, the <a href="https://www.mkdocs.org/user-guide/plugins/#on_post_build"><code>on_post_build</code> event hook</a>
-is triggered and calls the <a href="https://pawamoy.github.io/mkdocstrings/mkdocstrings/reference/handlers/__init__/#mkdocstrings.handlers.teardown"><code>handlers.teardown()</code> method</a>. This method is used
-to teardown the <a href="https://pawamoy.github.io/mkdocstrings/mkdocstrings/reference/handlers/__init__/#mkdocstrings.handlers">handlers</a> that were instantiated during documentation buildup.</p>
+is triggered and calls the <a href="https://pawamoy.github.io/mkdocstrings/reference/handlers/__init__/#mkdocstrings.handlers.teardown"><code>handlers.teardown()</code> method</a>. This method is used
+to teardown the <a href="https://pawamoy.github.io/mkdocstrings/reference/handlers/__init__/#mkdocstrings.handlers">handlers</a> that were instantiated during documentation buildup.</p>
 <p>Finally, when serving the documentation, it can add directories to watch
 during the <a href="https://www.mkdocs.org/user-guide/plugins/#on_serve"><code>on_serve</code> event hook</a>.</p>
 <div class="doc doc-children">
@@ -493,7 +493,7 @@ AUTO_REF: <span class="n">Pattern</span> </code>
 <a class="headerlink" href="#mkdocstrings.plugin.AUTO_REF" title="Permanent link">¶</a></h2>
 <div class="doc doc-contents">
 <p>A regular expression to match unresolved Markdown references
-in the <a href="https://pawamoy.github.io/mkdocstrings/mkdocstrings/reference/plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_post_page"><code>on_post_page</code> hook</a>.</p>
+in the <a href="https://pawamoy.github.io/mkdocstrings/reference/plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_post_page"><code>on_post_page</code> hook</a>.</p>
 </div>
 </div>
 <div class="doc doc-object doc-attribute">
@@ -842,7 +842,7 @@ on_config<span class="p">(</span><span class="bp">self</span><span class="p">,</
 <a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_config" title="Permanent link">¶</a></h3>
 <div class="doc doc-contents">
 <p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_config"><code>on_config</code> event</a>.</p>
-<p>In this hook, we instantiate our <a href="https://pawamoy.github.io/mkdocstrings/mkdocstrings/reference/extension/#mkdocstrings.extension.MkdocstringsExtension"><code>MkdocstringsExtension</code></a>
+<p>In this hook, we instantiate our <a href="https://pawamoy.github.io/mkdocstrings/reference/extension/#mkdocstrings.extension.MkdocstringsExtension"><code>MkdocstringsExtension</code></a>
 and add it to the list of Markdown extensions used by <code>mkdocs</code>.</p>
 <p>We pass this plugin's configuration dictionary to the extension when instantiating it (it will need it
 later when processing markdown to get handlers and their global configurations).</p>
@@ -951,8 +951,8 @@ This mapping will be used later to fix unresolved reference of the form <code>[t
 <span class="sd">    """</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.plugin: Mapping identifiers to URLs for page </span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">src_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">page</span><span class="o">.</span><span class="n">toc</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
-        <span class="n">abs_url</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">'site_url'</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"/"</span> <span class="o">+</span> <span class="n">page</span><span class="o">.</span><span class="n">abs_url</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">map_urls</span><span class="p">(</span><span class="n">abs_url</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+        <span class="c1"># abs_url = config['site_url'].rstrip("/") + "/" + page.abs_url.lstrip("/")</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map_urls</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">canonical_url</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">html</span>
 </code></pre>
 </div>
@@ -970,10 +970,10 @@ on_post_build<span class="p">(</span><span class="bp">self</span><span class="p"
 <div class="doc doc-contents">
 <p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_post_build"><code>on_post_build</code> event</a>.</p>
 <p>This hook is used to teardown all the handlers that were instantiated and cached during documentation buildup.</p>
-<p>For example, the <a href="https://pawamoy.github.io/mkdocstrings/mkdocstrings/reference/handlers/python/#mkdocstrings.handlers.python.PythonCollector">Python handler's collector</a> opens a subprocess
+<p>For example, the <a href="https://pawamoy.github.io/mkdocstrings/reference/handlers/python/#mkdocstrings.handlers.python.PythonCollector">Python handler's collector</a> opens a subprocess
 in the background and keeps it open to feed it the "autodoc" instructions and get back JSON data. Therefore,
 it must close it at some point, and it does it in its
-<a href="https://pawamoy.github.io/mkdocstrings/mkdocstrings/reference/handlers/python/#mkdocstrings.handlers.python.PythonCollector.teardown"><code>teardown()</code> method</a> which is indirectly called by
+<a href="https://pawamoy.github.io/mkdocstrings/reference/handlers/python/#mkdocstrings.handlers.python.PythonCollector.teardown"><code>teardown()</code> method</a> which is indirectly called by
 this hook.</p>
 <details class="quote">
 <summary>Show source code in <code>mkdocstrings/plugin.py</code></summary>
@@ -1033,7 +1033,7 @@ Doing that allows the user of <code>mkdocstrings</code> to cross-reference objec
 It uses the native Markdown syntax so it's easy to remember and use.</p>
 <p>We log a warning for each reference that we couldn't map to an URL, but try to be smart and ignore identifiers
 that do not look legitimate (sometimes documentation can contain strings matching
-our <a href="https://pawamoy.github.io/mkdocstrings/mkdocstrings/reference/plugin/#mkdocstrings.plugin.AUTO_REF"><code>AUTO_REF</code></a> regular expression that did not intend to reference anything).
+our <a href="https://pawamoy.github.io/mkdocstrings/reference/plugin/#mkdocstrings.plugin.AUTO_REF"><code>AUTO_REF</code></a> regular expression that did not intend to reference anything).
 We currently ignore references when their identifier contains a space or a slash.</p>
 <details class="quote">
 <summary>Show source code in <code>mkdocstrings/plugin.py</code></summary>

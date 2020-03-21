@@ -402,7 +402,7 @@
 <p>This module holds the code of the Markdown extension responsible for matching "autodoc" instructions.</p>
 <p>The extension is composed of a Markdown <a href="https://python-markdown.github.io/extensions/api/#blockparser">block processor</a>
 that matches indented blocks starting with a line like '::: identifier'.</p>
-<p>For each of these blocks, it uses a <a href="https://pawamoy.github.io/mkdocstrings/mkdocstrings/reference/handlers/__init__/#mkdocstrings.handlers.BaseHandler">handler</a> to collect documentation about
+<p>For each of these blocks, it uses a <a href="https://pawamoy.github.io/mkdocstrings/reference/handlers/__init__/#mkdocstrings.handlers.BaseHandler">handler</a> to collect documentation about
 the given identifier and render it with Jinja templates.</p>
 <p>Both the collection and rendering process can be configured by adding YAML configuration under the "autodoc"
 instruction:</p>
@@ -425,8 +425,8 @@ instruction:</p>
 <a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor" title="Permanent link">¶</a></h2>
 <div class="doc doc-contents">
 <p>Our "autodoc" Markdown block processor.</p>
-<p>It has a <a href="https://pawamoy.github.io/mkdocstrings/mkdocstrings/reference/extension/#mkdocstrings.extension.AutoDocProcessor.test"><code>test</code> method</a> that tells if a block matches a criterion,
-and a <a href="https://pawamoy.github.io/mkdocstrings/mkdocstrings/reference/extension/#mkdocstrings.extension.AutoDocProcessor.run"><code>run</code> method</a> that processes it.</p>
+<p>It has a <a href="https://pawamoy.github.io/mkdocstrings/reference/extension/#mkdocstrings.extension.AutoDocProcessor.test"><code>test</code> method</a> that tells if a block matches a criterion,
+and a <a href="https://pawamoy.github.io/mkdocstrings/reference/extension/#mkdocstrings.extension.AutoDocProcessor.run"><code>run</code> method</a> that processes it.</p>
 <p>It also has utility methods allowing to get handlers and their configuration easily, useful when processing
 a matched block.</p>
 <div class="doc doc-children">
@@ -469,7 +469,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <td><code>config</code></td>
 <td><code>dict</code></td>
 <td>
-<p>The <a href="https://pawamoy.github.io/mkdocstrings/mkdocstrings/reference/plugin/#mkdocstrings.plugin.MkdocstringsPlugin.config_scheme">configuration</a> of the <code>mkdocstrings</code> plugin.</p>
+<p>The <a href="https://pawamoy.github.io/mkdocstrings/reference/plugin/#mkdocstrings.plugin.MkdocstringsPlugin.config_scheme">configuration</a> of the <code>mkdocstrings</code> plugin.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -1058,7 +1058,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <td><code>config</code></td>
 <td><code>dict</code></td>
 <td>
-<p>The configuration items from <code>mkdocs</code> and <code>mkdocstrings</code> that must be passed to the block processor when instantiated in <a href="https://pawamoy.github.io/mkdocstrings/mkdocstrings/reference/extension/#mkdocstrings.extension.MkdocstringsExtension.extendMarkdown"><code>extendMarkdown</code></a>.</p>
+<p>The configuration items from <code>mkdocs</code> and <code>mkdocstrings</code> that must be passed to the block processor when instantiated in <a href="https://pawamoy.github.io/mkdocstrings/reference/extension/#mkdocstrings.extension.MkdocstringsExtension.extendMarkdown"><code>extendMarkdown</code></a>.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -1119,7 +1119,7 @@ extendMarkdown<span class="p">(</span><span class="bp">self</span><span class="p
 <a class="headerlink" href="#mkdocstrings.extension.MkdocstringsExtension.extendMarkdown" title="Permanent link">¶</a></h3>
 <div class="doc doc-contents">
 <p>Register the extension.</p>
-<p>Add an instance of our <a href="https://pawamoy.github.io/mkdocstrings/mkdocstrings/reference/extension/#mkdocstrings.extension.AutoDocProcessor"><code>AutoDocProcessor</code></a> to the Markdown parser.</p>
+<p>Add an instance of our <a href="https://pawamoy.github.io/mkdocstrings/reference/extension/#mkdocstrings.extension.AutoDocProcessor"><code>AutoDocProcessor</code></a> to the Markdown parser.</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
