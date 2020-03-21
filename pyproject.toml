@@ -11,7 +11,7 @@ license = "ISC License"
 readme = "README.md"
 repository = "https://github.com/pawamoy/mkdocstrings"
 homepage = "https://github.com/pawamoy/mkdocstrings"
-keywords = ["mkdocs", "mkdocs-plugin", "docstrings", "autodoc"]
+keywords = ["mkdocs", "mkdocs-plugin", "docstrings", "autodoc", "documentation"]
 packages = [ { include = "mkdocstrings", from = "src" } ]
 include = [
     "README.md",
@@ -20,9 +20,9 @@ include = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
-mkdocs = ">=1.1"
+mkdocs = "^1.1"
 beautifulsoup4 = "^4.8.2"
-pytkdocs = "^0.1.0"
+pytkdocs = "^0.1.1"
 
 [tool.poetry.dev-dependencies]
 bandit = "^1.5"

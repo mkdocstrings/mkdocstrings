@@ -24,7 +24,7 @@ class PythonRenderer(BaseRenderer):
 
     FALLBACK_THEME = "material"
 
-    DEFAULT_CONFIG = {
+    DEFAULT_CONFIG: dict = {
         "show_root_heading": False,
         "show_root_toc_entry": True,
         "show_root_full_path": True,
@@ -35,6 +35,21 @@ class PythonRenderer(BaseRenderer):
         "group_by_category": True,
         "heading_level": 2,
     }
+    """
+    The default rendering options.
+    
+    Option | Type | Description | Default
+    ------ | ---- | ----------- | -------
+    **`show_root_heading`** | `bool` | Show the heading of the object at the root of the documentation tree. | `False`
+    **`show_root_toc_entry`** | `bool` | If the root heading is not shown, at least add a ToC entry for it. | `True`
+    **`show_root_full_path`** | `bool` | Show the full Python path for the root object heading. | `True`
+    **`show_object_full_path`** | `bool` | Show the full Python path of every object. | `False`
+    **`show_category_heading`** | `bool` | When grouped by categories, show a heading for each category. | `False`
+    **`show_if_no_docstring`** | `bool` | Show the object heading even if it has no docstring or children with docstrings. | `False`
+    **`show_source`** | `bool` | Show the source code of this object. | `True`
+    **`group_by_category`** | `bool` | Group the object's children by categories: attributes, classes, functions, methods, and modules. | `True`
+    **`heading_level`** | `int` | The initial heading level to use. | `2`
+    """
 
     def render(self, data: dict, config: dict) -> str:
         final_config = dict(self.DEFAULT_CONFIG)

@@ -22,3 +22,12 @@ h6.hidden-toc::before {
 h6.hidden-toc a.headerlink {
   display: none;
 }
+
+td code {
+  word-break: normal !important;
+}
+
+td p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
