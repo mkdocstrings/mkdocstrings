@@ -1,48 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://mkdocstrings.github.io/</loc>
-     <lastmod>2020-01-13</lastmod>
+     <lastmod>2020-03-21</lastmod>
      <changefreq>daily</changefreq>
-    </url>
-    <url>
+    </url><url>
+     <loc>https://mkdocstrings.github.io/handlers/overview/</loc>
+     <lastmod>2020-03-21</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://mkdocstrings.github.io/handlers/python/</loc>
+     <lastmod>2020-03-21</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://mkdocstrings.github.io/reference/handlers/__init__/</loc>
+     <lastmod>2020-03-21</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://mkdocstrings.github.io/reference/handlers/python/</loc>
+     <lastmod>2020-03-21</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>https://mkdocstrings.github.io/reference/extension/</loc>
+     <lastmod>2020-03-21</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
      <loc>https://mkdocstrings.github.io/reference/plugin/</loc>
-     <lastmod>2020-01-13</lastmod>
+     <lastmod>2020-03-21</lastmod>
      <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://mkdocstrings.github.io/reference/documenter/</loc>
-     <lastmod>2020-01-13</lastmod>
+    </url><url>
+     <loc>https://mkdocstrings.github.io/troubleshooting/</loc>
+     <lastmod>2020-03-21</lastmod>
      <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://mkdocstrings.github.io/reference/docstrings/</loc>
-     <lastmod>2020-01-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://mkdocstrings.github.io/reference/renderer/</loc>
-     <lastmod>2020-01-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
+    </url><url>
      <loc>https://mkdocstrings.github.io/contributing/</loc>
-     <lastmod>2020-01-13</lastmod>
+     <lastmod>2020-03-21</lastmod>
      <changefreq>daily</changefreq>
-    </url>
-    <url>
+    </url><url>
      <loc>https://mkdocstrings.github.io/code_of_conduct/</loc>
-     <lastmod>2020-01-13</lastmod>
+     <lastmod>2020-03-21</lastmod>
      <changefreq>daily</changefreq>
-    </url>
-    <url>
+    </url><url>
      <loc>https://mkdocstrings.github.io/changelog/</loc>
-     <lastmod>2020-01-13</lastmod>
+     <lastmod>2020-03-21</lastmod>
      <changefreq>daily</changefreq>
-    </url>
-    <url>
+    </url><url>
      <loc>https://mkdocstrings.github.io/credits/</loc>
-     <lastmod>2020-01-13</lastmod>
+     <lastmod>2020-03-21</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>

@@ -1,555 +1,1596 @@
 
+<!DOCTYPE html>
 
-
-
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      <meta http-equiv="x-ua-compatible" content="ie=edge">
-      
-        <meta name="description" content="Automatic documentation from docstrings, for mkdocs.">
-      
-      
-        <link rel="canonical" href="https://mkdocstrings.github.io/reference/plugin/">
-      
-      
-      
-        <meta name="lang:clipboard.copy" content="Copy to clipboard">
-      
-        <meta name="lang:clipboard.copied" content="Copied to clipboard">
-      
-        <meta name="lang:search.language" content="en">
-      
-        <meta name="lang:search.pipeline.stopwords" content="True">
-      
-        <meta name="lang:search.pipeline.trimmer" content="True">
-      
-        <meta name="lang:search.result.none" content="No matching documents">
-      
-        <meta name="lang:search.result.one" content="1 matching document">
-      
-        <meta name="lang:search.result.other" content="# matching documents">
-      
-        <meta name="lang:search.tokenizer" content="[\s\-]+">
-      
-      <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.0">
-    
-    
-      
-        <title>plugin.py - mkdocstrings</title>
-      
-    
-    
-      <link rel="stylesheet" href="../../assets/stylesheets/application.1b62728e.css">
-      
-      
-    
-    
-      <script src="../../assets/javascripts/modernizr.268332fc.js"></script>
-    
-    
-      
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
-      
-    
-    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
-    
-    
-      <link rel="stylesheet" href="../../custom.css">
-    
-    
-      
-    
-    
-  </head>
-  
-    <body dir="ltr">
-  
-    <svg class="md-svg">
-      <defs>
-        
-        
-          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
-        
-      </defs>
-    </svg>
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
-    
-      <a href="#mkdocstrings.plugin.MkdocstringsPlugin" tabindex="1" class="md-skip">
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="ie=edge" http-equiv="x-ua-compatible"/>
+<meta content="Automatic documentation from docstrings, for mkdocs." name="description"/>
+<link href="https://mkdocstrings.github.io/reference/plugin/" rel="canonical"/>
+<meta content="Copy to clipboard" name="lang:clipboard.copy"/>
+<meta content="Copied to clipboard" name="lang:clipboard.copied"/>
+<meta content="en" name="lang:search.language"/>
+<meta content="True" name="lang:search.pipeline.stopwords"/>
+<meta content="True" name="lang:search.pipeline.trimmer"/>
+<meta content="No matching documents" name="lang:search.result.none"/>
+<meta content="1 matching document" name="lang:search.result.one"/>
+<meta content="# matching documents" name="lang:search.result.other"/>
+<meta content="[\s\-]+" name="lang:search.tokenizer"/>
+<link href="../../assets/images/favicon.png" rel="shortcut icon"/>
+<meta content="mkdocs-1.1, mkdocs-material-4.6.3" name="generator"/>
+<title>plugin.py - mkdocstrings</title>
+<link href="../../assets/stylesheets/application.adb8469c.css" rel="stylesheet"/>
+<script src="../../assets/javascripts/modernizr.86422ebf.js"></script>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
+<style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+<link href="../../assets/fonts/material-icons.css" rel="stylesheet"/>
+<link href="../../custom.css" rel="stylesheet"/>
+</head>
+<body dir="ltr">
+<svg class="md-svg">
+<defs>
+<svg height="448" id="__github" viewbox="0 0 416 448" width="416" xmlns="http://www.w3.org/2000/svg"><path d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z" fill="currentColor"></path></svg>
+</defs>
+</svg>
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+<a class="md-skip" href="#mkdocstrings.plugin" tabindex="0">
         Skip to content
       </a>
-    
-    
-      <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid">
-    <div class="md-flex">
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="https://mkdocstrings.github.io/" title="mkdocstrings" class="md-header-nav__button md-logo">
-          
-            <i class="md-icon"></i>
-          
-        </a>
-      </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
-        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
-      </div>
-      <div class="md-flex__cell md-flex__cell--stretch">
-        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
-          
-            <span class="md-header-nav__topic">
+<header class="md-header" data-md-component="header">
+<nav class="md-header-nav md-grid">
+<div class="md-flex">
+<div class="md-flex__cell md-flex__cell--shrink">
+<a aria-label="mkdocstrings" class="md-header-nav__button md-logo" href="https://mkdocstrings.github.io/" title="mkdocstrings">
+<i class="md-icon"></i>
+</a>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch">
+<div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+<span class="md-header-nav__topic">
               mkdocstrings
             </span>
-            <span class="md-header-nav__topic">
+<span class="md-header-nav__topic">
               
                 plugin.py
               
             </span>
-          
-        </div>
-      </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
-        
-          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
-          
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
 <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
-      <label class="md-icon md-search__icon" for="__search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
-        &#xE5CD;
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="query" data-md-state="active" name="query" placeholder="Search" spellcheck="false" type="text"/>
+<label class="md-icon md-search__icon" for="__search"></label>
+<button class="md-icon md-search__icon" data-md-component="reset" tabindex="-1" type="reset">
+        
       </button>
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result">
-          <div class="md-search-result__meta">
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="result">
+<div class="md-search-result__meta">
             Type to start searching
           </div>
-          <ol class="md-search-result__list"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
+<ol class="md-search-result__list"></ol>
 </div>
-        
-      </div>
-      
-        <div class="md-flex__cell md-flex__cell--shrink">
-          <div class="md-header-nav__source">
-            
-
-
-  
-
-<a href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository" class="md-source" data-md-source="github">
-  
-    <div class="md-source__icon">
-      <svg viewBox="0 0 24 24" width="24" height="24">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
-  <div class="md-source__repository">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<div class="md-header-nav__source">
+<a class="md-source" data-md-source="github" href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository">
+<div class="md-source__icon">
+<svg height="24" viewbox="0 0 24 24" width="24">
+<use height="24" width="24" xlink:href="#__github"></use>
+</svg>
+</div>
+<div class="md-source__repository">
     pawamoy/mkdocstrings
   </div>
 </a>
-          </div>
-        </div>
-      
-    </div>
-  </nav>
+</div>
+</div>
+</div>
+</nav>
 </header>
-    
-    <div class="md-container">
-      
-        
-      
-      
-      <main class="md-main" role="main">
-        <div class="md-main__inner md-grid" data-md-component="container">
-          
-            
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" data-md-level="0">
-  <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="https://mkdocstrings.github.io/" title="mkdocstrings" class="md-nav__button md-logo">
-      
-        <i class="md-icon"></i>
-      
-    </a>
+<div class="md-container">
+<main class="md-main" role="main">
+<div class="md-main__inner md-grid" data-md-component="container">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title md-nav__title--site" for="__drawer">
+<a class="md-nav__button md-logo" href="https://mkdocstrings.github.io/" title="mkdocstrings">
+<i class="md-icon"></i>
+</a>
     mkdocstrings
   </label>
-  
-    <div class="md-nav__source">
-      
-
-
-  
-
-<a href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository" class="md-source" data-md-source="github">
-  
-    <div class="md-source__icon">
-      <svg viewBox="0 0 24 24" width="24" height="24">
-        <use xlink:href="#__github" width="24" height="24"></use>
-      </svg>
-    </div>
-  
-  <div class="md-source__repository">
+<div class="md-nav__source">
+<a class="md-source" data-md-source="github" href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository">
+<div class="md-source__icon">
+<svg height="24" viewbox="0 0 24 24" width="24">
+<use height="24" width="24" xlink:href="#__github"></use>
+</svg>
+</div>
+<div class="md-source__repository">
     pawamoy/mkdocstrings
   </div>
 </a>
-    </div>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../.." title="Overview" class="md-nav__link">
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../.." title="Overview">
       Overview
     </a>
-  </li>
-
-    
-      
-      
-      
-
-  
-
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
-    
-    <label class="md-nav__link" for="nav-2">
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" id="nav-2" type="checkbox"/>
+<label class="md-nav__link" for="nav-2">
+      Handlers
+    </label>
+<nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+<label class="md-nav__title" for="nav-2">
+        Handlers
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../handlers/overview/" title="Overview">
+      Overview
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../handlers/python/" title="Python">
+      Python
+    </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-toggle md-nav__toggle" data-md-toggle="nav-3" id="nav-3" type="checkbox"/>
+<label class="md-nav__link" for="nav-3">
       Reference
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-2">
+<nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+<label class="md-nav__title" for="nav-3">
         Reference
       </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-  
-
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" id="nav-3-1" type="checkbox"/>
+<label class="md-nav__link" for="nav-3-1">
+      handlers
+    </label>
+<nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+<label class="md-nav__title" for="nav-3-1">
+        handlers
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../handlers/__init__/" title="__init__.py">
+      __init__.py
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../handlers/python/" title="python.py">
+      python.py
+    </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../extension/" title="extension.py">
+      extension.py
+    </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-toggle md-nav__toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
         plugin.py
       </label>
-    
-    <a href="./" title="plugin.py" class="md-nav__link md-nav__link--active">
+<a class="md-nav__link md-nav__link--active" href="./" title="plugin.py">
       plugin.py
     </a>
-    
-      
 <nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#mkdocstrings.plugin.MkdocstringsPlugin" class="md-nav__link">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin">
+    mkdocstrings.plugin
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.AUTO_REF">
+    AUTO_REF
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.RENDERING_OPTS_KEY">
+    RENDERING_OPTS_KEY
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.SELECTION_OPTS_KEY">
+    SELECTION_OPTS_KEY
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin">
     MkdocstringsPlugin
   </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mkdocstrings.plugin.MkdocstringsPlugin.on_config" class="md-nav__link">
+<nav class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.config_scheme">
+    config_scheme
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.fix_ref">
+    fix_ref()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.map_urls">
+    map_urls()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_config">
     on_config()
   </a>
-  
 </li>
-        
-      </ul>
-    </nav>
-  
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_page_content">
+    on_page_content()
+  </a>
 </li>
-      
-      
-      
-      
-      
-    </ul>
-  
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_post_build">
+    on_post_build()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_post_page">
+    on_post_page()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_serve">
+    on_serve()
+  </a>
+</li>
+</ul>
 </nav>
-    
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../documenter/" title="documenter.py" class="md-nav__link">
-      documenter.py
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.Placeholder">
+    Placeholder
+  </a>
+<nav class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.Placeholder.get_id">
+    get_id()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.Placeholder.replace_code_tags">
+    replace_code_tags()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.Placeholder.restore_code_tags">
+    restore_code_tags()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.Placeholder.set_seed">
+    set_seed()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.Placeholder.store">
+    store()
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../troubleshooting/" title="Troubleshooting">
+      Troubleshooting
     </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../docstrings/" title="docstrings.py" class="md-nav__link">
-      docstrings.py
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../renderer/" title="renderer.py" class="md-nav__link">
-      renderer.py
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../contributing/" title="Contributing" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../contributing/" title="Contributing">
       Contributing
     </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../code_of_conduct/" title="Code of Conduct" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../code_of_conduct/" title="Code of Conduct">
       Code of Conduct
     </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../changelog/" title="Changelog" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../changelog/" title="Changelog">
       Changelog
     </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../credits/" title="Credits" class="md-nav__link">
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../credits/" title="Credits">
       Credits
     </a>
-  </li>
-
-    
-  </ul>
+</li>
+</ul>
 </nav>
-                  </div>
-                </div>
-              </div>
-            
-            
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
 <nav class="md-nav md-nav--secondary">
-  
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#mkdocstrings.plugin.MkdocstringsPlugin" class="md-nav__link">
+<label class="md-nav__title" for="__toc">Table of contents</label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin">
+    mkdocstrings.plugin
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.AUTO_REF">
+    AUTO_REF
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.RENDERING_OPTS_KEY">
+    RENDERING_OPTS_KEY
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.SELECTION_OPTS_KEY">
+    SELECTION_OPTS_KEY
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin">
     MkdocstringsPlugin
   </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mkdocstrings.plugin.MkdocstringsPlugin.on_config" class="md-nav__link">
+<nav class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.config_scheme">
+    config_scheme
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.fix_ref">
+    fix_ref()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.map_urls">
+    map_urls()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_config">
     on_config()
   </a>
-  
 </li>
-        
-      </ul>
-    </nav>
-  
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_page_content">
+    on_page_content()
+  </a>
 </li>
-      
-      
-      
-      
-      
-    </ul>
-  
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_post_build">
+    on_post_build()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_post_page">
+    on_post_page()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_serve">
+    on_serve()
+  </a>
+</li>
+</ul>
 </nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          <div class="md-content">
-            <article class="md-content__inner md-typeset">
-              
-                
-                  <a href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/reference/plugin.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
-                
-                
-                  <h1>plugin.py</h1>
-                
-                <p>Plugin module docstring.</p>
-<h2 id="mkdocstrings.plugin.MkdocstringsPlugin"><code class="codehilite"><span class="n">MkdocstringsPlugin</span></code><a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin" title="Permanent link">&para;</a></h2>
-<div class="autodoc">
-<p>The mkdocstrings plugin to use in your mkdocs configuration file.</p>
-<h3 id="mkdocstrings.plugin.MkdocstringsPlugin.on_config"><code class="codehilite"><span class="n">on_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code><a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_config" title="Permanent link">&para;</a></h3>
-<div class="autodoc">
-<details class="note"><summary>Show source code in mkdocstrings/plugin.py</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>92
-93
-94
-95
-96</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">on_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Initializes a [Documenter][mkdocstrings.documenter.Documenter].&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">documenter</span> <span class="o">=</span> <span class="n">Documenter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;global_filters&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span> <span class="o">=</span> <span class="n">config</span>
-        <span class="k">return</span> <span class="n">config</span>
-</pre></div>
-</td></tr></table>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.Placeholder">
+    Placeholder
+  </a>
+<nav class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.Placeholder.get_id">
+    get_id()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.Placeholder.replace_code_tags">
+    replace_code_tags()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.Placeholder.restore_code_tags">
+    restore_code_tags()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.Placeholder.set_seed">
+    set_seed()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.Placeholder.store">
+    store()
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset">
+<a class="md-icon md-content__icon" href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/reference/plugin.md" title="Edit this page"></a>
+<h1>plugin.py</h1>
+<div class="doc doc-object doc-module">
+<h6 class="hidden-toc" href="#mkdocstrings.plugin" id="mkdocstrings.plugin" style="visibility: hidden; width: 0; height: 0;">
+<a class="headerlink" href="#mkdocstrings.plugin" title="Permanent link">¶</a></h6>
+<div class="doc doc-contents first">
+<p>This module contains the <code>mkdocs</code> plugin.</p>
+<p>The plugin instantiates a Markdown extension (<a href="/reference/extension/#mkdocstrings.extension.MkdocstringsExtension"><code>MkdocstringsExtension</code></a>),
+and adds it to the list of Markdown extensions used by <code>mkdocs</code>
+during the <a href="https://www.mkdocs.org/user-guide/plugins/#on_config"><code>on_config</code> event hook</a>.</p>
+<p>After each page is processed by the Markdown converter, this plugin stores absolute URLs of every HTML anchors
+it finds to later be able to fix unresolved references.
+It stores them during the <a href="https://www.mkdocs.org/user-guide/plugins/#on_page_contents"><code>on_page_contents</code> event hook</a>.</p>
+<p>Just before writing the final HTML to the disc, during the
+<a href="https://www.mkdocs.org/user-guide/plugins/#on_post_page"><code>on_post_page</code> event hook</a>,
+this plugin searches for references of the form <code>[identifier][]</code> or <code>[title][identifier]</code> that were not resolved,
+and fixes them using the previously stored identifier-URL mapping.</p>
+<p>Once the documentation is built, the <a href="https://www.mkdocs.org/user-guide/plugins/#on_post_build"><code>on_post_build</code> event hook</a>
+is triggered and calls the <a href="/reference/handlers/__init__/#mkdocstrings.handlers.teardown"><code>handlers.teardown()</code> method</a>. This method is used
+to teardown the <a href="/reference/handlers/__init__/#mkdocstrings.handlers">handlers</a> that were instantiated during documentation buildup.</p>
+<p>Finally, when serving the documentation, it can add directories to watch
+during the <a href="https://www.mkdocs.org/user-guide/plugins/#on_serve"><code>on_serve</code> event hook</a>.</p>
+<div class="doc doc-children">
+<div class="doc doc-object doc-attribute">
+<h2 class="doc doc-heading" id="mkdocstrings.plugin.AUTO_REF">
+<code class="highlight">
+AUTO_REF: <span class="n">Pattern</span> </code>
+<a class="headerlink" href="#mkdocstrings.plugin.AUTO_REF" title="Permanent link">¶</a></h2>
+<div class="doc doc-contents">
+<p>A regular expression to match unresolved Markdown references
+in the <a href="/reference/plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_post_page"><code>on_post_page</code> hook</a>.</p>
+</div>
+</div>
+<div class="doc doc-object doc-attribute">
+<h2 class="doc doc-heading" id="mkdocstrings.plugin.RENDERING_OPTS_KEY">
+<code class="highlight">
+RENDERING_OPTS_KEY: <span class="nb">str</span> </code>
+<a class="headerlink" href="#mkdocstrings.plugin.RENDERING_OPTS_KEY" title="Permanent link">¶</a></h2>
+<div class="doc doc-contents">
+<p>The name of the rendering parameter in YAML configuration blocks.</p>
+</div>
+</div>
+<div class="doc doc-object doc-attribute">
+<h2 class="doc doc-heading" id="mkdocstrings.plugin.SELECTION_OPTS_KEY">
+<code class="highlight">
+SELECTION_OPTS_KEY: <span class="nb">str</span> </code>
+<a class="headerlink" href="#mkdocstrings.plugin.SELECTION_OPTS_KEY" title="Permanent link">¶</a></h2>
+<div class="doc doc-contents">
+<p>The name of the selection parameter in YAML configuration blocks.</p>
+</div>
+</div>
+<div class="doc doc-object doc-class">
+<h2 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin">
+<code>MkdocstringsPlugin</code>
+<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin" title="Permanent link">¶</a></h2>
+<div class="doc doc-contents">
+<p>An <code>mkdocs</code> plugin.</p>
+<p>This plugin defines the following event hooks:</p>
+<ul>
+<li><code>on_config</code></li>
+<li><code>on_page_contents</code></li>
+<li><code>on_post_page</code></li>
+<li><code>on_post_build</code></li>
+<li><code>on_serve</code></li>
+</ul>
+<p>Check the <a href="https://www.mkdocs.org/user-guide/plugins/#developing-plugins">Developing Plugins</a> page of <code>mkdocs</code>
+for more information about its plugin system..</p>
+<div class="doc doc-children">
+<div class="doc doc-object doc-attribute">
+<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.config_scheme">
+<code class="highlight">
+config_scheme: <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">MkType</span><span class="p">]]</span> </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-class-attribute"><code>class-attribute</code></small>
+</span>
+<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.config_scheme" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>The configuration options of <code>mkdocstrings</code>, written in <code>mkdocs.yml</code>.</p>
+<p>Available options are:</p>
+<ul>
+<li><strong><code>watch</code></strong>: A list of directories to watch. Only used when serving the documentation with mkdocs.
+   Whenever a file changes in one of directories, the whole documentation is built again, and the browser refreshed.</li>
+<li><strong><code>default_handler</code></strong>: The default handler to use. The value is the name of the handler module. Default is "python".</li>
+<li><strong><code>handlers</code></strong>: Global configuration of handlers. You can set global configuration per handler, applied everywhere,
+  but overridable in each "autodoc" instruction. Example:</li>
+</ul>
+<div class="codehilite">
+<pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
+      <span class="nt">handlers</span><span class="p">:</span>
+        <span class="nt">python</span><span class="p">:</span>
+          <span class="nt">selection</span><span class="p">:</span>
+            <span class="nt">selection_opt</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+          <span class="nt">rendering</span><span class="p">:</span>
+             <span class="nt">rendering_opt</span><span class="p">:</span> <span class="s">"value"</span>
+        <span class="nt">rust</span><span class="p">:</span>
+          <span class="nt">selection</span><span class="p">:</span>
+            <span class="nt">selection_opt</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+</code></pre>
+</div>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.fix_ref">
+<code class="highlight language-python">
+fix_ref<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unmapped</span><span class="p">,</span> <span class="n">unintended</span><span class="p">)</span> </code>
+<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.fix_ref" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>Return a <code>repl</code> function for <a href="https://docs.python.org/3/library/re.html#re.sub"><code>re.sub</code></a>.</p>
+<p>In our context, we match Markdown references and replace them with HTML links.</p>
+<p>When the matched reference's identifier contains a space or slash, we append the identifier to the outer
+<code>unintended</code> list to tell the caller that this unresolved reference should be ignored as it's probably
+not intended as a reference.</p>
+<p>When the matched reference's identifier was not mapped to an URL, we append the identifier to the outer
+<code>unmapped</code> list. It generally means the user is trying to cross-reference an object that was not collected
+and rendered, making it impossible to link to it. We catch this exception in the caller to issue a warning.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>unmapped</code></td>
+<td><code>List[str]</code></td>
+<td>
+<p>A list to store unmapped identifiers.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>unintended</code></td>
+<td><code>List[str]</code></td>
+<td>
+<p>A list to store identifiers of unintended references.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Callable</code></td>
+<td>
+<p>The actual function accepting a <a href="https://docs.python.org/3/library/re.html#match-objects"><code>Match</code> object</a>
+and returning the replacement strings.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Show source code in <code>mkdocstrings/plugin.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">fix_ref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unmapped</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">unintended</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Return a `repl` function for [`re.sub`](https://docs.python.org/3/library/re.html#re.sub).</span>
 
+<span class="sd">    In our context, we match Markdown references and replace them with HTML links.</span>
+
+<span class="sd">    When the matched reference's identifier contains a space or slash, we append the identifier to the outer</span>
+<span class="sd">    `unintended` list to tell the caller that this unresolved reference should be ignored as it's probably</span>
+<span class="sd">    not intended as a reference.</span>
+
+<span class="sd">    When the matched reference's identifier was not mapped to an URL, we append the identifier to the outer</span>
+<span class="sd">    `unmapped` list. It generally means the user is trying to cross-reference an object that was not collected</span>
+<span class="sd">    and rendered, making it impossible to link to it. We catch this exception in the caller to issue a warning.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        unmapped: A list to store unmapped identifiers.</span>
+<span class="sd">        unintended: A list to store identifiers of unintended references.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The actual function accepting a [`Match` object](https://docs.python.org/3/library/re.html#match-objects)</span>
+<span class="sd">        and returning the replacement strings.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">match</span><span class="p">:</span> <span class="n">Match</span><span class="p">):</span>
+        <span class="n">groups</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">"identifier"</span><span class="p">]</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">"title"</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">title</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">identifier</span><span class="p">:</span>
+            <span class="n">identifier</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="n">title</span><span class="p">,</span> <span class="n">identifier</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="p">[</span><span class="n">identifier</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">" "</span> <span class="ow">in</span> <span class="n">identifier</span> <span class="ow">or</span> <span class="s2">"/"</span> <span class="ow">in</span> <span class="n">identifier</span><span class="p">:</span>
+                <span class="c1"># invalid identifier, must not be a intended reference</span>
+                <span class="n">unintended</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">unmapped</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
+                <span class="k">return</span> <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">][]"</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">][</span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">]"</span>
+
+        <span class="c1"># TODO: we could also use a config option to ignore some identifiers</span>
+        <span class="c1"># and to map others to URLs, something like:</span>
+        <span class="c1"># references:</span>
+        <span class="c1">#   ignore:</span>
+        <span class="c1">#     - "USERNAME:PASSWORD@"</span>
+        <span class="c1">#   map:</span>
+        <span class="c1">#     some-id: https://example.com</span>
+
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">'&lt;a href="</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s1">"&gt;</span><span class="si">{</span><span class="n">title</span> <span class="ow">or</span> <span class="n">identifier</span><span class="si">}</span><span class="s1">&lt;/a&gt;'</span>
+
+    <span class="k">return</span> <span class="n">inner</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
 </details>
-<p>Initializes a <a href="/reference/documenter/#mkdocstrings.documenter.Documenter">Documenter</a>.</p>
 </div>
 </div>
-                
-                  
-                
-                
-              
-              
-                
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.map_urls">
+<code class="highlight language-python">
+map_urls<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_url</span><span class="p">,</span> <span class="n">anchor</span><span class="p">)</span> </code>
+<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.map_urls" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>Recurse on every anchor to map its ID to its absolute URL.</p>
+<p>This method populates <code>self.url_map</code> by side-effect.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>base_url</code></td>
+<td><code>str</code></td>
+<td>
+<p>The base URL to use as a prefix for each anchor's relative URL.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>anchor</code></td>
+<td><code>AnchorLink</code></td>
+<td>
+<p>The anchor to process and to recurse on.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Show source code in <code>mkdocstrings/plugin.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">map_urls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">anchor</span><span class="p">:</span> <span class="n">AnchorLink</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Recurse on every anchor to map its ID to its absolute URL.</span>
 
+<span class="sd">    This method populates `self.url_map` by side-effect.</span>
 
-              
-            </article>
-          </div>
-        </div>
-      </main>
-      
-        
+<span class="sd">    Arguments:</span>
+<span class="sd">        base_url: The base URL to use as a prefix for each anchor's relative URL.</span>
+<span class="sd">        anchor: The anchor to process and to recurse on.</span>
+<span class="sd">    """</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="p">[</span><span class="n">anchor</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">base_url</span> <span class="o">+</span> <span class="n">anchor</span><span class="o">.</span><span class="n">url</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">anchor</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map_urls</span><span class="p">(</span><span class="n">base_url</span><span class="p">,</span> <span class="n">child</span><span class="p">)</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.on_config">
+<code class="highlight language-python">
+on_config<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
+<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_config" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_config"><code>on_config</code> event</a>.</p>
+<p>In this hook, we instantiate our <a href="/reference/extension/#mkdocstrings.extension.MkdocstringsExtension"><code>MkdocstringsExtension</code></a>
+and add it to the list of Markdown extensions used by <code>mkdocs</code>.</p>
+<p>We pass this plugin's configuration dictionary to the extension when instantiating it (it will need it
+later when processing markdown to get handlers and their global configurations).</p>
+<details class="quote">
+<summary>Show source code in <code>mkdocstrings/plugin.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">on_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Config</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Hook for the [`on_config` event](https://www.mkdocs.org/user-guide/plugins/#on_config).</span>
+
+<span class="sd">    In this hook, we instantiate our [`MkdocstringsExtension`][mkdocstrings.extension.MkdocstringsExtension]</span>
+<span class="sd">    and add it to the list of Markdown extensions used by `mkdocs`.</span>
+
+<span class="sd">    We pass this plugin's configuration dictionary to the extension when instantiating it (it will need it</span>
+<span class="sd">    later when processing markdown to get handlers and their global configurations).</span>
+<span class="sd">    """</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.plugin: Adding extension to the list"</span><span class="p">)</span>
+
+    <span class="n">extension_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">theme_name</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">"theme"</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="n">mdx</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">"markdown_extensions"</span><span class="p">],</span>
+        <span class="n">mdx_configs</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">"mdx_configs"</span><span class="p">],</span>
+        <span class="n">mkdocstrings</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">mkdocstrings_extension</span> <span class="o">=</span> <span class="n">MkdocstringsExtension</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">extension_config</span><span class="p">)</span>
+    <span class="n">config</span><span class="p">[</span><span class="s2">"markdown_extensions"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mkdocstrings_extension</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">config</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.on_page_content">
+<code class="highlight language-python">
+on_page_content<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">page</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
+<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_page_content" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_page_contents"><code>on_page_contents</code> event</a>.</p>
+<p>In this hook, we map the IDs of every anchor found in the table of contents to the anchors absolute URLs.
+This mapping will be used later to fix unresolved reference of the form <code>[title][identifier]</code> or
+<code>[identifier][]</code>.</p>
+<details class="quote">
+<summary>Show source code in <code>mkdocstrings/plugin.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">on_page_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">html</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">files</span><span class="p">:</span> <span class="n">Files</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Hook for the [`on_page_contents` event](https://www.mkdocs.org/user-guide/plugins/#on_page_contents).</span>
+
+<span class="sd">    In this hook, we map the IDs of every anchor found in the table of contents to the anchors absolute URLs.</span>
+<span class="sd">    This mapping will be used later to fix unresolved reference of the form `[title][identifier]` or</span>
+<span class="sd">    `[identifier][]`.</span>
+<span class="sd">    """</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.plugin: Mapping identifiers to URLs for page </span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">src_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">page</span><span class="o">.</span><span class="n">toc</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map_urls</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">abs_url</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">html</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.on_post_build">
+<code class="highlight language-python">
+on_post_build<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
+<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_post_build" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_post_build"><code>on_post_build</code> event</a>.</p>
+<p>This hook is used to teardown all the handlers that were instantiated and cached during documentation buildup.</p>
+<p>For example, the <a href="/reference/handlers/python/#mkdocstrings.handlers.python.PythonCollector">Python handler's collector</a> opens a subprocess
+in the background and keeps it open to feed it the "autodoc" instructions and get back JSON data. Therefore,
+it must close it at some point, and it does it in its
+<a href="/reference/handlers/python/#mkdocstrings.handlers.python.PythonCollector.teardown"><code>teardown()</code> method</a> which is indirectly called by
+this hook.</p>
+<details class="quote">
+<summary>Show source code in <code>mkdocstrings/plugin.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">on_post_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Hook for the [`on_post_build` event](https://www.mkdocs.org/user-guide/plugins/#on_post_build).</span>
+
+<span class="sd">    This hook is used to teardown all the handlers that were instantiated and cached during documentation buildup.</span>
+
+<span class="sd">    For example, the [Python handler's collector][mkdocstrings.handlers.python.PythonCollector] opens a subprocess</span>
+<span class="sd">    in the background and keeps it open to feed it the "autodoc" instructions and get back JSON data. Therefore,</span>
+<span class="sd">    it must close it at some point, and it does it in its</span>
+<span class="sd">    [`teardown()` method][mkdocstrings.handlers.python.PythonCollector.teardown] which is indirectly called by</span>
+<span class="sd">    this hook.</span>
+<span class="sd">    """</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.plugin: Tearing handlers down"</span><span class="p">)</span>
+    <span class="n">teardown</span><span class="p">()</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.on_post_page">
+<code class="highlight language-python">
+on_post_page<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">page</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
+<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_post_page" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_post_page"><code>on_post_page</code> event</a>.</p>
+<p>In this hook, we try to fix unresolved references of the form <code>[title][identifier]</code> or <code>[identifier][]</code>.
+Doing that allows the user of <code>mkdocstrings</code> to cross-reference objects in their documentation strings.
+It uses the native Markdown syntax so it's easy to remember and use.</p>
+<p>We log a warning for each reference that we couldn't map to an URL, but try to be smart and ignore identifiers
+that do not look legitimate (sometimes documentation can contain strings matching
+our <a href="/reference/plugin/#mkdocstrings.plugin.AUTO_REF"><code>AUTO_REF</code></a> regular expression that did not intend to reference anything).
+We currently ignore references when their identifier contains a space or a slash.</p>
+<details class="quote">
+<summary>Show source code in <code>mkdocstrings/plugin.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">on_post_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Hook for the [`on_post_page` event](https://www.mkdocs.org/user-guide/plugins/#on_post_page).</span>
+
+<span class="sd">    In this hook, we try to fix unresolved references of the form `[title][identifier]` or `[identifier][]`.</span>
+<span class="sd">    Doing that allows the user of `mkdocstrings` to cross-reference objects in their documentation strings.</span>
+<span class="sd">    It uses the native Markdown syntax so it's easy to remember and use.</span>
+
+<span class="sd">    We log a warning for each reference that we couldn't map to an URL, but try to be smart and ignore identifiers</span>
+<span class="sd">    that do not look legitimate (sometimes documentation can contain strings matching</span>
+<span class="sd">    our [`AUTO_REF`][mkdocstrings.plugin.AUTO_REF] regular expression that did not intend to reference anything).</span>
+<span class="sd">    We currently ignore references when their identifier contains a space or a slash.</span>
+<span class="sd">    """</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.plugin: Fixing references in page </span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">src_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="n">placeholder</span> <span class="o">=</span> <span class="n">Placeholder</span><span class="p">()</span>
+    <span class="k">while</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">placeholder</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span><span class="n">placeholder</span><span class="o">.</span><span class="n">seed</span> <span class="ow">in</span> <span class="n">url</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+        <span class="n">placeholder</span><span class="o">.</span><span class="n">set_seed</span><span class="p">()</span>
+
+    <span class="n">unmapped</span><span class="p">,</span> <span class="n">unintended</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s2">"html.parser"</span><span class="p">)</span>
+    <span class="n">placeholder</span><span class="o">.</span><span class="n">replace_code_tags</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
+    <span class="n">fixed_soup</span> <span class="o">=</span> <span class="n">AUTO_REF</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fix_ref</span><span class="p">(</span><span class="n">unmapped</span><span class="p">,</span> <span class="n">unintended</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">soup</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">unmapped</span> <span class="ow">or</span> <span class="n">unintended</span><span class="p">:</span>
+        <span class="c1"># We do nothing with unintended refs</span>
+        <span class="k">if</span> <span class="n">unmapped</span> <span class="ow">and</span> <span class="n">log</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">unmapped</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"mkdocstrings.plugin: </span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">src_path</span><span class="si">}</span><span class="s2">: Could not fix ref '[</span><span class="si">{</span><span class="n">ref</span><span class="si">}</span><span class="s2">]'.</span><span class="se">\n</span><span class="s2">    "</span>
+                    <span class="sa">f</span><span class="s2">"The referenced object was not both collected and rendered."</span>
+                <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">placeholder</span><span class="o">.</span><span class="n">restore_code_tags</span><span class="p">(</span><span class="n">fixed_soup</span><span class="p">)</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.on_serve">
+<code class="highlight language-python">
+on_serve<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
+<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_serve" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_serve"><code>on_serve</code> event</a>.</p>
+<p>In this hook, we add the directories specified in the plugin's configuration to the list of directories
+watched by <code>mkdocs</code>. Whenever a change occurs in one of these directories, the documentation is built again
+and the site reloaded.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The implementation is a hack. We are retrieving the watch function from a protected attribute.
+See issue <a href="https://github.com/mkdocs/mkdocs/issues/1952">mkdocs/mkdocs#1952</a> for more information.</p>
+</div>
+<details class="quote">
+<summary>Show source code in <code>mkdocstrings/plugin.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">on_serve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">:</span> <span class="n">Server</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Server</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).</span>
+
+<span class="sd">    In this hook, we add the directories specified in the plugin's configuration to the list of directories</span>
+<span class="sd">    watched by `mkdocs`. Whenever a change occurs in one of these directories, the documentation is built again</span>
+<span class="sd">    and the site reloaded.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        The implementation is a hack. We are retrieving the watch function from a protected attribute.</span>
+<span class="sd">        See issue [mkdocs/mkdocs#1952](https://github.com/mkdocs/mkdocs/issues/1952) for more information.</span>
+<span class="sd">    """</span>
+    <span class="n">builder</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">watcher</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"func"</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"watch"</span><span class="p">]:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.plugin: Adding directory '</span><span class="si">{</span><span class="n">element</span><span class="si">}</span><span class="s2">' to watcher"</span><span class="p">)</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">builder</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">server</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="doc doc-object doc-class">
+<h2 class="doc doc-heading" id="mkdocstrings.plugin.Placeholder">
+<code>Placeholder</code>
+<a class="headerlink" href="#mkdocstrings.plugin.Placeholder" title="Permanent link">¶</a></h2>
+<div class="doc doc-contents">
+<p>This class is used as a placeholder store.</p>
+<p>Placeholders are random, unique strings that temporarily replace <code>&lt;code&gt;</code> nodes in an HTML tree.</p>
+<p>Why do we replace these nodes with such strings? Because we want to fix cross-references that were not
+resolved during Markdown conversion, and we must never touch to what's inside of a code block.
+To ease the process, instead of selecting nodes in the HTML tree with complex filters (I tried, believe me),
+we simply "hide" the code nodes, and bulk-replace unresolved cross-references in the whole HTML text at once,
+with a regular expression substitution. Once it's done, we bulk-replace code nodes back, with a regular expression
+substitution again.</p>
+<div class="doc doc-children">
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="mkdocstrings.plugin.Placeholder.get_id">
+<code class="highlight language-python">
+get_id<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
+<a class="headerlink" href="#mkdocstrings.plugin.Placeholder.get_id" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>Return a random, unique string.</p>
+<details class="quote">
+<summary>Show source code in <code>mkdocstrings/plugin.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>319
+320
+321</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">"""Return a random, unique string."""</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}{</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>  <span class="c1"># nosec: it's not for security/cryptographic purposes</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="mkdocstrings.plugin.Placeholder.replace_code_tags">
+<code class="highlight language-python">
+replace_code_tags<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">soup</span><span class="p">)</span> </code>
+<a class="headerlink" href="#mkdocstrings.plugin.Placeholder.replace_code_tags" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>Recursively replace code nodes with navigable strings whose values are unique IDs.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>soup</code></td>
+<td><code>str</code></td>
+<td>
+<p>The root tag of a BeautifulSoup HTML tree.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Show source code in <code>mkdocstrings/plugin.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">replace_code_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">soup</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Recursively replace code nodes with navigable strings whose values are unique IDs.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        soup: The root tag of a BeautifulSoup HTML tree.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="nf">recursive_replace</span><span class="p">(</span><span class="n">tag</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="s2">"contents"</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">contents</span><span class="p">)):</span>
+                <span class="n">child</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">"code"</span><span class="p">:</span>
+                    <span class="n">tag</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">NavigableString</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">child</span><span class="p">)))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">recursive_replace</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+
+    <span class="n">recursive_replace</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="mkdocstrings.plugin.Placeholder.restore_code_tags">
+<code class="highlight language-python">
+restore_code_tags<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">soup_str</span><span class="p">)</span> </code>
+<a class="headerlink" href="#mkdocstrings.plugin.Placeholder.restore_code_tags" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>Restore code nodes previously replaced by unique placeholders.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>soup_str</code></td>
+<td><code>str</code></td>
+<td>
+<p>HTML text.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str</code></td>
+<td>
+<p>The same HTML text with placeholders replaced by their respective original code nodes.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Show source code in <code>mkdocstrings/plugin.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">restore_code_tags</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">soup_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Restore code nodes previously replaced by unique placeholders.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        soup_str: HTML text.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The same HTML text with placeholders replaced by their respective original code nodes.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="nf">replace_placeholder</span><span class="p">(</span><span class="n">match</span><span class="p">):</span>
+        <span class="n">placeholder</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">[</span><span class="n">placeholder</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">rf</span><span class="s2">"(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}</span><span class="s2">\d+)"</span><span class="p">,</span> <span class="n">replace_placeholder</span><span class="p">,</span> <span class="n">soup_str</span><span class="p">)</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="mkdocstrings.plugin.Placeholder.set_seed">
+<code class="highlight language-python">
+set_seed<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
+<a class="headerlink" href="#mkdocstrings.plugin.Placeholder.set_seed" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>Reset the seed in <code>self.seed</code> with a random string.</p>
+<details class="quote">
+<summary>Show source code in <code>mkdocstrings/plugin.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>323
+324
+325</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">set_seed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""Reset the seed in `self.seed` with a random string."""</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">16</span><span class="p">))</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="mkdocstrings.plugin.Placeholder.store">
+<code class="highlight language-python">
+store<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> </code>
+<a class="headerlink" href="#mkdocstrings.plugin.Placeholder.store" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>Store a text under a unique ID, return that ID.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>value</code></td>
+<td><code>str</code></td>
+<td>
+<p>The text to store.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str</code></td>
+<td>
+<p>The ID under which the text is stored.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Show source code in <code>mkdocstrings/plugin.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">store</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Store a text under a unique ID, return that ID.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        value: The text to store.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The ID under which the text is stored.</span>
+<span class="sd">    """</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="k">return</span> <span class="n">i</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+</div>
+</div>
+</main>
 <footer class="md-footer">
-  
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid">
-        
-          <a href="../.." title="Overview" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
-            </div>
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
+<div class="md-footer-nav">
+<nav class="md-footer-nav__inner md-grid">
+<a class="md-flex md-footer-nav__link md-footer-nav__link--prev" href="../extension/" rel="prev" title="extension.py">
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Overview
+                extension.py
               </span>
-            </div>
-          </a>
-        
-        
-          <a href="../documenter/" title="documenter.py" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-              <span class="md-flex__ellipsis">
-                <span class="md-footer-nav__direction">
+</div>
+</a>
+<a class="md-flex md-footer-nav__link md-footer-nav__link--next" href="../../troubleshooting/" rel="next" title="Troubleshooting">
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
                   Next
                 </span>
-                documenter.py
+                Troubleshooting
               </span>
-            </div>
-            <div class="md-flex__cell md-flex__cell--shrink">
-              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
         
         powered by
-        <a href="https://www.mkdocs.org">MkDocs</a>
+        <a href="https://www.mkdocs.org" rel="noopener" target="_blank">MkDocs</a>
         and
-        <a href="https://squidfunk.github.io/mkdocs-material/">
+        <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
           Material for MkDocs</a>
-      </div>
-      
-    </div>
-  </div>
+</div>
+</div>
+</div>
 </footer>
-      
-    </div>
-    
-      <script src="../../assets/javascripts/application.808e90bb.js"></script>
-      
-      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
-      
-    
-  </body>
+</div>
+<script src="../../assets/javascripts/application.c33a9706.js"></script>
+<script>app.initialize({version:"1.1",url:{base:"../.."}})</script>
+</body>
 </html>
