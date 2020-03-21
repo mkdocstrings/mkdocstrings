@@ -21,7 +21,7 @@ No identified breaking changes for end-users.
   given the objects' identifiers are unique), but also for every heading of your Markdown pages.
 - **Configuration options:** the rendering of Python documentation can now be configured,
   (globally and locally thanks to the handlers system),
-  [check the docs!](https://pawamoy.github.io/mkdocstrings/reference/handlers/python/#mkdocstrings.handlers.python.PythonRenderer.DEFAULT_CONFIG).
+  [check the docs!](https://pawamoy.github.io/mkdocstrings/reference/handlers/python/#mkdocstrings.handlers.python.PythonRenderer.DEFAULT_CONFIG)
   Also see the [recommended CSS](https://pawamoy.github.io/mkdocstrings/handlers/python/#recommended-style).
 - **Proper logging messages:** `mkdocstrings` now logs debug, warning and error messages, useful when troubleshooting.
   

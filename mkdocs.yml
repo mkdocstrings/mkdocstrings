@@ -1,6 +1,6 @@
 site_name: mkdocstrings
 site_description: Automatic documentation from docstrings, for mkdocs.
-site_url: https://mkdocstrings.github.io/
+site_url: https://pawamoy.github.io/mkdocstrings
 repo_url: https://github.com/pawamoy/mkdocstrings
 repo_name: pawamoy/mkdocstrings
 
