@@ -7,6 +7,7 @@ repo_name: pawamoy/mkdocstrings
 nav:
   - Overview: "index.md"
   - Handlers:
+    - Overview: "handlers/overview.md"
     - Python: "handlers/python.md"
   - Reference:
     - handlers:
@@ -14,7 +15,7 @@ nav:
       - python.py: "reference/handlers/python.md"
     - extension.py: "reference/extension.md"
     - plugin.py: "reference/plugin.md"
-    - utils.py: "reference/utils.md"
+  - Troubleshooting: "troubleshooting.md"
   - Contributing: "contributing.md"
   - Code of Conduct: "code_of_conduct.md"
   - Changelog: "changelog.md"
@@ -38,5 +39,3 @@ markdown_extensions:
 plugins:
   - search
   - mkdocstrings:
-      watch:
-        - src/mkdocstrings

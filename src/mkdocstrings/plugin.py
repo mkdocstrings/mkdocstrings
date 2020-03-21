@@ -30,8 +30,11 @@ from typing import Callable, List, Match, Pattern, Tuple
 
 from bs4 import BeautifulSoup
 from bs4.element import NavigableString
+from livereload import Server
+from mkdocs.config import Config
 from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
+from mkdocs.structure.files import Files
 from mkdocs.structure.pages import Page
 from mkdocs.structure.toc import AnchorLink
 from mkdocs.utils import log
@@ -103,17 +106,17 @@ class MkdocstringsPlugin(BasePlugin):
         self.mkdocstrings_extension = None
         self.url_map = {}
 
-    def on_serve(self, server, config, **kwargs):
+    def on_serve(self, server: Server, config: Config, **kwargs) -> Server:
         """
         Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).
 
         In this hook, we add the directories specified in the plugin's configuration to the list of directories
-        watched by `mkdocs`. Whenever a change occur in one of these directories, the documentation is built again
+        watched by `mkdocs`. Whenever a change occurs in one of these directories, the documentation is built again
         and the site reloaded.
 
         Note:
             The implementation is a hack. We are retrieving the watch function from a protected attribute.
-            See issue https://github.com/mkdocs/mkdocs/issues/1952 for more information.
+            See issue [mkdocs/mkdocs#1952](https://github.com/mkdocs/mkdocs/issues/1952) for more information.
         """
         builder = list(server.watcher._tasks.values())[0]["func"]
         for element in self.config["watch"]:
@@ -121,7 +124,7 @@ class MkdocstringsPlugin(BasePlugin):
             server.watch(element, builder)
         return server
 
-    def on_config(self, config, **kwargs):
+    def on_config(self, config: Config, **kwargs) -> Config:
         """
         Hook for the [`on_config` event](https://www.mkdocs.org/user-guide/plugins/#on_config).
 
@@ -132,11 +135,19 @@ class MkdocstringsPlugin(BasePlugin):
         later when processing markdown to get handlers and their global configurations).
         """
         log.debug("mkdocstrings.plugin: Adding extension to the list")
-        self.mkdocstrings_extension = MkdocstringsExtension(plugin_config=self.config)
+
+        extension_config = dict(
+            theme_name=config["theme"].name,
+            mdx=config["markdown_extensions"],
+            mdx_configs=config["mdx_configs"],
+            mkdocstrings=self.config
+        )
+
+        self.mkdocstrings_extension = MkdocstringsExtension(config=extension_config)
         config["markdown_extensions"].append(self.mkdocstrings_extension)
         return config
 
-    def on_page_content(self, html, page, config, files, **kwargs):
+    def on_page_content(self, html: str, page: Page, config: Config, files: Files, **kwargs) -> str:
         """
         Hook for the [`on_page_contents` event](https://www.mkdocs.org/user-guide/plugins/#on_page_contents).
 
@@ -163,7 +174,7 @@ class MkdocstringsPlugin(BasePlugin):
         for child in anchor.children:
             self.map_urls(base_url, child)
 
-    def on_post_page(self, output: str, page: Page, config, **kwargs) -> str:
+    def on_post_page(self, output: str, page: Page, config: Config, **kwargs) -> str:
         """
         Hook for the [`on_post_page` event](https://www.mkdocs.org/user-guide/plugins/#on_post_page).
 
@@ -188,7 +199,7 @@ class MkdocstringsPlugin(BasePlugin):
         fixed_soup = AUTO_REF.sub(self.fix_ref(unmapped, unintended), str(soup))
 
         if unmapped or unintended:
-            # We do nothing with unintended refs, but still skip replacing the tag i
+            # We do nothing with unintended refs
             if unmapped and log.isEnabledFor(logging.WARNING):
                 for ref in unmapped:
                     log.warning(
@@ -199,29 +210,29 @@ class MkdocstringsPlugin(BasePlugin):
         return placeholder.restore_code_tags(fixed_soup)
 
     def fix_ref(self, unmapped: List[str], unintended: List[str]) -> Callable:
+        """
+        Return a `repl` function for [`re.sub`](https://docs.python.org/3/library/re.html#re.sub).
+
+        In our context, we match Markdown references and replace them with HTML links.
+
+        When the matched reference's identifier contains a space or slash, we append the identifier to the outer
+        `unintended` list to tell the caller that this unresolved reference should be ignored as it's probably
+        not intended as a reference.
+
+        When the matched reference's identifier was not mapped to an URL, we append the identifier to the outer
+        `unmapped` list. It generally means the user is trying to cross-reference an object that was not collected
+        and rendered, making it impossible to link to it. We catch this exception in the caller to issue a warning.
+
+        Arguments:
+            unmapped: A list to store unmapped identifiers.
+            unintended: A list to store identifiers of unintended references.
+
+        Returns:
+            The actual function accepting a [`Match` object](https://docs.python.org/3/library/re.html#match-objects)
+            and returning the replacement strings.
+        """
+
         def inner(match: Match):
-            """
-            A function used as the `repl` argument of [`re.sub`](https://docs.python.org/3/library/re.html#re.sub).
-
-            When there is a match on a string, this function is called and given the match object.
-            It then returns the string that should replace the portion of the string that matched.
-
-            In our context, we match Markdown references and replace them with HTML links.
-
-            When the matched reference's identifier contains a space or slash, we append the identifier to the outer
-            `unintended` list to tell the caller that this unresolved reference should be ignored as it's probably
-            not intended as a reference.
-
-            When the matched reference's identifier was not mapped to an URL, we append the identifier to the outer
-            `unmapped` list. It generally means the user is trying to cross-reference an object that was not collected
-            and rendered, making it impossible to link to it. We catch this exception in the caller to issue a warning.
-
-            Arguments:
-                match: A [`match` object](https://docs.python.org/3/library/re.html#match-objects).
-
-            Returns:
-                The string that will replace the matched portion of a string.
-            """
             groups = match.groupdict()
             identifier = groups["identifier"]
             title = groups["title"]
@@ -254,7 +265,7 @@ class MkdocstringsPlugin(BasePlugin):
 
         return inner
 
-    def on_post_build(self, config, **kwargs) -> None:
+    def on_post_build(self, config: Config, **kwargs) -> None:
         """
         Hook for the [`on_post_build` event](https://www.mkdocs.org/user-guide/plugins/#on_post_build).
 
@@ -271,25 +282,56 @@ class MkdocstringsPlugin(BasePlugin):
 
 
 class Placeholder:
-    def __init__(self):
+    """
+    This class is used as a placeholder store.
+
+    Placeholders are random, unique strings that temporarily replace `<code>` nodes in an HTML tree.
+
+    Why do we replace these nodes with such strings? Because we want to fix cross-references that were not
+    resolved during Markdown conversion, and we must never touch to what's inside of a code block.
+    To ease the process, instead of selecting nodes in the HTML tree with complex filters (I tried, believe me),
+    we simply "hide" the code nodes, and bulk-replace unresolved cross-references in the whole HTML text at once,
+    with a regular expression substitution. Once it's done, we bulk-replace code nodes back, with a regular expression
+    substitution again.
+    """
+
+    def __init__(self) -> None:
         self.ids = {}
         self.seed = None
         self.set_seed()
 
-    def store(self, value):
+    def store(self, value: str) -> str:
+        """
+        Store a text under a unique ID, return that ID.
+
+        Arguments:
+            value: The text to store.
+
+        Returns:
+            The ID under which the text is stored.
+        """
         i = self.get_id()
         while i in self.ids:
             i = self.get_id()
         self.ids[i] = value
         return i
 
-    def get_id(self):
+    def get_id(self) -> str:
+        """Return a random, unique string."""
         return f"{self.seed}{random.randint(0, 1000000)}"  # nosec: it's not for security/cryptographic purposes
 
-    def set_seed(self):
+    def set_seed(self) -> None:
+        """Reset the seed in `self.seed` with a random string."""
         self.seed = "".join(random.choices(string.ascii_letters + string.digits, k=16))
 
-    def replace_code_tags(self, soup):
+    def replace_code_tags(self, soup: str) -> None:
+        """
+        Recursively replace code nodes with navigable strings whose values are unique IDs.
+
+        Arguments:
+            soup: The root tag of a BeautifulSoup HTML tree.
+        """
+
         def recursive_replace(tag):
             if hasattr(tag, "contents"):
                 for i in range(len(tag.contents)):
@@ -301,7 +343,17 @@ class Placeholder:
 
         recursive_replace(soup)
 
-    def restore_code_tags(self, soup_str):
+    def restore_code_tags(self, soup_str: str) -> str:
+        """
+        Restore code nodes previously replaced by unique placeholders.
+
+        Args:
+            soup_str: HTML text.
+
+        Returns:
+            The same HTML text with placeholders replaced by their respective original code nodes.
+        """
+
         def replace_placeholder(match):
             placeholder = match.groups()[0]
             return self.ids[placeholder]

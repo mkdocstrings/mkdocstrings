@@ -37,12 +37,14 @@ from mkdocs.utils import log
 from .handlers import CollectionError, get_handler
 
 
-def brute_cast_atomic(tree: Element):
+def atomic_brute_cast(tree: Element):
     """
     Cast every node's text into an atomic string to prevent further processing on it.
 
     Since we generate the final HTML with Jinja templates, we do not want other inline or tree processors
     to keep modifying the data, so this function is used to mark the complete tree as "do not touch".
+
+    On a side note: isn't `atomic_brute_cast` such a beautiful function name?
 
     Arguments:
         tree: An XML node, used like the root of an XML tree.
@@ -53,7 +55,7 @@ def brute_cast_atomic(tree: Element):
     if tree.text:
         tree.text = AtomicString(tree.text)
     for child in tree:
-        brute_cast_atomic(child)
+        atomic_brute_cast(child)
     return tree
 
 
@@ -71,19 +73,19 @@ class AutoDocProcessor(BlockProcessor):
     CLASSNAME = "autodoc"
     RE = re.compile(r"(?:^|\n)::: ?([:a-zA-Z0-9_.]*) *(?:\n|$)")
 
-    def __init__(self, parser, md: Markdown, plugin_config: dict) -> None:
+    def __init__(self, parser, md: Markdown, config: dict) -> None:
         """
         Initialization method.
 
         Arguments:
             parser:
             md: A `markdown.Markdown` instance.
-            plugin_config: The [configuration][mkdocstrings.plugin.MkdocstringsPlugin.config_scheme]
+            config: The [configuration][mkdocstrings.plugin.MkdocstringsPlugin.config_scheme]
               of the `mkdocstrings` plugin.
         """
         super().__init__(parser=parser)
         self.md = md
-        self._plugin_config = plugin_config
+        self._config = config
 
     def test(self, parent: Element, block: Element) -> bool:
         sibling = self.lastChild(parent)
@@ -111,9 +113,7 @@ class AutoDocProcessor(BlockProcessor):
 
             handler_name = self.get_handler_name(config)
             log.debug(f"mkdocstrings.extension: Using handler '{handler_name}'")
-            handler = get_handler(handler_name)
-            log.debug("mkdocstrings.extension: Updating renderer's env")
-            handler.renderer.update_env(self.md)
+            handler = get_handler(handler_name, self._config["theme_name"])
 
             selection, rendering = self.get_item_configs(handler_name, config)
 
@@ -123,6 +123,9 @@ class AutoDocProcessor(BlockProcessor):
             except CollectionError:
                 log.error(f"mkdocstrings.extension: Could not collect '{identifier}'")
                 return
+
+            log.debug("mkdocstrings.extension: Updating renderer's env")
+            handler.renderer.update_env(self.md, self._config)
 
             log.debug("mkdocstrings.extension: Rendering templates")
             rendered = handler.renderer.render(data, rendering)
@@ -146,7 +149,7 @@ class AutoDocProcessor(BlockProcessor):
                 log.error(message)
                 return
 
-            as_xml = brute_cast_atomic(as_xml)
+            as_xml = atomic_brute_cast(as_xml)
             parent.append(as_xml)
 
         if the_rest:
@@ -167,7 +170,7 @@ class AutoDocProcessor(BlockProcessor):
         """
         if "handler" in config:
             return config["handler"]
-        return self._plugin_config["default_handler"]
+        return self._config["mkdocstrings"]["default_handler"]
 
     def get_handler_config(self, handler_name: str) -> dict:
         """
@@ -179,7 +182,7 @@ class AutoDocProcessor(BlockProcessor):
         Returns:
             The global configuration of the given handler. It can be an empty dictionary.
         """
-        handlers = self._plugin_config.get("handlers", {})
+        handlers = self._config["mkdocstrings"].get("handlers", {})
         if handlers:
             return handlers.get(handler_name, {})
         return {}
@@ -210,19 +213,17 @@ class MkdocstringsExtension(Extension):
     It cannot work outside of `mkdocstrings`.
     """
 
-    def __init__(self, plugin_config: dict, **kwargs) -> None:
+    def __init__(self, config: dict, **kwargs) -> None:
         """
         Initialization method.
 
         Arguments:
-            plugin_config: The [configuration][mkdocstrings.plugin.MkdocstringsPlugin.config_scheme]
-              of the `mkdocstrings` plugin. It is not used by this class, but rather simply passed over
-              to the block processor when instantiated in
-              [`extendMarkdown`][mkdocstrings.extension.MkdocstringsExtension.extendMarkdown].
+            config: The configuration items from `mkdocs` and `mkdocstrings` that must be passed to the block processor
+              when instantiated in [`extendMarkdown`][mkdocstrings.extension.MkdocstringsExtension.extendMarkdown].
             kwargs: Keyword arguments used by `markdown.extensions.Extension`.
         """
         super().__init__(**kwargs)
-        self._plugin_config = plugin_config
+        self._config = config
 
     def extendMarkdown(self, md: Markdown) -> None:
         """
@@ -234,5 +235,5 @@ class MkdocstringsExtension(Extension):
             md: A `markdown.Markdown` instance.
         """
         md.registerExtension(self)
-        processor = AutoDocProcessor(md.parser, md, self._plugin_config)
+        processor = AutoDocProcessor(md.parser, md, self._config)
         md.parser.blockprocessors.register(processor, "mkdocstrings", 110)

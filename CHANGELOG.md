@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v0.8.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.8.0) ([compare](https://github.com/pawamoy/mkdocstrings/compare/v0.7.2...v0.8.0)) - 2020-03-04
+
+### Breaking Changes
+- Be compatible with Mkdocs >= 1.1 ([5a974a4](https://github.com/pawamoy/mkdocstrings/commit/5a974a4eb810904d6836e216d8539affc8acaa6f)).
+  
+  This is a breaking change as we're not compatible with versions of Mkdocs below 1.1 anymore. 
+  
+  If you cannot upgrade Mkdocs to 1.1, pin mkdocstrings' version to 0.7.2.
+
+## [v0.7.2](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.2) ([compare](https://github.com/pawamoy/mkdocstrings/compare/v0.7.1...v0.7.2)) - 2020-03-04
+
+### Bug Fixes
+- Catch `OSError` when trying to get source lines ([8e8d604](https://github.com/pawamoy/mkdocstrings/commit/8e8d604ba95363c140841c84535d2350d7ebbfe3)).
+- Do not render signature empty sentinel ([16dfd73](https://github.com/pawamoy/mkdocstrings/commit/16dfd73cf30d01314dba756d3f10308b99c87dcc)).
+- Fix for nested classes and their attributes ([7fef903](https://github.com/pawamoy/mkdocstrings/commit/7fef9037c5299d6106347b0db29f85a644f85c16)).
+- Fix `relative_file_path` method ([52715ad](https://github.com/pawamoy/mkdocstrings/commit/52715adc59fe2e26a9e91df88bac8b8b32d4635e)).
+- Wrap file path in backticks to escape it ([2525f39](https://github.com/pawamoy/mkdocstrings/commit/2525f39ad8c181679fa33db8e6dfaa28eb39c289)).
+
+## [v0.7.1](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.1) ([compare](https://github.com/pawamoy/mkdocstrings/compare/v0.7.0...v0.7.1)) - 2020-02-18
+
+### Bug Fixes
+- Replace literal slash with os.sep for Windows compatibility ([70f9af5](https://github.com/pawamoy/mkdocstrings/commit/70f9af5e33cda694cda33870c84a770c853d84b5)).
+
+
 ## [v0.7.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.0) ([compare](https://github.com/pawamoy/mkdocstrings/compare/v0.6.1...v0.7.0)) - 2020-01-13
 
 ### Bug Fixes

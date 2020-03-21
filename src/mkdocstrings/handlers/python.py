@@ -1,17 +1,29 @@
 """
 This module implements a handler for the Python language.
+
+The handler collects data with [`pytkdocs`](https://github.com/pawamoy/pytkdocs).
 """
 
 import json
 import os
-from subprocess import PIPE, Popen  # nosec: would sockets be better? what else?
+from subprocess import PIPE, Popen  # nosec: what other option, more secure that PIPE do we have? sockets?
 
+from markdown import Markdown
 from mkdocs.utils import log
 
 from . import BaseCollector, BaseHandler, BaseRenderer, CollectionError
 
 
 class PythonRenderer(BaseRenderer):
+    """
+    The class responsible for loading Jinja templates and rendering them.
+
+    It defines some configuration options, implements the `render` method,
+    and overrides the `update_env` method of the [`BaseRenderer` class][mkdocstrings.handlers.BaseRenderer].
+    """
+
+    FALLBACK_THEME = "material"
+
     DEFAULT_CONFIG = {
         "show_root_heading": False,
         "show_root_toc_entry": True,
@@ -24,7 +36,7 @@ class PythonRenderer(BaseRenderer):
         "heading_level": 2,
     }
 
-    def render(self, data, config):
+    def render(self, data: dict, config: dict) -> str:
         final_config = dict(self.DEFAULT_CONFIG)
         final_config.update(config)
 
@@ -39,8 +51,8 @@ class PythonRenderer(BaseRenderer):
             **{"config": final_config, data["category"]: data, "heading_level": heading_level, "root": True}
         )
 
-    def update_env(self, md):
-        super(PythonRenderer, self).update_env(md)
+    def update_env(self, md: Markdown, config: dict) -> None:
+        super(PythonRenderer, self).update_env(md, config)
         self.env.trim_blocks = True
         self.env.lstrip_blocks = True
         self.env.keep_trailing_newline = False
@@ -69,9 +81,24 @@ class PythonRenderer(BaseRenderer):
 
 
 class PythonCollector(BaseCollector):
+    """
+    The class responsible for loading Jinja templates and rendering them.
+
+    It defines some configuration options, implements the `render` method,
+    and overrides the `update_env` method of the [`BaseRenderer` class][mkdocstrings.handlers.BaseRenderer].
+    """
+
     DEFAULT_CONFIG = {}
 
-    def __init__(self):
+    def __init__(self) -> None:
+        """
+        Initialization method.
+
+        When instantiating a Python collector, we open a subprocess in the background with `subprocess.Popen`.
+        It will allow us to feed input to and read output from this subprocess, keeping it alive during
+        the whole documentation generation. Spawning a new Python subprocess for each "autodoc" instruction would be
+        too resource intensive, and would slow down `mkdocstrings` a lot.
+        """
         log.debug("mkdocstrings.handlers.python: Opening 'pytkdocs' subprocess")
         env = os.environ.copy()
         env["PYTHONUNBUFFERED"] = "1"
@@ -86,6 +113,33 @@ class PythonCollector(BaseCollector):
         )
 
     def collect(self, identifier: str, config: dict) -> dict:
+        """
+        Collect the documentation tree given an identifier and selection options.
+
+        In this method, we feed one line of JSON to the standard input of the subprocess that was opened
+        during instantiation of the collector. Then we read one line of JSON on its standard output.
+
+        We load back the JSON text into a Python dictionary.
+        If there is a decoding error, we log it as error and raise a CollectionError.
+
+        If the dictionary contains an `error` key, we log it  as error (with the optional `traceback` value),
+        and raise a CollectionError.
+
+        If the dictionary values for keys `loading_errors` and `parsing_errors` are not empty,
+        we log them as warnings.
+
+        Then we pick up the only object within the `objects` list (there's always only one, because we collect
+        them one by one), rebuild it's categories lists
+        (see [`rebuild_category_lists()`][mkdocstrings.handlers.python.rebuild_category_lists]),
+        and return it.
+
+        Arguments:
+            identifier: The dotted-path of a Python object available in the Python path.
+            config: Selection options, used to alter the data collection done by `pytkdocs`.
+
+        Returns:
+            The collected object-tree.
+        """
         log.debug("mkdocstrings.handlers.python: Preparing input")
         json_input = json.dumps({"global_config": {}, "objects": [{"path": identifier, "config": config}]})
 
@@ -126,21 +180,46 @@ class PythonCollector(BaseCollector):
 
         return result
 
-    def teardown(self):
+    def teardown(self) -> None:
+        """Terminate the opened subprocess, set it to None."""
         log.debug("mkdocstrings.handlers.python: Tearing process down")
         self.process.terminate()
         self.process = None
 
 
 class PythonHandler(BaseHandler):
-    pass
+    """The Python handler class, nothing specific here."""
 
 
-def get_handler():
-    return PythonHandler(collector=PythonCollector(), renderer=PythonRenderer("python", "material"))
+def get_handler(theme: str) -> PythonHandler:
+    """
+    Simply return an instance of `PythonHandler`.
+
+    Arguments:
+        theme: The theme to use when rendering contents.
+
+    Returns:
+        An instance of `PythonHandler`.
+    """
+    return PythonHandler(collector=PythonCollector(), renderer=PythonRenderer("python", theme))
 
 
-def rebuild_category_lists(obj):
+def rebuild_category_lists(obj: dict) -> None:
+    """
+    Recursively rebuild the category lists of a collected object.
+
+    Since `pytkdocs` dumps JSON on standard output, it must serialize the object-tree and flatten it to reduce data
+    duplication and avoid cycle-references. Indeed, each node of the object-tree has a `children` list, containing
+    all children, and another list for each category of children: `attributes`, `classes`, `functions`, `methods`
+    and `modules`. It replaces the values in category lists with only the paths of the objects.
+
+    Here, we reconstruct these category lists by picking objects in the `children` list using their path.
+
+    For each object, we recurse on every one of its children.
+
+    Args:
+        obj: The collected object, loaded back from JSON into a Python dictionary.
+    """
     obj["attributes"] = [obj["children"][path] for path in obj["attributes"]]
     obj["classes"] = [obj["children"][path] for path in obj["classes"]]
     obj["functions"] = [obj["children"][path] for path in obj["functions"]]
