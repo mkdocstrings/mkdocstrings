@@ -12,7 +12,7 @@ It also provides two methods:
 import importlib
 import textwrap
 from pathlib import Path
-from typing import Type, Sequence
+from typing import Sequence, Type
 
 from jinja2 import Environment, FileSystemLoader
 from jinja2.filters import do_mark_safe
@@ -113,7 +113,10 @@ class BaseRenderer:
         theme_dir = themes_dir / theme
         if not theme_dir.exists():
             if hasattr(self, "FALLBACK_THEME"):
-                log.warning(f"mkdocstrings.handlers: Theme '{theme}' not supported, falling back to theme '{self.FALLBACK_THEME}'")
+                log.warning(
+                    f"mkdocstrings.handlers: No '{theme}' theme in '{directory}', "
+                    f"falling back to theme '{self.FALLBACK_THEME}'"
+                )
                 theme_dir = themes_dir / self.FALLBACK_THEME
             else:
                 raise ThemeNotSupported(theme)

@@ -140,7 +140,7 @@ class MkdocstringsPlugin(BasePlugin):
             theme_name=config["theme"].name,
             mdx=config["markdown_extensions"],
             mdx_configs=config["mdx_configs"],
-            mkdocstrings=self.config
+            mkdocstrings=self.config,
         )
 
         self.mkdocstrings_extension = MkdocstringsExtension(config=extension_config)
