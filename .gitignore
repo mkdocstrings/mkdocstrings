@@ -11,3 +11,5 @@ pip-wheel-metadata/
 .pytest_cache/
 .python-version
 site/
+poetry.lock
+

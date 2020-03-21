@@ -4,16 +4,43 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [v0.8.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.8.0) ([compare](https://github.com/pawamoy/mkdocstrings/compare/v0.7.2...v0.8.0)) - 2020-03-04
+## [v0.9.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.9.0) - 2020-03-21
+
+<small>[Compare with v0.8.0](https://github.com/pawamoy/mkdocstrings/compare/v0.8.0...v0.9.0)</small>
+ 
+This version is a big refactor. We will just list the new features without pointing to particular commits.
+The documentation rendering looks slightly different, and should be better than before.
+No identified breaking changes for end-users.
+
+### Features
+- **Language agnostic:** we moved the code responsible for loading Python documentation into a new project,
+  [`pytkdocs`](https://github.com/pawamoy/pytkdocs), and implemented a "handlers" logic, effectively allowing to
+  support any given language. Waiting for your handlers contributions :wink:!
+- **Multiple themes support:** handlers can offer templates for multiple `mkdocs` themes.
+- **Better cross-references:** cross-references now not only work between documented objects (between all languages,
+  given the objects' identifiers are unique), but also for every heading of your Markdown pages.
+- **Configuration options:** the rendering of Python documentation can now be configured,
+  (globally and locally thanks to the handlers system),
+  [check the docs!](https://pawamoy.github.io/mkdocstrings/reference/handlers/python/#mkdocstrings.handlers.python.PythonRenderer.DEFAULT_CONFIG).
+  Also see the [recommended CSS](https://pawamoy.github.io/mkdocstrings/handlers/python/#recommended-style).
+- **Proper logging messages:** `mkdocstrings` now logs debug, warning and error messages, useful when troubleshooting.
+  
+### Bug fixes
+- Various fixes and better error handling.
+
+
+## [v0.8.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.8.0) - 2020-03-04
+
+<small>[Compare with v0.7.2](https://github.com/pawamoy/mkdocstrings/compare/v0.7.2...v0.8.0)</small>
 
 ### Breaking Changes
 - Be compatible with Mkdocs >= 1.1 ([5a974a4](https://github.com/pawamoy/mkdocstrings/commit/5a974a4eb810904d6836e216d8539affc8acaa6f)).
-  
   This is a breaking change as we're not compatible with versions of Mkdocs below 1.1 anymore. 
-  
   If you cannot upgrade Mkdocs to 1.1, pin mkdocstrings' version to 0.7.2.
 
-## [v0.7.2](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.2) ([compare](https://github.com/pawamoy/mkdocstrings/compare/v0.7.1...v0.7.2)) - 2020-03-04
+## [v0.7.2](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.2) - 2020-03-04
+
+<small>[Compare with v0.7.1](https://github.com/pawamoy/mkdocstrings/compare/v0.7.1...v0.7.2)</small>
 
 ### Bug Fixes
 - Catch `OSError` when trying to get source lines ([8e8d604](https://github.com/pawamoy/mkdocstrings/commit/8e8d604ba95363c140841c84535d2350d7ebbfe3)).
@@ -22,13 +49,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix `relative_file_path` method ([52715ad](https://github.com/pawamoy/mkdocstrings/commit/52715adc59fe2e26a9e91df88bac8b8b32d4635e)).
 - Wrap file path in backticks to escape it ([2525f39](https://github.com/pawamoy/mkdocstrings/commit/2525f39ad8c181679fa33db8e6dfaa28eb39c289)).
 
-## [v0.7.1](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.1) ([compare](https://github.com/pawamoy/mkdocstrings/compare/v0.7.0...v0.7.1)) - 2020-02-18
+## [v0.7.1](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.1) - 2020-02-18
+
+<small>[Compare with v0.7.0](https://github.com/pawamoy/mkdocstrings/compare/v0.7.0...v0.7.1)</small>
 
 ### Bug Fixes
 - Replace literal slash with os.sep for Windows compatibility ([70f9af5](https://github.com/pawamoy/mkdocstrings/commit/70f9af5e33cda694cda33870c84a770c853d84b5)).
 
 
-## [v0.7.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.0) ([compare](https://github.com/pawamoy/mkdocstrings/compare/v0.6.1...v0.7.0)) - 2020-01-13
+## [v0.7.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.0) - 2020-01-13
+
+<small>[Compare with v0.6.1](https://github.com/pawamoy/mkdocstrings/compare/v0.6.1...v0.7.0)</small>
 
 ### Bug Fixes
 - Don't mark args or kwargs as required ([4049d6f](https://github.com/pawamoy/mkdocstrings/commit/4049d6f27c332b05db06bcfe6cc564f3c1c0f013)).
@@ -44,7 +75,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Implement watched source code (hacks) ([4a67953](https://github.com/pawamoy/mkdocstrings/commit/4a67953c0af9da363d52ba058b3c51cf4cbfaabe)).
 
 
-## [v0.6.1](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.6.1) ([compare](https://github.com/pawamoy/mkdocstrings/compare/v0.6.0...v0.6.1)) - 2020-01-02
+## [v0.6.1](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.6.1) - 2020-01-02
+
+<small>[Compare with v0.6.0](https://github.com/pawamoy/mkdocstrings/compare/v0.6.0...v0.6.1)</small>
 
 ### Bug Fixes
 - Break docstring discarding loop if found ([5a17fec](https://github.com/pawamoy/mkdocstrings/commit/5a17fec5beed2003d19ccdcb359b46b79bfcf469)).
@@ -57,7 +90,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Split Docstring.parse method to improve readability ([2226e2d](https://github.com/pawamoy/mkdocstrings/commit/2226e2d55a6b9bbdd5a56183f1a9ba3c5f01b5ac)).
 
 
-## [v0.6.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.6.0) ([compare](https://github.com/pawamoy/mkdocstrings/compare/v0.5.0...v0.6.0)) - 2019-12-28
+## [v0.6.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.6.0) - 2019-12-28
+
+<small>[Compare with v0.5.0](https://github.com/pawamoy/mkdocstrings/compare/v0.5.0...v0.6.0)</small>
 
 ### Bug Fixes
 - Fix GenericMeta import error on Python 3.7+ ([febf2b9](https://github.com/pawamoy/mkdocstrings/commit/febf2b9749d97cce80f5d20339372842fdffc908)).
@@ -68,31 +103,41 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Use Object subclasses ([40dd106](https://github.com/pawamoy/mkdocstrings/commit/40dd1062188e6ad6ef6fbc12ddead2132fe6af1e)).
 
 
-## [v0.5.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.5.0) ([compare](https://github.com/pawamoy/mkdocstrings/compare/v0.4.0...v0.5.0)) - 2019-12-22
+## [v0.5.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.5.0) - 2019-12-22
+
+<small>[Compare with v0.4.0](https://github.com/pawamoy/mkdocstrings/compare/v0.4.0...v0.5.0)</small>
 
 ### Features
 - Use divs in HTML contents to ease styling ([2a36a0e](https://github.com/pawamoy/mkdocstrings/commit/2a36a0eba7f52c43a3eba593ddd971acaa0a9c92)).
 
 
-## [v0.4.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.4.0) ([compare](https://github.com/pawamoy/mkdocstrings/compare/v0.3.0...v0.4.0)) - 2019-12-22
+## [v0.4.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.4.0) - 2019-12-22
+
+<small>[Compare with v0.3.0](https://github.com/pawamoy/mkdocstrings/compare/v0.3.0...v0.4.0)</small>
 
 ### Features
 - Parse docstrings Google-style blocks, get types from signature ([5af0c7b](https://github.com/pawamoy/mkdocstrings/commit/5af0c7b766ea7158d603b44c6df278dbcd189864)).
 
 
-## [v0.3.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.3.0) ([compare](https://github.com/pawamoy/mkdocstrings/compare/v0.2.0...v0.3.0)) - 2019-12-21
+## [v0.3.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.3.0) - 2019-12-21
+
+<small>[Compare with v0.2.0](https://github.com/pawamoy/mkdocstrings/compare/v0.2.0...v0.3.0)</small>
 
 ### Features
 - Allow object referencing in docstrings ([2dd50c0](https://github.com/pawamoy/mkdocstrings/commit/2dd50c06f96acaf0e2f969f217f0cbcfb1de2fd4)).
 
 
-## [v0.2.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.2.0) ([compare](https://github.com/pawamoy/mkdocstrings/compare/v0.1.0...v0.2.0)) - 2019-12-15
+## [v0.2.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.2.0) - 2019-12-15
+
+<small>[Compare with v0.1.0](https://github.com/pawamoy/mkdocstrings/compare/v0.1.0...v0.2.0)</small>
 
 ### Misc
 - Refactor, features, etc. ([111fa85](https://github.com/pawamoy/mkdocstrings/commit/111fa85a6305a198ac4e19a75bb491b98683929c)).
 
 
-## [v0.1.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.1.0) ([compare](https://github.com/pawamoy/mkdocstrings/compare/f1dd8fb2b4a4ae81f9144fe062ca9743ae82bd69...v0.1.0)) - 2019-12-12
+## [v0.1.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.1.0) - 2019-12-12
+
+<small>[Compare with first commit](https://github.com/pawamoy/mkdocstrings/compare/f1dd8fb2b4a4ae81f9144fe062ca9743ae82bd69...v0.1.0)</small>
 
 ### Misc
 - Clean up (delete unused files) ([c227043](https://github.com/pawamoy/mkdocstrings/commit/c227043814381b95031e426725e97106931f4ef9)).

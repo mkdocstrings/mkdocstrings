@@ -1,0 +1,21 @@
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for parameter in parameters %}
+      <tr>
+        <td><code>{{ parameter.name }}</code></td>
+        <td><code>{{ parameter.annotation }}</code></td>
+        <td>{{ parameter.description|convert_markdown }}</td>
+        <td>{% if parameter.default %}<code>{{ parameter.default }}</code>{% else %}<em>required</em>{% endif %}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

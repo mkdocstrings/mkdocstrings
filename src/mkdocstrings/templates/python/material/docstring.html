@@ -1,0 +1,19 @@
+{% if docstring %}
+  {% for section in docstring.sections %}
+    {% if section.type == "markdown" %}
+      {{ section.value|convert_markdown }}
+    {% elif section.type == "parameters" %}
+      {% with parameters = section.value %}
+        {% include "parameters.html" with context %}
+      {% endwith %}
+    {% elif section.type == "exceptions" %}
+      {% with exceptions = section.value %}
+        {% include "exceptions.html" with context %}
+      {% endwith %}
+    {% elif section.type == "return" %}
+      {% with return = section.value %}
+        {% include "return.html" with context %}
+      {% endwith %}
+    {% endif %}
+  {% endfor %}
+{% endif %}

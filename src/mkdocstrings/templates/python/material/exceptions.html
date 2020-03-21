@@ -1,0 +1,17 @@
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for exception in exceptions %}
+      <tr>
+        <td><code>{{ exception.annotation }}</code></td>
+        <td>{{ exception.description|convert_markdown }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

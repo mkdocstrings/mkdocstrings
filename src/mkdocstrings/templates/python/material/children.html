@@ -1,0 +1,98 @@
+{% if obj.children %}
+
+  <div class="doc doc-children">
+
+    {% if config.group_by_category %}
+
+      {% with %}
+
+        {% if config.show_category_heading %}
+          {% set extra_level = 1 %}
+        {% else %}
+          {% set extra_level = 0 %}
+        {% endif %}
+
+        {% if config.show_category_heading and obj.attributes|any("has_contents") %}
+          <h{{ heading_level }}>Attributes</h{{ heading_level }}>
+        {% endif %}
+        {% with heading_level = heading_level + extra_level %}
+          {% for attribute in obj.attributes|sort(attribute="name") %}
+            {% include "attribute.html" with context %}
+          {% endfor %}
+        {% endwith %}
+
+        {% if config.show_category_heading and obj.classes|any("has_contents") %}
+          <h{{ heading_level }}>Classes</h{{ heading_level }}>
+        {% endif %}
+        {% with heading_level = heading_level + extra_level %}
+          {% for class in obj.classes|sort(attribute="name") %}
+            {% include "class.html" with context %}
+          {% endfor %}
+        {% endwith %}
+
+        {% if config.show_category_heading and obj.functions|any("has_contents") %}
+          <h{{ heading_level }}>Functions</h{{ heading_level }}>
+        {% endif %}
+        {% with heading_level = heading_level + extra_level %}
+          {% for function in obj.functions|sort(attribute="name") %}
+            {% include "function.html" with context %}
+          {% endfor %}
+        {% endwith %}
+
+        {% if config.show_category_heading and obj.methods|any("has_contents") %}
+          <h{{ heading_level }}>Methods</h{{ heading_level }}>
+        {% endif %}
+        {% with heading_level = heading_level + extra_level %}
+          {% for method in obj.methods|sort(attribute="name") %}
+            {% include "method.html" with context %}
+          {% endfor %}
+        {% endwith %}
+
+        {% if config.show_category_heading and obj.modules|any("has_contents") %}
+          <h{{ heading_level }}>Modules</h{{ heading_level }}>
+        {% endif %}
+        {% with heading_level = heading_level + extra_level %}
+          {% for module in obj.modules|sort(attribute="name") %}
+            {% include "module.html" with context %}
+          {% endfor %}
+        {% endwith %}
+
+      {% endwith %}
+
+    {% else %}
+
+      {% for child in obj.children|sort(attribute="name") %}
+        {% if child.category == "attribute" %}
+          {% with attribute = child %}
+            {% include "attribute.html" with context %}
+          {% endwith %}
+
+        {% elif child.category == "class" %}
+          {% with class = child %}
+            {% include "class.html" with context %}
+          {% endwith %}
+
+        {% elif child.category == "function" %}
+          {% with function = child %}
+            {% include "function.html" with context %}
+          {% endwith %}
+
+        {% elif child.category == "method" %}
+          {% with method = child %}
+            {% include "method.html" with context %}
+          {% endwith %}
+
+        {% elif child.category == "module" %}
+          {% with module = child %}
+            {% include "module.html" with context %}
+          {% endwith %}
+
+        {% endif %}
+
+      {% endfor %}
+
+    {% endif %}
+
+  </div>
+
+{% endif %}

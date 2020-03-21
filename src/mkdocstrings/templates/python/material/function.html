@@ -1,0 +1,58 @@
+{% if config.show_if_no_docstring or function.has_contents %}
+
+  <div class="doc doc-object doc-function">
+
+    {% if not root or config.show_root_heading %}
+
+      {% if root %}
+        {% set show_full_path = config.show_root_full_path %}
+      {% else %}
+        {% set show_full_path = config.show_object_full_path %}
+      {% endif %}
+
+      <h{{ heading_level }}
+          id="{{ function.path }}"
+          class="doc doc-heading"
+          data-toc-label="{{ function.name }}()">
+
+        <code class="highlight language-python">
+          {% if show_full_path %}{{ function.path }}{% else %}{{ function.name }}{% endif %}
+          {% filter highlight(language="python", inline=True) %}
+            {% with signature = function.docstring.signature %}{% include "signature.html" with context %}{% endwith %}
+          {% endfilter %}
+        </code>
+
+        {% with properties = function.properties %}
+          {% include "properties.html" with context %}
+        {% endwith %}
+
+      </h{{ heading_level }}>
+
+    {% else %}
+      {% set heading_level = heading_level - 1 %}
+      {% if config.show_root_toc_entry %}
+        <h6 class="hidden-toc"
+            href="#{{ function.path }}"
+            id="{{ function.path }}"
+            data-toc-label="{{ function.path }}"
+            style="visibility: hidden; width: 0; height: 0;">
+        </h6>
+      {% endif %}
+    {% endif %}
+
+    <div class="doc doc-contents {% if root %}first{% endif %}">
+      {% with docstring = function.docstring %}
+        {% include "docstring.html" with context %}
+      {% endwith %}
+
+      {% if config.show_source and function.source %}
+        <details class="quote">
+          <summary>Show source code in <code>{{ function.relative_file_path }}</code></summary>
+          {{ function.source[0]|join|highlight(language="python", line_start=function.source[1]) }}
+        </details>
+      {% endif %}
+    </div>
+
+  </div>
+
+{% endif %}

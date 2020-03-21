@@ -6,12 +6,16 @@ repo_name: pawamoy/mkdocstrings
 
 nav:
   - Overview: "index.md"
-  - Frequently Asked Questions: "faq.md"
+  - Handlers:
+    - Overview: "handlers/overview.md"
+    - Python: "handlers/python.md"
   - Reference:
+    - handlers:
+      - __init__.py: "reference/handlers/__init__.md"
+      - python.py: "reference/handlers/python.md"
+    - extension.py: "reference/extension.md"
     - plugin.py: "reference/plugin.md"
-    - documenter.py: "reference/documenter.md"
-    - docstrings.py: "reference/docstrings.md"
-    - renderer.py: "reference/renderer.md"
+  - Troubleshooting: "troubleshooting.md"
   - Contributing: "contributing.md"
   - Code of Conduct: "code_of_conduct.md"
   - Changelog: "changelog.md"
@@ -23,15 +27,15 @@ theme:
 extra_css:
   - custom.css
 
-
 markdown_extensions:
   - admonition
   - codehilite:
       guess_lang: false
   - pymdownx.superfences
+  - pymdownx.emoji
+  - toc:
+      permalink: true
 
 plugins:
   - search
   - mkdocstrings:
-      watch:
-        - src/mkdocstrings

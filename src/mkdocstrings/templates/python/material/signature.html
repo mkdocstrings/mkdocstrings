@@ -1,0 +1,23 @@
+{% if signature %}
+  {% with %}
+    {% set render_pos_only_separator = True %}
+    {% set render_kw_only_separator = True %}
+
+    ({% for parameter in signature.parameters %}{% if parameter.kind == "POSITIONAL_ONLY" %}
+      {% if render_pos_only_separator %}
+        {% set render_pos_only_separator = False %}/, {% endif %}
+      {% elif parameter.kind == "KEYWORD_ONLY" %}
+        {% if render_kw_only_separator %}
+          {% set render_kw_only_separator = False %}*, {% endif %}
+      {% endif %}
+      {% if "default" in parameter %}
+        {% set default = "=" + parameter.default|safe %}
+      {% endif %}
+      {% if parameter.kind == "VAR_POSITIONAL" %}*
+        {% set render_kw_only_separator = False %}
+      {% elif parameter.kind == "VAR_KEYWORD" %}**
+      {% endif %}{{ parameter.name }}{{ default }}{% if not loop.last %}, {% endif %}
+    {% endfor %})
+
+  {% endwith %}
+{% endif %}

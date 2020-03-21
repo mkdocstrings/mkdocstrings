@@ -4,14 +4,14 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "mkdocstrings"
-version = "0.8.0"
-description = "Automatic documentation from docstrings, for mkdocs."
+version = "0.9.0"
+description = "Automatic documentation from sources, for mkdocs."
 authors = ["Timothée Mazzucotelli <pawamoy@pm.me>"]
 license = "ISC License"
 readme = "README.md"
 repository = "https://github.com/pawamoy/mkdocstrings"
 homepage = "https://github.com/pawamoy/mkdocstrings"
-keywords = ["mkdocs", "mkdocs-plugin", "docstrings", "autodoc"]
+keywords = ["mkdocs", "mkdocs-plugin", "docstrings", "autodoc", "documentation"]
 packages = [ { include = "mkdocstrings", from = "src" } ]
 include = [
     "README.md",
@@ -20,12 +20,14 @@ include = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
-mkdocs = ">=1.1"
+mkdocs = "^1.1"
+beautifulsoup4 = "^4.8.2"
+pytkdocs = "^0.1.1"
 
 [tool.poetry.dev-dependencies]
 bandit = "^1.5"
 black = { version = "*", allow-prereleases = true }
-coverage = { version = "=5.0a8", allow-prereleases = true }
+coverage = "^5.0.4"
 flake8 = "^3.6"
 git-changelog = "^0.2.0"
 ipython = "^7.2"

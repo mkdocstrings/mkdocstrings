@@ -1,0 +1,52 @@
+{% if config.show_if_no_docstring or module.has_contents %}
+
+  <div class="doc doc-object doc-module">
+
+    {% if not root or config.show_root_heading %}
+
+      {% if root %}
+        {% set show_full_path = config.show_root_full_path %}
+      {% else %}
+        {% set show_full_path = config.show_object_full_path %}
+      {% endif %}
+
+      <h{{ heading_level }}
+          id="{{ module.path }}"
+          class="doc doc-heading"
+          data-toc-label="{{ module.name }}">
+
+        <code>{% if show_full_path %}{{ module.path }}{% else %}{{ module.name }}{% endif %}</code>
+
+        {% with properties = module.properties %}
+          {% include "properties.html" with context %}
+        {% endwith %}
+
+      </h{{ heading_level }}>
+
+    {% else %}
+      {% set heading_level = heading_level - 1 %}
+      {% if config.show_root_toc_entry %}
+        <h6 class="hidden-toc"
+            href="#{{ module.path }}"
+            id="{{ module.path }}"
+            data-toc-label="{{ module.path }}"
+            style="visibility: hidden; width: 0; height: 0;">
+        </h6>
+      {% endif %}
+    {% endif %}
+
+    <div class="doc doc-contents {% if root %}first{% endif %}">
+      {% with docstring = module.docstring %}
+        {% include "docstring.html" with context %}
+      {% endwith %}
+
+      {% with obj = module %}
+        {% set root = False %}
+        {% set heading_level = heading_level + 1 %}
+        {% include "children.html" with context %}
+      {% endwith %}
+    </div>
+
+  </div>
+
+{% endif %}
