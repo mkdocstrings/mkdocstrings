@@ -157,7 +157,7 @@ class MkdocstringsPlugin(BasePlugin):
         """
         log.debug(f"mkdocstrings.plugin: Mapping identifiers to URLs for page {page.file.src_path}")
         for item in page.toc.items:
-            self.map_urls(page.abs_url, item)
+            self.map_urls(page.canonical_url, item)
         return html
 
     def map_urls(self, base_url: str, anchor: AnchorLink) -> None:
