@@ -1,5 +1,5 @@
-{% if docstring %}
-  {% for section in docstring.sections %}
+{% if docstring_sections %}
+  {% for section in docstring_sections %}
     {% if section.type == "markdown" %}
       {{ section.value|convert_markdown }}
     {% elif section.type == "parameters" %}

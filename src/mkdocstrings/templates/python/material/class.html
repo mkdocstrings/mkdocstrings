@@ -36,14 +36,14 @@
     {% endif %}
 
     <div class="doc doc-contents {% if root %}first{% endif %}">
-      {% with docstring = class.docstring %}
+      {% with docstring_sections = class.docstring_sections %}
         {% include "docstring.html" with context %}
       {% endwith %}
 
       {% if config.show_source and class.source %}
         <details class="quote">
-          <summary>Show source code in <code>{{ class.relative_file_path }}</code></summary>
-          {{ class.source[0]|join|highlight(language="python", line_start=class.source[1]) }}
+          <summary>Source code in <code>{{ class.relative_file_path }}</code></summary>
+          {{ class.source.code|highlight(language="python", line_start=class.source.line_start) }}
         </details>
       {% endif %}
 

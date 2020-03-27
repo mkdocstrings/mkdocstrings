@@ -103,7 +103,11 @@ class PythonCollector(BaseCollector):
     and overrides the `update_env` method of the [`BaseRenderer` class][mkdocstrings.handlers.BaseRenderer].
     """
 
-    DEFAULT_CONFIG = {}
+    DEFAULT_CONFIG = {
+        "filters": [
+            "!^_[^_]"
+        ]
+    }
 
     def __init__(self) -> None:
         """
@@ -155,8 +159,11 @@ class PythonCollector(BaseCollector):
         Returns:
             The collected object-tree.
         """
+        final_config = dict(self.DEFAULT_CONFIG)
+        final_config.update(config)
+
         log.debug("mkdocstrings.handlers.python: Preparing input")
-        json_input = json.dumps({"global_config": {}, "objects": [{"path": identifier, "config": config}]})
+        json_input = json.dumps({"objects": [{"path": identifier, **final_config}]})
 
         log.debug("mkdocstrings.handlers.python: Writing to process' stdin")
         print(json_input, file=self.process.stdin, flush=True)

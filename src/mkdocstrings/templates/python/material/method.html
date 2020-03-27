@@ -18,7 +18,7 @@
         <code class="highlight language-python">
           {% if show_full_path %}{{ method.path }}{% else %}{{ method.name }}{% endif %}
           {% filter highlight(language="python", inline=True) %}
-            {% with signature = method.docstring.signature %}{% include "signature.html" with context %}{% endwith %}
+            {% with signature = method.signature %}{% include "signature.html" with context %}{% endwith %}
           {% endfilter %}
         </code>
 
@@ -41,14 +41,14 @@
     {% endif %}
 
     <div class="doc doc-contents {% if root %}first{% endif %}">
-      {% with docstring = method.docstring %}
+      {% with docstring_sections = method.docstring_sections %}
         {% include "docstring.html" with context %}
       {% endwith %}
 
       {% if config.show_source and method.source %}
         <details class="quote">
-          <summary>Show source code in <code>{{ method.relative_file_path }}</code></summary>
-          {{ method.source[0]|join|highlight(language="python", line_start=method.source[1]) }}
+          <summary>Source code in <code>{{ method.relative_file_path }}</code></summary>
+          {{ method.source.code|highlight(language="python", line_start=method.source.line_start) }}
         </details>
       {% endif %}
     </div>

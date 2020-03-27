@@ -36,7 +36,7 @@
     {% endif %}
 
     <div class="doc doc-contents {% if root %}first{% endif %}">
-      {% with docstring = module.docstring %}
+      {% with docstring_sections = module.docstring_sections %}
         {% include "docstring.html" with context %}
       {% endwith %}
 
