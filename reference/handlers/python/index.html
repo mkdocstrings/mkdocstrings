@@ -207,6 +207,11 @@
 <nav class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.handlers.python.PythonCollector.DEFAULT_CONFIG">
+    DEFAULT_CONFIG
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#mkdocstrings.handlers.python.PythonCollector.__init__">
     __init__()
   </a>
@@ -330,6 +335,11 @@
 <nav class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.handlers.python.PythonCollector.DEFAULT_CONFIG">
+    DEFAULT_CONFIG
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#mkdocstrings.handlers.python.PythonCollector.__init__">
     __init__()
   </a>
@@ -411,6 +421,53 @@
 <p>It defines some configuration options, implements the <code>render</code> method,
 and overrides the <code>update_env</code> method of the <a href="https://pawamoy.github.io/mkdocstrings/reference/handlers/__init__/#mkdocstrings.handlers.BaseRenderer"><code>BaseRenderer</code> class</a>.</p>
 <div class="doc doc-children">
+<div class="doc doc-object doc-attribute">
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonCollector.DEFAULT_CONFIG">
+<code class="highlight">
+DEFAULT_CONFIG: <span class="nb">dict</span> </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-class-attribute"><code>class-attribute</code></small>
+</span>
+<a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.DEFAULT_CONFIG" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>The default selection options.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>filters</code></strong></td>
+<td><code>List[str]</code></td>
+<td>Filter members with regular expressions.</td>
+<td><code>[ "!^_[^_]" ]</code></td>
+</tr>
+<tr>
+<td><strong><code>members</code></strong></td>
+<td><code>Union[bool, List[str]]</code></td>
+<td>Explicitly select the object members.</td>
+<td><em><code>pytkdocs</code> default: <code>True</code></em></td>
+</tr>
+</tbody>
+</table>
+<p>If <code>members</code> is a list of names, filters are applied only on the members children (not the members themselves).
+If <code>members</code> is <code>False</code>, none are selected.
+If <code>members</code> is <code>True</code> or an empty list, filters are applied on all members and their children.</p>
+<p>Members affect only the first layer of objects, while filters affect the whole object-tree recursively.</p>
+<p>Every filters is run against every object name. An object can be un-selected by a filter and re-selected by the
+next one:</p>
+<ul>
+<li><code>"!^_"</code>: exclude all objects starting with an underscore</li>
+<li>`"^__": but select all objects starting with <strong>two</strong> underscores</li>
+</ul>
+<p>Obviously one could use a single filter instead: <code>"!^_[^_]"</code>, which is the default.</p>
+</div>
+</div>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonCollector.__init__">
 <code class="highlight language-python">
@@ -426,32 +483,32 @@ It will allow us to feed input to and read output from this subprocess, keeping 
 the whole documentation generation. Spawning a new Python subprocess for each "autodoc" instruction would be
 too resource intensive, and would slow down <code>mkdocstrings</code> a lot.</p>
 <details class="quote">
-<summary>Show source code in <code>handlers/python.py</code></summary>
+<summary>Source code in <code>mkdocstrings/handlers/python.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128</pre>
+<pre><span></span>130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150</pre>
 </div>
 </td>
 <td class="code">
@@ -551,34 +608,12 @@ and return it.</p>
 </tbody>
 </table>
 <details class="quote">
-<summary>Show source code in <code>handlers/python.py</code></summary>
+<summary>Source code in <code>mkdocstrings/handlers/python.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>130
-131
-132
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
+<pre><span></span>152
 153
 154
 155
@@ -622,7 +657,32 @@ and return it.</p>
 193
 194
 195
-196</pre>
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221</pre>
 </div>
 </td>
 <td class="code">
@@ -655,8 +715,11 @@ and return it.</p>
 <span class="sd">    Returns:</span>
 <span class="sd">        The collected object-tree.</span>
 <span class="sd">    """</span>
+    <span class="n">final_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_CONFIG</span><span class="p">)</span>
+    <span class="n">final_config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.handlers.python: Preparing input"</span><span class="p">)</span>
-    <span class="n">json_input</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">"global_config"</span><span class="p">:</span> <span class="p">{},</span> <span class="s2">"objects"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"path"</span><span class="p">:</span> <span class="n">identifier</span><span class="p">,</span> <span class="s2">"config"</span><span class="p">:</span> <span class="n">config</span><span class="p">}]})</span>
+    <span class="n">json_input</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">"objects"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"path"</span><span class="p">:</span> <span class="n">identifier</span><span class="p">,</span> <span class="o">**</span><span class="n">final_config</span><span class="p">}]})</span>
 
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.handlers.python: Writing to process' stdin"</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">json_input</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">stdin</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -685,7 +748,7 @@ and return it.</p>
     <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s2">"parsing_errors"</span><span class="p">]:</span>
         <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">errors</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">"parsing_errors"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
-                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.handlers.python: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.handlers.python: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="c1"># We always collect only one object at a time</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">"objects"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
@@ -710,16 +773,16 @@ teardown<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 <div class="doc doc-contents">
 <p>Terminate the opened subprocess, set it to None.</p>
 <details class="quote">
-<summary>Show source code in <code>handlers/python.py</code></summary>
+<summary>Source code in <code>mkdocstrings/handlers/python.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>198
-199
-200
-201
-202</pre>
+<pre><span></span>223
+224
+225
+226
+227</pre>
 </div>
 </td>
 <td class="code">
@@ -889,7 +952,7 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 </tbody>
 </table>
 <details class="quote">
-<summary>Show source code in <code>handlers/python.py</code></summary>
+<summary>Source code in <code>mkdocstrings/handlers/python.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
@@ -971,7 +1034,7 @@ update_env<span class="p">(</span><span class="bp">self</span><span class="p">,<
 </tbody>
 </table>
 <details class="quote">
-<summary>Show source code in <code>handlers/python.py</code></summary>
+<summary>Source code in <code>mkdocstrings/handlers/python.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
@@ -1047,22 +1110,22 @@ get_handler<span class="p">(</span><span class="n">theme</span><span class="p">)
 </tbody>
 </table>
 <details class="quote">
-<summary>Show source code in <code>handlers/python.py</code></summary>
+<summary>Source code in <code>mkdocstrings/handlers/python.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>209
-210
-211
-212
-213
-214
-215
-216
-217
-218
-219</pre>
+<pre><span></span>234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244</pre>
 </div>
 </td>
 <td class="code">
@@ -1121,35 +1184,35 @@ and <code>modules</code>. It replaces the values in category lists with only the
 </tbody>
 </table>
 <details class="quote">
-<summary>Show source code in <code>handlers/python.py</code></summary>
+<summary>Source code in <code>mkdocstrings/handlers/python.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>222
-223
-224
-225
-226
-227
-228
-229
-230
-231
-232
-233
-234
-235
-236
-237
-238
-239
-240
-241
-242
-243
-244
-245</pre>
+<pre><span></span>247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270</pre>
 </div>
 </td>
 <td class="code">
