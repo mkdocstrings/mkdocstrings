@@ -37,7 +37,7 @@ from mkdocs.utils import log
 from .handlers import CollectionError, get_handler
 
 
-def atomic_brute_cast(tree: Element):
+def atomic_brute_cast(tree: Element) -> None:
     """
     Cast every node's text into an atomic string to prevent further processing on it.
 

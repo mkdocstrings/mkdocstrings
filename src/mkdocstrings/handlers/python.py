@@ -37,7 +37,7 @@ class PythonRenderer(BaseRenderer):
     }
     """
     The default rendering options.
-    
+
     Option | Type | Description | Default
     ------ | ---- | ----------- | -------
     **`show_root_heading`** | `bool` | Show the heading of the object at the root of the documentation tree. | `False`
@@ -103,11 +103,29 @@ class PythonCollector(BaseCollector):
     and overrides the `update_env` method of the [`BaseRenderer` class][mkdocstrings.handlers.BaseRenderer].
     """
 
-    DEFAULT_CONFIG = {
-        "filters": [
-            "!^_[^_]"
-        ]
-    }
+    DEFAULT_CONFIG: dict = {"filters": ["!^_[^_]"]}
+    """
+    The default selection options.
+
+    Option | Type | Description | Default
+    ------ | ---- | ----------- | -------
+    **`filters`** | `List[str]` | Filter members with regular expressions. | `[ "!^_[^_]" ]`
+    **`members`** | `Union[bool, List[str]]` | Explicitly select the object members. | *`pytkdocs` default: `True`*
+
+    If `members` is a list of names, filters are applied only on the members children (not the members themselves).
+    If `members` is `False`, none are selected.
+    If `members` is `True` or an empty list, filters are applied on all members and their children.
+
+    Members affect only the first layer of objects, while filters affect the whole object-tree recursively.
+
+    Every filters is run against every object name. An object can be un-selected by a filter and re-selected by the
+    next one:
+
+    - `"!^_"`: exclude all objects starting with an underscore
+    - `"^__": but select all objects starting with **two** underscores
+
+    Obviously one could use a single filter instead: `"!^_[^_]"`, which is the default.
+    """
 
     def __init__(self) -> None:
         """
@@ -192,7 +210,7 @@ class PythonCollector(BaseCollector):
         if result["parsing_errors"]:
             for path, errors in result["parsing_errors"].items():
                 for error in errors:
-                    log.warning(f"mkdocstrings.handlers.python: {path}: {error}")
+                    log.warning(f"mkdocstrings.handlers.python: {error}")
 
         # We always collect only one object at a time
         result = result["objects"][0]

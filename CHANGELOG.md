@@ -4,12 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v0.10.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.0)
+
+<small>[Compare with v0.9.1](https://github.com/pawamoy/mkdocstrings/compare/v0.9.1...v0.10.0)</small>
+
+### Features
+- Prepare for new `pytkdocs` version ([336421a](https://github.com/pawamoy/mkdocstrings/commit/336421af95d752671276c2e88c5c173bff4093cc)).
+  Add options `filters` and `members` to the Python collector to reflect the new `pytkdocs` options.
+  See [the default configuration of the Python collector](https://pawamoy.github.io/mkdocstrings/reference/handlers/python/#mkdocstrings.handlers.python.PythonCollector.DEFAULT_CONFIG).
+
+
 ## [v0.9.1](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.9.1) - 2020-03-21
 
 <small>[Compare with v0.9.0](https://github.com/pawamoy/mkdocstrings/compare/v0.9.0...v0.9.1)</small>
 
 ### Bug fixes
 - Fix cross-references when deploying to GitHub pages ([36f804b](https://github.com/pawamoy/mkdocstrings/commit/36f804beab01531c0331ed89d21f3e5e15bd8585)).
+
 
 ## [v0.9.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.9.0) - 2020-03-21
 

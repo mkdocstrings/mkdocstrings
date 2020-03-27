@@ -4,7 +4,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "mkdocstrings"
-version = "0.9.1"
+version = "0.10.0"
 description = "Automatic documentation from sources, for mkdocs."
 authors = ["Timothée Mazzucotelli <pawamoy@pm.me>"]
 license = "ISC License"
@@ -22,18 +22,17 @@ include = [
 python = "^3.6"
 mkdocs = "^1.1"
 beautifulsoup4 = "^4.8.2"
-pytkdocs = "^0.1.1"
+pytkdocs = "^0.2.0"
 
 [tool.poetry.dev-dependencies]
 bandit = "^1.5"
-black = { version = "*", allow-prereleases = true }
+black = "^19.10b0"
 coverage = "^5.0.4"
 flake8 = "^3.6"
 git-changelog = "^0.2.0"
 ipython = "^7.2"
 isort = { version = "^4.3", extras = ["pyproject"] }
 jinja2-cli = "^0.7.0"
-mkdocs = "^1.0"
 mkdocs-material = "^4.5"
 pylint = { git = "https://github.com/PyCQA/pylint" }
 pytest = "^4.3"
