@@ -99,7 +99,7 @@ td code {
 
 /* For pieces of Markdown rendered in table cells. */
 td p {
-  margin-top: 0;
-  margin-bottom: 0;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 ```

@@ -44,6 +44,8 @@ def atomic_brute_cast(tree: Element):
     Since we generate the final HTML with Jinja templates, we do not want other inline or tree processors
     to keep modifying the data, so this function is used to mark the complete tree as "do not touch".
 
+    Reference: issue [Python-Markdown/markdown#920](https://github.com/Python-Markdown/markdown/issues/920).
+
     On a side note: isn't `atomic_brute_cast` such a beautiful function name?
 
     Arguments:

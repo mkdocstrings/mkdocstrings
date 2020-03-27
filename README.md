@@ -20,9 +20,11 @@ Automatic documentation from sources, for mkdocs.
 
 ## Features
 
-- **Language agnostic:** just like `mkdocs`, `mkdocstrings` is written in Python but is language-agnostic. It means
-  you can use for any language, as long as you implement a [`handler`][mkdocstrings.handlers] for it. Currently, we
-  only have a [Python handler][mkdocstrings.handlers.python]. Maybe you'd like to contribute another one :wink:?
+- **Language agnostic:** just like `mkdocs`, `mkdocstrings` is written in Python but is language-agnostic.
+  It means you can use it for any language, as long as you implement a
+  [`handler`](https://pawamoy.github.io/mkdocstrings/reference/handlers/__init__/) for it.
+  Currently, we only have a [Python handler](https://pawamoy.github.io/mkdocstrings/reference/handlers/python/).
+  Maybe you'd like to contribute another one :wink:?
 - **Multiple themes support:** each handler can offer multiple themes. Currently, we only offer the
   :star: [Material theme](https://squidfunk.github.io/mkdocs-material/) :star: for the Python handler.
 - **Cross-references to other objects:** `mkdocstrings` makes it possible to reference other headings from your
