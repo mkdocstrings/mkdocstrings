@@ -98,6 +98,8 @@ class BaseRenderer:
     To define a fallback theme, add a `FALLBACK_THEME` class-variable.
     """
 
+    FALLBACK_THEME: str = ""
+
     def __init__(self, directory: str, theme: str) -> None:
         """
         Initialization method.
@@ -112,7 +114,7 @@ class BaseRenderer:
         themes_dir = Path(__file__).parent.parent / "templates" / directory
         theme_dir = themes_dir / theme
         if not theme_dir.exists():
-            if hasattr(self, "FALLBACK_THEME"):
+            if self.FALLBACK_THEME != "":
                 log.warning(
                     f"mkdocstrings.handlers: No '{theme}' theme in '{directory}', "
                     f"falling back to theme '{self.FALLBACK_THEME}'"
