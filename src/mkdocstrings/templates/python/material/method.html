@@ -29,15 +29,15 @@
       </h{{ heading_level }}>
 
     {% else %}
-      {% set heading_level = heading_level - 1 %}
       {% if config.show_root_toc_entry %}
-        <h6 class="hidden-toc"
+        <h{{ heading_level }} class="hidden-toc"
             href="#{{ method.path }}"
             id="{{ method.path }}"
             data-toc-label="{{ method.path }}"
             style="visibility: hidden; width: 0; height: 0;">
-        </h6>
+        </h{{ heading_level }}>
       {% endif %}
+      {% set heading_level = heading_level - 1 %}
     {% endif %}
 
     <div class="doc doc-contents {% if root %}first{% endif %}">
