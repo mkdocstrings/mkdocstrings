@@ -7,7 +7,7 @@ build:  ## Build the package wheel and sdist.
 	poetry build
 
 .PHONY: check
-check: check-bandit check-black check-flake8 check-isort check-safety  ## Check it all!
+check: check-bandit check-black check-flake8 check-isort  ## Check it all!
 
 .PHONY: check-bandit
 check-bandit:  ## Check for security warnings in code using bandit.
@@ -37,7 +37,7 @@ check-pylint:  ## Check for code smells using pylint.
 check-safety:  ## Check for vulnerabilities in dependencies using safety.
 	poetry run pip freeze 2>/dev/null | \
 		grep -v mkdocstrings | \
-		poetry run safety check --stdin --full-report 2>/dev/null
+		safety check --stdin --full-report 2>/dev/null
 
 .PHONY: clean
 clean: clean-tests  ## Delete temporary files.

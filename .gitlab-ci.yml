@@ -53,7 +53,9 @@ check-pylint:
 
 check-safety:
   <<: *quality
-  script: make check-safety
+  script:
+    - pip install safety
+    - make check-safety
 
 # Tests jobs
 
