@@ -38,6 +38,7 @@ from mkdocs.structure.files import Files
 from mkdocs.structure.pages import Page
 from mkdocs.structure.toc import AnchorLink
 from mkdocs.utils import log
+from typing import Dict, Any
 
 from .extension import MkdocstringsExtension
 from .handlers import teardown
@@ -71,10 +72,13 @@ class MkdocstringsPlugin(BasePlugin):
     """
 
     config_scheme: Tuple[Tuple[str, MkType]] = (
-        ("watch", MkType(list, default=[])),
+        ("watch", MkType(list, default=[])),  # type: ignore
         ("handlers", MkType(dict, default={})),
         ("default_handler", MkType(str, default="python")),
     )
+
+    url_map: Dict[Any, str]
+
     """
     The configuration options of `mkdocstrings`, written in `mkdocs.yml`.
 
@@ -193,7 +197,7 @@ class MkdocstringsPlugin(BasePlugin):
         while re.search(placeholder.seed, output) or any(placeholder.seed in url for url in self.url_map.values()):
             placeholder.set_seed()
 
-        unmapped, unintended = [], []
+        unmapped, unintended = [], []  # type: ignore
         soup = BeautifulSoup(output, "html.parser")
         placeholder.replace_code_tags(soup)
         fixed_soup = AUTO_REF.sub(self.fix_ref(unmapped, unintended), str(soup))
@@ -296,8 +300,8 @@ class Placeholder:
     """
 
     def __init__(self) -> None:
-        self.ids = {}
-        self.seed = None
+        self.ids: Dict[str, str] = {}
+        self.seed = ""
         self.set_seed()
 
     def store(self, value: str) -> str:

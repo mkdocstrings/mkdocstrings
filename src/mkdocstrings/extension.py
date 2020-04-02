@@ -33,11 +33,12 @@ from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.util import AtomicString
 from mkdocs.utils import log
+from typing import Union
 
 from .handlers import CollectionError, get_handler
 
 
-def atomic_brute_cast(tree: Element) -> None:
+def atomic_brute_cast(tree: Element) -> Union[Element, None]:
     """
     Cast every node's text into an atomic string to prevent further processing on it.
 
@@ -91,9 +92,9 @@ class AutoDocProcessor(BlockProcessor):
 
     def test(self, parent: Element, block: Element) -> bool:
         sibling = self.lastChild(parent)
-        bool1 = self.RE.search(block)
+        bool1 = self.RE.search(str(block))
         bool2 = (
-            block.startswith(" " * self.tab_length)
+            str(block).startswith(" " * self.tab_length)
             and sibling is not None
             and sibling.get("class", "").find(self.CLASSNAME) != -1
         )
@@ -101,17 +102,18 @@ class AutoDocProcessor(BlockProcessor):
 
     def run(self, parent: Element, blocks: Element) -> None:
         block = blocks.pop(0)
-        m = self.RE.search(block)
+        m = self.RE.search(str(block))
 
         if m:
-            block = block[m.end() :]  # removes the first line
+            # removes the first line
+            block = block[m.end() :]  # type: ignore
 
         block, the_rest = self.detab(block)
 
         if m:
             identifier = m.group(1)
             log.debug(f"mkdocstrings.extension: Matched '::: {identifier}'")
-            config = yaml.safe_load(block) or {}
+            config = yaml.safe_load(str(block)) or {}
 
             handler_name = self.get_handler_name(config)
             log.debug(f"mkdocstrings.extension: Using handler '{handler_name}'")
@@ -138,9 +140,11 @@ class AutoDocProcessor(BlockProcessor):
             except ParseError as error:
                 message = f"mkdocstrings.extension: {error}"
                 if "mismatched tag" in str(error):
-                    lineno, columnno = str(error).split(":")[-1].split(", ")
-                    lineno = int(lineno.split(" ")[-1])
-                    columnno = int(columnno.split(" ")[-1])
+                    line, column = str(error).split(":")[-1].split(", ")
+
+                    lineno = int(line.split(" ")[-1])
+                    columnno = int(column.split(" ")[-1])
+
                     line = rendered.split("\n")[lineno - 1]
                     character = line[columnno]
                     message += (
@@ -151,7 +155,7 @@ class AutoDocProcessor(BlockProcessor):
                 log.error(message)
                 return
 
-            as_xml = atomic_brute_cast(as_xml)
+            as_xml = atomic_brute_cast(as_xml)  # type: ignore
             parent.append(as_xml)
 
         if the_rest:

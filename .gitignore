@@ -12,4 +12,4 @@ pip-wheel-metadata/
 .python-version
 site/
 poetry.lock
-
+.mypy_cache

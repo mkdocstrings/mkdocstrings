@@ -1,7 +1,7 @@
 """
 mkdocstrings package.
 
-Automatic documentation from source code, for mkdocs.
+Automatic documentation from source code, for MkDocs.
 
 This project was originally written for Python source code only, hence the name.
 It was then refactored to use external tools to load documentation. The main purpose

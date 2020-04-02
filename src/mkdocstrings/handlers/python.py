@@ -11,7 +11,7 @@ from subprocess import PIPE, Popen  # nosec: what other option, more secure that
 from markdown import Markdown
 from mkdocs.utils import log
 
-from . import BaseCollector, BaseHandler, BaseRenderer, CollectionError
+from . import BaseCollector, BaseHandler, BaseRenderer, CollectionError, DataType
 
 
 class PythonRenderer(BaseRenderer):
@@ -51,7 +51,7 @@ class PythonRenderer(BaseRenderer):
     **`heading_level`** | `int` | The initial heading level to use. | `2`
     """
 
-    def render(self, data: dict, config: dict) -> str:
+    def render(self, data: DataType, config: dict) -> str:
         final_config = dict(self.DEFAULT_CONFIG)
         final_config.update(config)
 
@@ -149,7 +149,7 @@ class PythonCollector(BaseCollector):
             env=env,
         )
 
-    def collect(self, identifier: str, config: dict) -> dict:
+    def collect(self, identifier: str, config: dict) -> DataType:
         """
         Collect the documentation tree given an identifier and selection options.
 
@@ -187,7 +187,7 @@ class PythonCollector(BaseCollector):
         print(json_input, file=self.process.stdin, flush=True)
 
         log.debug("mkdocstrings.handlers.python: Reading process' stdout")
-        stdout = self.process.stdout.readline()
+        stdout = self.process.stdout.readline()  # type: ignore
 
         log.debug("mkdocstrings.handlers.python: Loading JSON output as Python object")
         try:
@@ -204,11 +204,11 @@ class PythonCollector(BaseCollector):
             raise CollectionError(result["error"])
 
         if result["loading_errors"]:
-            for error in result["loading_errors"]:
+            for error in result["loading_errors"]:  # type: ignore
                 log.warning(f"mkdocstrings.handlers.python: {error}")
 
         if result["parsing_errors"]:
-            for path, errors in result["parsing_errors"].items():
+            for path, errors in result["parsing_errors"].items():  # type: ignore
                 for error in errors:
                     log.warning(f"mkdocstrings.handlers.python: {error}")
 
@@ -224,7 +224,6 @@ class PythonCollector(BaseCollector):
         """Terminate the opened subprocess, set it to None."""
         log.debug("mkdocstrings.handlers.python: Tearing process down")
         self.process.terminate()
-        self.process = None
 
 
 class PythonHandler(BaseHandler):
