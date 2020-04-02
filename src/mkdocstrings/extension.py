@@ -24,7 +24,7 @@ instruction:
 """
 
 import re
-from typing import Tuple
+from typing import Tuple, Union
 from xml.etree.ElementTree import XML, Element, ParseError  # nosec: we choose to trust the XML input
 
 import yaml
@@ -33,7 +33,6 @@ from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.util import AtomicString
 from mkdocs.utils import log
-from typing import Union
 
 from .handlers import CollectionError, get_handler
 

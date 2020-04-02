@@ -26,7 +26,7 @@ import logging
 import random
 import re
 import string
-from typing import Callable, List, Match, Pattern, Tuple
+from typing import Any, Callable, Dict, List, Match, Pattern, Tuple
 
 from bs4 import BeautifulSoup
 from bs4.element import NavigableString
@@ -38,7 +38,6 @@ from mkdocs.structure.files import Files
 from mkdocs.structure.pages import Page
 from mkdocs.structure.toc import AnchorLink
 from mkdocs.utils import log
-from typing import Dict, Any
 
 from .extension import MkdocstringsExtension
 from .handlers import teardown
