@@ -41,6 +41,16 @@ check-isort:
   <<: *quality
   script: make check-isort
 
+check-mypy:
+  <<: *quality
+  script: make check-mypy
+  allow_failure: true
+
+check-pylint:
+  <<: *quality
+  script: make check-pylint
+  allow_failure: true
+
 check-safety:
   <<: *quality
   script: make check-safety
