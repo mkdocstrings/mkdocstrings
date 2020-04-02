@@ -204,13 +204,13 @@ class PythonCollector(BaseCollector):
             raise CollectionError(result["error"])
 
         if result["loading_errors"]:
-            for err in result["loading_errors"]:
-                log.warning(f"mkdocstrings.handlers.python: {err}")
+            for error in result["loading_errors"]:  # type: ignore
+                log.warning(f"mkdocstrings.handlers.python: {error}")
 
         if result["parsing_errors"]:
-            for path, problems in result["parsing_errors"].items():
-                for err in problems:
-                    log.warning(f"mkdocstrings.handlers.python: {err}")
+            for path, errors in result["parsing_errors"].items():  # type: ignore
+                for error in errors:
+                    log.warning(f"mkdocstrings.handlers.python: {error}")
 
         # We always collect only one object at a time
         result = result["objects"][0]
