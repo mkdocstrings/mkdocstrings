@@ -35,7 +35,8 @@ ipython = "^7.2"
 isort = { version = "^4.3", extras = ["pyproject"] }
 jinja2-cli = "^0.7.0"
 mkdocs-material = "^4.5"
-pylint = { git = "https://github.com/PyCQA/pylint" }
+mypy = "^0.770"
+pylint = { git = "https://github.com/PyCQA/pylint.git" }
 pytest = "^4.3"
 pytest-cov = "^2.8"
 pytest-sugar = "^0.9.2"

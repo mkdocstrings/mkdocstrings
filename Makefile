@@ -25,6 +25,10 @@ check-flake8:  ## Check for general warnings in code using flake8.
 check-isort:  ## Check if imports are correctly ordered using isort.
 	poetry run isort -c -rc $(PY_SRC)
 
+.PHONY: check-mypy
+check-mypy:  ## Check that the code is correctly typed.
+	poetry run mypy $(PY_SRC)
+
 .PHONY: check-pylint
 check-pylint:  ## Check for code smells using pylint.
 	poetry run pylint $(PY_SRC)
