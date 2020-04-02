@@ -107,7 +107,6 @@ class MkdocstringsPlugin(BasePlugin):
 
     def __init__(self) -> None:
         super(MkdocstringsPlugin, self).__init__()
-        # stop mypy from complaining about NoneType mismatches
         self.mkdocstrings_extension = None
         self.url_map = {}
 
