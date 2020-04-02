@@ -229,9 +229,6 @@ class MkdocstringsExtension(Extension):
             kwargs: Keyword arguments used by `markdown.extensions.Extension`.
         """
         super().__init__(**kwargs)
-        if config == {}:
-            # fake init, cancel early
-            return
         self._config = config
 
     def extendMarkdown(self, md: Markdown) -> None:
