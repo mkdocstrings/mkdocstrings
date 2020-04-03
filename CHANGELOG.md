@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v0.10.1](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.1) - 2020-04-03
+
+<small>[Compare with v0.10.0](https://github.com/pawamoy/mkdocstrings/compare/v0.10.0...v0.10.1)</small>
+
+### Bug Fixes
+- Fix jinja2 error for jinja2 < 2.11 ([387f970](https://github.com/pawamoy/mkdocstrings/commit/387f97088ad2b7b25389ae6cf303bae071e90e6c) by Timothée Mazzucotelli). Related issues/PRs: [#67](https://github.com/pawamoy/mkdocstrings/issues/67), [#72](https://github.com/pawamoy/mkdocstrings/issues/72)
+- Fix missing dependency pymdown-extensions ([648b99d](https://github.com/pawamoy/mkdocstrings/commit/648b99dab9d1af87db474ce7683de50c9bf8996d) by Timothée Mazzucotelli). Related issues/PRs: [#66](https://github.com/pawamoy/mkdocstrings/issues/66)
+- Fix heading level of hidden toc entries ([475cc62](https://github.com/pawamoy/mkdocstrings/commit/475cc62b1cf4342b82ca8685166306441e4b83c4) by Timothée Mazzucotelli). Related issues/PRs: [#65](https://github.com/pawamoy/mkdocstrings/issues/65)
+- Fix rendering signatures containing keyword_only ([c6c5add](https://github.com/pawamoy/mkdocstrings/commit/c6c5addd8be65beaf7055c9d0f512e0de8b3eba4) by Timothée Mazzucotelli). Related issues/PRs: [#68](https://github.com/pawamoy/mkdocstrings/issues/68)
+
+
 ## [v0.10.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.0)
 
 <small>[Compare with v0.9.1](https://github.com/pawamoy/mkdocstrings/compare/v0.9.1...v0.10.0)</small>
