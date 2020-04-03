@@ -1,34 +1,26 @@
 # Troubleshooting
 
-## The generated documentation does not look good
+## Code blocks in admonitions (in docstrings or else) are not rendered correctly
 
-Are you using the Material theme?
+To render code blocks in admonitions, you need to add the `pymdownx.superfences` extensions to the list of
+Markdown extensions in `mkdocs.yml`. For example:
 
-- "No": We do not support any other theme yet.
-  Check the [bugtracker][bugtracker] to see if there is a feature request
-  asking to support your theme. If you find one, vote with a thumbs up. If not, you can open a ticket.
-- "Yes": Please open an ticket on the [bugtracker][bugtracker] with a detailed
-  explanation and screenshots of the bad-looking parts.
+```markdown
+!!! note
+    Some text.
 
+    ```bash
+    echo "some code"
+    ```
+```
 
-## Some objects are not rendered (they do not appear in the generated docs)
-
-- Make sure the configuration options of the handler for both selection and rendering are correct.
-  Check the documentation for [Handlers](/handlers/overview) to see the available options for each handler.
-- Also make sure your documentation in your source code is formatted correctly.
-  For Python code, check the [docstring format](/handlers/python/#docstring-format) page.
-- Check the output of the `mkdocs` command, and re-run it with `-v` if necessary.
-  Warnings should appear, showing errors that happened during collection.
-
-## Nothing is rendered at all
-
-Python?
-
-- "No": we only support Python right now.
-- "Yes": is your package available in the Python path?
-  If not, install it in your current virtualenv and try again.
-  Make sure you don't have an old version of your package installed,
-  shadowing your source code. 
+```yaml
+# mkdocs.yml
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.superfences
+```
   
 ## Mkdocs warns me about links to unfound documentation files
 
@@ -43,6 +35,35 @@ Notice the dots in `reference/parsers/pytkdocs.parsers.docstrings.Section`?
 It shows that it's probably a cross-reference, not a direct link.
 It's probably written like `[Section](pytkdocs.parsers.docstrings.Section)` in the docs,
 when it should be `[Section][pytkdocs.parsers.docstrings.Section]`.
+
+## Nothing is rendered at all
+
+Python?
+
+- "No": we only support Python right now.
+- "Yes": is your package available in the Python path?
+  If not, install it in your current virtualenv and try again.
+  Make sure you don't have an old version of your package installed,
+  shadowing your source code. 
+
+## Some objects are not rendered (they do not appear in the generated docs)
+
+- Make sure the configuration options of the handler for both selection and rendering are correct.
+  Check the documentation for [Handlers](/handlers/overview) to see the available options for each handler.
+- Also make sure your documentation in your source code is formatted correctly.
+  For Python code, check the [docstring format](/handlers/python/#docstring-format) page.
+- Check the output of the `mkdocs` command, and re-run it with `-v` if necessary.
+  Warnings should appear, showing errors that happened during collection.
+
+## The generated documentation does not look good
+
+Are you using the Material theme?
+
+- "No": We do not support any other theme yet.
+  Check the [bugtracker][bugtracker] to see if there is a feature request
+  asking to support your theme. If you find one, vote with a thumbs up. If not, you can open a ticket.
+- "Yes": Please open an ticket on the [bugtracker][bugtracker] with a detailed
+  explanation and screenshots of the bad-looking parts.
 
 ## WindowsPath object is not iterable
 
@@ -67,7 +88,30 @@ pip install -U jinja2
 
 Version 2.11.1 seems to be working fine.
 
+---
+
 ## Python specifics
+
+### LaTeX in docstrings is not rendered correctly
+
+If you are using a Markdown extension like [`markdown-katex`][markdown-katex] to render LaTeX,
+add `r` in front of your docstring to make sure nothing is escaped.
+You'll still maybe have to play with escaping to get things right.
+
+Example:
+
+```python
+def math_function(x, y):
+    r"""
+    Look at these formulas:    
+
+    ```math
+    f(x) = \int_{-\infty}^\infty
+    \hat f(\xi)\,e^{2 \pi i \xi x}
+    \,d\xi
+    ```
+    """
+```
 
 ### My docstrings in comments (`#:`) are not picked up
 
@@ -102,49 +146,6 @@ class MyEnum(enum.Enum):
 ```
 
 It does not look better, I know, but this is the price to pay.
-
-### LaTeX in docstrings is not rendered correctly
-
-If you are using a Markdown extension like [`markdown-katex`][markdown-katex] to render LaTeX,
-add `r` in front of your docstring to make sure nothing is escaped.
-You'll still maybe have to play with escaping to get things right.
-
-Example:
-
-```python
-def math_function(x, y):
-    r"""
-    Look at these formulas:    
-
-    ```math
-    f(x) = \int_{-\infty}^\infty
-    \hat f(\xi)\,e^{2 \pi i \xi x}
-    \,d\xi
-    ```
-    """
-```
-
-### Code blocks in admonitions (in docstrings or else) are not rendered correctly
-
-To render code blocks in admonitions, you need to add the `pymdownx.superfences` extensions to the list of
-Markdown extensions in `mkdocs.yml`. For example:
-
-```markdown
-!!! note
-    Some text.
-
-    ```bash
-    echo "some code"
-    ```
-```
-
-```yaml
-# mkdocs.yml
-markdown_extensions:
-  - admonition
-  - codehilite
-  - pymdownx.superfences
-```
 
 ### My wrapped function shows documentation/code for its wrapper instead of its own
 
