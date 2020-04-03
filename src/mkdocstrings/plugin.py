@@ -75,9 +75,6 @@ class MkdocstringsPlugin(BasePlugin):
         ("handlers", MkType(dict, default={})),
         ("default_handler", MkType(str, default="python")),
     )
-
-    url_map: Dict[Any, str]
-
     """
     The configuration options of `mkdocstrings`, written in `mkdocs.yml`.
 
@@ -107,7 +104,7 @@ class MkdocstringsPlugin(BasePlugin):
     def __init__(self) -> None:
         super(MkdocstringsPlugin, self).__init__()
         self.mkdocstrings_extension = None
-        self.url_map = {}
+        self.url_map: Dict[Any, str] = {}
 
     def on_serve(self, server: Server, config: Config, **kwargs) -> Server:
         """
