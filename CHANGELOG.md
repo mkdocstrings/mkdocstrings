@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix rendering signatures containing keyword_only ([c6c5add](https://github.com/pawamoy/mkdocstrings/commit/c6c5addd8be65beaf7055c9d0f512e0de8b3eba4) by Timothée Mazzucotelli). Related issues/PRs: [#68](https://github.com/pawamoy/mkdocstrings/issues/68)
 
 
-## [v0.10.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.0)
+## [v0.10.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.0) - 2020-03-27
 
 <small>[Compare with v0.9.1](https://github.com/pawamoy/mkdocstrings/compare/v0.9.1...v0.10.0)</small>
 
