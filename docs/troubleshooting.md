@@ -124,6 +124,28 @@ def math_function(x, y):
     """
 ```
 
+### Code blocks in admonitions (in docstrings or else) are not rendered correctly
+
+To render code blocks in admonitions, you need to add the `pymdownx.superfences` extensions to the list of
+Markdown extensions in `mkdocs.yml`. For example:
+
+```markdown
+!!! note
+    Some text.
+
+    ```bash
+    echo "some code"
+    ```
+```
+
+```yaml
+# mkdocs.yml
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.superfences
+```
+
 ### My wrapped function shows documentation/code for its wrapper instead of its own
 
 Use [`functools.wraps()`](https://docs.python.org/3.6/library/functools.html#functools.wraps):
