@@ -6,7 +6,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="ie=edge" http-equiv="x-ua-compatible"/>
-<meta content="Automatic documentation from docstrings, for mkdocs." name="description"/>
+<meta content="Automatic documentation from sources, for MkDocs." name="description"/>
 <link href="https://pawamoy.github.io/mkdocstrings/reference/handlers/python/" rel="canonical"/>
 <meta content="Copy to clipboard" name="lang:clipboard.copy"/>
 <meta content="Copied to clipboard" name="lang:clipboard.copied"/>
@@ -406,8 +406,8 @@
 <a class="md-icon md-content__icon" href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/reference/handlers/python.md" title="Edit this page"></a>
 <h1>python.py</h1>
 <div class="doc doc-object doc-module">
-<h6 class="hidden-toc" href="#mkdocstrings.handlers.python" id="mkdocstrings.handlers.python" style="visibility: hidden; width: 0; height: 0;">
-<a class="headerlink" href="#mkdocstrings.handlers.python" title="Permanent link">¶</a></h6>
+<h2 class="hidden-toc" href="#mkdocstrings.handlers.python" id="mkdocstrings.handlers.python" style="visibility: hidden; width: 0; height: 0;">
+<a class="headerlink" href="#mkdocstrings.handlers.python" title="Permanent link">¶</a></h2>
 <div class="doc doc-contents first">
 <p>This module implements a handler for the Python language.</p>
 <p>The handler collects data with <a href="https://github.com/pawamoy/pytkdocs"><code>pytkdocs</code></a>.</p>
@@ -600,7 +600,7 @@ and return it.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>dict</code></td>
+<td><code>Type[ForwardRef('T')]</code></td>
 <td>
 <p>The collected object-tree.</p>
 </td>
@@ -687,7 +687,7 @@ and return it.</p>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataType</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Collect the documentation tree given an identifier and selection options.</span>
 
@@ -725,7 +725,7 @@ and return it.</p>
     <span class="nb">print</span><span class="p">(</span><span class="n">json_input</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">stdin</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.handlers.python: Reading process' stdout"</span><span class="p">)</span>
-    <span class="n">stdout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+    <span class="n">stdout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>  <span class="c1"># type: ignore</span>
 
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.handlers.python: Loading JSON output as Python object"</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
@@ -742,11 +742,11 @@ and return it.</p>
         <span class="k">raise</span> <span class="n">CollectionError</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"error"</span><span class="p">])</span>
 
     <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s2">"loading_errors"</span><span class="p">]:</span>
-        <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">"loading_errors"</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">"loading_errors"</span><span class="p">]:</span>  <span class="c1"># type: ignore</span>
             <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.handlers.python: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s2">"parsing_errors"</span><span class="p">]:</span>
-        <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">errors</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">"parsing_errors"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">errors</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">"parsing_errors"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>  <span class="c1"># type: ignore</span>
             <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
                 <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.handlers.python: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
@@ -781,8 +781,7 @@ teardown<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 <pre><span></span>223
 224
 225
-226
-227</pre>
+226</pre>
 </div>
 </td>
 <td class="code">
@@ -791,7 +790,6 @@ teardown<span class="p">(</span><span class="bp">self</span><span class="p">)</s
     <span class="sd">"""Terminate the opened subprocess, set it to None."""</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.handlers.python: Tearing process down"</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre>
 </div>
 </td>
@@ -918,7 +916,7 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 <tbody>
 <tr>
 <td><code>data</code></td>
-<td><code>dict</code></td>
+<td><code>Type[ForwardRef('T')]</code></td>
 <td>
 <p>The collected data to render.</p>
 </td>
@@ -975,7 +973,7 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">DataType</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">final_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_CONFIG</span><span class="p">)</span>
     <span class="n">final_config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 
@@ -1115,7 +1113,8 @@ get_handler<span class="p">(</span><span class="n">theme</span><span class="p">)
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>234
+<pre><span></span>233
+234
 235
 236
 237
@@ -1124,8 +1123,7 @@ get_handler<span class="p">(</span><span class="n">theme</span><span class="p">)
 240
 241
 242
-243
-244</pre>
+243</pre>
 </div>
 </td>
 <td class="code">
@@ -1189,7 +1187,8 @@ and <code>modules</code>. It replaces the values in category lists with only the
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>247
+<pre><span></span>246
+247
 248
 249
 250
@@ -1211,8 +1210,7 @@ and <code>modules</code>. It replaces the values in category lists with only the
 266
 267
 268
-269
-270</pre>
+269</pre>
 </div>
 </td>
 <td class="code">

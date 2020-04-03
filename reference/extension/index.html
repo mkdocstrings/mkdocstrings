@@ -6,7 +6,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="ie=edge" http-equiv="x-ua-compatible"/>
-<meta content="Automatic documentation from docstrings, for mkdocs." name="description"/>
+<meta content="Automatic documentation from sources, for MkDocs." name="description"/>
 <link href="https://pawamoy.github.io/mkdocstrings/reference/extension/" rel="canonical"/>
 <meta content="Copy to clipboard" name="lang:clipboard.copy"/>
 <meta content="Copied to clipboard" name="lang:clipboard.copied"/>
@@ -396,8 +396,8 @@
 <a class="md-icon md-content__icon" href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/reference/extension.md" title="Edit this page"></a>
 <h1>extension.py</h1>
 <div class="doc doc-object doc-module">
-<h6 class="hidden-toc" href="#mkdocstrings.extension" id="mkdocstrings.extension" style="visibility: hidden; width: 0; height: 0;">
-<a class="headerlink" href="#mkdocstrings.extension" title="Permanent link">¶</a></h6>
+<h2 class="hidden-toc" href="#mkdocstrings.extension" id="mkdocstrings.extension" style="visibility: hidden; width: 0; height: 0;">
+<a class="headerlink" href="#mkdocstrings.extension" title="Permanent link">¶</a></h2>
 <div class="doc doc-contents first">
 <p>This module holds the code of the Markdown extension responsible for matching "autodoc" instructions.</p>
 <p>The extension is composed of a Markdown <a href="https://python-markdown.github.io/extensions/api/#blockparser">block processor</a>
@@ -570,10 +570,7 @@ get_handler_config<span class="p">(</span><span class="bp">self</span><span clas
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>177
-178
-179
-180
+<pre><span></span>180
 181
 182
 183
@@ -583,7 +580,10 @@ get_handler_config<span class="p">(</span><span class="bp">self</span><span clas
 187
 188
 189
-190</pre>
+190
+191
+192
+193</pre>
 </div>
 </td>
 <td class="code">
@@ -661,10 +661,7 @@ get_handler_name<span class="p">(</span><span class="bp">self</span><span class=
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>163
-164
-165
-166
+<pre><span></span>166
 167
 168
 169
@@ -673,7 +670,10 @@ get_handler_name<span class="p">(</span><span class="bp">self</span><span class=
 172
 173
 174
-175</pre>
+175
+176
+177
+178</pre>
 </div>
 </td>
 <td class="code">
@@ -758,10 +758,7 @@ get_item_configs<span class="p">(</span><span class="bp">self</span><span class=
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>192
-193
-194
-195
+<pre><span></span>195
 196
 197
 198
@@ -774,7 +771,10 @@ get_item_configs<span class="p">(</span><span class="bp">self</span><span class=
 205
 206
 207
-208</pre>
+208
+209
+210
+211</pre>
 </div>
 </td>
 <td class="code">
@@ -892,24 +892,28 @@ the list of blocks.</p>
 158
 159
 160
-161</pre>
+161
+162
+163
+164</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
 <pre><span></span><code><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">blocks</span><span class="p">:</span> <span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">block</span> <span class="o">=</span> <span class="n">blocks</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RE</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RE</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
 
     <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
-        <span class="n">block</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">end</span><span class="p">()</span> <span class="p">:]</span>  <span class="c1"># removes the first line</span>
+        <span class="c1"># removes the first line</span>
+        <span class="n">block</span> <span class="o">=</span> <span class="n">block</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">end</span><span class="p">()</span> <span class="p">:]</span>  <span class="c1"># type: ignore</span>
 
     <span class="n">block</span><span class="p">,</span> <span class="n">the_rest</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detab</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
         <span class="n">identifier</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.extension: Matched '::: </span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
-        <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">block</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">block</span><span class="p">))</span> <span class="ow">or</span> <span class="p">{}</span>
 
         <span class="n">handler_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_handler_name</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.extension: Using handler '</span><span class="si">{</span><span class="n">handler_name</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
@@ -936,9 +940,11 @@ the list of blocks.</p>
         <span class="k">except</span> <span class="n">ParseError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
             <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"mkdocstrings.extension: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span>
             <span class="k">if</span> <span class="s2">"mismatched tag"</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
-                <span class="n">lineno</span><span class="p">,</span> <span class="n">columnno</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">", "</span><span class="p">)</span>
-                <span class="n">lineno</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lineno</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">" "</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-                <span class="n">columnno</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">columnno</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">" "</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">line</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">", "</span><span class="p">)</span>
+
+                <span class="n">lineno</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">" "</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">columnno</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">column</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">" "</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
                 <span class="n">line</span> <span class="o">=</span> <span class="n">rendered</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)[</span><span class="n">lineno</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
                 <span class="n">character</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="n">columnno</span><span class="p">]</span>
                 <span class="n">message</span> <span class="o">+=</span> <span class="p">(</span>
@@ -949,7 +955,7 @@ the list of blocks.</p>
             <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
             <span class="k">return</span>
 
-        <span class="n">as_xml</span> <span class="o">=</span> <span class="n">atomic_brute_cast</span><span class="p">(</span><span class="n">as_xml</span><span class="p">)</span>
+        <span class="n">as_xml</span> <span class="o">=</span> <span class="n">atomic_brute_cast</span><span class="p">(</span><span class="n">as_xml</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
         <span class="n">parent</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">as_xml</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">the_rest</span><span class="p">:</span>
@@ -1007,9 +1013,9 @@ etree element is also provided and may be used as part of the test.</p>
 <div class="highlight">
 <pre><span></span><code><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">block</span><span class="p">:</span> <span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="n">sibling</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastChild</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
-    <span class="n">bool1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RE</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+    <span class="n">bool1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RE</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
     <span class="n">bool2</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">block</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">" "</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">tab_length</span><span class="p">)</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">block</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">" "</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">tab_length</span><span class="p">)</span>
         <span class="ow">and</span> <span class="n">sibling</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="ow">and</span> <span class="n">sibling</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"class"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CLASSNAME</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span>
     <span class="p">)</span>
@@ -1078,17 +1084,17 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>218
-219
-220
-221
+<pre><span></span>221
 222
 223
 224
 225
 226
 227
-228</pre>
+228
+229
+230
+231</pre>
 </div>
 </td>
 <td class="code">
@@ -1147,10 +1153,7 @@ extendMarkdown<span class="p">(</span><span class="bp">self</span><span class="p
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>230
-231
-232
-233
+<pre><span></span>233
 234
 235
 236
@@ -1158,7 +1161,10 @@ extendMarkdown<span class="p">(</span><span class="bp">self</span><span class="p
 238
 239
 240
-241</pre>
+241
+242
+243
+244</pre>
 </div>
 </td>
 <td class="code">
@@ -1228,7 +1234,7 @@ to keep modifying the data, so this function is used to mark the complete tree a
 </thead>
 <tbody>
 <tr>
-<td><code>None</code></td>
+<td><code>Optional[xml.etree.ElementTree.Element]</code></td>
 <td>
 <p>The same node, recursively modified by side-effect. You can skip re-assigning the return value.</p>
 </td>
@@ -1267,7 +1273,7 @@ to keep modifying the data, so this function is used to mark the complete tree a
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">atomic_brute_cast</span><span class="p">(</span><span class="n">tree</span><span class="p">:</span> <span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">atomic_brute_cast</span><span class="p">(</span><span class="n">tree</span><span class="p">:</span> <span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Element</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
     <span class="sd">"""</span>
 <span class="sd">    Cast every node's text into an atomic string to prevent further processing on it.</span>
 

@@ -6,7 +6,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="ie=edge" http-equiv="x-ua-compatible"/>
-<meta content="Automatic documentation from docstrings, for mkdocs." name="description"/>
+<meta content="Automatic documentation from sources, for MkDocs." name="description"/>
 <link href="https://pawamoy.github.io/mkdocstrings/reference/handlers/__init__/" rel="canonical"/>
 <meta content="Copy to clipboard" name="lang:clipboard.copy"/>
 <meta content="Copied to clipboard" name="lang:clipboard.copied"/>
@@ -444,8 +444,8 @@
 <a class="md-icon md-content__icon" href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/reference/handlers/__init__.md" title="Edit this page"></a>
 <h1>__init__.py</h1>
 <div class="doc doc-object doc-module">
-<h6 class="hidden-toc" href="#mkdocstrings.handlers" id="mkdocstrings.handlers" style="visibility: hidden; width: 0; height: 0;">
-<a class="headerlink" href="#mkdocstrings.handlers" title="Permanent link">¶</a></h6>
+<h2 class="hidden-toc" href="#mkdocstrings.handlers" id="mkdocstrings.handlers" style="visibility: hidden; width: 0; height: 0;">
+<a class="headerlink" href="#mkdocstrings.handlers" title="Permanent link">¶</a></h2>
 <div class="doc doc-contents first">
 <p>Base module for handlers.</p>
 <p>This module contains the base classes for implementing collectors, renderers, and the combination of the two: handlers.</p>
@@ -526,9 +526,7 @@ a Python dictionary for example, though the implementation is completely free.</
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>168
-169
-170
+<pre><span></span>170
 171
 172
 173
@@ -543,7 +541,9 @@ a Python dictionary for example, though the implementation is completely free.</
 182
 183
 184
-185</pre>
+185
+186
+187</pre>
 </div>
 </td>
 <td class="code">
@@ -587,8 +587,8 @@ teardown<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>187
-188</pre>
+<pre><span></span>189
+190</pre>
 </div>
 </td>
 <td class="code">
@@ -660,16 +660,16 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>200
-201
-202
+<pre><span></span>202
 203
 204
 205
 206
 207
 208
-209</pre>
+209
+210
+211</pre>
 </div>
 </td>
 <td class="code">
@@ -754,9 +754,7 @@ in <code>self</code> to use as a fallback theme.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>101
-102
-103
+<pre><span></span>103
 104
 105
 106
@@ -779,7 +777,9 @@ in <code>self</code> to use as a fallback theme.</p>
 123
 124
 125
-126</pre>
+126
+127
+128</pre>
 </div>
 </td>
 <td class="code">
@@ -798,7 +798,7 @@ in <code>self</code> to use as a fallback theme.</p>
     <span class="n">themes_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"templates"</span> <span class="o">/</span> <span class="n">directory</span>
     <span class="n">theme_dir</span> <span class="o">=</span> <span class="n">themes_dir</span> <span class="o">/</span> <span class="n">theme</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">theme_dir</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"FALLBACK_THEME"</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">FALLBACK_THEME</span> <span class="o">!=</span> <span class="s2">""</span><span class="p">:</span>
             <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">"mkdocstrings.handlers: No '</span><span class="si">{</span><span class="n">theme</span><span class="si">}</span><span class="s2">' theme in '</span><span class="si">{</span><span class="n">directory</span><span class="si">}</span><span class="s2">', "</span>
                 <span class="sa">f</span><span class="s2">"falling back to theme '</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">FALLBACK_THEME</span><span class="si">}</span><span class="s2">'"</span>
@@ -807,7 +807,7 @@ in <code>self</code> to use as a fallback theme.</p>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">ThemeNotSupported</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">autoescape</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">loader</span><span class="o">=</span><span class="n">FileSystemLoader</span><span class="p">(</span><span class="n">theme_dir</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">autoescape</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">loader</span><span class="o">=</span><span class="n">FileSystemLoader</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">theme_dir</span><span class="p">)))</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="s2">"highlight"</span><span class="p">]</span> <span class="o">=</span> <span class="n">do_highlight</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="s2">"any"</span><span class="p">]</span> <span class="o">=</span> <span class="n">do_any</span>
 </code></pre>
@@ -877,9 +877,7 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>128
-129
-130
+<pre><span></span>130
 131
 132
 133
@@ -888,7 +886,9 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 136
 137
 138
-139</pre>
+139
+140
+141</pre>
 </div>
 </td>
 <td class="code">
@@ -955,9 +955,7 @@ update_env<span class="p">(</span><span class="bp">self</span><span class="p">,<
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>141
-142
-143
+<pre><span></span>143
 144
 145
 146
@@ -969,7 +967,9 @@ update_env<span class="p">(</span><span class="bp">self</span><span class="p">,<
 152
 153
 154
-155</pre>
+155
+156
+157</pre>
 </div>
 </td>
 <td class="code">
@@ -1356,9 +1356,7 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>212
-213
-214
+<pre><span></span>214
 215
 216
 217
@@ -1376,7 +1374,9 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 229
 230
 231
-232</pre>
+232
+233
+234</pre>
 </div>
 </td>
 <td class="code">
@@ -1423,14 +1423,14 @@ teardown<span class="p">()</span> </code>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>235
-236
-237
+<pre><span></span>237
 238
 239
 240
 241
-242</pre>
+242
+243
+244</pre>
 </div>
 </td>
 <td class="code">

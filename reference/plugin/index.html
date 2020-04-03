@@ -6,7 +6,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="ie=edge" http-equiv="x-ua-compatible"/>
-<meta content="Automatic documentation from docstrings, for mkdocs." name="description"/>
+<meta content="Automatic documentation from sources, for MkDocs." name="description"/>
 <link href="https://pawamoy.github.io/mkdocstrings/reference/plugin/" rel="canonical"/>
 <meta content="Copy to clipboard" name="lang:clipboard.copy"/>
 <meta content="Copied to clipboard" name="lang:clipboard.copied"/>
@@ -466,8 +466,8 @@
 <a class="md-icon md-content__icon" href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/reference/plugin.md" title="Edit this page"></a>
 <h1>plugin.py</h1>
 <div class="doc doc-object doc-module">
-<h6 class="hidden-toc" href="#mkdocstrings.plugin" id="mkdocstrings.plugin" style="visibility: hidden; width: 0; height: 0;">
-<a class="headerlink" href="#mkdocstrings.plugin" title="Permanent link">¶</a></h6>
+<h2 class="hidden-toc" href="#mkdocstrings.plugin" id="mkdocstrings.plugin" style="visibility: hidden; width: 0; height: 0;">
+<a class="headerlink" href="#mkdocstrings.plugin" title="Permanent link">¶</a></h2>
 <div class="doc doc-contents first">
 <p>This module contains the <code>mkdocs</code> plugin.</p>
 <p>The plugin instantiates a Markdown extension (<a href="https://pawamoy.github.io/mkdocstrings/reference/extension/#mkdocstrings.extension.MkdocstringsExtension"><code>MkdocstringsExtension</code></a>),
@@ -1096,7 +1096,7 @@ We currently ignore references when their identifier contains a space or a slash
     <span class="k">while</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">placeholder</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span><span class="n">placeholder</span><span class="o">.</span><span class="n">seed</span> <span class="ow">in</span> <span class="n">url</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
         <span class="n">placeholder</span><span class="o">.</span><span class="n">set_seed</span><span class="p">()</span>
 
-    <span class="n">unmapped</span><span class="p">,</span> <span class="n">unintended</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">unmapped</span><span class="p">,</span> <span class="n">unintended</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>  <span class="c1"># type: ignore</span>
     <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="s2">"html.parser"</span><span class="p">)</span>
     <span class="n">placeholder</span><span class="o">.</span><span class="n">replace_code_tags</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
     <span class="n">fixed_soup</span> <span class="o">=</span> <span class="n">AUTO_REF</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fix_ref</span><span class="p">(</span><span class="n">unmapped</span><span class="p">,</span> <span class="n">unintended</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">soup</span><span class="p">))</span>
