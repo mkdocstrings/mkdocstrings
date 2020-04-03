@@ -123,7 +123,7 @@ class BaseRenderer:
             else:
                 raise ThemeNotSupported(theme)
 
-        self.env = Environment(autoescape=True, loader=FileSystemLoader(theme_dir))
+        self.env = Environment(autoescape=True, loader=FileSystemLoader(str(theme_dir)))
         self.env.filters["highlight"] = do_highlight
         self.env.filters["any"] = do_any
 
