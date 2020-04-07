@@ -37,6 +37,10 @@ check-flake8:
   <<: *quality
   script: make check-flake8
 
+check-docs:
+  <<: *quality
+  script: make check-docs
+
 check-isort:
   <<: *quality
   script: make check-isort

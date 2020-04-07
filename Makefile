@@ -7,7 +7,7 @@ build:  ## Build the package wheel and sdist.
 	poetry build
 
 .PHONY: check
-check: check-bandit check-black check-flake8 check-isort  ## Check it all!
+check: check-bandit check-black check-docs check-flake8 check-isort  ## Check it all!
 
 .PHONY: check-bandit
 check-bandit:  ## Check for security warnings in code using bandit.
@@ -16,6 +16,9 @@ check-bandit:  ## Check for security warnings in code using bandit.
 .PHONY: check-black
 check-black:  ## Check if code is formatted nicely using black.
 	poetry run black --check $(PY_SRC)
+
+.PHONY: check-docs
+check-docs: docs  ## Check if the documentation builds correctly.
 
 .PHONY: check-flake8
 check-flake8:  ## Check for general warnings in code using flake8.
@@ -59,7 +62,11 @@ credits:  ## Regenerate CREDITS.md.
 
 .PHONY: docs
 docs:  ## Build the documentation locally.
-	poetry run sphinx-build -E -b html docs build/docs
+	poetry run mkdocs build -s
+
+.PHONY: docs-serve
+docs-serve:  ## Serve the documentation on localhost:8000.
+	poetry run mkdocs serve
 
 .PHONY: help
 help:  ## Print this help.
