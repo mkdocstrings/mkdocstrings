@@ -4,7 +4,7 @@
 [![documentation](https://img.shields.io/badge/docs-latest-green.svg?style=flat)](https://pawamoy.github.io/mkdocstrings)
 [![pypi version](https://img.shields.io/pypi/v/mkdocstrings.svg)](https://pypi.org/project/mkdocstrings/)
 
-Automatic documentation from sources, for mkdocs.
+Automatic documentation from sources, for MkDocs.
 
 ---
 
