@@ -22,7 +22,7 @@ include = [
 python = "^3.6"
 beautifulsoup4 = "^4.8.2"
 mkdocs = "^1.1"
-pymdown-extensions = "^6.3"
+pymdown-extensions = ">=6.3, <8.0"
 pytkdocs = "^0.2.0"
 
 [tool.poetry.dev-dependencies]
@@ -34,7 +34,7 @@ git-changelog = "^0.2.0"
 ipython = "^7.2"
 isort = { version = "^4.3", extras = ["pyproject"] }
 jinja2-cli = "^0.7.0"
-mkdocs-material = "^4.5"
+mkdocs-material = ">=4.5, <6.0"
 mypy = "^0.770"
 pylint = { git = "https://github.com/PyCQA/pylint.git" }
 pytest = "^4.3"
