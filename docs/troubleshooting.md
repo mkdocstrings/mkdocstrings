@@ -22,7 +22,7 @@ markdown_extensions:
   - pymdownx.superfences
 ```
   
-## Mkdocs warns me about links to unfound documentation files
+## MkDocs warns me about links to unfound documentation files
 
 A warning like this one:
 
