@@ -5,79 +5,67 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="ie=edge" http-equiv="x-ua-compatible"/>
 <meta content="Automatic documentation from sources, for MkDocs." name="description"/>
 <link href="https://pawamoy.github.io/mkdocstrings/changelog/" rel="canonical"/>
-<meta content="Copy to clipboard" name="lang:clipboard.copy"/>
-<meta content="Copied to clipboard" name="lang:clipboard.copied"/>
-<meta content="en" name="lang:search.language"/>
-<meta content="True" name="lang:search.pipeline.stopwords"/>
-<meta content="True" name="lang:search.pipeline.trimmer"/>
-<meta content="No matching documents" name="lang:search.result.none"/>
-<meta content="1 matching document" name="lang:search.result.one"/>
-<meta content="# matching documents" name="lang:search.result.other"/>
-<meta content="[\s\-]+" name="lang:search.tokenizer"/>
 <link href="../assets/images/favicon.png" rel="shortcut icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-4.6.3" name="generator"/>
+<meta content="mkdocs-1.1, mkdocs-material-5.0.0" name="generator"/>
 <title>Changelog - mkdocstrings</title>
-<link href="../assets/stylesheets/application.adb8469c.css" rel="stylesheet"/>
-<script src="../assets/javascripts/modernizr.86422ebf.js"></script>
+<link href="../assets/stylesheets/main.c3000690.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
-<style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
-<link href="../assets/fonts/material-icons.css" rel="stylesheet"/>
+<style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
 <link href="../custom.css" rel="stylesheet"/>
 </head>
 <body dir="ltr">
-<svg class="md-svg">
-<defs>
-<svg height="448" id="__github" viewbox="0 0 416 448" width="416" xmlns="http://www.w3.org/2000/svg"><path d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z" fill="currentColor"></path></svg>
-</defs>
-</svg>
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
-<label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
-<a class="md-skip" href="#changelog" tabindex="0">
-        Skip to content
-      </a>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#changelog">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
 <header class="md-header" data-md-component="header">
-<nav class="md-header-nav md-grid">
-<div class="md-flex">
-<div class="md-flex__cell md-flex__cell--shrink">
+<nav aria-label="Header" class="md-header-nav md-grid">
 <a aria-label="mkdocstrings" class="md-header-nav__button md-logo" href="https://pawamoy.github.io/mkdocstrings" title="mkdocstrings">
-<i class="md-icon"></i>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z"></path></svg>
 </a>
+<label class="md-header-nav__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"></path></svg>
+</label>
+<div class="md-header-nav__title" data-md-component="header-title">
+<div class="md-header-nav__ellipsis">
+<span class="md-header-nav__topic md-ellipsis">
+            mkdocstrings
+          </span>
+<span class="md-header-nav__topic md-ellipsis">
+            
+              Changelog
+            
+          </span>
 </div>
-<div class="md-flex__cell md-flex__cell--shrink">
-<label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
 </div>
-<div class="md-flex__cell md-flex__cell--stretch">
-<div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
-<span class="md-header-nav__topic">
-              mkdocstrings
-            </span>
-<span class="md-header-nav__topic">
-              
-                Changelog
-              
-            </span>
-</div>
-</div>
-<div class="md-flex__cell md-flex__cell--shrink">
-<label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+<label class="md-header-nav__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"></path></svg>
+</label>
 <div class="md-search" data-md-component="search" role="dialog">
 <label class="md-search__overlay" for="__search"></label>
 <div class="md-search__inner" role="search">
 <form class="md-search__form" name="search">
-<input aria-label="search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="query" data-md-state="active" name="query" placeholder="Search" spellcheck="false" type="text"/>
-<label class="md-icon md-search__icon" for="__search"></label>
-<button class="md-icon md-search__icon" data-md-component="reset" tabindex="-1" type="reset">
-        
-      </button>
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" data-md-state="active" name="query" placeholder="Search" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+</label>
+<button aria-label="Clear" class="md-search__icon md-icon" data-md-component="search-reset" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path></svg>
+</button>
 </form>
 <div class="md-search__output">
 <div class="md-search__scrollwrap" data-md-scrollfix="">
-<div class="md-search-result" data-md-component="result">
+<div class="md-search-result" data-md-component="search-result">
 <div class="md-search-result__meta">
             Type to start searching
           </div>
@@ -87,43 +75,35 @@
 </div>
 </div>
 </div>
-</div>
-<div class="md-flex__cell md-flex__cell--shrink">
 <div class="md-header-nav__source">
-<a class="md-source" data-md-source="github" href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository">
-<div class="md-source__icon">
-<svg height="24" viewbox="0 0 24 24" width="24">
-<use height="24" width="24" xlink:href="#__github"></use>
-</svg>
+<a class="md-source" href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
 </div>
 <div class="md-source__repository">
     pawamoy/mkdocstrings
   </div>
 </a>
 </div>
-</div>
-</div>
 </nav>
 </header>
-<div class="md-container">
-<main class="md-main" role="main">
-<div class="md-main__inner md-grid" data-md-component="container">
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
 <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
-<nav class="md-nav md-nav--primary" data-md-level="0">
-<label class="md-nav__title md-nav__title--site" for="__drawer">
-<a class="md-nav__button md-logo" href="https://pawamoy.github.io/mkdocstrings" title="mkdocstrings">
-<i class="md-icon"></i>
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="mkdocstrings" class="md-nav__button md-logo" href="https://pawamoy.github.io/mkdocstrings" title="mkdocstrings">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z"></path></svg>
 </a>
     mkdocstrings
   </label>
 <div class="md-nav__source">
-<a class="md-source" data-md-source="github" href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository">
-<div class="md-source__icon">
-<svg height="24" viewbox="0 0 24 24" width="24">
-<use height="24" width="24" xlink:href="#__github"></use>
-</svg>
+<a class="md-source" href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
 </div>
 <div class="md-source__repository">
     pawamoy/mkdocstrings
@@ -137,12 +117,18 @@
     </a>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" id="nav-2" type="checkbox"/>
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" id="nav-2" type="checkbox"/>
 <label class="md-nav__link" for="nav-2">
       Handlers
-    </label>
-<nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
+</span>
+</label>
+<nav aria-label="Handlers" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="nav-2">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+</span>
         Handlers
       </label>
 <ul class="md-nav__list" data-md-scrollfix="">
@@ -160,22 +146,34 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" id="nav-3" type="checkbox"/>
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" id="nav-3" type="checkbox"/>
 <label class="md-nav__link" for="nav-3">
       Reference
-    </label>
-<nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
+</span>
+</label>
+<nav aria-label="Reference" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="nav-3">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+</span>
         Reference
       </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" id="nav-3-1" type="checkbox"/>
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1" id="nav-3-1" type="checkbox"/>
 <label class="md-nav__link" for="nav-3-1">
       handlers
-    </label>
-<nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
+</span>
+</label>
+<nav aria-label="handlers" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="nav-3-1">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+</span>
         handlers
       </label>
 <ul class="md-nav__list" data-md-scrollfix="">
@@ -221,21 +219,43 @@
     </a>
 </li>
 <li class="md-nav__item md-nav__item--active">
-<input class="md-toggle md-nav__toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
 <label class="md-nav__link md-nav__link--active" for="__toc">
         Changelog
-      </label>
+        <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z"></path></svg>
+</span>
+</label>
 <a class="md-nav__link md-nav__link--active" href="./" title="Changelog">
       Changelog
     </a>
-<nav class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">Table of contents</label>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+</span>
+      Table of contents
+    </label>
 <ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#v0102-2020-04-07">
+    v0.10.2 - 2020-04-07
+  </a>
+<nav aria-label="v0.10.2 - 2020-04-07" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#packaging">
+    Packaging
+  </a>
+</li>
+</ul>
+</nav>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#v0101-2020-04-03">
     v0.10.1 - 2020-04-03
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.10.1 - 2020-04-03" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#bug-fixes">
@@ -249,7 +269,7 @@
 <a class="md-nav__link" href="#v0100-2020-03-27">
     v0.10.0 - 2020-03-27
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.10.0 - 2020-03-27" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#features">
@@ -263,7 +283,7 @@
 <a class="md-nav__link" href="#v091-2020-03-21">
     v0.9.1 - 2020-03-21
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.9.1 - 2020-03-21" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#bug-fixes_1">
@@ -277,7 +297,7 @@
 <a class="md-nav__link" href="#v090-2020-03-21">
     v0.9.0 - 2020-03-21
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.9.0 - 2020-03-21" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#features_1">
@@ -296,7 +316,7 @@
 <a class="md-nav__link" href="#v080-2020-03-04">
     v0.8.0 - 2020-03-04
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.8.0 - 2020-03-04" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#breaking-changes">
@@ -310,7 +330,7 @@
 <a class="md-nav__link" href="#v072-2020-03-04">
     v0.7.2 - 2020-03-04
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.7.2 - 2020-03-04" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#bug-fixes_3">
@@ -324,7 +344,7 @@
 <a class="md-nav__link" href="#v071-2020-02-18">
     v0.7.1 - 2020-02-18
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.7.1 - 2020-02-18" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#bug-fixes_4">
@@ -338,7 +358,7 @@
 <a class="md-nav__link" href="#v070-2020-01-13">
     v0.7.0 - 2020-01-13
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.7.0 - 2020-01-13" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#bug-fixes_5">
@@ -362,7 +382,7 @@
 <a class="md-nav__link" href="#v061-2020-01-02">
     v0.6.1 - 2020-01-02
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.6.1 - 2020-01-02" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#bug-fixes_6">
@@ -381,7 +401,7 @@
 <a class="md-nav__link" href="#v060-2019-12-28">
     v0.6.0 - 2019-12-28
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.6.0 - 2019-12-28" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#bug-fixes_7">
@@ -400,7 +420,7 @@
 <a class="md-nav__link" href="#v050-2019-12-22">
     v0.5.0 - 2019-12-22
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.5.0 - 2019-12-22" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#features_3">
@@ -414,7 +434,7 @@
 <a class="md-nav__link" href="#v040-2019-12-22">
     v0.4.0 - 2019-12-22
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.4.0 - 2019-12-22" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#features_4">
@@ -428,7 +448,7 @@
 <a class="md-nav__link" href="#v030-2019-12-21">
     v0.3.0 - 2019-12-21
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.3.0 - 2019-12-21" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#features_5">
@@ -442,7 +462,7 @@
 <a class="md-nav__link" href="#v020-2019-12-15">
     v0.2.0 - 2019-12-15
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.2.0 - 2019-12-15" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#misc">
@@ -456,7 +476,7 @@
 <a class="md-nav__link" href="#v010-2019-12-12">
     v0.1.0 - 2019-12-12
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.1.0 - 2019-12-12" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#misc_1">
@@ -482,14 +502,33 @@
 <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
 <div class="md-sidebar__scrollwrap">
 <div class="md-sidebar__inner">
-<nav class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">Table of contents</label>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+</span>
+      Table of contents
+    </label>
 <ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#v0102-2020-04-07">
+    v0.10.2 - 2020-04-07
+  </a>
+<nav aria-label="v0.10.2 - 2020-04-07" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#packaging">
+    Packaging
+  </a>
+</li>
+</ul>
+</nav>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#v0101-2020-04-03">
     v0.10.1 - 2020-04-03
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.10.1 - 2020-04-03" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#bug-fixes">
@@ -503,7 +542,7 @@
 <a class="md-nav__link" href="#v0100-2020-03-27">
     v0.10.0 - 2020-03-27
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.10.0 - 2020-03-27" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#features">
@@ -517,7 +556,7 @@
 <a class="md-nav__link" href="#v091-2020-03-21">
     v0.9.1 - 2020-03-21
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.9.1 - 2020-03-21" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#bug-fixes_1">
@@ -531,7 +570,7 @@
 <a class="md-nav__link" href="#v090-2020-03-21">
     v0.9.0 - 2020-03-21
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.9.0 - 2020-03-21" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#features_1">
@@ -550,7 +589,7 @@
 <a class="md-nav__link" href="#v080-2020-03-04">
     v0.8.0 - 2020-03-04
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.8.0 - 2020-03-04" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#breaking-changes">
@@ -564,7 +603,7 @@
 <a class="md-nav__link" href="#v072-2020-03-04">
     v0.7.2 - 2020-03-04
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.7.2 - 2020-03-04" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#bug-fixes_3">
@@ -578,7 +617,7 @@
 <a class="md-nav__link" href="#v071-2020-02-18">
     v0.7.1 - 2020-02-18
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.7.1 - 2020-02-18" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#bug-fixes_4">
@@ -592,7 +631,7 @@
 <a class="md-nav__link" href="#v070-2020-01-13">
     v0.7.0 - 2020-01-13
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.7.0 - 2020-01-13" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#bug-fixes_5">
@@ -616,7 +655,7 @@
 <a class="md-nav__link" href="#v061-2020-01-02">
     v0.6.1 - 2020-01-02
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.6.1 - 2020-01-02" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#bug-fixes_6">
@@ -635,7 +674,7 @@
 <a class="md-nav__link" href="#v060-2019-12-28">
     v0.6.0 - 2019-12-28
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.6.0 - 2019-12-28" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#bug-fixes_7">
@@ -654,7 +693,7 @@
 <a class="md-nav__link" href="#v050-2019-12-22">
     v0.5.0 - 2019-12-22
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.5.0 - 2019-12-22" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#features_3">
@@ -668,7 +707,7 @@
 <a class="md-nav__link" href="#v040-2019-12-22">
     v0.4.0 - 2019-12-22
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.4.0 - 2019-12-22" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#features_4">
@@ -682,7 +721,7 @@
 <a class="md-nav__link" href="#v030-2019-12-21">
     v0.3.0 - 2019-12-21
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.3.0 - 2019-12-21" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#features_5">
@@ -696,7 +735,7 @@
 <a class="md-nav__link" href="#v020-2019-12-15">
     v0.2.0 - 2019-12-15
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.2.0 - 2019-12-15" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#misc">
@@ -710,7 +749,7 @@
 <a class="md-nav__link" href="#v010-2019-12-12">
     v0.1.0 - 2019-12-12
   </a>
-<nav class="md-nav">
+<nav aria-label="v0.1.0 - 2019-12-12" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
 <a class="md-nav__link" href="#misc_1">
@@ -727,11 +766,20 @@
 </div>
 <div class="md-content">
 <article class="md-content__inner md-typeset">
-<a class="md-icon md-content__icon" href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/changelog.md" title="Edit this page"></a>
+<a class="md-content__button md-icon" href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/changelog.md" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"></path></svg>
+</a>
 <h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">¶</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
 <p>The format is based on <a href="http://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>
 and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
+<h2 id="v0102-2020-04-07"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.2">v0.10.2</a> - 2020-04-07<a class="headerlink" href="#v0102-2020-04-07" title="Permanent link">¶</a></h2>
+<p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.10.1...v0.10.2">Compare with v0.10.1</a></small></p>
+<h3 id="packaging">Packaging<a class="headerlink" href="#packaging" title="Permanent link">¶</a></h3>
+<p>This version increases the accepted range of versions for the <code>pymdown-extensions</code> dependency,
+as well as for the <code>mkdocs-material</code> development dependency. Indeed, both these projects recently
+released major versions 7 and 5 respectively. Users who wish to use these new versions will be able to.
+See issue <a href="https://github.com/pawamoy/mkdocstrings/issues/74">#74</a>.</p>
 <h2 id="v0101-2020-04-03"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.1">v0.10.1</a> - 2020-04-03<a class="headerlink" href="#v0101-2020-04-03" title="Permanent link">¶</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.10.0...v0.10.1">Compare with v0.10.0</a></small></p>
 <h3 id="bug-fixes">Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">¶</a></h3>
@@ -889,31 +937,31 @@ No identified breaking changes for end-users.</p>
 </main>
 <footer class="md-footer">
 <div class="md-footer-nav">
-<nav class="md-footer-nav__inner md-grid">
-<a class="md-flex md-footer-nav__link md-footer-nav__link--prev" href="../code_of_conduct/" rel="prev" title="Code of Conduct">
-<div class="md-flex__cell md-flex__cell--shrink">
-<i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+<nav aria-label="Footer" class="md-footer-nav__inner md-grid">
+<a class="md-footer-nav__link md-footer-nav__link--prev" href="../code_of_conduct/" rel="prev" title="Code of Conduct">
+<div class="md-footer-nav__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
 </div>
-<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-<span class="md-flex__ellipsis">
+<div class="md-footer-nav__title">
+<div class="md-ellipsis">
 <span class="md-footer-nav__direction">
                   Previous
                 </span>
                 Code of Conduct
-              </span>
+              </div>
 </div>
 </a>
-<a class="md-flex md-footer-nav__link md-footer-nav__link--next" href="../credits/" rel="next" title="Credits">
-<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
-<span class="md-flex__ellipsis">
+<a class="md-footer-nav__link md-footer-nav__link--next" href="../credits/" rel="next" title="Credits">
+<div class="md-footer-nav__title">
+<div class="md-ellipsis">
 <span class="md-footer-nav__direction">
                   Next
                 </span>
                 Credits
-              </span>
+              </div>
 </div>
-<div class="md-flex__cell md-flex__cell--shrink">
-<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+<div class="md-footer-nav__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path></svg>
 </div>
 </a>
 </nav>
@@ -922,17 +970,25 @@ No identified breaking changes for end-users.</p>
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
         
-        powered by
-        <a href="https://www.mkdocs.org" rel="noopener" target="_blank">MkDocs</a>
-        and
+        Made with
         <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
-          Material for MkDocs</a>
+          Material for MkDocs
+        </a>
 </div>
 </div>
 </div>
 </footer>
 </div>
-<script src="../assets/javascripts/application.c33a9706.js"></script>
-<script>app.initialize({version:"1.1",url:{base:".."}})</script>
+<script src="../assets/javascripts/vendor.f45d2d8d.min.js"></script>
+<script src="../assets/javascripts/bundle.74d0b805.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.7f7c8775.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
 </body>
 </html>
