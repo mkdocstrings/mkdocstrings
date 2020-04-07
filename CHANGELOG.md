@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v0.10.2](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.2) - 2020-04-07
+
+<small>[Compare with v0.10.1](https://github.com/pawamoy/mkdocstrings/compare/v0.10.1...v0.10.2)</small>
+
+### Packaging
+
+This version increases the accepted range of versions for the `pymdown-extensions` dependency,
+as well as for the `mkdocs-material` development dependency. Indeed, both these projects recently
+released major versions 7 and 5 respectively. Users who wish to use these new versions will be able to.
+See issue [#74](https://github.com/pawamoy/mkdocstrings/issues/74).
+
 ## [v0.10.1](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.1) - 2020-04-03
 
 <small>[Compare with v0.10.0](https://github.com/pawamoy/mkdocstrings/compare/v0.10.0...v0.10.1)</small>
