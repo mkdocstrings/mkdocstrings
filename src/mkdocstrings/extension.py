@@ -24,7 +24,7 @@ instruction:
 """
 
 import re
-from typing import Tuple, Union
+from typing import Tuple
 from xml.etree.ElementTree import XML, Element, ParseError  # nosec: we choose to trust the XML input
 
 import yaml
