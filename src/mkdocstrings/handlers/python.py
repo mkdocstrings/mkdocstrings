@@ -122,7 +122,7 @@ class PythonCollector(BaseCollector):
     next one:
 
     - `"!^_"`: exclude all objects starting with an underscore
-    - `"^__": but select all objects starting with **two** underscores
+    - `"^__"`: but select all objects starting with **two** underscores
 
     Obviously one could use a single filter instead: `"!^_[^_]"`, which is the default.
     """
