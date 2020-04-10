@@ -502,7 +502,9 @@ a Python dictionary for example, though the implementation is completely free.</
 <td><code>identifier</code></td>
 <td><code>str</code></td>
 <td>
-<p>An identifier for which to collect data. For example, in Python, it would be 'mkdocstrings.handlers' to collect documentation about the handlers module. It can be anything that you can feed to the tool of your choice.</p>
+<p>An identifier for which to collect data. For example, in Python,
+it would be 'mkdocstrings.handlers' to collect documentation about the handlers module.
+It can be anything that you can feed to the tool of your choice.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -510,7 +512,8 @@ a Python dictionary for example, though the implementation is completely free.</
 <td><code>config</code></td>
 <td><code>dict</code></td>
 <td>
-<p>Configuration options for the tool you use to collect data. Typically called "selection" because these options modify how the objects or documentation are "selected" in the source code.</p>
+<p>Configuration options for the tool you use to collect data. Typically called "selection" because
+these options modify how the objects or documentation are "selected" in the source code.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -570,10 +573,10 @@ a Python dictionary for example, though the implementation is completely free.</
 
 <span class="sd">    Args:</span>
 <span class="sd">        identifier: An identifier for which to collect data. For example, in Python,</span>
-<span class="sd">          it would be 'mkdocstrings.handlers' to collect documentation about the handlers module.</span>
-<span class="sd">          It can be anything that you can feed to the tool of your choice.</span>
+<span class="sd">            it would be 'mkdocstrings.handlers' to collect documentation about the handlers module.</span>
+<span class="sd">            It can be anything that you can feed to the tool of your choice.</span>
 <span class="sd">        config: Configuration options for the tool you use to collect data. Typically called "selection" because</span>
-<span class="sd">          these options modify how the objects or documentation are "selected" in the source code.</span>
+<span class="sd">            these options modify how the objects or documentation are "selected" in the source code.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Anything you want, as long as you can feed it to the renderer's `render` method.</span>
@@ -956,7 +959,8 @@ update_env<span class="p">(</span><span class="bp">self</span><span class="p">,<
 <td><code>config</code></td>
 <td><code>dict</code></td>
 <td>
-<p>Configuration options for <code>mkdocs</code> and <code>mkdocstrings</code>, read from <code>mkdocs.yml</code>. See the source code of <a href="https://pawamoy.github.io/mkdocstrings/reference/plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdocstrings.plugin.MkdocstringsPlugin.on_config</a> to see what's in this dictionary.</p>
+<p>Configuration options for <code>mkdocs</code> and <code>mkdocstrings</code>, read from <code>mkdocs.yml</code>. See the source code
+of <a href="https://pawamoy.github.io/mkdocstrings/reference/plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdocstrings.plugin.MkdocstringsPlugin.on_config</a> to see what's in this dictionary.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -994,7 +998,7 @@ update_env<span class="p">(</span><span class="bp">self</span><span class="p">,<
 <span class="sd">    Arguments:</span>
 <span class="sd">        md: The Markdown instance. Useful to add functions able to convert Markdown into the environment filters.</span>
 <span class="sd">        config: Configuration options for `mkdocs` and `mkdocstrings`, read from `mkdocs.yml`. See the source code</span>
-<span class="sd">          of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.</span>
+<span class="sd">            of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.</span>
 <span class="sd">    """</span>
     <span class="n">md</span> <span class="o">=</span> <span class="n">Markdown</span><span class="p">(</span><span class="n">extensions</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">"mdx"</span><span class="p">],</span> <span class="n">extensions_configs</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">"mdx_configs"</span><span class="p">])</span>
 

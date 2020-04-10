@@ -466,8 +466,10 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tbody>
 <tr>
 <td><code>parser</code></td>
-<td><code></code></td>
-<td></td>
+<td><code>BlockParser</code></td>
+<td>
+<p>A <code>markdown.blockparser.BlockParser</code> instance.</p>
+</td>
 <td><em>required</em></td>
 </tr>
 <tr>
@@ -482,7 +484,8 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <td><code>config</code></td>
 <td><code>dict</code></td>
 <td>
-<p>The <a href="https://pawamoy.github.io/mkdocstrings/reference/plugin/#mkdocstrings.plugin.MkdocstringsPlugin.config_scheme">configuration</a> of the <code>mkdocstrings</code> plugin.</p>
+<p>The <a href="https://pawamoy.github.io/mkdocstrings/reference/plugin/#mkdocstrings.plugin.MkdocstringsPlugin.config_scheme">configuration</a>
+of the <code>mkdocstrings</code> plugin.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -494,8 +497,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>78
-79
+<pre><span></span>79
 80
 81
 82
@@ -506,20 +508,21 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 87
 88
 89
-90</pre>
+90
+91</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">:</span> <span class="n">BlockParser</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Initialization method.</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        parser:</span>
+<span class="sd">        parser: A `markdown.blockparser.BlockParser` instance.</span>
 <span class="sd">        md: A `markdown.Markdown` instance.</span>
 <span class="sd">        config: The [configuration][mkdocstrings.plugin.MkdocstringsPlugin.config_scheme]</span>
-<span class="sd">          of the `mkdocstrings` plugin.</span>
+<span class="sd">            of the `mkdocstrings` plugin.</span>
 <span class="sd">    """</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parser</span><span class="o">=</span><span class="n">parser</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">md</span> <span class="o">=</span> <span class="n">md</span>
@@ -583,8 +586,7 @@ get_handler_config<span class="p">(</span><span class="bp">self</span><span clas
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>180
-181
+<pre><span></span>181
 182
 183
 184
@@ -596,7 +598,8 @@ get_handler_config<span class="p">(</span><span class="bp">self</span><span clas
 190
 191
 192
-193</pre>
+193
+194</pre>
 </div>
 </td>
 <td class="code">
@@ -674,8 +677,7 @@ get_handler_name<span class="p">(</span><span class="bp">self</span><span class=
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>166
-167
+<pre><span></span>167
 168
 169
 170
@@ -686,7 +688,8 @@ get_handler_name<span class="p">(</span><span class="bp">self</span><span class=
 175
 176
 177
-178</pre>
+178
+179</pre>
 </div>
 </td>
 <td class="code">
@@ -771,8 +774,7 @@ get_item_configs<span class="p">(</span><span class="bp">self</span><span class=
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>195
-196
+<pre><span></span>196
 197
 198
 199
@@ -787,7 +789,8 @@ get_item_configs<span class="p">(</span><span class="bp">self</span><span class=
 208
 209
 210
-211</pre>
+211
+212</pre>
 </div>
 </td>
 <td class="code">
@@ -846,8 +849,7 @@ the list of blocks.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>102
-103
+<pre><span></span>103
 104
 105
 106
@@ -908,7 +910,8 @@ the list of blocks.</p>
 161
 162
 163
-164</pre>
+164
+165</pre>
 </div>
 </td>
 <td class="code">
@@ -1011,15 +1014,15 @@ etree element is also provided and may be used as part of the test.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span> 92
- 93
+<pre><span></span> 93
  94
  95
  96
  97
  98
  99
-100</pre>
+100
+101</pre>
 </div>
 </td>
 <td class="code">
@@ -1077,7 +1080,8 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <td><code>config</code></td>
 <td><code>dict</code></td>
 <td>
-<p>The configuration items from <code>mkdocs</code> and <code>mkdocstrings</code> that must be passed to the block processor when instantiated in <a href="https://pawamoy.github.io/mkdocstrings/reference/extension/#mkdocstrings.extension.MkdocstringsExtension.extendMarkdown"><code>extendMarkdown</code></a>.</p>
+<p>The configuration items from <code>mkdocs</code> and <code>mkdocstrings</code> that must be passed to the block processor
+when instantiated in <a href="https://pawamoy.github.io/mkdocstrings/reference/extension/#mkdocstrings.extension.MkdocstringsExtension.extendMarkdown"><code>extendMarkdown</code></a>.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -1097,8 +1101,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>221
-222
+<pre><span></span>222
 223
 224
 225
@@ -1107,7 +1110,8 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 228
 229
 230
-231</pre>
+231
+232</pre>
 </div>
 </td>
 <td class="code">
@@ -1118,7 +1122,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        config: The configuration items from `mkdocs` and `mkdocstrings` that must be passed to the block processor</span>
-<span class="sd">          when instantiated in [`extendMarkdown`][mkdocstrings.extension.MkdocstringsExtension.extendMarkdown].</span>
+<span class="sd">            when instantiated in [`extendMarkdown`][mkdocstrings.extension.MkdocstringsExtension.extendMarkdown].</span>
 <span class="sd">        kwargs: Keyword arguments used by `markdown.extensions.Extension`.</span>
 <span class="sd">    """</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -1166,8 +1170,7 @@ extendMarkdown<span class="p">(</span><span class="bp">self</span><span class="p
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>233
-234
+<pre><span></span>234
 235
 236
 237
@@ -1177,7 +1180,8 @@ extendMarkdown<span class="p">(</span><span class="bp">self</span><span class="p
 241
 242
 243
-244</pre>
+244
+245</pre>
 </div>
 </td>
 <td class="code">
@@ -1260,8 +1264,7 @@ to keep modifying the data, so this function is used to mark the complete tree a
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>40
-41
+<pre><span></span>41
 42
 43
 44
@@ -1281,7 +1284,8 @@ to keep modifying the data, so this function is used to mark the complete tree a
 58
 59
 60
-61</pre>
+61
+62</pre>
 </div>
 </td>
 <td class="code">

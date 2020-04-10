@@ -645,15 +645,7 @@ and returning the replacement strings.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>212
-213
-214
-215
-216
-217
-218
-219
-220
+<pre><span></span>220
 221
 222
 223
@@ -699,7 +691,15 @@ and returning the replacement strings.</p>
 263
 264
 265
-266</pre>
+266
+267
+268
+269
+270
+271
+272
+273
+274</pre>
 </div>
 </td>
 <td class="code">
@@ -810,19 +810,19 @@ map_urls<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>163
-164
-165
-166
-167
-168
-169
-170
-171
-172
+<pre><span></span>172
 173
 174
-175</pre>
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184</pre>
 </div>
 </td>
 <td class="code">
@@ -886,7 +886,10 @@ later when processing markdown to get handlers and their global configurations).
 145
 146
 147
-148</pre>
+148
+149
+150
+151</pre>
 </div>
 </td>
 <td class="code">
@@ -901,6 +904,9 @@ later when processing markdown to get handlers and their global configurations).
 <span class="sd">    We pass this plugin's configuration dictionary to the extension when instantiating it (it will need it</span>
 <span class="sd">    later when processing markdown to get handlers and their global configurations).</span>
 <span class="sd">    """</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="p">[</span><span class="s2">"site_url"</span><span class="p">]:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"mkdocstrings.plugin: configuration item 'site_url' is required for cross-references"</span><span class="p">)</span>
+
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.plugin: Adding extension to the list"</span><span class="p">)</span>
 
     <span class="n">extension_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
@@ -937,10 +943,7 @@ This mapping will be used later to fix unresolved reference of the form <code>[t
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>150
-151
-152
-153
+<pre><span></span>153
 154
 155
 156
@@ -948,7 +951,16 @@ This mapping will be used later to fix unresolved reference of the form <code>[t
 158
 159
 160
-161</pre>
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170</pre>
 </div>
 </td>
 <td class="code">
@@ -962,9 +974,15 @@ This mapping will be used later to fix unresolved reference of the form <code>[t
 <span class="sd">    `[identifier][]`.</span>
 <span class="sd">    """</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.plugin: Mapping identifiers to URLs for page </span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">src_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">page</span><span class="o">.</span><span class="n">toc</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">map_urls</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">canonical_url</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">html</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">page</span><span class="o">.</span><span class="n">toc</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">map_urls</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">canonical_url</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">html</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="c1"># page.canonical_url is None, fail silently.</span>
+        <span class="c1"># An error already has been logged in the on_config hook,</span>
+        <span class="c1"># and warnings will be logged later, in the on_post_page hook.</span>
+        <span class="k">pass</span>
 </code></pre>
 </div>
 </td>
@@ -992,20 +1010,20 @@ this hook.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>268
-269
-270
-271
-272
-273
-274
-275
-276
+<pre><span></span>276
 277
 278
 279
 280
-281</pre>
+281
+282
+283
+284
+285
+286
+287
+288
+289</pre>
 </div>
 </td>
 <td class="code">
@@ -1052,16 +1070,7 @@ We currently ignore references when their identifier contains a space or a slash
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>177
-178
-179
-180
-181
-182
-183
-184
-185
-186
+<pre><span></span>186
 187
 188
 189
@@ -1085,7 +1094,15 @@ We currently ignore references when their identifier contains a space or a slash
 207
 208
 209
-210</pre>
+210
+211
+212
+213
+214
+215
+216
+217
+218</pre>
 </div>
 </td>
 <td class="code">
@@ -1119,8 +1136,7 @@ We currently ignore references when their identifier contains a space or a slash
         <span class="k">if</span> <span class="n">unmapped</span> <span class="ow">and</span> <span class="n">log</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">unmapped</span><span class="p">:</span>
                 <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">"mkdocstrings.plugin: </span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">src_path</span><span class="si">}</span><span class="s2">: Could not fix ref '[</span><span class="si">{</span><span class="n">ref</span><span class="si">}</span><span class="s2">]'.</span><span class="se">\n</span><span class="s2">    "</span>
-                    <span class="sa">f</span><span class="s2">"The referenced object was not both collected and rendered."</span>
+                    <span class="sa">f</span><span class="s2">"mkdocstrings.plugin: </span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">src_path</span><span class="si">}</span><span class="s2">: Could not find cross-reference target '[</span><span class="si">{</span><span class="n">ref</span><span class="si">}</span><span class="s2">]'"</span>
                 <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">placeholder</span><span class="o">.</span><span class="n">restore_code_tags</span><span class="p">(</span><span class="n">fixed_soup</span><span class="p">)</span>
@@ -1229,9 +1245,9 @@ get_id<span class="p">(</span><span class="bp">self</span><span class="p">)</spa
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>319
-320
-321</pre>
+<pre><span></span>327
+328
+329</pre>
 </div>
 </td>
 <td class="code">
@@ -1281,15 +1297,7 @@ replace_code_tags<span class="p">(</span><span class="bp">self</span><span class
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>327
-328
-329
-330
-331
-332
-333
-334
-335
+<pre><span></span>335
 336
 337
 338
@@ -1298,7 +1306,15 @@ replace_code_tags<span class="p">(</span><span class="bp">self</span><span class
 341
 342
 343
-344</pre>
+344
+345
+346
+347
+348
+349
+350
+351
+352</pre>
 </div>
 </td>
 <td class="code">
@@ -1380,22 +1396,22 @@ restore_code_tags<span class="p">(</span><span class="bp">self</span><span class
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>346
-347
-348
-349
-350
-351
-352
-353
-354
+<pre><span></span>354
 355
 356
 357
 358
 359
 360
-361</pre>
+361
+362
+363
+364
+365
+366
+367
+368
+369</pre>
 </div>
 </td>
 <td class="code">
@@ -1437,9 +1453,9 @@ set_seed<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>323
-324
-325</pre>
+<pre><span></span>331
+332
+333</pre>
 </div>
 </td>
 <td class="code">
@@ -1506,21 +1522,21 @@ store<span class="p">(</span><span class="bp">self</span><span class="p">,</span
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>303
-304
-305
-306
-307
-308
-309
-310
-311
+<pre><span></span>311
 312
 313
 314
 315
 316
-317</pre>
+317
+318
+319
+320
+321
+322
+323
+324
+325</pre>
 </div>
 </td>
 <td class="code">

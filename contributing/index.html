@@ -228,8 +228,33 @@
     </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes-new-features-and-documentation">
-    Bug fixes, new features and documentation
+<a class="md-nav__link" href="#setup">
+    Setup
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#new-feature-or-bug-fix">
+    New feature or bug fix
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#running-quality-checks">
+    Running quality checks
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#running-tests">
+    Running tests
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#commits-messages">
+    Commits messages
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pull-requests">
+    Pull Requests
   </a>
 </li>
 </ul>
@@ -267,8 +292,33 @@
     </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes-new-features-and-documentation">
-    Bug fixes, new features and documentation
+<a class="md-nav__link" href="#setup">
+    Setup
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#new-feature-or-bug-fix">
+    New feature or bug fix
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#running-quality-checks">
+    Running quality checks
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#running-tests">
+    Running tests
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#commits-messages">
+    Commits messages
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#pull-requests">
+    Pull Requests
   </a>
 </li>
 </ul>
@@ -287,20 +337,38 @@
 <p>For bug reports, feature requests, and feedback,
 simply create a new <a href="https://github.com/pawamoy/mkdocstrings/issues/new">issue</a>.
 Try to be as descriptive as possible.</p>
-<h3 id="bug-fixes-new-features-and-documentation">Bug fixes, new features and documentation<a class="headerlink" href="#bug-fixes-new-features-and-documentation" title="Permanent link">¶</a></h3>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">¶</a></h2>
 <p>This project is developed using <a href="https://github.com/sdispater/poetry"><code>poetry</code></a>.
 Follow the recommended installation method:</p>
 <div class="highlight"><pre><span></span><code>curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py <span class="p">|</span> python
+</code></pre></div>
+<p>...or install it with <a href="https://github.com/pipxproject/pipx"><code>pipx</code></a>:</p>
+<div class="highlight"><pre><span></span><code>pipx install poetry
 </code></pre></div>
 <p>Then follow these instructions:</p>
 <ol>
 <li>Fork the repository <a href="https://github.com/pawamoy/mkdocstrings">on github.com</a>;</li>
 <li>Clone it on your machine;</li>
-<li>Go into the directory, and run <code>poetry install</code> to setup the development environment;</li>
+<li>Go into the directory, and run <code>poetry install</code> to install all the dependencies into a new virtualenv.</li>
+</ol>
+<h2 id="new-feature-or-bug-fix">New feature or bug fix<a class="headerlink" href="#new-feature-or-bug-fix" title="Permanent link">¶</a></h2>
+<ol>
 <li>Create a new branch with <code>git checkout -b bug-fix-or-feature-name</code>;</li>
 <li>Code!</li>
-<li>
-<p><strong>Write tests. Run them all.</strong> The commands to run the tests are:</p>
+<li><strong>Write tests. Run them all.</strong></li>
+<li><strong>Run the quality checks.</strong></li>
+</ol>
+<h2 id="running-quality-checks">Running quality checks<a class="headerlink" href="#running-quality-checks" title="Permanent link">¶</a></h2>
+<p>The command to check the project's quality checks is:</p>
+<div class="highlight"><pre><span></span><code>make check
+</code></pre></div>
+<p><em>Type <code>make</code> to see all the available rules.</em></p>
+<h2 id="running-tests">Running tests<a class="headerlink" href="#running-tests" title="Permanent link">¶</a></h2>
+<p>The command to run the tests is:</p>
+<div class="highlight"><pre><span></span><code>make test
+</code></pre></div>
+<p><em>Type <code>make</code> to see all the available rules.</em></p>
+<p>For more flexibility:</p>
 <div class="highlight"><pre><span></span><code>poetry run pytest  <span class="c1"># to run all tests sequentially</span>
 poetry run pytest -v  <span class="c1"># to print one test per line</span>
 poetry run pytest -n <span class="m">4</span>  <span class="c1"># to run tests in parallel (4 workers)</span>
@@ -311,17 +379,37 @@ poetry run pytest tests/test_api.py  <span class="c1"># to run tests in a specif
 poetry run pytest -k <span class="s2">"utils or stats"</span>
 </code></pre></div>
 <p>See the <a href="https://docs.pytest.org/en/latest/example/markers.html#using-k-expr-to-select-tests-based-on-their-name">documentation for the <code>-k</code> option</a> for more examples.</p>
-<p>A <a href="Makefile">Makefile</a> is available for convenience: <code>make test</code>.</p>
-</li>
-<li>
-<p>When the tests pass, commit
-    (make sure to have atomic commits and contextual commit messages!
-    <a href="http://chris.beams.io/posts/git-commit/">Check out this awesome blog post by Chris Beams for more information.</a>)</p>
-</li>
-<li>Push;</li>
-<li>...and finally, create a new <a href="https://github.com/pawamoy/mkdocstrings/compare">pull/merge request</a>!
-    Make sure to follow the guidelines.</li>
-</ol>
+<h2 id="commits-messages">Commits messages<a class="headerlink" href="#commits-messages" title="Permanent link">¶</a></h2>
+<p>Make sure to have atomic commits and contextual commit messages!
+<a href="http://chris.beams.io/posts/git-commit/">Check out this blog post by Chris Beams for more information</a>.</p>
+<p>Commits messages must follow the <a href="https://gist.github.com/stephenparish/9941e89d80e2bc58a153#format-of-the-commit-message">Angular style</a>:</p>
+<div class="highlight"><pre><span></span><code>&lt;type&gt;[(scope)]: Subject
+
+[Body]
+</code></pre></div>
+<p>Scope and body are optional. Type can be:</p>
+<ul>
+<li><code>build</code>: About packaging, building wheels, etc.</li>
+<li><code>chore</code>: About packaging or repo/files management.</li>
+<li><code>ci</code>: About Continuous Integration.</li>
+<li><code>docs</code>: About documentation.</li>
+<li><code>feat</code>: New feature.</li>
+<li><code>fix</code>: Bug fix.</li>
+<li><code>perf</code>: About performance.</li>
+<li><code>refactor</code>: Changes which are not features nor bug fixes.</li>
+<li><code>revert</code>: When reverting a commit.</li>
+<li><code>style</code>: A change in code style/format.</li>
+<li><code>tests</code>: About tests.</li>
+</ul>
+<p>Subject (and body) must be valid Markdown. If you write a body, please add issues references at the end:</p>
+<div class="highlight"><pre><span></span><code>Body.
+
+References: #10, #11.
+Fixes #15.
+</code></pre></div>
+<h2 id="pull-requests">Pull Requests<a class="headerlink" href="#pull-requests" title="Permanent link">¶</a></h2>
+<p>Push your code, and finally create a new <a href="https://github.com/pawamoy/mkdocstrings/compare">pull request</a>.
+Make sure to follow the guidelines.</p>
 </article>
 </div>
 </div>
