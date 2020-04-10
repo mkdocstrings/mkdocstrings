@@ -4,12 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v0.10.3](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.3) - 2020-04-10
+
+<small>[Compare with v0.10.2](https://github.com/pawamoy/mkdocstrings/compare/v0.10.2...v0.10.3)</small>
+
+### Bug Fixes
+- Handle `site_url` not being defined ([9fb4a9b](https://github.com/pawamoy/mkdocstrings/commit/9fb4a9bbebe2457b389921ba1ee3e1f924c5691b) by Timothée Mazzucotelli). Related issues/PRs: [#77](https://github.com/pawamoy/mkdocstrings/issues/77)
+
+### Packaging
+This version increases the accepted range of versions for the `pytkdocs` dependency to `>=0.2.0, <0.4.0`.
+The `pytkdocs` project just released [version 0.3.0](https://pawamoy.github.io/pytkdocs/changelog/#v030-2020-04-10)
+which:
+
+- adds support for complex markup in docstrings sections items descriptions
+- adds support for different indentations in docstrings sections (tabulations or less/more than 4 spaces)
+- fixes docstring parsing for arguments whose names start with `*`, like `*args` and `**kwargs`
+
+
 ## [v0.10.2](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.2) - 2020-04-07
 
 <small>[Compare with v0.10.1](https://github.com/pawamoy/mkdocstrings/compare/v0.10.1...v0.10.2)</small>
 
 ### Packaging
-
 This version increases the accepted range of versions for the `pymdown-extensions` dependency,
 as well as for the `mkdocs-material` development dependency. Indeed, both these projects recently
 released major versions 7 and 5 respectively. Users who wish to use these new versions will be able to.
