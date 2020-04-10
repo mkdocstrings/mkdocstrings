@@ -42,7 +42,7 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`atomicwrites`](https://github.com/untitaker/python-atomicwrites) |
 [`attrs`](https://www.attrs.org/) |
 [`backcall`](https://github.com/takluyver/backcall) |
-[`certifi`](https://certifi.io/) |
+[`certifi`](https://certifiio.readthedocs.io/en/latest/) |
 [`chardet`](https://github.com/chardet/chardet) |
 [`click`](https://palletsprojects.com/p/click/) |
 [`colorama`](https://github.com/tartley/colorama) |
