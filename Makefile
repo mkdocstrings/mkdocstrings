@@ -6,6 +6,10 @@ PY_SRC := src/ tests/ scripts/*.py
 build:  ## Build the package wheel and sdist.
 	poetry build
 
+.PHONY: changelog
+changelog:  ## Write the new changelog to the standard output.
+	poetry run git-changelog -s angular .
+
 .PHONY: check
 check: check-bandit check-black check-docs check-flake8 check-isort  ## Check it all!
 
