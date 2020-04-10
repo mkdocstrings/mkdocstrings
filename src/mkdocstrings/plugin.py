@@ -134,6 +134,9 @@ class MkdocstringsPlugin(BasePlugin):
         We pass this plugin's configuration dictionary to the extension when instantiating it (it will need it
         later when processing markdown to get handlers and their global configurations).
         """
+        if not config["site_url"]:
+            log.error("mkdocstrings.plugin: configuration item 'site_url' is required for cross-references")
+
         log.debug("mkdocstrings.plugin: Adding extension to the list")
 
         extension_config = dict(
@@ -156,9 +159,15 @@ class MkdocstringsPlugin(BasePlugin):
         `[identifier][]`.
         """
         log.debug(f"mkdocstrings.plugin: Mapping identifiers to URLs for page {page.file.src_path}")
-        for item in page.toc.items:
-            self.map_urls(page.canonical_url, item)
-        return html
+        try:
+            for item in page.toc.items:
+                self.map_urls(page.canonical_url, item)
+            return html
+        except TypeError:
+            # page.canonical_url is None, fail silently.
+            # An error already has been logged in the on_config hook,
+            # and warnings will be logged later, in the on_post_page hook.
+            pass
 
     def map_urls(self, base_url: str, anchor: AnchorLink) -> None:
         """
@@ -203,8 +212,7 @@ class MkdocstringsPlugin(BasePlugin):
             if unmapped and log.isEnabledFor(logging.WARNING):
                 for ref in unmapped:
                     log.warning(
-                        f"mkdocstrings.plugin: {page.file.src_path}: Could not fix ref '[{ref}]'.\n    "
-                        f"The referenced object was not both collected and rendered."
+                        f"mkdocstrings.plugin: {page.file.src_path}: Could not find cross-reference target '[{ref}]'"
                     )
 
         return placeholder.restore_code_tags(fixed_soup)
