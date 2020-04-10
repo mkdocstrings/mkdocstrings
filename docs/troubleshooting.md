@@ -64,6 +64,14 @@ Are you using the Material theme?
   asking to support your theme. If you find one, vote with a thumbs up. If not, you can open a ticket.
 - "Yes": Please open an ticket on the [bugtracker][bugtracker] with a detailed
   explanation and screenshots of the bad-looking parts.
+  
+## Warning: could not find cross-reference target
+
+- Make sure you have defined `site_url` in `mkdocs.yml`, as it is required for cross-references when building the site
+  (the error does not happen when serving because then `site_url` is auto-populated by `mkdocs`).
+- Make sure the referenced object was both collected and rendered: verify your selection and rendering options.
+
+For false-positives, you can wrap the text in backticks (\`) to prevent `mkdocstrings` from trying to process it.
 
 ## WindowsPath object is not iterable
 

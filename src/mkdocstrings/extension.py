@@ -29,6 +29,7 @@ from xml.etree.ElementTree import XML, Element, ParseError  # nosec: we choose t
 
 import yaml
 from markdown import Markdown
+from markdown.blockparser import BlockParser
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.util import AtomicString
@@ -75,15 +76,15 @@ class AutoDocProcessor(BlockProcessor):
     CLASSNAME = "autodoc"
     RE = re.compile(r"(?:^|\n)::: ?([:a-zA-Z0-9_.]*) *(?:\n|$)")
 
-    def __init__(self, parser, md: Markdown, config: dict) -> None:
+    def __init__(self, parser: BlockParser, md: Markdown, config: dict) -> None:
         """
         Initialization method.
 
         Arguments:
-            parser:
+            parser: A `markdown.blockparser.BlockParser` instance.
             md: A `markdown.Markdown` instance.
             config: The [configuration][mkdocstrings.plugin.MkdocstringsPlugin.config_scheme]
-              of the `mkdocstrings` plugin.
+                of the `mkdocstrings` plugin.
         """
         super().__init__(parser=parser)
         self.md = md
@@ -224,7 +225,7 @@ class MkdocstringsExtension(Extension):
 
         Arguments:
             config: The configuration items from `mkdocs` and `mkdocstrings` that must be passed to the block processor
-              when instantiated in [`extendMarkdown`][mkdocstrings.extension.MkdocstringsExtension.extendMarkdown].
+                when instantiated in [`extendMarkdown`][mkdocstrings.extension.MkdocstringsExtension.extendMarkdown].
             kwargs: Keyword arguments used by `markdown.extensions.Extension`.
         """
         super().__init__(**kwargs)

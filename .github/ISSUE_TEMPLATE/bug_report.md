@@ -7,7 +7,8 @@ assignees: ''
 
 ---
 
-**Please open an issue on [pytkdocs](https://github.com/pawamoy/pytkdocs/issues) instead if this is related to Python docstrings parsing or objects selection!**
+**Please open an issue on [pytkdocs](https://github.com/pawamoy/pytkdocs/issues) instead
+if this is related to Python docstrings parsing or the collection of Python objects!**
 
 **Describe the bug**
 A clear and concise description of what the bug is.

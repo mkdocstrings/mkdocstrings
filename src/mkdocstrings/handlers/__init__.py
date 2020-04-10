@@ -147,7 +147,7 @@ class BaseRenderer:
         Arguments:
             md: The Markdown instance. Useful to add functions able to convert Markdown into the environment filters.
             config: Configuration options for `mkdocs` and `mkdocstrings`, read from `mkdocs.yml`. See the source code
-              of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.
+                of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.
         """
         md = Markdown(extensions=config["mdx"], extensions_configs=config["mdx_configs"])
 
@@ -176,10 +176,10 @@ class BaseCollector:
 
         Args:
             identifier: An identifier for which to collect data. For example, in Python,
-              it would be 'mkdocstrings.handlers' to collect documentation about the handlers module.
-              It can be anything that you can feed to the tool of your choice.
+                it would be 'mkdocstrings.handlers' to collect documentation about the handlers module.
+                It can be anything that you can feed to the tool of your choice.
             config: Configuration options for the tool you use to collect data. Typically called "selection" because
-              these options modify how the objects or documentation are "selected" in the source code.
+                these options modify how the objects or documentation are "selected" in the source code.
 
         Returns:
             Anything you want, as long as you can feed it to the renderer's `render` method.
