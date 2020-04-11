@@ -12,7 +12,7 @@ It also provides two methods:
 import importlib
 import textwrap
 from pathlib import Path
-from typing import Sequence, Type
+from typing import Sequence, Type, Optional
 
 from jinja2 import Environment, FileSystemLoader
 from jinja2.filters import do_mark_safe
@@ -100,7 +100,8 @@ class BaseRenderer:
 
     FALLBACK_THEME: str = ""
 
-    def __init__(self, directory: str, theme: str) -> None:
+    def __init__(self, directory: str, theme: str,
+                 custom_templates: Optional[str] = None) -> None:
         """
         Initialization method.
 
@@ -110,7 +111,13 @@ class BaseRenderer:
         Arguments:
             directory: The name of the directory containing the themes for this renderer.
             theme: The name of theme to use.
+            custom_templates: Directory containing custom templates.
         """
+
+        custom_dir = None
+        if custom_templates is not None:
+            custom_dir = Path(custom_templates).joinpath(directory, theme)
+
         themes_dir = Path(__file__).parent.parent / "templates" / directory
         theme_dir = themes_dir / theme
         if not theme_dir.exists():
@@ -123,7 +130,13 @@ class BaseRenderer:
             else:
                 raise ThemeNotSupported(theme)
 
-        self.env = Environment(autoescape=True, loader=FileSystemLoader(str(theme_dir)))
+        dirs = [str(theme_dir)]
+
+        # If the custom directory exists, we need to prepend it to the list:
+        if custom_dir is not None and custom_dir.exists():
+            dirs = [(str(custom_dir))] + dirs
+
+        self.env = Environment(autoescape=True, loader=FileSystemLoader(dirs))
         self.env.filters["highlight"] = do_highlight
         self.env.filters["any"] = do_any
 
@@ -211,7 +224,8 @@ class BaseHandler:
         self.renderer = renderer
 
 
-def get_handler(name: str, theme: str) -> BaseHandler:
+def get_handler(name: str, theme: str,
+                custom_templates: Optional[str] = None) -> BaseHandler:
     """
     Get a handler thanks to its name.
 
@@ -223,6 +237,7 @@ def get_handler(name: str, theme: str) -> BaseHandler:
     Args:
         name: The name of the handler. Really, it's the name of the Python module holding it.
         theme: The name of the theme to use.
+        custom_templates: Directory containing custom templates.
 
     Returns:
         An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.BaseHandler],
@@ -230,7 +245,7 @@ def get_handler(name: str, theme: str) -> BaseHandler:
     """
     if name not in HANDLERS_CACHE:
         module = importlib.import_module(f"mkdocstrings.handlers.{name}")
-        HANDLERS_CACHE[name] = module.get_handler(theme)
+        HANDLERS_CACHE[name] = module.get_handler(theme, custom_templates)
     return HANDLERS_CACHE[name]
 
 
