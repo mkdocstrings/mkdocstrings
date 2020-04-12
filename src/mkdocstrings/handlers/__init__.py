@@ -114,29 +114,21 @@ class BaseRenderer:
             custom_templates: Directory containing custom templates.
         """
 
-        custom_dir = None
+        self.directory = directory
+
+        paths = []
+
         if custom_templates is not None:
-            custom_dir = Path(custom_templates).joinpath(directory, theme)
+            paths.append(Path(custom_templates) / directory / theme)
 
         themes_dir = Path(__file__).parent.parent / "templates" / directory
-        theme_dir = themes_dir / theme
-        if not theme_dir.exists():
-            if self.FALLBACK_THEME != "":
-                log.warning(
-                    f"mkdocstrings.handlers: No '{theme}' theme in '{directory}', "
-                    f"falling back to theme '{self.FALLBACK_THEME}'"
-                )
-                theme_dir = themes_dir / self.FALLBACK_THEME
-            else:
-                raise ThemeNotSupported(theme)
 
-        dirs = [str(theme_dir)]
+        paths.append(themes_dir / theme)
 
-        # If the custom directory exists, we need to prepend it to the list:
-        if custom_dir is not None and custom_dir.exists():
-            dirs = [(str(custom_dir))] + dirs
+        if self.FALLBACK_THEME != "" and False:
+            paths.append(themes_dir / self.FALLBACK_THEME)
 
-        self.env = Environment(autoescape=True, loader=FileSystemLoader(dirs))
+        self.env = Environment(autoescape=True, loader=FileSystemLoader(paths))
         self.env.filters["highlight"] = do_highlight
         self.env.filters["any"] = do_any
 
