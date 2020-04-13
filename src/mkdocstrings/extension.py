@@ -34,6 +34,7 @@ from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.util import AtomicString
 from mkdocs.utils import log
+from jinja2.exceptions import TemplateNotFound
 
 from .handlers import CollectionError, get_handler
 
@@ -117,7 +118,9 @@ class AutoDocProcessor(BlockProcessor):
 
             handler_name = self.get_handler_name(config)
             log.debug(f"mkdocstrings.extension: Using handler '{handler_name}'")
-            handler = get_handler(handler_name, self._config["theme_name"])
+            handler = get_handler(
+                handler_name, self._config["theme_name"], self._config["mkdocstrings"]["custom_templates"]
+            )
 
             selection, rendering = self.get_item_configs(handler_name, config)
 
@@ -132,7 +135,15 @@ class AutoDocProcessor(BlockProcessor):
             handler.renderer.update_env(self.md, self._config)
 
             log.debug("mkdocstrings.extension: Rendering templates")
-            rendered = handler.renderer.render(data, rendering)
+            try:
+                rendered = handler.renderer.render(data, rendering)
+            except TemplateNotFound as error:
+                theme_name = self._config["theme_name"]
+                log.error(
+                    f"mkdocstrings.extension: Template '{error.name}' not found "
+                    f"for '{handler_name}' handler and theme '{theme_name}'."
+                )
+                return
 
             log.debug("mkdocstrings.extension: Loading HTML back into XML tree")
             try:

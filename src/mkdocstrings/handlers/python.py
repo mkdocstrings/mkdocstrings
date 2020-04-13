@@ -11,6 +11,8 @@ from subprocess import PIPE, Popen  # nosec: what other option, more secure that
 from markdown import Markdown
 from mkdocs.utils import log
 
+from typing import Optional
+
 from . import BaseCollector, BaseHandler, BaseRenderer, CollectionError, DataType
 
 
@@ -230,17 +232,18 @@ class PythonHandler(BaseHandler):
     """The Python handler class, nothing specific here."""
 
 
-def get_handler(theme: str) -> PythonHandler:
+def get_handler(theme: str, custom_templates: Optional[str] = None) -> PythonHandler:
     """
     Simply return an instance of `PythonHandler`.
 
     Arguments:
         theme: The theme to use when rendering contents.
+        custom_templates: Directory containing custom templates.
 
     Returns:
         An instance of `PythonHandler`.
     """
-    return PythonHandler(collector=PythonCollector(), renderer=PythonRenderer("python", theme))
+    return PythonHandler(collector=PythonCollector(), renderer=PythonRenderer("python", theme, custom_templates))
 
 
 def rebuild_category_lists(obj: dict) -> None:

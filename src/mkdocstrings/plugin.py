@@ -74,6 +74,7 @@ class MkdocstringsPlugin(BasePlugin):
         ("watch", MkType(list, default=[])),  # type: ignore
         ("handlers", MkType(dict, default={})),
         ("default_handler", MkType(str, default="python")),
+        ("custom_templates", MkType(str, default=None)),
     )
     """
     The configuration options of `mkdocstrings`, written in `mkdocs.yml`.
