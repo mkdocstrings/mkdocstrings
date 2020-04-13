@@ -28,13 +28,13 @@ from typing import Tuple
 from xml.etree.ElementTree import XML, Element, ParseError  # nosec: we choose to trust the XML input
 
 import yaml
+from jinja2.exceptions import TemplateNotFound
 from markdown import Markdown
 from markdown.blockparser import BlockParser
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.util import AtomicString
 from mkdocs.utils import log
-from jinja2.exceptions import TemplateNotFound
 
 from .handlers import CollectionError, get_handler
 

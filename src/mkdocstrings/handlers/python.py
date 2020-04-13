@@ -7,11 +7,10 @@ The handler collects data with [`pytkdocs`](https://github.com/pawamoy/pytkdocs)
 import json
 import os
 from subprocess import PIPE, Popen  # nosec: what other option, more secure that PIPE do we have? sockets?
+from typing import Optional
 
 from markdown import Markdown
 from mkdocs.utils import log
-
-from typing import Optional
 
 from . import BaseCollector, BaseHandler, BaseRenderer, CollectionError, DataType
 

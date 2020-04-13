@@ -12,12 +12,11 @@ It also provides two methods:
 import importlib
 import textwrap
 from pathlib import Path
-from typing import Sequence, Type, Optional
+from typing import Optional, Sequence, Type
 
 from jinja2 import Environment, FileSystemLoader
 from jinja2.filters import do_mark_safe
 from markdown import Markdown
-from mkdocs.utils import log
 from pymdownx.highlight import Highlight
 
 HANDLERS_CACHE = {}
