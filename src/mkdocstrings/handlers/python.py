@@ -243,8 +243,7 @@ def get_handler(theme: str, custom_templates: Optional[str] = None) -> PythonHan
     Returns:
         An instance of `PythonHandler`.
     """
-    return PythonHandler(collector=PythonCollector(),
-                         renderer=PythonRenderer("python", theme, custom_templates))
+    return PythonHandler(collector=PythonCollector(), renderer=PythonRenderer("python", theme, custom_templates))
 
 
 def rebuild_category_lists(obj: dict) -> None:

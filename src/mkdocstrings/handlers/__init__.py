@@ -100,8 +100,7 @@ class BaseRenderer:
 
     FALLBACK_THEME: str = ""
 
-    def __init__(self, directory: str, theme: str,
-                 custom_templates: Optional[str] = None) -> None:
+    def __init__(self, directory: str, theme: str, custom_templates: Optional[str] = None) -> None:
         """
         Initialization method.
 
@@ -114,8 +113,6 @@ class BaseRenderer:
             custom_templates: Directory containing custom templates.
         """
 
-        self.directory = directory
-
         paths = []
 
         if custom_templates is not None:
@@ -125,7 +122,7 @@ class BaseRenderer:
 
         paths.append(themes_dir / theme)
 
-        if self.FALLBACK_THEME != "" and False:
+        if self.FALLBACK_THEME != "":
             paths.append(themes_dir / self.FALLBACK_THEME)
 
         self.env = Environment(autoescape=True, loader=FileSystemLoader(paths))
@@ -216,8 +213,7 @@ class BaseHandler:
         self.renderer = renderer
 
 
-def get_handler(name: str, theme: str,
-                custom_templates: Optional[str] = None) -> BaseHandler:
+def get_handler(name: str, theme: str, custom_templates: Optional[str] = None) -> BaseHandler:
     """
     Get a handler thanks to its name.
 
