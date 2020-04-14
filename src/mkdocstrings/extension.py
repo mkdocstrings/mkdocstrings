@@ -22,7 +22,7 @@ instruction:
       option_x: etc
 ```
 """
-
+import logging
 import re
 from typing import Tuple
 from xml.etree.ElementTree import XML, Element, ParseError  # nosec: we choose to trust the XML input
@@ -34,9 +34,12 @@ from markdown.blockparser import BlockParser
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.util import AtomicString
-from mkdocs.utils import log
+from mkdocs.utils import warning_filter
 
 from .handlers import CollectionError, get_handler
+
+log = logging.getLogger(__name__)
+log.addFilter(warning_filter)
 
 
 def atomic_brute_cast(tree: Element) -> Element:

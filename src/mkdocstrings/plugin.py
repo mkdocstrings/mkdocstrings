@@ -37,10 +37,13 @@ from mkdocs.plugins import BasePlugin
 from mkdocs.structure.files import Files
 from mkdocs.structure.pages import Page
 from mkdocs.structure.toc import AnchorLink
-from mkdocs.utils import log
+from mkdocs.utils import warning_filter
 
 from .extension import MkdocstringsExtension
 from .handlers import teardown
+
+log = logging.getLogger(__name__)
+log.addFilter(warning_filter)
 
 SELECTION_OPTS_KEY: str = "selection"
 """The name of the selection parameter in YAML configuration blocks."""
