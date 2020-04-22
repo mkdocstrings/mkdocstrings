@@ -122,7 +122,10 @@ class AutoDocProcessor(BlockProcessor):
             handler_name = self.get_handler_name(config)
             log.debug(f"mkdocstrings.extension: Using handler '{handler_name}'")
             handler = get_handler(
-                handler_name, self._config["theme_name"], self._config["mkdocstrings"]["custom_templates"]
+                handler_name,
+                self._config["theme_name"],
+                self._config["mkdocstrings"]["custom_templates"],
+                self.get_handler_config,
             )
 
             selection, rendering = self.get_item_configs(handler_name, config)
