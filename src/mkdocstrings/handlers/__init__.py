@@ -12,7 +12,7 @@ It also provides two methods:
 import importlib
 import textwrap
 from pathlib import Path
-from typing import Callable, Optional, Sequence, Type
+from typing import Any, Optional, Sequence, Type
 
 from jinja2 import Environment, FileSystemLoader
 from jinja2.filters import do_mark_safe
@@ -212,12 +212,7 @@ class BaseHandler:
         self.renderer = renderer
 
 
-def get_handler(
-    name: str,
-    theme: str,
-    custom_templates: Optional[str] = None,
-    get_handler_config: Optional[Callable[[str], dict]] = None,
-) -> BaseHandler:
+def get_handler(name: str, theme: str, custom_templates: Optional[str] = None, **config: Any,) -> BaseHandler:
     """
     Get a handler thanks to its name.
 
@@ -230,7 +225,7 @@ def get_handler(
         name: The name of the handler. Really, it's the name of the Python module holding it.
         theme: The name of the theme to use.
         custom_templates: Directory containing custom templates.
-        get_handler_config: Callable that accepts a name str and returns a dict (which should be the config for the handler)
+        config: Configuration for the handler
 
     Returns:
         An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.BaseHandler],
@@ -238,8 +233,7 @@ def get_handler(
     """
     if name not in HANDLERS_CACHE:
         module = importlib.import_module(f"mkdocstrings.handlers.{name}")
-        setup_cmd_list = get_handler_config(name).get("setup_commands", None) if get_handler_config else None
-        HANDLERS_CACHE[name] = module.get_handler(theme, custom_templates, setup_cmd_list)
+        HANDLERS_CACHE[name] = module.get_handler(theme, custom_templates, **config)
     return HANDLERS_CACHE[name]
 
 

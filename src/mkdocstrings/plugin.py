@@ -96,9 +96,9 @@ class MkdocstringsPlugin(BasePlugin):
           handlers:
             python:
               selection:
-                selection_opt: true
+                 selection_opt: true
               rendering:
-                rendering_opt: "value"
+                 rendering_opt: "value"
               setup_commands:
                 - "import os"
                 - "import django"

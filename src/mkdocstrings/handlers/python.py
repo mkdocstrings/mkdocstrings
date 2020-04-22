@@ -132,7 +132,7 @@ class PythonCollector(BaseCollector):
     Obviously one could use a single filter instead: `"!^_[^_]"`, which is the default.
     """
 
-    def __init__(self, setup_cmd_list: Optional[List[str]]) -> None:
+    def __init__(self, setup_commands: Optional[List[str]]) -> None:
         """
         Initialization method.
 
@@ -142,13 +142,13 @@ class PythonCollector(BaseCollector):
         too resource intensive, and would slow down `mkdocstrings` a lot.
 
         Arguments:
-            setup_cmd_list: A list of python commands as strings to be executed in the subprocess before pytkdocs
+            setup_commands: A list of python commands as strings to be executed in the subprocess before pytkdocs
 
         """
         log.debug("mkdocstrings.handlers.python: Opening 'pytkdocs' subprocess")
         env = os.environ.copy()
 
-        python_str = "; ".join(setup_cmd_list) + "; " if setup_cmd_list else ""
+        python_str = "; ".join(setup_commands) + "; " if setup_commands else ""
         cmd = python_str + "from pytkdocs.cli import main; main(['--line-by-line'])"
 
         env["PYTHONUNBUFFERED"] = "1"
@@ -238,7 +238,7 @@ class PythonHandler(BaseHandler):
 
 
 def get_handler(
-    theme: str, custom_templates: Optional[str] = None, setup_cmd_list: Optional[List[str]] = None
+    theme: str, custom_templates: Optional[str] = None, setup_commands: Optional[List[str]] = None
 ) -> PythonHandler:
     """
     Simply return an instance of `PythonHandler`.
@@ -246,13 +246,13 @@ def get_handler(
     Arguments:
         theme: The theme to use when rendering contents.
         custom_templates: Directory containing custom templates.
-        setup_cmd_list: A list of commands as strings to be executed in the subprocess before pytkdocs
+        setup_commands: A list of commands as strings to be executed in the subprocess before pytkdocs
 
     Returns:
         An instance of `PythonHandler`.
     """
     return PythonHandler(
-        collector=PythonCollector(setup_cmd_list=setup_cmd_list),
+        collector=PythonCollector(setup_commands=setup_commands),
         renderer=PythonRenderer("python", theme, custom_templates),
     )
 
