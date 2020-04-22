@@ -8,7 +8,7 @@ import json
 import logging
 import os
 from subprocess import PIPE, Popen  # nosec: what other option, more secure that PIPE do we have? sockets?
-from typing import List, Optional
+from typing import Any, List, Optional
 
 from markdown import Markdown
 from mkdocs.utils import warning_filter
@@ -238,7 +238,7 @@ class PythonHandler(BaseHandler):
 
 
 def get_handler(
-    theme: str, custom_templates: Optional[str] = None, setup_commands: Optional[List[str]] = None
+    theme: str, custom_templates: Optional[str] = None, setup_commands: Optional[List[str]] = None, **kwargs: Any
 ) -> PythonHandler:
     """
     Simply return an instance of `PythonHandler`.
