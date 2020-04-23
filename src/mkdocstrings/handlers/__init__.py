@@ -12,7 +12,7 @@ It also provides two methods:
 import importlib
 import textwrap
 from pathlib import Path
-from typing import Optional, Sequence, Type
+from typing import Any, Optional, Sequence, Type
 
 from jinja2 import Environment, FileSystemLoader
 from jinja2.filters import do_mark_safe
@@ -212,7 +212,7 @@ class BaseHandler:
         self.renderer = renderer
 
 
-def get_handler(name: str, theme: str, custom_templates: Optional[str] = None) -> BaseHandler:
+def get_handler(name: str, theme: str, custom_templates: Optional[str] = None, **config: Any,) -> BaseHandler:
     """
     Get a handler thanks to its name.
 
@@ -225,6 +225,7 @@ def get_handler(name: str, theme: str, custom_templates: Optional[str] = None) -
         name: The name of the handler. Really, it's the name of the Python module holding it.
         theme: The name of the theme to use.
         custom_templates: Directory containing custom templates.
+        config: Configuration for the handler
 
     Returns:
         An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.BaseHandler],
@@ -232,7 +233,7 @@ def get_handler(name: str, theme: str, custom_templates: Optional[str] = None) -
     """
     if name not in HANDLERS_CACHE:
         module = importlib.import_module(f"mkdocstrings.handlers.{name}")
-        HANDLERS_CACHE[name] = module.get_handler(theme, custom_templates)
+        HANDLERS_CACHE[name] = module.get_handler(theme, custom_templates, **config)
     return HANDLERS_CACHE[name]
 
 

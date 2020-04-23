@@ -121,11 +121,15 @@ class AutoDocProcessor(BlockProcessor):
 
             handler_name = self.get_handler_name(config)
             log.debug(f"mkdocstrings.extension: Using handler '{handler_name}'")
+            handler_config = self.get_handler_config(handler_name)
             handler = get_handler(
-                handler_name, self._config["theme_name"], self._config["mkdocstrings"]["custom_templates"]
+                handler_name,
+                self._config["theme_name"],
+                self._config["mkdocstrings"]["custom_templates"],
+                **handler_config,
             )
 
-            selection, rendering = self.get_item_configs(handler_name, config)
+            selection, rendering = self.get_item_configs(handler_config, config)
 
             log.debug("mkdocstrings.extension: Collecting data")
             try:
@@ -207,18 +211,18 @@ class AutoDocProcessor(BlockProcessor):
             return handlers.get(handler_name, {})
         return {}
 
-    def get_item_configs(self, handler_name: str, config: dict) -> Tuple[dict, dict]:
+    @staticmethod
+    def get_item_configs(handler_config: dict, config: dict) -> Tuple[dict, dict]:
         """
         Get the selection and rendering configuration merged into the global configuration of the given handler.
 
         Args:
-            handler_name: The handler to get the global configuration of.
+            handler_config: The global configuration of a handler. It can be an empty dictionary.
             config: The configuration to merge into the global handler configuration.
 
         Returns:
             Two dictionaries: selection and rendering. The local configurations are merged into the global ones.
         """
-        handler_config = self.get_handler_config(handler_name)
         item_selection_config = dict(handler_config.get("selection", {}))
         item_selection_config.update(config.get("selection", {}))
         item_rendering_config = dict(handler_config.get("rendering", {}))

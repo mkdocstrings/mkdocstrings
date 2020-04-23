@@ -8,7 +8,7 @@ import json
 import logging
 import os
 from subprocess import PIPE, Popen  # nosec: what other option, more secure that PIPE do we have? sockets?
-from typing import Optional
+from typing import Any, List, Optional
 
 from markdown import Markdown
 from mkdocs.utils import warning_filter
@@ -132,7 +132,7 @@ class PythonCollector(BaseCollector):
     Obviously one could use a single filter instead: `"!^_[^_]"`, which is the default.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, setup_commands: Optional[List[str]]) -> None:
         """
         Initialization method.
 
@@ -140,18 +140,20 @@ class PythonCollector(BaseCollector):
         It will allow us to feed input to and read output from this subprocess, keeping it alive during
         the whole documentation generation. Spawning a new Python subprocess for each "autodoc" instruction would be
         too resource intensive, and would slow down `mkdocstrings` a lot.
+
+        Arguments:
+            setup_commands: A list of python commands as strings to be executed in the subprocess before pytkdocs
+
         """
         log.debug("mkdocstrings.handlers.python: Opening 'pytkdocs' subprocess")
         env = os.environ.copy()
+
+        python_str = "; ".join(setup_commands) + "; " if setup_commands else ""
+        cmd = python_str + "from pytkdocs.cli import main; main(['--line-by-line'])"
+
         env["PYTHONUNBUFFERED"] = "1"
         self.process = Popen(  # nosec: there's no way to give the full path to the executable, is there?
-            ["pytkdocs", "--line-by-line"],
-            universal_newlines=True,
-            stderr=PIPE,
-            stdout=PIPE,
-            stdin=PIPE,
-            bufsize=-1,
-            env=env,
+            ["python", "-c", cmd], universal_newlines=True, stderr=PIPE, stdout=PIPE, stdin=PIPE, bufsize=-1, env=env,
         )
 
     def collect(self, identifier: str, config: dict) -> DataType:
@@ -235,18 +237,24 @@ class PythonHandler(BaseHandler):
     """The Python handler class, nothing specific here."""
 
 
-def get_handler(theme: str, custom_templates: Optional[str] = None) -> PythonHandler:
+def get_handler(
+    theme: str, custom_templates: Optional[str] = None, setup_commands: Optional[List[str]] = None, **kwargs: Any
+) -> PythonHandler:
     """
     Simply return an instance of `PythonHandler`.
 
     Arguments:
         theme: The theme to use when rendering contents.
         custom_templates: Directory containing custom templates.
+        setup_commands: A list of commands as strings to be executed in the subprocess before pytkdocs
 
     Returns:
         An instance of `PythonHandler`.
     """
-    return PythonHandler(collector=PythonCollector(), renderer=PythonRenderer("python", theme, custom_templates))
+    return PythonHandler(
+        collector=PythonCollector(setup_commands=setup_commands),
+        renderer=PythonRenderer("python", theme, custom_templates),
+    )
 
 
 def rebuild_category_lists(obj: dict) -> None:
