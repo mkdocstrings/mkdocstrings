@@ -1,5 +1,5 @@
 [flake8]
 max-line-length = 120
-select = C,E,F,W,B,B950
-ignore = E501,W503,E203
-
+ignore = D212,E203,E501,W503,S101
+ban-relative-imports = true
+docstring-convention = google

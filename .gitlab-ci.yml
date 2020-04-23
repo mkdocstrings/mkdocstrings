@@ -25,14 +25,6 @@ stages:
   image: python:3.6
   stage: quality
 
-check-bandit:
-  <<: *quality
-  script: make check-bandit
-
-check-black:
-  <<: *quality
-  script: make check-black
-
 check-flake8:
   <<: *quality
   script: make check-flake8
@@ -41,18 +33,9 @@ check-docs:
   <<: *quality
   script: make check-docs
 
-check-isort:
-  <<: *quality
-  script: make check-isort
-
 check-mypy:
   <<: *quality
   script: make check-mypy
-  allow_failure: true
-
-check-pylint:
-  <<: *quality
-  script: make check-pylint
   allow_failure: true
 
 check-safety:

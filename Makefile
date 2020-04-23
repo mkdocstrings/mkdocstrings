@@ -11,40 +11,29 @@ changelog:  ## Write the new changelog to the standard output.
 	poetry run git-changelog -s angular .
 
 .PHONY: check
-check: check-bandit check-black check-docs check-flake8 check-isort  ## Check it all!
-
-.PHONY: check-bandit
-check-bandit:  ## Check for security warnings in code using bandit.
-	poetry run bandit -r src/
-
-.PHONY: check-black
-check-black:  ## Check if code is formatted nicely using black.
-	poetry run black --check $(PY_SRC)
+check: check-docs check-flake8 check-mypy check-safety  ## Check it all!
 
 .PHONY: check-docs
-check-docs: docs  ## Check if the documentation builds correctly.
+check-docs:  ## Check if the documentation builds correctly.
+	@poetry run failprint -- mkdocs build -s
 
 .PHONY: check-flake8
 check-flake8:  ## Check for general warnings in code using flake8.
-	poetry run flake8 $(PY_SRC)
-
-.PHONY: check-isort
-check-isort:  ## Check if imports are correctly ordered using isort.
-	poetry run isort -c -rc $(PY_SRC)
+	@poetry run failprint -- flake8 $(PY_SRC)
 
 .PHONY: check-mypy
 check-mypy:  ## Check that the code is correctly typed.
-	poetry run mypy $(PY_SRC)
-
-.PHONY: check-pylint
-check-pylint:  ## Check for code smells using pylint.
-	poetry run pylint $(PY_SRC)
+	@poetry run failprint -- mypy $(PY_SRC)
 
 .PHONY: check-safety
 check-safety:  ## Check for vulnerabilities in dependencies using safety.
-	poetry run pip freeze 2>/dev/null | \
-		grep -v mkdocstrings | \
-		safety check --stdin --full-report 2>/dev/null
+	@if ! command -v safety &>/dev/null; then \
+		echo "Please install safety in a isolated virtualenv with 'pipx install safety'"; \
+	else \
+		poetry run pip freeze 2>/dev/null | \
+			grep -v mkdocstrings | \
+			poetry run failprint --no-pty -- safety check --stdin --full-report; \
+	fi
 
 .PHONY: clean
 clean: clean-tests  ## Delete temporary files.
