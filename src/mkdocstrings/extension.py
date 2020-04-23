@@ -24,8 +24,8 @@ instruction:
 """
 import logging
 import re
-from typing import Tuple
-from xml.etree.ElementTree import XML, Element, ParseError  # nosec: we choose to trust the XML input
+from typing import Any, Tuple
+from xml.etree.ElementTree import XML, Element, ParseError  # noqa: S405 (we choose to trust the XML input)
 
 import yaml
 from jinja2.exceptions import TemplateNotFound
@@ -36,7 +36,7 @@ from markdown.extensions import Extension
 from markdown.util import AtomicString
 from mkdocs.utils import warning_filter
 
-from .handlers import CollectionError, get_handler
+from mkdocstrings.handlers import CollectionError, get_handler
 
 log = logging.getLogger(__name__)
 log.addFilter(warning_filter)
@@ -95,6 +95,7 @@ class AutoDocProcessor(BlockProcessor):
         self._config = config
 
     def test(self, parent: Element, block: Element) -> bool:
+        """Match our autodoc instructions."""
         sibling = self.lastChild(parent)
         bool1 = self.RE.search(str(block))
         bool2 = (
@@ -105,17 +106,27 @@ class AutoDocProcessor(BlockProcessor):
         return bool(bool1 or bool2)
 
     def run(self, parent: Element, blocks: Element) -> None:
-        block = blocks.pop(0)
-        m = self.RE.search(str(block))
+        """
+        The processing of autodoc instructions is done here.
 
-        if m:
+        The identifier and configuration lines are retrieved from a matched block
+        and used to collect and render an object.
+
+        Arguments:
+            parent: The parent element in the XML tree.
+            blocks: The rest of the blocks to be processed.
+        """
+        block = blocks.pop(0)
+        match = self.RE.search(str(block))
+
+        if match:
             # removes the first line
-            block = block[m.end() :]  # type: ignore
+            block = block[match.end() :]  # type: ignore
 
         block, the_rest = self.detab(block)
 
-        if m:
-            identifier = m.group(1)
+        if match:
+            identifier = match.group(1)
             log.debug(f"mkdocstrings.extension: Matched '::: {identifier}'")
             config = yaml.safe_load(str(block)) or {}
 
@@ -133,7 +144,7 @@ class AutoDocProcessor(BlockProcessor):
 
             log.debug("mkdocstrings.extension: Collecting data")
             try:
-                data = handler.collector.collect(identifier, selection)
+                data: Any = handler.collector.collect(identifier, selection)
             except CollectionError:
                 log.error(f"mkdocstrings.extension: Could not collect '{identifier}'")
                 return

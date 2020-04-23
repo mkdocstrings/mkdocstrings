@@ -7,13 +7,13 @@ The handler collects data with [`pytkdocs`](https://github.com/pawamoy/pytkdocs)
 import json
 import logging
 import os
-from subprocess import PIPE, Popen  # nosec: what other option, more secure that PIPE do we have? sockets?
+from subprocess import PIPE, Popen  # noqa: S404 (what other option, more secure that PIPE do we have? sockets?)
 from typing import Any, List, Optional
 
 from markdown import Markdown
 from mkdocs.utils import warning_filter
 
-from . import BaseCollector, BaseHandler, BaseRenderer, CollectionError, DataType
+from mkdocstrings.handlers import BaseCollector, BaseHandler, BaseRenderer, CollectionError
 
 log = logging.getLogger(__name__)
 log.addFilter(warning_filter)
@@ -56,7 +56,7 @@ class PythonRenderer(BaseRenderer):
     **`heading_level`** | `int` | The initial heading level to use. | `2`
     """
 
-    def render(self, data: DataType, config: dict) -> str:
+    def render(self, data: Any, config: dict) -> str:  # noqa: D102 (ignore missing docstring)
         final_config = dict(self.DEFAULT_CONFIG)
         final_config.update(config)
 
@@ -64,40 +64,18 @@ class PythonRenderer(BaseRenderer):
 
         # Heading level is a "state" variable, that will change at each step
         # of the rendering recursion. Therefore, it's easier to use it as a plain value
-        # instead of as an item in a dictionary.
+        # than as an item in a dictionary.
         heading_level = final_config.pop("heading_level")
 
         return template.render(
             **{"config": final_config, data["category"]: data, "heading_level": heading_level, "root": True}
         )
 
-    def update_env(self, md: Markdown, config: dict) -> None:
+    def update_env(self, md: Markdown, config: dict) -> None:  # noqa: D102 (ignore missing docstring)
         super(PythonRenderer, self).update_env(md, config)
         self.env.trim_blocks = True
         self.env.lstrip_blocks = True
         self.env.keep_trailing_newline = False
-
-        # TODO: actually do this when we have a proper Google-Style docstring Markdown extension
-        # md = Markdown(extensions=md.registeredExtensions + ["google_style_docstrings_markdown_extension"])
-        #
-        # def convert_docstring(text):
-        #     return md.convert(text)
-        #
-        # self.env.filters["convert_docstring"] = convert_docstring
-
-        # def break_args(signature, align=False):
-        #     signature = signature.replace("\n", "")
-        #     name, args = signature.split("(", 1)
-        #     name = name.rstrip(" ")
-        #     args = args.rstrip(")").split(", ")
-        #     if not align:
-        #         args = ",\n    ".join(args)
-        #         return f"{name}(\n    {args}\n)"
-        #     else:
-        #         indent = " " * (name + 1)
-        #         arg0 = args.pop(0)
-        #         args = f",\n{indent}".join(args)
-        #         return f"{name}({arg0}\n{indent}{args})"
 
 
 class PythonCollector(BaseCollector):
@@ -152,11 +130,11 @@ class PythonCollector(BaseCollector):
         cmd = python_str + "from pytkdocs.cli import main; main(['--line-by-line'])"
 
         env["PYTHONUNBUFFERED"] = "1"
-        self.process = Popen(  # nosec: there's no way to give the full path to the executable, is there?
+        self.process = Popen(  # noqa: S603,S607 (we trust the input, and we don't want to use the absolute path)
             ["python", "-c", cmd], universal_newlines=True, stderr=PIPE, stdout=PIPE, stdin=PIPE, bufsize=-1, env=env,
         )
 
-    def collect(self, identifier: str, config: dict) -> DataType:
+    def collect(self, identifier: str, config: dict) -> Any:
         """
         Collect the documentation tree given an identifier and selection options.
 
@@ -199,9 +177,9 @@ class PythonCollector(BaseCollector):
         log.debug("mkdocstrings.handlers.python: Loading JSON output as Python object")
         try:
             result = json.loads(stdout)
-        except json.decoder.JSONDecodeError as error:
+        except json.decoder.JSONDecodeError as exception:
             log.error(f"mkdocstrings.handlers.python: Error while loading JSON: {stdout}")
-            raise CollectionError(str(error))
+            raise CollectionError(str(exception))
 
         if "error" in result:
             message = f"mkdocstrings.handlers.python: Collection failed: {result['error']}"
@@ -211,7 +189,7 @@ class PythonCollector(BaseCollector):
             raise CollectionError(result["error"])
 
         if result["loading_errors"]:
-            for error in result["loading_errors"]:  # type: ignore
+            for error in result["loading_errors"]:
                 log.warning(f"mkdocstrings.handlers.python: {error}")
 
         if result["parsing_errors"]:

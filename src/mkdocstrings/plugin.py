@@ -26,7 +26,7 @@ import logging
 import random
 import re
 import string
-from typing import Any, Callable, Dict, List, Match, Pattern, Tuple
+from typing import Any, Callable, Dict, List, Match, Optional, Pattern, Tuple
 
 from bs4 import BeautifulSoup
 from bs4.element import NavigableString
@@ -39,8 +39,8 @@ from mkdocs.structure.pages import Page
 from mkdocs.structure.toc import AnchorLink
 from mkdocs.utils import warning_filter
 
-from .extension import MkdocstringsExtension
-from .handlers import teardown
+from mkdocstrings.extension import MkdocstringsExtension
+from mkdocstrings.handlers import teardown
 
 log = logging.getLogger(__name__)
 log.addFilter(warning_filter)
@@ -111,21 +111,18 @@ class MkdocstringsPlugin(BasePlugin):
     """
 
     def __init__(self) -> None:
+        """Initialization method."""
         super(MkdocstringsPlugin, self).__init__()
-        self.mkdocstrings_extension = None
+        self.mkdocstrings_extension: Optional[MkdocstringsExtension] = None
         self.url_map: Dict[Any, str] = {}
 
-    def on_serve(self, server: Server, config: Config, **kwargs) -> Server:
+    def on_serve(self, server: Server, config: Config, builder: Callable = None, **kwargs) -> Server:
         """
         Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).
 
         In this hook, we add the directories specified in the plugin's configuration to the list of directories
         watched by `mkdocs`. Whenever a change occurs in one of these directories, the documentation is built again
         and the site reloaded.
-
-        Note:
-            The implementation is a hack. We are retrieving the watch function from a protected attribute.
-            See issue [mkdocs/mkdocs#1952](https://github.com/mkdocs/mkdocs/issues/1952) for more information.
         """
         builder = list(server.watcher._tasks.values())[0]["func"]
         for element in self.config["watch"]:
@@ -148,12 +145,12 @@ class MkdocstringsPlugin(BasePlugin):
 
         log.debug("mkdocstrings.plugin: Adding extension to the list")
 
-        extension_config = dict(
-            theme_name=config["theme"].name,
-            mdx=config["markdown_extensions"],
-            mdx_configs=config["mdx_configs"],
-            mkdocstrings=self.config,
-        )
+        extension_config = {
+            "theme_name": config["theme"].name,
+            "mdx": config["markdown_extensions"],
+            "mdx_configs": config["mdx_configs"],
+            "mkdocstrings": self.config,
+        }
 
         self.mkdocstrings_extension = MkdocstringsExtension(config=extension_config)
         config["markdown_extensions"].append(self.mkdocstrings_extension)
@@ -313,6 +310,7 @@ class Placeholder:
     """
 
     def __init__(self) -> None:
+        """Initialization method."""
         self.ids: Dict[str, str] = {}
         self.seed = ""
         self.set_seed()
@@ -335,7 +333,7 @@ class Placeholder:
 
     def get_id(self) -> str:
         """Return a random, unique string."""
-        return f"{self.seed}{random.randint(0, 1000000)}"  # nosec: it's not for security/cryptographic purposes
+        return f"{self.seed}{random.randint(0, 1000000)}"  # noqa: S311 (it's not for security/cryptographic purposes)
 
     def set_seed(self) -> None:
         """Reset the seed in `self.seed` with a random string."""

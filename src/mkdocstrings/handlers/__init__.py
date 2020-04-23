@@ -12,7 +12,7 @@ It also provides two methods:
 import importlib
 import textwrap
 from pathlib import Path
-from typing import Any, Optional, Sequence, Type
+from typing import Any, Optional, Sequence
 
 from jinja2 import Environment, FileSystemLoader
 from jinja2.filters import do_mark_safe
@@ -20,9 +20,6 @@ from markdown import Markdown
 from pymdownx.highlight import Highlight
 
 HANDLERS_CACHE = {}
-
-
-DataType = Type["T"]
 
 
 class CollectionError(Exception):
@@ -111,7 +108,6 @@ class BaseRenderer:
             theme: The name of theme to use.
             custom_templates: Directory containing custom templates.
         """
-
         paths = []
 
         if custom_templates is not None:
@@ -128,7 +124,7 @@ class BaseRenderer:
         self.env.filters["highlight"] = do_highlight
         self.env.filters["any"] = do_any
 
-    def render(self, data: DataType, config: dict) -> str:
+    def render(self, data: Any, config: dict) -> str:
         """
         Render a template using provided data and configuration options.
 
@@ -137,7 +133,7 @@ class BaseRenderer:
             config: The rendering options.
 
         Returns:
-            The renderer template as HTML.
+            The rendered template as HTML.
         """
         raise NotImplementedError
 
@@ -150,6 +146,7 @@ class BaseRenderer:
             config: Configuration options for `mkdocs` and `mkdocstrings`, read from `mkdocs.yml`. See the source code
                 of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.
         """
+        # Re-instantiate md: see https://github.com/tomchristie/mkautodoc/issues/14
         md = Markdown(extensions=config["mdx"], extensions_configs=config["mdx_configs"])
 
         def convert_markdown(text):
@@ -168,7 +165,7 @@ class BaseCollector:
     You can also implement the `teardown` method.
     """
 
-    def collect(self, identifier: str, config: dict) -> DataType:
+    def collect(self, identifier: str, config: dict) -> Any:
         """
         Collect data given an identifier and selection configuration.
 
@@ -233,7 +230,7 @@ def get_handler(name: str, theme: str, custom_templates: Optional[str] = None, *
     """
     if name not in HANDLERS_CACHE:
         module = importlib.import_module(f"mkdocstrings.handlers.{name}")
-        HANDLERS_CACHE[name] = module.get_handler(theme, custom_templates, **config)
+        HANDLERS_CACHE[name] = module.get_handler(theme, custom_templates, **config)  # type: ignore
     return HANDLERS_CACHE[name]
 
 

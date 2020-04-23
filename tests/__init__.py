@@ -1,3 +1,5 @@
+"""Tests suite for mkdocstrings."""
+
 from pathlib import Path
 
 TESTS_DIR = Path(__file__).parent

@@ -1,4 +1,8 @@
+"""Configuration for the pytest test suite."""
+
+
 def pytest_itemcollected(item):
+    """Make tests names a bit more readable in pytest's output."""
     item._nodeid = (
         item._nodeid.replace(".py", "")
         .replace("tests/", "")

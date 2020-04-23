@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+"""Generate data used to render the CREDITS template."""
+
 import json
 from itertools import chain
 from pathlib import Path
@@ -9,18 +11,19 @@ import toml
 from pip._internal.commands.show import search_packages_info
 
 
-def clean_info(p):
-    return {k: v for k, v in p.items() if k in ("name", "home-page")}
+def clean_info(package_dict):
+    """Only keep `name` and `home-page` keys."""
+    return {k: v for k, v in package_dict.items() if k in ("name", "home-page")}
 
 
 metadata = toml.load(Path(__file__).parent.parent / "pyproject.toml")["tool"]["poetry"]
 direct_dependencies = sorted(
-    [_.lower() for _ in chain(metadata["dependencies"].keys(), metadata["dev-dependencies"].keys())]
+    _.lower() for _ in chain(metadata["dependencies"].keys(), metadata["dev-dependencies"].keys())
 )
 direct_dependencies.remove("python")
 
 lock_data = toml.load(Path(__file__).parent.parent / "poetry.lock")
-indirect_dependencies = sorted([p["name"] for p in lock_data["package"] if p["name"] not in direct_dependencies])
+indirect_dependencies = sorted(p["name"] for p in lock_data["package"] if p["name"] not in direct_dependencies)
 
 # poetry.lock seems to always use lowercase for packages names
 package_info = {p["name"]: clean_info(p) for p in search_packages_info(direct_dependencies + indirect_dependencies)}
