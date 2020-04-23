@@ -124,7 +124,10 @@ class MkdocstringsPlugin(BasePlugin):
         watched by `mkdocs`. Whenever a change occurs in one of these directories, the documentation is built again
         and the site reloaded.
         """
-        builder = list(server.watcher._tasks.values())[0]["func"]
+        if builder is None:
+            # The builder parameter was added in mkdocs v1.1.1.
+            # See issue https://github.com/mkdocs/mkdocs/issues/1952.
+            builder = list(server.watcher._tasks.values())[0]["func"]
         for element in self.config["watch"]:
             log.debug(f"mkdocstrings.plugin: Adding directory '{element}' to watcher")
             server.watch(element, builder)
