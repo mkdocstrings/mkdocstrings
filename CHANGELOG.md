@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [v0.11.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.11.0) - 2020-04-23
+
+<small>[Compare with v0.10.3](https://github.com/pawamoy/mkdocstrings/compare/v0.10.3...v0.11.0)</small>
+
+### Bug Fixes
+- Properly raise on errors (respect strict mode) ([4c2994d](https://github.com/pawamoy/mkdocstrings/commit/4c2994dd9c66f89ccfe2380e548cd50f582dd7e5) by Timothée Mazzucotelli). Related issues/PRs: [#86](https://github.com/pawamoy/mkdocstrings/issues/86)
+- Hook properly to MkDocs logging ([b23daed](https://github.com/pawamoy/mkdocstrings/commit/b23daed3743bbd2d3f024df34582a317c51a1af0) by Timothée Mazzucotelli). Related issues/PRs: [#86](https://github.com/pawamoy/mkdocstrings/issues/86)
+
+### Features
+- Add `setup_commands` option to python handler ([599f8e5](https://github.com/pawamoy/mkdocstrings/commit/599f8e528f55093b0011b732da959b747c1e02c0) by Ross Mechanic). Related issues/PRs: [#89](https://github.com/pawamoy/mkdocstrings/issues/89), [#90](https://github.com/pawamoy/mkdocstrings/issues/90)
+- Add option to allow overriding templates ([7360021](https://github.com/pawamoy/mkdocstrings/commit/7360021ab4753706d0f6209ed960050f5d424ad8) by Mikaël Capelle). Related issues/PRs: [#59](https://github.com/pawamoy/mkdocstrings/issues/59), [#82](https://github.com/pawamoy/mkdocstrings/issues/82)
+
+
 ## [v0.10.3](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.3) - 2020-04-10
 
 <small>[Compare with v0.10.2](https://github.com/pawamoy/mkdocstrings/compare/v0.10.2...v0.10.3)</small>
