@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 <small>[Compare with v0.10.3](https://github.com/pawamoy/mkdocstrings/compare/v0.10.3...v0.11.0)</small>
 
 ### Bug Fixes
-- Properly raise on errors (respect strict mode) ([4c2994d](https://github.com/pawamoy/mkdocstrings/commit/4c2994dd9c66f89ccfe2380e548cd50f582dd7e5) by Timothée Mazzucotelli). Related issues/PRs: [#86](https://github.com/pawamoy/mkdocstrings/issues/86)
+- Properly raise on errors (respect strict mode) ([2097208](https://github.com/pawamoy/mkdocstrings/commit/20972082a94b64bec02c77d6a80384d8042f60ea) by Timothée Mazzucotelli). Related issues/PRs: [#86](https://github.com/pawamoy/mkdocstrings/issues/86)
 - Hook properly to MkDocs logging ([b23daed](https://github.com/pawamoy/mkdocstrings/commit/b23daed3743bbd2d3f024df34582a317c51a1af0) by Timothée Mazzucotelli). Related issues/PRs: [#86](https://github.com/pawamoy/mkdocstrings/issues/86)
 
 ### Features
