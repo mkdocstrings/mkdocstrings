@@ -8,9 +8,9 @@
 <meta content="Automatic documentation from sources, for MkDocs." name="description"/>
 <link href="https://pawamoy.github.io/mkdocstrings/reference/plugin/" rel="canonical"/>
 <link href="../../assets/images/favicon.png" rel="shortcut icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-5.0.0" name="generator"/>
+<meta content="mkdocs-1.1, mkdocs-material-5.1.1" name="generator"/>
 <title>plugin.py - mkdocstrings</title>
-<link href="../../assets/stylesheets/main.c3000690.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/main.a676eddb.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
 <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
@@ -246,6 +246,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.__init__">
+    __init__()
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.fix_ref">
     fix_ref()
   </a>
@@ -289,6 +294,11 @@
   </a>
 <nav aria-label="Placeholder" class="md-nav">
 <ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.Placeholder.__init__">
+    __init__()
+  </a>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#mkdocstrings.plugin.Placeholder.get_id">
     get_id()
@@ -396,6 +406,11 @@
   </a>
 </li>
 <li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.__init__">
+    __init__()
+  </a>
+</li>
+<li class="md-nav__item">
 <a class="md-nav__link" href="#mkdocstrings.plugin.MkdocstringsPlugin.fix_ref">
     fix_ref()
   </a>
@@ -439,6 +454,11 @@
   </a>
 <nav aria-label="Placeholder" class="md-nav">
 <ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.plugin.Placeholder.__init__">
+    __init__()
+  </a>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#mkdocstrings.plugin.Placeholder.get_id">
     get_id()
@@ -568,14 +588,57 @@ config_scheme: <span class="n">Tuple</span><span class="p">[</span><span class="
       <span class="nt">handlers</span><span class="p">:</span>
         <span class="nt">python</span><span class="p">:</span>
           <span class="nt">selection</span><span class="p">:</span>
-            <span class="nt">selection_opt</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+             <span class="nt">selection_opt</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
           <span class="nt">rendering</span><span class="p">:</span>
              <span class="nt">rendering_opt</span><span class="p">:</span> <span class="s">"value"</span>
+          <span class="nt">setup_commands</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="s">"import</span><span class="nv"> </span><span class="s">os"</span>
+            <span class="p p-Indicator">-</span> <span class="s">"import</span><span class="nv"> </span><span class="s">django"</span>
+            <span class="p p-Indicator">-</span> <span class="s">"os.environ.setdefault('DJANGO_SETTINGS_MODULE',</span><span class="nv"> </span><span class="s">'my_djang_app.settings')"</span>
+            <span class="p p-Indicator">-</span> <span class="s">"django.setup()"</span>
         <span class="nt">rust</span><span class="p">:</span>
           <span class="nt">selection</span><span class="p">:</span>
             <span class="nt">selection_opt</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
 </code></pre>
 </div>
+</div>
+</div>
+<div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.__init__">
+<code class="highlight language-python">
+__init__<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-special"><code>special</code></small>
+</span>
+<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.__init__" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>Initialization method.</p>
+<details class="quote">
+<summary>Source code in <code>mkdocstrings/plugin.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>113
+114
+115
+116
+117</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""Initialization method."""</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">MkdocstringsPlugin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">mkdocstrings_extension</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">MkdocstringsExtension</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
 </div>
 </div>
 <div class="doc doc-object doc-method">
@@ -645,11 +708,7 @@ and returning the replacement strings.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>220
-221
-222
-223
-224
+<pre><span></span>224
 225
 226
 227
@@ -699,7 +758,11 @@ and returning the replacement strings.</p>
 271
 272
 273
-274</pre>
+274
+275
+276
+277
+278</pre>
 </div>
 </td>
 <td class="code">
@@ -810,11 +873,7 @@ map_urls<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>172
-173
-174
-175
-176
+<pre><span></span>176
 177
 178
 179
@@ -822,7 +881,11 @@ map_urls<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 181
 182
 183
-184</pre>
+184
+185
+186
+187
+188</pre>
 </div>
 </td>
 <td class="code">
@@ -865,16 +928,7 @@ later when processing markdown to get handlers and their global configurations).
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>127
-128
-129
-130
-131
-132
-133
-134
-135
-136
+<pre><span></span>136
 137
 138
 139
@@ -889,7 +943,17 @@ later when processing markdown to get handlers and their global configurations).
 148
 149
 150
-151</pre>
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161</pre>
 </div>
 </td>
 <td class="code">
@@ -906,15 +970,16 @@ later when processing markdown to get handlers and their global configurations).
 <span class="sd">    """</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="p">[</span><span class="s2">"site_url"</span><span class="p">]:</span>
         <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"mkdocstrings.plugin: configuration item 'site_url' is required for cross-references"</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"site_url is required"</span><span class="p">)</span>
 
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.plugin: Adding extension to the list"</span><span class="p">)</span>
 
-    <span class="n">extension_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-        <span class="n">theme_name</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">"theme"</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-        <span class="n">mdx</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">"markdown_extensions"</span><span class="p">],</span>
-        <span class="n">mdx_configs</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">"mdx_configs"</span><span class="p">],</span>
-        <span class="n">mkdocstrings</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="n">extension_config</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"theme_name"</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s2">"theme"</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="s2">"mdx"</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s2">"markdown_extensions"</span><span class="p">],</span>
+        <span class="s2">"mdx_configs"</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s2">"mdx_configs"</span><span class="p">],</span>
+        <span class="s2">"mkdocstrings"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span>
+    <span class="p">}</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">mkdocstrings_extension</span> <span class="o">=</span> <span class="n">MkdocstringsExtension</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">extension_config</span><span class="p">)</span>
     <span class="n">config</span><span class="p">[</span><span class="s2">"markdown_extensions"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mkdocstrings_extension</span><span class="p">)</span>
@@ -943,24 +1008,18 @@ This mapping will be used later to fix unresolved reference of the form <code>[t
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>153
-154
-155
-156
-157
-158
-159
-160
-161
-162
-163
+<pre><span></span>163
 164
 165
 166
 167
 168
 169
-170</pre>
+170
+171
+172
+173
+174</pre>
 </div>
 </td>
 <td class="code">
@@ -974,15 +1033,9 @@ This mapping will be used later to fix unresolved reference of the form <code>[t
 <span class="sd">    `[identifier][]`.</span>
 <span class="sd">    """</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.plugin: Mapping identifiers to URLs for page </span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">src_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">page</span><span class="o">.</span><span class="n">toc</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">map_urls</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">canonical_url</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">html</span>
-    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-        <span class="c1"># page.canonical_url is None, fail silently.</span>
-        <span class="c1"># An error already has been logged in the on_config hook,</span>
-        <span class="c1"># and warnings will be logged later, in the on_post_page hook.</span>
-        <span class="k">pass</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">page</span><span class="o">.</span><span class="n">toc</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map_urls</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">canonical_url</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">html</span>
 </code></pre>
 </div>
 </td>
@@ -1010,11 +1063,7 @@ this hook.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>276
-277
-278
-279
-280
+<pre><span></span>280
 281
 282
 283
@@ -1023,7 +1072,11 @@ this hook.</p>
 286
 287
 288
-289</pre>
+289
+290
+291
+292
+293</pre>
 </div>
 </td>
 <td class="code">
@@ -1070,11 +1123,7 @@ We currently ignore references when their identifier contains a space or a slash
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>186
-187
-188
-189
-190
+<pre><span></span>190
 191
 192
 193
@@ -1102,7 +1151,11 @@ We currently ignore references when their identifier contains a space or a slash
 215
 216
 217
-218</pre>
+218
+219
+220
+221
+222</pre>
 </div>
 </td>
 <td class="code">
@@ -1151,58 +1204,51 @@ We currently ignore references when their identifier contains a space or a slash
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.on_serve">
 <code class="highlight language-python">
-on_serve<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
+on_serve<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">builder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
 <a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_serve" title="Permanent link">¶</a></h3>
 <div class="doc doc-contents">
 <p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_serve"><code>on_serve</code> event</a>.</p>
 <p>In this hook, we add the directories specified in the plugin's configuration to the list of directories
 watched by <code>mkdocs</code>. Whenever a change occurs in one of these directories, the documentation is built again
 and the site reloaded.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The implementation is a hack. We are retrieving the watch function from a protected attribute.
-See issue <a href="https://github.com/mkdocs/mkdocs/issues/1952">mkdocs/mkdocs#1952</a> for more information.</p>
-</div>
 <details class="quote">
 <summary>Source code in <code>mkdocstrings/plugin.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
+<pre><span></span>119
 120
 121
 122
 123
 124
-125</pre>
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">on_serve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">:</span> <span class="n">Server</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Server</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">on_serve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">:</span> <span class="n">Server</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">builder</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Server</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).</span>
 
 <span class="sd">    In this hook, we add the directories specified in the plugin's configuration to the list of directories</span>
 <span class="sd">    watched by `mkdocs`. Whenever a change occurs in one of these directories, the documentation is built again</span>
 <span class="sd">    and the site reloaded.</span>
-
-<span class="sd">    Note:</span>
-<span class="sd">        The implementation is a hack. We are retrieving the watch function from a protected attribute.</span>
-<span class="sd">        See issue [mkdocs/mkdocs#1952](https://github.com/mkdocs/mkdocs/issues/1952) for more information.</span>
 <span class="sd">    """</span>
-    <span class="n">builder</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">watcher</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"func"</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">builder</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># The builder parameter was added in mkdocs v1.1.1.</span>
+        <span class="c1"># See issue https://github.com/mkdocs/mkdocs/issues/1952.</span>
+        <span class="n">builder</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">watcher</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"func"</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"watch"</span><span class="p">]:</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.plugin: Adding directory '</span><span class="si">{</span><span class="n">element</span><span class="si">}</span><span class="s2">' to watcher"</span><span class="p">)</span>
         <span class="n">server</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">builder</span><span class="p">)</span>
@@ -1233,6 +1279,44 @@ with a regular expression substitution. Once it's done, we bulk-replace code nod
 substitution again.</p>
 <div class="doc doc-children">
 <div class="doc doc-object doc-method">
+<h3 class="doc doc-heading" id="mkdocstrings.plugin.Placeholder.__init__">
+<code class="highlight language-python">
+__init__<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
+<span class="doc doc-properties">
+<small class="doc doc-property doc-property-special"><code>special</code></small>
+</span>
+<a class="headerlink" href="#mkdocstrings.plugin.Placeholder.__init__" title="Permanent link">¶</a></h3>
+<div class="doc doc-contents">
+<p>Initialization method.</p>
+<details class="quote">
+<summary>Source code in <code>mkdocstrings/plugin.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span>310
+311
+312
+313
+314</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""Initialization method."""</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="s2">""</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">set_seed</span><span class="p">()</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="mkdocstrings.plugin.Placeholder.get_id">
 <code class="highlight language-python">
 get_id<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
@@ -1245,16 +1329,16 @@ get_id<span class="p">(</span><span class="bp">self</span><span class="p">)</spa
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>327
-328
-329</pre>
+<pre><span></span>332
+333
+334</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
 <pre><span></span><code><span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">"""Return a random, unique string."""</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}{</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>  <span class="c1"># nosec: it's not for security/cryptographic purposes</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}{</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>  <span class="c1"># noqa: S311 (it's not for security/cryptographic purposes)</span>
 </code></pre>
 </div>
 </td>
@@ -1297,12 +1381,7 @@ replace_code_tags<span class="p">(</span><span class="bp">self</span><span class
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>335
-336
-337
-338
-339
-340
+<pre><span></span>340
 341
 342
 343
@@ -1314,7 +1393,12 @@ replace_code_tags<span class="p">(</span><span class="bp">self</span><span class
 349
 350
 351
-352</pre>
+352
+353
+354
+355
+356
+357</pre>
 </div>
 </td>
 <td class="code">
@@ -1396,12 +1480,7 @@ restore_code_tags<span class="p">(</span><span class="bp">self</span><span class
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>354
-355
-356
-357
-358
-359
+<pre><span></span>359
 360
 361
 362
@@ -1411,7 +1490,12 @@ restore_code_tags<span class="p">(</span><span class="bp">self</span><span class
 366
 367
 368
-369</pre>
+369
+370
+371
+372
+373
+374</pre>
 </div>
 </td>
 <td class="code">
@@ -1453,9 +1537,9 @@ set_seed<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>331
-332
-333</pre>
+<pre><span></span>336
+337
+338</pre>
 </div>
 </td>
 <td class="code">
@@ -1522,12 +1606,7 @@ store<span class="p">(</span><span class="bp">self</span><span class="p">,</span
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>311
-312
-313
-314
-315
-316
+<pre><span></span>316
 317
 318
 319
@@ -1536,7 +1615,12 @@ store<span class="p">(</span><span class="bp">self</span><span class="p">,</span
 322
 323
 324
-325</pre>
+325
+326
+327
+328
+329
+330</pre>
 </div>
 </td>
 <td class="code">
@@ -1618,14 +1702,14 @@ store<span class="p">(</span><span class="bp">self</span><span class="p">,</span
 </div>
 </footer>
 </div>
-<script src="../../assets/javascripts/vendor.f45d2d8d.min.js"></script>
-<script src="../../assets/javascripts/bundle.74d0b805.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../../assets/javascripts/vendor.c51dfa35.min.js"></script>
+<script src="../../assets/javascripts/bundle.eaaa3931.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "../..",
           features: [],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.7f7c8775.min.js"
+            worker: "../../assets/javascripts/worker/search.58d22e8e.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

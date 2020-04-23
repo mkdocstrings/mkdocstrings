@@ -8,9 +8,9 @@
 <meta content="Automatic documentation from sources, for MkDocs." name="description"/>
 <link href="https://pawamoy.github.io/mkdocstrings/reference/handlers/__init__/" rel="canonical"/>
 <link href="../../../assets/images/favicon.png" rel="shortcut icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-5.0.0" name="generator"/>
+<meta content="mkdocs-1.1, mkdocs-material-5.1.1" name="generator"/>
 <title>__init__.py - mkdocstrings</title>
-<link href="../../../assets/stylesheets/main.c3000690.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/main.a676eddb.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
 <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
@@ -529,7 +529,7 @@ these options modify how the objects or documentation are "selected" in the sour
 </thead>
 <tbody>
 <tr>
-<td><code>Type[T]</code></td>
+<td><code>Any</code></td>
 <td>
 <p>Anything you want, as long as you can feed it to the renderer's <code>render</code> method.</p>
 </td>
@@ -542,7 +542,9 @@ these options modify how the objects or documentation are "selected" in the sour
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>170
+<pre><span></span>168
+169
+170
 171
 172
 173
@@ -557,14 +559,12 @@ these options modify how the objects or documentation are "selected" in the sour
 182
 183
 184
-185
-186
-187</pre>
+185</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataType</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Collect data given an identifier and selection configuration.</span>
 
@@ -603,8 +603,8 @@ teardown<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>189
-190</pre>
+<pre><span></span>187
+188</pre>
 </div>
 </td>
 <td class="code">
@@ -676,16 +676,16 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>202
+<pre><span></span>200
+201
+202
 203
 204
 205
 206
 207
 208
-209
-210
-211</pre>
+209</pre>
 </div>
 </td>
 <td class="code">
@@ -726,7 +726,7 @@ making them available in your Jinja templates.</p>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="mkdocstrings.handlers.BaseRenderer.__init__">
 <code class="highlight language-python">
-__init__<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">theme</span><span class="p">)</span> </code>
+__init__<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
 <span class="doc doc-properties">
 <small class="doc doc-property doc-property-special"><code>special</code></small>
 </span>
@@ -762,6 +762,14 @@ in <code>self</code> to use as a fallback theme.</p>
 </td>
 <td><em>required</em></td>
 </tr>
+<tr>
+<td><code>custom_templates</code></td>
+<td><code>Optional[str]</code></td>
+<td>
+<p>Directory containing custom templates.</p>
+</td>
+<td><code>None</code></td>
+</tr>
 </tbody>
 </table>
 <details class="quote">
@@ -770,7 +778,11 @@ in <code>self</code> to use as a fallback theme.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>103
+<pre><span></span> 99
+100
+101
+102
+103
 104
 105
 106
@@ -792,15 +804,12 @@ in <code>self</code> to use as a fallback theme.</p>
 122
 123
 124
-125
-126
-127
-128</pre>
+125</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">custom_templates</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Initialization method.</span>
 
@@ -810,20 +819,21 @@ in <code>self</code> to use as a fallback theme.</p>
 <span class="sd">    Arguments:</span>
 <span class="sd">        directory: The name of the directory containing the themes for this renderer.</span>
 <span class="sd">        theme: The name of theme to use.</span>
+<span class="sd">        custom_templates: Directory containing custom templates.</span>
 <span class="sd">    """</span>
-    <span class="n">themes_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"templates"</span> <span class="o">/</span> <span class="n">directory</span>
-    <span class="n">theme_dir</span> <span class="o">=</span> <span class="n">themes_dir</span> <span class="o">/</span> <span class="n">theme</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">theme_dir</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">FALLBACK_THEME</span> <span class="o">!=</span> <span class="s2">""</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">"mkdocstrings.handlers: No '</span><span class="si">{</span><span class="n">theme</span><span class="si">}</span><span class="s2">' theme in '</span><span class="si">{</span><span class="n">directory</span><span class="si">}</span><span class="s2">', "</span>
-                <span class="sa">f</span><span class="s2">"falling back to theme '</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">FALLBACK_THEME</span><span class="si">}</span><span class="s2">'"</span>
-            <span class="p">)</span>
-            <span class="n">theme_dir</span> <span class="o">=</span> <span class="n">themes_dir</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">FALLBACK_THEME</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ThemeNotSupported</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
+    <span class="n">paths</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">autoescape</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">loader</span><span class="o">=</span><span class="n">FileSystemLoader</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">theme_dir</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="n">custom_templates</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">custom_templates</span><span class="p">)</span> <span class="o">/</span> <span class="n">directory</span> <span class="o">/</span> <span class="n">theme</span><span class="p">)</span>
+
+    <span class="n">themes_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"templates"</span> <span class="o">/</span> <span class="n">directory</span>
+
+    <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">themes_dir</span> <span class="o">/</span> <span class="n">theme</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">FALLBACK_THEME</span> <span class="o">!=</span> <span class="s2">""</span><span class="p">:</span>
+        <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">themes_dir</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">FALLBACK_THEME</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">autoescape</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">loader</span><span class="o">=</span><span class="n">FileSystemLoader</span><span class="p">(</span><span class="n">paths</span><span class="p">))</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="s2">"highlight"</span><span class="p">]</span> <span class="o">=</span> <span class="n">do_highlight</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="s2">"any"</span><span class="p">]</span> <span class="o">=</span> <span class="n">do_any</span>
 </code></pre>
@@ -854,7 +864,7 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 <tbody>
 <tr>
 <td><code>data</code></td>
-<td><code>Type[T]</code></td>
+<td><code>Any</code></td>
 <td>
 <p>The collected data to render.</p>
 </td>
@@ -882,7 +892,7 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 <tr>
 <td><code>str</code></td>
 <td>
-<p>The renderer template as HTML.</p>
+<p>The rendered template as HTML.</p>
 </td>
 </tr>
 </tbody>
@@ -893,7 +903,10 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>130
+<pre><span></span>127
+128
+129
+130
 131
 132
 133
@@ -901,15 +914,12 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 135
 136
 137
-138
-139
-140
-141</pre>
+138</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">DataType</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Render a template using provided data and configuration options.</span>
 
@@ -918,7 +928,7 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 <span class="sd">        config: The rendering options.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        The renderer template as HTML.</span>
+<span class="sd">        The rendered template as HTML.</span>
 <span class="sd">    """</span>
     <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 </code></pre>
@@ -972,7 +982,10 @@ of <a href="https://pawamoy.github.io/mkdocstrings/reference/plugin/#mkdocstring
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>143
+<pre><span></span>140
+141
+142
+143
 144
 145
 146
@@ -984,9 +997,7 @@ of <a href="https://pawamoy.github.io/mkdocstrings/reference/plugin/#mkdocstring
 152
 153
 154
-155
-156
-157</pre>
+155</pre>
 </div>
 </td>
 <td class="code">
@@ -1000,6 +1011,7 @@ of <a href="https://pawamoy.github.io/mkdocstrings/reference/plugin/#mkdocstring
 <span class="sd">        config: Configuration options for `mkdocs` and `mkdocstrings`, read from `mkdocs.yml`. See the source code</span>
 <span class="sd">            of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.</span>
 <span class="sd">    """</span>
+    <span class="c1"># Re-instantiate md: see https://github.com/tomchristie/mkautodoc/issues/14</span>
     <span class="n">md</span> <span class="o">=</span> <span class="n">Markdown</span><span class="p">(</span><span class="n">extensions</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">"mdx"</span><span class="p">],</span> <span class="n">extensions_configs</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">"mdx_configs"</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">convert_markdown</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
@@ -1092,7 +1104,11 @@ do_any<span class="p">(</span><span class="n">seq</span><span class="p">,</span>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>72
+<pre><span></span>68
+69
+70
+71
+72
 73
 74
 75
@@ -1101,11 +1117,7 @@ do_any<span class="p">(</span><span class="n">seq</span><span class="p">,</span>
 78
 79
 80
-81
-82
-83
-84
-85</pre>
+81</pre>
 </div>
 </td>
 <td class="code">
@@ -1231,7 +1243,11 @@ do_highlight<span class="p">(</span><span class="n">src</span><span class="p">,<
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>37
+<pre><span></span>33
+34
+35
+36
+37
 38
 39
 40
@@ -1259,11 +1275,7 @@ do_highlight<span class="p">(</span><span class="n">src</span><span class="p">,<
 62
 63
 64
-65
-66
-67
-68
-69</pre>
+65</pre>
 </div>
 </td>
 <td class="code">
@@ -1312,7 +1324,7 @@ do_highlight<span class="p">(</span><span class="n">src</span><span class="p">,<
 <div class="doc doc-object doc-function">
 <h2 class="doc doc-heading" id="mkdocstrings.handlers.get_handler">
 <code class="highlight language-python">
-get_handler<span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">theme</span><span class="p">)</span> </code>
+get_handler<span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">config</span><span class="p">)</span> </code>
 <a class="headerlink" href="#mkdocstrings.handlers.get_handler" title="Permanent link">¶</a></h2>
 <div class="doc doc-contents">
 <p>Get a handler thanks to its name.</p>
@@ -1347,6 +1359,22 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
 </td>
 <td><em>required</em></td>
 </tr>
+<tr>
+<td><code>custom_templates</code></td>
+<td><code>Optional[str]</code></td>
+<td>
+<p>Directory containing custom templates.</p>
+</td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><code>config</code></td>
+<td><code>Any</code></td>
+<td>
+<p>Configuration for the handler</p>
+</td>
+<td><code>{}</code></td>
+</tr>
 </tbody>
 </table>
 <p><strong>Returns:</strong></p>
@@ -1373,7 +1401,9 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>214
+<pre><span></span>212
+213
+214
 215
 216
 217
@@ -1398,7 +1428,7 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_handler</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseHandler</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">get_handler</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">custom_templates</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">config</span><span class="p">:</span> <span class="n">Any</span><span class="p">,)</span> <span class="o">-&gt;</span> <span class="n">BaseHandler</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Get a handler thanks to its name.</span>
 
@@ -1410,6 +1440,8 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 <span class="sd">    Args:</span>
 <span class="sd">        name: The name of the handler. Really, it's the name of the Python module holding it.</span>
 <span class="sd">        theme: The name of the theme to use.</span>
+<span class="sd">        custom_templates: Directory containing custom templates.</span>
+<span class="sd">        config: Configuration for the handler</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.BaseHandler],</span>
@@ -1417,7 +1449,7 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 <span class="sd">    """</span>
     <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">HANDLERS_CACHE</span><span class="p">:</span>
         <span class="n">module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.handlers.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-        <span class="n">HANDLERS_CACHE</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">get_handler</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
+        <span class="n">HANDLERS_CACHE</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">get_handler</span><span class="p">(</span><span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="p">,</span> <span class="o">**</span><span class="n">config</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
     <span class="k">return</span> <span class="n">HANDLERS_CACHE</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
 </code></pre>
 </div>
@@ -1519,14 +1551,14 @@ teardown<span class="p">()</span> </code>
 </div>
 </footer>
 </div>
-<script src="../../../assets/javascripts/vendor.f45d2d8d.min.js"></script>
-<script src="../../../assets/javascripts/bundle.74d0b805.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../../../assets/javascripts/vendor.c51dfa35.min.js"></script>
+<script src="../../../assets/javascripts/bundle.eaaa3931.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "../../..",
           features: [],
           search: Object.assign({
-            worker: "../../../assets/javascripts/worker/search.7f7c8775.min.js"
+            worker: "../../../assets/javascripts/worker/search.58d22e8e.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

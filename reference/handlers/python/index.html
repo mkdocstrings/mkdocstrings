@@ -8,9 +8,9 @@
 <meta content="Automatic documentation from sources, for MkDocs." name="description"/>
 <link href="https://pawamoy.github.io/mkdocstrings/reference/handlers/python/" rel="canonical"/>
 <link href="../../../assets/images/favicon.png" rel="shortcut icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-5.0.0" name="generator"/>
+<meta content="mkdocs-1.1, mkdocs-material-5.1.1" name="generator"/>
 <title>python.py - mkdocstrings</title>
-<link href="../../../assets/stylesheets/main.c3000690.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/main.a676eddb.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
 <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
@@ -484,7 +484,7 @@ next one:</p>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonCollector.__init__">
 <code class="highlight language-python">
-__init__<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
+__init__<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup_commands</span><span class="p">)</span> </code>
 <span class="doc doc-properties">
 <small class="doc doc-property doc-property-special"><code>special</code></small>
 </span>
@@ -495,38 +495,61 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 It will allow us to feed input to and read output from this subprocess, keeping it alive during
 the whole documentation generation. Spawning a new Python subprocess for each "autodoc" instruction would be
 too resource intensive, and would slow down <code>mkdocstrings</code> a lot.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>setup_commands</code></td>
+<td><code>Optional[List[str]]</code></td>
+<td>
+<p>A list of python commands as strings to be executed in the subprocess before pytkdocs</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
 <details class="quote">
 <summary>Source code in <code>mkdocstrings/handlers/python.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>130
+<pre><span></span>113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
 131
 132
 133
 134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150</pre>
+135</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup_commands</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Initialization method.</span>
 
@@ -534,18 +557,20 @@ too resource intensive, and would slow down <code>mkdocstrings</code> a lot.</p>
 <span class="sd">    It will allow us to feed input to and read output from this subprocess, keeping it alive during</span>
 <span class="sd">    the whole documentation generation. Spawning a new Python subprocess for each "autodoc" instruction would be</span>
 <span class="sd">    too resource intensive, and would slow down `mkdocstrings` a lot.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        setup_commands: A list of python commands as strings to be executed in the subprocess before pytkdocs</span>
+
 <span class="sd">    """</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.handlers.python: Opening 'pytkdocs' subprocess"</span><span class="p">)</span>
     <span class="n">env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">python_str</span> <span class="o">=</span> <span class="s2">"; "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">setup_commands</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"; "</span> <span class="k">if</span> <span class="n">setup_commands</span> <span class="k">else</span> <span class="s2">""</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="n">python_str</span> <span class="o">+</span> <span class="s2">"from pytkdocs.cli import main; main(['--line-by-line'])"</span>
+
     <span class="n">env</span><span class="p">[</span><span class="s2">"PYTHONUNBUFFERED"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"1"</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span>  <span class="c1"># nosec: there's no way to give the full path to the executable, is there?</span>
-        <span class="p">[</span><span class="s2">"pytkdocs"</span><span class="p">,</span> <span class="s2">"--line-by-line"</span><span class="p">],</span>
-        <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span>
-        <span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span>
-        <span class="n">stdin</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span>
-        <span class="n">bufsize</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span>  <span class="c1"># noqa: S603,S607 (we trust the input, and we don't want to use the absolute path)</span>
+        <span class="p">[</span><span class="s2">"python"</span><span class="p">,</span> <span class="s2">"-c"</span><span class="p">,</span> <span class="n">cmd</span><span class="p">],</span> <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stdin</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">bufsize</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre>
 </div>
@@ -613,7 +638,7 @@ and return it.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>Type[T]</code></td>
+<td><code>Any</code></td>
 <td>
 <p>The collected object-tree.</p>
 </td>
@@ -626,7 +651,22 @@ and return it.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>152
+<pre><span></span>137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
 153
 154
 155
@@ -680,27 +720,12 @@ and return it.</p>
 203
 204
 205
-206
-207
-208
-209
-210
-211
-212
-213
-214
-215
-216
-217
-218
-219
-220
-221</pre>
+206</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataType</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Collect the documentation tree given an identifier and selection options.</span>
 
@@ -743,9 +768,9 @@ and return it.</p>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.handlers.python: Loading JSON output as Python object"</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">stdout</span><span class="p">)</span>
-    <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">JSONDecodeError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+    <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">JSONDecodeError</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
         <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.handlers.python: Error while loading JSON: </span><span class="si">{</span><span class="n">stdout</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="n">CollectionError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="n">CollectionError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">exception</span><span class="p">))</span>
 
     <span class="k">if</span> <span class="s2">"error"</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
         <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"mkdocstrings.handlers.python: Collection failed: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'error'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
@@ -755,7 +780,7 @@ and return it.</p>
         <span class="k">raise</span> <span class="n">CollectionError</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">"error"</span><span class="p">])</span>
 
     <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s2">"loading_errors"</span><span class="p">]:</span>
-        <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">"loading_errors"</span><span class="p">]:</span>  <span class="c1"># type: ignore</span>
+        <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">"loading_errors"</span><span class="p">]:</span>
             <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.handlers.python: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="s2">"parsing_errors"</span><span class="p">]:</span>
@@ -791,10 +816,10 @@ teardown<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>223
-224
-225
-226</pre>
+<pre><span></span>208
+209
+210
+211</pre>
 </div>
 </td>
 <td class="code">
@@ -929,7 +954,7 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 <tbody>
 <tr>
 <td><code>data</code></td>
-<td><code>Type[T]</code></td>
+<td><code>Any</code></td>
 <td>
 <p>The collected data to render.</p>
 </td>
@@ -957,7 +982,7 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 <tr>
 <td><code>str</code></td>
 <td>
-<p>The renderer template as HTML.</p>
+<p>The rendered template as HTML.</p>
 </td>
 </tr>
 </tbody>
@@ -968,12 +993,7 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>54
-55
-56
-57
-58
-59
+<pre><span></span>59
 60
 61
 62
@@ -981,12 +1001,17 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 64
 65
 66
-67</pre>
+67
+68
+69
+70
+71
+72</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">DataType</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>  <span class="c1"># noqa: D102 (ignore missing docstring)</span>
     <span class="n">final_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">DEFAULT_CONFIG</span><span class="p">)</span>
     <span class="n">final_config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 
@@ -994,7 +1019,7 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 
     <span class="c1"># Heading level is a "state" variable, that will change at each step</span>
     <span class="c1"># of the rendering recursion. Therefore, it's easier to use it as a plain value</span>
-    <span class="c1"># instead of as an item in a dictionary.</span>
+    <span class="c1"># than as an item in a dictionary.</span>
     <span class="n">heading_level</span> <span class="o">=</span> <span class="n">final_config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"heading_level"</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
@@ -1051,16 +1076,16 @@ of <a href="https://pawamoy.github.io/mkdocstrings/reference/plugin/#mkdocstring
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>69
-70
-71
-72
-73</pre>
+<pre><span></span>74
+75
+76
+77
+78</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">update_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">update_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: D102 (ignore missing docstring)</span>
     <span class="nb">super</span><span class="p">(</span><span class="n">PythonRenderer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">update_env</span><span class="p">(</span><span class="n">md</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">trim_blocks</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">lstrip_blocks</span> <span class="o">=</span> <span class="kc">True</span>
@@ -1079,7 +1104,7 @@ of <a href="https://pawamoy.github.io/mkdocstrings/reference/plugin/#mkdocstring
 <div class="doc doc-object doc-function">
 <h2 class="doc doc-heading" id="mkdocstrings.handlers.python.get_handler">
 <code class="highlight language-python">
-get_handler<span class="p">(</span><span class="n">theme</span><span class="p">)</span> </code>
+get_handler<span class="p">(</span><span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">setup_commands</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
 <a class="headerlink" href="#mkdocstrings.handlers.python.get_handler" title="Permanent link">¶</a></h2>
 <div class="doc doc-contents">
 <p>Simply return an instance of <code>PythonHandler</code>.</p>
@@ -1101,6 +1126,22 @@ get_handler<span class="p">(</span><span class="n">theme</span><span class="p">)
 <p>The theme to use when rendering contents.</p>
 </td>
 <td><em>required</em></td>
+</tr>
+<tr>
+<td><code>custom_templates</code></td>
+<td><code>Optional[str]</code></td>
+<td>
+<p>Directory containing custom templates.</p>
+</td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><code>setup_commands</code></td>
+<td><code>Optional[List[str]]</code></td>
+<td>
+<p>A list of commands as strings to be executed in the subprocess before pytkdocs</p>
+</td>
+<td><code>None</code></td>
 </tr>
 </tbody>
 </table>
@@ -1127,32 +1168,46 @@ get_handler<span class="p">(</span><span class="n">theme</span><span class="p">)
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>233
+<pre><span></span>218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
 234
-235
-236
-237
-238
-239
-240
-241
-242
-243</pre>
+235</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_handler</span><span class="p">(</span><span class="n">theme</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PythonHandler</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">get_handler</span><span class="p">(</span>
+    <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">custom_templates</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">setup_commands</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PythonHandler</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Simply return an instance of `PythonHandler`.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        theme: The theme to use when rendering contents.</span>
+<span class="sd">        custom_templates: Directory containing custom templates.</span>
+<span class="sd">        setup_commands: A list of commands as strings to be executed in the subprocess before pytkdocs</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        An instance of `PythonHandler`.</span>
 <span class="sd">    """</span>
-    <span class="k">return</span> <span class="n">PythonHandler</span><span class="p">(</span><span class="n">collector</span><span class="o">=</span><span class="n">PythonCollector</span><span class="p">(),</span> <span class="n">renderer</span><span class="o">=</span><span class="n">PythonRenderer</span><span class="p">(</span><span class="s2">"python"</span><span class="p">,</span> <span class="n">theme</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">PythonHandler</span><span class="p">(</span>
+        <span class="n">collector</span><span class="o">=</span><span class="n">PythonCollector</span><span class="p">(</span><span class="n">setup_commands</span><span class="o">=</span><span class="n">setup_commands</span><span class="p">),</span>
+        <span class="n">renderer</span><span class="o">=</span><span class="n">PythonRenderer</span><span class="p">(</span><span class="s2">"python"</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="p">),</span>
+    <span class="p">)</span>
 </code></pre>
 </div>
 </td>
@@ -1201,7 +1256,15 @@ and <code>modules</code>. It replaces the values in category lists with only the
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>246
+<pre><span></span>238
+239
+240
+241
+242
+243
+244
+245
+246
 247
 248
 249
@@ -1216,15 +1279,7 @@ and <code>modules</code>. It replaces the values in category lists with only the
 258
 259
 260
-261
-262
-263
-264
-265
-266
-267
-268
-269</pre>
+261</pre>
 </div>
 </td>
 <td class="code">
@@ -1312,14 +1367,14 @@ and <code>modules</code>. It replaces the values in category lists with only the
 </div>
 </footer>
 </div>
-<script src="../../../assets/javascripts/vendor.f45d2d8d.min.js"></script>
-<script src="../../../assets/javascripts/bundle.74d0b805.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../../../assets/javascripts/vendor.c51dfa35.min.js"></script>
+<script src="../../../assets/javascripts/bundle.eaaa3931.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "../../..",
           features: [],
           search: Object.assign({
-            worker: "../../../assets/javascripts/worker/search.7f7c8775.min.js"
+            worker: "../../../assets/javascripts/worker/search.58d22e8e.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
