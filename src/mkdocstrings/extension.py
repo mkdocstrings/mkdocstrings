@@ -147,7 +147,7 @@ class AutoDocProcessor(BlockProcessor):
                 data: Any = handler.collector.collect(identifier, selection)
             except CollectionError:
                 log.error(f"mkdocstrings.extension: Could not collect '{identifier}'")
-                return
+                raise
 
             log.debug("mkdocstrings.extension: Updating renderer's env")
             handler.renderer.update_env(self.md, self._config)
@@ -161,7 +161,7 @@ class AutoDocProcessor(BlockProcessor):
                     f"mkdocstrings.extension: Template '{error.name}' not found "
                     f"for '{handler_name}' handler and theme '{theme_name}'."
                 )
-                return
+                raise
 
             log.debug("mkdocstrings.extension: Loading HTML back into XML tree")
             try:
@@ -182,7 +182,7 @@ class AutoDocProcessor(BlockProcessor):
                         f"or replace them with &lt; and &gt;"
                     )
                 log.error(message)
-                return
+                raise
 
             as_xml = atomic_brute_cast(as_xml)  # type: ignore
             parent.append(as_xml)

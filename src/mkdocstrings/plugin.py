@@ -142,6 +142,7 @@ class MkdocstringsPlugin(BasePlugin):
         """
         if not config["site_url"]:
             log.error("mkdocstrings.plugin: configuration item 'site_url' is required for cross-references")
+            raise ValueError("site_url is required")
 
         log.debug("mkdocstrings.plugin: Adding extension to the list")
 
@@ -165,15 +166,9 @@ class MkdocstringsPlugin(BasePlugin):
         `[identifier][]`.
         """
         log.debug(f"mkdocstrings.plugin: Mapping identifiers to URLs for page {page.file.src_path}")
-        try:
-            for item in page.toc.items:
-                self.map_urls(page.canonical_url, item)
-            return html
-        except TypeError:
-            # page.canonical_url is None, fail silently.
-            # An error already has been logged in the on_config hook,
-            # and warnings will be logged later, in the on_post_page hook.
-            pass
+        for item in page.toc.items:
+            self.map_urls(page.canonical_url, item)
+        return html
 
     def map_urls(self, base_url: str, anchor: AnchorLink) -> None:
         """
