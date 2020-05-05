@@ -7,6 +7,7 @@ The handler collects data with [`pytkdocs`](https://github.com/pawamoy/pytkdocs)
 import json
 import logging
 import os
+import sys
 from subprocess import PIPE, Popen  # noqa: S404 (what other option, more secure that PIPE do we have? sockets?)
 from typing import Any, List, Optional
 
@@ -131,7 +132,13 @@ class PythonCollector(BaseCollector):
 
         env["PYTHONUNBUFFERED"] = "1"
         self.process = Popen(  # noqa: S603,S607 (we trust the input, and we don't want to use the absolute path)
-            ["python", "-c", cmd], universal_newlines=True, stderr=PIPE, stdout=PIPE, stdin=PIPE, bufsize=-1, env=env,
+            [sys.executable, "-c", cmd],
+            universal_newlines=True,
+            stderr=PIPE,
+            stdout=PIPE,
+            stdin=PIPE,
+            bufsize=-1,
+            env=env,
         )
 
     def collect(self, identifier: str, config: dict) -> Any:
