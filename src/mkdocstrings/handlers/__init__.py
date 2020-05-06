@@ -120,7 +120,7 @@ class BaseRenderer:
         if self.FALLBACK_THEME != "":
             paths.append(themes_dir / self.FALLBACK_THEME)
 
-        self.env = Environment(autoescape=True, loader=FileSystemLoader(paths))
+        self.env = Environment(autoescape=True, loader=FileSystemLoader(paths))  # type: ignore
         self.env.filters["highlight"] = do_highlight
         self.env.filters["any"] = do_any
 
