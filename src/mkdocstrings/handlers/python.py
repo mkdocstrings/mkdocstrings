@@ -126,19 +126,27 @@ class PythonCollector(BaseCollector):
         """
         log.debug("mkdocstrings.handlers.python: Opening 'pytkdocs' subprocess")
         env = os.environ.copy()
-
-        python_str = "; ".join(setup_commands) + "; " if setup_commands else ""
-        cmd = python_str + "from pytkdocs.cli import main; main(['--line-by-line'])"
-
         env["PYTHONUNBUFFERED"] = "1"
+
+        if setup_commands:
+            # prevent the Python interpreter or the setup commands
+            # from writing to stdout as it would break pytkdocs output
+            commands = [
+                "import sys",
+                "from io import StringIO",
+                "from pytkdocs.cli import main as pytkdocs",
+                "sys.stdout = StringIO()",  # redirect stdout to memory buffer
+                *setup_commands,
+                "sys.stdout.flush()",
+                "sys.stdout = sys.__stdout__",  # restore stdout
+                "pytkdocs(['--line-by-line'])",
+            ]
+            cmd = [sys.executable, "-c", "; ".join(commands)]
+        else:
+            cmd = ["pytkdocs", "--line-by-line"]
+
         self.process = Popen(  # noqa: S603,S607 (we trust the input, and we don't want to use the absolute path)
-            [sys.executable, "-c", cmd],
-            universal_newlines=True,
-            stderr=PIPE,
-            stdout=PIPE,
-            stdin=PIPE,
-            bufsize=-1,
-            env=env,
+            cmd, universal_newlines=True, stderr=PIPE, stdout=PIPE, stdin=PIPE, bufsize=-1, env=env,
         )
 
     def collect(self, identifier: str, config: dict) -> Any:
