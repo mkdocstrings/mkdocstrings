@@ -1,7 +1,5 @@
-<!--
-IMPORTANT:
-  This file is generated from the template at 'scripts/templates/CREDITS.md'.
-  Please update the template instead of this file.
+<!-- Template repository: https://github.com/pawamoy/jinja-templates
+     Template path: credits.md
 -->
 
 # Credits
@@ -9,7 +7,7 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 
 [`python`](https://www.python.org/) |
 [`poetry`](https://poetry.eustace.io/) |
-[`cookie-poetry`](https://github.com/pawamoy/cookie-poetry)
+[`copier-poetry`](https://github.com/pawamoy/copier-poetry)
 
 ### Direct dependencies
 [`bandit`](https://bandit.readthedocs.io/en/latest/) |
@@ -24,7 +22,6 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`flake8-comprehensions`](https://github.com/adamchainz/flake8-comprehensions) |
 [`flake8-docstrings`](https://gitlab.com/pycqa/flake8-docstrings) |
 [`flake8-isort`](https://github.com/gforcada/flake8-isort) |
-[`flake8-markdown`](https://github.com/johnfraney/flake8-markdown) |
 [`flake8-tidy-imports`](https://github.com/adamchainz/flake8-tidy-imports) |
 [`flake8-variables-names`](https://github.com/best-doctor/flake8-variables-names) |
 [`git-changelog`](https://github.com/pawamoy/git-changelog) |

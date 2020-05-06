@@ -29,7 +29,7 @@ pytkdocs = ">=0.2.0, <0.4.0"
 bandit = "^1.5"
 black = "^19.10b0"
 coverage = "^5.0.4"
-failprint = "^0.2.0"
+failprint = "^0.3.0"
 flake8 = "^3.6"
 flake8-bandit = "^2.1.2"
 flake8-black = "^0.1.1"
@@ -39,7 +39,7 @@ flake8-docstrings = "^1.5.0"
 flake8-isort = "^3.0.0"
 flake8-tidy-imports = "^4.1.0"
 flake8-variables-names = "^0.0.3"
-git-changelog = "^0.2.0"
+git-changelog = { git = "https://github.com/pawamoy/git-changelog.git" }
 ipython = "^7.2"
 isort = { version = "^4.3", extras = ["pyproject"] }
 jinja2-cli = "^0.7.0"
@@ -67,18 +67,3 @@ balanced_wrapping = true
 default_section = "THIRDPARTY"
 known_first_party = "mkdocstrings"
 include_trailing_comma = true
-
-[tool.pylint.options]
-disable = """
-  bad-continuation,
-  too-many-lines,
-  too-many-public-methods,
-  too-many-locals,
-  too-many-statements,
-  too-many-arguments,
-  too-many-instance-attributes,
-  too-many-branches,
-  too-few-public-methods,
-  duplicate-code
-"""
-max-line-length = "120"

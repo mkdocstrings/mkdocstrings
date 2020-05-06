@@ -1,76 +1,55 @@
 # Contributing
 
 Contributions are welcome, and they are greatly appreciated!
-
 Every little bit helps, and credit will always be given.
 
-For bug reports, feature requests, and feedback,
-simply create a new [issue][1].
-Try to be as descriptive as possible.
+## Environment setup
 
-## Setup
+Nothing easier!
 
-This project is developed using [`poetry`](https://github.com/sdispater/poetry).
-Follow the recommended installation method:
+Fork and clone the repository, then:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+cd mkdocstrings
+make setup
 ```
 
-...or install it with [`pipx`](https://github.com/pipxproject/pipx):
+That's it!
 
-```
-pipx install poetry
-```
+You now have the dependencies installed.
 
-Then follow these instructions:
+Run `make help` to see all the available actions!
 
-1. Fork the repository [on github.com][2];
-1. Clone it on your machine;
-1. Go into the directory, and run `poetry install` to install all the dependencies into a new virtualenv.
+## Development
 
-## New feature or bug fix
+As usual:
 
-1. Create a new branch with `git checkout -b bug-fix-or-feature-name`;
-1. Code!
-1. **Format the code with `make lint`.**
-1. **Run the quality checks with `make check`.**
-1. **Write tests. Run them all with `make test`.**
+1. create a new branch: `git checkout -b feature-or-bugfix-name`
+1. edit the code and/or the documentation
 
-## Running tests
+If you updated the documentation or the project dependencies:
 
-The command to run the tests is:
+1. run `make docs-regen`
+1. run `make docs-serve`,
+   go to http://localhost:8000 and check that everything looks good
 
-```
-make test
-```
+**Before committing:**
 
-*Type `make` to see all the available rules.*
+1. run `make format` to auto-format the code
+1. run `make check` to check everything (fix any warning)
+1. run `make test` to run the tests (fix any issue)
+1. follow our [commit message convention](#commit-message-convention)
 
-For more flexibility:
+If you are unsure about how to fix or ignore a warning,
+just let the continuous integration fail,
+and we will help you during review.
 
-```bash
-poetry run pytest  # to run all tests sequentially
-poetry run pytest -v  # to print one test per line
-poetry run pytest -n 4  # to run tests in parallel (4 workers)
-poetry run pytest tests/test_api.py  # to run tests in a specific file
-```
+Don't bother updating the changelog, we will take care of this.
 
-`pytest` provides the `-k` option to select tests based on their names:
+## Commit message convention
 
-```bash
-poetry run pytest -k "api and remove"
-poetry run pytest -k "utils or stats"
-```
-
-See the [documentation for the `-k` option][3] for more examples.
-
-## Commits messages
-
-Make sure to have atomic commits and contextual commit messages!
-[Check out this blog post by Chris Beams for more information][4].
-
-Commits messages must follow the [Angular style](https://gist.github.com/stephenparish/9941e89d80e2bc58a153#format-of-the-commit-message):
+Commits messages must follow the
+[Angular style](https://gist.github.com/stephenparish/9941e89d80e2bc58a153#format-of-the-commit-message):
 
 ```
 <type>[(scope)]: Subject
@@ -88,11 +67,11 @@ Scope and body are optional. Type can be:
 - `fix`: Bug fix.
 - `perf`: About performance.
 - `refactor`: Changes which are not features nor bug fixes.
-- `revert`: When reverting a commit.
 - `style`: A change in code style/format.
 - `tests`: About tests.
 
-Subject (and body) must be valid Markdown. If you write a body, please add issues references at the end:
+**Subject (and body) must be valid Markdown.**
+If you write a body, please add issues references at the end:
 
 ```
 Body.
@@ -101,13 +80,28 @@ References: #10, #11.
 Fixes #15.
 ```
 
-## Pull Requests
+## Pull requests guidelines
 
-Push your code, and finally create a new [pull request][5].
-Make sure to follow the guidelines.
+Link to any related issue in the Pull Request message.
 
-[1]: https://github.com/pawamoy/mkdocstrings/issues/new
-[2]: https://github.com/pawamoy/mkdocstrings
-[3]: https://docs.pytest.org/en/latest/example/markers.html#using-k-expr-to-select-tests-based-on-their-name
-[4]: http://chris.beams.io/posts/git-commit/
-[5]: https://github.com/pawamoy/mkdocstrings/compare
+During review, we recommend using fixups:
+
+```bash
+# SHA is the SHA of the commit you want to fix
+git commit --fixup=SHA
+```
+
+Once all the changes are approved, you can squash your commits:
+
+```bash
+git rebase -i --autosquash master
+```
+
+And force-push:
+
+```bash
+git push -f
+```
+
+If this seems all too complicated, you can push or force-push each new commit,
+and we will squash them ourselves if needed, before merging.

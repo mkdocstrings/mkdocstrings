@@ -1,31 +1,31 @@
-site_name: mkdocstrings
-site_description: Automatic documentation from sources, for MkDocs.
-site_url: https://pawamoy.github.io/mkdocstrings
-repo_url: https://github.com/pawamoy/mkdocstrings
-repo_name: pawamoy/mkdocstrings
+site_name: "mkdocstrings"
+site_description: "Automatic documentation from sources, for MkDocs."
+site_url: "https://pawamoy.github.io/mkdocstrings"
+repo_url: "https://github.com/pawamoy/mkdocstrings"
+repo_name: "pawamoy/mkdocstrings"
 
 nav:
-  - Overview: "index.md"
+  - Overview: index.md
   - Handlers:
-    - Overview: "handlers/overview.md"
-    - Python: "handlers/python.md"
+    - Overview: handlers/overview.md
+    - Python: handlers/python.md
   - Reference:
     - handlers:
-      - __init__.py: "reference/handlers/__init__.md"
-      - python.py: "reference/handlers/python.md"
-    - extension.py: "reference/extension.md"
-    - plugin.py: "reference/plugin.md"
-  - Troubleshooting: "troubleshooting.md"
-  - Contributing: "contributing.md"
-  - Code of Conduct: "code_of_conduct.md"
-  - Changelog: "changelog.md"
-  - Credits: "credits.md"
+      - __init__.py: reference/handlers/__init__.md
+      - python.py: reference/handlers/python.md
+    - extension.py: reference/extension.md
+    - plugin.py: reference/plugin.md
+  - Troubleshooting: troubleshooting.md
+  - Contributing: contributing.md
+  - Code of Conduct: code_of_conduct.md
+  - Changelog: changelog.md
+  - Credits: credits.md
 
 theme:
-  name: "material"
+  name: material
 
 extra_css:
-  - custom.css
+  - css/mkdocstrings.css
 
 markdown_extensions:
   - admonition
@@ -34,7 +34,7 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.emoji
   - toc:
-      permalink: true
+      permalink: "¤"
 
 plugins:
   - search

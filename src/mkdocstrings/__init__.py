@@ -12,6 +12,8 @@ that mkdocstrings can now implement "handlers" for any given language, as long a
 a tool able to collect documentation in source files for that language.
 """
 
+from typing import List
+
 from mkdocstrings.plugin import MkdocstringsPlugin
 
-__all__ = ["MkdocstringsPlugin"]
+__all__: List[str] = ["MkdocstringsPlugin"]

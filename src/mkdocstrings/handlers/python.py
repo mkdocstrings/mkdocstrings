@@ -55,7 +55,7 @@ class PythonRenderer(BaseRenderer):
     **`show_source`** | `bool` | Show the source code of this object. | `True`
     **`group_by_category`** | `bool` | Group the object's children by categories: attributes, classes, functions, methods, and modules. | `True`
     **`heading_level`** | `int` | The initial heading level to use. | `2`
-    """
+    """  # noqa: E501
 
     def render(self, data: Any, config: dict) -> str:  # noqa: D102 (ignore missing docstring)
         final_config = dict(self.DEFAULT_CONFIG)
