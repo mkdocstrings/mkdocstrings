@@ -73,10 +73,12 @@ and the following GIF:
 ![mkdocstrings_gif2](https://user-images.githubusercontent.com/3999221/77157838-7184db80-6aa2-11ea-9f9a-fe77405202de.gif)
 
 ## Roadmap
-- [x] **January-March 2020:** Big refactor.
-- [ ] **March-April 2020:** Write. Tests. Because. It's important.
-  Gather feedback about Python handler configuration options.
-  Work the backlog.
+- [x] **December-January 2020:** Proof of Concept.
+- [x] **January-March 2020:** Refactor.
+- [x] **March-April 2020:** Test suite for [`pytkdocs`](https://github.com/pawamoy/pytkdocs).
+  Bug fixes and improvements.
+- [ ] **May-June 2020:** Test suite for `mkdocstrings`. Bug fixes and improvements.
+  Maybe a second handler? Just for the fun.
 
 ## Requirements
 `mkdocstrings` requires Python 3.6 or above.
