@@ -103,12 +103,12 @@ pyenv global system 3.6.8
 ```
 </details>
 
-!!! note
-    This project currently only works with the Material theme of MkDocs. Therefore, it is required that you have it installed.
+
+This project currently only works with the Material theme of MkDocs. Therefore, it is required that you have it installed.
     
-    ```
-    pip install mkdocs-material
-    ```
+```
+pip install mkdocs-material
+```
 
 ## Installation
 With `pip`:
