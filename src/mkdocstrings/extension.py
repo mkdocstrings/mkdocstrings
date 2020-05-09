@@ -38,7 +38,7 @@ from mkdocs.utils import warning_filter
 
 from mkdocstrings.handlers import CollectionError, get_handler
 
-log = logging.getLogger(__name__)
+log = logging.getLogger(f"mkdocs.plugins.{__name__}")
 log.addFilter(warning_filter)
 
 

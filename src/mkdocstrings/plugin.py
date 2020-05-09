@@ -33,6 +33,7 @@ from bs4.element import NavigableString
 from livereload import Server
 from mkdocs.config import Config
 from mkdocs.config.config_options import Type as MkType
+from mkdocs.exceptions import ConfigurationError
 from mkdocs.plugins import BasePlugin
 from mkdocs.structure.files import Files
 from mkdocs.structure.pages import Page
@@ -42,7 +43,7 @@ from mkdocs.utils import warning_filter
 from mkdocstrings.extension import MkdocstringsExtension
 from mkdocstrings.handlers import teardown
 
-log = logging.getLogger(__name__)
+log = logging.getLogger(f"mkdocs.plugins.{__name__}")
 log.addFilter(warning_filter)
 
 SELECTION_OPTS_KEY: str = "selection"
@@ -144,8 +145,9 @@ class MkdocstringsPlugin(BasePlugin):
         later when processing markdown to get handlers and their global configurations).
         """
         if not config["site_url"]:
-            log.error("mkdocstrings.plugin: configuration item 'site_url' is required for cross-references")
-            raise ValueError("site_url is required")
+            raise ConfigurationError(
+                "mkdocstrings.plugin: configuration item 'site_url' is required for cross-references"
+            )
 
         log.debug("mkdocstrings.plugin: Adding extension to the list")
 

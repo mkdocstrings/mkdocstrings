@@ -16,7 +16,7 @@ from mkdocs.utils import warning_filter
 
 from mkdocstrings.handlers import BaseCollector, BaseHandler, BaseRenderer, CollectionError
 
-log = logging.getLogger(__name__)
+log = logging.getLogger(f"mkdocs.plugins.{__name__}")
 log.addFilter(warning_filter)
 
 
