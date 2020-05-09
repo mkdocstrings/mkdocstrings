@@ -96,9 +96,9 @@ class MkdocstringsPlugin(BasePlugin):
           handlers:
             python:
               selection:
-                 selection_opt: true
+                selection_opt: true
               rendering:
-                 rendering_opt: "value"
+                rendering_opt: "value"
               setup_commands:
                 - "import os"
                 - "import django"
@@ -337,7 +337,7 @@ class Placeholder:
         """Reset the seed in `self.seed` with a random string."""
         self.seed = "".join(random.choices(string.ascii_letters + string.digits, k=16))
 
-    def replace_code_tags(self, soup: str) -> None:
+    def replace_code_tags(self, soup: BeautifulSoup) -> None:
         """
         Recursively replace code nodes with navigable strings whose values are unique IDs.
 

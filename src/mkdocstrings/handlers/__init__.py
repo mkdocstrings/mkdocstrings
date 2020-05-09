@@ -213,7 +213,7 @@ def get_handler(name: str, theme: str, custom_templates: Optional[str] = None, *
     """
     Get a handler thanks to its name.
 
-    This function dynamically import a module named "mkdocstrings.handlers.NAME", calls its
+    This function dynamically imports a module named "mkdocstrings.handlers.NAME", calls its
     `get_handler` method to get an instance of a handler, and caches it in dictionary.
     It means that during one run (for each reload when serving, or once when building),
     a handler is instantiated only once, and reused for each "autodoc" instruction asking for it.
@@ -222,7 +222,7 @@ def get_handler(name: str, theme: str, custom_templates: Optional[str] = None, *
         name: The name of the handler. Really, it's the name of the Python module holding it.
         theme: The name of the theme to use.
         custom_templates: Directory containing custom templates.
-        config: Configuration for the handler
+        config: Configuration passed to the handler.
 
     Returns:
         An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.BaseHandler],

@@ -111,7 +111,7 @@ class PythonCollector(BaseCollector):
     Obviously one could use a single filter instead: `"!^_[^_]"`, which is the default.
     """
 
-    def __init__(self, setup_commands: Optional[List[str]]) -> None:
+    def __init__(self, setup_commands: Optional[List[str]] = None) -> None:
         """
         Initialization method.
 
@@ -121,7 +121,7 @@ class PythonCollector(BaseCollector):
         too resource intensive, and would slow down `mkdocstrings` a lot.
 
         Arguments:
-            setup_commands: A list of python commands as strings to be executed in the subprocess before pytkdocs
+            setup_commands: A list of python commands as strings to be executed in the subprocess before `pytkdocs`.
 
         """
         log.debug("mkdocstrings.handlers.python: Opening 'pytkdocs' subprocess")
@@ -221,7 +221,7 @@ class PythonCollector(BaseCollector):
         return result
 
     def teardown(self) -> None:
-        """Terminate the opened subprocess, set it to None."""
+        """Terminate the opened subprocess, set it to `None`."""
         log.debug("mkdocstrings.handlers.python: Tearing process down")
         self.process.terminate()
 
@@ -239,7 +239,7 @@ def get_handler(
     Arguments:
         theme: The theme to use when rendering contents.
         custom_templates: Directory containing custom templates.
-        setup_commands: A list of commands as strings to be executed in the subprocess before pytkdocs
+        setup_commands: A list of commands as strings to be executed in the subprocess before `pytkdocs`.
 
     Returns:
         An instance of `PythonHandler`.
