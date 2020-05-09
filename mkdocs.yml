@@ -20,6 +20,7 @@ nav:
   - Code of Conduct: code_of_conduct.md
   - Changelog: changelog.md
   - Credits: credits.md
+  - License: license.md
 
 theme:
   name: material
@@ -32,6 +33,7 @@ markdown_extensions:
   - codehilite:
       guess_lang: false
   - pymdownx.superfences
+  - pymdownx.tasklist
   - pymdownx.emoji
   - toc:
       permalink: "¤"
