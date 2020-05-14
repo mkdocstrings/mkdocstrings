@@ -8,13 +8,13 @@
 <meta content="Automatic documentation from sources, for MkDocs." name="description"/>
 <link href="https://pawamoy.github.io/mkdocstrings/changelog/" rel="canonical"/>
 <link href="../assets/images/favicon.png" rel="shortcut icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-5.1.1" name="generator"/>
+<meta content="mkdocs-1.1, mkdocs-material-5.1.6" name="generator"/>
 <title>Changelog - mkdocstrings</title>
-<link href="../assets/stylesheets/main.a676eddb.min.css" rel="stylesheet"/>
+<link href="../assets/stylesheets/main.4b9ffd7b.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
 <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
-<link href="../custom.css" rel="stylesheet"/>
+<link href="../css/mkdocstrings.css" rel="stylesheet"/>
 </head>
 <body dir="ltr">
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
@@ -30,10 +30,10 @@
 <header class="md-header" data-md-component="header">
 <nav aria-label="Header" class="md-header-nav md-grid">
 <a aria-label="mkdocstrings" class="md-header-nav__button md-logo" href="https://pawamoy.github.io/mkdocstrings" title="mkdocstrings">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
 </a>
 <label class="md-header-nav__button md-icon" for="__drawer">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
 </label>
 <div class="md-header-nav__title" data-md-component="header-title">
 <div class="md-header-nav__ellipsis">
@@ -48,7 +48,7 @@
 </div>
 </div>
 <label class="md-header-nav__button md-icon" for="__search">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
 </label>
 <div class="md-search" data-md-component="search" role="dialog">
 <label class="md-search__overlay" for="__search"></label>
@@ -56,18 +56,18 @@
 <form class="md-search__form" name="search">
 <input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" data-md-state="active" name="query" placeholder="Search" spellcheck="false" type="text"/>
 <label class="md-search__icon md-icon" for="__search">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"></path></svg>
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </label>
 <button aria-label="Clear" class="md-search__icon md-icon" data-md-component="search-reset" tabindex="-1" type="reset">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
 </button>
 </form>
 <div class="md-search__output">
 <div class="md-search__scrollwrap" data-md-scrollfix="">
 <div class="md-search-result" data-md-component="search-result">
 <div class="md-search-result__meta">
-            Type to start searching
+            Initializing search
           </div>
 <ol class="md-search-result__list"></ol>
 </div>
@@ -78,7 +78,7 @@
 <div class="md-header-nav__source">
 <a class="md-source" href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository">
 <div class="md-source__icon md-icon">
-<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
 </div>
 <div class="md-source__repository">
     pawamoy/mkdocstrings
@@ -96,14 +96,14 @@
 <nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
 <label class="md-nav__title" for="__drawer">
 <a aria-label="mkdocstrings" class="md-nav__button md-logo" href="https://pawamoy.github.io/mkdocstrings" title="mkdocstrings">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
 </a>
     mkdocstrings
   </label>
 <div class="md-nav__source">
 <a class="md-source" href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository">
 <div class="md-source__icon md-icon">
-<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
 </div>
 <div class="md-source__repository">
     pawamoy/mkdocstrings
@@ -121,13 +121,13 @@
 <label class="md-nav__link" for="nav-2">
       Handlers
       <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
 </span>
 </label>
 <nav aria-label="Handlers" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="nav-2">
 <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </span>
         Handlers
       </label>
@@ -150,13 +150,13 @@
 <label class="md-nav__link" for="nav-3">
       Reference
       <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
 </span>
 </label>
 <nav aria-label="Reference" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="nav-3">
 <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </span>
         Reference
       </label>
@@ -166,13 +166,13 @@
 <label class="md-nav__link" for="nav-3-1">
       handlers
       <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
 </span>
 </label>
 <nav aria-label="handlers" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="nav-3-1">
 <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </span>
         handlers
       </label>
@@ -223,7 +223,7 @@
 <label class="md-nav__link md-nav__link--active" for="__toc">
         Changelog
         <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"></path></svg>
 </span>
 </label>
 <a class="md-nav__link md-nav__link--active" href="./" title="Changelog">
@@ -232,11 +232,25 @@
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">
 <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </span>
       Table of contents
     </label>
 <ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#v0111-2020-05-14">
+    v0.11.1 - 2020-05-14
+  </a>
+<nav aria-label="v0.11.1 - 2020-05-14" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#bug-fixes">
+    Bug Fixes
+  </a>
+</li>
+</ul>
+</nav>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#v0110-2020-04-23">
     v0.11.0 - 2020-04-23
@@ -244,7 +258,7 @@
 <nav aria-label="v0.11.0 - 2020-04-23" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes">
+<a class="md-nav__link" href="#bug-fixes_1">
     Bug Fixes
   </a>
 </li>
@@ -263,7 +277,7 @@
 <nav aria-label="v0.10.3 - 2020-04-10" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_1">
+<a class="md-nav__link" href="#bug-fixes_2">
     Bug Fixes
   </a>
 </li>
@@ -296,7 +310,7 @@
 <nav aria-label="v0.10.1 - 2020-04-03" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_2">
+<a class="md-nav__link" href="#bug-fixes_3">
     Bug Fixes
   </a>
 </li>
@@ -324,7 +338,7 @@
 <nav aria-label="v0.9.1 - 2020-03-21" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_3">
+<a class="md-nav__link" href="#bug-fixes_4">
     Bug fixes
   </a>
 </li>
@@ -343,7 +357,7 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_4">
+<a class="md-nav__link" href="#bug-fixes_5">
     Bug fixes
   </a>
 </li>
@@ -371,7 +385,7 @@
 <nav aria-label="v0.7.2 - 2020-03-04" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_5">
+<a class="md-nav__link" href="#bug-fixes_6">
     Bug Fixes
   </a>
 </li>
@@ -385,7 +399,7 @@
 <nav aria-label="v0.7.1 - 2020-02-18" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_6">
+<a class="md-nav__link" href="#bug-fixes_7">
     Bug Fixes
   </a>
 </li>
@@ -399,7 +413,7 @@
 <nav aria-label="v0.7.0 - 2020-01-13" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_7">
+<a class="md-nav__link" href="#bug-fixes_8">
     Bug Fixes
   </a>
 </li>
@@ -423,7 +437,7 @@
 <nav aria-label="v0.6.1 - 2020-01-02" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_8">
+<a class="md-nav__link" href="#bug-fixes_9">
     Bug Fixes
   </a>
 </li>
@@ -442,7 +456,7 @@
 <nav aria-label="v0.6.0 - 2019-12-28" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_9">
+<a class="md-nav__link" href="#bug-fixes_10">
     Bug Fixes
   </a>
 </li>
@@ -532,6 +546,11 @@
       Credits
     </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../license/" title="License">
+      License
+    </a>
+</li>
 </ul>
 </nav>
 </div>
@@ -543,11 +562,25 @@
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">
 <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </span>
       Table of contents
     </label>
 <ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#v0111-2020-05-14">
+    v0.11.1 - 2020-05-14
+  </a>
+<nav aria-label="v0.11.1 - 2020-05-14" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#bug-fixes">
+    Bug Fixes
+  </a>
+</li>
+</ul>
+</nav>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#v0110-2020-04-23">
     v0.11.0 - 2020-04-23
@@ -555,7 +588,7 @@
 <nav aria-label="v0.11.0 - 2020-04-23" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes">
+<a class="md-nav__link" href="#bug-fixes_1">
     Bug Fixes
   </a>
 </li>
@@ -574,7 +607,7 @@
 <nav aria-label="v0.10.3 - 2020-04-10" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_1">
+<a class="md-nav__link" href="#bug-fixes_2">
     Bug Fixes
   </a>
 </li>
@@ -607,7 +640,7 @@
 <nav aria-label="v0.10.1 - 2020-04-03" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_2">
+<a class="md-nav__link" href="#bug-fixes_3">
     Bug Fixes
   </a>
 </li>
@@ -635,7 +668,7 @@
 <nav aria-label="v0.9.1 - 2020-03-21" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_3">
+<a class="md-nav__link" href="#bug-fixes_4">
     Bug fixes
   </a>
 </li>
@@ -654,7 +687,7 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_4">
+<a class="md-nav__link" href="#bug-fixes_5">
     Bug fixes
   </a>
 </li>
@@ -682,7 +715,7 @@
 <nav aria-label="v0.7.2 - 2020-03-04" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_5">
+<a class="md-nav__link" href="#bug-fixes_6">
     Bug Fixes
   </a>
 </li>
@@ -696,7 +729,7 @@
 <nav aria-label="v0.7.1 - 2020-02-18" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_6">
+<a class="md-nav__link" href="#bug-fixes_7">
     Bug Fixes
   </a>
 </li>
@@ -710,7 +743,7 @@
 <nav aria-label="v0.7.0 - 2020-01-13" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_7">
+<a class="md-nav__link" href="#bug-fixes_8">
     Bug Fixes
   </a>
 </li>
@@ -734,7 +767,7 @@
 <nav aria-label="v0.6.1 - 2020-01-02" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_8">
+<a class="md-nav__link" href="#bug-fixes_9">
     Bug Fixes
   </a>
 </li>
@@ -753,7 +786,7 @@
 <nav aria-label="v0.6.0 - 2019-12-28" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#bug-fixes_9">
+<a class="md-nav__link" href="#bug-fixes_10">
     Bug Fixes
   </a>
 </li>
@@ -843,31 +876,40 @@
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <a class="md-content__button md-icon" href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/changelog.md" title="Edit this page">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">¶</a></h1>
+<h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">¤</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
 <p>The format is based on <a href="http://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>
 and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
-<h2 id="v0110-2020-04-23"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.11.0">v0.11.0</a> - 2020-04-23<a class="headerlink" href="#v0110-2020-04-23" title="Permanent link">¶</a></h2>
+<!-- insertion marker -->
+<h2 id="v0111-2020-05-14"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.11.1">v0.11.1</a> - 2020-05-14<a class="headerlink" href="#v0111-2020-05-14" title="Permanent link">¤</a></h2>
+<p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.11.0...v0.11.1">Compare with v0.11.0</a></small></p>
+<h3 id="bug-fixes">Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">¤</a></h3>
+<ul>
+<li>Fix integration with mkdocs logging <em>une bonne fois pour toute</em> (<a href="https://github.com/pawamoy/mkdocstrings/commit/3293cbf161f05d36de6c1d50b5de9742bf99066e">3293cbf</a> by Timothée Mazzucotelli).</li>
+<li>Discard setup commands stdout (<a href="https://github.com/pawamoy/mkdocstrings/commit/ea44cea33159ed3a6b0b34b4cd52a17a40bd6460">ea44cea</a> by Timothée Mazzucotelli). References: <a href="https://github.com/pawamoy/mkdocstrings/issues/91">#91</a></li>
+<li>Use the proper python executable to start subprocesses (<a href="https://github.com/pawamoy/mkdocstrings/commit/9fe3b3915bd8f15011f8f3632a227d1eb56603fd">9fe3b39</a> by Reece Dunham). References: <a href="https://github.com/pawamoy/mkdocstrings/issues/91">#91</a>, <a href="https://github.com/pawamoy/mkdocstrings/issues/103">#103</a></li>
+</ul>
+<h2 id="v0110-2020-04-23"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.11.0">v0.11.0</a> - 2020-04-23<a class="headerlink" href="#v0110-2020-04-23" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.10.3...v0.11.0">Compare with v0.10.3</a></small></p>
-<h3 id="bug-fixes">Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">¶</a></h3>
+<h3 id="bug-fixes_1">Bug Fixes<a class="headerlink" href="#bug-fixes_1" title="Permanent link">¤</a></h3>
 <ul>
 <li>Properly raise on errors (respect strict mode) (<a href="https://github.com/pawamoy/mkdocstrings/commit/20972082a94b64bec02c77d6a80384d8042f60ea">2097208</a> by Timothée Mazzucotelli). Related issues/PRs: <a href="https://github.com/pawamoy/mkdocstrings/issues/86">#86</a></li>
 <li>Hook properly to MkDocs logging (<a href="https://github.com/pawamoy/mkdocstrings/commit/b23daed3743bbd2d3f024df34582a317c51a1af0">b23daed</a> by Timothée Mazzucotelli). Related issues/PRs: <a href="https://github.com/pawamoy/mkdocstrings/issues/86">#86</a></li>
 </ul>
-<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">¶</a></h3>
+<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">¤</a></h3>
 <ul>
 <li>Add <code>setup_commands</code> option to python handler (<a href="https://github.com/pawamoy/mkdocstrings/commit/599f8e528f55093b0011b732da959b747c1e02c0">599f8e5</a> by Ross Mechanic). Related issues/PRs: <a href="https://github.com/pawamoy/mkdocstrings/issues/89">#89</a>, <a href="https://github.com/pawamoy/mkdocstrings/issues/90">#90</a></li>
 <li>Add option to allow overriding templates (<a href="https://github.com/pawamoy/mkdocstrings/commit/7360021ab4753706d0f6209ed960050f5d424ad8">7360021</a> by Mikaël Capelle). Related issues/PRs: <a href="https://github.com/pawamoy/mkdocstrings/issues/59">#59</a>, <a href="https://github.com/pawamoy/mkdocstrings/issues/82">#82</a></li>
 </ul>
-<h2 id="v0103-2020-04-10"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.3">v0.10.3</a> - 2020-04-10<a class="headerlink" href="#v0103-2020-04-10" title="Permanent link">¶</a></h2>
+<h2 id="v0103-2020-04-10"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.3">v0.10.3</a> - 2020-04-10<a class="headerlink" href="#v0103-2020-04-10" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.10.2...v0.10.3">Compare with v0.10.2</a></small></p>
-<h3 id="bug-fixes_1">Bug Fixes<a class="headerlink" href="#bug-fixes_1" title="Permanent link">¶</a></h3>
+<h3 id="bug-fixes_2">Bug Fixes<a class="headerlink" href="#bug-fixes_2" title="Permanent link">¤</a></h3>
 <ul>
 <li>Handle <code>site_url</code> not being defined (<a href="https://github.com/pawamoy/mkdocstrings/commit/9fb4a9bbebe2457b389921ba1ee3e1f924c5691b">9fb4a9b</a> by Timothée Mazzucotelli). Related issues/PRs: <a href="https://github.com/pawamoy/mkdocstrings/issues/77">#77</a></li>
 </ul>
-<h3 id="packaging">Packaging<a class="headerlink" href="#packaging" title="Permanent link">¶</a></h3>
+<h3 id="packaging">Packaging<a class="headerlink" href="#packaging" title="Permanent link">¤</a></h3>
 <p>This version increases the accepted range of versions for the <code>pytkdocs</code> dependency to <code>&gt;=0.2.0, &lt;0.4.0</code>.
 The <code>pytkdocs</code> project just released <a href="https://pawamoy.github.io/pytkdocs/changelog/#v030-2020-04-10">version 0.3.0</a>
 which:</p>
@@ -876,42 +918,42 @@ which:</p>
 <li>adds support for different indentations in docstrings sections (tabulations or less/more than 4 spaces)</li>
 <li>fixes docstring parsing for arguments whose names start with <code>*</code>, like <code>*args</code> and <code>**kwargs</code></li>
 </ul>
-<h2 id="v0102-2020-04-07"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.2">v0.10.2</a> - 2020-04-07<a class="headerlink" href="#v0102-2020-04-07" title="Permanent link">¶</a></h2>
+<h2 id="v0102-2020-04-07"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.2">v0.10.2</a> - 2020-04-07<a class="headerlink" href="#v0102-2020-04-07" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.10.1...v0.10.2">Compare with v0.10.1</a></small></p>
-<h3 id="packaging_1">Packaging<a class="headerlink" href="#packaging_1" title="Permanent link">¶</a></h3>
+<h3 id="packaging_1">Packaging<a class="headerlink" href="#packaging_1" title="Permanent link">¤</a></h3>
 <p>This version increases the accepted range of versions for the <code>pymdown-extensions</code> dependency,
 as well as for the <code>mkdocs-material</code> development dependency. Indeed, both these projects recently
 released major versions 7 and 5 respectively. Users who wish to use these new versions will be able to.
 See issue <a href="https://github.com/pawamoy/mkdocstrings/issues/74">#74</a>.</p>
-<h2 id="v0101-2020-04-03"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.1">v0.10.1</a> - 2020-04-03<a class="headerlink" href="#v0101-2020-04-03" title="Permanent link">¶</a></h2>
+<h2 id="v0101-2020-04-03"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.1">v0.10.1</a> - 2020-04-03<a class="headerlink" href="#v0101-2020-04-03" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.10.0...v0.10.1">Compare with v0.10.0</a></small></p>
-<h3 id="bug-fixes_2">Bug Fixes<a class="headerlink" href="#bug-fixes_2" title="Permanent link">¶</a></h3>
+<h3 id="bug-fixes_3">Bug Fixes<a class="headerlink" href="#bug-fixes_3" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix jinja2 error for jinja2 &lt; 2.11 (<a href="https://github.com/pawamoy/mkdocstrings/commit/387f97088ad2b7b25389ae6cf303bae071e90e6c">387f970</a> by Timothée Mazzucotelli). Related issues/PRs: <a href="https://github.com/pawamoy/mkdocstrings/issues/67">#67</a>, <a href="https://github.com/pawamoy/mkdocstrings/issues/72">#72</a></li>
 <li>Fix missing dependency pymdown-extensions (<a href="https://github.com/pawamoy/mkdocstrings/commit/648b99dab9d1af87db474ce7683de50c9bf8996d">648b99d</a> by Timothée Mazzucotelli). Related issues/PRs: <a href="https://github.com/pawamoy/mkdocstrings/issues/66">#66</a></li>
 <li>Fix heading level of hidden toc entries (<a href="https://github.com/pawamoy/mkdocstrings/commit/475cc62b1cf4342b82ca8685166306441e4b83c4">475cc62</a> by Timothée Mazzucotelli). Related issues/PRs: <a href="https://github.com/pawamoy/mkdocstrings/issues/65">#65</a></li>
 <li>Fix rendering signatures containing keyword_only (<a href="https://github.com/pawamoy/mkdocstrings/commit/c6c5addd8be65beaf7055c9d0f512e0de8b3eba4">c6c5add</a> by Timothée Mazzucotelli). Related issues/PRs: <a href="https://github.com/pawamoy/mkdocstrings/issues/68">#68</a></li>
 </ul>
-<h2 id="v0100-2020-03-27"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.0">v0.10.0</a> - 2020-03-27<a class="headerlink" href="#v0100-2020-03-27" title="Permanent link">¶</a></h2>
+<h2 id="v0100-2020-03-27"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.10.0">v0.10.0</a> - 2020-03-27<a class="headerlink" href="#v0100-2020-03-27" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.9.1...v0.10.0">Compare with v0.9.1</a></small></p>
-<h3 id="features_1">Features<a class="headerlink" href="#features_1" title="Permanent link">¶</a></h3>
+<h3 id="features_1">Features<a class="headerlink" href="#features_1" title="Permanent link">¤</a></h3>
 <ul>
 <li>Prepare for new <code>pytkdocs</code> version (<a href="https://github.com/pawamoy/mkdocstrings/commit/336421af95d752671276c2e88c5c173bff4093cc">336421a</a>).
   Add options <code>filters</code> and <code>members</code> to the Python collector to reflect the new <code>pytkdocs</code> options.
   See <a href="https://pawamoy.github.io/mkdocstrings/reference/handlers/python/#mkdocstrings.handlers.python.PythonCollector.DEFAULT_CONFIG">the default configuration of the Python collector</a>.</li>
 </ul>
-<h2 id="v091-2020-03-21"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.9.1">v0.9.1</a> - 2020-03-21<a class="headerlink" href="#v091-2020-03-21" title="Permanent link">¶</a></h2>
+<h2 id="v091-2020-03-21"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.9.1">v0.9.1</a> - 2020-03-21<a class="headerlink" href="#v091-2020-03-21" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.9.0...v0.9.1">Compare with v0.9.0</a></small></p>
-<h3 id="bug-fixes_3">Bug fixes<a class="headerlink" href="#bug-fixes_3" title="Permanent link">¶</a></h3>
+<h3 id="bug-fixes_4">Bug fixes<a class="headerlink" href="#bug-fixes_4" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix cross-references when deploying to GitHub pages (<a href="https://github.com/pawamoy/mkdocstrings/commit/36f804beab01531c0331ed89d21f3e5e15bd8585">36f804b</a>).</li>
 </ul>
-<h2 id="v090-2020-03-21"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.9.0">v0.9.0</a> - 2020-03-21<a class="headerlink" href="#v090-2020-03-21" title="Permanent link">¶</a></h2>
+<h2 id="v090-2020-03-21"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.9.0">v0.9.0</a> - 2020-03-21<a class="headerlink" href="#v090-2020-03-21" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.8.0...v0.9.0">Compare with v0.8.0</a></small></p>
 <p>This version is a big refactor. We will just list the new features without pointing to particular commits.
 The documentation rendering looks slightly different, and should be better than before.
 No identified breaking changes for end-users.</p>
-<h3 id="features_2">Features<a class="headerlink" href="#features_2" title="Permanent link">¶</a></h3>
+<h3 id="features_2">Features<a class="headerlink" href="#features_2" title="Permanent link">¤</a></h3>
 <ul>
 <li><strong>Language agnostic:</strong> we moved the code responsible for loading Python documentation into a new project,
   <a href="https://github.com/pawamoy/pytkdocs"><code>pytkdocs</code></a>, and implemented a "handlers" logic, effectively allowing to
@@ -925,21 +967,21 @@ No identified breaking changes for end-users.</p>
   Also see the <a href="https://pawamoy.github.io/mkdocstrings/handlers/python/#recommended-style">recommended CSS</a>.</li>
 <li><strong>Proper logging messages:</strong> <code>mkdocstrings</code> now logs debug, warning and error messages, useful when troubleshooting.</li>
 </ul>
-<h3 id="bug-fixes_4">Bug fixes<a class="headerlink" href="#bug-fixes_4" title="Permanent link">¶</a></h3>
+<h3 id="bug-fixes_5">Bug fixes<a class="headerlink" href="#bug-fixes_5" title="Permanent link">¤</a></h3>
 <ul>
 <li>Various fixes and better error handling.</li>
 </ul>
-<h2 id="v080-2020-03-04"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.8.0">v0.8.0</a> - 2020-03-04<a class="headerlink" href="#v080-2020-03-04" title="Permanent link">¶</a></h2>
+<h2 id="v080-2020-03-04"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.8.0">v0.8.0</a> - 2020-03-04<a class="headerlink" href="#v080-2020-03-04" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.7.2...v0.8.0">Compare with v0.7.2</a></small></p>
-<h3 id="breaking-changes">Breaking Changes<a class="headerlink" href="#breaking-changes" title="Permanent link">¶</a></h3>
+<h3 id="breaking-changes">Breaking Changes<a class="headerlink" href="#breaking-changes" title="Permanent link">¤</a></h3>
 <ul>
 <li>Be compatible with Mkdocs &gt;= 1.1 (<a href="https://github.com/pawamoy/mkdocstrings/commit/5a974a4eb810904d6836e216d8539affc8acaa6f">5a974a4</a>).
   This is a breaking change as we're not compatible with versions of Mkdocs below 1.1 anymore. 
   If you cannot upgrade Mkdocs to 1.1, pin mkdocstrings' version to 0.7.2.</li>
 </ul>
-<h2 id="v072-2020-03-04"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.2">v0.7.2</a> - 2020-03-04<a class="headerlink" href="#v072-2020-03-04" title="Permanent link">¶</a></h2>
+<h2 id="v072-2020-03-04"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.2">v0.7.2</a> - 2020-03-04<a class="headerlink" href="#v072-2020-03-04" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.7.1...v0.7.2">Compare with v0.7.1</a></small></p>
-<h3 id="bug-fixes_5">Bug Fixes<a class="headerlink" href="#bug-fixes_5" title="Permanent link">¶</a></h3>
+<h3 id="bug-fixes_6">Bug Fixes<a class="headerlink" href="#bug-fixes_6" title="Permanent link">¤</a></h3>
 <ul>
 <li>Catch <code>OSError</code> when trying to get source lines (<a href="https://github.com/pawamoy/mkdocstrings/commit/8e8d604ba95363c140841c84535d2350d7ebbfe3">8e8d604</a>).</li>
 <li>Do not render signature empty sentinel (<a href="https://github.com/pawamoy/mkdocstrings/commit/16dfd73cf30d01314dba756d3f10308b99c87dcc">16dfd73</a>).</li>
@@ -947,83 +989,83 @@ No identified breaking changes for end-users.</p>
 <li>Fix <code>relative_file_path</code> method (<a href="https://github.com/pawamoy/mkdocstrings/commit/52715adc59fe2e26a9e91df88bac8b8b32d4635e">52715ad</a>).</li>
 <li>Wrap file path in backticks to escape it (<a href="https://github.com/pawamoy/mkdocstrings/commit/2525f39ad8c181679fa33db8e6dfaa28eb39c289">2525f39</a>).</li>
 </ul>
-<h2 id="v071-2020-02-18"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.1">v0.7.1</a> - 2020-02-18<a class="headerlink" href="#v071-2020-02-18" title="Permanent link">¶</a></h2>
+<h2 id="v071-2020-02-18"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.1">v0.7.1</a> - 2020-02-18<a class="headerlink" href="#v071-2020-02-18" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.7.0...v0.7.1">Compare with v0.7.0</a></small></p>
-<h3 id="bug-fixes_6">Bug Fixes<a class="headerlink" href="#bug-fixes_6" title="Permanent link">¶</a></h3>
+<h3 id="bug-fixes_7">Bug Fixes<a class="headerlink" href="#bug-fixes_7" title="Permanent link">¤</a></h3>
 <ul>
 <li>Replace literal slash with os.sep for Windows compatibility (<a href="https://github.com/pawamoy/mkdocstrings/commit/70f9af5e33cda694cda33870c84a770c853d84b5">70f9af5</a>).</li>
 </ul>
-<h2 id="v070-2020-01-13"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.0">v0.7.0</a> - 2020-01-13<a class="headerlink" href="#v070-2020-01-13" title="Permanent link">¶</a></h2>
+<h2 id="v070-2020-01-13"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.0">v0.7.0</a> - 2020-01-13<a class="headerlink" href="#v070-2020-01-13" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.6.1...v0.7.0">Compare with v0.6.1</a></small></p>
-<h3 id="bug-fixes_7">Bug Fixes<a class="headerlink" href="#bug-fixes_7" title="Permanent link">¶</a></h3>
+<h3 id="bug-fixes_8">Bug Fixes<a class="headerlink" href="#bug-fixes_8" title="Permanent link">¤</a></h3>
 <ul>
 <li>Don't mark args or kwargs as required (<a href="https://github.com/pawamoy/mkdocstrings/commit/4049d6f27c332b05db06bcfe6cc564f3c1c0f013">4049d6f</a>).</li>
 <li>Filter submodules (<a href="https://github.com/pawamoy/mkdocstrings/commit/7b110959529c5fc0275fb98c6d97e7c71e205900">7b11095</a>).</li>
 </ul>
-<h3 id="code-refactoring">Code Refactoring<a class="headerlink" href="#code-refactoring" title="Permanent link">¶</a></h3>
+<h3 id="code-refactoring">Code Refactoring<a class="headerlink" href="#code-refactoring" title="Permanent link">¤</a></h3>
 <ul>
 <li>Don't guess lang in generated docs (<a href="https://github.com/pawamoy/mkdocstrings/commit/db4f60a13dd0d191d7515683d7d42ae374b39fae">db4f60a</a>).</li>
 <li>Render at HTML step with custom markdown converter (<a href="https://github.com/pawamoy/mkdocstrings/commit/9b5a3e126cd584893a8d0858ca9b67b8251e88f1">9b5a3e1</a>).</li>
 </ul>
-<h3 id="features_3">Features<a class="headerlink" href="#features_3" title="Permanent link">¶</a></h3>
+<h3 id="features_3">Features<a class="headerlink" href="#features_3" title="Permanent link">¤</a></h3>
 <ul>
 <li>Change forward ref to ref, fix optional unions (<a href="https://github.com/pawamoy/mkdocstrings/commit/2f0bfaabf367bfa513c20fb1230409306e43add2">2f0bfaa</a>).</li>
 <li>Discover package submodules (<a href="https://github.com/pawamoy/mkdocstrings/commit/231062a3a107abc02134f102a06693969cf603ad">231062a</a>).</li>
 <li>Implement watched source code (hacks) (<a href="https://github.com/pawamoy/mkdocstrings/commit/4a67953c0af9da363d52ba058b3c51cf4cbfaabe">4a67953</a>).</li>
 </ul>
-<h2 id="v061-2020-01-02"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.6.1">v0.6.1</a> - 2020-01-02<a class="headerlink" href="#v061-2020-01-02" title="Permanent link">¶</a></h2>
+<h2 id="v061-2020-01-02"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.6.1">v0.6.1</a> - 2020-01-02<a class="headerlink" href="#v061-2020-01-02" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.6.0...v0.6.1">Compare with v0.6.0</a></small></p>
-<h3 id="bug-fixes_8">Bug Fixes<a class="headerlink" href="#bug-fixes_8" title="Permanent link">¶</a></h3>
+<h3 id="bug-fixes_9">Bug Fixes<a class="headerlink" href="#bug-fixes_9" title="Permanent link">¤</a></h3>
 <ul>
 <li>Break docstring discarding loop if found (<a href="https://github.com/pawamoy/mkdocstrings/commit/5a17fec5beed2003d19ccdcb359b46b79bfcf469">5a17fec</a>).</li>
 <li>Fix discarding docstring (<a href="https://github.com/pawamoy/mkdocstrings/commit/143f7cb00f02a7d3179cc5606ed7903566250227">143f7cb</a>).</li>
 <li>Fix getting annotation from nodes (<a href="https://github.com/pawamoy/mkdocstrings/commit/ecde72bb22ccedb36aa847dd50504c63ad04498c">ecde72b</a>).</li>
 <li>Fix various things (<a href="https://github.com/pawamoy/mkdocstrings/commit/affbf064d457d4b626e8f67d38e94d7919bc2df2">affbf06</a>).</li>
 </ul>
-<h3 id="code-refactoring_1">Code Refactoring<a class="headerlink" href="#code-refactoring_1" title="Permanent link">¶</a></h3>
+<h3 id="code-refactoring_1">Code Refactoring<a class="headerlink" href="#code-refactoring_1" title="Permanent link">¤</a></h3>
 <ul>
 <li>Break as soon as we find the same attr in a parent class while trying to discard the docstring (<a href="https://github.com/pawamoy/mkdocstrings/commit/65d7908f489ec465b2803ea8f55c70d0f9d7586b">65d7908</a>).</li>
 <li>Split Docstring.parse method to improve readability (<a href="https://github.com/pawamoy/mkdocstrings/commit/2226e2d55a6b9bbdd5a56183f1a9ba3c5f01b5ac">2226e2d</a>).</li>
 </ul>
-<h2 id="v060-2019-12-28"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.6.0">v0.6.0</a> - 2019-12-28<a class="headerlink" href="#v060-2019-12-28" title="Permanent link">¶</a></h2>
+<h2 id="v060-2019-12-28"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.6.0">v0.6.0</a> - 2019-12-28<a class="headerlink" href="#v060-2019-12-28" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.5.0...v0.6.0">Compare with v0.5.0</a></small></p>
-<h3 id="bug-fixes_9">Bug Fixes<a class="headerlink" href="#bug-fixes_9" title="Permanent link">¶</a></h3>
+<h3 id="bug-fixes_10">Bug Fixes<a class="headerlink" href="#bug-fixes_10" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix GenericMeta import error on Python 3.7+ (<a href="https://github.com/pawamoy/mkdocstrings/commit/febf2b9749d97cce80f5d20339372842fdffc908">febf2b9</a>).</li>
 </ul>
-<h3 id="code-refactoring_2">Code Refactoring<a class="headerlink" href="#code-refactoring_2" title="Permanent link">¶</a></h3>
+<h3 id="code-refactoring_2">Code Refactoring<a class="headerlink" href="#code-refactoring_2" title="Permanent link">¤</a></h3>
 <ul>
 <li>More classes. Still ugly code though :'( (<a href="https://github.com/pawamoy/mkdocstrings/commit/f41c11988d8d849a0310cca511c2d93a74cab86f">f41c119</a>).</li>
 <li>Split into more modules (<a href="https://github.com/pawamoy/mkdocstrings/commit/f1872a4c8d41a0b9603b7f344de3186110a4e1bd">f1872a4</a>).</li>
 <li>Use Object subclasses (<a href="https://github.com/pawamoy/mkdocstrings/commit/40dd1062188e6ad6ef6fbc12ddead2132fe6af1e">40dd106</a>).</li>
 </ul>
-<h2 id="v050-2019-12-22"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.5.0">v0.5.0</a> - 2019-12-22<a class="headerlink" href="#v050-2019-12-22" title="Permanent link">¶</a></h2>
+<h2 id="v050-2019-12-22"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.5.0">v0.5.0</a> - 2019-12-22<a class="headerlink" href="#v050-2019-12-22" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.4.0...v0.5.0">Compare with v0.4.0</a></small></p>
-<h3 id="features_4">Features<a class="headerlink" href="#features_4" title="Permanent link">¶</a></h3>
+<h3 id="features_4">Features<a class="headerlink" href="#features_4" title="Permanent link">¤</a></h3>
 <ul>
 <li>Use divs in HTML contents to ease styling (<a href="https://github.com/pawamoy/mkdocstrings/commit/2a36a0eba7f52c43a3eba593ddd971acaa0a9c92">2a36a0e</a>).</li>
 </ul>
-<h2 id="v040-2019-12-22"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.4.0">v0.4.0</a> - 2019-12-22<a class="headerlink" href="#v040-2019-12-22" title="Permanent link">¶</a></h2>
+<h2 id="v040-2019-12-22"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.4.0">v0.4.0</a> - 2019-12-22<a class="headerlink" href="#v040-2019-12-22" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.3.0...v0.4.0">Compare with v0.3.0</a></small></p>
-<h3 id="features_5">Features<a class="headerlink" href="#features_5" title="Permanent link">¶</a></h3>
+<h3 id="features_5">Features<a class="headerlink" href="#features_5" title="Permanent link">¤</a></h3>
 <ul>
 <li>Parse docstrings Google-style blocks, get types from signature (<a href="https://github.com/pawamoy/mkdocstrings/commit/5af0c7b766ea7158d603b44c6df278dbcd189864">5af0c7b</a>).</li>
 </ul>
-<h2 id="v030-2019-12-21"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.3.0">v0.3.0</a> - 2019-12-21<a class="headerlink" href="#v030-2019-12-21" title="Permanent link">¶</a></h2>
+<h2 id="v030-2019-12-21"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.3.0">v0.3.0</a> - 2019-12-21<a class="headerlink" href="#v030-2019-12-21" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.2.0...v0.3.0">Compare with v0.2.0</a></small></p>
-<h3 id="features_6">Features<a class="headerlink" href="#features_6" title="Permanent link">¶</a></h3>
+<h3 id="features_6">Features<a class="headerlink" href="#features_6" title="Permanent link">¤</a></h3>
 <ul>
 <li>Allow object referencing in docstrings (<a href="https://github.com/pawamoy/mkdocstrings/commit/2dd50c06f96acaf0e2f969f217f0cbcfb1de2fd4">2dd50c0</a>).</li>
 </ul>
-<h2 id="v020-2019-12-15"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.2.0">v0.2.0</a> - 2019-12-15<a class="headerlink" href="#v020-2019-12-15" title="Permanent link">¶</a></h2>
+<h2 id="v020-2019-12-15"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.2.0">v0.2.0</a> - 2019-12-15<a class="headerlink" href="#v020-2019-12-15" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/v0.1.0...v0.2.0">Compare with v0.1.0</a></small></p>
-<h3 id="misc">Misc<a class="headerlink" href="#misc" title="Permanent link">¶</a></h3>
+<h3 id="misc">Misc<a class="headerlink" href="#misc" title="Permanent link">¤</a></h3>
 <ul>
 <li>Refactor, features, etc. (<a href="https://github.com/pawamoy/mkdocstrings/commit/111fa85a6305a198ac4e19a75bb491b98683929c">111fa85</a>).</li>
 </ul>
-<h2 id="v010-2019-12-12"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.1.0">v0.1.0</a> - 2019-12-12<a class="headerlink" href="#v010-2019-12-12" title="Permanent link">¶</a></h2>
+<h2 id="v010-2019-12-12"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/v0.1.0">v0.1.0</a> - 2019-12-12<a class="headerlink" href="#v010-2019-12-12" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/f1dd8fb2b4a4ae81f9144fe062ca9743ae82bd69...v0.1.0">Compare with first commit</a></small></p>
-<h3 id="misc_1">Misc<a class="headerlink" href="#misc_1" title="Permanent link">¶</a></h3>
+<h3 id="misc_1">Misc<a class="headerlink" href="#misc_1" title="Permanent link">¤</a></h3>
 <ul>
 <li>Clean up (delete unused files) (<a href="https://github.com/pawamoy/mkdocstrings/commit/c227043814381b95031e426725e97106931f4ef9">c227043</a>).</li>
 <li>Clean up unused makefile rules (<a href="https://github.com/pawamoy/mkdocstrings/commit/edc01e99aa7b762e800d9ae25cd5b842812dc326">edc01e9</a>).</li>
@@ -1043,7 +1085,7 @@ No identified breaking changes for end-users.</p>
 <nav aria-label="Footer" class="md-footer-nav__inner md-grid">
 <a class="md-footer-nav__link md-footer-nav__link--prev" href="../code_of_conduct/" rel="prev" title="Code of Conduct">
 <div class="md-footer-nav__button md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </div>
 <div class="md-footer-nav__title">
 <div class="md-ellipsis">
@@ -1064,7 +1106,7 @@ No identified breaking changes for end-users.</p>
               </div>
 </div>
 <div class="md-footer-nav__button md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
 </div>
 </a>
 </nav>
@@ -1082,14 +1124,14 @@ No identified breaking changes for end-users.</p>
 </div>
 </footer>
 </div>
-<script src="../assets/javascripts/vendor.c51dfa35.min.js"></script>
-<script src="../assets/javascripts/bundle.eaaa3931.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../assets/javascripts/vendor.a0c4167b.min.js"></script>
+<script src="../assets/javascripts/bundle.fb26dd1d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "..",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.58d22e8e.min.js"
+            worker: "../assets/javascripts/worker/search.37585f48.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

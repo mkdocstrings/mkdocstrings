@@ -8,13 +8,13 @@
 <meta content="Automatic documentation from sources, for MkDocs." name="description"/>
 <link href="https://pawamoy.github.io/mkdocstrings/reference/handlers/python/" rel="canonical"/>
 <link href="../../../assets/images/favicon.png" rel="shortcut icon"/>
-<meta content="mkdocs-1.1, mkdocs-material-5.1.1" name="generator"/>
+<meta content="mkdocs-1.1, mkdocs-material-5.1.6" name="generator"/>
 <title>python.py - mkdocstrings</title>
-<link href="../../../assets/stylesheets/main.a676eddb.min.css" rel="stylesheet"/>
+<link href="../../../assets/stylesheets/main.4b9ffd7b.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
 <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
-<link href="../../../custom.css" rel="stylesheet"/>
+<link href="../../../css/mkdocstrings.css" rel="stylesheet"/>
 </head>
 <body dir="ltr">
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
@@ -30,10 +30,10 @@
 <header class="md-header" data-md-component="header">
 <nav aria-label="Header" class="md-header-nav md-grid">
 <a aria-label="mkdocstrings" class="md-header-nav__button md-logo" href="https://pawamoy.github.io/mkdocstrings" title="mkdocstrings">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
 </a>
 <label class="md-header-nav__button md-icon" for="__drawer">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
 </label>
 <div class="md-header-nav__title" data-md-component="header-title">
 <div class="md-header-nav__ellipsis">
@@ -48,7 +48,7 @@
 </div>
 </div>
 <label class="md-header-nav__button md-icon" for="__search">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
 </label>
 <div class="md-search" data-md-component="search" role="dialog">
 <label class="md-search__overlay" for="__search"></label>
@@ -56,18 +56,18 @@
 <form class="md-search__form" name="search">
 <input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" data-md-state="active" name="query" placeholder="Search" spellcheck="false" type="text"/>
 <label class="md-search__icon md-icon" for="__search">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"></path></svg>
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </label>
 <button aria-label="Clear" class="md-search__icon md-icon" data-md-component="search-reset" tabindex="-1" type="reset">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
 </button>
 </form>
 <div class="md-search__output">
 <div class="md-search__scrollwrap" data-md-scrollfix="">
 <div class="md-search-result" data-md-component="search-result">
 <div class="md-search-result__meta">
-            Type to start searching
+            Initializing search
           </div>
 <ol class="md-search-result__list"></ol>
 </div>
@@ -78,7 +78,7 @@
 <div class="md-header-nav__source">
 <a class="md-source" href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository">
 <div class="md-source__icon md-icon">
-<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
 </div>
 <div class="md-source__repository">
     pawamoy/mkdocstrings
@@ -96,14 +96,14 @@
 <nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
 <label class="md-nav__title" for="__drawer">
 <a aria-label="mkdocstrings" class="md-nav__button md-logo" href="https://pawamoy.github.io/mkdocstrings" title="mkdocstrings">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
 </a>
     mkdocstrings
   </label>
 <div class="md-nav__source">
 <a class="md-source" href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository">
 <div class="md-source__icon md-icon">
-<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"></path></svg>
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
 </div>
 <div class="md-source__repository">
     pawamoy/mkdocstrings
@@ -121,13 +121,13 @@
 <label class="md-nav__link" for="nav-2">
       Handlers
       <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
 </span>
 </label>
 <nav aria-label="Handlers" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="nav-2">
 <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </span>
         Handlers
       </label>
@@ -150,13 +150,13 @@
 <label class="md-nav__link" for="nav-3">
       Reference
       <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
 </span>
 </label>
 <nav aria-label="Reference" class="md-nav" data-md-level="1">
 <label class="md-nav__title" for="nav-3">
 <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </span>
         Reference
       </label>
@@ -166,13 +166,13 @@
 <label class="md-nav__link" for="nav-3-1">
       handlers
       <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
 </span>
 </label>
 <nav aria-label="handlers" class="md-nav" data-md-level="2">
 <label class="md-nav__title" for="nav-3-1">
 <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </span>
         handlers
       </label>
@@ -187,7 +187,7 @@
 <label class="md-nav__link md-nav__link--active" for="__toc">
         python.py
         <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3,9H17V7H3V9M3,13H17V11H3V13M3,17H17V15H3V17M19,17H21V15H19V17M19,7V9H21V7H19M19,13H21V11H19V13Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"></path></svg>
 </span>
 </label>
 <a class="md-nav__link md-nav__link--active" href="./" title="python.py">
@@ -196,7 +196,7 @@
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">
 <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </span>
       Table of contents
     </label>
@@ -318,6 +318,11 @@
       Credits
     </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../license/" title="License">
+      License
+    </a>
+</li>
 </ul>
 </nav>
 </div>
@@ -329,7 +334,7 @@
 <nav aria-label="Table of contents" class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="__toc">
 <span class="md-nav__icon md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </span>
       Table of contents
     </label>
@@ -415,12 +420,12 @@
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <a class="md-content__button md-icon" href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/reference/handlers/python.md" title="Edit this page">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
 <h1>python.py</h1>
 <div class="doc doc-object doc-module">
 <h2 class="hidden-toc" href="#mkdocstrings.handlers.python" id="mkdocstrings.handlers.python" style="visibility: hidden; width: 0; height: 0;">
-<a class="headerlink" href="#mkdocstrings.handlers.python" title="Permanent link">¶</a></h2>
+<a class="headerlink" href="#mkdocstrings.handlers.python" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents first">
 <p>This module implements a handler for the Python language.</p>
 <p>The handler collects data with <a href="https://github.com/pawamoy/pytkdocs"><code>pytkdocs</code></a>.</p>
@@ -428,7 +433,7 @@
 <div class="doc doc-object doc-class">
 <h2 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonCollector">
 <code>PythonCollector</code>
-<a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector" title="Permanent link">¶</a></h2>
+<a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents">
 <p>The class responsible for loading Jinja templates and rendering them.</p>
 <p>It defines some configuration options, implements the <code>render</code> method,
@@ -441,7 +446,7 @@ DEFAULT_CONFIG: <span class="nb">dict</span> </code>
 <span class="doc doc-properties">
 <small class="doc doc-property doc-property-class-attribute"><code>class-attribute</code></small>
 </span>
-<a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.DEFAULT_CONFIG" title="Permanent link">¶</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.DEFAULT_CONFIG" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
 <p>The default selection options.</p>
 <table>
@@ -484,11 +489,11 @@ next one:</p>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonCollector.__init__">
 <code class="highlight language-python">
-__init__<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup_commands</span><span class="p">)</span> </code>
+__init__<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup_commands</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
 <span class="doc doc-properties">
 <small class="doc doc-property doc-property-special"><code>special</code></small>
 </span>
-<a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.__init__" title="Permanent link">¶</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.__init__" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
 <p>Initialization method.</p>
 <p>When instantiating a Python collector, we open a subprocess in the background with <code>subprocess.Popen</code>.
@@ -510,9 +515,9 @@ too resource intensive, and would slow down <code>mkdocstrings</code> a lot.</p>
 <td><code>setup_commands</code></td>
 <td><code>Optional[List[str]]</code></td>
 <td>
-<p>A list of python commands as strings to be executed in the subprocess before pytkdocs</p>
+<p>A list of python commands as strings to be executed in the subprocess before <code>pytkdocs</code>.</p>
 </td>
-<td><em>required</em></td>
+<td><code>None</code></td>
 </tr>
 </tbody>
 </table>
@@ -522,8 +527,7 @@ too resource intensive, and would slow down <code>mkdocstrings</code> a lot.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>113
-114
+<pre><span></span>114
 115
 116
 117
@@ -544,12 +548,27 @@ too resource intensive, and would slow down <code>mkdocstrings</code> a lot.</p>
 132
 133
 134
-135</pre>
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup_commands</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup_commands</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Initialization method.</span>
 
@@ -559,18 +578,32 @@ too resource intensive, and would slow down <code>mkdocstrings</code> a lot.</p>
 <span class="sd">    too resource intensive, and would slow down `mkdocstrings` a lot.</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        setup_commands: A list of python commands as strings to be executed in the subprocess before pytkdocs</span>
+<span class="sd">        setup_commands: A list of python commands as strings to be executed in the subprocess before `pytkdocs`.</span>
 
 <span class="sd">    """</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.handlers.python: Opening 'pytkdocs' subprocess"</span><span class="p">)</span>
     <span class="n">env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-    <span class="n">python_str</span> <span class="o">=</span> <span class="s2">"; "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">setup_commands</span><span class="p">)</span> <span class="o">+</span> <span class="s2">"; "</span> <span class="k">if</span> <span class="n">setup_commands</span> <span class="k">else</span> <span class="s2">""</span>
-    <span class="n">cmd</span> <span class="o">=</span> <span class="n">python_str</span> <span class="o">+</span> <span class="s2">"from pytkdocs.cli import main; main(['--line-by-line'])"</span>
-
     <span class="n">env</span><span class="p">[</span><span class="s2">"PYTHONUNBUFFERED"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"1"</span>
+
+    <span class="k">if</span> <span class="n">setup_commands</span><span class="p">:</span>
+        <span class="c1"># prevent the Python interpreter or the setup commands</span>
+        <span class="c1"># from writing to stdout as it would break pytkdocs output</span>
+        <span class="n">commands</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">"import sys"</span><span class="p">,</span>
+            <span class="s2">"from io import StringIO"</span><span class="p">,</span>
+            <span class="s2">"from pytkdocs.cli import main as pytkdocs"</span><span class="p">,</span>
+            <span class="s2">"sys.stdout = StringIO()"</span><span class="p">,</span>  <span class="c1"># redirect stdout to memory buffer</span>
+            <span class="o">*</span><span class="n">setup_commands</span><span class="p">,</span>
+            <span class="s2">"sys.stdout.flush()"</span><span class="p">,</span>
+            <span class="s2">"sys.stdout = sys.__stdout__"</span><span class="p">,</span>  <span class="c1"># restore stdout</span>
+            <span class="s2">"pytkdocs(['--line-by-line'])"</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">"-c"</span><span class="p">,</span> <span class="s2">"; "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">commands</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"pytkdocs"</span><span class="p">,</span> <span class="s2">"--line-by-line"</span><span class="p">]</span>
+
     <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span>  <span class="c1"># noqa: S603,S607 (we trust the input, and we don't want to use the absolute path)</span>
-        <span class="p">[</span><span class="s2">"python"</span><span class="p">,</span> <span class="s2">"-c"</span><span class="p">,</span> <span class="n">cmd</span><span class="p">],</span> <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stdin</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">bufsize</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span>
+        <span class="n">cmd</span><span class="p">,</span> <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stdin</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">bufsize</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span>
     <span class="p">)</span>
 </code></pre>
 </div>
@@ -584,7 +617,7 @@ too resource intensive, and would slow down <code>mkdocstrings</code> a lot.</p>
 <h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonCollector.collect">
 <code class="highlight language-python">
 collect<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> </code>
-<a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.collect" title="Permanent link">¶</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.collect" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
 <p>Collect the documentation tree given an identifier and selection options.</p>
 <p>In this method, we feed one line of JSON to the standard input of the subprocess that was opened
@@ -651,22 +684,7 @@ and return it.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
+<pre><span></span>152
 153
 154
 155
@@ -720,7 +738,22 @@ and return it.</p>
 203
 204
 205
-206</pre>
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221</pre>
 </div>
 </td>
 <td class="code">
@@ -807,25 +840,25 @@ and return it.</p>
 <h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonCollector.teardown">
 <code class="highlight language-python">
 teardown<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
-<a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.teardown" title="Permanent link">¶</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.teardown" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
-<p>Terminate the opened subprocess, set it to None.</p>
+<p>Terminate the opened subprocess, set it to <code>None</code>.</p>
 <details class="quote">
 <summary>Source code in <code>mkdocstrings/handlers/python.py</code></summary>
 <table class="highlighttable">
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>208
-209
-210
-211</pre>
+<pre><span></span>223
+224
+225
+226</pre>
 </div>
 </td>
 <td class="code">
 <div class="highlight">
 <pre><span></span><code><span class="k">def</span> <span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""Terminate the opened subprocess, set it to None."""</span>
+    <span class="sd">"""Terminate the opened subprocess, set it to `None`."""</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.handlers.python: Tearing process down"</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
 </code></pre>
@@ -842,7 +875,7 @@ teardown<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 <div class="doc doc-object doc-class">
 <h2 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonHandler">
 <code>PythonHandler</code>
-<a class="headerlink" href="#mkdocstrings.handlers.python.PythonHandler" title="Permanent link">¶</a></h2>
+<a class="headerlink" href="#mkdocstrings.handlers.python.PythonHandler" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents">
 <p>The Python handler class, nothing specific here.</p>
 </div>
@@ -850,7 +883,7 @@ teardown<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 <div class="doc doc-object doc-class">
 <h2 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonRenderer">
 <code>PythonRenderer</code>
-<a class="headerlink" href="#mkdocstrings.handlers.python.PythonRenderer" title="Permanent link">¶</a></h2>
+<a class="headerlink" href="#mkdocstrings.handlers.python.PythonRenderer" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents">
 <p>The class responsible for loading Jinja templates and rendering them.</p>
 <p>It defines some configuration options, implements the <code>render</code> method,
@@ -863,7 +896,7 @@ DEFAULT_CONFIG: <span class="nb">dict</span> </code>
 <span class="doc doc-properties">
 <small class="doc doc-property doc-property-class-attribute"><code>class-attribute</code></small>
 </span>
-<a class="headerlink" href="#mkdocstrings.handlers.python.PythonRenderer.DEFAULT_CONFIG" title="Permanent link">¶</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.python.PythonRenderer.DEFAULT_CONFIG" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
 <p>The default rendering options.</p>
 <table>
@@ -938,7 +971,7 @@ DEFAULT_CONFIG: <span class="nb">dict</span> </code>
 <h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonRenderer.render">
 <code class="highlight language-python">
 render<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> </code>
-<a class="headerlink" href="#mkdocstrings.handlers.python.PythonRenderer.render" title="Permanent link">¶</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.python.PythonRenderer.render" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
 <p>Render a template using provided data and configuration options.</p>
 <p><strong>Parameters:</strong></p>
@@ -993,8 +1026,7 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>59
-60
+<pre><span></span>60
 61
 62
 63
@@ -1006,7 +1038,8 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 69
 70
 71
-72</pre>
+72
+73</pre>
 </div>
 </td>
 <td class="code">
@@ -1037,7 +1070,7 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 <h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonRenderer.update_env">
 <code class="highlight language-python">
 update_env<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> </code>
-<a class="headerlink" href="#mkdocstrings.handlers.python.PythonRenderer.update_env" title="Permanent link">¶</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.python.PythonRenderer.update_env" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
 <p>Update the Jinja environment.</p>
 <p><strong>Parameters:</strong></p>
@@ -1076,11 +1109,11 @@ of <a href="https://pawamoy.github.io/mkdocstrings/reference/plugin/#mkdocstring
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>74
-75
+<pre><span></span>75
 76
 77
-78</pre>
+78
+79</pre>
 </div>
 </td>
 <td class="code">
@@ -1105,7 +1138,7 @@ of <a href="https://pawamoy.github.io/mkdocstrings/reference/plugin/#mkdocstring
 <h2 class="doc doc-heading" id="mkdocstrings.handlers.python.get_handler">
 <code class="highlight language-python">
 get_handler<span class="p">(</span><span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">setup_commands</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
-<a class="headerlink" href="#mkdocstrings.handlers.python.get_handler" title="Permanent link">¶</a></h2>
+<a class="headerlink" href="#mkdocstrings.handlers.python.get_handler" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents">
 <p>Simply return an instance of <code>PythonHandler</code>.</p>
 <p><strong>Parameters:</strong></p>
@@ -1139,7 +1172,7 @@ get_handler<span class="p">(</span><span class="n">theme</span><span class="p">,
 <td><code>setup_commands</code></td>
 <td><code>Optional[List[str]]</code></td>
 <td>
-<p>A list of commands as strings to be executed in the subprocess before pytkdocs</p>
+<p>A list of commands as strings to be executed in the subprocess before <code>pytkdocs</code>.</p>
 </td>
 <td><code>None</code></td>
 </tr>
@@ -1168,24 +1201,24 @@ get_handler<span class="p">(</span><span class="n">theme</span><span class="p">,
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>218
-219
-220
-221
-222
-223
-224
-225
-226
-227
-228
-229
-230
-231
-232
-233
+<pre><span></span>233
 234
-235</pre>
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250</pre>
 </div>
 </td>
 <td class="code">
@@ -1199,7 +1232,7 @@ get_handler<span class="p">(</span><span class="n">theme</span><span class="p">,
 <span class="sd">    Arguments:</span>
 <span class="sd">        theme: The theme to use when rendering contents.</span>
 <span class="sd">        custom_templates: Directory containing custom templates.</span>
-<span class="sd">        setup_commands: A list of commands as strings to be executed in the subprocess before pytkdocs</span>
+<span class="sd">        setup_commands: A list of commands as strings to be executed in the subprocess before `pytkdocs`.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        An instance of `PythonHandler`.</span>
@@ -1220,7 +1253,7 @@ get_handler<span class="p">(</span><span class="n">theme</span><span class="p">,
 <h2 class="doc doc-heading" id="mkdocstrings.handlers.python.rebuild_category_lists">
 <code class="highlight language-python">
 rebuild_category_lists<span class="p">(</span><span class="n">obj</span><span class="p">)</span> </code>
-<a class="headerlink" href="#mkdocstrings.handlers.python.rebuild_category_lists" title="Permanent link">¶</a></h2>
+<a class="headerlink" href="#mkdocstrings.handlers.python.rebuild_category_lists" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents">
 <p>Recursively rebuild the category lists of a collected object.</p>
 <p>Since <code>pytkdocs</code> dumps JSON on standard output, it must serialize the object-tree and flatten it to reduce data
@@ -1256,22 +1289,7 @@ and <code>modules</code>. It replaces the values in category lists with only the
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>238
-239
-240
-241
-242
-243
-244
-245
-246
-247
-248
-249
-250
-251
-252
-253
+<pre><span></span>253
 254
 255
 256
@@ -1279,7 +1297,22 @@ and <code>modules</code>. It replaces the values in category lists with only the
 258
 259
 260
-261</pre>
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276</pre>
 </div>
 </td>
 <td class="code">
@@ -1328,7 +1361,7 @@ and <code>modules</code>. It replaces the values in category lists with only the
 <nav aria-label="Footer" class="md-footer-nav__inner md-grid">
 <a class="md-footer-nav__link md-footer-nav__link--prev" href="../__init__/" rel="prev" title="__init__.py">
 <div class="md-footer-nav__button md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </div>
 <div class="md-footer-nav__title">
 <div class="md-ellipsis">
@@ -1349,7 +1382,7 @@ and <code>modules</code>. It replaces the values in category lists with only the
               </div>
 </div>
 <div class="md-footer-nav__button md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
 </div>
 </a>
 </nav>
@@ -1367,14 +1400,14 @@ and <code>modules</code>. It replaces the values in category lists with only the
 </div>
 </footer>
 </div>
-<script src="../../../assets/javascripts/vendor.c51dfa35.min.js"></script>
-<script src="../../../assets/javascripts/bundle.eaaa3931.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../../../assets/javascripts/vendor.a0c4167b.min.js"></script>
+<script src="../../../assets/javascripts/bundle.fb26dd1d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "../../..",
           features: [],
           search: Object.assign({
-            worker: "../../../assets/javascripts/worker/search.58d22e8e.min.js"
+            worker: "../../../assets/javascripts/worker/search.37585f48.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
