@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [v0.11.1](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.11.1) - 2020-05-14
+
+<small>[Compare with v0.11.0](https://github.com/pawamoy/mkdocstrings/compare/v0.11.0...v0.11.1)</small>
+
+### Bug Fixes
+- Fix integration with mkdocs logging *une bonne fois pour toute* ([3293cbf](https://github.com/pawamoy/mkdocstrings/commit/3293cbf161f05d36de6c1d50b5de9742bf99066e) by Timothée Mazzucotelli).
+- Discard setup commands stdout ([ea44cea](https://github.com/pawamoy/mkdocstrings/commit/ea44cea33159ed3a6b0b34b4cd52a17a40bd6460) by Timothée Mazzucotelli). References: [#91](https://github.com/pawamoy/mkdocstrings/issues/91)
+- Use the proper python executable to start subprocesses ([9fe3b39](https://github.com/pawamoy/mkdocstrings/commit/9fe3b3915bd8f15011f8f3632a227d1eb56603fd) by Reece Dunham). References: [#91](https://github.com/pawamoy/mkdocstrings/issues/91), [#103](https://github.com/pawamoy/mkdocstrings/issues/103)
+
+
 ## [v0.11.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.11.0) - 2020-04-23
 
 <small>[Compare with v0.10.3](https://github.com/pawamoy/mkdocstrings/compare/v0.10.3...v0.11.0)</small>
@@ -218,5 +228,4 @@ No identified breaking changes for end-users.
 - First PoC, needs better theming ([18a00b9](https://github.com/pawamoy/mkdocstrings/commit/18a00b9405a94405256a1ad2ae45886da40296e4)).
 - Get attributes docstrings ([7838fff](https://github.com/pawamoy/mkdocstrings/commit/7838fffa5b1d5a481fd2ea5a94d305a96b06c321)).
 - Refactor ([f68f1a8](https://github.com/pawamoy/mkdocstrings/commit/f68f1a89d477a55a6e86a9eb4c92bd5d6416b5cc)).
-
 
