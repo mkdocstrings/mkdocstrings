@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [v0.11.2](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.11.2) - 2020-05-20
+
+<small>[Compare with v0.11.1](https://github.com/pawamoy/mkdocstrings/compare/v0.11.1...v0.11.2)</small>
+
+### Packaging
+- Increase `pytkdocs` version range to accept v0.4.0
+  ([changelog](https://pawamoy.github.io/pytkdocs/changelog/#v040-2020-05-17)).
+
+
 ## [v0.11.1](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.11.1) - 2020-05-14
 
 <small>[Compare with v0.11.0](https://github.com/pawamoy/mkdocstrings/compare/v0.11.0...v0.11.1)</small>
@@ -228,4 +237,3 @@ No identified breaking changes for end-users.
 - First PoC, needs better theming ([18a00b9](https://github.com/pawamoy/mkdocstrings/commit/18a00b9405a94405256a1ad2ae45886da40296e4)).
 - Get attributes docstrings ([7838fff](https://github.com/pawamoy/mkdocstrings/commit/7838fffa5b1d5a481fd2ea5a94d305a96b06c321)).
 - Refactor ([f68f1a8](https://github.com/pawamoy/mkdocstrings/commit/f68f1a89d477a55a6e86a9eb4c92bd5d6416b5cc)).
-

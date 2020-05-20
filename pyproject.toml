@@ -4,7 +4,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.poetry]
 name = "mkdocstrings"
-version = "0.11.1"
+version = "0.11.2"
 description = "Automatic documentation from sources, for MkDocs."
 authors = ["Timothée Mazzucotelli <pawamoy@pm.me>"]
 license = "ISC License"
@@ -23,7 +23,7 @@ python = "^3.6"
 beautifulsoup4 = "^4.8.2"
 mkdocs = "^1.1"
 pymdown-extensions = ">=6.3, <8.0"
-pytkdocs = ">=0.2.0, <0.4.0"
+pytkdocs = ">=0.2.0, <0.5.0"
 
 [tool.poetry.dev-dependencies]
 bandit = "^1.5"
