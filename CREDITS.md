@@ -53,7 +53,6 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`click`](https://palletsprojects.com/p/click/) |
 [`colorama`](https://github.com/tartley/colorama) |
 [`decorator`](https://github.com/micheles/decorator) |
-[`entrypoints`](https://github.com/takluyver/entrypoints) |
 [`execnet`](https://execnet.readthedocs.io/en/latest/) |
 [`flake8-polyfill`](https://gitlab.com/pycqa/flake8-polyfill) |
 [`future`](https://python-future.org) |
@@ -71,7 +70,7 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`MarkupSafe`](https://palletsprojects.com/p/markupsafe/) |
 [`mccabe`](https://github.com/pycqa/mccabe) |
 [`mkdocs-material-extensions`](https://github.com/facelessuser/mkdocs-material-extensions) |
-[`more-itertools`](https://github.com/erikrose/more-itertools) |
+[`more-itertools`](https://github.com/more-itertools/more-itertools) |
 [`mypy-extensions`](https://github.com/python/mypy_extensions) |
 [`nltk`](http://nltk.org/) |
 [`packaging`](https://github.com/pypa/packaging) |
