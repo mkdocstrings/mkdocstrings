@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://pawamoy.github.io/mkdocstrings/</loc>
-     <lastmod>2020-05-14</lastmod>
+     <lastmod>2020-05-20</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://pawamoy.github.io/mkdocstrings/handlers/overview/</loc>
-     <lastmod>2020-05-14</lastmod>
+     <lastmod>2020-05-20</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://pawamoy.github.io/mkdocstrings/handlers/python/</loc>
-     <lastmod>2020-05-14</lastmod>
+     <lastmod>2020-05-20</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://pawamoy.github.io/mkdocstrings/reference/handlers/__init__/</loc>
-     <lastmod>2020-05-14</lastmod>
+     <lastmod>2020-05-20</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://pawamoy.github.io/mkdocstrings/reference/handlers/python/</loc>
-     <lastmod>2020-05-14</lastmod>
+     <lastmod>2020-05-20</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://pawamoy.github.io/mkdocstrings/reference/extension/</loc>
-     <lastmod>2020-05-14</lastmod>
+     <lastmod>2020-05-20</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://pawamoy.github.io/mkdocstrings/reference/plugin/</loc>
-     <lastmod>2020-05-14</lastmod>
+     <lastmod>2020-05-20</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://pawamoy.github.io/mkdocstrings/troubleshooting/</loc>
-     <lastmod>2020-05-14</lastmod>
+     <lastmod>2020-05-20</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://pawamoy.github.io/mkdocstrings/contributing/</loc>
-     <lastmod>2020-05-14</lastmod>
+     <lastmod>2020-05-20</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://pawamoy.github.io/mkdocstrings/code_of_conduct/</loc>
-     <lastmod>2020-05-14</lastmod>
+     <lastmod>2020-05-20</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://pawamoy.github.io/mkdocstrings/changelog/</loc>
-     <lastmod>2020-05-14</lastmod>
+     <lastmod>2020-05-20</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://pawamoy.github.io/mkdocstrings/credits/</loc>
-     <lastmod>2020-05-14</lastmod>
+     <lastmod>2020-05-20</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://pawamoy.github.io/mkdocstrings/license/</loc>
-     <lastmod>2020-05-14</lastmod>
+     <lastmod>2020-05-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
