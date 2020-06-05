@@ -23,9 +23,9 @@ during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on
 """
 
 import logging
+import os
 import random
 import re
-import os
 import string
 from typing import Any, Callable, Dict, List, Match, Optional, Pattern, Tuple
 
