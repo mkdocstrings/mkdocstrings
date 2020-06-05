@@ -25,6 +25,7 @@ during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on
 import logging
 import random
 import re
+import os
 import string
 from typing import Any, Callable, Dict, List, Match, Optional, Pattern, Tuple
 
@@ -151,8 +152,14 @@ class MkdocstringsPlugin(BasePlugin):
 
         log.debug("mkdocstrings.plugin: Adding extension to the list")
 
+        theme_name = None
+        if config["theme"].name is None:
+            theme_name = os.path.dirname(config["theme"].dirs[0])
+        else:
+            theme_name = config["theme"].name
+
         extension_config = {
-            "theme_name": config["theme"].name,
+            "theme_name": theme_name,
             "mdx": config["markdown_extensions"],
             "mdx_configs": config["mdx_configs"],
             "mkdocstrings": self.config,
