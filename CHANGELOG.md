@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [v0.11.3](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.11.3) - 2020-06-07
+
+<small>[Compare with v0.11.2](https://github.com/pawamoy/mkdocstrings/compare/v0.11.2...v0.11.3)</small>
+
+### Bug Fixes
+- Support custom theme directory configuration ([1243cf6](https://github.com/pawamoy/mkdocstrings/commit/1243cf673aaf371e5cbf42a3e0d1aa80482398a3) by Abhishek Thakur). References: [#120](https://github.com/pawamoy/mkdocstrings/issues/120), [#121](https://github.com/pawamoy/mkdocstrings/issues/121)
+
+
 ## [v0.11.2](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.11.2) - 2020-05-20
 
 <small>[Compare with v0.11.1](https://github.com/pawamoy/mkdocstrings/compare/v0.11.1...v0.11.2)</small>
