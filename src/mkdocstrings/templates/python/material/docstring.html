@@ -14,6 +14,10 @@
       {% with return = section.value %}
         {% include "return.html" with context %}
       {% endwith %}
+    {% elif section.type == "examples" %}
+      {% with examples = section.value %}
+        {% include "examples.html" with context %}
+      {% endwith %}
     {% endif %}
   {% endfor %}
 {% endif %}
