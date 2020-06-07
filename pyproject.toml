@@ -39,7 +39,7 @@ flake8-docstrings = "^1.5.0"
 flake8-isort = "^3.0.0"
 flake8-tidy-imports = "^4.1.0"
 flake8-variables-names = "^0.0.3"
-git-changelog = { git = "https://github.com/pawamoy/git-changelog.git" }
+git-changelog = "^0.4.0"
 ipython = "^7.2"
 isort = { version = "^4.3", extras = ["pyproject"] }
 jinja2-cli = "^0.7.0"

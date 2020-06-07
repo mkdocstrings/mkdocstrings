@@ -25,7 +25,7 @@ check-dependencies:  ## Check for vulnerabilities in dependencies.
 		fi; \
 	fi; \
 	poetry run pip freeze 2>/dev/null | \
-		grep -v mkdocstrings | \
+		grep -iv 'mkdocstrings' | \
 		poetry run failprint --no-pty -t "Checking dependencies" -- $$SAFETY check --stdin --full-report
 
 .PHONY: check-docs
@@ -49,6 +49,7 @@ clean:  ## Delete temporary files.
 	@rm -rf scripts/__pycache__ 2>/dev/null
 	@rm -rf site 2>/dev/null
 	@rm -rf tests/__pycache__ 2>/dev/null
+	@find . -name "*.rej" -delete 2>/dev/null
 
 .PHONY: docs
 docs: docs-regen  ## Build the documentation locally.

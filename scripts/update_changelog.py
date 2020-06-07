@@ -44,4 +44,4 @@ if __name__ == "__main__":
             break
         i += 1
     with open(inplace_file, "w") as fd:
-        fd.write("\n".join(old_lines))
+        fd.write("\n".join(old_lines).rstrip("\n") + "\n")
