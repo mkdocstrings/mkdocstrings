@@ -2,6 +2,10 @@
   {% for section in docstring_sections %}
     {% if section.type == "markdown" %}
       {{ section.value|convert_markdown }}
+    {% elif section.type == "attributes" %}
+      {% with attributes = section.value %}
+        {% include "attributes.html" with context %}
+      {% endwith %}
     {% elif section.type == "parameters" %}
       {% with parameters = section.value %}
         {% include "parameters.html" with context %}

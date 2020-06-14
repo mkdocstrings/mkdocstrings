@@ -26,6 +26,11 @@ class PythonRenderer(BaseRenderer):
 
     It defines some configuration options, implements the `render` method,
     and overrides the `update_env` method of the [`BaseRenderer` class][mkdocstrings.handlers.BaseRenderer].
+
+    Attributes:
+        FALLBACK_THEME: The theme to fallback to.
+        DEFAULT_CONFIG: The default rendering options,
+            see [`DEFAULT_CONFIG`][mkdocstrings.handlers.python.PythonRenderer.DEFAULT_CONFIG].
     """
 
     FALLBACK_THEME = "material"

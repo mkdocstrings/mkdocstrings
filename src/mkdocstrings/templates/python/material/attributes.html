@@ -1,0 +1,19 @@
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for attribute in attributes %}
+      <tr>
+        <td><code>{{ attribute.name }}</code></td>
+        <td><code>{{ attribute.annotation }}</code></td>
+        <td>{{ attribute.description|convert_markdown }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
