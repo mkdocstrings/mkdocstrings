@@ -219,13 +219,18 @@
 </ul>
 </nav>
 </li>
+</ul>
+</nav>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#finding-modules">
     Finding modules
   </a>
 </li>
-</ul>
-</nav>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mocking-libraries">
+    Mocking libraries
+  </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#recommended-style-material">
@@ -400,13 +405,18 @@
 </ul>
 </nav>
 </li>
+</ul>
+</nav>
+</li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#finding-modules">
     Finding modules
   </a>
 </li>
-</ul>
-</nav>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mocking-libraries">
+    Mocking libraries
+  </a>
 </li>
 <li class="md-nav__item">
 <a class="md-nav__link" href="#recommended-style-material">
@@ -802,7 +812,7 @@ Just remember to indent those lines consistently.</p>
 </div>
 </div>
 </div>
-<h3 id="finding-modules">Finding modules<a class="headerlink" href="#finding-modules" title="Permanent link">¤</a></h3>
+<h2 id="finding-modules">Finding modules<a class="headerlink" href="#finding-modules" title="Permanent link">¤</a></h2>
 <p>In order for <code>pytkdocs</code> to find your packages and modules,
 you should take advantage of the usual Python loading mechanisms:</p>
 <ul>
@@ -839,6 +849,24 @@ setx PYTHONPATH src  <span class="c1"># Windows, USE AT YOUR OWN RISKS</span>
             <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">import sys</span>
             <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.path.append("src")</span>
             <span class="c1"># or sys.path.insert(0, "src")</span>
+</code></pre></div>
+<h2 id="mocking-libraries">Mocking libraries<a class="headerlink" href="#mocking-libraries" title="Permanent link">¤</a></h2>
+<p>You may want to to generate documentation for a package while its dependencies are not available.
+The Python handler provides itself no builtin way to mock libraries,
+but you can use the <code>setup_commands</code> to mock them manually:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span>
+<span class="nt">plugins</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
+      <span class="nt">handlers</span><span class="p">:</span>
+        <span class="nt">python</span><span class="p">:</span>
+          <span class="nt">setup_commands</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">import sys</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">from unittest.mock import MagicMock as mock</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.modules["lib1"] = mock()</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.modules["lib2"] = mock()</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.modules["lib2.module1"] = mock()</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.modules["lib2.module1.moduleB"] = mock()</span>
+            <span class="c1"># etc</span>
 </code></pre></div>
 <h2 id="recommended-style-material">Recommended style (Material)<a class="headerlink" href="#recommended-style-material" title="Permanent link">¤</a></h2>
 <p>Here are some CSS rules for the <em>Material for MkDocs</em> theme:</p>
