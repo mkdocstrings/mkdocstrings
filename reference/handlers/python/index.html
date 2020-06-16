@@ -116,16 +116,21 @@
       Overview
     </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../../usage/" title="Usage">
+      Usage
+    </a>
+</li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" id="nav-2" type="checkbox"/>
-<label class="md-nav__link" for="nav-2">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" id="nav-3" type="checkbox"/>
+<label class="md-nav__link" for="nav-3">
       Handlers
       <span class="md-nav__icon md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
 </span>
 </label>
 <nav aria-label="Handlers" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="nav-2">
+<label class="md-nav__title" for="nav-3">
 <span class="md-nav__icon md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </span>
@@ -146,15 +151,15 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="nav-3" id="nav-3" type="checkbox"/>
-<label class="md-nav__link" for="nav-3">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="nav-4" id="nav-4" type="checkbox"/>
+<label class="md-nav__link" for="nav-4">
       Reference
       <span class="md-nav__icon md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
 </span>
 </label>
 <nav aria-label="Reference" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="nav-3">
+<label class="md-nav__title" for="nav-4">
 <span class="md-nav__icon md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </span>
@@ -162,15 +167,15 @@
       </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1" id="nav-3-1" type="checkbox"/>
-<label class="md-nav__link" for="nav-3-1">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" id="nav-4-1" type="checkbox"/>
+<label class="md-nav__link" for="nav-4-1">
       handlers
       <span class="md-nav__icon md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
 </span>
 </label>
 <nav aria-label="handlers" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="nav-3-1">
+<label class="md-nav__title" for="nav-4-1">
 <span class="md-nav__icon md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </span>
@@ -524,12 +529,7 @@ too resource intensive, and would slow down <code>mkdocstrings</code> a lot.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>114
-115
-116
-117
-118
-119
+<pre><span></span>119
 120
 121
 122
@@ -560,7 +560,12 @@ too resource intensive, and would slow down <code>mkdocstrings</code> a lot.</p>
 147
 148
 149
-150</pre>
+150
+151
+152
+153
+154
+155</pre>
 </div>
 </td>
 <td class="code">
@@ -681,12 +686,7 @@ and return it.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>152
-153
-154
-155
-156
-157
+<pre><span></span>157
 158
 159
 160
@@ -750,7 +750,12 @@ and return it.</p>
 218
 219
 220
-221</pre>
+221
+222
+223
+224
+225
+226</pre>
 </div>
 </td>
 <td class="code">
@@ -846,10 +851,10 @@ teardown<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>223
-224
-225
-226</pre>
+<pre><span></span>228
+229
+230
+231</pre>
 </div>
 </td>
 <td class="code">
@@ -885,6 +890,33 @@ teardown<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 <p>The class responsible for loading Jinja templates and rendering them.</p>
 <p>It defines some configuration options, implements the <code>render</code> method,
 and overrides the <code>update_env</code> method of the <a href="https://pawamoy.github.io/mkdocstrings/reference/handlers/__init__/#mkdocstrings.handlers.BaseRenderer"><code>BaseRenderer</code> class</a>.</p>
+<p><strong>Attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FALLBACK_THEME</code></td>
+<td><code>str</code></td>
+<td>
+<p>The theme to fallback to.</p>
+</td>
+</tr>
+<tr>
+<td><code>DEFAULT_CONFIG</code></td>
+<td><code>dict</code></td>
+<td>
+<p>The default rendering options,
+see <a href="https://pawamoy.github.io/mkdocstrings/reference/handlers/python/#mkdocstrings.handlers.python.PythonRenderer.DEFAULT_CONFIG"><code>DEFAULT_CONFIG</code></a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
 <div class="doc doc-children">
 <div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonRenderer.DEFAULT_CONFIG">
@@ -1020,12 +1052,7 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>60
-61
-62
-63
-64
-65
+<pre><span></span>65
 66
 67
 68
@@ -1033,7 +1060,12 @@ render<span class="p">(</span><span class="bp">self</span><span class="p">,</spa
 70
 71
 72
-73</pre>
+73
+74
+75
+76
+77
+78</pre>
 </div>
 </td>
 <td class="code">
@@ -1103,11 +1135,11 @@ of <a href="https://pawamoy.github.io/mkdocstrings/reference/plugin/#mkdocstring
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>75
-76
-77
-78
-79</pre>
+<pre><span></span>80
+81
+82
+83
+84</pre>
 </div>
 </td>
 <td class="code">
@@ -1195,12 +1227,7 @@ get_handler<span class="p">(</span><span class="n">theme</span><span class="p">,
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>233
-234
-235
-236
-237
-238
+<pre><span></span>238
 239
 240
 241
@@ -1212,7 +1239,12 @@ get_handler<span class="p">(</span><span class="n">theme</span><span class="p">,
 247
 248
 249
-250</pre>
+250
+251
+252
+253
+254
+255</pre>
 </div>
 </td>
 <td class="code">
@@ -1283,12 +1315,7 @@ and <code>modules</code>. It replaces the values in category lists with only the
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>253
-254
-255
-256
-257
-258
+<pre><span></span>258
 259
 260
 261
@@ -1306,7 +1333,12 @@ and <code>modules</code>. It replaces the values in category lists with only the
 273
 274
 275
-276</pre>
+276
+277
+278
+279
+280
+281</pre>
 </div>
 </td>
 <td class="code">

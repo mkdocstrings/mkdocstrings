@@ -21,7 +21,7 @@
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
 <div data-md-component="skip">
-<a class="md-skip" href="#documentation-collection">
+<a class="md-skip" href="#python-handler">
           Skip to content
         </a>
 </div>
@@ -116,16 +116,21 @@
       Overview
     </a>
 </li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../usage/" title="Usage">
+      Usage
+    </a>
+</li>
 <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="nav-2" id="nav-2" type="checkbox"/>
-<label class="md-nav__link" for="nav-2">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="nav-3" id="nav-3" type="checkbox"/>
+<label class="md-nav__link" for="nav-3">
       Handlers
       <span class="md-nav__icon md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
 </span>
 </label>
 <nav aria-label="Handlers" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="nav-2">
+<label class="md-nav__title" for="nav-3">
 <span class="md-nav__icon md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </span>
@@ -157,22 +162,74 @@
     </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#documentation-collection">
-    Documentation collection
+<a class="md-nav__link" href="#handler-options">
+    Handler options
   </a>
-<nav aria-label="Documentation collection" class="md-nav">
+<nav aria-label="Handler options" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#docstrings-format">
-    Docstrings format
+<a class="md-nav__link" href="#selection">
+    Selection
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rendering">
+    Rendering
   </a>
 </li>
 </ul>
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#recommended-style">
-    Recommended style
+<a class="md-nav__link" href="#collector-pytkdocs">
+    Collector: pytkdocs
+  </a>
+<nav aria-label="Collector: pytkdocs" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#supported-docstrings-styles">
+    Supported docstrings styles
+  </a>
+<nav aria-label="Supported docstrings styles" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#google-style">
+    Google-style
+  </a>
+<nav aria-label="Google-style" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sections">
+    Sections
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#admonitions">
+    Admonitions
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#annotations">
+    Annotations
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#finding-modules">
+    Finding modules
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#recommended-style-material">
+    Recommended style (Material)
   </a>
 </li>
 </ul>
@@ -182,15 +239,15 @@
 </nav>
 </li>
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" id="nav-3" type="checkbox"/>
-<label class="md-nav__link" for="nav-3">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" id="nav-4" type="checkbox"/>
+<label class="md-nav__link" for="nav-4">
       Reference
       <span class="md-nav__icon md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
 </span>
 </label>
 <nav aria-label="Reference" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="nav-3">
+<label class="md-nav__title" for="nav-4">
 <span class="md-nav__icon md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </span>
@@ -198,15 +255,15 @@
       </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1" id="nav-3-1" type="checkbox"/>
-<label class="md-nav__link" for="nav-3-1">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" id="nav-4-1" type="checkbox"/>
+<label class="md-nav__link" for="nav-4-1">
       handlers
       <span class="md-nav__icon md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
 </span>
 </label>
 <nav aria-label="handlers" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="nav-3-1">
+<label class="md-nav__title" for="nav-4-1">
 <span class="md-nav__icon md-icon">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
 </span>
@@ -286,22 +343,74 @@
     </label>
 <ul class="md-nav__list" data-md-scrollfix="">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#documentation-collection">
-    Documentation collection
+<a class="md-nav__link" href="#handler-options">
+    Handler options
   </a>
-<nav aria-label="Documentation collection" class="md-nav">
+<nav aria-label="Handler options" class="md-nav">
 <ul class="md-nav__list">
 <li class="md-nav__item">
-<a class="md-nav__link" href="#docstrings-format">
-    Docstrings format
+<a class="md-nav__link" href="#selection">
+    Selection
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#rendering">
+    Rendering
   </a>
 </li>
 </ul>
 </nav>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#recommended-style">
-    Recommended style
+<a class="md-nav__link" href="#collector-pytkdocs">
+    Collector: pytkdocs
+  </a>
+<nav aria-label="Collector: pytkdocs" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#supported-docstrings-styles">
+    Supported docstrings styles
+  </a>
+<nav aria-label="Supported docstrings styles" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#google-style">
+    Google-style
+  </a>
+<nav aria-label="Google-style" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#sections">
+    Sections
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#admonitions">
+    Admonitions
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#annotations">
+    Annotations
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#finding-modules">
+    Finding modules
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#recommended-style-material">
+    Recommended style (Material)
   </a>
 </li>
 </ul>
@@ -314,67 +423,425 @@
 <a class="md-content__button md-icon" href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/handlers/python.md" title="Edit this page">
 <svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
 </a>
-<h1>Python</h1>
-<h2 id="documentation-collection">Documentation collection<a class="headerlink" href="#documentation-collection" title="Permanent link">¤</a></h2>
-<p><em>This page is a work in progress.</em></p>
-<h3 id="docstrings-format">Docstrings format<a class="headerlink" href="#docstrings-format" title="Permanent link">¤</a></h3>
-<p>Your docstrings must follow a particular format, otherwise <code>mkdocstrings</code> will throw an exception.
-This will be improved to be more robust over time.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<h1 id="python-handler">Python handler<a class="headerlink" href="#python-handler" title="Permanent link">¤</a></h1>
+<h2 id="handler-options">Handler options<a class="headerlink" href="#handler-options" title="Permanent link">¤</a></h2>
+<p>Like every handler, the Python handler accepts the common
+<a href="#selection"><code>selection</code></a> and <a href="#rendering"><code>rendering</code></a> options,
+both as <strong>global</strong> and <strong>local</strong> options.
+The <code>selection</code> options gives you control over the selection of Python objects,
+while the <code>rendering</code> options lets you change how the documentation is rendered.</p>
+<p>It also accepts these additional <strong>global-only</strong> options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>setup_commands</code></strong></td>
+<td><code>list of str</code></td>
+<td>Run these commands before starting the documentation collection.</td>
+<td><code>[]</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Example: setup Django before collecting documentation</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span>
+<span class="nt">plugins</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
+      <span class="nt">handlers</span><span class="p">:</span>
+        <span class="nt">python</span><span class="p">:</span>
+          <span class="nt">setup_commands</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">import os</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">import django</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">os.environ.setdefault("DJANGO_SETTINGS_MODULE", "my_django_app.settings")</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">django.setup()</span>
+</code></pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Additional options like <code>setup_commands</code> are used only once,
+when instantiating the handler the first time it is requested.
+This is why they are considered global-only options,
+as they will have no effect if used as local options.</p>
+</div>
+<h3 id="selection">Selection<a class="headerlink" href="#selection" title="Permanent link">¤</a></h3>
+<p>The following options are directly passed to the handler's collector.
+See <a href="#collector-pytkdocs">Collector: pytkdocs</a> to learn more about <code>pytkdocs</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>filters</code></strong></td>
+<td><code>list of str</code></td>
+<td>List of filtering regular expressions. Prefix with <code>!</code> to exclude objects whose name match. The default means <em>exclude private members</em>.</td>
+<td><code>["!^_[^_]"]</code></td>
+</tr>
+<tr>
+<td><strong><code>members</code></strong></td>
+<td><code>bool</code>, or <code>list of str</code></td>
+<td>Explicitly select members. True means <em>all</em>, false means <em>none</em>.</td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><strong><code>inherited_members</code></strong></td>
+<td><code>bool</code></td>
+<td>Also select members inherited from parent classes.</td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><strong><code>docstring_style</code></strong></td>
+<td><code>str</code></td>
+<td>Docstring style to parse. <code>pytkdocs</code> only supports <code>google</code> yet.</td>
+<td><code>"google"</code></td>
+</tr>
+<tr>
+<td><strong><code>docstring_options</code></strong></td>
+<td><code>dict</code></td>
+<td>Options to pass to the docstring parser. See <a href="#collector-pytkdocs">Collector: pytkdocs</a></td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Configuration example</p>
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><label for="__tabbed_1_1">Global</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span>
+<span class="nt">plugins</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
+      <span class="nt">handlers</span><span class="p">:</span>
+        <span class="nt">python</span><span class="p">:</span>
+          <span class="nt">selection</span><span class="p">:</span>
+            <span class="nt">filters</span><span class="p">:</span>
+              <span class="p p-Indicator">-</span> <span class="s">"!^_"</span>  <span class="c1"># exlude all members starting with _</span>
+              <span class="p p-Indicator">-</span> <span class="s">"^__init__$"</span>  <span class="c1"># but always include __init__ modules and methods</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio"><label for="__tabbed_1_2">Local</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">::</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">my_package</span>
+    <span class="l l-Scalar l-Scalar-Plain">selection</span><span class="p p-Indicator">:</span>
+      <span class="nt">filters</span><span class="p">:</span> <span class="p p-Indicator">[]</span>  <span class="c1"># pick up everything</span>
+</code></pre></div>
+</div>
+</input></input></div>
+</div>
+<h3 id="rendering">Rendering<a class="headerlink" href="#rendering" title="Permanent link">¤</a></h3>
+<p>These options affect how the documentation is rendered.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>show_root_heading</code></strong></td>
+<td><code>bool</code></td>
+<td>Show the heading of the object at the root of the documentation tree.</td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><strong><code>show_root_toc_entry</code></strong></td>
+<td><code>bool</code></td>
+<td>If the root heading is not shown, at least add a ToC entry for it.</td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><strong><code>show_root_full_path</code></strong></td>
+<td><code>bool</code></td>
+<td>Show the full Python path for the root object heading.</td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><strong><code>show_object_full_path</code></strong></td>
+<td><code>bool</code></td>
+<td>Show the full Python path of every object.</td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><strong><code>show_category_heading</code></strong></td>
+<td><code>bool</code></td>
+<td>When grouped by categories, show a heading for each category.</td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><strong><code>show_if_no_docstring</code></strong></td>
+<td><code>bool</code></td>
+<td>Show the object heading even if it has no docstring or children with docstrings.</td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><strong><code>show_source</code></strong></td>
+<td><code>bool</code></td>
+<td>Show the source code of this object.</td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><strong><code>group_by_category</code></strong></td>
+<td><code>bool</code></td>
+<td>Group the object's children by categories: attributes, classes, functions, methods, and modules.</td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><strong><code>heading_level</code></strong></td>
+<td><code>int</code></td>
+<td>The initial heading level to use.</td>
+<td><code>2</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition example">
+<p class="admonition-title">Configuration example</p>
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><label for="__tabbed_2_1">Global</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span>
+<span class="nt">plugins</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
+      <span class="nt">handlers</span><span class="p">:</span>
+        <span class="nt">python</span><span class="p">:</span>
+          <span class="nt">rendering</span><span class="p">:</span>
+            <span class="nt">show_root_heading</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">yes</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio"><label for="__tabbed_2_2">Local</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="gu">##</span> `ClassA`
 
-<span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">param1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param2</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+::: my_package.my_module.ClassA
+    rendering:
+      show_root_heading: no
+      heading_level: 3
+</code></pre></div>
+</div>
+</input></input></div>
+</div>
+<h2 id="collector-pytkdocs">Collector: pytkdocs<a class="headerlink" href="#collector-pytkdocs" title="Permanent link">¤</a></h2>
+<p>The tool used by the Python handler to collect documentation from Python source code
+is <a href="https://pawamoy.github.io/pytkdocs"><code>pytkdocs</code></a>.
+It stands for <em>(Python) Take Docs</em>, and is supposed to be a pun on MkDocs (<em>Make Docs</em>?).</p>
+<h3 id="supported-docstrings-styles">Supported docstrings styles<a class="headerlink" href="#supported-docstrings-styles" title="Permanent link">¤</a></h3>
+<p>Right now, <code>pytkdocs</code> supports only the Google-style docstring format.</p>
+<h4 id="google-style">Google-style<a class="headerlink" href="#google-style" title="Permanent link">¤</a></h4>
+<p>You can see examples of Google-style docstrings
+in <a href="https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html">Napoleon's documentation</a>.</p>
+<h5 id="sections">Sections<a class="headerlink" href="#sections" title="Permanent link">¤</a></h5>
+<p>Docstrings sections are parsed by <code>pytkdocs</code> and rendered by MkDocstrings.
+Supported sections are:</p>
+<ul>
+<li><code>Arguments</code> (or <code>Args</code>, <code>Parameters</code>, <code>Params</code>)</li>
+<li><code>Attributes</code></li>
+<li><code>Examples</code> (or <code>Example</code>)</li>
+<li><code>Raises</code> (or <code>Raise</code>, <code>Except</code>, <code>Exceptions</code>)</li>
+<li><code>Returns</code> (or <code>Return</code>)</li>
+</ul>
+<h5 id="admonitions">Admonitions<a class="headerlink" href="#admonitions" title="Permanent link">¤</a></h5>
+<p>Additionally, any section that is not recognized will be transformed into its admonition equivalent.
+For example:</p>
+<div class="tabbed-set" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"><label for="__tabbed_3_1">Original</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="sd">"""</span>
+<span class="sd">Note: You can disable this behavior with the `replace_admonitions` option.</span>
+<span class="sd">    To prevent `pytkdocs` from converting sections to admonitions,</span>
+<span class="sd">    use the `replace_admonitions`:</span>
+
+<span class="sd">    ```md</span>
+<span class="sd">    ::: my_package.my_module</span>
+<span class="sd">        selection:</span>
+<span class="sd">          docstring_style: google  # this is the default</span>
+<span class="sd">          docstring_options:</span>
+<span class="sd">            replace_admonitions: no </span>
+<span class="sd">    ```</span>
+
+<span class="sd">    So meta!</span>
+<span class="sd">"""</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_3_2" name="__tabbed_3" type="radio"><label for="__tabbed_3_2">Modified</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="sd">"""</span>
+<span class="sd">!!! note "You can disable this behavior with the `replace_admonitions` option."</span>
+<span class="sd">    To prevent `pytkdocs` from converting sections to admonitions,</span>
+<span class="sd">    use the `replace_admonitions`:</span>
+
+<span class="sd">    ```md</span>
+<span class="sd">    ::: my_package.my_module</span>
+<span class="sd">        selection:</span>
+<span class="sd">          docstring_style: google  # this is the default</span>
+<span class="sd">          docstring_options:</span>
+<span class="sd">            replace_admonitions: no </span>
+<span class="sd">    ```</span>
+
+<span class="sd">    So meta!</span>
+<span class="sd">"""</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_3_3" name="__tabbed_3" type="radio"><label for="__tabbed_3_3">Result</label><div class="tabbed-content">
+<div class="admonition note">
+<p class="admonition-title">You can disable this behavior with the <code>replace_admonitions</code> parser option.</p>
+<p>To prevent <code>pytkdocs</code> from converting sections to admonitions,
+use the <code>replace_admonitions</code> parser option:</p>
+<div class="highlight"><pre><span></span><code>::: my_package.my_module
+    selection:
+      docstring_style: google  # this is the default
+      docstring_options:
+        replace_admonitions: no 
+</code></pre></div>
+<p>So meta!</p>
+</div>
+</div>
+</input></input></input></div>
+<p>As shown in the above example, this can be disabled
+with the <code>replace_admonitions</code> option of the Google-style parser:</p>
+<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">::</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">my_package.my_module</span>
+    <span class="l l-Scalar l-Scalar-Plain">selection</span><span class="p p-Indicator">:</span>
+      <span class="nt">docstring_style</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">google</span>  <span class="c1"># this is the default</span>
+      <span class="nt">docstring_options</span><span class="p">:</span>
+        <span class="nt">replace_admonitions</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">no</span> 
+</code></pre></div>
+<h5 id="annotations">Annotations<a class="headerlink" href="#annotations" title="Permanent link">¤</a></h5>
+<p>Type annotations are read both in the code and in the docstrings.</p>
+<div class="admonition example">
+<p class="admonition-title">Example with a function</p>
+<p><strong>Expand the source at the end to see the original code!</strong></p>
+<div class="doc doc-object doc-function">
+<div class="doc doc-contents first">
+<p>A short description of this function.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>param1</code></td>
+<td><code>int</code></td>
+<td>
+<p>An integer?</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>param2</code></td>
+<td><code>Optional[str]</code></td>
+<td>
+<p>A string? If you have a long description,
+you can split it on multiple lines.
+Just remember to indent those lines consistently.</p>
+<p>Complex markup is supported in sections items.</p>
+<div class="codehilite">
+<pre><span></span><code><span class="err">I'm a code block!</span>
+</code></pre>
+</div>
+</td>
+<td><code>None</code></td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>snippets/function_annotations.py</code></summary>
+<table class="highlighttable">
+<tr>
+<td class="linenos">
+<div class="linenodiv">
+<pre><span></span> 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre>
+</div>
+</td>
+<td class="code">
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">param1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param2</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    A short description of this function.</span>
-
-<span class="sd">    A longer description of this function.</span>
-<span class="sd">    You can use more lines.</span>
-
-<span class="sd">        This is a code block,</span>
-<span class="sd">        as usual.</span>
-
-<span class="sd">    ```python</span>
-<span class="sd">    s = "This is a Python code block :)"</span>
-<span class="sd">    ```</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        param1: An integer?</span>
 <span class="sd">        param2: A string? If you have a long description,</span>
-<span class="sd">          you can split it on multiple lines.</span>
-<span class="sd">          Just remember to indent those lines with at least two more spaces.</span>
-<span class="sd">               They will all be concatenated in one line, so do not try to</span>
-<span class="sd">             use complex markup here.</span>
+<span class="sd">            you can split it on multiple lines.</span>
+<span class="sd">            Just remember to indent those lines consistently.</span>
 
-<span class="sd">    Note:</span>
-<span class="sd">        We omitted the type hints next to the parameters names.</span>
-<span class="sd">        Usually you would write something like `param1 (int): ...`,</span>
-<span class="sd">        but `mkdocstrings` gets the type information from the signature, so it's not needed here.</span>
+<span class="sd">            Complex markup is supported in sections items.</span>
 
-<span class="sd">    Exceptions are written the same.</span>
-
-<span class="sd">    Raises:</span>
-<span class="sd">        OSError: Explain when this error is thrown.</span>
-<span class="sd">        RuntimeError: Explain as well.</span>
-<span class="sd">          Multi-line description, etc.</span>
-
-<span class="sd">    Let's see the return value section now.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        A description of the value that is returned.</span>
-<span class="sd">        Again multiple lines are allowed. They will also be concatenated to one line,</span>
-<span class="sd">        so do not use complex markup here.</span>
-
-<span class="sd">    Note:</span>
-<span class="sd">        Other words are supported:</span>
-
-<span class="sd">        - `Args`, `Arguments`, `Params` and `Parameters` for the parameters.</span>
-<span class="sd">        - `Raise`, `Raises`, `Except`, and `Exceptions` for exceptions.</span>
-<span class="sd">        - `Return` or `Returns` for return value.</span>
-
-<span class="sd">        They are all case-insensitive, so you can write `RETURNS:` or `params:`.</span>
+<span class="sd">                I'm a code block!</span>
 <span class="sd">    """</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">param2</span><span class="si">}{</span><span class="n">param1</span><span class="si">}</span><span class="s2">"</span>
+</code></pre>
+</div>
+</td>
+</tr>
+</table>
+</details>
+</div>
+</div>
+</div>
+<h3 id="finding-modules">Finding modules<a class="headerlink" href="#finding-modules" title="Permanent link">¤</a></h3>
+<p>In order for <code>pytkdocs</code> to find your packages and modules,
+you should take advantage of the usual Python loading mechanisms:</p>
+<ul>
+<li>
+<p>install your package in the current virtualenv:
+    <div class="highlight"><pre><span></span><code>. venv/bin/activate
+pip install -e .
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code>poetry install
 </code></pre></div>
-<h2 id="recommended-style">Recommended style<a class="headerlink" href="#recommended-style" title="Permanent link">¤</a></h2>
+<p>...etc.</p>
+</li>
+<li>
+<p>or add your package(s) parent directory in the <code>PYTHONPATH</code>.</p>
+</li>
+</ul>
+<p>(<em>The following instructions assume your Python package is in the <code>src</code> directory.</em>)</p>
+<p>In Bash and other shells, you can run your command like this
+(note the prepended <code>PYTHONPATH=...</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="nv">PYTHONPATH</span><span class="o">=</span>src poetry run mkdocs serve
+</code></pre></div>
+<p>You could also export that variable,
+but this is <strong>not recommended</strong> as it could affect other Python processes:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span>src  <span class="c1"># Linux/Bash and similar</span>
+setx PYTHONPATH src  <span class="c1"># Windows, USE AT YOUR OWN RISKS</span>
+</code></pre></div>
+<p>You can also use the Python handler <code>setup_commands</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span>
+<span class="nt">plugins</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
+      <span class="nt">handlers</span><span class="p">:</span>
+        <span class="nt">python</span><span class="p">:</span>
+          <span class="nt">setup_commands</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">import sys</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.path.append("src")</span>
+            <span class="c1"># or sys.path.insert(0, "src")</span>
+</code></pre></div>
+<h2 id="recommended-style-material">Recommended style (Material)<a class="headerlink" href="#recommended-style-material" title="Permanent link">¤</a></h2>
+<p>Here are some CSS rules for the <em>Material for MkDocs</em> theme:</p>
 <div class="highlight"><pre><span></span><code><span class="c">/* Indentation. */</span>
 <span class="nt">div</span><span class="p">.</span><span class="nc">doc-contents</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">.</span><span class="nc">first</span><span class="o">)</span> <span class="p">{</span>
   <span class="k">padding-left</span><span class="p">:</span> <span class="mi">25</span><span class="kt">px</span><span class="p">;</span>

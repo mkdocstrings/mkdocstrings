@@ -1,0 +1,679 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Automatic documentation from sources, for MkDocs." name="description"/>
+<link href="https://pawamoy.github.io/mkdocstrings/usage/" rel="canonical"/>
+<link href="../assets/images/favicon.png" rel="shortcut icon"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.2.3" name="generator"/>
+<title>Usage - mkdocstrings</title>
+<link href="../assets/stylesheets/main.6e35a1a6.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
+<style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+<link href="../css/mkdocstrings.css" rel="stylesheet"/>
+</head>
+<body dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#usage">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header-nav md-grid">
+<a aria-label="mkdocstrings" class="md-header-nav__button md-logo" href="https://pawamoy.github.io/mkdocstrings" title="mkdocstrings">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
+</a>
+<label class="md-header-nav__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
+</label>
+<div class="md-header-nav__title" data-md-component="header-title">
+<div class="md-header-nav__ellipsis">
+<span class="md-header-nav__topic md-ellipsis">
+            mkdocstrings
+          </span>
+<span class="md-header-nav__topic md-ellipsis">
+            
+              Usage
+            
+          </span>
+</div>
+</div>
+<label class="md-header-nav__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" data-md-state="active" name="query" placeholder="Search" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</label>
+<button aria-label="Clear" class="md-search__icon md-icon" data-md-component="search-reset" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
+</button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header-nav__source">
+<a class="md-source" href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    pawamoy/mkdocstrings
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="mkdocstrings" class="md-nav__button md-logo" href="https://pawamoy.github.io/mkdocstrings" title="mkdocstrings">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
+</a>
+    mkdocstrings
+  </label>
+<div class="md-nav__source">
+<a class="md-source" href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
+</div>
+<div class="md-source__repository">
+    pawamoy/mkdocstrings
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href=".." title="Overview">
+      Overview
+    </a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+        Usage
+        <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"></path></svg>
+</span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./" title="Usage">
+      Usage
+    </a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#global-options">
+    Global options
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cross-references">
+    Cross-references
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#themes">
+    Themes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#customization">
+    Customization
+  </a>
+<nav aria-label="Customization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#templates">
+    Templates
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#css-classes">
+    CSS classes
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#watch-directories">
+    Watch directories
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" id="nav-3" type="checkbox"/>
+<label class="md-nav__link" for="nav-3">
+      Handlers
+      <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
+</span>
+</label>
+<nav aria-label="Handlers" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-3">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+        Handlers
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../handlers/overview/" title="Overview">
+      Overview
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../handlers/python/" title="Python">
+      Python
+    </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" id="nav-4" type="checkbox"/>
+<label class="md-nav__link" for="nav-4">
+      Reference
+      <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
+</span>
+</label>
+<nav aria-label="Reference" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-4">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+        Reference
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" id="nav-4-1" type="checkbox"/>
+<label class="md-nav__link" for="nav-4-1">
+      handlers
+      <span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"></path></svg>
+</span>
+</label>
+<nav aria-label="handlers" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-4-1">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+        handlers
+      </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../reference/handlers/__init__/" title="__init__.py">
+      __init__.py
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../reference/handlers/python/" title="python.py">
+      python.py
+    </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../reference/extension/" title="extension.py">
+      extension.py
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../reference/plugin/" title="plugin.py">
+      plugin.py
+    </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../troubleshooting/" title="Troubleshooting">
+      Troubleshooting
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../contributing/" title="Contributing">
+      Contributing
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../code_of_conduct/" title="Code of Conduct">
+      Code of Conduct
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../changelog/" title="Changelog">
+      Changelog
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../credits/" title="Credits">
+      Credits
+    </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../license/" title="License">
+      License
+    </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#global-options">
+    Global options
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#cross-references">
+    Cross-references
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#themes">
+    Themes
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#customization">
+    Customization
+  </a>
+<nav aria-label="Customization" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#templates">
+    Templates
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#css-classes">
+    CSS classes
+  </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#watch-directories">
+    Watch directories
+  </a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/usage.md" title="Edit this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
+</a>
+<h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">¤</a></h1>
+<p>MkDocstrings works by processing special expressions in your Markdown files.</p>
+<p>The syntax is as follow:</p>
+<div class="highlight"><pre><span></span><code>::: identifier
+    YAML block
+</code></pre></div>
+<p>The <code>identifier</code> is a string identifying the object you want to document.
+The format of an identifier can vary from one handler to another.
+For example, the Python handler expects the full dotted-path to a Python object:
+<code>my_package.my_module.MyClass.my_method</code>.</p>
+<p>The YAML block is optional, and contains some configuration options:</p>
+<ul>
+<li><code>handler</code>: the name of the handler to use to collect and render this object.
+  By default, it will use the value defined in the <a href="#global-options">Global options</a>'s
+  <code>default_handler</code> key, or <code>"python"</code>.</li>
+<li><code>selection</code>: a dictionary of options passed to the handler's collector.
+  The collector is responsible for collecting the documentation from the source code.
+  Therefore, selection options change how the documentation is collected from the source code.</li>
+<li><code>rendering</code>: a dictionary of options passed to the handler's renderer.
+  The renderer is responsible for rendering the documentation with Jinja2 templates.
+  Therefore, rendering options affect how the selected object's documentation is rendered.</li>
+</ul>
+<p>Every handler accepts at least these two keys, <code>selection</code> and <code>rendering</code>,
+and some handlers accept additional keys.
+Check the documentation for your handler of interest in <a href="../handlers/overview">Handlers</a>.</p>
+<div class="admonition example">
+<p class="admonition-title">Example with the Python handler</p>
+<div class="tabbed-set" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><label for="__tabbed_1_1">docs/my_page.md</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> Documentation for `MyClass`
+
+::: my_package.my_module.MyClass
+    handler: python
+    selection:
+      members:
+        <span class="k">-</span> method_a
+        <span class="k">-</span> method_b
+    rendering:
+      show_root_heading: false
+      show_source: false
+</code></pre></div>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio"><label for="__tabbed_1_2">mkdocs.yml</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="nt">nav</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="s">"My</span><span class="nv"> </span><span class="s">page"</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">my_page.md</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio"><label for="__tabbed_1_3">src/my_package/my_module.py</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+    <span class="sd">"""Print print print!"""</span>
+
+    <span class="k">def</span> <span class="nf">method_a</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Print A!"""</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"A!"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">method_b</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Print B!"""</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"B!"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">method_c</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Print C!"""</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"C!"</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_1_4" name="__tabbed_1" type="radio"><label for="__tabbed_1_4">Result</label><div class="tabbed-content">
+<p><h3 id="documentation-for-myclass" style="margin: 0;">Documentation for <code>MyClass</code></h3>
+<div><div><p>Print print print!</p><div><div>
+<h4 id="mkdocstrings.my_module.MyClass.method_a">
+<code class="highlight language-python">
+method_a<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
+</h4><div>
+<p>Print A!</p></div></div><div><h4 id="mkdocstrings.my_module.MyClass.method_b">
+<code class="highlight language-python">
+method_b<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
+</h4><div><p>Print B!</p></div></div></div></div></div></p>
+</div>
+</input></input></input></input></div>
+</div>
+<h2 id="global-options">Global options<a class="headerlink" href="#global-options" title="Permanent link">¤</a></h2>
+<p>MkDocstrings accept a few top-level configuration options in <code>mkdocs.yml</code>:</p>
+<ul>
+<li><code>watch</code>: a list of directories to watch while serving the documentation.
+  See <a href="#watch-directories">Watch directories</a>.</li>
+<li><code>default_handler</code>: the handler that is used by default when no handler is specified.</li>
+<li><code>custom_templates</code>: the path to a directory containing custom templates.
+  The path is relative to the docs directory.
+  See <a href="#customization">Customization</a>.</li>
+<li><code>handlers</code>: the handlers global configuration.</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
+    <span class="nt">default_handler</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">python</span>
+    <span class="nt">handlers</span><span class="p">:</span>
+      <span class="nt">python</span><span class="p">:</span>
+        <span class="nt">rendering</span><span class="p">:</span>
+          <span class="nt">show_source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>  
+    <span class="nt">custom_templates</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">templates</span>
+    <span class="nt">watch</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">src/my_package</span>
+</code></pre></div>
+<p>The handlers global configuration can then be overridden by local configurations:</p>
+<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">::</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">my_package.my_module.MyClass</span>
+    <span class="l l-Scalar l-Scalar-Plain">rendering</span><span class="p p-Indicator">:</span>
+      <span class="nt">show_source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<h2 id="cross-references">Cross-references<a class="headerlink" href="#cross-references" title="Permanent link">¤</a></h2>
+<p>Cross-references are written as Markdown <em>reference-style</em> links:</p>
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><label for="__tabbed_2_1">Markdown</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code>With a custom title:
+[<span class="nt">`Object 1`</span>][<span class="nl">full.path.object1</span>]
+
+With the identifier as title:
+[<span class="nt">full.path.object2</span>][]
+</code></pre></div>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio"><label for="__tabbed_2_2">HTML Result</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>With a custom title:
+<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"https://site_url.com/page1#full.path.object1"</span><span class="p">&gt;&lt;</span><span class="nt">code</span><span class="p">&gt;</span>Object 1<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>With the identifier as title:
+<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"https://site_url.com/page2#full.path.object2"</span><span class="p">&gt;</span>full.path.object2<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+</div>
+</input></input></div>
+<h2 id="themes">Themes<a class="headerlink" href="#themes" title="Permanent link">¤</a></h2>
+<p>MkDocstrings can support multiple MkDocs theme,
+though it only supports the
+<em><a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a></em>
+theme right now.</p>
+<p>Each renderer can fallback to a particular theme when the user selected theme is not supported.
+For example, the Python renderer will fallback to the <em>Material for MkDocs</em> templates.</p>
+<h2 id="customization">Customization<a class="headerlink" href="#customization" title="Permanent link">¤</a></h2>
+<p>There is some degree of customization possible in MkDocstrings.
+First, you can write custom templates to override the theme templates.
+Second, the provided templates make use of CSS classes,
+so you can tweak the look and feel with extra CSS rules. </p>
+<h3 id="templates">Templates<a class="headerlink" href="#templates" title="Permanent link">¤</a></h3>
+<p>To use custom templates and override the theme ones,
+specify the relative path to your templates directory
+with the <code>custom_templates</code> global configuration option:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span>
+<span class="nt">plugins</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
+      <span class="nt">custom_templates</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">templates</span>
+</code></pre></div>
+<p>You directory structure must be identical to the provided templates one:</p>
+<div class="highlight"><pre><span></span><code>templates
+├── &lt;HANDLER 1&gt;
+│   ├── &lt;THEME 1&gt;
+│   └── &lt;THEME 2&gt;
+└── &lt;HANDLER 2&gt;
+    ├── &lt;THEME 1&gt;
+    └── &lt;THEME 2&gt;
+</code></pre></div>
+<p>(<em><a href="https://github.com/pawamoy/mkdocstrings/tree/master/src/mkdocstrings/templates/">Check out the template tree on GitHub</a></em>)</p>
+<p>You don't have to replicate the whole tree,
+only the handlers, themes or templates you want to override.
+For example, to override some templates of the <em>Material</em> theme for Python:</p>
+<div class="highlight"><pre><span></span><code>templates
+└── python
+    └── material
+        ├── parameters.html
+        └── exceptions.html
+</code></pre></div>
+<p>In the HTML files, replace the original contents with your modified version.
+In the future, the templates will use Jinja blocks, so it will be easier
+to modify a small part of the template without copy-pasting the whole file.</p>
+<p>The <em>Material</em> theme provides the following template structure:</p>
+<ul>
+<li><code>children.html</code>: where the recursion happen, to render all children of an object<ul>
+<li><code>attribute.html</code>: to render attributes (class-attributes, etc.)</li>
+<li><code>class.html</code>: to render classes</li>
+<li><code>function.html</code>: to render functions</li>
+<li><code>method.html</code>: to render methods</li>
+<li><code>module.html</code>: to render modules</li>
+</ul>
+</li>
+<li><code>docstring.html</code>: to render docstrings<ul>
+<li><code>attributes.html</code>: to render attributes sections of docstrings</li>
+<li><code>examples.html</code>: to render examples sections of docstrings</li>
+<li><code>exceptions.html</code>: to render exceptions/"raises" sections of docstrings</li>
+<li><code>parameters.html</code>: to render parameters/arguments sections of docstrings</li>
+<li><code>return.html</code>: to render "return" sections of docstrings</li>
+</ul>
+</li>
+<li><code>properties.html</code>: to render the properties of an object (<code>staticmethod</code>, <code>read-only</code>, etc.)</li>
+<li><code>signature.html</code>: to render functions and methods signatures</li>
+</ul>
+<h3 id="css-classes">CSS classes<a class="headerlink" href="#css-classes" title="Permanent link">¤</a></h3>
+<p>The <em>Material</em> theme uses the following CSS classes in the HTML:</p>
+<ul>
+<li><code>doc</code>: on all the following elements</li>
+<li><code>doc-children</code>: on <code>div</code>s containing the children of an object</li>
+<li><code>doc-object</code>: on <code>div</code>s containing an object<ul>
+<li><code>doc-attribute</code>: on <code>div</code>s containing an attribute </li>
+<li><code>doc-class</code>: on <code>div</code>s containing a class </li>
+<li><code>doc-function</code>: on <code>div</code>s containing a function </li>
+<li><code>doc-method</code>: on <code>div</code>s containing a method </li>
+<li><code>doc-module</code>: on <code>div</code>s containing a module </li>
+</ul>
+</li>
+<li><code>doc-heading</code>: on objects headings </li>
+<li><code>doc-contents</code>: on <code>div</code>s wrapping the docstring then the children (if any)<ul>
+<li><code>first</code>: same, but only on the root object's contents <code>div</code></li>
+</ul>
+</li>
+<li><code>doc-properties</code>: on <code>span</code>s wrapping the object's properties<ul>
+<li><code>doc-property</code>: on <code>small</code> elements containing a property<ul>
+<li><code>doc-property-PROPERTY</code>: same, where <code>PROPERTY</code> is replaced by the actual property</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example with colorful properties</p>
+<div class="tabbed-set" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"><label for="__tabbed_3_1">CSS</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="nc">doc-property</span> <span class="p">{</span> <span class="k">border-radius</span><span class="p">:</span> <span class="mi">15</span><span class="kt">px</span><span class="p">;</span> <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">.</span><span class="nc">doc-property-special</span> <span class="p">{</span> <span class="k">background-color</span><span class="p">:</span> <span class="kc">blue</span><span class="p">;</span> <span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">.</span><span class="nc">doc-property-private</span> <span class="p">{</span> <span class="k">background-color</span><span class="p">:</span> <span class="kc">red</span><span class="p">;</span> <span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">.</span><span class="nc">doc-property-property</span> <span class="p">{</span> <span class="k">background-color</span><span class="p">:</span> <span class="kc">green</span><span class="p">;</span> <span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">.</span><span class="nc">doc-property-read-only</span> <span class="p">{</span> <span class="k">background-color</span><span class="p">:</span> <span class="kc">yellow</span><span class="p">;</span> <span class="k">color</span><span class="p">:</span> <span class="kc">black</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
+</div>
+<input id="__tabbed_3_2" name="__tabbed_3" type="radio"/><label for="__tabbed_3_2">Result</label><div class="tabbed-content">
+<p><style>
+  .prop { border-radius: 15px; padding: 0 5px; }
+</style>
+<h3 style="margin: 0;"><span>
+<small class="prop" style="background-color: blue; color: white !important;">special</small>
+<small class="prop" style="background-color: red; color: white !important;">private</small>
+<small class="prop" style="background-color: green; color: white !important;">property</small>
+<small class="prop" style="background-color: yellow; color: black !important;">read-only</small>
+</span></h3></p>
+<p>As you can see, CSS is not my field of predilection...</p>
+</div>
+</input></div>
+</div>
+<h2 id="watch-directories">Watch directories<a class="headerlink" href="#watch-directories" title="Permanent link">¤</a></h2>
+<p>You can add directories to watch with the <code>watch</code> key.
+It accepts a list of paths.</p>
+<p><div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
+      <span class="nt">watch</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">src/my_package_1</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">src/my_package_2</span>
+</code></pre></div>
+When serving your documentation
+and a change occur in one of the listed path,
+MkDocs will rebuild the site and reload the current page.</p>
+<div class="admonition note">
+<p class="admonition-title">The <code>watch</code> feature doesn't have special effects.</p>
+<p>Adding directories to the <code>watch</code> list doesn't have any other effect than watching for changes.
+For example, it will not tell the Python handler to look for packages in these paths
+(the paths are not added to the <code>PYTHONPATH</code> variable).
+If you want to tell Python where to look for packages and modules,
+see <a href="../handlers/python/#finding-modules">Python Handler: Finding modules</a>.</p>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav aria-label="Footer" class="md-footer-nav__inner md-grid">
+<a class="md-footer-nav__link md-footer-nav__link--prev" href=".." rel="prev" title="Overview">
+<div class="md-footer-nav__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</div>
+<div class="md-footer-nav__title">
+<div class="md-ellipsis">
+<span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Overview
+              </div>
+</div>
+</a>
+<a class="md-footer-nav__link md-footer-nav__link--next" href="../handlers/overview/" rel="next" title="Overview">
+<div class="md-footer-nav__title">
+<div class="md-ellipsis">
+<span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Overview
+              </div>
+</div>
+<div class="md-footer-nav__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+          Material for MkDocs
+        </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script src="../assets/javascripts/vendor.d710d30a.min.js"></script>
+<script src="../assets/javascripts/bundle.a45f732b.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.c03f0417.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+</body>
+</html>
