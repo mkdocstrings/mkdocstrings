@@ -1,67 +1,271 @@
-## Documentation collection
-*This page is a work in progress.*
+# Python handler
 
-### Docstrings format
-Your docstrings must follow a particular format, otherwise `mkdocstrings` will throw an exception.
-This will be improved to be more robust over time.
+## Handler options
 
-```python
-from typing import Optional
+Like every handler, the Python handler accepts the common
+[`selection`](#selection) and [`rendering`](#rendering) options,
+both as **global** and **local** options.
+The `selection` options gives you control over the selection of Python objects,
+while the `rendering` options lets you change how the documentation is rendered.
 
-def my_function(param1: int, param2: Optional[str] = None) -> str:
-    """
-    A short description of this function.
+It also accepts these additional **global-only** options:
 
-    A longer description of this function.
-    You can use more lines.
+Option | Type | Description | Default
+------ | ---- | ----------- | -------
+**`setup_commands`** | `list of str` | Run these commands before starting the documentation collection. | `[]`
 
-        This is a code block,
-        as usual.
-
-    ```python
-    s = "This is a Python code block :)"
+!!! example "Example: setup Django before collecting documentation"
+    ```yaml
+    # mkdocs.yml
+    plugins:
+      - mkdocstrings:
+          handlers:
+            python:
+              setup_commands:
+                - import os
+                - import django
+                - os.environ.setdefault("DJANGO_SETTINGS_MODULE", "my_django_app.settings")
+                - django.setup()
     ```
 
-    Arguments:
-        param1: An integer?
-        param2: A string? If you have a long description,
-          you can split it on multiple lines.
-          Just remember to indent those lines with at least two more spaces.
-               They will all be concatenated in one line, so do not try to
-             use complex markup here.
+!!! important
+    Additional options like `setup_commands` are used only once,
+    when instantiating the handler the first time it is requested.
+    This is why they are considered global-only options,
+    as they will have no effect if used as local options.
 
-    Note:
-        We omitted the type hints next to the parameters names.
-        Usually you would write something like `param1 (int): ...`,
-        but `mkdocstrings` gets the type information from the signature, so it's not needed here.
+### Selection
 
-    Exceptions are written the same.
+The following options are directly passed to the handler's collector.
+See [Collector: pytkdocs](#collector-pytkdocs) to learn more about `pytkdocs`.
 
-    Raises:
-        OSError: Explain when this error is thrown.
-        RuntimeError: Explain as well.
-          Multi-line description, etc.
+Option | Type | Description | Default
+------ | ---- | ----------- | -------
+**`filters`** | `list of str` | List of filtering regular expressions. Prefix with `!` to exclude objects whose name match. The default means *exclude private members*. | `["!^_[^_]"]`
+**`members`** | `bool`, or `list of str` | Explicitly select members. True means *all*, false means *none*. | `True`
+**`inherited_members`** | `bool` | Also select members inherited from parent classes. | `False`
+**`docstring_style`** | `str` | Docstring style to parse. `pytkdocs` only supports `google` yet. | `"google"`
+**`docstring_options`** | `dict` | Options to pass to the docstring parser. See [Collector: pytkdocs](#collector-pytkdocs) | `{}`
 
-    Let's see the return value section now.
+!!! example "Configuration example"
+    === "Global"
+        ```yaml
+        # mkdocs.yml
+        plugins:
+          - mkdocstrings:
+              handlers:
+                python:
+                  selection:
+                    filters:
+                      - "!^_"  # exlude all members starting with _
+                      - "^__init__$"  # but always include __init__ modules and methods
+        ```
+        
+    === "Local"
+        ```yaml
+        ::: my_package
+            selection:
+              filters: []  # pick up everything
+        ```
+    
+### Rendering
 
-    Returns:
-        A description of the value that is returned.
-        Again multiple lines are allowed. They will also be concatenated to one line,
-        so do not use complex markup here.
+These options affect how the documentation is rendered.
 
-    Note:
-        Other words are supported:
+Option | Type | Description | Default
+------ | ---- | ----------- | -------
+**`show_root_heading`** | `bool` | Show the heading of the object at the root of the documentation tree. | `False`
+**`show_root_toc_entry`** | `bool` | If the root heading is not shown, at least add a ToC entry for it. | `True`
+**`show_root_full_path`** | `bool` | Show the full Python path for the root object heading. | `True`
+**`show_object_full_path`** | `bool` | Show the full Python path of every object. | `False`
+**`show_category_heading`** | `bool` | When grouped by categories, show a heading for each category. | `False`
+**`show_if_no_docstring`** | `bool` | Show the object heading even if it has no docstring or children with docstrings. | `False`
+**`show_source`** | `bool` | Show the source code of this object. | `True`
+**`group_by_category`** | `bool` | Group the object's children by categories: attributes, classes, functions, methods, and modules. | `True`
+**`heading_level`** | `int` | The initial heading level to use. | `2`
 
-        - `Args`, `Arguments`, `Params` and `Parameters` for the parameters.
-        - `Raise`, `Raises`, `Except`, and `Exceptions` for exceptions.
-        - `Return` or `Returns` for return value.
+!!! example "Configuration example"
+    === "Global"
+        ```yaml
+        # mkdocs.yml
+        plugins:
+          - mkdocstrings:
+              handlers:
+                python:
+                  rendering:
+                    show_root_heading: yes
+        ```
+        
+    === "Local"
+        ```md
+        ## `ClassA`
 
-        They are all case-insensitive, so you can write `RETURNS:` or `params:`.
+        ::: my_package.my_module.ClassA
+            rendering:
+              show_root_heading: no
+              heading_level: 3
+        ```
+
+## Collector: pytkdocs
+
+The tool used by the Python handler to collect documentation from Python source code
+is [`pytkdocs`](https://pawamoy.github.io/pytkdocs).
+It stands for *(Python) Take Docs*, and is supposed to be a pun on MkDocs (*Make Docs*?).
+
+### Supported docstrings styles
+
+Right now, `pytkdocs` supports only the Google-style docstring format.
+
+#### Google-style
+
+You can see examples of Google-style docstrings
+in [Napoleon's documentation](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html).
+
+##### Sections
+
+Docstrings sections are parsed by `pytkdocs` and rendered by MkDocstrings.
+Supported sections are:
+
+- `Arguments` (or `Args`, `Parameters`, `Params`)
+- `Attributes`
+- `Examples` (or `Example`)
+- `Raises` (or `Raise`, `Except`, `Exceptions`)
+- `Returns` (or `Return`)
+
+##### Admonitions
+
+Additionally, any section that is not recognized will be transformed into its admonition equivalent.
+For example:
+
+=== "Original"
+    ```python
     """
-    return f"{param2}{param1}"
+    Note: You can disable this behavior with the `replace_admonitions` option.
+        To prevent `pytkdocs` from converting sections to admonitions,
+        use the `replace_admonitions`:
+       
+        ```md
+        ::: my_package.my_module
+            selection:
+              docstring_style: google  # this is the default
+              docstring_options:
+                replace_admonitions: no 
+        ```
+        
+        So meta!
+    """
+    ```
+
+=== "Modified"
+    ```python
+    """
+    !!! note "You can disable this behavior with the `replace_admonitions` option."
+        To prevent `pytkdocs` from converting sections to admonitions,
+        use the `replace_admonitions`:
+       
+        ```md
+        ::: my_package.my_module
+            selection:
+              docstring_style: google  # this is the default
+              docstring_options:
+                replace_admonitions: no 
+        ```
+        
+        So meta!
+    """
+    ```
+    
+=== "Result"
+    !!! note "You can disable this behavior with the `replace_admonitions` parser option."
+        To prevent `pytkdocs` from converting sections to admonitions,
+        use the `replace_admonitions` parser option:
+       
+        ```md
+        ::: my_package.my_module
+            selection:
+              docstring_style: google  # this is the default
+              docstring_options:
+                replace_admonitions: no 
+        ```
+        
+        So meta!
+
+As shown in the above example, this can be disabled
+with the `replace_admonitions` option of the Google-style parser:
+
+```yaml
+::: my_package.my_module
+    selection:
+      docstring_style: google  # this is the default
+      docstring_options:
+        replace_admonitions: no 
 ```
 
-## Recommended style
+##### Annotations
+
+Type annotations are read both in the code and in the docstrings.
+
+!!! example "Example with a function"
+    **Expand the source at the end to see the original code!**
+    
+    ::: snippets.function_annotations.my_function
+        rendering:
+          show_root_heading: no
+          show_root_toc_entry: no
+
+### Finding modules
+
+In order for `pytkdocs` to find your packages and modules,
+you should take advantage of the usual Python loading mechanisms:
+
+- install your package in the current virtualenv:
+    ```bash
+    . venv/bin/activate
+    pip install -e .
+    ```
+  
+    ```bash
+    poetry install
+    ```
+  
+    ...etc.
+    
+- or add your package(s) parent directory in the `PYTHONPATH`.
+  
+(*The following instructions assume your Python package is in the `src` directory.*)
+
+In Bash and other shells, you can run your command like this
+(note the prepended `PYTHONPATH=...`):
+
+```bash
+PYTHONPATH=src poetry run mkdocs serve
+```
+
+You could also export that variable,
+but this is **not recommended** as it could affect other Python processes:
+
+```bash
+export PYTHONPATH=src  # Linux/Bash and similar
+setx PYTHONPATH src  # Windows, USE AT YOUR OWN RISKS
+```
+
+You can also use the Python handler `setup_commands`:
+
+```yaml
+# mkdocs.yml
+plugins:
+  - mkdocstrings:
+      handlers:
+        python:
+          setup_commands:
+            - import sys
+            - sys.path.append("src")
+            # or sys.path.insert(0, "src")
+```
+
+## Recommended style (Material)
+
+Here are some CSS rules for the *Material for MkDocs* theme:
 
 ```css
 /* Indentation. */

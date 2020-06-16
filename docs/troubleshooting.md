@@ -42,18 +42,15 @@ Python?
 
 - "No": we only support Python right now.
 - "Yes": is your package available in the Python path?
-  If not, install it in your current virtualenv and try again.
-  Make sure you don't have an old version of your package installed,
-  shadowing your source code. 
+  See [Python handler: Finding module](../handlers/python/#finding-modules).
 
 ## Some objects are not rendered (they do not appear in the generated docs)
 
 - Make sure the configuration options of the handler for both selection and rendering are correct.
-  Check the documentation for [Handlers](/handlers/overview) to see the available options for each handler.
+  Check the documentation for [Handlers](../handlers/overview) to see the available options for each handler.
 - Also make sure your documentation in your source code is formatted correctly.
-  For Python code, check the [docstring format](/handlers/python/#docstring-format) page.
-- Check the output of the `mkdocs` command, and re-run it with `-v` if necessary.
-  Warnings should appear, showing errors that happened during collection.
+  For Python code, check the [supported docstring styles](../handlers/python/#supported-docstrings-styles) page.
+- Re-run the Mkdocs command with `-v`, and carefully read any traceback.
 
 ## The generated documentation does not look good
 
@@ -102,7 +99,9 @@ Version 2.11.1 seems to be working fine.
 
 ### LaTeX in docstrings is not rendered correctly
 
-If you are using a Markdown extension like [`markdown-katex`][markdown-katex] to render LaTeX,
+If you are using a Markdown extension like
+[Arithmatex Mathjax](https://squidfunk.github.io/mkdocs-material/extensions/pymdown/#arithmatex-mathjax)
+or [`markdown-katex`][markdown-katex] to render LaTeX,
 add `r` in front of your docstring to make sure nothing is escaped.
 You'll still maybe have to play with escaping to get things right.
 
@@ -133,17 +132,32 @@ So instead of:
 ```python
 import enum
 
-
 class MyEnum(enum.Enum):
     v1 = 1  #: The first choice.
     v2 = 2  #: The second choice.
 ```
 
-Write:
+You can use:
 
 ```python
 import enum
 
+class MyEnum(enum.Enum):
+    """
+    My enum.
+    
+    Attributes:
+        v1: The first choice.
+        v2: The second choice.
+    """
+    v1 = 1
+    v2 = 2
+```
+
+Or:
+
+```python
+import enum
 
 class MyEnum(enum.Enum):
     v1 = 1
@@ -152,8 +166,6 @@ class MyEnum(enum.Enum):
     v2 = 2
     """The second choice."""
 ```
-
-It does not look better, I know, but this is the price to pay.
 
 ### My wrapped function shows documentation/code for its wrapper instead of its own
 

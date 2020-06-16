@@ -16,7 +16,7 @@ Automatic documentation from sources, for MkDocs.
     - [Python handler features](#python-handler-features)
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Usage](#usage)
+- [Quick usage](#quick-usage)
 
 ## Features
 
@@ -103,7 +103,8 @@ pyenv global system 3.6.8
 ```
 </details>
 
-This project currently only works with the Material theme of MkDocs. Therefore, it is required that you have it installed.
+This project currently only works with the Material theme of MkDocs.
+Therefore, it is required that you have it installed.
 
 ```
 pip install mkdocs-material
@@ -116,7 +117,7 @@ With `pip`:
 python3.6 -m pip install mkdocstrings
 ```
 
-## Usage
+## Quick usage
 
 ```yaml
 # mkdocs.yml
@@ -125,14 +126,7 @@ theme:
 
 plugins:
   - search
-  - mkdocstrings:
-      default_handler: python
-      handlers:
-        python:
-          rendering:
-            show_source: true
-      watch:
-        - src/my_library
+  - mkdocstrings
 ```
 
 In one of your markdown files:
@@ -141,40 +135,6 @@ In one of your markdown files:
 # Reference
 
 ::: my_library.my_module.my_class
-    rendering:
-      show_source: false
-
-
-::: org.jpackage.BestOfTheBestFactoryInterface
-    handler: java  # we don't have a java handler yet, it's just an example
 ```
 
-In documentation strings (written in Markdown), you can reference objects from other places:
-
-```python
-def some_function():
-    """
-    This is my function.
-
-    It references [another function][package.submodule.function].
-    It also references another object directly: [package.submodule.SuperClass][].
-    """
-    pass
-```
-
-Add some style in `docs/custom.css`:
-
-```css
-div.doc-contents:not(.first) {
-  padding-left: 25px;
-  border-left: 4px solid rgba(230, 230, 230);
-  margin-bottom: 80px;
-}
-```
-
-And add it to your `mkdocs.yml`:
-
-```yaml
-extra_css:
-  - custom.css
-```
+See the [Usage](https://pawamoy.github.io/mkdocstrings/usage) section of the docs for more examples!

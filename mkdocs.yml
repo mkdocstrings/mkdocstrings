@@ -6,15 +6,18 @@ repo_name: "pawamoy/mkdocstrings"
 
 nav:
   - Overview: index.md
+  - Usage: usage.md
   - Handlers:
     - Overview: handlers/overview.md
     - Python: handlers/python.md
+
   - Reference:
-    - handlers:
-      - __init__.py: reference/handlers/__init__.md
-      - python.py: reference/handlers/python.md
-    - extension.py: reference/extension.md
-    - plugin.py: reference/plugin.md
+      - handlers:
+          - __init__.py: reference/handlers/__init__.md
+          - python.py: reference/handlers/python.md
+      - extension.py: reference/extension.md
+      - plugin.py: reference/plugin.md
+
   - Troubleshooting: troubleshooting.md
   - Contributing: contributing.md
   - Code of Conduct: code_of_conduct.md
@@ -35,11 +38,17 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tasklist
   - pymdownx.emoji
+  - pymdownx.tabbed
   - toc:
       permalink: "¤"
 
 plugins:
   - search
   - mkdocstrings:
+      handlers:
+        python:
+          setup_commands:
+            - import sys
+            - sys.path.append("docs")
       watch:
         - src/mkdocstrings
