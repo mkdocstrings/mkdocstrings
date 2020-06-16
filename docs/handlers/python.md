@@ -213,7 +213,7 @@ Type annotations are read both in the code and in the docstrings.
           show_root_heading: no
           show_root_toc_entry: no
 
-### Finding modules
+## Finding modules
 
 In order for `pytkdocs` to find your packages and modules,
 you should take advantage of the usual Python loading mechanisms:
@@ -261,6 +261,28 @@ plugins:
             - import sys
             - sys.path.append("src")
             # or sys.path.insert(0, "src")
+```
+
+## Mocking libraries
+
+You may want to to generate documentation for a package while its dependencies are not available.
+The Python handler provides itself no builtin way to mock libraries,
+but you can use the `setup_commands` to mock them manually:
+
+```yaml
+# mkdocs.yml
+plugins:
+  - mkdocstrings:
+      handlers:
+        python:
+          setup_commands:
+            - import sys
+            - from unittest.mock import MagicMock as mock
+            - sys.modules["lib1"] = mock()
+            - sys.modules["lib2"] = mock()
+            - sys.modules["lib2.module1"] = mock()
+            - sys.modules["lib2.module1.moduleB"] = mock()
+            # etc
 ```
 
 ## Recommended style (Material)
