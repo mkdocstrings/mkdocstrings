@@ -24,8 +24,7 @@ check-dependencies:  ## Check for vulnerabilities in dependencies.
 			SAFETY="pipx run safety"; \
 		fi; \
 	fi; \
-	poetry run pip freeze 2>/dev/null | \
-		grep -iv 'mkdocstrings' | \
+	poetry export -f requirements.txt --without-hashes | \
 		poetry run failprint --no-pty -t "Checking dependencies" -- $$SAFETY check --stdin --full-report
 
 .PHONY: check-docs
