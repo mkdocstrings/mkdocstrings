@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [v0.12.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.12.0) - 2020-06-14
+
+<small>[Compare with v0.11.4](https://github.com/pawamoy/mkdocstrings/compare/v0.11.4...v0.12.0)</small>
+
+### Features
+- Support attributes section in Google-style docstrings ([8300253](https://github.com/pawamoy/mkdocstrings/commit/83002532b2294ea33dcec4f2672a5a6d0f64def1) by Timothée Mazzucotelli). References: [#88](https://github.com/pawamoy/mkdocstrings/issues/88)
+- Support examples section in Google-style docstrings ([650c754](https://github.com/pawamoy/mkdocstrings/commit/650c754afdd5d4fb96b1e2529f378d025a2e7daf) by Iago González). References: [#112](https://github.com/pawamoy/mkdocstrings/issues/112)
+
+### Packaging
+- Accept `pytkdocs` version up to 0.6.x ([changelog](https://pawamoy.github.io/pytkdocs/changelog/#v060-2020-06-14)).
+
 ## [v0.11.4](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.11.4) - 2020-06-08
 
 <small>[Compare with v0.11.3](https://github.com/pawamoy/mkdocstrings/compare/v0.11.3...v0.11.4)</small>
