@@ -148,7 +148,7 @@ class PythonCollector(BaseCollector):
             ]
             cmd = [sys.executable, "-c", "; ".join(commands)]
         else:
-            cmd = ["pytkdocs", "--line-by-line"]
+            cmd = [sys.executable, "-m", "pytkdocs", "--line-by-line"]
 
         self.process = Popen(  # noqa: S603,S607 (we trust the input, and we don't want to use the absolute path)
             cmd, universal_newlines=True, stderr=PIPE, stdout=PIPE, stdin=PIPE, bufsize=-1, env=env,
