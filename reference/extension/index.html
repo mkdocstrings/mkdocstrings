@@ -8,9 +8,9 @@
 <meta content="Automatic documentation from sources, for MkDocs." name="description"/>
 <link href="https://pawamoy.github.io/mkdocstrings/reference/extension/" rel="canonical"/>
 <link href="../../assets/images/favicon.png" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-5.2.3" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.4.0" name="generator"/>
 <title>extension.py - mkdocstrings</title>
-<link href="../../assets/stylesheets/main.6e35a1a6.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/main.fe0cca5b.min.css" rel="stylesheet"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
 <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
@@ -507,19 +507,19 @@ of the <code>mkdocstrings</code> plugin.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94
-95</pre>
+<pre><span></span> 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110</pre>
 </div>
 </td>
 <td class="code">
@@ -596,20 +596,20 @@ get_handler_config<span class="p">(</span><span class="bp">self</span><span clas
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>210
-211
-212
-213
-214
-215
-216
-217
-218
-219
-220
-221
-222
-223</pre>
+<pre><span></span>225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238</pre>
 </div>
 </td>
 <td class="code">
@@ -687,19 +687,19 @@ get_handler_name<span class="p">(</span><span class="bp">self</span><span class=
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>196
-197
-198
-199
-200
-201
-202
-203
-204
-205
-206
-207
-208</pre>
+<pre><span></span>211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223</pre>
 </div>
 </td>
 <td class="code">
@@ -787,23 +787,23 @@ get_item_configs<span class="p">(</span><span class="n">handler_config</span><sp
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>225
-226
-227
-228
-229
-230
-231
-232
-233
-234
-235
-236
-237
-238
-239
-240
-241</pre>
+<pre><span></span>240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256</pre>
 </div>
 </td>
 <td class="code">
@@ -877,22 +877,7 @@ and used to collect and render an object.</p>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
+<pre><span></span>123
 124
 125
 126
@@ -963,7 +948,22 @@ and used to collect and render an object.</p>
 191
 192
 193
-194</pre>
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209</pre>
 </div>
 </td>
 <td class="code">
@@ -1028,7 +1028,7 @@ and used to collect and render an object.</p>
 
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.extension: Loading HTML back into XML tree"</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">as_xml</span> <span class="o">=</span> <span class="n">XML</span><span class="p">(</span><span class="n">rendered</span><span class="p">)</span>
+            <span class="n">as_xml</span> <span class="o">=</span> <span class="n">XML</span><span class="p">(</span><span class="n">ENTITIES</span> <span class="o">+</span> <span class="n">rendered</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">ParseError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
             <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"mkdocstrings.extension: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span>
             <span class="k">if</span> <span class="s2">"mismatched tag"</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
@@ -1076,16 +1076,16 @@ test<span class="p">(</span><span class="bp">self</span><span class="p">,</span>
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span> 97
- 98
- 99
-100
-101
-102
-103
-104
-105
-106</pre>
+<pre><span></span>112
+113
+114
+115
+116
+117
+118
+119
+120
+121</pre>
 </div>
 </td>
 <td class="code">
@@ -1165,17 +1165,17 @@ when instantiated in <a href="https://pawamoy.github.io/mkdocstrings/reference/e
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>251
-252
-253
-254
-255
-256
-257
-258
-259
-260
-261</pre>
+<pre><span></span>266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276</pre>
 </div>
 </td>
 <td class="code">
@@ -1234,18 +1234,18 @@ extendMarkdown<span class="p">(</span><span class="bp">self</span><span class="p
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>263
-264
-265
-266
-267
-268
-269
-270
-271
-272
-273
-274</pre>
+<pre><span></span>278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289</pre>
 </div>
 </td>
 <td class="code">
@@ -1328,28 +1328,28 @@ to keep modifying the data, so this function is used to mark the complete tree a
 <tr>
 <td class="linenos">
 <div class="linenodiv">
-<pre><span></span>45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
+<pre><span></span>60
 61
 62
 63
 64
 65
-66</pre>
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81</pre>
 </div>
 </td>
 <td class="code">
@@ -1436,13 +1436,13 @@ to keep modifying the data, so this function is used to mark the complete tree a
 </footer>
 </div>
 <script src="../../assets/javascripts/vendor.d710d30a.min.js"></script>
-<script src="../../assets/javascripts/bundle.a45f732b.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../../assets/javascripts/bundle.b39636ac.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "../..",
           features: [],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.c03f0417.min.js"
+            worker: "../../assets/javascripts/worker/search.a68abb33.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
