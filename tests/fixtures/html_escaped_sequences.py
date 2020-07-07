@@ -1,0 +1,12 @@
+"""
+&nbsp;
+&lsquo;
+&rsquo;
+&ldquo;
+&rdquo;
+&laquo;
+&raquo;
+&hellip;
+&ndash;
+&mdash;
+"""

@@ -41,6 +41,21 @@ from mkdocstrings.handlers import CollectionError, get_handler
 log = logging.getLogger(f"mkdocs.plugins.{__name__}")
 log.addFilter(warning_filter)
 
+ENTITIES = """
+    <!DOCTYPE html [
+        <!ENTITY nbsp '&amp;nbsp;'>
+        <!ENTITY lsquo '&amp;lsquo;'>
+        <!ENTITY rsquo '&amp;rsquo;'>
+        <!ENTITY ldquo '&amp;ldquo;'>
+        <!ENTITY rdquo '&amp;rdquo;'>
+        <!ENTITY laquo '&amp;laquo;'>
+        <!ENTITY raquo '&amp;raquo;'>
+        <!ENTITY hellip '&amp;hellip;'>
+        <!ENTITY ndash '&amp;ndash;'>
+        <!ENTITY mdash '&amp;mdash;'>
+    ]>
+"""
+
 
 def atomic_brute_cast(tree: Element) -> Element:
     """
@@ -165,7 +180,7 @@ class AutoDocProcessor(BlockProcessor):
 
             log.debug("mkdocstrings.extension: Loading HTML back into XML tree")
             try:
-                as_xml = XML(rendered)
+                as_xml = XML(ENTITIES + rendered)
             except ParseError as error:
                 message = f"mkdocstrings.extension: {error}"
                 if "mismatched tag" in str(error):
