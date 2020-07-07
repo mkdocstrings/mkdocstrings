@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [v0.12.1](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.12.1) - 2020-07-07
+
+<small>[Compare with v0.12.0](https://github.com/pawamoy/mkdocstrings/compare/v0.12.0...v0.12.1)</small>
+
+### Bug Fixes
+- Fix HTML-escaped sequence parsing as XML ([db297f1](https://github.com/pawamoy/mkdocstrings/commit/db297f19013fc402eeff1f2827057a959e481c66) by Timothée Mazzucotelli).
+- Allow running mkdocs from non-default interpreter ([283dd7b](https://github.com/pawamoy/mkdocstrings/commit/283dd7b83eeba675a16d96d2e829851c1273a625) by Jared Khan).
+
+
 ## [v0.12.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.12.0) - 2020-06-14
 
 <small>[Compare with v0.11.4](https://github.com/pawamoy/mkdocstrings/compare/v0.11.4...v0.12.0)</small>
