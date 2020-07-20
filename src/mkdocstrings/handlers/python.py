@@ -39,6 +39,7 @@ class PythonRenderer(BaseRenderer):
         "show_root_heading": False,
         "show_root_toc_entry": True,
         "show_root_full_path": True,
+        "show_root_members_full_path": False,
         "show_object_full_path": False,
         "show_category_heading": False,
         "show_if_no_docstring": False,
@@ -55,6 +56,7 @@ class PythonRenderer(BaseRenderer):
     **`show_root_toc_entry`** | `bool` | If the root heading is not shown, at least add a ToC entry for it. | `True`
     **`show_root_full_path`** | `bool` | Show the full Python path for the root object heading. | `True`
     **`show_object_full_path`** | `bool` | Show the full Python path of every object. | `False`
+    **`show_root_members_full_path`** | `bool` | Show the full Python path of objects that are children of the root object (for example, classes in a module). | `False`
     **`show_category_heading`** | `bool` | When grouped by categories, show a heading for each category. | `False`
     **`show_if_no_docstring`** | `bool` | Show the object heading even if it has no docstring or children with docstrings. | `False`
     **`show_source`** | `bool` | Show the source code of this object. | `True`

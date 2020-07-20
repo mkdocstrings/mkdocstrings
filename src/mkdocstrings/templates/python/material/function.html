@@ -2,10 +2,14 @@
 
   <div class="doc doc-object doc-function">
 
-    {% if not root or config.show_root_heading %}
+    {% if not root or config.show_root_heading%}
 
       {% if root %}
         {% set show_full_path = config.show_root_full_path %}
+        {% set root_members = True %}
+      {% elif root_members %}
+        {% set show_full_path = config.show_root_members_full_path %}
+        {% set root_members = False %}
       {% else %}
         {% set show_full_path = config.show_object_full_path %}
       {% endif %}
