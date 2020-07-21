@@ -39,7 +39,7 @@ class PythonRenderer(BaseRenderer):
         "show_root_heading": False,
         "show_root_toc_entry": True,
         "show_root_full_path": True,
-        "show_root_members_full_path": False,
+        "show_root_members_full_path": None,
         "show_object_full_path": False,
         "show_category_heading": False,
         "show_if_no_docstring": False,
