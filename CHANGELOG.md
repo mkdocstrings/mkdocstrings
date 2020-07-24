@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [v0.12.2](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.12.2) - 2020-07-24
+
+<small>[Compare with v0.12.1](https://github.com/pawamoy/mkdocstrings/compare/v0.12.1...v0.12.2)</small>
+
+### Packaging
+- Accept `pytkdocs` version up to 0.7.x ([changelog](https://pawamoy.github.io/pytkdocs/changelog/#v070-2020-07-24)).
+
+
 ## [v0.12.1](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.12.1) - 2020-07-07
 
 <small>[Compare with v0.12.0](https://github.com/pawamoy/mkdocstrings/compare/v0.12.0...v0.12.1)</small>
@@ -134,7 +142,7 @@ See issue [#74](https://github.com/pawamoy/mkdocstrings/issues/74).
 ## [v0.9.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.9.0) - 2020-03-21
 
 <small>[Compare with v0.8.0](https://github.com/pawamoy/mkdocstrings/compare/v0.8.0...v0.9.0)</small>
- 
+
 This version is a big refactor. We will just list the new features without pointing to particular commits.
 The documentation rendering looks slightly different, and should be better than before.
 No identified breaking changes for end-users.
@@ -151,7 +159,7 @@ No identified breaking changes for end-users.
   [check the docs!](https://pawamoy.github.io/mkdocstrings/reference/handlers/python/#mkdocstrings.handlers.python.PythonRenderer.DEFAULT_CONFIG)
   Also see the [recommended CSS](https://pawamoy.github.io/mkdocstrings/handlers/python/#recommended-style).
 - **Proper logging messages:** `mkdocstrings` now logs debug, warning and error messages, useful when troubleshooting.
-  
+
 ### Bug fixes
 - Various fixes and better error handling.
 
@@ -162,7 +170,7 @@ No identified breaking changes for end-users.
 
 ### Breaking Changes
 - Be compatible with Mkdocs >= 1.1 ([5a974a4](https://github.com/pawamoy/mkdocstrings/commit/5a974a4eb810904d6836e216d8539affc8acaa6f)).
-  This is a breaking change as we're not compatible with versions of Mkdocs below 1.1 anymore. 
+  This is a breaking change as we're not compatible with versions of Mkdocs below 1.1 anymore.
   If you cannot upgrade Mkdocs to 1.1, pin mkdocstrings' version to 0.7.2.
 
 ## [v0.7.2](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.7.2) - 2020-03-04
