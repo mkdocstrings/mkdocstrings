@@ -8,7 +8,7 @@
         {% set show_full_path = config.show_root_full_path %}
         {% set root_members = True %}
       {% elif root_members %}
-        {% set show_full_path = config.show_root_members_full_path %}
+        {% set show_full_path = config.show_root_members_full_path or config.show_object_full_path %}
         {% set root_members = False %}
       {% else %}
         {% set show_full_path = config.show_object_full_path %}
