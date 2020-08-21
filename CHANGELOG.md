@@ -5,6 +5,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [v0.13.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.13.0) - 2020-08-21
+
+<small>[Compare with v0.12.2](https://github.com/pawamoy/mkdocstrings/compare/v0.12.2...v0.13.0)</small>
+
+### Bug Fixes
+- Accept dashes in module names ([fcf79d0](https://github.com/pawamoy/mkdocstrings/commit/fcf79d0024ec46c3862c94202864e054c04a6d0b) by Timothée Mazzucotelli). References: [#140](https://github.com/pawamoy/mkdocstrings/issues/140)
+
+### Features
+- Add option to show full path of direct members only ([d1b9401](https://github.com/pawamoy/mkdocstrings/commit/d1b9401afecb20d3123eec7334605cb15bf9d877) by Aaron Dunmore). References: [#134](https://github.com/pawamoy/mkdocstrings/issues/134), [#136](https://github.com/pawamoy/mkdocstrings/issues/136)
+
+### Packaging
+- Accept `pymdown-extensions` versions up to 0.8.x ([see release notes](https://facelessuser.github.io/pymdown-extensions/about/releases/8.0/#8.0)) ([178d48d](https://github.com/pawamoy/mkdocstrings/commit/178d48da7a62daf285dfc5f6ff230e8bce82ed53) by Hugo van Kemenade). PR [#146](https://github.com/pawamoy/mkdocstrings/issue/146)
+
+
 ## [v0.12.2](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.12.2) - 2020-07-24
 
 <small>[Compare with v0.12.1](https://github.com/pawamoy/mkdocstrings/compare/v0.12.1...v0.12.2)</small>
