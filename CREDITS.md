@@ -82,7 +82,7 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`pluggy`](https://github.com/pytest-dev/pluggy) |
 [`prompt-toolkit`](https://github.com/prompt-toolkit/python-prompt-toolkit) |
 [`ptyprocess`](https://github.com/pexpect/ptyprocess) |
-[`py`](https://py.readthedocs.io/) |
+[`py`](http://py.readthedocs.io/) |
 [`pycodestyle`](https://pycodestyle.readthedocs.io/) |
 [`pydocstyle`](https://github.com/PyCQA/pydocstyle/) |
 [`pyflakes`](https://github.com/PyCQA/pyflakes) |
