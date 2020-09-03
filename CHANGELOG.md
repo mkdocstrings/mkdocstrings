@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [v0.13.1](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.13.1) - 2020-09-03
+
+<small>[Compare with v0.13.0](https://github.com/pawamoy/mkdocstrings/compare/v0.13.0...v0.13.1)</small>
+
+### Bug Fixes
+- Use relative links for cross-references ([9c77f1f](https://github.com/pawamoy/mkdocstrings/commit/9c77f1f461fa87842ae39945f9521ee85b1e413b) by Timothée Mazzucotelli). References: [#144](https://github.com/pawamoy/mkdocstrings/issues/144), [#147](https://github.com/pawamoy/mkdocstrings/issues/147)
+
+
 ## [v0.13.0](https://github.com/pawamoy/mkdocstrings/releases/tag/v0.13.0) - 2020-08-21
 
 <small>[Compare with v0.12.2](https://github.com/pawamoy/mkdocstrings/compare/v0.12.2...v0.13.0)</small>
