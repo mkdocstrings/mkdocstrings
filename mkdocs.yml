@@ -17,6 +17,7 @@ nav:
           - python.py: reference/handlers/python.md
       - extension.py: reference/extension.md
       - plugin.py: reference/plugin.md
+      - references.py: reference/references.md
 
   - Troubleshooting: troubleshooting.md
   - Contributing: contributing.md
