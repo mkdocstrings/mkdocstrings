@@ -16,4 +16,4 @@ from typing import List
 
 from mkdocstrings.plugin import MkdocstringsPlugin
 
-__all__: List[str] = ["MkdocstringsPlugin"]
+__all__: List[str] = ["MkdocstringsPlugin"]  # noqa: WPS410 (the only __variable__ we use)
