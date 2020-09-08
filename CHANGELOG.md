@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.13.2](https://github.com/pawamoy/mkdocstrings/releases/tag/0.13.2) - 2020-09-08
+
+<small>[Compare with 0.13.1](https://github.com/pawamoy/mkdocstrings/compare/0.13.1...0.13.2)</small>
+
+### Bug Fixes
+- Fix relative URLs when `use_directory_urls` is false ([421d189](https://github.com/pawamoy/mkdocstrings/commit/421d189fff9ea2608e40d85e0a93e30334782b90) by Timothée Mazzucotelli). References: [#149](https://github.com/pawamoy/mkdocstrings/issues/149)
+
+
 ## [0.13.1](https://github.com/pawamoy/mkdocstrings/releases/tag/0.13.1) - 2020-09-03
 
 <small>[Compare with 0.13.0](https://github.com/pawamoy/mkdocstrings/compare/0.13.0...0.13.1)</small>
