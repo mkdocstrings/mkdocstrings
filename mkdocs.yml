@@ -3,7 +3,6 @@ site_description: "Automatic documentation from sources, for MkDocs."
 site_url: "https://pawamoy.github.io/mkdocstrings"
 repo_url: "https://github.com/pawamoy/mkdocstrings"
 repo_name: "pawamoy/mkdocstrings"
-use_directory_urls: false
 
 nav:
   - Overview: index.md
