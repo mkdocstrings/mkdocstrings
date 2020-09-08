@@ -53,7 +53,6 @@ def setpath(path: str) -> Generator:
     os.environ["PATH"] = current_path
 
 
-
 def _python_ci_decorator(func: Callable) -> Callable:
     """
     Decorate a task to add `python_version` and `skip` attributes to the context.
@@ -64,6 +63,7 @@ def _python_ci_decorator(func: Callable) -> Callable:
     Returns:
         The wrapped function.
     """
+
     @wraps(func)  # noqa: WPS430 (nested function)
     def wrapper(context, *args, **kwargs):
         context.python_version = which("python")
@@ -333,9 +333,7 @@ def test(context, match=""):
         match: A pytest expression to filter selected tests.
     """
     title = f"Running tests ({context.python_version})"
-    command = (
-        f"coverage run --rcfile=config/coverage.ini -m pytest -c config/pytest.ini -k '{match}' {PY_SRC} 2>/dev/null"
-    )
+    command = f"pytest -c config/pytest.ini -n auto -k '{match}' {PY_SRC} 2>/dev/null"
     if context.skip:
         title += " (missing interpreter)"
         command = "true"
