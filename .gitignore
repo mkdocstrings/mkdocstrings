@@ -4,9 +4,7 @@ __pycache__/
 dist/
 *.egg-info/
 build/
-.coverage
-tests/tmp/*
-!tests/tmp/.gitkeep
+.coverage*
 pip-wheel-metadata/
 .pytest_cache/
 .python-version

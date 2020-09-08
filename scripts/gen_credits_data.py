@@ -1,5 +1,4 @@
 """Generate data to render the credits template."""
-# noqa: WPS226 ("name" over-use)
 
 import json
 import sys

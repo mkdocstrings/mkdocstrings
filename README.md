@@ -96,10 +96,10 @@ export PYENV_ROOT="${HOME}/.pyenv"
 eval "$(pyenv init -)"
 
 # install Python 3.6
-pyenv install 3.6.8
+pyenv install 3.6.12
 
 # make it available globally
-pyenv global system 3.6.8
+pyenv global system 3.6.12
 ```
 </details>
 

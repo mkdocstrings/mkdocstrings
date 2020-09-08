@@ -3,6 +3,7 @@ site_description: "Automatic documentation from sources, for MkDocs."
 site_url: "https://pawamoy.github.io/mkdocstrings"
 repo_url: "https://github.com/pawamoy/mkdocstrings"
 repo_name: "pawamoy/mkdocstrings"
+use_directory_urls: false
 
 nav:
   - Overview: index.md
@@ -11,7 +12,7 @@ nav:
     - Overview: handlers/overview.md
     - Python: handlers/python.md
 
-  - Reference:
+  - API Reference:
       - handlers:
           - __init__.py: reference/handlers/__init__.md
           - python.py: reference/handlers/python.md
@@ -36,10 +37,11 @@ markdown_extensions:
   - admonition
   - codehilite:
       guess_lang: false
-  - pymdownx.superfences
-  - pymdownx.tasklist
   - pymdownx.emoji
+  - pymdownx.magiclink
+  - pymdownx.superfences
   - pymdownx.tabbed
+  - pymdownx.tasklist
   - toc:
       permalink: "¤"
 
