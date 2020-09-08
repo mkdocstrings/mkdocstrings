@@ -8,7 +8,7 @@ from jinja2 import StrictUndefined
 from jinja2.sandbox import SandboxedEnvironment
 
 URL_PREFIX = "https://raw.githubusercontent.com/pawamoy/jinja-templates/master/"
-REGEN = (("docs/credits.md", get_credits, URL_PREFIX + "credits.md"), )
+REGEN = (("docs/credits.md", get_credits, URL_PREFIX + "credits.md"),)
 
 
 def main() -> int:

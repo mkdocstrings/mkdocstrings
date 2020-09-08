@@ -21,7 +21,7 @@ from mkdocstrings.references import relative_url
         ("a/b.html", "a/index.html#c", "index.html#c"),
         ("a/b/c.html", "d.html#e", "../../d.html#e"),
         ("a/b.html", "c/d.html#e", "../c/d.html#e"),
-        ("a/b/index.html", "a/b/c/d.html#e", "c/d.html#e")
+        ("a/b/index.html", "a/b/c/d.html#e", "c/d.html#e"),
     ),
 )
 def test_relative_url(current_url, to_url, result):

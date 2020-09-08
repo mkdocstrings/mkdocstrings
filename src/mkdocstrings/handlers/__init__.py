@@ -209,7 +209,12 @@ class BaseHandler:
         self.renderer = renderer
 
 
-def get_handler(name: str, theme: str, custom_templates: Optional[str] = None, **config: Any,) -> BaseHandler:
+def get_handler(
+    name: str,
+    theme: str,
+    custom_templates: Optional[str] = None,
+    **config: Any,
+) -> BaseHandler:
     """
     Get a handler thanks to its name.
 

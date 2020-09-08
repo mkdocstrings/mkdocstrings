@@ -153,7 +153,13 @@ class PythonCollector(BaseCollector):
             cmd = [sys.executable, "-m", "pytkdocs", "--line-by-line"]
 
         self.process = Popen(  # noqa: S603,S607 (we trust the input, and we don't want to use the absolute path)
-            cmd, universal_newlines=True, stderr=PIPE, stdout=PIPE, stdin=PIPE, bufsize=-1, env=env,
+            cmd,
+            universal_newlines=True,
+            stderr=PIPE,
+            stdout=PIPE,
+            stdin=PIPE,
+            bufsize=-1,
+            env=env,
         )
 
     def collect(self, identifier: str, config: dict) -> Any:
