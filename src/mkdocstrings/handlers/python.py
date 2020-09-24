@@ -28,14 +28,14 @@ class PythonRenderer(BaseRenderer):
     and overrides the `update_env` method of the [`BaseRenderer` class][mkdocstrings.handlers.BaseRenderer].
 
     Attributes:
-        FALLBACK_THEME: The theme to fallback to.
-        DEFAULT_CONFIG: The default rendering options,
-            see [`DEFAULT_CONFIG`][mkdocstrings.handlers.python.PythonRenderer.DEFAULT_CONFIG].
+        fallback_theme: The theme to fallback to.
+        default_config: The default rendering options,
+            see [`default_config`][mkdocstrings.handlers.python.PythonRenderer.default_config].
     """
 
-    FALLBACK_THEME = "material"
+    fallback_theme = "material"
 
-    DEFAULT_CONFIG: dict = {
+    default_config: dict = {
         "show_root_heading": False,
         "show_root_toc_entry": True,
         "show_root_full_path": True,
@@ -65,7 +65,7 @@ class PythonRenderer(BaseRenderer):
     """  # noqa: E501
 
     def render(self, data: Any, config: dict) -> str:  # noqa: D102 (ignore missing docstring)
-        final_config = dict(self.DEFAULT_CONFIG)
+        final_config = dict(self.default_config)
         final_config.update(config)
 
         template = self.env.get_template(f"{data['category']}.html")
@@ -76,11 +76,11 @@ class PythonRenderer(BaseRenderer):
         heading_level = final_config.pop("heading_level")
 
         return template.render(
-            **{"config": final_config, data["category"]: data, "heading_level": heading_level, "root": True}
+            **{"config": final_config, data["category"]: data, "heading_level": heading_level, "root": True},
         )
 
     def update_env(self, md: Markdown, config: dict) -> None:  # noqa: D102 (ignore missing docstring)
-        super(PythonRenderer, self).update_env(md, config)
+        super().update_env(md, config)
         self.env.trim_blocks = True
         self.env.lstrip_blocks = True
         self.env.keep_trailing_newline = False
@@ -94,7 +94,7 @@ class PythonCollector(BaseCollector):
     and overrides the `update_env` method of the [`BaseRenderer` class][mkdocstrings.handlers.BaseRenderer].
     """
 
-    DEFAULT_CONFIG: dict = {"filters": ["!^_[^_]"]}
+    default_config: dict = {"filters": ["!^_[^_]"]}
     """
     The default selection options.
 
@@ -120,7 +120,7 @@ class PythonCollector(BaseCollector):
 
     def __init__(self, setup_commands: Optional[List[str]] = None) -> None:
         """
-        Initialization method.
+        Initialize the object.
 
         When instantiating a Python collector, we open a subprocess in the background with `subprocess.Popen`.
         It will allow us to feed input to and read output from this subprocess, keeping it alive during
@@ -129,7 +129,6 @@ class PythonCollector(BaseCollector):
 
         Arguments:
             setup_commands: A list of python commands as strings to be executed in the subprocess before `pytkdocs`.
-
         """
         log.debug("mkdocstrings.handlers.python: Opening 'pytkdocs' subprocess")
         env = os.environ.copy()
@@ -187,17 +186,21 @@ class PythonCollector(BaseCollector):
             identifier: The dotted-path of a Python object available in the Python path.
             config: Selection options, used to alter the data collection done by `pytkdocs`.
 
+        Raises:
+            CollectionError: When there was a problem collecting the object documentation.
+
         Returns:
             The collected object-tree.
         """
-        final_config = dict(self.DEFAULT_CONFIG)
+        final_config = dict(self.default_config)
         final_config.update(config)
 
         log.debug("mkdocstrings.handlers.python: Preparing input")
         json_input = json.dumps({"objects": [{"path": identifier, **final_config}]})
 
         log.debug("mkdocstrings.handlers.python: Writing to process' stdin")
-        print(json_input, file=self.process.stdin, flush=True)
+        self.process.stdin.write(json_input + "\n")  # type: ignore
+        self.process.stdin.flush()  # type: ignore
 
         log.debug("mkdocstrings.handlers.python: Reading process' stdout")
         stdout = self.process.stdout.readline()  # type: ignore
@@ -207,23 +210,22 @@ class PythonCollector(BaseCollector):
             result = json.loads(stdout)
         except json.decoder.JSONDecodeError as exception:
             log.error(f"mkdocstrings.handlers.python: Error while loading JSON: {stdout}")
-            raise CollectionError(str(exception))
+            raise CollectionError(str(exception)) from exception
 
-        if "error" in result:
-            message = f"mkdocstrings.handlers.python: Collection failed: {result['error']}"
+        error = result.get("error")
+        if error:
+            message = f"mkdocstrings.handlers.python: Collection failed: {error}"
             if "traceback" in result:
                 message += f"\n{result['traceback']}"
             log.error(message)
-            raise CollectionError(result["error"])
+            raise CollectionError(error)
 
-        if result["loading_errors"]:
-            for error in result["loading_errors"]:
-                log.warning(f"mkdocstrings.handlers.python: {error}")
+        for loading_error in result["loading_errors"]:
+            log.warning(f"mkdocstrings.handlers.python: {loading_error}")
 
-        if result["parsing_errors"]:
-            for path, errors in result["parsing_errors"].items():  # type: ignore
-                for error in errors:
-                    log.warning(f"mkdocstrings.handlers.python: {error}")
+        for errors in result["parsing_errors"].values():
+            for parsing_error in errors:
+                log.warning(f"mkdocstrings.handlers.python: {parsing_error}")
 
         # We always collect only one object at a time
         result = result["objects"][0]
@@ -244,7 +246,9 @@ class PythonHandler(BaseHandler):
 
 
 def get_handler(
-    theme: str, custom_templates: Optional[str] = None, setup_commands: Optional[List[str]] = None, **kwargs: Any
+    theme: str,
+    custom_templates: Optional[str] = None,
+    setup_commands: Optional[List[str]] = None,
 ) -> PythonHandler:
     """
     Simply return an instance of `PythonHandler`.
@@ -276,14 +280,11 @@ def rebuild_category_lists(obj: dict) -> None:
 
     For each object, we recurse on every one of its children.
 
-    Args:
+    Arguments:
         obj: The collected object, loaded back from JSON into a Python dictionary.
     """
-    obj["attributes"] = [obj["children"][path] for path in obj["attributes"]]
-    obj["classes"] = [obj["children"][path] for path in obj["classes"]]
-    obj["functions"] = [obj["children"][path] for path in obj["functions"]]
-    obj["methods"] = [obj["children"][path] for path in obj["methods"]]
-    obj["modules"] = [obj["children"][path] for path in obj["modules"]]
-    obj["children"] = [v for k, v in obj["children"].items()]
+    for category in ("attributes", "classes", "functions", "methods", "modules"):
+        obj[category] = [obj["children"][path] for path in obj[category]]
+    obj["children"] = [child for _, child in obj["children"].items()]
     for child in obj["children"]:
         rebuild_category_lists(child)

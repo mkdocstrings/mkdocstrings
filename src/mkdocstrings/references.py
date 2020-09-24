@@ -28,10 +28,16 @@ class Placeholder:
     substitution again.
     """
 
-    def __init__(self) -> None:
-        """Initialization method."""
-        self.ids: Dict[str, str] = {}
+    def __init__(self, seed_length=16) -> None:
+        """
+        Initialize the object.
+
+        Arguments:
+            seed_length: Length of the seed.
+        """
+        self._store: List[str] = []
         self.seed = ""
+        self.seed_length = seed_length
         self.set_seed()
 
     def store(self, value: str) -> str:
@@ -44,19 +50,14 @@ class Placeholder:
         Returns:
             The ID under which the text is stored.
         """
-        i = self.get_id()
-        while i in self.ids:
-            i = self.get_id()
-        self.ids[i] = value
-        return i
-
-    def get_id(self) -> str:
-        """Return a random, unique string."""
-        return f"{self.seed}{random.randint(0, 1000000)}"  # noqa: S311 (it's not for security/cryptographic purposes)
+        new_id = f"{self.seed}{len(self._store)}"
+        self._store.append(value)
+        return new_id
 
     def set_seed(self) -> None:
         """Reset the seed in `self.seed` with a random string."""
-        self.seed = "".join(random.choices(string.ascii_letters + string.digits, k=16))
+        alphabet = string.ascii_letters + string.digits
+        self.seed = "".join(random.choices(alphabet, k=self.seed_length))
 
     def replace_code_tags(self, soup: BeautifulSoup) -> None:
         """
@@ -65,34 +66,30 @@ class Placeholder:
         Arguments:
             soup: The root tag of a BeautifulSoup HTML tree.
         """
-
-        def recursive_replace(tag):
-            if hasattr(tag, "contents"):
-                for i in range(len(tag.contents)):
-                    child = tag.contents[i]
-                    if child.name == "code":
-                        tag.contents[i] = NavigableString(self.store(str(child)))
-                    else:
-                        recursive_replace(child)
-
-        recursive_replace(soup)
+        self._recursive_replace(soup)
 
     def restore_code_tags(self, soup_str: str) -> str:
         """
         Restore code nodes previously replaced by unique placeholders.
 
-        Args:
+        Arguments:
             soup_str: HTML text.
 
         Returns:
             The same HTML text with placeholders replaced by their respective original code nodes.
         """
+        return re.sub(rf"{self.seed}(\d+)", self._replace_id_with_value, soup_str)
 
-        def replace_placeholder(match):
-            placeholder = match.groups()[0]
-            return self.ids[placeholder]
+    def _replace_id_with_value(self, match):
+        return self._store[int(match.group(1))]
 
-        return re.sub(rf"({self.seed}\d+)", replace_placeholder, soup_str)
+    def _recursive_replace(self, tag):
+        if hasattr(tag, "contents"):  # noqa: WPS421 (builtin function call, special cases only)
+            for index, child in enumerate(tag.contents):
+                if child.name == "code":
+                    tag.contents[index] = NavigableString(self.store(str(child)))
+                else:
+                    self._recursive_replace(child)
 
 
 def relative_url(url_a: str, url_b: str) -> str:
@@ -123,20 +120,19 @@ def relative_url(url_a: str, url_b: str) -> str:
     levels = len(parts_a)
     if not directory_url:
         levels -= 1
-    parts_relative = [".."] * levels + parts_b
+    parts_relative = [".."] * levels + parts_b  # noqa: WPS435 (list multiply ok)
     relative = "/".join(parts_relative)
     return f"{relative}#{anchor}"
 
 
-def fix_ref(url_map, from_url, unmapped: List[str], unintended: List[str]) -> Callable:
+def fix_ref(url_map, from_url, unmapped: List[str]) -> Callable:  # noqa: WPS231 (not that complex)
     """
     Return a `repl` function for [`re.sub`](https://docs.python.org/3/library/re.html#re.sub).
 
     In our context, we match Markdown references and replace them with HTML links.
 
-    When the matched reference's identifier contains a space or slash, we append the identifier to the outer
-    `unintended` list to tell the caller that this unresolved reference should be ignored as it's probably
-    not intended as a reference.
+    When the matched reference's identifier contains a space or slash, we do nothing as we consider it
+    to be unintended.
 
     When the matched reference's identifier was not mapped to an URL, we append the identifier to the outer
     `unmapped` list. It generally means the user is trying to cross-reference an object that was not collected
@@ -144,15 +140,15 @@ def fix_ref(url_map, from_url, unmapped: List[str], unintended: List[str]) -> Ca
 
     Arguments:
         url_map: The mapping of objects and their URLs.
+        from_url: The URL of the base page, from which we link towards the targeted pages.
         unmapped: A list to store unmapped identifiers.
-        unintended: A list to store identifiers of unintended references.
 
     Returns:
         The actual function accepting a [`Match` object](https://docs.python.org/3/library/re.html#match-objects)
         and returning the replacement strings.
     """
 
-    def inner(match: Match):
+    def inner(match: Match):  # noqa: WPS430 (nested function, no other way than side-effecting the warnings)
         groups = match.groupdict()
         identifier = groups["identifier"]
         title = groups["title"]
@@ -163,30 +159,23 @@ def fix_ref(url_map, from_url, unmapped: List[str], unintended: List[str]) -> Ca
         try:
             url = relative_url(from_url, url_map[identifier])
         except KeyError:
-            if " " in identifier or "/" in identifier:
-                # invalid identifier, must not be a intended reference
-                unintended.append(identifier)
-            else:
+            if " " not in identifier and "/" not in identifier:
                 unmapped.append(identifier)
 
             if not title:
                 return f"[{identifier}][]"
             return f"[{title}][{identifier}]"
 
-        # TODO: we could also use a config option to ignore some identifiers
-        # and to map others to URLs, something like:
-        # references:
-        #   ignore:
-        #     - "USERNAME:PASSWORD@"
-        #   map:
-        #     some-id: https://example.com
-
         return f'<a href="{url}">{title or identifier}</a>'
 
     return inner
 
 
-def fix_refs(html: str, from_url: str, url_map: Dict[str, str]) -> Tuple[str, List[str], List[str]]:
+def fix_refs(
+    html: str,
+    from_url: str,
+    url_map: Dict[str, str],
+) -> Tuple[str, List[str]]:
     """
     Fix all references in the given HTML text.
 
@@ -198,13 +187,17 @@ def fix_refs(html: str, from_url: str, url_map: Dict[str, str]) -> Tuple[str, Li
     Returns:
         The fixed HTML.
     """
+    unmapped = []  # type: ignore
+    if not AUTO_REF.search(html):
+        return html, unmapped
+
+    urls = "\n".join(set(url_map.values()))
     placeholder = Placeholder()
-    while re.search(placeholder.seed, html) or any(placeholder.seed in url for url in url_map.values()):
+    while re.search(placeholder.seed, html) or placeholder.seed in urls:
         placeholder.set_seed()
 
-    unmapped, unintended = [], []  # type: ignore
     soup = BeautifulSoup(html, "html.parser")
     placeholder.replace_code_tags(soup)
-    fixed_soup = AUTO_REF.sub(fix_ref(url_map, from_url, unmapped, unintended), str(soup))
+    fixed_soup = AUTO_REF.sub(fix_ref(url_map, from_url, unmapped), str(soup))
 
-    return placeholder.restore_code_tags(fixed_soup), unmapped, unintended
+    return placeholder.restore_code_tags(fixed_soup), unmapped

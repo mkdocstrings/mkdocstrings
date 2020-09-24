@@ -27,6 +27,7 @@ pytkdocs = ">=0.2.0, <0.8.0"
 
 coverage = {version = "^5.2.1", optional = true}
 invoke = {version = "^1.4.1", optional = true}
+mkdocs-material = {version = "^5.5.12", optional = true}
 mypy = {version = "^0.782", optional = true}
 pytest = {version = "^6.0.1", optional = true}
 pytest-cov = {version = "^2.10.1", optional = true}
@@ -35,7 +36,7 @@ pytest-sugar = {version = "^0.9.4", optional = true}
 pytest-xdist = {version = "^2.1.0", optional = true}
 
 [tool.poetry.extras]
-tests = ["coverage", "invoke", "mypy", "pytest", "pytest-cov", "pytest-randomly", "pytest-sugar", "pytest-xdist"]
+tests = ["coverage", "invoke", "mkdocs-material", "mypy", "pytest", "pytest-cov", "pytest-randomly", "pytest-sugar", "pytest-xdist"]
 
 [tool.poetry.dev-dependencies]
 autoflake = "^1.4"
@@ -98,24 +99,37 @@ exclude = ["tests/fixtures"]
     "-D105",  # missing docstring in magic method
     "-D212",  # multi-line docstring summary should start at the first line
     "-E203",  # whitespace before ‘:’ (incompatible with Black)
+    "-F821",  # redundant with E0602 (undefined variable)
     "-Q000",  # black already deals with quoting
     "-S101",  # use of assert
     "-W503",  # line break before binary operator (incompatible with Black)
+    "-C0103", # two-lowercase-letters variable DO conform to snake_case naming style
     "-C0116",  # redunant with D102 (missing docstring)
     "-C0301",  # line too long
     "-R0903",  # too few public methods
     "-R0913",  # too many methods
     "-R0914",  # too many local variables
+    "-W0212",  # redundant with WPS437 (access to protected attribute)
     "-W0611",  # redundant with F401 (unused import)
+    "-W1203",  # lazy formatting for logging calls
     "-WPS305",  # f-strings
+    "-WPS110",  # common variable names (too annoying)
     "-WPS125",  # redundant with W0622 (builtin override), which is more precise about line number
+    "-WPS201",  # too many imports
     "-WPS202",  # too many module members
     "-WPS210",  # too many local variables
+    "-WPS211",  # too many arguments
     "-WPS213",  # too many expressions
+    "-WPS214",  # too many methods
     "-WPS220",  # too deep nesting
     "-WPS226",  # string over-use: can't disable it per file?
+    "-WPS306",  # too cumbersome, asks to write class A(object)
+    "-WPS317",  # multi-line paramaters (incompatible with Black)
+    "-WPS322",  # multi-line strings (incompatible with attributes docstrings)
     "-WPS326",  # implicit string concatenation
     "-WPS336",  # explicit string concatenation
     "-WPS412",  # __init__ modules with logic
+    "-WPS428",  # statement with no effect (not compatible with attribute docstrings)
     "-WPS433",  # redundant with C0415 (not top-level import)
+    "-WPS529",  # implicit dict.get usage (generally false-positive)
 ]

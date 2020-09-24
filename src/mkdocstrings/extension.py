@@ -92,12 +92,12 @@ class AutoDocProcessor(BlockProcessor):
     a matched block.
     """
 
-    CLASSNAME = "autodoc"
-    RE = re.compile(r"(?:^|\n)::: ?([:a-zA-Z0-9_.-]*) *(?:\n|$)")
+    classname = "autodoc"
+    regex = re.compile(r"(?:^|\n)::: ?([:a-zA-Z0-9_.-]*) *(?:\n|$)")
 
     def __init__(self, parser: BlockParser, md: Markdown, config: dict) -> None:
         """
-        Initialization method.
+        Initialize the object.
 
         Arguments:
             parser: A `markdown.blockparser.BlockParser` instance.
@@ -110,19 +110,28 @@ class AutoDocProcessor(BlockProcessor):
         self._config = config
 
     def test(self, parent: Element, block: Element) -> bool:
-        """Match our autodoc instructions."""
+        """
+        Match our autodoc instructions.
+
+        Arguments:
+            parent:parent: The parent element in the XML tree.
+            block: The block to be tested.
+
+        Returns:
+            Whether this block should be processed or not.
+        """
         sibling = self.lastChild(parent)
-        bool1 = self.RE.search(str(block))
+        bool1 = self.regex.search(str(block))
         bool2 = (
             str(block).startswith(" " * self.tab_length)
             and sibling is not None
-            and sibling.get("class", "").find(self.CLASSNAME) != -1
+            and sibling.get("class", "").find(self.classname) != -1
         )
         return bool(bool1 or bool2)
 
     def run(self, parent: Element, blocks: Element) -> None:
         """
-        The processing of autodoc instructions is done here.
+        Run code on the matched blocks.
 
         The identifier and configuration lines are retrieved from a matched block
         and used to collect and render an object.
@@ -132,7 +141,7 @@ class AutoDocProcessor(BlockProcessor):
             blocks: The rest of the blocks to be processed.
         """
         block = blocks.pop(0)
-        match = self.RE.search(str(block))
+        match = self.regex.search(str(block))
 
         if match:
             # removes the first line
@@ -143,64 +152,8 @@ class AutoDocProcessor(BlockProcessor):
         if match:
             identifier = match.group(1)
             log.debug(f"mkdocstrings.extension: Matched '::: {identifier}'")
-            config = yaml.safe_load(str(block)) or {}
-
-            handler_name = self.get_handler_name(config)
-            log.debug(f"mkdocstrings.extension: Using handler '{handler_name}'")
-            handler_config = self.get_handler_config(handler_name)
-            handler = get_handler(
-                handler_name,
-                self._config["theme_name"],
-                self._config["mkdocstrings"]["custom_templates"],
-                **handler_config,
-            )
-
-            selection, rendering = self.get_item_configs(handler_config, config)
-
-            log.debug("mkdocstrings.extension: Collecting data")
-            try:
-                data: Any = handler.collector.collect(identifier, selection)
-            except CollectionError:
-                log.error(f"mkdocstrings.extension: Could not collect '{identifier}'")
-                raise
-
-            log.debug("mkdocstrings.extension: Updating renderer's env")
-            handler.renderer.update_env(self.md, self._config)
-
-            log.debug("mkdocstrings.extension: Rendering templates")
-            try:
-                rendered = handler.renderer.render(data, rendering)
-            except TemplateNotFound as error:
-                theme_name = self._config["theme_name"]
-                log.error(
-                    f"mkdocstrings.extension: Template '{error.name}' not found "
-                    f"for '{handler_name}' handler and theme '{theme_name}'."
-                )
-                raise
-
-            log.debug("mkdocstrings.extension: Loading HTML back into XML tree")
-            try:
-                as_xml = XML(ENTITIES + rendered)
-            except ParseError as error:
-                message = f"mkdocstrings.extension: {error}"
-                if "mismatched tag" in str(error):
-                    line, column = str(error).split(":")[-1].split(", ")
-
-                    lineno = int(line.split(" ")[-1])
-                    columnno = int(column.split(" ")[-1])
-
-                    line = rendered.split("\n")[lineno - 1]
-                    character = line[columnno]
-                    message += (
-                        f" (character {character}):\n{line}\n"
-                        f"If your Markdown contains angle brackets < >, try to wrap them between backticks `< >`, "
-                        f"or replace them with &lt; and &gt;"
-                    )
-                log.error(message)
-                raise
-
-            as_xml = atomic_brute_cast(as_xml)  # type: ignore
-            parent.append(as_xml)
+            xml_element = self.process_block(identifier, str(block))
+            parent.append(xml_element)
 
         if the_rest:
             # This block contained unindented line(s) after the first indented
@@ -208,11 +161,69 @@ class AutoDocProcessor(BlockProcessor):
             # list for future processing.
             blocks.insert(0, the_rest)
 
+    def process_block(self, identifier: str, yaml_block: str) -> Element:
+        """
+        Process an autodoc block.
+
+        Arguments:
+            identifier: The identifier of the object to collect and render.
+            yaml_block: The YAML configuration.
+
+        Raises:
+            CollectionError: When something wrong happened during collection.
+
+        Returns:
+            A new XML element.
+        """
+        config = yaml.safe_load(yaml_block) or {}
+        handler_name = self.get_handler_name(config)
+
+        log.debug(f"mkdocstrings.extension: Using handler '{handler_name}'")
+        handler_config = self.get_handler_config(handler_name)
+        handler = get_handler(
+            handler_name,
+            self._config["theme_name"],
+            self._config["mkdocstrings"]["custom_templates"],
+            **handler_config,
+        )
+
+        selection, rendering = get_item_configs(handler_config, config)
+
+        log.debug("mkdocstrings.extension: Collecting data")
+        try:
+            data: Any = handler.collector.collect(identifier, selection)
+        except CollectionError:
+            log.error(f"mkdocstrings.extension: Could not collect '{identifier}'")
+            raise
+
+        log.debug("mkdocstrings.extension: Updating renderer's env")
+        handler.renderer.update_env(self.md, self._config)
+
+        log.debug("mkdocstrings.extension: Rendering templates")
+        try:
+            rendered = handler.renderer.render(data, rendering)
+        except TemplateNotFound as exc:
+            theme_name = self._config["theme_name"]
+            log.error(
+                f"mkdocstrings.extension: Template '{exc.name}' not found "
+                f"for '{handler_name}' handler and theme '{theme_name}'.",
+            )
+            raise
+
+        log.debug("mkdocstrings.extension: Loading HTML back into XML tree")
+        try:
+            xml_contents = XML(ENTITIES + rendered)
+        except ParseError as error:
+            log_xml_parse_error(str(error), rendered)
+            raise
+
+        return atomic_brute_cast(xml_contents)  # type: ignore
+
     def get_handler_name(self, config: dict) -> str:
         """
         Return the handler name defined in an "autodoc" instruction YAML configuration, or the global default handler.
 
-        Args:
+        Arguments:
             config: A configuration dictionary, obtained from YAML below the "autodoc" instruction.
 
         Returns:
@@ -237,23 +248,50 @@ class AutoDocProcessor(BlockProcessor):
             return handlers.get(handler_name, {})
         return {}
 
-    @staticmethod
-    def get_item_configs(handler_config: dict, config: dict) -> Tuple[dict, dict]:
-        """
-        Get the selection and rendering configuration merged into the global configuration of the given handler.
 
-        Args:
-            handler_config: The global configuration of a handler. It can be an empty dictionary.
-            config: The configuration to merge into the global handler configuration.
+def get_item_configs(handler_config: dict, config: dict) -> Tuple[dict, dict]:
+    """
+    Get the selection and rendering configuration merged into the global configuration of the given handler.
 
-        Returns:
-            Two dictionaries: selection and rendering. The local configurations are merged into the global ones.
-        """
-        item_selection_config = dict(handler_config.get("selection", {}))
-        item_selection_config.update(config.get("selection", {}))
-        item_rendering_config = dict(handler_config.get("rendering", {}))
-        item_rendering_config.update(config.get("rendering", {}))
-        return item_selection_config, item_rendering_config
+    Arguments:
+        handler_config: The global configuration of a handler. It can be an empty dictionary.
+        config: The configuration to merge into the global handler configuration.
+
+    Returns:
+        Two dictionaries: selection and rendering. The local configurations are merged into the global ones.
+    """
+    item_selection_config = dict(handler_config.get("selection", {}))
+    item_selection_config.update(config.get("selection", {}))
+    item_rendering_config = dict(handler_config.get("rendering", {}))
+    item_rendering_config.update(config.get("rendering", {}))
+    return item_selection_config, item_rendering_config
+
+
+def log_xml_parse_error(error: str, xml_text: str) -> None:
+    """
+    Log an XML parsing error.
+
+    If the error is a tag mismatch, augment the log message.
+
+    Arguments:
+        error: The error message (no traceback).
+        xml_text: The XML text that generated the parsing error.
+    """
+    message = f"mkdocstrings.extension: {error}"
+    if "mismatched tag" in error:
+        line_column = error[error.rfind(":") + 1 :]
+        line, column = line_column.split(", ")
+        lineno = int(line[line.rfind(" ") + 1 :])
+        columnno = int(column[column.rfind(" ") + 1 :])
+
+        line = xml_text.split("\n")[lineno - 1]
+        character = line[columnno]
+        message += (
+            f" (character {character}):\n{line}\n"
+            "If your Markdown contains angle brackets < >, try to wrap them between backticks `< >`, "
+            "or replace them with &lt; and &gt;"
+        )
+    log.error(message)
 
 
 class MkdocstringsExtension(Extension):
@@ -263,9 +301,11 @@ class MkdocstringsExtension(Extension):
     It cannot work outside of `mkdocstrings`.
     """
 
+    priority = 110
+
     def __init__(self, config: dict, **kwargs) -> None:
         """
-        Initialization method.
+        Initialize the object.
 
         Arguments:
             config: The configuration items from `mkdocs` and `mkdocstrings` that must be passed to the block processor
@@ -275,15 +315,15 @@ class MkdocstringsExtension(Extension):
         super().__init__(**kwargs)
         self._config = config
 
-    def extendMarkdown(self, md: Markdown) -> None:
+    def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
         """
         Register the extension.
 
         Add an instance of our [`AutoDocProcessor`][mkdocstrings.extension.AutoDocProcessor] to the Markdown parser.
 
-        Args:
+        Arguments:
             md: A `markdown.Markdown` instance.
         """
         md.registerExtension(self)
         processor = AutoDocProcessor(md.parser, md, self._config)
-        md.parser.blockprocessors.register(processor, "mkdocstrings", 110)
+        md.parser.blockprocessors.register(processor, "mkdocstrings", self.priority)

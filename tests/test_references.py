@@ -5,8 +5,8 @@ from mkdocstrings.references import relative_url
 
 
 @pytest.mark.parametrize(
-    "current_url, to_url, result",
-    (
+    ("current_url", "to_url", "href_url"),
+    [
         ("a/", "a#b", "#b"),
         ("a/", "a/b#c", "b#c"),
         ("a/b/", "a/b#c", "#c"),
@@ -22,8 +22,15 @@ from mkdocstrings.references import relative_url
         ("a/b/c.html", "d.html#e", "../../d.html#e"),
         ("a/b.html", "c/d.html#e", "../c/d.html#e"),
         ("a/b/index.html", "a/b/c/d.html#e", "c/d.html#e"),
-    ),
+    ],
 )
-def test_relative_url(current_url, to_url, result):
-    """Compute relative URLs correctly."""
-    assert relative_url(current_url, to_url) == result
+def test_relative_url(current_url, to_url, href_url):
+    """
+    Compute relative URLs correctly.
+
+    Arguments:
+        current_url: The URL of the source page.
+        to_url: The URL of the target page.
+        href_url: The relative URL to put in the `href` HTML field.
+    """
+    assert relative_url(current_url, to_url) == href_url

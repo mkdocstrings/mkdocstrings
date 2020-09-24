@@ -30,7 +30,6 @@ from livereload import Server
 from mkdocs.config import Config
 from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
-from mkdocs.structure.files import Files
 from mkdocs.structure.pages import Page
 from mkdocs.structure.toc import AnchorLink
 from mkdocs.utils import warning_filter
@@ -102,37 +101,54 @@ class MkdocstringsPlugin(BasePlugin):
     """
 
     def __init__(self) -> None:
-        """Initialization method."""
-        super(MkdocstringsPlugin, self).__init__()
+        """Initialize the object."""
+        super().__init__()
         self.mkdocstrings_extension: Optional[MkdocstringsExtension] = None
         self.url_map: Dict[Any, str] = {}
 
-    def on_serve(self, server: Server, config: Config, builder: Callable = None, **kwargs) -> Server:
+    def on_serve(self, server: Server, builder: Callable = None, **kwargs) -> Server:  # noqa: W0613 (unused arguments)
         """
-        Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).
+        Watch directories.
 
+        Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).
         In this hook, we add the directories specified in the plugin's configuration to the list of directories
         watched by `mkdocs`. Whenever a change occurs in one of these directories, the documentation is built again
         and the site reloaded.
+
+        Arguments:
+            server: The `livereload` server instance.
+            builder: The function to build the site.
+            kwargs: Additional arguments passed by MkDocs.
+
+        Returns:
+            The server instance.
         """
         if builder is None:
             # The builder parameter was added in mkdocs v1.1.1.
             # See issue https://github.com/mkdocs/mkdocs/issues/1952.
-            builder = list(server.watcher._tasks.values())[0]["func"]
+            builder = list(server.watcher._tasks.values())[0]["func"]  # noqa: WPS437 (protected attribute)
         for element in self.config["watch"]:
             log.debug(f"mkdocstrings.plugin: Adding directory '{element}' to watcher")
             server.watch(element, builder)
         return server
 
-    def on_config(self, config: Config, **kwargs) -> Config:
+    def on_config(self, config: Config, **kwargs) -> Config:  # noqa: W0613 (unused arguments)
         """
-        Hook for the [`on_config` event](https://www.mkdocs.org/user-guide/plugins/#on_config).
+        Instantiate our Markdown extension.
 
+        Hook for the [`on_config` event](https://www.mkdocs.org/user-guide/plugins/#on_config).
         In this hook, we instantiate our [`MkdocstringsExtension`][mkdocstrings.extension.MkdocstringsExtension]
         and add it to the list of Markdown extensions used by `mkdocs`.
 
         We pass this plugin's configuration dictionary to the extension when instantiating it (it will need it
         later when processing markdown to get handlers and their global configurations).
+
+        Arguments:
+            config: The MkDocs config object.
+            kwargs: Additional arguments passed by MkDocs.
+
+        Returns:
+            The modified config.
         """
         log.debug("mkdocstrings.plugin: Adding extension to the list")
 
@@ -153,13 +169,22 @@ class MkdocstringsPlugin(BasePlugin):
         config["markdown_extensions"].append(self.mkdocstrings_extension)
         return config
 
-    def on_page_content(self, html: str, page: Page, config: Config, files: Files, **kwargs) -> str:
+    def on_page_content(self, html: str, page: Page, **kwargs) -> str:  # noqa: W0613 (unused arguments)
         """
-        Hook for the [`on_page_contents` event](https://www.mkdocs.org/user-guide/plugins/#on_page_contents).
+        Map anchors to URLs.
 
+        Hook for the [`on_page_contents` event](https://www.mkdocs.org/user-guide/plugins/#on_page_contents).
         In this hook, we map the IDs of every anchor found in the table of contents to the anchors absolute URLs.
         This mapping will be used later to fix unresolved reference of the form `[title][identifier]` or
         `[identifier][]`.
+
+        Arguments:
+            html: HTML converted from Markdown.
+            page: The related MkDocs page instance.
+            kwargs: Additional arguments passed by MkDocs.
+
+        Returns:
+            The same HTML. We only use this hook to map anchors to URLs.
         """
         log.debug(f"mkdocstrings.plugin: Mapping identifiers to URLs for page {page.file.src_path}")
         for item in page.toc.items:
@@ -180,10 +205,11 @@ class MkdocstringsPlugin(BasePlugin):
         for child in anchor.children:
             self.map_urls(base_url, child)
 
-    def on_post_page(self, output: str, page: Page, config: Config, **kwargs) -> str:
+    def on_post_page(self, output: str, page: Page, **kwargs) -> str:  # noqa: W0613 (unused arguments)
         """
-        Hook for the [`on_post_page` event](https://www.mkdocs.org/user-guide/plugins/#on_post_page).
+        Fix cross-references.
 
+        Hook for the [`on_post_page` event](https://www.mkdocs.org/user-guide/plugins/#on_post_page).
         In this hook, we try to fix unresolved references of the form `[title][identifier]` or `[identifier][]`.
         Doing that allows the user of `mkdocstrings` to cross-reference objects in their documentation strings.
         It uses the native Markdown syntax so it's easy to remember and use.
@@ -192,25 +218,32 @@ class MkdocstringsPlugin(BasePlugin):
         that do not look legitimate (sometimes documentation can contain strings matching
         our [`AUTO_REF`][mkdocstrings.references.AUTO_REF] regular expression that did not intend to reference anything).
         We currently ignore references when their identifier contains a space or a slash.
+
+        Arguments:
+            output: HTML converted from Markdown.
+            page: The related MkDocs page instance.
+            kwargs: Additional arguments passed by MkDocs.
+
+        Returns:
+            Modified HTML.
         """
         log.debug(f"mkdocstrings.plugin: Fixing references in page {page.file.src_path}")
 
-        fixed_output, unmapped, unintended = fix_refs(output, page.url, self.url_map)
+        fixed_output, unmapped = fix_refs(output, page.url, self.url_map)
 
-        if unmapped or unintended:
-            # We do nothing with unintended refs
-            if unmapped and log.isEnabledFor(logging.WARNING):
-                for ref in unmapped:
-                    log.warning(
-                        f"mkdocstrings.plugin: {page.file.src_path}: Could not find cross-reference target '[{ref}]'"
-                    )
+        if unmapped and log.isEnabledFor(logging.WARNING):
+            for ref in unmapped:
+                log.warning(
+                    f"mkdocstrings.plugin: {page.file.src_path}: Could not find cross-reference target '[{ref}]'",
+                )
 
         return fixed_output
 
-    def on_post_build(self, config: Config, **kwargs) -> None:
+    def on_post_build(self, **kwargs) -> None:  # noqa: W0613,R0201 (unused arguments, cannot be static)
         """
-        Hook for the [`on_post_build` event](https://www.mkdocs.org/user-guide/plugins/#on_post_build).
+        Teardown the handlers.
 
+        Hook for the [`on_post_build` event](https://www.mkdocs.org/user-guide/plugins/#on_post_build).
         This hook is used to teardown all the handlers that were instantiated and cached during documentation buildup.
 
         For example, the [Python handler's collector][mkdocstrings.handlers.python.PythonCollector] opens a subprocess
@@ -218,6 +251,9 @@ class MkdocstringsPlugin(BasePlugin):
         it must close it at some point, and it does it in its
         [`teardown()` method][mkdocstrings.handlers.python.PythonCollector.teardown] which is indirectly called by
         this hook.
+
+        Arguments:
+            kwargs: Additional arguments passed by MkDocs.
         """
         log.debug("mkdocstrings.plugin: Tearing handlers down")
         teardown()

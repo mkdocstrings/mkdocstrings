@@ -11,15 +11,16 @@ It also provides two methods:
 
 import importlib
 import textwrap
+from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Any, Optional, Sequence
+from typing import Any, Dict, Optional, Sequence
 
 from jinja2 import Environment, FileSystemLoader
 from jinja2.filters import do_mark_safe
 from markdown import Markdown
 from pymdownx.highlight import Highlight
 
-HANDLERS_CACHE = {}
+handlers_cache: Dict[str, Any] = {}
 
 
 class CollectionError(Exception):
@@ -40,9 +41,11 @@ def do_highlight(
     line_start: int = 1,
 ) -> str:
     """
-    A code-snippet highlighting function for Jinja templates.
+    Highlight a code-snippet.
 
-    Args:
+    This function is used as a filter in Jinja templates.
+
+    Arguments:
         src: The code to highlight.
         guess_lang: Whether to guess the language or not.
         language: Explicitly tell what language to use for highlighting.
@@ -67,9 +70,11 @@ def do_highlight(
 
 def do_any(seq: Sequence, attribute: str = None) -> bool:
     """
+    Check if at least one of the item in the sequence evaluates to true.
+
     The `any` builtin as a filter for Jinja templates.
 
-    Args:
+    Arguments:
         seq: An iterable object.
         attribute: The attribute name to use on each object of the iterable.
 
@@ -78,10 +83,10 @@ def do_any(seq: Sequence, attribute: str = None) -> bool:
     """
     if attribute is None:
         return any(seq)
-    return any(o[attribute] for o in seq)
+    return any(_[attribute] for _ in seq)
 
 
-class BaseRenderer:
+class BaseRenderer(ABC):
     """
     The base renderer class.
 
@@ -94,13 +99,13 @@ class BaseRenderer:
     To define a fallback theme, add a `FALLBACK_THEME` class-variable.
     """
 
-    FALLBACK_THEME: str = ""
+    fallback_theme: str = ""
 
     def __init__(self, directory: str, theme: str, custom_templates: Optional[str] = None) -> None:
         """
-        Initialization method.
+        Initialize the object.
 
-        If the given theme is not supported (it does not exist), it will look for a `FALLBACK_THEME` attribute
+        If the given theme is not supported (it does not exist), it will look for a `fallback_theme` attribute
         in `self` to use as a fallback theme.
 
         Arguments:
@@ -117,13 +122,14 @@ class BaseRenderer:
 
         paths.append(themes_dir / theme)
 
-        if self.FALLBACK_THEME != "":
-            paths.append(themes_dir / self.FALLBACK_THEME)
+        if self.fallback_theme != "":
+            paths.append(themes_dir / self.fallback_theme)
 
         self.env = Environment(autoescape=True, loader=FileSystemLoader(paths))  # type: ignore
         self.env.filters["highlight"] = do_highlight
         self.env.filters["any"] = do_any
 
+    @abstractmethod
     def render(self, data: Any, config: dict) -> str:
         """
         Render a template using provided data and configuration options.
@@ -134,8 +140,7 @@ class BaseRenderer:
 
         Returns:
             The rendered template as HTML.
-        """
-        raise NotImplementedError
+        """  # noqa: DAR202 (excess return section)
 
     def update_env(self, md: Markdown, config: dict) -> None:
         """
@@ -148,14 +153,10 @@ class BaseRenderer:
         """
         # Re-instantiate md: see https://github.com/tomchristie/mkautodoc/issues/14
         md = Markdown(extensions=config["mdx"], extensions_configs=config["mdx_configs"])
-
-        def convert_markdown(text):
-            return do_mark_safe(md.convert(text))
-
-        self.env.filters["convert_markdown"] = convert_markdown
+        self.env.filters["convert_markdown"] = lambda text: do_mark_safe(md.convert(text))
 
 
-class BaseCollector:
+class BaseCollector(ABC):
     """
     The base collector class.
 
@@ -165,6 +166,7 @@ class BaseCollector:
     You can also implement the `teardown` method.
     """
 
+    @abstractmethod
     def collect(self, identifier: str, config: dict) -> Any:
         """
         Collect data given an identifier and selection configuration.
@@ -172,7 +174,7 @@ class BaseCollector:
         In the implementation, you typically call a subprocess that returns JSON, and load that JSON again into
         a Python dictionary for example, though the implementation is completely free.
 
-        Args:
+        Arguments:
             identifier: An identifier for which to collect data. For example, in Python,
                 it would be 'mkdocstrings.handlers' to collect documentation about the handlers module.
                 It can be anything that you can feed to the tool of your choice.
@@ -181,11 +183,15 @@ class BaseCollector:
 
         Returns:
             Anything you want, as long as you can feed it to the renderer's `render` method.
-        """
-        raise NotImplementedError
+        """  # noqa: DAR202 (excess return section)
 
     def teardown(self) -> None:
-        """Placeholder to remember this method can be implemented."""
+        """
+        Teardown the collector.
+
+        This method should be implemented to, for example, terminate a subprocess
+        that was started when creating the collector instance.
+        """
 
 
 class BaseHandler:
@@ -199,7 +205,7 @@ class BaseHandler:
 
     def __init__(self, collector: BaseCollector, renderer: BaseRenderer) -> None:
         """
-        Initialization method.
+        Initialize the object.
 
         Arguments:
             collector: A collector instance.
@@ -223,7 +229,7 @@ def get_handler(
     It means that during one run (for each reload when serving, or once when building),
     a handler is instantiated only once, and reused for each "autodoc" instruction asking for it.
 
-    Args:
+    Arguments:
         name: The name of the handler. Really, it's the name of the Python module holding it.
         theme: The name of the theme to use.
         custom_templates: Directory containing custom templates.
@@ -233,17 +239,14 @@ def get_handler(
         An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.BaseHandler],
         as instantiated by the `get_handler` method of the handler's module.
     """
-    if name not in HANDLERS_CACHE:
+    if name not in handlers_cache:
         module = importlib.import_module(f"mkdocstrings.handlers.{name}")
-        HANDLERS_CACHE[name] = module.get_handler(theme, custom_templates, **config)  # type: ignore
-    return HANDLERS_CACHE[name]
+        handlers_cache[name] = module.get_handler(theme, custom_templates, **config)  # type: ignore
+    return handlers_cache[name]
 
 
 def teardown() -> None:
     """Teardown all cached handlers and clear the cache."""
-    for handler in HANDLERS_CACHE.values():
+    for handler in handlers_cache.values():
         handler.collector.teardown()
-        del handler.collector
-        del handler.renderer
-        del handler
-    HANDLERS_CACHE.clear()
+    handlers_cache.clear()
