@@ -323,7 +323,7 @@ def coverage(context):
     context.run("coverage html --rcfile=config/coverage.ini")
 
 
-@invoke.task(pre=[invoke.task(lambda c: c.run("rm -f .coverage"))])
+@invoke.task(pre=[invoke.task(lambda context: context.run("rm -f .coverage"))])
 @invoke.python(PYTHON_VERSIONS)
 def test(context, match=""):
     """Run the test suite.

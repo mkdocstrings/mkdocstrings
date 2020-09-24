@@ -35,7 +35,7 @@ jobs:
 
     - name: Set up the project
       run: |
-        pip install poetry safety
+        pip install poetry invoke safety
         poetry config virtualenvs.in-project true
         make setup
 
@@ -83,7 +83,7 @@ jobs:
 
     - name: Set up the project
       run: |
-        pip install poetry
+        pip install poetry invoke
         poetry config virtualenvs.in-project true
         make setup
 
