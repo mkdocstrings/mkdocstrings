@@ -30,8 +30,10 @@ INVOKE_TASKS = \
 help:
 	@$(INVOKE) --list
 
+.PHONY: $(POETRY_TASKS)
 $(POETRY_TASKS):
 	@$(INVOKE_AND_POETRY) $@ $(args)
 
+.PHONY: $(INVOKE_TASKS)
 $(INVOKE_TASKS):
 	@$(INVOKE_OR_POETRY) $@ $(args)
