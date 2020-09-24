@@ -8,15 +8,17 @@
 <meta content="Automatic documentation from sources, for MkDocs." name="description"/>
 <link href="https://pawamoy.github.io/mkdocstrings/reference/plugin/" rel="canonical"/>
 <link href="../../assets/images/favicon.png" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-5.5.12" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.5.14" name="generator"/>
 <title>plugin.py - mkdocstrings</title>
-<link href="../../assets/stylesheets/main.4dd2dd8d.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/main.d3202873.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.ff0a5ce4.min.css" rel="stylesheet"/>
+<meta content="#ffc105" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
 <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
 <link href="../../css/mkdocstrings.css" rel="stylesheet"/>
 </head>
-<body dir="ltr">
+<body data-md-color-accent="indigo" data-md-color-primary="amber" data-md-color-scheme="slate" dir="ltr">
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
@@ -498,13 +500,13 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 </span>
 <a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.__init__" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
-<p>Initialization method.</p>
+<p>Initialize the object.</p>
 <details class="quote">
 <summary>Source code in <code>mkdocstrings/plugin.py</code></summary>
 <div class="highlight">
 <pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""Initialization method."""</span>
-    <span class="nb">super</span><span class="p">(</span><span class="n">MkdocstringsPlugin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+    <span class="sd">"""Initialize the object."""</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">mkdocstrings_extension</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">MkdocstringsExtension</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 </code></pre>
@@ -576,23 +578,78 @@ map_urls<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 on_config<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
 <a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_config" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
-<p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_config"><code>on_config</code> event</a>.</p>
-<p>In this hook, we instantiate our <a href="../extension/#mkdocstrings.extension.MkdocstringsExtension"><code>MkdocstringsExtension</code></a>
+<p>Instantiate our Markdown extension.</p>
+<p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_config"><code>on_config</code> event</a>.
+In this hook, we instantiate our <a href="../extension/#mkdocstrings.extension.MkdocstringsExtension"><code>MkdocstringsExtension</code></a>
 and add it to the list of Markdown extensions used by <code>mkdocs</code>.</p>
 <p>We pass this plugin's configuration dictionary to the extension when instantiating it (it will need it
 later when processing markdown to get handlers and their global configurations).</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>config</code></td>
+<td><code>Config</code></td>
+<td>
+<p>The MkDocs config object.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>kwargs</code></td>
+<td><code></code></td>
+<td>
+<p>Additional arguments passed by MkDocs.</p>
+</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Config</code></td>
+<td>
+<p>The modified config.</p>
+</td>
+</tr>
+</tbody>
+</table>
 <details class="quote">
 <summary>Source code in <code>mkdocstrings/plugin.py</code></summary>
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">on_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Config</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">on_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Config</span><span class="p">:</span>  <span class="c1"># noqa: W0613 (unused arguments)</span>
     <span class="sd">"""</span>
-<span class="sd">    Hook for the [`on_config` event](https://www.mkdocs.org/user-guide/plugins/#on_config).</span>
+<span class="sd">    Instantiate our Markdown extension.</span>
 
+<span class="sd">    Hook for the [`on_config` event](https://www.mkdocs.org/user-guide/plugins/#on_config).</span>
 <span class="sd">    In this hook, we instantiate our [`MkdocstringsExtension`][mkdocstrings.extension.MkdocstringsExtension]</span>
 <span class="sd">    and add it to the list of Markdown extensions used by `mkdocs`.</span>
 
 <span class="sd">    We pass this plugin's configuration dictionary to the extension when instantiating it (it will need it</span>
 <span class="sd">    later when processing markdown to get handlers and their global configurations).</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        config: The MkDocs config object.</span>
+<span class="sd">        kwargs: Additional arguments passed by MkDocs.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The modified config.</span>
 <span class="sd">    """</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.plugin: Adding extension to the list"</span><span class="p">)</span>
 
@@ -620,23 +677,87 @@ later when processing markdown to get handlers and their global configurations).
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.on_page_content">
 <code class="highlight language-python">
-on_page_content<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">page</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
+on_page_content<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">page</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
 <a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_page_content" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
-<p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_page_contents"><code>on_page_contents</code> event</a>.</p>
-<p>In this hook, we map the IDs of every anchor found in the table of contents to the anchors absolute URLs.
+<p>Map anchors to URLs.</p>
+<p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_page_contents"><code>on_page_contents</code> event</a>.
+In this hook, we map the IDs of every anchor found in the table of contents to the anchors absolute URLs.
 This mapping will be used later to fix unresolved reference of the form <code>[title][identifier]</code> or
 <code>[identifier][]</code>.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>html</code></td>
+<td><code>str</code></td>
+<td>
+<p>HTML converted from Markdown.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td><code>Page</code></td>
+<td>
+<p>The related MkDocs page instance.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>kwargs</code></td>
+<td><code></code></td>
+<td>
+<p>Additional arguments passed by MkDocs.</p>
+</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str</code></td>
+<td>
+<p>The same HTML. We only use this hook to map anchors to URLs.</p>
+</td>
+</tr>
+</tbody>
+</table>
 <details class="quote">
 <summary>Source code in <code>mkdocstrings/plugin.py</code></summary>
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">on_page_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">html</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">files</span><span class="p">:</span> <span class="n">Files</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">on_page_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">html</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>  <span class="c1"># noqa: W0613 (unused arguments)</span>
     <span class="sd">"""</span>
-<span class="sd">    Hook for the [`on_page_contents` event](https://www.mkdocs.org/user-guide/plugins/#on_page_contents).</span>
+<span class="sd">    Map anchors to URLs.</span>
 
+<span class="sd">    Hook for the [`on_page_contents` event](https://www.mkdocs.org/user-guide/plugins/#on_page_contents).</span>
 <span class="sd">    In this hook, we map the IDs of every anchor found in the table of contents to the anchors absolute URLs.</span>
 <span class="sd">    This mapping will be used later to fix unresolved reference of the form `[title][identifier]` or</span>
 <span class="sd">    `[identifier][]`.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        html: HTML converted from Markdown.</span>
+<span class="sd">        page: The related MkDocs page instance.</span>
+<span class="sd">        kwargs: Additional arguments passed by MkDocs.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The same HTML. We only use this hook to map anchors to URLs.</span>
 <span class="sd">    """</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.plugin: Mapping identifiers to URLs for page </span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">src_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">page</span><span class="o">.</span><span class="n">toc</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
@@ -650,23 +771,46 @@ This mapping will be used later to fix unresolved reference of the form <code>[t
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.on_post_build">
 <code class="highlight language-python">
-on_post_build<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
+on_post_build<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
 <a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_post_build" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
-<p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_post_build"><code>on_post_build</code> event</a>.</p>
-<p>This hook is used to teardown all the handlers that were instantiated and cached during documentation buildup.</p>
+<p>Teardown the handlers.</p>
+<p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_post_build"><code>on_post_build</code> event</a>.
+This hook is used to teardown all the handlers that were instantiated and cached during documentation buildup.</p>
 <p>For example, the <a href="../handlers/python/#mkdocstrings.handlers.python.PythonCollector">Python handler's collector</a> opens a subprocess
 in the background and keeps it open to feed it the "autodoc" instructions and get back JSON data. Therefore,
 it must close it at some point, and it does it in its
 <a href="../handlers/python/#mkdocstrings.handlers.python.PythonCollector.teardown"><code>teardown()</code> method</a> which is indirectly called by
 this hook.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kwargs</code></td>
+<td><code></code></td>
+<td>
+<p>Additional arguments passed by MkDocs.</p>
+</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
 <details class="quote">
 <summary>Source code in <code>mkdocstrings/plugin.py</code></summary>
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">on_post_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">on_post_build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: W0613,R0201 (unused arguments, cannot be static)</span>
     <span class="sd">"""</span>
-<span class="sd">    Hook for the [`on_post_build` event](https://www.mkdocs.org/user-guide/plugins/#on_post_build).</span>
+<span class="sd">    Teardown the handlers.</span>
 
+<span class="sd">    Hook for the [`on_post_build` event](https://www.mkdocs.org/user-guide/plugins/#on_post_build).</span>
 <span class="sd">    This hook is used to teardown all the handlers that were instantiated and cached during documentation buildup.</span>
 
 <span class="sd">    For example, the [Python handler's collector][mkdocstrings.handlers.python.PythonCollector] opens a subprocess</span>
@@ -674,6 +818,9 @@ this hook.</p>
 <span class="sd">    it must close it at some point, and it does it in its</span>
 <span class="sd">    [`teardown()` method][mkdocstrings.handlers.python.PythonCollector.teardown] which is indirectly called by</span>
 <span class="sd">    this hook.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        kwargs: Additional arguments passed by MkDocs.</span>
 <span class="sd">    """</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.plugin: Tearing handlers down"</span><span class="p">)</span>
     <span class="n">teardown</span><span class="p">()</span>
@@ -685,24 +832,80 @@ this hook.</p>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.on_post_page">
 <code class="highlight language-python">
-on_post_page<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">page</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
+on_post_page<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">page</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
 <a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_post_page" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
-<p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_post_page"><code>on_post_page</code> event</a>.</p>
-<p>In this hook, we try to fix unresolved references of the form <code>[title][identifier]</code> or <code>[identifier][]</code>.
+<p>Fix cross-references.</p>
+<p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_post_page"><code>on_post_page</code> event</a>.
+In this hook, we try to fix unresolved references of the form <code>[title][identifier]</code> or <code>[identifier][]</code>.
 Doing that allows the user of <code>mkdocstrings</code> to cross-reference objects in their documentation strings.
 It uses the native Markdown syntax so it's easy to remember and use.</p>
 <p>We log a warning for each reference that we couldn't map to an URL, but try to be smart and ignore identifiers
 that do not look legitimate (sometimes documentation can contain strings matching
 our <a href="../references/#mkdocstrings.references.AUTO_REF"><code>AUTO_REF</code></a> regular expression that did not intend to reference anything).
 We currently ignore references when their identifier contains a space or a slash.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>output</code></td>
+<td><code>str</code></td>
+<td>
+<p>HTML converted from Markdown.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>page</code></td>
+<td><code>Page</code></td>
+<td>
+<p>The related MkDocs page instance.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>kwargs</code></td>
+<td><code></code></td>
+<td>
+<p>Additional arguments passed by MkDocs.</p>
+</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str</code></td>
+<td>
+<p>Modified HTML.</p>
+</td>
+</tr>
+</tbody>
+</table>
 <details class="quote">
 <summary>Source code in <code>mkdocstrings/plugin.py</code></summary>
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">on_post_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">on_post_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>  <span class="c1"># noqa: W0613 (unused arguments)</span>
     <span class="sd">"""</span>
-<span class="sd">    Hook for the [`on_post_page` event](https://www.mkdocs.org/user-guide/plugins/#on_post_page).</span>
+<span class="sd">    Fix cross-references.</span>
 
+<span class="sd">    Hook for the [`on_post_page` event](https://www.mkdocs.org/user-guide/plugins/#on_post_page).</span>
 <span class="sd">    In this hook, we try to fix unresolved references of the form `[title][identifier]` or `[identifier][]`.</span>
 <span class="sd">    Doing that allows the user of `mkdocstrings` to cross-reference objects in their documentation strings.</span>
 <span class="sd">    It uses the native Markdown syntax so it's easy to remember and use.</span>
@@ -711,18 +914,24 @@ We currently ignore references when their identifier contains a space or a slash
 <span class="sd">    that do not look legitimate (sometimes documentation can contain strings matching</span>
 <span class="sd">    our [`AUTO_REF`][mkdocstrings.references.AUTO_REF] regular expression that did not intend to reference anything).</span>
 <span class="sd">    We currently ignore references when their identifier contains a space or a slash.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        output: HTML converted from Markdown.</span>
+<span class="sd">        page: The related MkDocs page instance.</span>
+<span class="sd">        kwargs: Additional arguments passed by MkDocs.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Modified HTML.</span>
 <span class="sd">    """</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.plugin: Fixing references in page </span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">src_path</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-    <span class="n">fixed_output</span><span class="p">,</span> <span class="n">unmapped</span><span class="p">,</span> <span class="n">unintended</span> <span class="o">=</span> <span class="n">fix_refs</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="p">)</span>
+    <span class="n">fixed_output</span><span class="p">,</span> <span class="n">unmapped</span> <span class="o">=</span> <span class="n">fix_refs</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">url_map</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">unmapped</span> <span class="ow">or</span> <span class="n">unintended</span><span class="p">:</span>
-        <span class="c1"># We do nothing with unintended refs</span>
-        <span class="k">if</span> <span class="n">unmapped</span> <span class="ow">and</span> <span class="n">log</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">unmapped</span><span class="p">:</span>
-                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">"mkdocstrings.plugin: </span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">src_path</span><span class="si">}</span><span class="s2">: Could not find cross-reference target '[</span><span class="si">{</span><span class="n">ref</span><span class="si">}</span><span class="s2">]'"</span>
-                <span class="p">)</span>
+    <span class="k">if</span> <span class="n">unmapped</span> <span class="ow">and</span> <span class="n">log</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">unmapped</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"mkdocstrings.plugin: </span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">src_path</span><span class="si">}</span><span class="s2">: Could not find cross-reference target '[</span><span class="si">{</span><span class="n">ref</span><span class="si">}</span><span class="s2">]'"</span><span class="p">,</span>
+            <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">fixed_output</span>
 </code></pre>
@@ -733,28 +942,92 @@ We currently ignore references when their identifier contains a space or a slash
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.on_serve">
 <code class="highlight language-python">
-on_serve<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">builder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
+on_serve<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">builder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> </code>
 <a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_serve" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
-<p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_serve"><code>on_serve</code> event</a>.</p>
-<p>In this hook, we add the directories specified in the plugin's configuration to the list of directories
+<p>Watch directories.</p>
+<p>Hook for the <a href="https://www.mkdocs.org/user-guide/plugins/#on_serve"><code>on_serve</code> event</a>.
+In this hook, we add the directories specified in the plugin's configuration to the list of directories
 watched by <code>mkdocs</code>. Whenever a change occurs in one of these directories, the documentation is built again
 and the site reloaded.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>server</code></td>
+<td><code>Server</code></td>
+<td>
+<p>The <code>livereload</code> server instance.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>builder</code></td>
+<td><code>Callable</code></td>
+<td>
+<p>The function to build the site.</p>
+</td>
+<td><code>None</code></td>
+</tr>
+<tr>
+<td><code>kwargs</code></td>
+<td><code></code></td>
+<td>
+<p>Additional arguments passed by MkDocs.</p>
+</td>
+<td><code>{}</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Server</code></td>
+<td>
+<p>The server instance.</p>
+</td>
+</tr>
+</tbody>
+</table>
 <details class="quote">
 <summary>Source code in <code>mkdocstrings/plugin.py</code></summary>
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">on_serve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">:</span> <span class="n">Server</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">builder</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Server</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">on_serve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">:</span> <span class="n">Server</span><span class="p">,</span> <span class="n">builder</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Server</span><span class="p">:</span>  <span class="c1"># noqa: W0613 (unused arguments)</span>
     <span class="sd">"""</span>
-<span class="sd">    Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).</span>
+<span class="sd">    Watch directories.</span>
 
+<span class="sd">    Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).</span>
 <span class="sd">    In this hook, we add the directories specified in the plugin's configuration to the list of directories</span>
 <span class="sd">    watched by `mkdocs`. Whenever a change occurs in one of these directories, the documentation is built again</span>
 <span class="sd">    and the site reloaded.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        server: The `livereload` server instance.</span>
+<span class="sd">        builder: The function to build the site.</span>
+<span class="sd">        kwargs: Additional arguments passed by MkDocs.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The server instance.</span>
 <span class="sd">    """</span>
     <span class="k">if</span> <span class="n">builder</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># The builder parameter was added in mkdocs v1.1.1.</span>
         <span class="c1"># See issue https://github.com/mkdocs/mkdocs/issues/1952.</span>
-        <span class="n">builder</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">watcher</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"func"</span><span class="p">]</span>
+        <span class="n">builder</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">watcher</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"func"</span><span class="p">]</span>  <span class="c1"># noqa: WPS437 (protected attribute)</span>
     <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">"watch"</span><span class="p">]:</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.plugin: Adding directory '</span><span class="si">{</span><span class="n">element</span><span class="si">}</span><span class="s2">' to watcher"</span><span class="p">)</span>
         <span class="n">server</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">builder</span><span class="p">)</span>
@@ -818,8 +1091,8 @@ and the site reloaded.</p>
 </div>
 </footer>
 </div>
-<script src="../../assets/javascripts/vendor.3636a4ec.min.js"></script>
-<script src="../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+<script src="../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "../..",

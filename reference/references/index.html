@@ -8,15 +8,17 @@
 <meta content="Automatic documentation from sources, for MkDocs." name="description"/>
 <link href="https://pawamoy.github.io/mkdocstrings/reference/references/" rel="canonical"/>
 <link href="../../assets/images/favicon.png" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-5.5.12" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.5.14" name="generator"/>
 <title>references.py - mkdocstrings</title>
-<link href="../../assets/stylesheets/main.4dd2dd8d.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/main.d3202873.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.ff0a5ce4.min.css" rel="stylesheet"/>
+<meta content="#ffc105" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
 <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
 <link href="../../css/mkdocstrings.css" rel="stylesheet"/>
 </head>
-<body dir="ltr">
+<body data-md-color-accent="indigo" data-md-color-primary="amber" data-md-color-scheme="slate" dir="ltr">
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
@@ -230,11 +232,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#mkdocstrings.references.Placeholder.get_id">
-    get_id()
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#mkdocstrings.references.Placeholder.replace_code_tags">
     replace_code_tags()
   </a>
@@ -344,11 +341,6 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#mkdocstrings.references.Placeholder.get_id">
-    get_id()
-  </a>
-</li>
-<li class="md-nav__item">
 <a class="md-nav__link" href="#mkdocstrings.references.Placeholder.replace_code_tags">
     replace_code_tags()
   </a>
@@ -430,39 +422,48 @@ substitution again.</p>
 <div class="doc doc-object doc-method">
 <h3 class="doc doc-heading" id="mkdocstrings.references.Placeholder.__init__">
 <code class="highlight language-python">
-__init__<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
+__init__<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed_length</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span> </code>
 <span class="doc doc-properties">
 <small class="doc doc-property doc-property-special"><code>special</code></small>
 </span>
 <a class="headerlink" href="#mkdocstrings.references.Placeholder.__init__" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
-<p>Initialization method.</p>
+<p>Initialize the object.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>seed_length</code></td>
+<td><code></code></td>
+<td>
+<p>Length of the seed.</p>
+</td>
+<td><code>16</code></td>
+</tr>
+</tbody>
+</table>
 <details class="quote">
 <summary>Source code in <code>mkdocstrings/references.py</code></summary>
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""Initialization method."""</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed_length</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Initialize the object.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        seed_length: Length of the seed.</span>
+<span class="sd">    """</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_store</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="s2">""</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">seed_length</span> <span class="o">=</span> <span class="n">seed_length</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">set_seed</span><span class="p">()</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.references.Placeholder.get_id">
-<code class="highlight language-python">
-get_id<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
-<a class="headerlink" href="#mkdocstrings.references.Placeholder.get_id" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents">
-<p>Return a random, unique string.</p>
-<details class="quote">
-<summary>Source code in <code>mkdocstrings/references.py</code></summary>
-<div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">"""Return a random, unique string."""</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}{</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>  <span class="c1"># noqa: S311 (it's not for security/cryptographic purposes)</span>
 </code></pre>
 </div>
 </details>
@@ -506,17 +507,7 @@ replace_code_tags<span class="p">(</span><span class="bp">self</span><span class
 <span class="sd">    Arguments:</span>
 <span class="sd">        soup: The root tag of a BeautifulSoup HTML tree.</span>
 <span class="sd">    """</span>
-
-    <span class="k">def</span> <span class="nf">recursive_replace</span><span class="p">(</span><span class="n">tag</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="s2">"contents"</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">contents</span><span class="p">)):</span>
-                <span class="n">child</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">"code"</span><span class="p">:</span>
-                    <span class="n">tag</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">NavigableString</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">child</span><span class="p">)))</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">recursive_replace</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
-
-    <span class="n">recursive_replace</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_recursive_replace</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
 </code></pre>
 </div>
 </details>
@@ -574,18 +565,13 @@ restore_code_tags<span class="p">(</span><span class="bp">self</span><span class
     <span class="sd">"""</span>
 <span class="sd">    Restore code nodes previously replaced by unique placeholders.</span>
 
-<span class="sd">    Args:</span>
+<span class="sd">    Arguments:</span>
 <span class="sd">        soup_str: HTML text.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The same HTML text with placeholders replaced by their respective original code nodes.</span>
 <span class="sd">    """</span>
-
-    <span class="k">def</span> <span class="nf">replace_placeholder</span><span class="p">(</span><span class="n">match</span><span class="p">):</span>
-        <span class="n">placeholder</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">[</span><span class="n">placeholder</span><span class="p">]</span>
-
-    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">rf</span><span class="s2">"(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}</span><span class="s2">\d+)"</span><span class="p">,</span> <span class="n">replace_placeholder</span><span class="p">,</span> <span class="n">soup_str</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">rf</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}</span><span class="s2">(\d+)"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_replace_id_with_value</span><span class="p">,</span> <span class="n">soup_str</span><span class="p">)</span>
 </code></pre>
 </div>
 </details>
@@ -603,7 +589,8 @@ set_seed<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 <div class="highlight">
 <pre><span></span><code><span class="k">def</span> <span class="nf">set_seed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">"""Reset the seed in `self.seed` with a random string."""</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">16</span><span class="p">))</span>
+    <span class="n">alphabet</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">alphabet</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">seed_length</span><span class="p">))</span>
 </code></pre>
 </div>
 </details>
@@ -667,11 +654,9 @@ store<span class="p">(</span><span class="bp">self</span><span class="p">,</span
 <span class="sd">    Returns:</span>
 <span class="sd">        The ID under which the text is stored.</span>
 <span class="sd">    """</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span>
-    <span class="k">while</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">:</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-    <span class="k">return</span> <span class="n">i</span>
+    <span class="n">new_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_store</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_store</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_id</span>
 </code></pre>
 </div>
 </details>
@@ -683,14 +668,13 @@ store<span class="p">(</span><span class="bp">self</span><span class="p">,</span
 <div class="doc doc-object doc-function">
 <h2 class="doc doc-heading" id="mkdocstrings.references.fix_ref">
 <code class="highlight language-python">
-fix_ref<span class="p">(</span><span class="n">url_map</span><span class="p">,</span> <span class="n">from_url</span><span class="p">,</span> <span class="n">unmapped</span><span class="p">,</span> <span class="n">unintended</span><span class="p">)</span> </code>
+fix_ref<span class="p">(</span><span class="n">url_map</span><span class="p">,</span> <span class="n">from_url</span><span class="p">,</span> <span class="n">unmapped</span><span class="p">)</span> </code>
 <a class="headerlink" href="#mkdocstrings.references.fix_ref" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents">
 <p>Return a <code>repl</code> function for <a href="https://docs.python.org/3/library/re.html#re.sub"><code>re.sub</code></a>.</p>
 <p>In our context, we match Markdown references and replace them with HTML links.</p>
-<p>When the matched reference's identifier contains a space or slash, we append the identifier to the outer
-<code>unintended</code> list to tell the caller that this unresolved reference should be ignored as it's probably
-not intended as a reference.</p>
+<p>When the matched reference's identifier contains a space or slash, we do nothing as we consider it
+to be unintended.</p>
 <p>When the matched reference's identifier was not mapped to an URL, we append the identifier to the outer
 <code>unmapped</code> list. It generally means the user is trying to cross-reference an object that was not collected
 and rendered, making it impossible to link to it. We catch this exception in the caller to issue a warning.</p>
@@ -714,18 +698,18 @@ and rendered, making it impossible to link to it. We catch this exception in the
 <td><em>required</em></td>
 </tr>
 <tr>
-<td><code>unmapped</code></td>
-<td><code>List[str]</code></td>
+<td><code>from_url</code></td>
+<td><code></code></td>
 <td>
-<p>A list to store unmapped identifiers.</p>
+<p>The URL of the base page, from which we link towards the targeted pages.</p>
 </td>
 <td><em>required</em></td>
 </tr>
 <tr>
-<td><code>unintended</code></td>
+<td><code>unmapped</code></td>
 <td><code>List[str]</code></td>
 <td>
-<p>A list to store identifiers of unintended references.</p>
+<p>A list to store unmapped identifiers.</p>
 </td>
 <td><em>required</em></td>
 </tr>
@@ -752,15 +736,14 @@ and returning the replacement strings.</p>
 <details class="quote">
 <summary>Source code in <code>mkdocstrings/references.py</code></summary>
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">fix_ref</span><span class="p">(</span><span class="n">url_map</span><span class="p">,</span> <span class="n">from_url</span><span class="p">,</span> <span class="n">unmapped</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">unintended</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">fix_ref</span><span class="p">(</span><span class="n">url_map</span><span class="p">,</span> <span class="n">from_url</span><span class="p">,</span> <span class="n">unmapped</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>  <span class="c1"># noqa: WPS231 (not that complex)</span>
     <span class="sd">"""</span>
 <span class="sd">    Return a `repl` function for [`re.sub`](https://docs.python.org/3/library/re.html#re.sub).</span>
 
 <span class="sd">    In our context, we match Markdown references and replace them with HTML links.</span>
 
-<span class="sd">    When the matched reference's identifier contains a space or slash, we append the identifier to the outer</span>
-<span class="sd">    `unintended` list to tell the caller that this unresolved reference should be ignored as it's probably</span>
-<span class="sd">    not intended as a reference.</span>
+<span class="sd">    When the matched reference's identifier contains a space or slash, we do nothing as we consider it</span>
+<span class="sd">    to be unintended.</span>
 
 <span class="sd">    When the matched reference's identifier was not mapped to an URL, we append the identifier to the outer</span>
 <span class="sd">    `unmapped` list. It generally means the user is trying to cross-reference an object that was not collected</span>
@@ -768,15 +751,15 @@ and returning the replacement strings.</p>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        url_map: The mapping of objects and their URLs.</span>
+<span class="sd">        from_url: The URL of the base page, from which we link towards the targeted pages.</span>
 <span class="sd">        unmapped: A list to store unmapped identifiers.</span>
-<span class="sd">        unintended: A list to store identifiers of unintended references.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The actual function accepting a [`Match` object](https://docs.python.org/3/library/re.html#match-objects)</span>
 <span class="sd">        and returning the replacement strings.</span>
 <span class="sd">    """</span>
 
-    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">match</span><span class="p">:</span> <span class="n">Match</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">match</span><span class="p">:</span> <span class="n">Match</span><span class="p">):</span>  <span class="c1"># noqa: WPS430 (nested function, no other way than side-effecting the warnings)</span>
         <span class="n">groups</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">groupdict</span><span class="p">()</span>
         <span class="n">identifier</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">"identifier"</span><span class="p">]</span>
         <span class="n">title</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="s2">"title"</span><span class="p">]</span>
@@ -787,23 +770,12 @@ and returning the replacement strings.</p>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">url</span> <span class="o">=</span> <span class="n">relative_url</span><span class="p">(</span><span class="n">from_url</span><span class="p">,</span> <span class="n">url_map</span><span class="p">[</span><span class="n">identifier</span><span class="p">])</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s2">" "</span> <span class="ow">in</span> <span class="n">identifier</span> <span class="ow">or</span> <span class="s2">"/"</span> <span class="ow">in</span> <span class="n">identifier</span><span class="p">:</span>
-                <span class="c1"># invalid identifier, must not be a intended reference</span>
-                <span class="n">unintended</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">" "</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">identifier</span> <span class="ow">and</span> <span class="s2">"/"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">identifier</span><span class="p">:</span>
                 <span class="n">unmapped</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
                 <span class="k">return</span> <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">][]"</span>
             <span class="k">return</span> <span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">][</span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">]"</span>
-
-        <span class="c1"># TODO: we could also use a config option to ignore some identifiers</span>
-        <span class="c1"># and to map others to URLs, something like:</span>
-        <span class="c1"># references:</span>
-        <span class="c1">#   ignore:</span>
-        <span class="c1">#     - "USERNAME:PASSWORD@"</span>
-        <span class="c1">#   map:</span>
-        <span class="c1">#     some-id: https://example.com</span>
 
         <span class="k">return</span> <span class="sa">f</span><span class="s1">'&lt;a href="</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s1">"&gt;</span><span class="si">{</span><span class="n">title</span> <span class="ow">or</span> <span class="n">identifier</span><span class="si">}</span><span class="s1">&lt;/a&gt;'</span>
 
@@ -867,7 +839,7 @@ fix_refs<span class="p">(</span><span class="n">html</span><span class="p">,</sp
 </thead>
 <tbody>
 <tr>
-<td><code>Tuple[str, List[str], List[str]]</code></td>
+<td><code>Tuple[str, List[str]]</code></td>
 <td>
 <p>The fixed HTML.</p>
 </td>
@@ -877,7 +849,11 @@ fix_refs<span class="p">(</span><span class="n">html</span><span class="p">,</sp
 <details class="quote">
 <summary>Source code in <code>mkdocstrings/references.py</code></summary>
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">fix_refs</span><span class="p">(</span><span class="n">html</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">from_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">url_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">fix_refs</span><span class="p">(</span>
+    <span class="n">html</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">from_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">url_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
     <span class="sd">"""</span>
 <span class="sd">    Fix all references in the given HTML text.</span>
 
@@ -889,16 +865,20 @@ fix_refs<span class="p">(</span><span class="n">html</span><span class="p">,</sp
 <span class="sd">    Returns:</span>
 <span class="sd">        The fixed HTML.</span>
 <span class="sd">    """</span>
+    <span class="n">unmapped</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># type: ignore</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">AUTO_REF</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">html</span><span class="p">,</span> <span class="n">unmapped</span>
+
+    <span class="n">urls</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">url_map</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
     <span class="n">placeholder</span> <span class="o">=</span> <span class="n">Placeholder</span><span class="p">()</span>
-    <span class="k">while</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">placeholder</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span> <span class="n">html</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span><span class="n">placeholder</span><span class="o">.</span><span class="n">seed</span> <span class="ow">in</span> <span class="n">url</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">url_map</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+    <span class="k">while</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">placeholder</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span> <span class="n">html</span><span class="p">)</span> <span class="ow">or</span> <span class="n">placeholder</span><span class="o">.</span><span class="n">seed</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
         <span class="n">placeholder</span><span class="o">.</span><span class="n">set_seed</span><span class="p">()</span>
 
-    <span class="n">unmapped</span><span class="p">,</span> <span class="n">unintended</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>  <span class="c1"># type: ignore</span>
     <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s2">"html.parser"</span><span class="p">)</span>
     <span class="n">placeholder</span><span class="o">.</span><span class="n">replace_code_tags</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
-    <span class="n">fixed_soup</span> <span class="o">=</span> <span class="n">AUTO_REF</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">fix_ref</span><span class="p">(</span><span class="n">url_map</span><span class="p">,</span> <span class="n">from_url</span><span class="p">,</span> <span class="n">unmapped</span><span class="p">,</span> <span class="n">unintended</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">soup</span><span class="p">))</span>
+    <span class="n">fixed_soup</span> <span class="o">=</span> <span class="n">AUTO_REF</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">fix_ref</span><span class="p">(</span><span class="n">url_map</span><span class="p">,</span> <span class="n">from_url</span><span class="p">,</span> <span class="n">unmapped</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">soup</span><span class="p">))</span>
 
-    <span class="k">return</span> <span class="n">placeholder</span><span class="o">.</span><span class="n">restore_code_tags</span><span class="p">(</span><span class="n">fixed_soup</span><span class="p">),</span> <span class="n">unmapped</span><span class="p">,</span> <span class="n">unintended</span>
+    <span class="k">return</span> <span class="n">placeholder</span><span class="o">.</span><span class="n">restore_code_tags</span><span class="p">(</span><span class="n">fixed_soup</span><span class="p">),</span> <span class="n">unmapped</span>
 </code></pre>
 </div>
 </details>
@@ -988,7 +968,7 @@ relative_url<span class="p">(</span><span class="n">url_a</span><span class="p">
     <span class="n">levels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts_a</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">directory_url</span><span class="p">:</span>
         <span class="n">levels</span> <span class="o">-=</span> <span class="mi">1</span>
-    <span class="n">parts_relative</span> <span class="o">=</span> <span class="p">[</span><span class="s2">".."</span><span class="p">]</span> <span class="o">*</span> <span class="n">levels</span> <span class="o">+</span> <span class="n">parts_b</span>
+    <span class="n">parts_relative</span> <span class="o">=</span> <span class="p">[</span><span class="s2">".."</span><span class="p">]</span> <span class="o">*</span> <span class="n">levels</span> <span class="o">+</span> <span class="n">parts_b</span>  <span class="c1"># noqa: WPS435 (list multiply ok)</span>
     <span class="n">relative</span> <span class="o">=</span> <span class="s2">"/"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts_relative</span><span class="p">)</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">relative</span><span class="si">}</span><span class="s2">#</span><span class="si">{</span><span class="n">anchor</span><span class="si">}</span><span class="s2">"</span>
 </code></pre>
@@ -1047,8 +1027,8 @@ relative_url<span class="p">(</span><span class="n">url_a</span><span class="p">
 </div>
 </footer>
 </div>
-<script src="../../assets/javascripts/vendor.3636a4ec.min.js"></script>
-<script src="../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+<script src="../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "../..",

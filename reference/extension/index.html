@@ -8,15 +8,17 @@
 <meta content="Automatic documentation from sources, for MkDocs." name="description"/>
 <link href="https://pawamoy.github.io/mkdocstrings/reference/extension/" rel="canonical"/>
 <link href="../../assets/images/favicon.png" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-5.5.12" name="generator"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-5.5.14" name="generator"/>
 <title>extension.py - mkdocstrings</title>
-<link href="../../assets/stylesheets/main.4dd2dd8d.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/main.d3202873.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.ff0a5ce4.min.css" rel="stylesheet"/>
+<meta content="#ffc105" name="theme-color"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
 <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
 <link href="../../css/mkdocstrings.css" rel="stylesheet"/>
 </head>
-<body dir="ltr">
+<body data-md-color-accent="indigo" data-md-color-primary="amber" data-md-color-scheme="slate" dir="ltr">
 <input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
 <input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
 <label class="md-overlay" for="__drawer"></label>
@@ -225,8 +227,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#mkdocstrings.extension.AutoDocProcessor.get_item_configs">
-    get_item_configs()
+<a class="md-nav__link" href="#mkdocstrings.extension.AutoDocProcessor.process_block">
+    process_block()
   </a>
 </li>
 <li class="md-nav__item">
@@ -264,6 +266,16 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#mkdocstrings.extension.atomic_brute_cast">
     atomic_brute_cast()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.extension.get_item_configs">
+    get_item_configs()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.extension.log_xml_parse_error">
+    log_xml_parse_error()
   </a>
 </li>
 </ul>
@@ -353,8 +365,8 @@
   </a>
 </li>
 <li class="md-nav__item">
-<a class="md-nav__link" href="#mkdocstrings.extension.AutoDocProcessor.get_item_configs">
-    get_item_configs()
+<a class="md-nav__link" href="#mkdocstrings.extension.AutoDocProcessor.process_block">
+    process_block()
   </a>
 </li>
 <li class="md-nav__item">
@@ -392,6 +404,16 @@
 <li class="md-nav__item">
 <a class="md-nav__link" href="#mkdocstrings.extension.atomic_brute_cast">
     atomic_brute_cast()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.extension.get_item_configs">
+    get_item_configs()
+  </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#mkdocstrings.extension.log_xml_parse_error">
+    log_xml_parse_error()
   </a>
 </li>
 </ul>
@@ -449,7 +471,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 </span>
 <a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor.__init__" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
-<p>Initialization method.</p>
+<p>Initialize the object.</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -493,7 +515,7 @@ of the <code>mkdocstrings</code> plugin.</p>
 <div class="highlight">
 <pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">:</span> <span class="n">BlockParser</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">"""</span>
-<span class="sd">    Initialization method.</span>
+<span class="sd">    Initialize the object.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        parser: A `markdown.blockparser.BlockParser` instance.</span>
@@ -628,7 +650,7 @@ get_handler_name<span class="p">(</span><span class="bp">self</span><span class=
     <span class="sd">"""</span>
 <span class="sd">    Return the handler name defined in an "autodoc" instruction YAML configuration, or the global default handler.</span>
 
-<span class="sd">    Args:</span>
+<span class="sd">    Arguments:</span>
 <span class="sd">        config: A configuration dictionary, obtained from YAML below the "autodoc" instruction.</span>
 
 <span class="sd">    Returns:</span>
@@ -643,15 +665,12 @@ get_handler_name<span class="p">(</span><span class="bp">self</span><span class=
 </div>
 </div>
 <div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.extension.AutoDocProcessor.get_item_configs">
+<h3 class="doc doc-heading" id="mkdocstrings.extension.AutoDocProcessor.process_block">
 <code class="highlight language-python">
-get_item_configs<span class="p">(</span><span class="n">handler_config</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> </code>
-<span class="doc doc-properties">
-<small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
-</span>
-<a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor.get_item_configs" title="Permanent link">¤</a></h3>
+process_block<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">yaml_block</span><span class="p">)</span> </code>
+<a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor.process_block" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
-<p>Get the selection and rendering configuration merged into the global configuration of the given handler.</p>
+<p>Process an autodoc block.</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -664,20 +683,37 @@ get_item_configs<span class="p">(</span><span class="n">handler_config</span><sp
 </thead>
 <tbody>
 <tr>
-<td><code>handler_config</code></td>
-<td><code>dict</code></td>
+<td><code>identifier</code></td>
+<td><code>str</code></td>
 <td>
-<p>The global configuration of a handler. It can be an empty dictionary.</p>
+<p>The identifier of the object to collect and render.</p>
 </td>
 <td><em>required</em></td>
 </tr>
 <tr>
-<td><code>config</code></td>
-<td><code>dict</code></td>
+<td><code>yaml_block</code></td>
+<td><code>str</code></td>
 <td>
-<p>The configuration to merge into the global handler configuration.</p>
+<p>The YAML configuration.</p>
 </td>
 <td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CollectionError</code></td>
+<td>
+<p>When something wrong happened during collection.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -691,9 +727,9 @@ get_item_configs<span class="p">(</span><span class="n">handler_config</span><sp
 </thead>
 <tbody>
 <tr>
-<td><code>Tuple[dict, dict]</code></td>
+<td><code>Element</code></td>
 <td>
-<p>Two dictionaries: selection and rendering. The local configurations are merged into the global ones.</p>
+<p>A new XML element.</p>
 </td>
 </tr>
 </tbody>
@@ -701,23 +737,63 @@ get_item_configs<span class="p">(</span><span class="n">handler_config</span><sp
 <details class="quote">
 <summary>Source code in <code>mkdocstrings/extension.py</code></summary>
 <div class="highlight">
-<pre><span></span><code><span class="nd">@staticmethod</span>
-<span class="k">def</span> <span class="nf">get_item_configs</span><span class="p">(</span><span class="n">handler_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">process_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">yaml_block</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Element</span><span class="p">:</span>
     <span class="sd">"""</span>
-<span class="sd">    Get the selection and rendering configuration merged into the global configuration of the given handler.</span>
+<span class="sd">    Process an autodoc block.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        handler_config: The global configuration of a handler. It can be an empty dictionary.</span>
-<span class="sd">        config: The configuration to merge into the global handler configuration.</span>
+<span class="sd">    Arguments:</span>
+<span class="sd">        identifier: The identifier of the object to collect and render.</span>
+<span class="sd">        yaml_block: The YAML configuration.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        CollectionError: When something wrong happened during collection.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Two dictionaries: selection and rendering. The local configurations are merged into the global ones.</span>
+<span class="sd">        A new XML element.</span>
 <span class="sd">    """</span>
-    <span class="n">item_selection_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">handler_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"selection"</span><span class="p">,</span> <span class="p">{}))</span>
-    <span class="n">item_selection_config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"selection"</span><span class="p">,</span> <span class="p">{}))</span>
-    <span class="n">item_rendering_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">handler_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"rendering"</span><span class="p">,</span> <span class="p">{}))</span>
-    <span class="n">item_rendering_config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"rendering"</span><span class="p">,</span> <span class="p">{}))</span>
-    <span class="k">return</span> <span class="n">item_selection_config</span><span class="p">,</span> <span class="n">item_rendering_config</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">yaml_block</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+    <span class="n">handler_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_handler_name</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.extension: Using handler '</span><span class="si">{</span><span class="n">handler_name</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+    <span class="n">handler_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_handler_config</span><span class="p">(</span><span class="n">handler_name</span><span class="p">)</span>
+    <span class="n">handler</span> <span class="o">=</span> <span class="n">get_handler</span><span class="p">(</span>
+        <span class="n">handler_name</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s2">"theme_name"</span><span class="p">],</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s2">"mkdocstrings"</span><span class="p">][</span><span class="s2">"custom_templates"</span><span class="p">],</span>
+        <span class="o">**</span><span class="n">handler_config</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">selection</span><span class="p">,</span> <span class="n">rendering</span> <span class="o">=</span> <span class="n">get_item_configs</span><span class="p">(</span><span class="n">handler_config</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.extension: Collecting data"</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">collector</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">selection</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">CollectionError</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.extension: Could not collect '</span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
+        <span class="k">raise</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.extension: Updating renderer's env"</span><span class="p">)</span>
+    <span class="n">handler</span><span class="o">.</span><span class="n">renderer</span><span class="o">.</span><span class="n">update_env</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">md</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">)</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.extension: Rendering templates"</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">rendered</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">renderer</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rendering</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">TemplateNotFound</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="n">theme_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s2">"theme_name"</span><span class="p">]</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"mkdocstrings.extension: Template '</span><span class="si">{</span><span class="n">exc</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' not found "</span>
+            <span class="sa">f</span><span class="s2">"for '</span><span class="si">{</span><span class="n">handler_name</span><span class="si">}</span><span class="s2">' handler and theme '</span><span class="si">{</span><span class="n">theme_name</span><span class="si">}</span><span class="s2">'."</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">raise</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.extension: Loading HTML back into XML tree"</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">xml_contents</span> <span class="o">=</span> <span class="n">XML</span><span class="p">(</span><span class="n">ENTITIES</span> <span class="o">+</span> <span class="n">rendered</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">ParseError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="n">log_xml_parse_error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">),</span> <span class="n">rendered</span><span class="p">)</span>
+        <span class="k">raise</span>
+
+    <span class="k">return</span> <span class="n">atomic_brute_cast</span><span class="p">(</span><span class="n">xml_contents</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
 </code></pre>
 </div>
 </details>
@@ -729,7 +805,7 @@ get_item_configs<span class="p">(</span><span class="n">handler_config</span><sp
 run<span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">blocks</span><span class="p">)</span> </code>
 <a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor.run" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
-<p>The processing of autodoc instructions is done here.</p>
+<p>Run code on the matched blocks.</p>
 <p>The identifier and configuration lines are retrieved from a matched block
 and used to collect and render an object.</p>
 <p><strong>Parameters:</strong></p>
@@ -766,7 +842,7 @@ and used to collect and render an object.</p>
 <div class="highlight">
 <pre><span></span><code><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">blocks</span><span class="p">:</span> <span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">"""</span>
-<span class="sd">    The processing of autodoc instructions is done here.</span>
+<span class="sd">    Run code on the matched blocks.</span>
 
 <span class="sd">    The identifier and configuration lines are retrieved from a matched block</span>
 <span class="sd">    and used to collect and render an object.</span>
@@ -776,7 +852,7 @@ and used to collect and render an object.</p>
 <span class="sd">        blocks: The rest of the blocks to be processed.</span>
 <span class="sd">    """</span>
     <span class="n">block</span> <span class="o">=</span> <span class="n">blocks</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">match</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RE</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
 
     <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
         <span class="c1"># removes the first line</span>
@@ -787,64 +863,8 @@ and used to collect and render an object.</p>
     <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
         <span class="n">identifier</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.extension: Matched '::: </span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
-        <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">block</span><span class="p">))</span> <span class="ow">or</span> <span class="p">{}</span>
-
-        <span class="n">handler_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_handler_name</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.extension: Using handler '</span><span class="si">{</span><span class="n">handler_name</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
-        <span class="n">handler_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_handler_config</span><span class="p">(</span><span class="n">handler_name</span><span class="p">)</span>
-        <span class="n">handler</span> <span class="o">=</span> <span class="n">get_handler</span><span class="p">(</span>
-            <span class="n">handler_name</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s2">"theme_name"</span><span class="p">],</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s2">"mkdocstrings"</span><span class="p">][</span><span class="s2">"custom_templates"</span><span class="p">],</span>
-            <span class="o">**</span><span class="n">handler_config</span><span class="p">,</span>
-        <span class="p">)</span>
-
-        <span class="n">selection</span><span class="p">,</span> <span class="n">rendering</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_item_configs</span><span class="p">(</span><span class="n">handler_config</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
-
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.extension: Collecting data"</span><span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">data</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">collector</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">selection</span><span class="p">)</span>
-        <span class="k">except</span> <span class="n">CollectionError</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.extension: Could not collect '</span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
-            <span class="k">raise</span>
-
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.extension: Updating renderer's env"</span><span class="p">)</span>
-        <span class="n">handler</span><span class="o">.</span><span class="n">renderer</span><span class="o">.</span><span class="n">update_env</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">md</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">)</span>
-
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.extension: Rendering templates"</span><span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">rendered</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">renderer</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rendering</span><span class="p">)</span>
-        <span class="k">except</span> <span class="n">TemplateNotFound</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
-            <span class="n">theme_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s2">"theme_name"</span><span class="p">]</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">"mkdocstrings.extension: Template '</span><span class="si">{</span><span class="n">error</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' not found "</span>
-                <span class="sa">f</span><span class="s2">"for '</span><span class="si">{</span><span class="n">handler_name</span><span class="si">}</span><span class="s2">' handler and theme '</span><span class="si">{</span><span class="n">theme_name</span><span class="si">}</span><span class="s2">'."</span>
-            <span class="p">)</span>
-            <span class="k">raise</span>
-
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"mkdocstrings.extension: Loading HTML back into XML tree"</span><span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">as_xml</span> <span class="o">=</span> <span class="n">XML</span><span class="p">(</span><span class="n">ENTITIES</span> <span class="o">+</span> <span class="n">rendered</span><span class="p">)</span>
-        <span class="k">except</span> <span class="n">ParseError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"mkdocstrings.extension: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span>
-            <span class="k">if</span> <span class="s2">"mismatched tag"</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
-                <span class="n">line</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">", "</span><span class="p">)</span>
-
-                <span class="n">lineno</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">" "</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-                <span class="n">columnno</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">column</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">" "</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-
-                <span class="n">line</span> <span class="o">=</span> <span class="n">rendered</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)[</span><span class="n">lineno</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-                <span class="n">character</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="n">columnno</span><span class="p">]</span>
-                <span class="n">message</span> <span class="o">+=</span> <span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">" (character </span><span class="si">{</span><span class="n">character</span><span class="si">}</span><span class="s2">):</span><span class="se">\n</span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
-                    <span class="sa">f</span><span class="s2">"If your Markdown contains angle brackets &lt; &gt;, try to wrap them between backticks `&lt; &gt;`, "</span>
-                    <span class="sa">f</span><span class="s2">"or replace them with &lt; and &gt;"</span>
-                <span class="p">)</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-            <span class="k">raise</span>
-
-        <span class="n">as_xml</span> <span class="o">=</span> <span class="n">atomic_brute_cast</span><span class="p">(</span><span class="n">as_xml</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-        <span class="n">parent</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">as_xml</span><span class="p">)</span>
+        <span class="n">xml_element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_block</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xml_element</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">the_rest</span><span class="p">:</span>
         <span class="c1"># This block contained unindented line(s) after the first indented</span>
@@ -863,17 +883,72 @@ test<span class="p">(</span><span class="bp">self</span><span class="p">,</span>
 <a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor.test" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
 <p>Match our autodoc instructions.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>parent</code></td>
+<td><code>Element</code></td>
+<td>
+<p>parent: The parent element in the XML tree.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>block</code></td>
+<td><code>Element</code></td>
+<td>
+<p>The block to be tested.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bool</code></td>
+<td>
+<p>Whether this block should be processed or not.</p>
+</td>
+</tr>
+</tbody>
+</table>
 <details class="quote">
 <summary>Source code in <code>mkdocstrings/extension.py</code></summary>
 <div class="highlight">
 <pre><span></span><code><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">block</span><span class="p">:</span> <span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">"""Match our autodoc instructions."""</span>
+    <span class="sd">"""</span>
+<span class="sd">    Match our autodoc instructions.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        parent:parent: The parent element in the XML tree.</span>
+<span class="sd">        block: The block to be tested.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Whether this block should be processed or not.</span>
+<span class="sd">    """</span>
     <span class="n">sibling</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lastChild</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
-    <span class="n">bool1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RE</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
+    <span class="n">bool1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
     <span class="n">bool2</span> <span class="o">=</span> <span class="p">(</span>
         <span class="nb">str</span><span class="p">(</span><span class="n">block</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">" "</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">tab_length</span><span class="p">)</span>
         <span class="ow">and</span> <span class="n">sibling</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="ow">and</span> <span class="n">sibling</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"class"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CLASSNAME</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="ow">and</span> <span class="n">sibling</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"class"</span><span class="p">,</span> <span class="s2">""</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">classname</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">bool1</span> <span class="ow">or</span> <span class="n">bool2</span><span class="p">)</span>
 </code></pre>
@@ -901,7 +976,7 @@ __init__<span class="p">(</span><span class="bp">self</span><span class="p">,</s
 </span>
 <a class="headerlink" href="#mkdocstrings.extension.MkdocstringsExtension.__init__" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents">
-<p>Initialization method.</p>
+<p>Initialize the object.</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -937,7 +1012,7 @@ when instantiated in <a href="#mkdocstrings.extension.MkdocstringsExtension.exte
 <div class="highlight">
 <pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">"""</span>
-<span class="sd">    Initialization method.</span>
+<span class="sd">    Initialize the object.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        config: The configuration items from `mkdocs` and `mkdocstrings` that must be passed to the block processor</span>
@@ -983,18 +1058,18 @@ extendMarkdown<span class="p">(</span><span class="bp">self</span><span class="p
 <details class="quote">
 <summary>Source code in <code>mkdocstrings/extension.py</code></summary>
 <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: N802 (casing: parent method's name)</span>
     <span class="sd">"""</span>
 <span class="sd">    Register the extension.</span>
 
 <span class="sd">    Add an instance of our [`AutoDocProcessor`][mkdocstrings.extension.AutoDocProcessor] to the Markdown parser.</span>
 
-<span class="sd">    Args:</span>
+<span class="sd">    Arguments:</span>
 <span class="sd">        md: A `markdown.Markdown` instance.</span>
 <span class="sd">    """</span>
     <span class="n">md</span><span class="o">.</span><span class="n">registerExtension</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
     <span class="n">processor</span> <span class="o">=</span> <span class="n">AutoDocProcessor</span><span class="p">(</span><span class="n">md</span><span class="o">.</span><span class="n">parser</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">)</span>
-    <span class="n">md</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">blockprocessors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">processor</span><span class="p">,</span> <span class="s2">"mkdocstrings"</span><span class="p">,</span> <span class="mi">110</span><span class="p">)</span>
+    <span class="n">md</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">blockprocessors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">processor</span><span class="p">,</span> <span class="s2">"mkdocstrings"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">priority</span><span class="p">)</span>
 </code></pre>
 </div>
 </details>
@@ -1082,6 +1157,153 @@ to keep modifying the data, so this function is used to mark the complete tree a
 </details>
 </div>
 </div>
+<div class="doc doc-object doc-function">
+<h2 class="doc doc-heading" id="mkdocstrings.extension.get_item_configs">
+<code class="highlight language-python">
+get_item_configs<span class="p">(</span><span class="n">handler_config</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> </code>
+<a class="headerlink" href="#mkdocstrings.extension.get_item_configs" title="Permanent link">¤</a></h2>
+<div class="doc doc-contents">
+<p>Get the selection and rendering configuration merged into the global configuration of the given handler.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>handler_config</code></td>
+<td><code>dict</code></td>
+<td>
+<p>The global configuration of a handler. It can be an empty dictionary.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>config</code></td>
+<td><code>dict</code></td>
+<td>
+<p>The configuration to merge into the global handler configuration.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Tuple[dict, dict]</code></td>
+<td>
+<p>Two dictionaries: selection and rendering. The local configurations are merged into the global ones.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>mkdocstrings/extension.py</code></summary>
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">get_item_configs</span><span class="p">(</span><span class="n">handler_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Get the selection and rendering configuration merged into the global configuration of the given handler.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        handler_config: The global configuration of a handler. It can be an empty dictionary.</span>
+<span class="sd">        config: The configuration to merge into the global handler configuration.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Two dictionaries: selection and rendering. The local configurations are merged into the global ones.</span>
+<span class="sd">    """</span>
+    <span class="n">item_selection_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">handler_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"selection"</span><span class="p">,</span> <span class="p">{}))</span>
+    <span class="n">item_selection_config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"selection"</span><span class="p">,</span> <span class="p">{}))</span>
+    <span class="n">item_rendering_config</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">handler_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"rendering"</span><span class="p">,</span> <span class="p">{}))</span>
+    <span class="n">item_rendering_config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"rendering"</span><span class="p">,</span> <span class="p">{}))</span>
+    <span class="k">return</span> <span class="n">item_selection_config</span><span class="p">,</span> <span class="n">item_rendering_config</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
+<div class="doc doc-object doc-function">
+<h2 class="doc doc-heading" id="mkdocstrings.extension.log_xml_parse_error">
+<code class="highlight language-python">
+log_xml_parse_error<span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">xml_text</span><span class="p">)</span> </code>
+<a class="headerlink" href="#mkdocstrings.extension.log_xml_parse_error" title="Permanent link">¤</a></h2>
+<div class="doc doc-contents">
+<p>Log an XML parsing error.</p>
+<p>If the error is a tag mismatch, augment the log message.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>error</code></td>
+<td><code>str</code></td>
+<td>
+<p>The error message (no traceback).</p>
+</td>
+<td><em>required</em></td>
+</tr>
+<tr>
+<td><code>xml_text</code></td>
+<td><code>str</code></td>
+<td>
+<p>The XML text that generated the parsing error.</p>
+</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
+<details class="quote">
+<summary>Source code in <code>mkdocstrings/extension.py</code></summary>
+<div class="highlight">
+<pre><span></span><code><span class="k">def</span> <span class="nf">log_xml_parse_error</span><span class="p">(</span><span class="n">error</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">xml_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Log an XML parsing error.</span>
+
+<span class="sd">    If the error is a tag mismatch, augment the log message.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        error: The error message (no traceback).</span>
+<span class="sd">        xml_text: The XML text that generated the parsing error.</span>
+<span class="sd">    """</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"mkdocstrings.extension: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span>
+    <span class="k">if</span> <span class="s2">"mismatched tag"</span> <span class="ow">in</span> <span class="n">error</span><span class="p">:</span>
+        <span class="n">line_column</span> <span class="o">=</span> <span class="n">error</span><span class="p">[</span><span class="n">error</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s2">":"</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]</span>
+        <span class="n">line</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="n">line_column</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">", "</span><span class="p">)</span>
+        <span class="n">lineno</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s2">" "</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:])</span>
+        <span class="n">columnno</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">column</span><span class="p">[</span><span class="n">column</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s2">" "</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:])</span>
+
+        <span class="n">line</span> <span class="o">=</span> <span class="n">xml_text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)[</span><span class="n">lineno</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">character</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="n">columnno</span><span class="p">]</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">" (character </span><span class="si">{</span><span class="n">character</span><span class="si">}</span><span class="s2">):</span><span class="se">\n</span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"If your Markdown contains angle brackets &lt; &gt;, try to wrap them between backticks `&lt; &gt;`, "</span>
+            <span class="s2">"or replace them with &lt; and &gt;"</span>
+        <span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</code></pre>
+</div>
+</details>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1133,8 +1355,8 @@ to keep modifying the data, so this function is used to mark the complete tree a
 </div>
 </footer>
 </div>
-<script src="../../assets/javascripts/vendor.3636a4ec.min.js"></script>
-<script src="../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+<script src="../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+<script src="../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
 <script>
         app = initialize({
           base: "../..",

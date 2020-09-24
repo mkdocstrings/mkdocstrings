@@ -1,426 +1,743 @@
 
-<!DOCTYPE html>
 
-<html class="no-js" lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="Automatic documentation from sources, for MkDocs." name="description"/>
-<link href="https://pawamoy.github.io/mkdocstrings/handlers/python/" rel="canonical"/>
-<link href="../../assets/images/favicon.png" rel="shortcut icon"/>
-<meta content="mkdocs-1.1.2, mkdocs-material-5.5.12" name="generator"/>
-<title>Python - mkdocstrings</title>
-<link href="../../assets/stylesheets/main.4dd2dd8d.min.css" rel="stylesheet"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
-<style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
-<link href="../../css/mkdocstrings.css" rel="stylesheet"/>
-</head>
-<body dir="ltr">
-<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
-<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
-<label class="md-overlay" for="__drawer"></label>
-<div data-md-component="skip">
-<a class="md-skip" href="#python-handler">
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Automatic documentation from sources, for MkDocs.">
+      
+      
+        <link rel="canonical" href="https://pawamoy.github.io/mkdocstrings/handlers/python/">
+      
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
+    
+    
+      
+        <title>Python - mkdocstrings</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d3202873.min.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ff0a5ce4.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#ffc105">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../css/mkdocstrings.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="amber" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#python-handler" class="md-skip">
           Skip to content
         </a>
-</div>
-<div data-md-component="announce">
-</div>
-<header class="md-header" data-md-component="header">
-<nav aria-label="Header" class="md-header-nav md-grid">
-<a aria-label="mkdocstrings" class="md-header-nav__button md-logo" href="https://pawamoy.github.io/mkdocstrings" title="mkdocstrings">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
-</a>
-<label class="md-header-nav__button md-icon" for="__drawer">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
-</label>
-<div class="md-header-nav__title" data-md-component="header-title">
-<div class="md-header-nav__ellipsis">
-<span class="md-header-nav__topic md-ellipsis">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://pawamoy.github.io/mkdocstrings" title="mkdocstrings" class="md-header-nav__button md-logo" aria-label="mkdocstrings">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
             mkdocstrings
           </span>
-<span class="md-header-nav__topic md-ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
             
               Python
             
           </span>
-</div>
-</div>
-<label class="md-header-nav__button md-icon" for="__search">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
-</label>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
 <div class="md-search" data-md-component="search" role="dialog">
-<label class="md-search__overlay" for="__search"></label>
-<div class="md-search__inner" role="search">
-<form class="md-search__form" name="search">
-<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" data-md-state="active" name="query" placeholder="Search" spellcheck="false" type="text"/>
-<label class="md-search__icon md-icon" for="__search">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
-</label>
-<button aria-label="Clear" class="md-search__icon md-icon" data-md-component="search-reset" tabindex="-1" type="reset">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
-</button>
-</form>
-<div class="md-search__output">
-<div class="md-search__scrollwrap" data-md-scrollfix="">
-<div class="md-search-result" data-md-component="search-result">
-<div class="md-search-result__meta">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
             Initializing search
           </div>
-<ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="md-header-nav__source">
-<a class="md-source" href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository">
-<div class="md-source__icon md-icon">
-<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
-</div>
-<div class="md-source__repository">
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
     pawamoy/mkdocstrings
   </div>
 </a>
-</div>
-</nav>
+      </div>
+    
+  </nav>
 </header>
-<div class="md-container" data-md-component="container">
-<main class="md-main" data-md-component="main">
-<div class="md-main__inner md-grid">
-<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
-<label class="md-nav__title" for="__drawer">
-<a aria-label="mkdocstrings" class="md-nav__button md-logo" href="https://pawamoy.github.io/mkdocstrings" title="mkdocstrings">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
-</a>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://pawamoy.github.io/mkdocstrings" title="mkdocstrings" class="md-nav__button md-logo" aria-label="mkdocstrings">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
     mkdocstrings
   </label>
-<div class="md-nav__source">
-<a class="md-source" href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository">
-<div class="md-source__icon md-icon">
-<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"></path></svg>
-</div>
-<div class="md-source__repository">
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/pawamoy/mkdocstrings/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
     pawamoy/mkdocstrings
   </div>
 </a>
-</div>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../.." title="Overview">
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Overview" class="md-nav__link">
       Overview
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../usage/" title="Usage">
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../usage/" title="Usage" class="md-nav__link">
       Usage
     </a>
-</li>
-<li class="md-nav__item md-nav__item--active md-nav__item--nested">
-<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="nav-3" id="nav-3" type="checkbox"/>
-<label class="md-nav__link" for="nav-3">
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
       Handlers
       <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="Handlers" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="nav-3">
-<span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Handlers" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
         Handlers
       </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../overview/" title="Overview">
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../overview/" title="Overview" class="md-nav__link">
       Overview
     </a>
-</li>
-<li class="md-nav__item md-nav__item--active">
-<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
-<label class="md-nav__link md-nav__link--active" for="__toc">
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
         Python
         <span class="md-nav__icon md-icon"></span>
-</label>
-<a class="md-nav__link md-nav__link--active" href="./" title="Python">
+      </label>
+    
+    <a href="./" title="Python" class="md-nav__link md-nav__link--active">
       Python
     </a>
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#handler-options">
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#handler-options" class="md-nav__link">
     Handler options
   </a>
-<nav aria-label="Handler options" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#selection">
+  
+    <nav class="md-nav" aria-label="Handler options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selection" class="md-nav__link">
     Selection
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#rendering">
+        
+          <li class="md-nav__item">
+  <a href="#rendering" class="md-nav__link">
     Rendering
   </a>
+  
 </li>
-</ul>
-</nav>
+        
+      </ul>
+    </nav>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#collector-pytkdocs">
+      
+        <li class="md-nav__item">
+  <a href="#collector-pytkdocs" class="md-nav__link">
     Collector: pytkdocs
   </a>
-<nav aria-label="Collector: pytkdocs" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#supported-docstrings-styles">
+  
+    <nav class="md-nav" aria-label="Collector: pytkdocs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-docstrings-styles" class="md-nav__link">
     Supported docstrings styles
   </a>
-<nav aria-label="Supported docstrings styles" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#google-style">
+  
+    <nav class="md-nav" aria-label="Supported docstrings styles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#google-style" class="md-nav__link">
     Google-style
   </a>
-<nav aria-label="Google-style" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#sections">
+  
+    <nav class="md-nav" aria-label="Google-style">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sections" class="md-nav__link">
     Sections
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#admonitions">
+        
+          <li class="md-nav__item">
+  <a href="#admonitions" class="md-nav__link">
     Admonitions
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#annotations">
+        
+          <li class="md-nav__item">
+  <a href="#annotations" class="md-nav__link">
     Annotations
   </a>
+  
 </li>
-</ul>
-</nav>
+        
+      </ul>
+    </nav>
+  
 </li>
-</ul>
-</nav>
+        
+      </ul>
+    </nav>
+  
 </li>
-</ul>
-</nav>
+        
+      </ul>
+    </nav>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#finding-modules">
+      
+        <li class="md-nav__item">
+  <a href="#finding-modules" class="md-nav__link">
     Finding modules
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#mocking-libraries">
+      
+        <li class="md-nav__item">
+  <a href="#mocking-libraries" class="md-nav__link">
     Mocking libraries
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#recommended-style-material">
+      
+        <li class="md-nav__item">
+  <a href="#recommended-style-material" class="md-nav__link">
     Recommended style (Material)
   </a>
+  
 </li>
-</ul>
+      
+    </ul>
+  
 </nav>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" id="nav-4" type="checkbox"/>
-<label class="md-nav__link" for="nav-4">
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
       API Reference
       <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="API Reference" class="md-nav" data-md-level="1">
-<label class="md-nav__title" for="nav-4">
-<span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
         API Reference
       </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item md-nav__item--nested">
-<input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" id="nav-4-1" type="checkbox"/>
-<label class="md-nav__link" for="nav-4-1">
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+    
+    <label class="md-nav__link" for="nav-4-1">
       handlers
       <span class="md-nav__icon md-icon"></span>
-</label>
-<nav aria-label="handlers" class="md-nav" data-md-level="2">
-<label class="md-nav__title" for="nav-4-1">
-<span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="handlers" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon"></span>
         handlers
       </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../reference/handlers/__init__/" title="__init__.py">
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/handlers/__init__/" title="__init__.py" class="md-nav__link">
       __init__.py
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../reference/handlers/python/" title="python.py">
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/handlers/python/" title="python.py" class="md-nav__link">
       python.py
     </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../reference/extension/" title="extension.py">
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/extension/" title="extension.py" class="md-nav__link">
       extension.py
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../reference/plugin/" title="plugin.py">
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/plugin/" title="plugin.py" class="md-nav__link">
       plugin.py
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../reference/references/" title="references.py">
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/references/" title="references.py" class="md-nav__link">
       references.py
     </a>
-</li>
-</ul>
-</nav>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../troubleshooting/" title="Troubleshooting">
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../troubleshooting/" title="Troubleshooting" class="md-nav__link">
       Troubleshooting
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../contributing/" title="Contributing">
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../contributing/" title="Contributing" class="md-nav__link">
       Contributing
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../code_of_conduct/" title="Code of Conduct">
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../code_of_conduct/" title="Code of Conduct" class="md-nav__link">
       Code of Conduct
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../changelog/" title="Changelog">
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" title="Changelog" class="md-nav__link">
       Changelog
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../credits/" title="Credits">
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../credits/" title="Credits" class="md-nav__link">
       Credits
     </a>
-</li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="../../license/" title="License">
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../license/" title="License" class="md-nav__link">
       License
     </a>
-</li>
-</ul>
+  </li>
+
+    
+  </ul>
 </nav>
-</div>
-</div>
-</div>
-<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="__toc">
-<span class="md-nav__icon md-icon"></span>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-<ul class="md-nav__list" data-md-scrollfix="">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#handler-options">
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#handler-options" class="md-nav__link">
     Handler options
   </a>
-<nav aria-label="Handler options" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#selection">
+  
+    <nav class="md-nav" aria-label="Handler options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selection" class="md-nav__link">
     Selection
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#rendering">
+        
+          <li class="md-nav__item">
+  <a href="#rendering" class="md-nav__link">
     Rendering
   </a>
+  
 </li>
-</ul>
-</nav>
+        
+      </ul>
+    </nav>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#collector-pytkdocs">
+      
+        <li class="md-nav__item">
+  <a href="#collector-pytkdocs" class="md-nav__link">
     Collector: pytkdocs
   </a>
-<nav aria-label="Collector: pytkdocs" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#supported-docstrings-styles">
+  
+    <nav class="md-nav" aria-label="Collector: pytkdocs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-docstrings-styles" class="md-nav__link">
     Supported docstrings styles
   </a>
-<nav aria-label="Supported docstrings styles" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#google-style">
+  
+    <nav class="md-nav" aria-label="Supported docstrings styles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#google-style" class="md-nav__link">
     Google-style
   </a>
-<nav aria-label="Google-style" class="md-nav">
-<ul class="md-nav__list">
-<li class="md-nav__item">
-<a class="md-nav__link" href="#sections">
+  
+    <nav class="md-nav" aria-label="Google-style">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sections" class="md-nav__link">
     Sections
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#admonitions">
+        
+          <li class="md-nav__item">
+  <a href="#admonitions" class="md-nav__link">
     Admonitions
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#annotations">
+        
+          <li class="md-nav__item">
+  <a href="#annotations" class="md-nav__link">
     Annotations
   </a>
+  
 </li>
-</ul>
-</nav>
+        
+      </ul>
+    </nav>
+  
 </li>
-</ul>
-</nav>
+        
+      </ul>
+    </nav>
+  
 </li>
-</ul>
-</nav>
+        
+      </ul>
+    </nav>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#finding-modules">
+      
+        <li class="md-nav__item">
+  <a href="#finding-modules" class="md-nav__link">
     Finding modules
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#mocking-libraries">
+      
+        <li class="md-nav__item">
+  <a href="#mocking-libraries" class="md-nav__link">
     Mocking libraries
   </a>
+  
 </li>
-<li class="md-nav__item">
-<a class="md-nav__link" href="#recommended-style-material">
+      
+        <li class="md-nav__item">
+  <a href="#recommended-style-material" class="md-nav__link">
     Recommended style (Material)
   </a>
+  
 </li>
-</ul>
+      
+    </ul>
+  
 </nav>
-</div>
-</div>
-</div>
-<div class="md-content">
-<article class="md-content__inner md-typeset">
-<a class="md-content__button md-icon" href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/handlers/python.md" title="Edit this page">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"></path></svg>
-</a>
-<h1 id="python-handler">Python handler<a class="headerlink" href="#python-handler" title="Permanent link">¤</a></h1>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/pawamoy/mkdocstrings/edit/master/docs/handlers/python.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="python-handler">Python handler<a class="headerlink" href="#python-handler" title="Permanent link">¤</a></h1>
 <h2 id="handler-options">Handler options<a class="headerlink" href="#handler-options" title="Permanent link">¤</a></h2>
 <p>Like every handler, the Python handler accepts the common
 <a href="#selection"><code>selection</code></a> and <a href="#rendering"><code>rendering</code></a> options,
@@ -456,9 +773,10 @@ while the <code>rendering</code> options lets you change how the documentation i
           <span class="nt">setup_commands</span><span class="p">:</span>
             <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">import os</span>
             <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">import django</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">os.environ.setdefault("DJANGO_SETTINGS_MODULE", "my_django_app.settings")</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;, &quot;my_django_app.settings&quot;)</span>
             <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">django.setup()</span>
 </code></pre></div>
+
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -514,7 +832,7 @@ See <a href="#collector-pytkdocs">Collector: pytkdocs</a> to learn more about <c
 </table>
 <div class="admonition example">
 <p class="admonition-title">Configuration example</p>
-<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio"><label for="__tabbed_1_1">Global</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Global</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span>
 <span class="nt">plugins</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
@@ -522,17 +840,19 @@ See <a href="#collector-pytkdocs">Collector: pytkdocs</a> to learn more about <c
         <span class="nt">python</span><span class="p">:</span>
           <span class="nt">selection</span><span class="p">:</span>
             <span class="nt">filters</span><span class="p">:</span>
-              <span class="p p-Indicator">-</span> <span class="s">"!^_"</span>  <span class="c1"># exlude all members starting with _</span>
-              <span class="p p-Indicator">-</span> <span class="s">"^__init__$"</span>  <span class="c1"># but always include __init__ modules and methods</span>
+              <span class="p p-Indicator">-</span> <span class="s">&quot;!^_&quot;</span>  <span class="c1"># exlude all members starting with _</span>
+              <span class="p p-Indicator">-</span> <span class="s">&quot;^__init__$&quot;</span>  <span class="c1"># but always include __init__ modules and methods</span>
 </code></pre></div>
+
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio"><label for="__tabbed_1_2">Local</label><div class="tabbed-content">
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Local</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">::</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">my_package</span>
     <span class="l l-Scalar l-Scalar-Plain">selection</span><span class="p p-Indicator">:</span>
       <span class="nt">filters</span><span class="p">:</span> <span class="p p-Indicator">[]</span>  <span class="c1"># pick up everything</span>
 </code></pre></div>
+
 </div>
-</input></input></div>
+</div>
 </div>
 <h3 id="rendering">Rendering<a class="headerlink" href="#rendering" title="Permanent link">¤</a></h3>
 <p>These options affect how the documentation is rendered.</p>
@@ -604,7 +924,7 @@ See <a href="#collector-pytkdocs">Collector: pytkdocs</a> to learn more about <c
 </table>
 <div class="admonition example">
 <p class="admonition-title">Configuration example</p>
-<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio"><label for="__tabbed_2_1">Global</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Global</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span>
 <span class="nt">plugins</span><span class="p">:</span>
   <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
@@ -613,17 +933,19 @@ See <a href="#collector-pytkdocs">Collector: pytkdocs</a> to learn more about <c
           <span class="nt">rendering</span><span class="p">:</span>
             <span class="nt">show_root_heading</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">yes</span>
 </code></pre></div>
+
 </div>
-<input id="__tabbed_2_2" name="__tabbed_2" type="radio"><label for="__tabbed_2_2">Local</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="gu">##</span> `ClassA`
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Local</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="gu">## `ClassA`</span>
 
 ::: my_package.my_module.ClassA
     rendering:
       show_root_heading: no
       heading_level: 3
 </code></pre></div>
+
 </div>
-</input></input></div>
+</div>
 </div>
 <h2 id="collector-pytkdocs">Collector: pytkdocs<a class="headerlink" href="#collector-pytkdocs" title="Permanent link">¤</a></h2>
 <p>The tool used by the Python handler to collect documentation from Python source code
@@ -647,8 +969,8 @@ Supported sections are:</p>
 <h5 id="admonitions">Admonitions<a class="headerlink" href="#admonitions" title="Permanent link">¤</a></h5>
 <p>Additionally, any section that is not recognized will be transformed into its admonition equivalent.
 For example:</p>
-<div class="tabbed-set" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio"><label for="__tabbed_3_1">Original</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="sd">"""</span>
+<div class="tabbed-set" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Original</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Note: You can disable this behavior with the `replace_admonitions` option.</span>
 <span class="sd">    To prevent `pytkdocs` from converting sections to admonitions,</span>
 <span class="sd">    use the `replace_admonitions`:</span>
@@ -662,12 +984,13 @@ For example:</p>
 <span class="sd">    ```</span>
 
 <span class="sd">    So meta!</span>
-<span class="sd">"""</span>
+<span class="sd">&quot;&quot;&quot;</span>
 </code></pre></div>
+
 </div>
-<input id="__tabbed_3_2" name="__tabbed_3" type="radio"><label for="__tabbed_3_2">Modified</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="sd">"""</span>
-<span class="sd">!!! note "You can disable this behavior with the `replace_admonitions` option."</span>
+<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Modified</label><div class="tabbed-content">
+<div class="highlight"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">!!! note &quot;You can disable this behavior with the `replace_admonitions` option.&quot;</span>
 <span class="sd">    To prevent `pytkdocs` from converting sections to admonitions,</span>
 <span class="sd">    use the `replace_admonitions`:</span>
 
@@ -680,10 +1003,11 @@ For example:</p>
 <span class="sd">    ```</span>
 
 <span class="sd">    So meta!</span>
-<span class="sd">"""</span>
+<span class="sd">&quot;&quot;&quot;</span>
 </code></pre></div>
+
 </div>
-<input id="__tabbed_3_3" name="__tabbed_3" type="radio"><label for="__tabbed_3_3">Result</label><div class="tabbed-content">
+<input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><label for="__tabbed_3_3">Result</label><div class="tabbed-content">
 <div class="admonition note">
 <p class="admonition-title">You can disable this behavior with the <code>replace_admonitions</code> parser option.</p>
 <p>To prevent <code>pytkdocs</code> from converting sections to admonitions,
@@ -694,10 +1018,11 @@ use the <code>replace_admonitions</code> parser option:</p>
       docstring_options:
         replace_admonitions: no 
 </code></pre></div>
+
 <p>So meta!</p>
 </div>
 </div>
-</input></input></input></div>
+</div>
 <p>As shown in the above example, this can be disabled
 with the <code>replace_admonitions</code> option of the Google-style parser:</p>
 <div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">::</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">my_package.my_module</span>
@@ -706,6 +1031,7 @@ with the <code>replace_admonitions</code> option of the Google-style parser:</p>
       <span class="nt">docstring_options</span><span class="p">:</span>
         <span class="nt">replace_admonitions</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">no</span> 
 </code></pre></div>
+
 <h5 id="annotations">Annotations<a class="headerlink" href="#annotations" title="Permanent link">¤</a></h5>
 <p>Type annotations are read both in the code and in the docstrings.</p>
 <div class="admonition example">
@@ -751,8 +1077,8 @@ Just remember to indent those lines consistently.</p>
 </tbody>
 </table>
 <details class="quote">
-<summary>Source code in <code>snippets/function_annotations.py</code></summary>
-<div class="highlight">
+          <summary>Source code in <code>snippets/function_annotations.py</code></summary>
+          <div class="highlight">
 <pre><span></span><code><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">param1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param2</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    A short description of this function.</span>
@@ -785,6 +1111,7 @@ pip install -e .
 </code></pre></div></p>
 <div class="highlight"><pre><span></span><code>poetry install
 </code></pre></div>
+
 <p>...etc.</p>
 </li>
 <li>
@@ -796,11 +1123,13 @@ pip install -e .
 (note the prepended <code>PYTHONPATH=...</code>):</p>
 <div class="highlight"><pre><span></span><code><span class="nv">PYTHONPATH</span><span class="o">=</span>src poetry run mkdocs serve
 </code></pre></div>
+
 <p>You could also export that variable,
 but this is <strong>not recommended</strong> as it could affect other Python processes:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span>src  <span class="c1"># Linux/Bash and similar</span>
 setx PYTHONPATH src  <span class="c1"># Windows, USE AT YOUR OWN RISKS</span>
 </code></pre></div>
+
 <p>You can also use the Python handler <code>setup_commands</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span>
 <span class="nt">plugins</span><span class="p">:</span>
@@ -809,9 +1138,10 @@ setx PYTHONPATH src  <span class="c1"># Windows, USE AT YOUR OWN RISKS</span>
         <span class="nt">python</span><span class="p">:</span>
           <span class="nt">setup_commands</span><span class="p">:</span>
             <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">import sys</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.path.append("src")</span>
-            <span class="c1"># or sys.path.insert(0, "src")</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.path.append(&quot;src&quot;)</span>
+            <span class="c1"># or sys.path.insert(0, &quot;src&quot;)</span>
 </code></pre></div>
+
 <h2 id="mocking-libraries">Mocking libraries<a class="headerlink" href="#mocking-libraries" title="Permanent link">¤</a></h2>
 <p>You may want to to generate documentation for a package while its dependencies are not available.
 The Python handler provides itself no builtin way to mock libraries,
@@ -824,12 +1154,13 @@ but you can use the <code>setup_commands</code> to mock them manually:</p>
           <span class="nt">setup_commands</span><span class="p">:</span>
             <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">import sys</span>
             <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">from unittest.mock import MagicMock as mock</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.modules["lib1"] = mock()</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.modules["lib2"] = mock()</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.modules["lib2.module1"] = mock()</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.modules["lib2.module1.moduleB"] = mock()</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.modules[&quot;lib1&quot;] = mock()</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.modules[&quot;lib2&quot;] = mock()</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.modules[&quot;lib2.module1&quot;] = mock()</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.modules[&quot;lib2.module1.moduleB&quot;] = mock()</span>
             <span class="c1"># etc</span>
 </code></pre></div>
+
 <h2 id="recommended-style-material">Recommended style (Material)<a class="headerlink" href="#recommended-style-material" title="Permanent link">¤</a></h2>
 <p>Here are some CSS rules for the <em>Material for MkDocs</em> theme:</p>
 <div class="highlight"><pre><span></span><code><span class="c">/* Indentation. */</span>
@@ -839,12 +1170,12 @@ but you can use the <code>setup_commands</code> to mock them manually:</p>
   <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">80</span><span class="kt">px</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="c">/* Don't capitalize names. */</span>
+<span class="c">/* Don&#39;t capitalize names. */</span>
 <span class="nt">h5</span><span class="p">.</span><span class="nc">doc-heading</span> <span class="p">{</span>
   <span class="k">text-transform</span><span class="p">:</span> <span class="kc">none</span> <span class="cp">!important</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="c">/* Don't use vertical space on hidden ToC entries. */</span>
+<span class="c">/* Don&#39;t use vertical space on hidden ToC entries. */</span>
 <span class="nt">h6</span><span class="p">.</span><span class="nc">hidden-toc</span> <span class="p">{</span>
   <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span> <span class="cp">!important</span><span class="p">;</span>
   <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
@@ -855,7 +1186,7 @@ but you can use the <code>setup_commands</code> to mock them manually:</p>
   <span class="k">padding-top</span><span class="p">:</span> <span class="mi">0</span> <span class="cp">!important</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="c">/* Don't show permalink of hidden ToC entries. */</span>
+<span class="c">/* Don&#39;t show permalink of hidden ToC entries. */</span>
 <span class="nt">h6</span><span class="p">.</span><span class="nc">hidden-toc</span> <span class="nt">a</span><span class="p">.</span><span class="nc">headerlink</span> <span class="p">{</span>
   <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
 <span class="p">}</span>
@@ -871,57 +1202,76 @@ but you can use the <code>setup_commands</code> to mock them manually:</p>
   <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">0</span> <span class="cp">!important</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-</article>
-</div>
-</div>
-</main>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
 <footer class="md-footer">
-<div class="md-footer-nav">
-<nav aria-label="Footer" class="md-footer-nav__inner md-grid">
-<a class="md-footer-nav__link md-footer-nav__link--prev" href="../overview/" rel="prev" title="Overview">
-<div class="md-footer-nav__button md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
-</div>
-<div class="md-footer-nav__title">
-<div class="md-ellipsis">
-<span class="md-footer-nav__direction">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../overview/" title="Overview" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
                   Previous
                 </span>
                 Overview
               </div>
-</div>
-</a>
-<a class="md-footer-nav__link md-footer-nav__link--next" href="../../reference/handlers/__init__/" rel="next" title="__init__.py">
-<div class="md-footer-nav__title">
-<div class="md-ellipsis">
-<span class="md-footer-nav__direction">
+            </div>
+          </a>
+        
+        
+          <a href="../../reference/handlers/__init__/" title="__init__.py" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
                   Next
                 </span>
                 __init__.py
               </div>
-</div>
-<div class="md-footer-nav__button md-icon">
-<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
-</div>
-</a>
-</nav>
-</div>
-<div class="md-footer-meta md-typeset">
-<div class="md-footer-meta__inner md-grid">
-<div class="md-footer-copyright">
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
         
         Made with
-        <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
           Material for MkDocs
         </a>
-</div>
-</div>
-</div>
+      </div>
+      
+    </div>
+  </div>
 </footer>
-</div>
-<script src="../../assets/javascripts/vendor.3636a4ec.min.js"></script>
-<script src="../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
-<script>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
         app = initialize({
           base: "../..",
           features: [],
@@ -930,5 +1280,7 @@ but you can use the <code>setup_commands</code> to mock them manually:</p>
           }, typeof search !== "undefined" && search)
         })
       </script>
-</body>
+      
+    
+  </body>
 </html>
