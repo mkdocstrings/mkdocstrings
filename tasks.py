@@ -323,7 +323,7 @@ def coverage(context):
     context.run("coverage html --rcfile=config/coverage.ini")
 
 
-@invoke.task(post=[combine])
+@invoke.task(pre=[invoke.task(lambda c: c.run("rm -f .coverage"))])
 @invoke.python(PYTHON_VERSIONS)
 def test(context, match=""):
     """Run the test suite.
@@ -333,7 +333,7 @@ def test(context, match=""):
         match: A pytest expression to filter selected tests.
     """
     title = f"Running tests ({context.python_version})"
-    command = f"pytest -c config/pytest.ini -n auto -k '{match}' {PY_SRC} 2>/dev/null"
+    command = f"pytest -c config/pytest.ini -n auto -k '{match}' {PY_SRC}"
     if context.skip:
         title += " (missing interpreter)"
         command = "true"

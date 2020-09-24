@@ -7,7 +7,17 @@ Every little bit helps, and credit will always be given.
 
 Nothing easier!
 
-Fork and clone the repository, then:
+You just need two tools: Poetry and Invoke.
+
+You can install them with:
+
+```bash
+python3 -m pip install --user pipx
+pipx install poetry
+pipx install invoke
+```
+
+Now fork and clone the repository, then:
 
 ```bash
 cd mkdocstrings
