@@ -246,10 +246,10 @@ class PythonHandler(BaseHandler):
 
 
 def get_handler(
-    theme: str,
+    theme: str,  # noqa: W0613 (unused argument config)
     custom_templates: Optional[str] = None,
     setup_commands: Optional[List[str]] = None,
-    **config: Any,  # noqa: W0613
+    **config: Any,
 ) -> PythonHandler:
     """
     Simply return an instance of `PythonHandler`.
