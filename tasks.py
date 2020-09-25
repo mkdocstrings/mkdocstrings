@@ -212,7 +212,7 @@ def docs_regen(context):
     Arguments:
         context: The context of the Invoke task.
     """
-    context.run("failprint -t 'Regenerating docfiles' -- python scripts/regen_docs.py")
+    context.run("failprint -t 'Regenerating docfiles' -- python scripts/regen_docs.py", pty=PTY)
 
 
 @invoke.task(docs_regen)
@@ -257,9 +257,10 @@ def format(context):  # noqa: W0622 (we don't mind shadowing the format builtin)
     context.run(
         "failprint -t 'Removing unused imports' -- "
         "autoflake -ir --exclude tests/fixtures --remove-all-unused-imports " + PY_SRC,
+        pty=PTY,
     )
-    context.run("failprint -t 'Ordering imports' -- isort -y -rc " + PY_SRC)
-    context.run("failprint -t 'Formatting code' -- black " + PY_SRC)
+    context.run("failprint -t 'Ordering imports' -- isort -y -rc " + PY_SRC, pty=PTY)
+    context.run("failprint -t 'Formatting code' -- black " + PY_SRC, pty=PTY)
 
 
 @invoke.task
@@ -270,16 +271,16 @@ def release(context, version):
         context: The context of the Invoke task.
         version: The new version number to use.
     """
-    context.run(f"failprint -t 'Bumping version in pyproject.toml' -- poetry version {version}")
-    context.run("failprint -t 'Staging files' -- git add pyproject.toml CHANGELOG.md")
-    context.run(f"failprint -t 'Committing changes' -- git commit -m 'chore: Prepare release {version}'")
-    context.run(f"failprint -t 'Tagging commit' -- git tag {version}")
+    context.run(f"failprint -t 'Bumping version in pyproject.toml' -- poetry version {version}", pty=PTY)
+    context.run("failprint -t 'Staging files' -- git add pyproject.toml CHANGELOG.md", pty=PTY)
+    context.run(f"failprint -t 'Committing changes' -- git commit -m 'chore: Prepare release {version}'", pty=PTY)
+    context.run(f"failprint -t 'Tagging commit' -- git tag {version}", pty=PTY)
     if not TESTING:
-        context.run("failprint -t 'Pushing commits' --no-pty -- git push")
-        context.run("failprint -t 'Pushing tags' --no-pty -- git push --tags")
-        context.run("failprint -t 'Building dist/wheel' -- poetry build")
-        context.run("failprint -t 'Publishing version' -- poetry publish")
-        context.run("failprint -t 'Deploying docs' -- poetry run mkdocs gh-deploy")
+        context.run("failprint -t 'Pushing commits' --no-pty -- git push", pty=PTY)
+        context.run("failprint -t 'Pushing tags' --no-pty -- git push --tags", pty=PTY)
+        context.run("failprint -t 'Building dist/wheel' -- poetry build", pty=PTY)
+        context.run("failprint -t 'Publishing version' -- poetry publish", pty=PTY)
+        context.run("failprint -t 'Deploying docs' -- poetry run mkdocs gh-deploy", pty=PTY)
 
 
 @invoke.task

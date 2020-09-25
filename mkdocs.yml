@@ -30,8 +30,8 @@ theme:
   name: material
   palette:
     scheme: slate
-    primary: amber
-    accent: indigo
+    primary: teal
+    accent: purple
 
 extra_css:
   - css/mkdocstrings.css
