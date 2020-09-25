@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.13.4](https://github.com/pawamoy/mkdocstrings/releases/tag/0.13.4) - 2020-09-25
+
+<small>[Compare with 0.13.3](https://github.com/pawamoy/mkdocstrings/compare/0.13.3...0.13.4)</small>
+
+### Bug Fixes
+- Bring back arbitrary `**config` to Python handler ([fca7d4c](https://github.com/pawamoy/mkdocstrings/commit/fca7d4c75ffd7a84eaeccd27facd5575604dbfab) by Florimond Manca). Issue [#154](https://github.com/pawamoy/mkdocstrings/issues/154), PR [#155](https://github.com/pawamoy/mkdocstrings/pull/155)
+
+
 ## [0.13.3](https://github.com/pawamoy/mkdocstrings/releases/tag/0.13.3) - 2020-09-25
 
 <small>[Compare with 0.13.2](https://github.com/pawamoy/mkdocstrings/compare/0.13.2...0.13.3)</small>
