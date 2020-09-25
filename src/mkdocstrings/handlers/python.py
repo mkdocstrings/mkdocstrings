@@ -246,9 +246,10 @@ class PythonHandler(BaseHandler):
 
 
 def get_handler(
-    theme: str,
+    theme: str,  # noqa: W0613 (unused argument config)
     custom_templates: Optional[str] = None,
     setup_commands: Optional[List[str]] = None,
+    **config: Any,
 ) -> PythonHandler:
     """
     Simply return an instance of `PythonHandler`.
@@ -257,6 +258,7 @@ def get_handler(
         theme: The theme to use when rendering contents.
         custom_templates: Directory containing custom templates.
         setup_commands: A list of commands as strings to be executed in the subprocess before `pytkdocs`.
+        config: Configuration passed to the handler.
 
     Returns:
         An instance of `PythonHandler`.
