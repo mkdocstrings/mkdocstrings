@@ -1003,7 +1003,7 @@ of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdo
 <div class="doc doc-object doc-function">
 <h2 class="doc doc-heading" id="mkdocstrings.handlers.python.get_handler">
 <code class="highlight language-python">
-get_handler<span class="p">(</span><span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">setup_commands</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> </code>
+get_handler<span class="p">(</span><span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">setup_commands</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">config</span><span class="p">)</span> </code>
 <a class="headerlink" href="#mkdocstrings.handlers.python.get_handler" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents">
 <p>Simply return an instance of <code>PythonHandler</code>.</p>
@@ -1042,6 +1042,14 @@ get_handler<span class="p">(</span><span class="n">theme</span><span class="p">,
 </td>
 <td><code>None</code></td>
 </tr>
+<tr>
+<td><code>config</code></td>
+<td><code>Any</code></td>
+<td>
+<p>Configuration passed to the handler.</p>
+</td>
+<td><code>{}</code></td>
+</tr>
 </tbody>
 </table>
 <p><strong>Returns:</strong></p>
@@ -1065,9 +1073,10 @@ get_handler<span class="p">(</span><span class="n">theme</span><span class="p">,
 <summary>Source code in <code>mkdocstrings/handlers/python.py</code></summary>
 <div class="highlight">
 <pre><span></span><code><span class="k">def</span> <span class="nf">get_handler</span><span class="p">(</span>
-    <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># noqa: W0613 (unused argument config)</span>
     <span class="n">custom_templates</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">setup_commands</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">config</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PythonHandler</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Simply return an instance of `PythonHandler`.</span>
@@ -1076,6 +1085,7 @@ get_handler<span class="p">(</span><span class="n">theme</span><span class="p">,
 <span class="sd">        theme: The theme to use when rendering contents.</span>
 <span class="sd">        custom_templates: Directory containing custom templates.</span>
 <span class="sd">        setup_commands: A list of commands as strings to be executed in the subprocess before `pytkdocs`.</span>
+<span class="sd">        config: Configuration passed to the handler.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        An instance of `PythonHandler`.</span>
