@@ -10,19 +10,6 @@ import toml
 from pip._internal.commands.show import search_packages_info  # noqa: WPS436 (better way?)
 
 
-def clean_info(package_dict: dict) -> dict:
-    """
-    Only keep `name` and `home-page` keys.
-
-    Arguments:
-        package_dict: Package information.
-
-    Returns:
-        Cleaned-up information.
-    """
-    return {_: package_dict[_] for _ in ("name", "home-page")}
-
-
 def get_data() -> dict:
     """
     Return data used to generate the credits file.
@@ -36,30 +23,29 @@ def get_data() -> dict:
     project_name = metadata["name"]
 
     poetry_dependencies = chain(metadata["dependencies"].keys(), metadata["dev-dependencies"].keys())
-    direct_dependencies = sorted(dep.lower() for dep in poetry_dependencies)
+    direct_dependencies = {dep.lower() for dep in poetry_dependencies}
     direct_dependencies.remove("python")
+    indirect_dependencies = {pkg["name"].lower() for pkg in lock_data["package"]}
+    indirect_dependencies -= direct_dependencies
+    dependencies = direct_dependencies | indirect_dependencies
 
-    indirect_dependencies = sorted(
-        pkg["name"] for pkg in lock_data["package"] if pkg["name"] not in direct_dependencies
-    )
-
-    dependencies = direct_dependencies + indirect_dependencies
-    packages = {pkg["name"]: clean_info(pkg) for pkg in search_packages_info(dependencies)}
-    # poetry.lock seems to always use lowercase for packages names
-    packages.update({name.lower(): pkg for name, pkg in packages.items()})  # noqa: WPS221 (not that complex)
+    packages = {}
+    for pkg in search_packages_info(dependencies):
+        pkg = {_: pkg[_] for _ in ("name", "home-page")}
+        packages[pkg["name"].lower()] = pkg
 
     for dependency in dependencies:
         if dependency not in packages:
             pkg_data = httpx.get(f"https://pypi.python.org/pypi/{dependency}/json").json()["info"]
             home_page = pkg_data["home_page"] or pkg_data["project_url"] or pkg_data["package_url"]
             pkg_name = pkg_data["name"]
-            pkg = {"name": pkg_name, "home-page": home_page}
-            packages.update({pkg_name: pkg, pkg_name.lower(): pkg})
+            package = {"name": pkg_name, "home-page": home_page}
+            packages.update({pkg_name.lower(): package})
 
     return {
         "project_name": project_name,
-        "direct_dependencies": direct_dependencies,
-        "indirect_dependencies": indirect_dependencies,
+        "direct_dependencies": sorted(direct_dependencies),
+        "indirect_dependencies": sorted(indirect_dependencies),
         "package_info": packages,
     }
 
