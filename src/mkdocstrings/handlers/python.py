@@ -249,6 +249,7 @@ def get_handler(
     theme: str,
     custom_templates: Optional[str] = None,
     setup_commands: Optional[List[str]] = None,
+    **kwargs: Any,
 ) -> PythonHandler:
     """
     Simply return an instance of `PythonHandler`.
