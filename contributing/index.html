@@ -429,6 +429,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tasks" class="md-nav__link">
+    Tasks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#development" class="md-nav__link">
     Development
   </a>
@@ -535,6 +542,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#tasks" class="md-nav__link">
+    Tasks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#development" class="md-nav__link">
     Development
   </a>
@@ -580,21 +594,42 @@
 Every little bit helps, and credit will always be given.</p>
 <h2 id="environment-setup">Environment setup<a class="headerlink" href="#environment-setup" title="Permanent link">¤</a></h2>
 <p>Nothing easier!</p>
-<p>You just need two tools: Poetry and Invoke.</p>
+<p>Fork and clone the repository, then:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> mkdocstrings
+make setup
+</code></pre></div>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If it fails for some reason,
+you'll need to install these tools manually:
+<a href="https://github.com/python-poetry/poetry">Poetry</a> and
+<a href="https://github.com/pyinvoke/invoke">Invoke</a>.</p>
 <p>You can install them with:</p>
 <div class="highlight"><pre><span></span><code>python3 -m pip install --user pipx
 pipx install poetry
 pipx install invoke
 </code></pre></div>
 
-<p>Now fork and clone the repository, then:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span> mkdocstrings
-make setup
-</code></pre></div>
-
-<p>That's it!</p>
+<p>Now you can try running <code>make setup</code> again,
+or simply <code>poetry install</code>.</p>
+</div>
 <p>You now have the dependencies installed.</p>
 <p>Run <code>make help</code> to see all the available actions!</p>
+<h2 id="tasks">Tasks<a class="headerlink" href="#tasks" title="Permanent link">¤</a></h2>
+<p>This project uses <a href="https://github.com/pyinvoke/invoke">Invoke</a> to run tasks.
+A Makefile is also provided. The Makefile will try to run the task
+on multiple Python versions. If for some reason you don't want to run the task
+on multiple Python versions, you can do one of the following:</p>
+<ol>
+<li><code>export PYTHON_VERSIONS=</code>: this will run the task
+   with only the current Python version</li>
+<li>run the task directly with <code>poetry run invoke TASK</code>,
+   or <code>invoke TASK</code> if the environment was already activated
+   through <code>poetry shell</code></li>
+</ol>
+<p>The Makefile detects if the Poetry environment is activated,
+so <code>make</code> will work the same with the virtualenv activated or not.</p>
 <h2 id="development">Development<a class="headerlink" href="#development" title="Permanent link">¤</a></h2>
 <p>As usual:</p>
 <ol>
