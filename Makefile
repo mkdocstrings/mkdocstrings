@@ -1,16 +1,13 @@
 .DEFAULT_GOAL := help
 SHELL := bash
 
-INVOKE_OR_POETRY = $(shell ! command -v invoke &>/dev/null && echo poetry run) invoke
-INVOKE_AND_POETRY = $(shell [ ! -n "${VIRTUAL_ENV}" ] && echo poetry run) invoke
+INVOKE_OR_POETRY = $(shell command -v invoke &>/dev/null || echo poetry run) invoke
+INVOKE_AND_POETRY = $(shell [ -n "${VIRTUAL_ENV}" ] || echo poetry run) invoke
+
+PYTHON_VERSIONS ?= 3.6 3.7 3.8
 
 POETRY_TASKS = \
 	changelog \
-	check \
-	check-code-quality \
-	check-dependencies \
-	check-docs \
-	check-types \
 	combine \
 	coverage \
 	docs \
@@ -18,21 +15,35 @@ POETRY_TASKS = \
 	docs-regen \
 	docs-serve \
 	format \
-	release \
+	release
+
+QUALITY_TASKS = \
+	check \
+	check-code-quality \
+	check-dependencies \
+	check-docs \
+	check-types \
 	test
 
 INVOKE_TASKS = \
-	clean \
-	setup
+	clean
 
 
 .PHONY: help
 help:
-	@$(INVOKE) --list
+	@$(INVOKE_OR_POETRY) --list
+
+.PHONY: setup
+setup:
+	@env PYTHON_VERSIONS="$(PYTHON_VERSIONS)" bash scripts/setup.sh
 
 .PHONY: $(POETRY_TASKS)
 $(POETRY_TASKS):
 	@$(INVOKE_AND_POETRY) $@ $(args)
+
+.PHONY: $(QUALITY_TASKS)
+$(QUALITY_TASKS):
+	@env PYTHON_VERSIONS="$(PYTHON_VERSIONS)" bash scripts/run_task.sh $(INVOKE_AND_POETRY) $@ $(args)
 
 .PHONY: $(INVOKE_TASKS)
 $(INVOKE_TASKS):
