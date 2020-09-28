@@ -10,6 +10,7 @@ It also provides two methods:
 """
 
 import importlib
+import re
 import textwrap
 from abc import ABC, abstractmethod
 from pathlib import Path
@@ -67,8 +68,42 @@ def do_highlight(
     result = highlighter.highlight(src=src, language=language, linestart=line_start, inline=inline)
 
     if inline:
-        return do_mark_safe(result.text)
+        return do_mark_safe(f'<code class="highlight language-{language}">{result.text}</code>')
     return do_mark_safe(result)
+
+
+def do_js_highlight(
+    src: str,
+    guess_lang: bool = False,  # noqa: W0613 (we must accept the same parameters as do_highlight)
+    language: str = None,
+    inline: bool = False,
+    dedent: bool = True,
+    line_nums: bool = False,  # noqa: W0613
+    line_start: int = 1,  # noqa: W0613
+) -> str:
+    """
+    Prepare a code-snippet for JS highlighting.
+
+    This function is used as a filter in Jinja templates.
+
+    Arguments:
+        src: The code to highlight.
+        guess_lang: Whether to guess the language or not.
+        language: Explicitly tell what language to use for highlighting.
+        inline: Whether to do inline highlighting.
+        dedent: Whether to dedent the code before highlighting it or not.
+        line_nums: Whether to add line numbers in the result.
+        line_start: The line number to start with.
+
+    Returns:
+        The code properly wrapped for later highlighting by JavaScript.
+    """
+    if dedent:
+        src = textwrap.dedent(src)
+    if inline:
+        src = re.sub(r"\n\s*", "", src)
+        return do_mark_safe(f'<code class="highlight">{src}</code>')
+    return do_mark_safe(f'<div class="highlight {language or ""}"><pre><code>\n{src}\n</code></pre></div>')
 
 
 def do_any(seq: Sequence, attribute: str = None) -> bool:
@@ -129,9 +164,15 @@ class BaseRenderer(ABC):
             paths.append(themes_dir / self.fallback_theme)
 
         self.env = Environment(autoescape=True, loader=FileSystemLoader(paths))  # type: ignore
-        self.env.filters["highlight"] = do_highlight
         self.env.filters["any"] = do_any
         self.env.globals["log"] = get_template_logger()
+
+        if theme == "readthedocs":
+            highlight_function = do_js_highlight
+        else:
+            highlight_function = do_highlight
+
+        self.env.filters["highlight"] = highlight_function
 
     @abstractmethod
     def render(self, data: Any, config: dict) -> str:
