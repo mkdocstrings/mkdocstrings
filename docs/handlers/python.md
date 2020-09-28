@@ -46,6 +46,7 @@ Option | Type | Description | Default
 **`inherited_members`** | `bool` | Also select members inherited from parent classes. | `False`
 **`docstring_style`** | `str` | Docstring style to parse. `pytkdocs` only supports `google` yet. | `"google"`
 **`docstring_options`** | `dict` | Options to pass to the docstring parser. See [Collector: pytkdocs](#collector-pytkdocs) | `{}`
+**`new_path_syntax`** | `bool` | Whether to use the new "colon" path syntax when importing objects. | `False`
 
 !!! example "Configuration example"
     === "Global"
