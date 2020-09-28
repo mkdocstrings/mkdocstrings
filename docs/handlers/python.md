@@ -304,18 +304,13 @@ h5.doc-heading {
 }
 
 /* Don't use vertical space on hidden ToC entries. */
-h6.hidden-toc {
-  margin: 0 !important;
-  position: relative;
-  top: -70px;
-}
-h6.hidden-toc::before {
+.hidden-toc::before {
   margin-top: 0 !important;
   padding-top: 0 !important;
 }
 
 /* Don't show permalink of hidden ToC entries. */
-h6.hidden-toc a.headerlink {
+.hidden-toc a.headerlink {
   display: none;
 }
 
