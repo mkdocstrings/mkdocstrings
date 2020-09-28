@@ -25,31 +25,31 @@ jobs:
     - name: Set up Python 3.6
       uses: actions/setup-python@v1
       with:
-        python-version: 3.6
+        python-version: 3.8
 
     - name: Set up the cache
       uses: actions/cache@v1
       with:
         path: .venv
-        key: cache-python-packages
+        key: cache-python-packages-2
 
     - name: Set up the project
       run: |
         pip install poetry invoke safety
         poetry config virtualenvs.in-project true
-        make setup
+        poetry install -v
 
     - name: Check if the documentation builds correctly
-      run: make check-docs
+      run: poetry run invoke check-docs
 
     - name: Check the code quality
-      run: make check-code-quality
+      run: poetry run invoke check-code-quality
 
     - name: Check if the code is correctly typed
-      run: make check-types
+      run: poetry run invoke check-types
 
     - name: Check for vulnerabilities in dependencies
-      run: make check-dependencies
+      run: poetry run invoke check-dependencies
 
   tests:
 
@@ -57,7 +57,7 @@ jobs:
       max-parallel: 6
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: [3.6,3.7,3.8]
+        python-version: [3.6, 3.7, 3.8]
 
     runs-on: ${{ matrix.os }}
 
@@ -76,16 +76,13 @@ jobs:
         cache-name: cache-python-packages
       with:
         path: .venv
-        key: ${{ matrix.os }}-${{ matrix.python-version }}-${{ env.cache-name }}
-        restore-keys: |
-          ${{ matrix.os }}-${{ matrix.python-version }}-
-          ${{ matrix.os }}-
+        key: ${{ matrix.os }}-${{ matrix.python-version }}-${{ env.cache-name }}-2
 
     - name: Set up the project
       run: |
         pip install poetry invoke
         poetry config virtualenvs.in-project true
-        make setup
+        poetry install
 
     - name: Run the test suite
-      run: make test
+      run: poetry run invoke test
