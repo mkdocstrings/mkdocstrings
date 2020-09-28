@@ -56,5 +56,7 @@ plugins:
           setup_commands:
             - import sys
             - sys.path.append("docs")
+          selection:
+            new_path_syntax: yes
       watch:
         - src/mkdocstrings

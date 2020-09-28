@@ -208,7 +208,7 @@ Type annotations are read both in the code and in the docstrings.
 !!! example "Example with a function"
     **Expand the source at the end to see the original code!**
     
-    ::: snippets.function_annotations.my_function
+    ::: snippets.function_annotations:my_function
         rendering:
           show_root_heading: no
           show_root_toc_entry: no
