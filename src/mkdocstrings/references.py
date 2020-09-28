@@ -28,7 +28,7 @@ class Placeholder:
     substitution again.
     """
 
-    def __init__(self, seed_length=16) -> None:
+    def __init__(self, seed_length: int = 16) -> None:
         """
         Initialize the object.
 
@@ -125,7 +125,7 @@ def relative_url(url_a: str, url_b: str) -> str:
     return f"{relative}#{anchor}"
 
 
-def fix_ref(url_map, from_url, unmapped: List[str]) -> Callable:  # noqa: WPS231 (not that complex)
+def fix_ref(url_map: Dict[str, str], from_url: str, unmapped: List[str]) -> Callable:  # noqa: WPS231 (not that complex)
     """
     Return a `repl` function for [`re.sub`](https://docs.python.org/3/library/re.html#re.sub).
 
