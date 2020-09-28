@@ -99,7 +99,6 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`MarkupSafe`](https://palletsprojects.com/p/markupsafe/) |
 [`mccabe`](https://github.com/pycqa/mccabe) |
 [`mkdocs-material-extensions`](https://github.com/facelessuser/mkdocs-material-extensions) |
-[`more-itertools`](https://github.com/more-itertools/more-itertools) |
 [`mypy-extensions`](https://github.com/python/mypy_extensions) |
 [`nltk`](http://nltk.org/) |
 [`packaging`](https://github.com/pypa/packaging) |
