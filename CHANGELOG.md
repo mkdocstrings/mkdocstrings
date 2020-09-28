@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.13.6](https://github.com/pawamoy/mkdocstrings/releases/tag/0.13.6) - 2020-09-28
+
+<small>[Compare with 0.13.5](https://github.com/pawamoy/mkdocstrings/compare/0.13.5...0.13.6)</small>
+
+### Bug Fixes
+- Fix rendering when clicking on hidden toc entries ([2af4d31](https://github.com/pawamoy/mkdocstrings/commit/2af4d310adefec614235a2c1d04d5ff56bf9c220) by Timothée Mazzucotelli). Issue [#60](https://github.com/pawamoy/mkdocstrings/issues/60).
+
+
 ## [0.13.5](https://github.com/pawamoy/mkdocstrings/releases/tag/0.13.5) - 2020-09-28
 
 <small>[Compare with 0.13.4](https://github.com/pawamoy/mkdocstrings/compare/0.13.4...0.13.5)</small>
