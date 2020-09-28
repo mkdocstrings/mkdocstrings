@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.13.5](https://github.com/pawamoy/mkdocstrings/releases/tag/0.13.5) - 2020-09-28
+
+<small>[Compare with 0.13.4](https://github.com/pawamoy/mkdocstrings/compare/0.13.4...0.13.5)</small>
+
+## Packaging
+- Accept `pytkdocs` version up to 0.9.x ([changelog](https://pawamoy.github.io/pytkdocs/changelog/#090-2020-09-28)).
+
+
 ## [0.13.4](https://github.com/pawamoy/mkdocstrings/releases/tag/0.13.4) - 2020-09-25
 
 <small>[Compare with 0.13.3](https://github.com/pawamoy/mkdocstrings/compare/0.13.3...0.13.4)</small>
