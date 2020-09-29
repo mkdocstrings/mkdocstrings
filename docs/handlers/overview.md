@@ -9,4 +9,4 @@ See the documentation for
 
 ## Available handlers
 
-- [Python][mkdocstrings.handlers.python]
+- [Python](../python)

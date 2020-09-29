@@ -217,6 +217,18 @@ The *Material* theme provides the following template structure:
 - `properties.html`: to render the properties of an object (`staticmethod`, `read-only`, etc.)
 - `signature.html`: to render functions and methods signatures
 
+#### Debugging
+
+Every template has access to a `log` function, allowing to log messages as usual:
+
+```jinja
+{{ log.debug("A DEBUG message.") }}
+{{ log.info("An INFO message.") }}
+{{ log.warning("A WARNING message.") }}
+{{ log.error("An ERROR message.") }}
+{{ log.critical("A CRITICAL message.") }}
+```
+
 ### CSS classes
 
 The *Material* theme uses the following CSS classes in the HTML:

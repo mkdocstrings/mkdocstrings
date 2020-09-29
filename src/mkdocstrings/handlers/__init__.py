@@ -20,6 +20,8 @@ from jinja2.filters import do_mark_safe
 from markdown import Markdown
 from pymdownx.highlight import Highlight
 
+from mkdocstrings.logging import get_template_logger
+
 handlers_cache: Dict[str, Any] = {}
 
 
@@ -128,6 +130,7 @@ class BaseRenderer(ABC):
         self.env = Environment(autoescape=True, loader=FileSystemLoader(paths))  # type: ignore
         self.env.filters["highlight"] = do_highlight
         self.env.filters["any"] = do_any
+        self.env.globals["log"] = get_template_logger()
 
     @abstractmethod
     def render(self, data: Any, config: dict) -> str:
