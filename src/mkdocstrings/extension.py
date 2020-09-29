@@ -22,7 +22,6 @@ instruction:
       option_x: etc
 ```
 """
-import logging
 import re
 from typing import Any, Tuple
 from xml.etree.ElementTree import XML, Element, ParseError  # noqa: S405 (we choose to trust the XML input)
@@ -34,12 +33,11 @@ from markdown.blockparser import BlockParser
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.util import AtomicString
-from mkdocs.utils import warning_filter
 
 from mkdocstrings.handlers import CollectionError, get_handler
+from mkdocstrings.logging import get_logger
 
-log = logging.getLogger(f"mkdocs.plugins.{__name__}")
-log.addFilter(warning_filter)
+log = get_logger(__name__)
 
 ENTITIES = """
     <!DOCTYPE html [
@@ -151,7 +149,7 @@ class AutoDocProcessor(BlockProcessor):
 
         if match:
             identifier = match.group(1)
-            log.debug(f"mkdocstrings.extension: Matched '::: {identifier}'")
+            log.debug(f"Matched '::: {identifier}'")
             xml_element = self.process_block(identifier, str(block))
             parent.append(xml_element)
 
@@ -178,7 +176,7 @@ class AutoDocProcessor(BlockProcessor):
         config = yaml.safe_load(yaml_block) or {}
         handler_name = self.get_handler_name(config)
 
-        log.debug(f"mkdocstrings.extension: Using handler '{handler_name}'")
+        log.debug(f"Using handler '{handler_name}'")
         handler_config = self.get_handler_config(handler_name)
         handler = get_handler(
             handler_name,
@@ -189,28 +187,27 @@ class AutoDocProcessor(BlockProcessor):
 
         selection, rendering = get_item_configs(handler_config, config)
 
-        log.debug("mkdocstrings.extension: Collecting data")
+        log.debug("Collecting data")
         try:
             data: Any = handler.collector.collect(identifier, selection)
         except CollectionError:
-            log.error(f"mkdocstrings.extension: Could not collect '{identifier}'")
+            log.error(f"Could not collect '{identifier}'")
             raise
 
-        log.debug("mkdocstrings.extension: Updating renderer's env")
+        log.debug("Updating renderer's env")
         handler.renderer.update_env(self.md, self._config)
 
-        log.debug("mkdocstrings.extension: Rendering templates")
+        log.debug("Rendering templates")
         try:
             rendered = handler.renderer.render(data, rendering)
         except TemplateNotFound as exc:
             theme_name = self._config["theme_name"]
             log.error(
-                f"mkdocstrings.extension: Template '{exc.name}' not found "
-                f"for '{handler_name}' handler and theme '{theme_name}'.",
+                f"Template '{exc.name}' not found for '{handler_name}' handler and theme '{theme_name}'.",
             )
             raise
 
-        log.debug("mkdocstrings.extension: Loading HTML back into XML tree")
+        log.debug("Loading HTML back into XML tree")
         try:
             xml_contents = XML(ENTITIES + rendered)
         except ParseError as error:
@@ -277,7 +274,7 @@ def log_xml_parse_error(error: str, xml_text: str) -> None:
         error: The error message (no traceback).
         xml_text: The XML text that generated the parsing error.
     """
-    message = f"mkdocstrings.extension: {error}"
+    message = error
     if "mismatched tag" in error:
         line_column = error[error.rfind(":") + 1 :]
         line, column = line_column.split(", ")

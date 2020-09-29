@@ -32,14 +32,13 @@ from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
 from mkdocs.structure.pages import Page
 from mkdocs.structure.toc import AnchorLink
-from mkdocs.utils import warning_filter
 
 from mkdocstrings.extension import MkdocstringsExtension
 from mkdocstrings.handlers import teardown
+from mkdocstrings.logging import get_logger
 from mkdocstrings.references import fix_refs
 
-log = logging.getLogger(f"mkdocs.plugins.{__name__}")
-log.addFilter(warning_filter)
+log = get_logger(__name__)
 
 SELECTION_OPTS_KEY: str = "selection"
 """The name of the selection parameter in YAML configuration blocks."""
@@ -128,7 +127,7 @@ class MkdocstringsPlugin(BasePlugin):
             # See issue https://github.com/mkdocs/mkdocs/issues/1952.
             builder = list(server.watcher._tasks.values())[0]["func"]  # noqa: WPS437 (protected attribute)
         for element in self.config["watch"]:
-            log.debug(f"mkdocstrings.plugin: Adding directory '{element}' to watcher")
+            log.debug(f"Adding directory '{element}' to watcher")
             server.watch(element, builder)
         return server
 
@@ -150,7 +149,7 @@ class MkdocstringsPlugin(BasePlugin):
         Returns:
             The modified config.
         """
-        log.debug("mkdocstrings.plugin: Adding extension to the list")
+        log.debug("Adding extension to the list")
 
         theme_name = None
         if config["theme"].name is None:
@@ -186,7 +185,7 @@ class MkdocstringsPlugin(BasePlugin):
         Returns:
             The same HTML. We only use this hook to map anchors to URLs.
         """
-        log.debug(f"mkdocstrings.plugin: Mapping identifiers to URLs for page {page.file.src_path}")
+        log.debug(f"Mapping identifiers to URLs for page {page.file.src_path}")
         for item in page.toc.items:
             self.map_urls(page.url, item)
         return html
@@ -227,14 +226,14 @@ class MkdocstringsPlugin(BasePlugin):
         Returns:
             Modified HTML.
         """
-        log.debug(f"mkdocstrings.plugin: Fixing references in page {page.file.src_path}")
+        log.debug(f"Fixing references in page {page.file.src_path}")
 
         fixed_output, unmapped = fix_refs(output, page.url, self.url_map)
 
         if unmapped and log.isEnabledFor(logging.WARNING):
             for ref in unmapped:
                 log.warning(
-                    f"mkdocstrings.plugin: {page.file.src_path}: Could not find cross-reference target '[{ref}]'",
+                    f"{page.file.src_path}: Could not find cross-reference target '[{ref}]'",
                 )
 
         return fixed_output
@@ -255,5 +254,5 @@ class MkdocstringsPlugin(BasePlugin):
         Arguments:
             kwargs: Additional arguments passed by MkDocs.
         """
-        log.debug("mkdocstrings.plugin: Tearing handlers down")
+        log.debug("Tearing handlers down")
         teardown()

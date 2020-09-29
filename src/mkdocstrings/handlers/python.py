@@ -5,19 +5,17 @@ The handler collects data with [`pytkdocs`](https://github.com/pawamoy/pytkdocs)
 """
 
 import json
-import logging
 import os
 import sys
 from subprocess import PIPE, Popen  # noqa: S404 (what other option, more secure that PIPE do we have? sockets?)
 from typing import Any, List, Optional
 
 from markdown import Markdown
-from mkdocs.utils import warning_filter
 
 from mkdocstrings.handlers import BaseCollector, BaseHandler, BaseRenderer, CollectionError
+from mkdocstrings.logging import get_logger
 
-log = logging.getLogger(f"mkdocs.plugins.{__name__}")
-log.addFilter(warning_filter)
+log = get_logger(__name__)
 
 
 class PythonRenderer(BaseRenderer):
@@ -132,7 +130,7 @@ class PythonCollector(BaseCollector):
         Arguments:
             setup_commands: A list of python commands as strings to be executed in the subprocess before `pytkdocs`.
         """
-        log.debug("mkdocstrings.handlers.python: Opening 'pytkdocs' subprocess")
+        log.debug("Opening 'pytkdocs' subprocess")
         env = os.environ.copy()
         env["PYTHONUNBUFFERED"] = "1"
 
@@ -197,49 +195,49 @@ class PythonCollector(BaseCollector):
         final_config = dict(self.default_config)
         final_config.update(config)
 
-        log.debug("mkdocstrings.handlers.python: Preparing input")
+        log.debug("Preparing input")
         json_input = json.dumps({"objects": [{"path": identifier, **final_config}]})
 
-        log.debug("mkdocstrings.handlers.python: Writing to process' stdin")
+        log.debug("Writing to process' stdin")
         self.process.stdin.write(json_input + "\n")  # type: ignore
         self.process.stdin.flush()  # type: ignore
 
-        log.debug("mkdocstrings.handlers.python: Reading process' stdout")
+        log.debug("Reading process' stdout")
         stdout = self.process.stdout.readline()  # type: ignore
 
-        log.debug("mkdocstrings.handlers.python: Loading JSON output as Python object")
+        log.debug("Loading JSON output as Python object")
         try:
             result = json.loads(stdout)
         except json.decoder.JSONDecodeError as exception:
-            log.error(f"mkdocstrings.handlers.python: Error while loading JSON: {stdout}")
+            log.error(f"Error while loading JSON: {stdout}")
             raise CollectionError(str(exception)) from exception
 
         error = result.get("error")
         if error:
-            message = f"mkdocstrings.handlers.python: Collection failed: {error}"
+            message = f"Collection failed: {error}"
             if "traceback" in result:
                 message += f"\n{result['traceback']}"
             log.error(message)
             raise CollectionError(error)
 
         for loading_error in result["loading_errors"]:
-            log.warning(f"mkdocstrings.handlers.python: {loading_error}")
+            log.warning(loading_error)
 
         for errors in result["parsing_errors"].values():
             for parsing_error in errors:
-                log.warning(f"mkdocstrings.handlers.python: {parsing_error}")
+                log.warning(parsing_error)
 
         # We always collect only one object at a time
         result = result["objects"][0]
 
-        log.debug("mkdocstrings.handlers.python: Rebuilding categories and children lists")
+        log.debug("Rebuilding categories and children lists")
         rebuild_category_lists(result)
 
         return result
 
     def teardown(self) -> None:
         """Terminate the opened subprocess, set it to `None`."""
-        log.debug("mkdocstrings.handlers.python: Tearing process down")
+        log.debug("Tearing process down")
         self.process.terminate()
 
 
