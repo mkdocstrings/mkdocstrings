@@ -112,7 +112,7 @@ class AutoDocProcessor(BlockProcessor):
         Match our autodoc instructions.
 
         Arguments:
-            parent:parent: The parent element in the XML tree.
+            parent: The parent element in the XML tree.
             block: The block to be tested.
 
         Returns:
