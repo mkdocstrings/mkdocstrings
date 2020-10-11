@@ -12,7 +12,7 @@ from typing import Any, List, Optional
 
 from markdown import Markdown
 
-from mkdocstrings.handlers import BaseCollector, BaseHandler, BaseRenderer, CollectionError
+from mkdocstrings.handlers.base import BaseCollector, BaseHandler, BaseRenderer, CollectionError
 from mkdocstrings.logging import get_logger
 
 log = get_logger(__name__)
@@ -23,7 +23,7 @@ class PythonRenderer(BaseRenderer):
     The class responsible for loading Jinja templates and rendering them.
 
     It defines some configuration options, implements the `render` method,
-    and overrides the `update_env` method of the [`BaseRenderer` class][mkdocstrings.handlers.BaseRenderer].
+    and overrides the `update_env` method of the [`BaseRenderer` class][mkdocstrings.handlers.base.BaseRenderer].
 
     Attributes:
         fallback_theme: The theme to fallback to.
@@ -91,7 +91,7 @@ class PythonCollector(BaseCollector):
     The class responsible for loading Jinja templates and rendering them.
 
     It defines some configuration options, implements the `render` method,
-    and overrides the `update_env` method of the [`BaseRenderer` class][mkdocstrings.handlers.BaseRenderer].
+    and overrides the `update_env` method of the [`BaseRenderer` class][mkdocstrings.handlers.base.BaseRenderer].
     """
 
     default_config: dict = {"filters": ["!^_[^_]"]}

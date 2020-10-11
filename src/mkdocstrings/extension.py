@@ -4,7 +4,7 @@ This module holds the code of the Markdown extension responsible for matching "a
 The extension is composed of a Markdown [block processor](https://python-markdown.github.io/extensions/api/#blockparser)
 that matches indented blocks starting with a line like '::: identifier'.
 
-For each of these blocks, it uses a [handler][mkdocstrings.handlers.BaseHandler] to collect documentation about
+For each of these blocks, it uses a [handler][mkdocstrings.handlers.base.BaseHandler] to collect documentation about
 the given identifier and render it with Jinja templates.
 
 Both the collection and rendering process can be configured by adding YAML configuration under the "autodoc"
@@ -34,7 +34,7 @@ from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.util import AtomicString
 
-from mkdocstrings.handlers import CollectionError, get_handler
+from mkdocstrings.handlers.base import CollectionError, get_handler
 from mkdocstrings.logging import get_logger
 
 log = get_logger(__name__)

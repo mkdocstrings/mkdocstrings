@@ -13,7 +13,7 @@ nav:
 
   - API Reference:
       - handlers:
-          - __init__.py: reference/handlers/__init__.md
+          - base.py: reference/handlers/base.md
           - python.py: reference/handlers/python.md
       - extension.py: reference/extension.md
       - plugin.py: reference/plugin.md

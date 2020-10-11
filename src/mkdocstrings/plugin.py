@@ -15,8 +15,8 @@ this plugin searches for references of the form `[identifier][]` or `[title][ide
 and fixes them using the previously stored identifier-URL mapping.
 
 Once the documentation is built, the [`on_post_build` event hook](https://www.mkdocs.org/user-guide/plugins/#on_post_build)
-is triggered and calls the [`handlers.teardown()` method][mkdocstrings.handlers.teardown]. This method is used
-to teardown the [handlers][mkdocstrings.handlers] that were instantiated during documentation buildup.
+is triggered and calls the [`handlers.teardown()` method][mkdocstrings.handlers.base.teardown]. This method is used
+to teardown the handlers that were instantiated during documentation buildup.
 
 Finally, when serving the documentation, it can add directories to watch
 during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on_serve).
@@ -34,7 +34,7 @@ from mkdocs.structure.pages import Page
 from mkdocs.structure.toc import AnchorLink
 
 from mkdocstrings.extension import MkdocstringsExtension
-from mkdocstrings.handlers import teardown
+from mkdocstrings.handlers.base import teardown
 from mkdocstrings.logging import get_logger
 from mkdocstrings.references import fix_refs
 
