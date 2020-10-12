@@ -20,7 +20,7 @@ from jinja2.filters import do_mark_safe
 from markdown import Markdown
 from pymdownx.highlight import Highlight
 
-from mkdocstrings.logging import get_template_logger
+from mkdocstrings.loggers import get_template_logger
 
 handlers_cache: Dict[str, Any] = {}
 

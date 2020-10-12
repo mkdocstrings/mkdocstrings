@@ -35,7 +35,7 @@ from mkdocs.structure.toc import AnchorLink
 
 from mkdocstrings.extension import MkdocstringsExtension
 from mkdocstrings.handlers.base import teardown
-from mkdocstrings.logging import get_logger
+from mkdocstrings.loggers import get_logger
 from mkdocstrings.references import fix_refs
 
 log = get_logger(__name__)

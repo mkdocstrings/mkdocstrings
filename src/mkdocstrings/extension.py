@@ -35,7 +35,7 @@ from markdown.extensions import Extension
 from markdown.util import AtomicString
 
 from mkdocstrings.handlers.base import CollectionError, get_handler
-from mkdocstrings.logging import get_logger
+from mkdocstrings.loggers import get_logger
 
 log = get_logger(__name__)
 

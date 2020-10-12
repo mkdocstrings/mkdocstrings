@@ -13,7 +13,7 @@ from typing import Any, List, Optional
 from markdown import Markdown
 
 from mkdocstrings.handlers.base import BaseCollector, BaseHandler, BaseRenderer, CollectionError
-from mkdocstrings.logging import get_logger
+from mkdocstrings.loggers import get_logger
 
 log = get_logger(__name__)
 
