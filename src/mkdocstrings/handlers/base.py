@@ -239,7 +239,7 @@ def get_handler(
         config: Configuration passed to the handler.
 
     Returns:
-        An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.BaseHandler],
+        An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler],
         as instantiated by the `get_handler` method of the handler's module.
     """
     if name not in handlers_cache:
