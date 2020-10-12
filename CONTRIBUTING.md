@@ -16,16 +16,15 @@ make setup
 
 !!! note
     If it fails for some reason,
-    you'll need to install these tools manually:
-    [Poetry](https://github.com/python-poetry/poetry) and
-    [Invoke](https://github.com/pyinvoke/invoke).
+    you'll need to install
+    [Poetry](https://github.com/python-poetry/poetry)
+    manually.
 
-    You can install them with:
+    You can install it with:
 
     ```bash
     python3 -m pip install --user pipx
     pipx install poetry
-    pipx install invoke
     ```
 
     Now you can try running `make setup` again,
@@ -37,15 +36,15 @@ Run `make help` to see all the available actions!
 
 ## Tasks
 
-This project uses [Invoke](https://github.com/pyinvoke/invoke) to run tasks.
-A Makefile is also provided. The Makefile will try to run the task
+This project uses [Duty](https://github.com/pawamoy/duty) to run tasks.
+A Makefile is also provided. The Makefile will try to run certain tasks
 on multiple Python versions. If for some reason you don't want to run the task
 on multiple Python versions, you can do one of the following:
 
 1. `export PYTHON_VERSIONS= `: this will run the task
    with only the current Python version
-2. run the task directly with `poetry run invoke TASK`,
-   or `invoke TASK` if the environment was already activated
+2. run the task directly with `poetry run duty TASK`,
+   or `duty TASK` if the environment was already activated
    through `poetry shell`
 
 The Makefile detects if the Poetry environment is activated,

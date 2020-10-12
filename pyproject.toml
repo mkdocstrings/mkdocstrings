@@ -25,24 +25,10 @@ mkdocs = "^1.1"
 pymdown-extensions = ">=6.3, <9.0"
 pytkdocs = ">=0.2.0, <0.10.0"
 
-coverage = {version = "^5.2.1", optional = true}
-invoke = {version = "^1.4.1", optional = true}
-mkdocs-material = {version = "^5.5.12", optional = true}
-mypy = {version = "^0.782", optional = true}
-pytest = {version = "^6.0.1", optional = true}
-pytest-cov = {version = "^2.10.1", optional = true}
-pytest-randomly = {version = "^3.4.1", optional = true}
-pytest-sugar = {version = "^0.9.4", optional = true}
-pytest-xdist = {version = "^2.1.0", optional = true}
-
-[tool.poetry.extras]
-tests = ["coverage", "invoke", "mkdocs-material", "mypy", "pytest", "pytest-cov", "pytest-randomly", "pytest-sugar", "pytest-xdist"]
-
 [tool.poetry.dev-dependencies]
 autoflake = "^1.4"
 black = "^20.8b1"
-coverage = "^5.2.1"
-failprint = "^0.4.0"
+duty = "^0.5.0"
 flakehell = "^0.6.0"
 flake8-black = "^0.2.1"
 flake8-builtins = "^1.5.3"
@@ -51,11 +37,11 @@ flake8-variables-names = "^0.0.3"
 flake8-pytest-style = "^1.3.0"
 git-changelog = "^0.4.0"
 httpx = "^0.14.3"
-invoke = "^1.4.1"
 ipython = "^7.2"
 # TODO: accept v5 once https://github.com/wemake-services/wemake-python-styleguide/issues/1584 is resolved
 isort = {version = "<5", extras = ["pyproject"]}
 jinja2-cli = "^0.7.0"
+markdown-include = "^0.6.0"
 mkdocs-material = "^5.5.12"
 mypy = "^0.782"
 pytest = "^6.0.1"
@@ -65,8 +51,6 @@ pytest-sugar = "^0.9.4"
 pytest-xdist = "^2.1.0"
 toml = "^0.10.1"
 wemake-python-styleguide = "^0.14.1"
-# TODO: remove once https://github.com/python-poetry/poetry/issues/2728 is resolved
-wrapt = "^1.12.1"
 
 [tool.poetry.plugins."mkdocs.plugins"]
 mkdocstrings = "mkdocstrings.plugin:MkdocstringsPlugin"
@@ -108,6 +92,7 @@ exclude = ["tests/fixtures"]
     "-C0301",  # line too long
     "-R0902",  # too many instance attributes
     "-R0903",  # too few public methods
+    "-R0904",  # too many public methods
     "-R0912",  # too many branches
     "-R0913",  # too many methods
     "-R0914",  # too many local variables
@@ -133,6 +118,7 @@ exclude = ["tests/fixtures"]
     "-WPS322",  # multi-line strings (incompatible with attributes docstrings)
     "-WPS326",  # implicit string concatenation
     "-WPS336",  # explicit string concatenation
+    "-WPS402",  # nosa overuse
     "-WPS412",  # __init__ modules with logic
     "-WPS428",  # statement with no effect (not compatible with attribute docstrings)
     "-WPS433",  # redundant with C0415 (not top-level import)

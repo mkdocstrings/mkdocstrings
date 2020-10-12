@@ -12,6 +12,12 @@ defaults:
   run:
     shell: bash
 
+env:
+  LANG: "en_US.utf-8"
+  LC_ALL: "en_US.utf-8"
+  POETRY_VIRTUALENVS_IN_PROJECT: "true"
+  PYTHONIOENCODING: "UTF-8"
+
 jobs:
 
   quality:
@@ -35,21 +41,20 @@ jobs:
 
     - name: Set up the project
       run: |
-        pip install poetry invoke safety
-        poetry config virtualenvs.in-project true
+        pip install poetry safety
         poetry install -v
 
     - name: Check if the documentation builds correctly
-      run: poetry run invoke check-docs
+      run: poetry run duty check-docs
 
     - name: Check the code quality
-      run: poetry run invoke check-code-quality
+      run: poetry run duty check-code-quality
 
     - name: Check if the code is correctly typed
-      run: poetry run invoke check-types
+      run: poetry run duty check-types
 
     - name: Check for vulnerabilities in dependencies
-      run: poetry run invoke check-dependencies
+      run: poetry run duty check-dependencies
 
   tests:
 
@@ -80,9 +85,8 @@ jobs:
 
     - name: Set up the project
       run: |
-        pip install poetry invoke
-        poetry config virtualenvs.in-project true
-        poetry install
+        pip install poetry
+        poetry install -v
 
     - name: Run the test suite
-      run: poetry run invoke test
+      run: poetry run duty test
