@@ -377,17 +377,6 @@ def release(ctx, version):
         ctx.run("mkdocs gh-deploy", title="Deploying documentation", pty=PTY)
 
 
-@duty
-def combine(ctx):
-    """
-    Combine coverage data from multiple runs.
-
-    Arguments:
-        ctx: The context instance (passed automatically).
-    """
-    ctx.run("coverage combine --rcfile=config/coverage.ini")
-
-
 @duty(silent=True)
 def coverage(ctx):
     """
