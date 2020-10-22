@@ -124,3 +124,6 @@ exclude = ["tests/fixtures"]
     "-WPS433",  # redundant with C0415 (not top-level import)
     "-WPS529",  # implicit dict.get usage (generally false-positive)
 ]
+
+[tool.flakehell.exceptions."src/mkdocstrings/loggers"]
+"*" = ["-WPS430"] # one nested function in loggers
