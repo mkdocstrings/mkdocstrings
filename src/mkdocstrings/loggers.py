@@ -62,7 +62,7 @@ class TemplateLogger:
         self.critical = get_template_logger_function(logger.critical)
 
 
-def get_template_logger_function(logger_func: Callable) -> Callable:
+def get_template_logger_function(logger_func: Callable) -> Callable: # noqa: WPS430 (nested function)
     """
     Create a wrapper function that automatically receives the Jinja template context.
 
