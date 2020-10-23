@@ -3,6 +3,7 @@
 [![ci](https://github.com/pawamoy/mkdocstrings/workflows/ci/badge.svg)](https://github.com/pawamoy/mkdocstrings/actions?query=workflow%3Aci)
 [![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://pawamoy.github.io/mkdocstrings/)
 [![pypi version](https://img.shields.io/pypi/v/mkdocstrings.svg)](https://pypi.org/project/mkdocstrings/)
+[![conda version](https://img.shields.io/conda/vn/conda-forge/mkdocstrings)](https://anaconda.org/conda-forge/mkdocstrings)
 
 Automatic documentation from sources, for MkDocs.
 
@@ -117,6 +118,10 @@ With `pip`:
 python3.6 -m pip install mkdocstrings
 ```
 
+With `conda`:
+```bash
+conda install -c conda-forge mkdocstrings
+```
 ## Quick usage
 
 ```yaml
