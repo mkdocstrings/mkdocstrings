@@ -74,7 +74,7 @@ def get_template_logger_function(logger_func: Callable) -> Callable:
     """
 
     @contextfunction  # noqa: WPS430 (nested function)
-    def wrapper(context: Context, msg: Optional[str] = None) -> str:
+    def wrapper(context: Context, msg: Optional[str] = None) -> str:  # noqa: WPS430
         """
         Log a message.
 
