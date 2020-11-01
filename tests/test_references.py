@@ -1,7 +1,8 @@
 """Tests for the references module."""
 import pytest
+from bs4 import BeautifulSoup
 
-from mkdocstrings.references import relative_url
+from mkdocstrings.references import Placeholder, relative_url
 
 
 @pytest.mark.parametrize(
@@ -34,3 +35,15 @@ def test_relative_url(current_url, to_url, href_url):
         href_url: The relative URL to put in the `href` HTML field.
     """
     assert relative_url(current_url, to_url) == href_url
+
+
+@pytest.mark.parametrize("html", ["foo<code>code content</code>4"])
+def test_placeholder(html):
+    placeholder = Placeholder()
+
+    soup = BeautifulSoup(html, "html.parser")
+    placeholder.replace_code_tags(soup)
+    html_with_placeholders = str(soup).replace("code content", "should not be replaced")
+
+    html_restored = placeholder.restore_code_tags(html_with_placeholders)
+    assert html == html_restored
