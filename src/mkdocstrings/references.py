@@ -50,7 +50,7 @@ class Placeholder:
         Returns:
             The ID under which the text is stored.
         """
-        new_id = f"{self.seed}{len(self._store)}"
+        new_id = f"\x02{self.seed}{len(self._store)}\x03"
         self._store.append(value)
         return new_id
 
@@ -78,7 +78,7 @@ class Placeholder:
         Returns:
             The same HTML text with placeholders replaced by their respective original code nodes.
         """
-        return re.sub(rf"{self.seed}(\d+)", self._replace_id_with_value, soup_str)
+        return re.sub(rf"\x02{self.seed}(\d+)\x03", self._replace_id_with_value, soup_str)
 
     def _replace_id_with_value(self, match):
         return self._store[int(match.group(1))]
