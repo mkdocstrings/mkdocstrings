@@ -91,7 +91,7 @@ class AutoDocProcessor(BlockProcessor):
     """
 
     classname = "autodoc"
-    regex = re.compile(r"^(?P<heading>#{1,6} *|)::: ?(?P<name>[:a-zA-Z0-9_.-]*) *$", flags=re.MULTILINE)
+    regex = re.compile(r"^(?P<heading>#{1,6} *|)::: ?(?P<name>.+?) *$", flags=re.MULTILINE)
 
     def __init__(self, parser: BlockParser, md: Markdown, config: dict) -> None:
         """
