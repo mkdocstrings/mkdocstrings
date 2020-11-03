@@ -91,7 +91,7 @@ class AutoDocProcessor(BlockProcessor):
     """
 
     classname = "autodoc"
-    regex = re.compile(r"(?:^|\n)::: ?([:a-zA-Z0-9_.-]*) *(?:\n|$)")
+    regex = re.compile(r"(?:^|\n)::: ?(.+?) *(?:\n|$)")
 
     def __init__(self, parser: BlockParser, md: Markdown, config: dict) -> None:
         """
