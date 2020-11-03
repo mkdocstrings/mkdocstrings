@@ -39,6 +39,12 @@ def test_relative_url(current_url, to_url, href_url):
 
 @pytest.mark.parametrize("html", ["foo<code>code content</code>4"])
 def test_placeholder(html):
+    """
+    Test the references "fixing" mechanism.
+    
+    Arguments:
+        html: HTML contents in which to fix references.
+    """
     placeholder = Placeholder()
 
     soup = BeautifulSoup(html, "html.parser")
