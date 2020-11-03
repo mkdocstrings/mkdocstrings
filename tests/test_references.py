@@ -41,7 +41,6 @@ def test_relative_url(current_url, to_url, href_url):
 def test_placeholder(html):
     """
     Test the references "fixing" mechanism.
-    
     Arguments:
         html: HTML contents in which to fix references.
     """
