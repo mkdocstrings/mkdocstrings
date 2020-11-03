@@ -190,7 +190,7 @@ class AutoDocProcessor(BlockProcessor):
 
         selection, rendering = get_item_configs(handler_config, config)
         if heading_level:
-            rendering.setdefault("heading_level", heading_level)
+            rendering = ChainMap(rendering, {"heading_level": heading_level})  # like setdefault
 
         log.debug("Collecting data")
         try:
