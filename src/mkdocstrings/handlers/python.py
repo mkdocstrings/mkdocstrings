@@ -7,6 +7,7 @@ The handler collects data with [`pytkdocs`](https://github.com/pawamoy/pytkdocs)
 import json
 import os
 import sys
+from collections import ChainMap
 from subprocess import PIPE, Popen  # noqa: S404 (what other option, more secure that PIPE do we have? sockets?)
 from typing import Any, List, Optional
 
@@ -65,15 +66,14 @@ class PythonRenderer(BaseRenderer):
     """  # noqa: E501
 
     def render(self, data: Any, config: dict) -> str:  # noqa: D102 (ignore missing docstring)
-        final_config = dict(self.default_config)
-        final_config.update(config)
+        final_config = ChainMap(config, self.default_config)
 
         template = self.env.get_template(f"{data['category']}.html")
 
         # Heading level is a "state" variable, that will change at each step
         # of the rendering recursion. Therefore, it's easier to use it as a plain value
         # than as an item in a dictionary.
-        heading_level = final_config.pop("heading_level")
+        heading_level = final_config["heading_level"]
 
         return template.render(
             **{"config": final_config, data["category"]: data, "heading_level": heading_level, "root": True},
@@ -192,8 +192,7 @@ class PythonCollector(BaseCollector):
         Returns:
             The collected object-tree.
         """
-        final_config = dict(self.default_config)
-        final_config.update(config)
+        final_config = ChainMap(config, self.default_config)
 
         log.debug("Preparing input")
         json_input = json.dumps({"objects": [{"path": identifier, **final_config}]})

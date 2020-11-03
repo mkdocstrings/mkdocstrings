@@ -23,7 +23,8 @@ instruction:
 ```
 """
 import re
-from typing import Any, Tuple
+from collections import ChainMap
+from typing import Any, Mapping, Tuple
 from xml.etree.ElementTree import XML, Element, ParseError  # noqa: S405 (we choose to trust the XML input)
 
 import yaml
@@ -250,7 +251,7 @@ class AutoDocProcessor(BlockProcessor):
         return {}
 
 
-def get_item_configs(handler_config: dict, config: dict) -> Tuple[dict, dict]:
+def get_item_configs(handler_config: dict, config: dict) -> Tuple[Mapping, Mapping]:
     """
     Get the selection and rendering configuration merged into the global configuration of the given handler.
 
@@ -261,10 +262,8 @@ def get_item_configs(handler_config: dict, config: dict) -> Tuple[dict, dict]:
     Returns:
         Two dictionaries: selection and rendering. The local configurations are merged into the global ones.
     """
-    item_selection_config = dict(handler_config.get("selection", {}))
-    item_selection_config.update(config.get("selection", {}))
-    item_rendering_config = dict(handler_config.get("rendering", {}))
-    item_rendering_config.update(config.get("rendering", {}))
+    item_selection_config = ChainMap(config.get("selection", {}), handler_config.get("selection", {}))
+    item_rendering_config = ChainMap(config.get("rendering", {}), handler_config.get("rendering", {}))
     return item_selection_config, item_rendering_config
 
 
