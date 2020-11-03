@@ -23,6 +23,7 @@ from pymdownx.highlight import Highlight
 from mkdocstrings.loggers import get_template_logger
 
 handlers_cache: Dict[str, Any] = {}
+TEMPLATES_DIR = Path(__file__).parent.parent / "templates"
 
 
 class CollectionError(Exception):
@@ -120,7 +121,7 @@ class BaseRenderer(ABC):
         if custom_templates is not None:
             paths.append(Path(custom_templates) / directory / theme)
 
-        themes_dir = Path(__file__).parent.parent / "templates" / directory
+        themes_dir = TEMPLATES_DIR / directory
 
         paths.append(themes_dir / theme)
 
