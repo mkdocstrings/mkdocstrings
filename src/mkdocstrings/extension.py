@@ -92,7 +92,7 @@ class AutoDocProcessor(BlockProcessor):
     """
 
     classname = "autodoc"
-    regex = re.compile(r"(?:^|\n)::: ?(.+?) *(?:\n|$)")
+    regex = re.compile(r"^(?P<heading>#{1,6} *|)::: ?(?P<name>.+?) *$", flags=re.MULTILINE)
 
     def __init__(self, parser: BlockParser, md: Markdown, config: dict) -> None:
         """
@@ -149,9 +149,10 @@ class AutoDocProcessor(BlockProcessor):
         block, the_rest = self.detab(block)
 
         if match:
-            identifier = match.group(1)
+            identifier = match["name"]
+            heading_level = match["heading"].count("#")
             log.debug(f"Matched '::: {identifier}'")
-            xml_element = self.process_block(identifier, str(block))
+            xml_element = self.process_block(identifier, str(block), heading_level)
             parent.append(xml_element)
 
         if the_rest:
@@ -160,13 +161,14 @@ class AutoDocProcessor(BlockProcessor):
             # list for future processing.
             blocks.insert(0, the_rest)
 
-    def process_block(self, identifier: str, yaml_block: str) -> Element:
+    def process_block(self, identifier: str, yaml_block: str, heading_level: int = 0) -> Element:
         """
         Process an autodoc block.
 
         Arguments:
             identifier: The identifier of the object to collect and render.
             yaml_block: The YAML configuration.
+            heading_level: Suggested level of the the heading to insert (0 to ignore).
 
         Raises:
             CollectionError: When something wrong happened during collection.
@@ -187,6 +189,8 @@ class AutoDocProcessor(BlockProcessor):
         )
 
         selection, rendering = get_item_configs(handler_config, config)
+        if heading_level:
+            rendering = ChainMap(rendering, {"heading_level": heading_level})  # like setdefault
 
         log.debug("Collecting data")
         try:
@@ -297,7 +301,7 @@ class MkdocstringsExtension(Extension):
     It cannot work outside of `mkdocstrings`.
     """
 
-    priority = 110
+    blockprocessor_priority = 75  # Right before markdown.blockprocessors.HashHeaderProcessor
 
     def __init__(self, config: dict, **kwargs) -> None:
         """
@@ -322,4 +326,4 @@ class MkdocstringsExtension(Extension):
         """
         md.registerExtension(self)
         processor = AutoDocProcessor(md.parser, md, self._config)
-        md.parser.blockprocessors.register(processor, "mkdocstrings", self.priority)
+        md.parser.blockprocessors.register(processor, "mkdocstrings", self.blockprocessor_priority)

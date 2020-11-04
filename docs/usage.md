@@ -82,6 +82,23 @@ Check the documentation for your handler of interest in [Handlers](../handlers/o
         method_b<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
         </h4><div><p>Print B!</p></div></div></div></div></div>
 
+It is also possible to integrate a mkdocstrings identifier into a Markdown header:
+
+```md
+## ::: my_package.my_module.MyClass
+    rendering:
+      show_source: false
+```
+
+The above is equivalent to:
+
+```md
+::: my_package.my_module.MyClass
+    rendering:
+      show_source: false
+      heading_level: 2
+```
+
 
 
 ## Global options
