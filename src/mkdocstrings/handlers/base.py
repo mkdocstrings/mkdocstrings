@@ -156,7 +156,7 @@ class BaseRenderer(ABC):
                 of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.
         """
         # Re-instantiate md: see https://github.com/tomchristie/mkautodoc/issues/14
-        md = Markdown(extensions=config["mdx"], extensions_configs=config["mdx_configs"])
+        md = Markdown(extensions=config["mdx"], extension_configs=config["mdx_configs"])
         self.env.filters["convert_markdown"] = lambda text: do_mark_safe(md.convert(text))
 
 
