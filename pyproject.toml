@@ -118,7 +118,7 @@ exclude = ["tests/fixtures"]
     "-WPS322",  # multi-line strings (incompatible with attributes docstrings)
     "-WPS326",  # implicit string concatenation
     "-WPS336",  # explicit string concatenation
-    "-WPS402",  # nosa overuse
+    "-WPS402",  # noqa overuse
     "-WPS412",  # __init__ modules with logic
     "-WPS428",  # statement with no effect (not compatible with attribute docstrings)
     "-WPS433",  # redundant with C0415 (not top-level import)
