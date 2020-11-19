@@ -75,10 +75,7 @@ and the following GIF:
 
 ## Roadmap
 
-- [x] **December-January 2020:** Proof of Concept.
-- [x] **January-March 2020:** Refactor.
-- [x] **March-April 2020:** Test suite for [`pytkdocs`](https://github.com/pawamoy/pytkdocs). Bug fixes, enhancements.
-- [ ] **May-June 2020:** Test suite for `mkdocstrings` itself. **Better documentation.** Maybe a second handler, just for the fun.
+See the [Feature Roadmap issue](https://github.com/pawamoy/mkdocstrings/issues/183) on the bugtracker.
 
 ## Requirements
 
