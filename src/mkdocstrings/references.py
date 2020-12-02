@@ -104,7 +104,7 @@ def relative_url(url_a: str, url_b: str) -> str:
         The relative URL to go from A to B.
     """
     directory_url = False
-    if url_a[-1] == "/":
+    if url_a.endswith("/"):
         url_a = url_a.rstrip("/")
         directory_url = True
     parts_a = url_a.split("/")
