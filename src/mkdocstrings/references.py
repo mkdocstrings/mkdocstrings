@@ -103,10 +103,6 @@ def relative_url(url_a: str, url_b: str) -> str:
     Returns:
         The relative URL to go from A to B.
     """
-    directory_url = False
-    if url_a.endswith("/"):
-        url_a = url_a.rstrip("/")
-        directory_url = True
     parts_a = url_a.split("/")
     url_b, anchor = url_b.split("#", 1)
     parts_b = url_b.split("/")
@@ -117,9 +113,7 @@ def relative_url(url_a: str, url_b: str) -> str:
         parts_b.pop(0)
 
     # go up as many times as remaining a parts' depth
-    levels = len(parts_a)
-    if not directory_url:
-        levels -= 1
+    levels = len(parts_a) - 1
     parts_relative = [".."] * levels + parts_b  # noqa: WPS435 (list multiply ok)
     relative = "/".join(parts_relative)
     return f"{relative}#{anchor}"
