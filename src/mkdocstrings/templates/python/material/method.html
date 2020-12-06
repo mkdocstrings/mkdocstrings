@@ -20,12 +20,10 @@
           class="doc doc-heading"
           data-toc-label="{{ method.name }}()">
 
-        <code class="highlight language-python">
+        {% filter highlight(language="python", inline=True) %}
           {% if show_full_path %}{{ method.path }}{% else %}{{ method.name }}{% endif %}
-          {% filter highlight(language="python", inline=True) %}
-            {% with signature = method.signature %}{% include "signature.html" with context %}{% endwith %}
-          {% endfilter %}
-        </code>
+          {% with signature = method.signature %}{% include "signature.html" with context %}{% endwith %}
+        {% endfilter %}
 
         {% with properties = method.properties %}
           {% include "properties.html" with context %}
