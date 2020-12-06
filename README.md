@@ -27,8 +27,9 @@ Automatic documentation from sources, for MkDocs.
   [`handler`](https://pawamoy.github.io/mkdocstrings/reference/handlers/__init__/) for it.
   Currently, we only have a [Python handler](https://pawamoy.github.io/mkdocstrings/reference/handlers/python/).
   Maybe you'd like to contribute another one :wink:?
-- **Multiple themes support:** each handler can offer multiple themes. Currently, we only offer the
-  :star: [Material theme](https://squidfunk.github.io/mkdocs-material/) :star: for the Python handler.
+- **Multiple themes support:** each handler can offer multiple themes. Currently, we offer the
+  :star: [Material theme](https://squidfunk.github.io/mkdocs-material/) :star:
+  as well as basic support for the ReadTheDocs theme for the Python handler.
 - **Cross-references to other objects:** `mkdocstrings` makes it possible to reference other headings from your
   Markdown files with the classic Markdown syntax: `[identifier][]` or `[title][identifier]`. This feature is language
   agnostic as well: you can cross-reference any heading that appear in your Markdown pages.
@@ -61,6 +62,7 @@ Automatic documentation from sources, for MkDocs.
     - **Admonition support in docstrings:** blocks like `Note: ` or `Warning: ` will be transformed
       to their [admonition](https://squidfunk.github.io/mkdocs-material/extensions/admonition/) equivalent.
       *We do not support nested admonitions in docstrings!*
+    - **Support for reStructuredText in docstrings:** `pytkdocs` can parse simple RST.
 - **Every object has a TOC entry:** we render a heading for each object, meaning `mkdocs` picks them into the Table
   of Contents, which is nicely display by the Material theme. Thanks to `mkdocstrings` cross-reference ability,
   you can even reference other objects within your docstrings, with the classic Markdown syntax:
@@ -120,6 +122,7 @@ With `conda`:
 ```bash
 conda install -c conda-forge mkdocstrings
 ```
+
 ## Quick usage
 
 ```yaml
@@ -128,8 +131,8 @@ theme:
   name: "material"
 
 plugins:
-  - search
-  - mkdocstrings
+- search
+- mkdocstrings
 ```
 
 In one of your markdown files:

@@ -5,26 +5,26 @@ repo_url: "https://github.com/pawamoy/mkdocstrings"
 repo_name: "pawamoy/mkdocstrings"
 
 nav:
-  - Overview: index.md
-  - Usage: usage.md
-  - Handlers:
-    - Overview: handlers/overview.md
-    - Python: handlers/python.md
+- Overview: index.md
+- Usage: usage.md
+- Handlers:
+  - Overview: handlers/overview.md
+  - Python: handlers/python.md
 
-  - API Reference:
-      - handlers:
-          - base.py: reference/handlers/base.md
-          - python.py: reference/handlers/python.md
-      - extension.py: reference/extension.md
-      - plugin.py: reference/plugin.md
-      - references.py: reference/references.md
+- Code Reference:
+  - handlers:
+    - base.py: reference/handlers/base.md
+    - python.py: reference/handlers/python.md
+  - extension.py: reference/extension.md
+  - plugin.py: reference/plugin.md
+  - references.py: reference/references.md
 
-  - Troubleshooting: troubleshooting.md
-  - Contributing: contributing.md
-  - Code of Conduct: code_of_conduct.md
-  - Changelog: changelog.md
-  - Credits: credits.md
-  - License: license.md
+- Troubleshooting: troubleshooting.md
+- Contributing: contributing.md
+- Code of Conduct: code_of_conduct.md
+- Changelog: changelog.md
+- Credits: credits.md
+- License: license.md
 
 theme:
   name: material
@@ -34,28 +34,28 @@ theme:
     accent: purple
 
 extra_css:
-  - css/mkdocstrings.css
+- css/mkdocstrings.css
 
 markdown_extensions:
-  - admonition
-  - markdown_include.include
-  - pymdownx.emoji
-  - pymdownx.magiclink
-  - pymdownx.superfences
-  - pymdownx.tabbed
-  - pymdownx.tasklist
-  - toc:
-      permalink: "¤"
+- admonition
+- markdown_include.include
+- pymdownx.emoji
+- pymdownx.magiclink
+- pymdownx.superfences
+- pymdownx.tabbed
+- pymdownx.tasklist
+- toc:
+    permalink: "¤"
 
 plugins:
-  - search
-  - mkdocstrings:
-      handlers:
-        python:
-          setup_commands:
-            - import sys
-            - sys.path.append("docs")
-          selection:
-            new_path_syntax: yes
-      watch:
-        - src/mkdocstrings
+- search
+- mkdocstrings:
+    handlers:
+      python:
+        setup_commands:
+        - import sys
+        - sys.path.append("docs")
+        selection:
+          new_path_syntax: yes
+    watch:
+    - src/mkdocstrings
