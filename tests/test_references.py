@@ -24,6 +24,11 @@ from mkdocstrings.references import fix_refs, relative_url
         ("a/b/c.html", "d.html#e", "../../d.html#e"),
         ("a/b.html", "c/d.html#e", "../c/d.html#e"),
         ("a/b/index.html", "a/b/c/d.html#e", "c/d.html#e"),
+        ("", "#x", "#x"),
+        ('a/', "#x", "../#x"),
+        ('a/b.html', "#x", "../#x"),
+        ("", "a/#x", "a/#x"),
+        ("", "a/b.html#x", "a/b.html#x"),
     ],
 )
 def test_relative_url(current_url, to_url, href_url):
