@@ -1,95 +1,59 @@
 """Cross-references module."""
 
-import random
+import html
 import re
-import string
-from typing import Callable, Dict, List, Match, Pattern, Tuple
+from typing import Callable, Dict, List, Match, Tuple
+from xml.etree.ElementTree import Element
 
-from bs4 import BeautifulSoup, NavigableString
+from markdown.inlinepatterns import REFERENCE_RE, ReferenceInlineProcessor
 
-AUTO_REF: Pattern = re.compile(r"\[(?P<title>.+?)\]\[(?P<identifier>.*?)\]")
+AUTO_REF_RE = re.compile(r'<span data-mkdocstrings-identifier="(?P<identifier>[^"<>]*)">(?P<title>.*?)</span>')
 """
-A regular expression to match unresolved Markdown references
+A regular expression to match mkdocstrings' special reference markers
 in the [`on_post_page` hook][mkdocstrings.plugin.MkdocstringsPlugin.on_post_page].
 """
 
 
-class Placeholder:
-    """
-    This class is used as a placeholder store.
+class AutoRefInlineProcessor(ReferenceInlineProcessor):
+    def __init__(self, *args, **kwargs):
+        super().__init__(REFERENCE_RE, *args, **kwargs)
 
-    Placeholders are random, unique strings that temporarily replace `<code>` nodes in an HTML tree.
+    # Code based on https://github.com/Python-Markdown/markdown/blob/8e7528fa5c98bf4652deb13206d6e6241d61630b/markdown/inlinepatterns.py#L780
 
-    Why do we replace these nodes with such strings? Because we want to fix cross-references that were not
-    resolved during Markdown conversion, and we must never touch to what's inside of a code block.
-    To ease the process, instead of selecting nodes in the HTML tree with complex filters (I tried, believe me),
-    we simply "hide" the code nodes, and bulk-replace unresolved cross-references in the whole HTML text at once,
-    with a regular expression substitution. Once it's done, we bulk-replace code nodes back, with a regular expression
-    substitution again.
-    """
+    def handleMatch(self, m, data):
+        text, index, handled = self.getText(data, m.end(0))
+        if not handled:
+            return None, None, None
 
-    def __init__(self, seed_length: int = 16) -> None:
+        identifier, end, handled = self.evalId(data, index, text)
+        if not handled:
+            return None, None, None
+
+        if re.search(r"[/ \x00-\x1f]", identifier):
+            # Do nothing if the matched reference contains:
+            # - a space, slash or control character (considered unintended);
+            # - specifically \x01 is used by Python-Markdown HTML stash when there's inline formatting,
+            #   but references with Markdown formatting are not possible anyway.
+            return None, m.start(0), end
+
+        return self.makeTag(identifier, text), m.start(0), end
+
+    def evalId(self, data, index, text):
+        m = self.RE_LINK.match(data, pos=index)
+        if not m:
+            return None, index, False
+        identifier = m.group(1) or text
+        end = m.end(0)
+        return identifier, end, True
+
+    def makeTag(self, identifier, text):
         """
-        Initialize the object.
-
-        Arguments:
-            seed_length: Length of the seed.
+        Creates a tag that can be matched by `AUTO_REF_RE`.
         """
-        self._store: List[str] = []
-        self.seed = ""
-        self.seed_length = seed_length
-        self.set_seed()
-
-    def store(self, value: str) -> str:
-        """
-        Store a text under a unique ID, return that ID.
-
-        Arguments:
-            value: The text to store.
-
-        Returns:
-            The ID under which the text is stored.
-        """
-        new_id = f"\x02{self.seed}{len(self._store)}\x03"
-        self._store.append(value)
-        return new_id
-
-    def set_seed(self) -> None:
-        """Reset the seed in `self.seed` with a random string."""
-        alphabet = string.ascii_letters + string.digits
-        self.seed = "".join(random.choices(alphabet, k=self.seed_length))
-
-    def replace_code_tags(self, soup: BeautifulSoup) -> None:
-        """
-        Recursively replace code nodes with navigable strings whose values are unique IDs.
-
-        Arguments:
-            soup: The root tag of a BeautifulSoup HTML tree.
-        """
-        self._recursive_replace(soup)
-
-    def restore_code_tags(self, soup_str: str) -> str:
-        """
-        Restore code nodes previously replaced by unique placeholders.
-
-        Arguments:
-            soup_str: HTML text.
-
-        Returns:
-            The same HTML text with placeholders replaced by their respective original code nodes.
-        """
-        return re.sub(rf"\x02{self.seed}(\d+)\x03", self._replace_id_with_value, soup_str)
-
-    def _replace_id_with_value(self, match):
-        return self._store[int(match.group(1))]
-
-    def _recursive_replace(self, tag):
-        if hasattr(tag, "contents"):  # noqa: WPS421 (builtin function call, special cases only)
-            for index, child in enumerate(tag.contents):
-                if child.name == "code":
-                    tag.contents[index] = NavigableString(self.store(str(child)))
-                else:
-                    self._recursive_replace(child)
+        el = Element("span")
+        el.set("data-mkdocstrings-identifier", identifier)
+        el.text = text
+        return el
 
 
 def relative_url(url_a: str, url_b: str) -> str:
@@ -131,9 +95,6 @@ def fix_ref(url_map: Dict[str, str], from_url: str, unmapped: List[str]) -> Call
 
     In our context, we match Markdown references and replace them with HTML links.
 
-    When the matched reference's identifier contains a space or slash, we do nothing as we consider it
-    to be unintended.
-
     When the matched reference's identifier was not mapped to an URL, we append the identifier to the outer
     `unmapped` list. It generally means the user is trying to cross-reference an object that was not collected
     and rendered, making it impossible to link to it. We catch this exception in the caller to issue a warning.
@@ -149,24 +110,18 @@ def fix_ref(url_map: Dict[str, str], from_url: str, unmapped: List[str]) -> Call
     """
 
     def inner(match: Match):  # noqa: WPS430 (nested function, no other way than side-effecting the warnings)
-        groups = match.groupdict()
-        identifier = groups["identifier"]
-        title = groups["title"]
-
-        if title and not identifier:
-            identifier, title = title, identifier
+        identifier = match["identifier"]
+        title = match["title"]
 
         try:
-            url = relative_url(from_url, url_map[identifier])
+            url = relative_url(from_url, url_map[html.unescape(identifier)])
         except KeyError:
-            if " " not in identifier and "/" not in identifier:
-                unmapped.append(identifier)
-
-            if not title:
+            unmapped.append(identifier)
+            if title == identifier:
                 return f"[{identifier}][]"
             return f"[{title}][{identifier}]"
 
-        return f'<a href="{url}">{title or identifier}</a>'
+        return f'<a href="{html.escape(url)}">{title}</a>'
 
     return inner
 
@@ -188,16 +143,5 @@ def fix_refs(
         The fixed HTML.
     """
     unmapped = []  # type: ignore
-    if not AUTO_REF.search(html):
-        return html, unmapped
-
-    urls = "\n".join(set(url_map.values()))
-    placeholder = Placeholder()
-    while re.search(placeholder.seed, html) or placeholder.seed in urls:
-        placeholder.set_seed()
-
-    soup = BeautifulSoup(html, "html.parser")
-    placeholder.replace_code_tags(soup)
-    fixed_soup = AUTO_REF.sub(fix_ref(url_map, from_url, unmapped), str(soup))
-
-    return placeholder.restore_code_tags(fixed_soup), unmapped
+    html = AUTO_REF_RE.sub(fix_ref(url_map, from_url, unmapped), html)
+    return html, unmapped
