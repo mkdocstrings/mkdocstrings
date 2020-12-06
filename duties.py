@@ -401,8 +401,10 @@ def test(ctx, match=""):
         ctx: The context instance (passed automatically).
         match: A pytest expression to filter selected tests.
     """
+    nofail = sys.version.startswith("3.9")
     ctx.run(
         ["pytest", "-c", "config/pytest.ini", "-n", "auto", "-k", match, "tests"],
         title="Running tests",
         pty=PTY,
+        nofail=nofail,
     )
