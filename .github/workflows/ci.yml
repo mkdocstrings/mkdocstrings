@@ -17,6 +17,7 @@ env:
   LC_ALL: "en_US.utf-8"
   POETRY_VIRTUALENVS_IN_PROJECT: "true"
   PYTHONIOENCODING: "UTF-8"
+  PYTHONPATH: docs
 
 jobs:
 
