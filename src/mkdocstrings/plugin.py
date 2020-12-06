@@ -215,7 +215,7 @@ class MkdocstringsPlugin(BasePlugin):
 
         We log a warning for each reference that we couldn't map to an URL, but try to be smart and ignore identifiers
         that do not look legitimate (sometimes documentation can contain strings matching
-        our [`AUTO_REF`][mkdocstrings.references.AUTO_REF] regular expression that did not intend to reference anything).
+        our [`AUTO_REF_RE`][mkdocstrings.references.AUTO_REF_RE] regular expression that did not intend to reference anything).
         We currently ignore references when their identifier contains a space or a slash.
 
         Arguments:

@@ -3,7 +3,7 @@ from markdown import Markdown
 
 from mkdocstrings.extension import MkdocstringsExtension
 
-_DEFAULT_CONFIG = {
+_DEFAULT_CONFIG = {  # noqa: WPS407 (mutable constant)
     "theme_name": "material",
     "mdx": [],
     "mdx_configs": {},
@@ -18,6 +18,7 @@ def test_render_html_escaped_sequences():
 
 
 def test_reference_inside_autodoc():
+    """Assert cross-reference Markdown extension works correctly."""
     config = dict(_DEFAULT_CONFIG)
     ext = MkdocstringsExtension(config)
     config["mdx"].append(ext)

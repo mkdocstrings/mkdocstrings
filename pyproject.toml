@@ -100,6 +100,7 @@ exclude = ["tests/fixtures"]
     "-W0212",  # redundant with WPS437 (access to protected attribute)
     "-W0611",  # redundant with F401 (unused import)
     "-W1203",  # lazy formatting for logging calls
+    "-VNE001",  # short name
     "-WPS305",  # f-strings
     "-WPS110",  # common variable names (too annoying)
     "-WPS125",  # redundant with W0622 (builtin override), which is more precise about line number

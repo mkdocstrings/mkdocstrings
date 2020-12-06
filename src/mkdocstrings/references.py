@@ -1,9 +1,9 @@
 """Cross-references module."""
 
-import html
 import re
-from typing import Callable, Dict, List, Match, Tuple
-from xml.etree.ElementTree import Element
+from html import escape, unescape
+from typing import Any, Callable, Dict, List, Match, Tuple, Union
+from xml.etree.ElementTree import Element  # noqa: S405 (input is our own, and Markdown coming from code)
 
 from markdown.inlinepatterns import REFERENCE_RE, ReferenceInlineProcessor
 
@@ -13,14 +13,29 @@ A regular expression to match mkdocstrings' special reference markers
 in the [`on_post_page` hook][mkdocstrings.plugin.MkdocstringsPlugin.on_post_page].
 """
 
+EvalIDType = Tuple[Any, Any, Any]
+
 
 class AutoRefInlineProcessor(ReferenceInlineProcessor):
-    def __init__(self, *args, **kwargs):
+    """A Markdown extension."""
+
+    def __init__(self, *args, **kwargs):  # noqa: D107
         super().__init__(REFERENCE_RE, *args, **kwargs)
 
-    # Code based on https://github.com/Python-Markdown/markdown/blob/8e7528fa5c98bf4652deb13206d6e6241d61630b/markdown/inlinepatterns.py#L780
+    # Code based on
+    # https://github.com/Python-Markdown/markdown/blob/8e7528fa5c98bf4652deb13206d6e6241d61630b/markdown/inlinepatterns.py#L780
 
-    def handleMatch(self, m, data):
+    def handleMatch(self, m, data) -> Union[Element, EvalIDType]:  # noqa: WPS111,N802 (parent's casing)
+        """
+        Handle an element that matched.
+
+        Arguments:
+            m: The match object.
+            data: The matched data.
+
+        Returns:
+            A new element or a tuple.
+        """
         text, index, handled = self.getText(data, m.end(0))
         if not handled:
             return None, None, None
@@ -29,7 +44,7 @@ class AutoRefInlineProcessor(ReferenceInlineProcessor):
         if not handled:
             return None, None, None
 
-        if re.search(r"[/ \x00-\x1f]", identifier):
+        if re.search(r"[/ \x00-\x1f]", identifier):  # type: ignore
             # Do nothing if the matched reference contains:
             # - a space, slash or control character (considered unintended);
             # - specifically \x01 is used by Python-Markdown HTML stash when there's inline formatting,
@@ -38,17 +53,37 @@ class AutoRefInlineProcessor(ReferenceInlineProcessor):
 
         return self.makeTag(identifier, text), m.start(0), end
 
-    def evalId(self, data, index, text):
-        m = self.RE_LINK.match(data, pos=index)
+    def evalId(self, data: str, index: int, text: str) -> EvalIDType:  # noqa: N802 (parent's casing)
+        """
+        Evaluate the id portion of `[ref][id]`.
+
+        If `[ref][]` use `[ref]`.
+
+        Arguments:
+            data: The data to evaluate.
+            index: The starting position.
+            text: The text to use when no identifier.
+
+        Returns:
+            A tuple containing the identifier, its end position, and whether it matched.
+        """
+        m = self.RE_LINK.match(data, pos=index)  # noqa: WPS111
         if not m:
             return None, index, False
         identifier = m.group(1) or text
         end = m.end(0)
         return identifier, end, True
 
-    def makeTag(self, identifier, text):
+    def makeTag(self, identifier: str, text: str) -> Element:  # noqa: N802,W0221 (parent's casing, different params)
         """
-        Creates a tag that can be matched by `AUTO_REF_RE`.
+        Create a tag that can be matched by `AUTO_REF_RE`.
+
+        Arguments:
+            identifier: The identifier to use in the HTML property.
+            text: The text to use in the HTML tag.
+
+        Returns:
+            A new element.
         """
         el = Element("span")
         el.set("data-mkdocstrings-identifier", identifier)
@@ -108,14 +143,14 @@ def fix_ref(url_map: Dict[str, str], from_url: str, unmapped: List[str]) -> Call
         title = match["title"]
 
         try:
-            url = relative_url(from_url, url_map[html.unescape(identifier)])
+            url = relative_url(from_url, url_map[unescape(identifier)])
         except KeyError:
             unmapped.append(identifier)
             if title == identifier:
                 return f"[{identifier}][]"
             return f"[{title}][{identifier}]"
 
-        return f'<a href="{html.escape(url)}">{title}</a>'
+        return f'<a href="{escape(url)}">{title}</a>'
 
     return inner
 

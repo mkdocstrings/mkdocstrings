@@ -25,8 +25,8 @@ from mkdocstrings.references import fix_refs, relative_url
         ("a/b.html", "c/d.html#e", "../c/d.html#e"),
         ("a/b/index.html", "a/b/c/d.html#e", "c/d.html#e"),
         ("", "#x", "#x"),
-        ('a/', "#x", "../#x"),
-        ('a/b.html', "#x", "../#x"),
+        ("a/", "#x", "../#x"),
+        ("a/b.html", "#x", "../#x"),
         ("", "a/#x", "a/#x"),
         ("", "a/b.html#x", "a/b.html#x"),
     ],
@@ -44,6 +44,16 @@ def test_relative_url(current_url, to_url, href_url):
 
 
 def run_references_test(url_map, source, output, unmapped=None, from_url="page.html"):
+    """
+    Help running tests about references.
+
+    Arguments:
+        url_map: The URL mapping.
+        source: The source text.
+        output: The expected output.
+        unmapped: The expected unmapped list.
+        from_url: The source page URL.
+    """
     ext = MkdocstringsExtension({})
     md = markdown.Markdown(extensions=[ext])
     content = md.convert(source)
@@ -53,6 +63,7 @@ def run_references_test(url_map, source, output, unmapped=None, from_url="page.h
 
 
 def test_reference_implicit():
+    """Check implicit references (identifier only)."""
     run_references_test(
         url_map={"Foo": "foo.html#Foo"},
         source="This [Foo][].",
@@ -61,6 +72,7 @@ def test_reference_implicit():
 
 
 def test_reference_explicit_with_markdown_text():
+    """Check explicit references with Markdown formatting."""
     run_references_test(
         url_map={"Foo": "foo.html#Foo"},
         source="This [`Foo`][Foo].",
@@ -69,6 +81,7 @@ def test_reference_explicit_with_markdown_text():
 
 
 def test_reference_with_punctuation():
+    """Check references with punctuation."""
     run_references_test(
         url_map={'Foo&"bar': 'foo.html#Foo&"bar'},
         source='This [Foo&"bar][].',
@@ -77,14 +90,16 @@ def test_reference_with_punctuation():
 
 
 def test_no_reference_with_space():
+    """Check that references with spaces are not fixed."""
     run_references_test(
         url_map={"Foo bar": "foo.html#Foo bar"},
-        source="This `[Foo bar][]`.",
-        output="<p>This <code>[Foo bar][]</code>.</p>",
+        source="This [Foo bar][].",
+        output="<p>This [Foo bar][].</p>",
     )
 
 
 def test_no_reference_inside_markdown():
+    """Check that references inside code are not fixed."""
     run_references_test(
         url_map={"Foo": "foo.html#Foo"},
         source="This `[Foo][]`.",
@@ -93,6 +108,7 @@ def test_no_reference_inside_markdown():
 
 
 def test_missing_reference():
+    """Check that implicit references are correctly seen as unmapped."""
     run_references_test(
         url_map={"NotFoo": "foo.html#NotFoo"},
         source="[Foo][]",
@@ -102,6 +118,7 @@ def test_missing_reference():
 
 
 def test_missing_reference_with_markdown_text():
+    """Check unmapped explicit references."""
     run_references_test(
         url_map={"NotFoo": "foo.html#NotFoo"},
         source="[`Foo`][Foo]",
@@ -111,6 +128,7 @@ def test_missing_reference_with_markdown_text():
 
 
 def test_missing_reference_with_markdown_id():
+    """Check unmapped explicit references with Markdown in the identifier."""
     run_references_test(
         url_map={"NotFoo": "foo.html#NotFoo"},
         source="[Foo][*oh*]",
@@ -120,6 +138,7 @@ def test_missing_reference_with_markdown_id():
 
 
 def test_missing_reference_with_markdown_implicit():
+    """Check that implicit references are not fixed when the identifier is not the exact one."""
     run_references_test(
         url_map={"Foo": "foo.html#Foo"},
         source="[`Foo`][]",
