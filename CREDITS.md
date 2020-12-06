@@ -11,7 +11,6 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 
 ### Direct dependencies
 [`autoflake`](https://github.com/myint/autoflake) |
-[`beautifulsoup4`](http://www.crummy.com/software/BeautifulSoup/bs4/) |
 [`black`](https://github.com/psf/black) |
 [`coverage`](https://github.com/nedbat/coveragepy) |
 [`failprint`](https://github.com/pawamoy/failprint) |
@@ -127,7 +126,6 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`smmap`](https://github.com/gitpython-developers/smmap) |
 [`sniffio`](https://github.com/python-trio/sniffio) |
 [`snowballstemmer`](https://github.com/snowballstem/snowball) |
-[`soupsieve`](https://github.com/facelessuser/soupsieve) |
 [`stevedore`](https://docs.openstack.org/stevedore/latest/) |
 [`termcolor`](http://pypi.python.org/pypi/termcolor) |
 [`testfixtures`](https://github.com/Simplistix/testfixtures) |

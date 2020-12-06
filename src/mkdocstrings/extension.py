@@ -37,6 +37,7 @@ from markdown.util import AtomicString
 
 from mkdocstrings.handlers.base import CollectionError, get_handler
 from mkdocstrings.loggers import get_logger
+from mkdocstrings.references import AutoRefInlineProcessor
 
 log = get_logger(__name__)
 
@@ -302,6 +303,7 @@ class MkdocstringsExtension(Extension):
     """
 
     blockprocessor_priority = 75  # Right before markdown.blockprocessors.HashHeaderProcessor
+    inlineprocessor_priority = 168  # Right after markdown.inlinepatterns.ReferenceInlineProcessor
 
     def __init__(self, config: dict, **kwargs) -> None:
         """
@@ -327,3 +329,5 @@ class MkdocstringsExtension(Extension):
         md.registerExtension(self)
         processor = AutoDocProcessor(md.parser, md, self._config)
         md.parser.blockprocessors.register(processor, "mkdocstrings", self.blockprocessor_priority)
+        ref_processor = AutoRefInlineProcessor(md)
+        md.inlinePatterns.register(ref_processor, "mkdocstrings", self.inlineprocessor_priority)
