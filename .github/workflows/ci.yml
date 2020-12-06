@@ -37,7 +37,7 @@ jobs:
       uses: actions/cache@v1
       with:
         path: .venv
-        key: venv-cache
+        key: quality-venv-cache
 
     - name: Set up the project
       run: |
@@ -80,7 +80,7 @@ jobs:
       uses: actions/cache@v1
       with:
         path: .venv
-        key: venv-cache-${{ matrix.os }}-py${{ matrix.python-version }}
+        key: tests-venv-cache-${{ matrix.os }}-py${{ matrix.python-version }}
 
     - name: Set up the project
       run: |
