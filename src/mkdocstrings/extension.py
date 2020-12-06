@@ -172,6 +172,8 @@ class AutoDocProcessor(BlockProcessor):
 
         Raises:
             CollectionError: When something wrong happened during collection.
+            ParseError: When the generated HTML could not be parsed as XML.
+            TemplateNotFound: When a template used for rendering could not be found.
 
         Returns:
             A new XML element.
