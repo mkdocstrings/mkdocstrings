@@ -266,6 +266,9 @@ class MkdocstringsPlugin(BasePlugin):
         Arguments:
             handler_name: The name of the handler.
 
+        Raises:
+            RuntimeError: If the plugin hasn't been initialized with a config.
+
         Returns:
             An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler].
         """
