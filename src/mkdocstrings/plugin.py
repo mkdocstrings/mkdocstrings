@@ -255,8 +255,9 @@ class MkdocstringsPlugin(BasePlugin):
         Arguments:
             kwargs: Additional arguments passed by MkDocs.
         """
-        log.debug("Tearing handlers down")
-        self.handlers.teardown()
+        if self.handlers:
+            log.debug("Tearing handlers down")
+            self.handlers.teardown()
 
     def get_handler(self, handler_name: str) -> BaseHandler:
         """
@@ -268,4 +269,6 @@ class MkdocstringsPlugin(BasePlugin):
         Returns:
             An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler].
         """
+        if not self.handlers:
+            raise RuntimeError("The plugin hasn't been initialized with a config yet")
         return self.handlers.get_handler(handler_name)
