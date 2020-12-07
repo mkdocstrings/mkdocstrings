@@ -104,6 +104,7 @@ class AutoDocProcessor(BlockProcessor):
             md: A `markdown.Markdown` instance.
             config: The [configuration][mkdocstrings.plugin.MkdocstringsPlugin.config_scheme]
                 of the `mkdocstrings` plugin.
+            handlers: A [mkdocstrings.handlers.base.Handlers][] instance.
         """
         super().__init__(parser=parser)
         self.md = md
@@ -281,6 +282,7 @@ class MkdocstringsExtension(Extension):
         Arguments:
             config: The configuration items from `mkdocs` and `mkdocstrings` that must be passed to the block processor
                 when instantiated in [`extendMarkdown`][mkdocstrings.extension.MkdocstringsExtension.extendMarkdown].
+            handlers: A [mkdocstrings.handlers.base.Handlers][] instance.
             kwargs: Keyword arguments used by `markdown.extensions.Extension`.
         """
         super().__init__(**kwargs)

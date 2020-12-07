@@ -268,7 +268,14 @@ class Handlers:
     this for the purpose of caching. Use [mkdocstrings.plugin.MkdocstringsPlugin.get_handler][] for convenient access.
     """
 
-    def __init__(self, config: dict):
+    def __init__(self, config: dict) -> None:
+        """
+        Initialize the object.
+
+        Arguments:
+            config: Configuration options for `mkdocs` and `mkdocstrings`, read from `mkdocs.yml`. See the source code
+                of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.
+        """
         self._config = config
         self._handlers: Dict[str, BaseHandler] = {}
 
@@ -323,7 +330,11 @@ class Handlers:
             if handler_config is None:
                 handler_config = self.get_handler_config(name)
             module = importlib.import_module(f"mkdocstrings.handlers.{name}")
-            return module.get_handler(self._config["theme_name"], self._config["mkdocstrings"]["custom_templates"], **handler_config)  # type: ignore
+            return module.get_handler(
+                self._config["theme_name"],
+                self._config["mkdocstrings"]["custom_templates"],
+                **handler_config,
+            )  # type: ignore
         return self._handlers[name]
 
     def teardown(self):

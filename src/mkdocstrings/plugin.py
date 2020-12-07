@@ -165,8 +165,8 @@ class MkdocstringsPlugin(BasePlugin):
         }
 
         self.handlers = Handlers(extension_config)
-        self.mkdocstrings_extension = MkdocstringsExtension(extension_config, self.handlers)
-        config["markdown_extensions"].append(self.mkdocstrings_extension)
+        mkdocstrings_extension = MkdocstringsExtension(extension_config, self.handlers)
+        config["markdown_extensions"].append(mkdocstrings_extension)
         return config
 
     def on_page_content(self, html: str, page: Page, **kwargs) -> str:  # noqa: W0613 (unused arguments)

@@ -2,6 +2,7 @@
 from markdown import Markdown
 
 from mkdocstrings.extension import MkdocstringsExtension
+from mkdocstrings.handlers.base import Handlers
 
 _DEFAULT_CONFIG = {  # noqa: WPS407 (mutable constant)
     "theme_name": "material",
@@ -13,14 +14,15 @@ _DEFAULT_CONFIG = {  # noqa: WPS407 (mutable constant)
 
 def test_render_html_escaped_sequences():
     """Assert HTML-escaped sequences are correctly parsed as XML."""
-    md = Markdown(extensions=[MkdocstringsExtension(_DEFAULT_CONFIG)])
+    config = _DEFAULT_CONFIG
+    md = Markdown(extensions=[MkdocstringsExtension(config, Handlers(config))])
     md.convert("::: tests.fixtures.html_escaped_sequences")
 
 
 def test_reference_inside_autodoc():
     """Assert cross-reference Markdown extension works correctly."""
     config = dict(_DEFAULT_CONFIG)
-    ext = MkdocstringsExtension(config)
+    ext = MkdocstringsExtension(config, Handlers(config))
     config["mdx"].append(ext)
 
     md = Markdown(extensions=[ext])
