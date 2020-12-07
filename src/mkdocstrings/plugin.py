@@ -15,8 +15,8 @@ this plugin searches for references of the form `[identifier][]` or `[title][ide
 and fixes them using the previously stored identifier-URL mapping.
 
 Once the documentation is built, the [`on_post_build` event hook](https://www.mkdocs.org/user-guide/plugins/#on_post_build)
-is triggered and calls the [`handlers.teardown()` method][mkdocstrings.handlers.base.teardown]. This method is used
-to teardown the handlers that were instantiated during documentation buildup.
+is triggered and calls the [`handlers.teardown()` method][mkdocstrings.handlers.base.Handlers.teardown]. This method is
+used to teardown the handlers that were instantiated during documentation buildup.
 
 Finally, when serving the documentation, it can add directories to watch
 during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on_serve).
@@ -34,7 +34,7 @@ from mkdocs.structure.pages import Page
 from mkdocs.structure.toc import AnchorLink
 
 from mkdocstrings.extension import MkdocstringsExtension
-from mkdocstrings.handlers.base import teardown
+from mkdocstrings.handlers.base import BaseHandler, Handlers
 from mkdocstrings.loggers import get_logger
 from mkdocstrings.references import fix_refs
 
@@ -102,8 +102,8 @@ class MkdocstringsPlugin(BasePlugin):
     def __init__(self) -> None:
         """Initialize the object."""
         super().__init__()
-        self.mkdocstrings_extension: Optional[MkdocstringsExtension] = None
         self.url_map: Dict[Any, str] = {}
+        self.handlers: Optional[Handlers] = None
 
     def on_serve(self, server: Server, builder: Callable = None, **kwargs) -> Server:  # noqa: W0613 (unused arguments)
         """
@@ -164,7 +164,8 @@ class MkdocstringsPlugin(BasePlugin):
             "mkdocstrings": self.config,
         }
 
-        self.mkdocstrings_extension = MkdocstringsExtension(config=extension_config)
+        self.handlers = Handlers(extension_config)
+        self.mkdocstrings_extension = MkdocstringsExtension(extension_config, self.handlers)
         config["markdown_extensions"].append(self.mkdocstrings_extension)
         return config
 
@@ -255,4 +256,16 @@ class MkdocstringsPlugin(BasePlugin):
             kwargs: Additional arguments passed by MkDocs.
         """
         log.debug("Tearing handlers down")
-        teardown()
+        self.handlers.teardown()
+
+    def get_handler(self, handler_name: str) -> BaseHandler:
+        """
+        Get a handler by its name. See [mkdocstrings.handlers.base.Handlers.get_handler][].
+
+        Arguments:
+            handler_name: The name of the handler.
+
+        Returns:
+            An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler].
+        """
+        return self.handlers.get_handler(handler_name)
