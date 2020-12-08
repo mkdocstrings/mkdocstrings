@@ -35,7 +35,7 @@ from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.util import AtomicString
 
-from mkdocstrings.handlers.base import CollectionError, get_handler
+from mkdocstrings.handlers.base import CollectionError, Handlers
 from mkdocstrings.loggers import get_logger
 from mkdocstrings.references import AutoRefInlineProcessor
 
@@ -95,7 +95,7 @@ class AutoDocProcessor(BlockProcessor):
     classname = "autodoc"
     regex = re.compile(r"^(?P<heading>#{1,6} *|)::: ?(?P<name>.+?) *$", flags=re.MULTILINE)
 
-    def __init__(self, parser: BlockParser, md: Markdown, config: dict) -> None:
+    def __init__(self, parser: BlockParser, md: Markdown, config: dict, handlers: Handlers) -> None:
         """
         Initialize the object.
 
@@ -104,10 +104,12 @@ class AutoDocProcessor(BlockProcessor):
             md: A `markdown.Markdown` instance.
             config: The [configuration][mkdocstrings.plugin.MkdocstringsPlugin.config_scheme]
                 of the `mkdocstrings` plugin.
+            handlers: A [mkdocstrings.handlers.base.Handlers][] instance.
         """
         super().__init__(parser=parser)
         self.md = md
         self._config = config
+        self._handlers = handlers
 
     def test(self, parent: Element, block: Element) -> bool:
         """
@@ -180,16 +182,11 @@ class AutoDocProcessor(BlockProcessor):
             A new XML element.
         """
         config = yaml.safe_load(yaml_block) or {}
-        handler_name = self.get_handler_name(config)
+        handler_name = self._handlers.get_handler_name(config)
 
         log.debug(f"Using handler '{handler_name}'")
-        handler_config = self.get_handler_config(handler_name)
-        handler = get_handler(
-            handler_name,
-            self._config["theme_name"],
-            self._config["mkdocstrings"]["custom_templates"],
-            **handler_config,
-        )
+        handler_config = self._handlers.get_handler_config(handler_name)
+        handler = self._handlers.get_handler(handler_name, handler_config)
 
         selection, rendering = get_item_configs(handler_config, config)
         if heading_level:
@@ -223,35 +220,6 @@ class AutoDocProcessor(BlockProcessor):
             raise
 
         return atomic_brute_cast(xml_contents)  # type: ignore
-
-    def get_handler_name(self, config: dict) -> str:
-        """
-        Return the handler name defined in an "autodoc" instruction YAML configuration, or the global default handler.
-
-        Arguments:
-            config: A configuration dictionary, obtained from YAML below the "autodoc" instruction.
-
-        Returns:
-            The name of the handler to use.
-        """
-        if "handler" in config:
-            return config["handler"]
-        return self._config["mkdocstrings"]["default_handler"]
-
-    def get_handler_config(self, handler_name: str) -> dict:
-        """
-        Return the global configuration of the given handler.
-
-        Arguments:
-            handler_name: The name of the handler to get the global configuration of.
-
-        Returns:
-            The global configuration of the given handler. It can be an empty dictionary.
-        """
-        handlers = self._config["mkdocstrings"].get("handlers", {})
-        if handlers:
-            return handlers.get(handler_name, {})
-        return {}
 
 
 def get_item_configs(handler_config: dict, config: dict) -> Tuple[Mapping, Mapping]:
@@ -307,17 +275,19 @@ class MkdocstringsExtension(Extension):
     blockprocessor_priority = 75  # Right before markdown.blockprocessors.HashHeaderProcessor
     inlineprocessor_priority = 168  # Right after markdown.inlinepatterns.ReferenceInlineProcessor
 
-    def __init__(self, config: dict, **kwargs) -> None:
+    def __init__(self, config: dict, handlers: Handlers, **kwargs) -> None:
         """
         Initialize the object.
 
         Arguments:
             config: The configuration items from `mkdocs` and `mkdocstrings` that must be passed to the block processor
                 when instantiated in [`extendMarkdown`][mkdocstrings.extension.MkdocstringsExtension.extendMarkdown].
+            handlers: A [mkdocstrings.handlers.base.Handlers][] instance.
             kwargs: Keyword arguments used by `markdown.extensions.Extension`.
         """
         super().__init__(**kwargs)
         self._config = config
+        self._handlers = handlers
 
     def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
         """
@@ -329,7 +299,7 @@ class MkdocstringsExtension(Extension):
             md: A `markdown.Markdown` instance.
         """
         md.registerExtension(self)
-        processor = AutoDocProcessor(md.parser, md, self._config)
+        processor = AutoDocProcessor(md.parser, md, self._config, self._handlers)
         md.parser.blockprocessors.register(processor, "mkdocstrings", self.blockprocessor_priority)
         ref_processor = AutoRefInlineProcessor(md)
         md.inlinePatterns.register(ref_processor, "mkdocstrings", self.inlineprocessor_priority)
