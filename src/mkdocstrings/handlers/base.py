@@ -9,6 +9,7 @@ It also provides two methods:
 - `teardown`, that will teardown all the cached handlers, and then clear the cache.
 """
 
+import functools
 import importlib
 import re
 import textwrap
@@ -124,6 +125,23 @@ def do_any(seq: Sequence, attribute: str = None) -> bool:
     return any(_[attribute] for _ in seq)
 
 
+def do_convert_markdown(md: Markdown, text: str) -> Markup:
+    """
+    Render Markdown text; for use inside templates.
+
+    Arguments:
+        md: A `markdown.Markdown` instance.
+        text: The text to convert.
+
+    Returns:
+        An HTML string.
+    """
+    try:
+        return Markup(md.convert(text))
+    finally:
+        md.reset()
+
+
 class BaseRenderer(ABC):
     """
     The base renderer class.
@@ -198,7 +216,8 @@ class BaseRenderer(ABC):
         """
         # Re-instantiate md: see https://github.com/tomchristie/mkautodoc/issues/14
         md = Markdown(extensions=config["mdx"], extension_configs=config["mdx_configs"])
-        self.env.filters["convert_markdown"] = lambda text: Markup(md.convert(text))
+
+        self.env.filters["convert_markdown"] = functools.partial(do_convert_markdown, md)
 
 
 class BaseCollector(ABC):
