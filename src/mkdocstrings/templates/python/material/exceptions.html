@@ -11,7 +11,7 @@
     {% for exception in exceptions %}
       <tr>
         <td><code>{{ exception.annotation }}</code></td>
-        <td>{{ exception.description|convert_markdown }}</td>
+        <td>{{ exception.description|convert_markdown(heading_level) }}</td>
       </tr>
     {% endfor %}
   </tbody>

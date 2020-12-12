@@ -41,12 +41,24 @@ def test_multiple_footnotes():
             ::: tests.fixtures.footnotes.func_c
 
             [^aaa]: Top footnote
-            """
-        )
+            """,
+        ),
     )
     assert output.count("Footnote A") == 1
     assert output.count("Footnote B") == 1
     assert output.count("Top footnote") == 1
+
+
+def test_markdown_heading_level():
+    """Assert that Markdown headings' level doesn't exceed heading_level."""
+    config = dict(_DEFAULT_CONFIG)
+    config["mdx"].append(MkdocstringsExtension(config, Handlers(config)))
+    md = Markdown(extensions=config["mdx"])
+
+    output = md.convert("::: tests.fixtures.headings\n    rendering:\n      show_root_heading: true")
+    assert "<h3>Foo</h3>" in output
+    assert "<h5>Bar</h5>" in output
+    assert "<h6>Baz</h6>" in output
 
 
 def test_reference_inside_autodoc():
