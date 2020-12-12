@@ -17,8 +17,8 @@ from pathlib import Path
 from typing import Any, Dict, Optional, Sequence
 
 from jinja2 import Environment, FileSystemLoader
-from jinja2.filters import do_mark_safe
 from markdown import Markdown
+from markupsafe import Markup
 from pymdownx.highlight import Highlight
 
 from mkdocstrings.loggers import get_template_logger
@@ -68,8 +68,8 @@ def do_highlight(
     result = highlighter.highlight(src=src, language=language, linestart=line_start, inline=inline)
 
     if inline:
-        return do_mark_safe(f'<code class="highlight language-{language}">{result.text}</code>')
-    return do_mark_safe(result)
+        return Markup(f'<code class="highlight language-{language}">{result.text}</code>')
+    return Markup(result)
 
 
 def do_js_highlight(
@@ -102,8 +102,8 @@ def do_js_highlight(
         src = textwrap.dedent(src)
     if inline:
         src = re.sub(r"\n\s*", "", src)
-        return do_mark_safe(f'<code class="highlight">{src}</code>')
-    return do_mark_safe(f'<div class="highlight {language or ""}"><pre><code>\n{src}\n</code></pre></div>')
+        return Markup(f'<code class="highlight">{src}</code>')
+    return Markup(f'<div class="highlight {language or ""}"><pre><code>\n{src}\n</code></pre></div>')
 
 
 def do_any(seq: Sequence, attribute: str = None) -> bool:
@@ -198,7 +198,7 @@ class BaseRenderer(ABC):
         """
         # Re-instantiate md: see https://github.com/tomchristie/mkautodoc/issues/14
         md = Markdown(extensions=config["mdx"], extension_configs=config["mdx_configs"])
-        self.env.filters["convert_markdown"] = lambda text: do_mark_safe(md.convert(text))
+        self.env.filters["convert_markdown"] = lambda text: Markup(md.convert(text))
 
 
 class BaseCollector(ABC):
