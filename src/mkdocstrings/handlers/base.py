@@ -260,38 +260,85 @@ class BaseHandler:
         self.renderer = renderer
 
 
-def get_handler(
-    name: str,
-    theme: str,
-    custom_templates: Optional[str] = None,
-    **config: Any,
-) -> BaseHandler:
+class Handlers:
     """
-    Get a handler thanks to its name.
+    A collection of handlers.
 
-    This function dynamically imports a module named "mkdocstrings.handlers.NAME", calls its
-    `get_handler` method to get an instance of a handler, and caches it in dictionary.
-    It means that during one run (for each reload when serving, or once when building),
-    a handler is instantiated only once, and reused for each "autodoc" instruction asking for it.
-
-    Arguments:
-        name: The name of the handler. Really, it's the name of the Python module holding it.
-        theme: The name of the theme to use.
-        custom_templates: Directory containing custom templates.
-        config: Configuration passed to the handler.
-
-    Returns:
-        An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler],
-        as instantiated by the `get_handler` method of the handler's module.
+    Do not instantiate this directly. [The plugin][mkdocstrings.plugin.MkdocstringsPlugin] will keep one instance of
+    this for the purpose of caching. Use [mkdocstrings.plugin.MkdocstringsPlugin.get_handler][] for convenient access.
     """
-    if name not in handlers_cache:
-        module = importlib.import_module(f"mkdocstrings.handlers.{name}")
-        handlers_cache[name] = module.get_handler(theme, custom_templates, **config)  # type: ignore
-    return handlers_cache[name]
 
+    def __init__(self, config: dict) -> None:
+        """
+        Initialize the object.
 
-def teardown() -> None:
-    """Teardown all cached handlers and clear the cache."""
-    for handler in handlers_cache.values():
-        handler.collector.teardown()
-    handlers_cache.clear()
+        Arguments:
+            config: Configuration options for `mkdocs` and `mkdocstrings`, read from `mkdocs.yml`. See the source code
+                of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.
+        """
+        self._config = config
+        self._handlers: Dict[str, BaseHandler] = {}
+
+    def get_handler_name(self, config: dict) -> str:
+        """
+        Return the handler name defined in an "autodoc" instruction YAML configuration, or the global default handler.
+
+        Arguments:
+            config: A configuration dictionary, obtained from YAML below the "autodoc" instruction.
+
+        Returns:
+            The name of the handler to use.
+        """
+        config = self._config["mkdocstrings"]
+        if "handler" in config:
+            return config["handler"]
+        return config["default_handler"]
+
+    def get_handler_config(self, name: str) -> dict:
+        """
+        Return the global configuration of the given handler.
+
+        Arguments:
+            name: The name of the handler to get the global configuration of.
+
+        Returns:
+            The global configuration of the given handler. It can be an empty dictionary.
+        """
+        handlers = self._config["mkdocstrings"].get("handlers", {})
+        if handlers:
+            return handlers.get(name, {})
+        return {}
+
+    def get_handler(self, name: str, handler_config: Optional[dict] = None) -> BaseHandler:
+        """
+        Get a handler thanks to its name.
+
+        This function dynamically imports a module named "mkdocstrings.handlers.NAME", calls its
+        `get_handler` method to get an instance of a handler, and caches it in dictionary.
+        It means that during one run (for each reload when serving, or once when building),
+        a handler is instantiated only once, and reused for each "autodoc" instruction asking for it.
+
+        Arguments:
+            name: The name of the handler. Really, it's the name of the Python module holding it.
+            handler_config: Configuration passed to the handler.
+
+        Returns:
+            An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler],
+            as instantiated by the `get_handler` method of the handler's module.
+        """
+        if name not in self._handlers:
+            if handler_config is None:
+                handler_config = self.get_handler_config(name)
+            module = importlib.import_module(f"mkdocstrings.handlers.{name}")
+            self._handlers[name] = module.get_handler(
+                self._config["theme_name"],
+                self._config["mkdocstrings"]["custom_templates"],
+                **handler_config,
+            )  # type: ignore
+        return self._handlers[name]
+
+    def teardown(self):
+        """Teardown all cached handlers and clear the cache."""
+        for handler in self._handlers.values():
+            handler.collector.teardown()
+        self._handlers.clear()
