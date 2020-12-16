@@ -141,7 +141,7 @@ def do_convert_markdown(md: Markdown, text: str, heading_level: int) -> Markup:
         An HTML string.
     """
     md.treeprocessors["mkdocstrings_headings"].shift_by = heading_level
-    try:
+    try:  # noqa: WPS501 (no except)
         return Markup(md.convert(text))
     finally:
         md.treeprocessors["mkdocstrings_headings"].shift_by = 0
@@ -399,5 +399,7 @@ class ShiftHeadingsExtension(Extension):
         """
         md.registerExtension(self)
         md.treeprocessors.register(
-            _HeadingShiftingTreeprocessor(md, 0), "mkdocstrings_headings", self.treeprocessor_priority
+            _HeadingShiftingTreeprocessor(md, 0),
+            "mkdocstrings_headings",
+            self.treeprocessor_priority,
         )
