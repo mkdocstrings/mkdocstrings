@@ -97,6 +97,26 @@ Version 2.11.1 seems to be working fine.
 
 ## Python specifics
 
+### Footnotes are duplicated or overridden
+
+MkDocstrings renders each docstring separately, in isolation.
+It means that it doesn't keep track of what footnotes were already rendered before
+when rendering a docstring, so the footnotes ID can be duplicated.
+In the end, it means that footnotes with the same ID could
+override each other, or create other issues.
+
+To circumvent this, try to use different IDs
+for footnotes that will be rendered in the same Markdown page.
+
+Note that this only happens when using footnotes in docstrings,
+and rendering these docstrings in the *same* Markdown page.
+You can still write footnotes normally in the Markdown page itself.
+
+See also:
+
+- [Issue #186](https://github.com/pawamoy/mkdocstrings/issues/186)
+- [Tabs in docstrings (from `pymdownx.tabbed`) are not working properly](#tabs-in-docstrings-from-pymdownxtabbed-are-not-working-properly).
+
 ### LaTeX in docstrings is not rendered correctly
 
 If you are using a Markdown extension like
@@ -196,3 +216,23 @@ def my_function(*args, **kwargs):
 [inspect]: https://docs.python.org/3/library/inspect.html
 [ast]: https://docs.python.org/3/library/ast.html
 [markdown-katex]: https://gitlab.com/mbarkhau/markdown-katex
+
+### Tabs in docstrings (from `pymdownx.tabbed`) are not working properly
+
+MkDocstrings renders each docstring separately, in isolation.
+It means that it doesn't keep track of what tabs were already rendered before
+when rendering a docstring, so the tabs ID can be duplicated.
+In the end, it means that tabs with the same title will always
+link to the first tab with this title on the page.
+
+To circumvent this, try to use different titles
+for tabs that will be rendered in the same Markdown page.
+
+Note that this only happens when using tabs in docstrings,
+and rendering these docstrings in the *same* Markdown page.
+You can still write tabs normally in the Markdown page itself.
+
+See also:
+
+- [Issue #193](https://github.com/pawamoy/mkdocstrings/issues/193)
+- [Footnotes are duplicated or overridden](#footnotes-are-duplicated-or-overridden).

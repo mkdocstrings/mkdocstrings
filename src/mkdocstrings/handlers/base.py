@@ -9,16 +9,20 @@ It also provides two methods:
 - `teardown`, that will teardown all the cached handlers, and then clear the cache.
 """
 
+import functools
 import importlib
 import re
 import textwrap
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any, Dict, Optional, Sequence
+from xml.etree.ElementTree import Element  # noqa: S405 (we choose to trust the XML input)
 
 from jinja2 import Environment, FileSystemLoader
-from jinja2.filters import do_mark_safe
 from markdown import Markdown
+from markdown.extensions import Extension
+from markdown.treeprocessors import Treeprocessor
+from markupsafe import Markup
 from pymdownx.highlight import Highlight
 
 from mkdocstrings.loggers import get_template_logger
@@ -68,8 +72,8 @@ def do_highlight(
     result = highlighter.highlight(src=src, language=language, linestart=line_start, inline=inline)
 
     if inline:
-        return do_mark_safe(f'<code class="highlight language-{language}">{result.text}</code>')
-    return do_mark_safe(result)
+        return Markup(f'<code class="highlight language-{language}">{result.text}</code>')
+    return Markup(result)
 
 
 def do_js_highlight(
@@ -102,8 +106,8 @@ def do_js_highlight(
         src = textwrap.dedent(src)
     if inline:
         src = re.sub(r"\n\s*", "", src)
-        return do_mark_safe(f'<code class="highlight">{src}</code>')
-    return do_mark_safe(f'<div class="highlight {language or ""}"><pre><code>\n{src}\n</code></pre></div>')
+        return Markup(f'<code class="highlight">{src}</code>')
+    return Markup(f'<div class="highlight {language or ""}"><pre><code>\n{src}\n</code></pre></div>')
 
 
 def do_any(seq: Sequence, attribute: str = None) -> bool:
@@ -122,6 +126,26 @@ def do_any(seq: Sequence, attribute: str = None) -> bool:
     if attribute is None:
         return any(seq)
     return any(_[attribute] for _ in seq)
+
+
+def do_convert_markdown(md: Markdown, text: str, heading_level: int) -> Markup:
+    """
+    Render Markdown text; for use inside templates.
+
+    Arguments:
+        md: A `markdown.Markdown` instance.
+        text: The text to convert.
+        heading_level: The base heading level to start all Markdown headings from.
+
+    Returns:
+        An HTML string.
+    """
+    md.treeprocessors["mkdocstrings_headings"].shift_by = heading_level
+    try:  # noqa: WPS501 (no except)
+        return Markup(md.convert(text))
+    finally:
+        md.treeprocessors["mkdocstrings_headings"].shift_by = 0
+        md.reset()
 
 
 class BaseRenderer(ABC):
@@ -197,8 +221,9 @@ class BaseRenderer(ABC):
                 of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.
         """
         # Re-instantiate md: see https://github.com/tomchristie/mkautodoc/issues/14
-        md = Markdown(extensions=config["mdx"], extension_configs=config["mdx_configs"])
-        self.env.filters["convert_markdown"] = lambda text: do_mark_safe(md.convert(text))
+        md = Markdown(extensions=config["mdx"] + [ShiftHeadingsExtension()], extension_configs=config["mdx_configs"])
+
+        self.env.filters["convert_markdown"] = functools.partial(do_convert_markdown, md)
 
 
 class BaseCollector(ABC):
@@ -342,3 +367,39 @@ class Handlers:
         for handler in self._handlers.values():
             handler.collector.teardown()
         self._handlers.clear()
+
+
+class _HeadingShiftingTreeprocessor(Treeprocessor):
+    def __init__(self, md, shift_by: int):
+        super().__init__(md)
+        self.shift_by = shift_by
+
+    def run(self, root: Element):
+        if not self.shift_by:
+            return
+        for el in root.iter():
+            match = re.fullmatch(r"([Hh])([1-6])", el.tag)
+            if match:
+                level = int(match[2]) + self.shift_by
+                level = max(1, min(level, 6))
+                el.tag = f"{match[1]}{level}"
+
+
+class ShiftHeadingsExtension(Extension):
+    """Shift levels of all Markdown headings according to the configured base level."""
+
+    treeprocessor_priority = 12
+
+    def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
+        """
+        Register the extension, with a treeprocessor under the name 'mkdocstrings_headings'.
+
+        Arguments:
+            md: A `markdown.Markdown` instance.
+        """
+        md.registerExtension(self)
+        md.treeprocessors.register(
+            _HeadingShiftingTreeprocessor(md, 0),
+            "mkdocstrings_headings",
+            self.treeprocessor_priority,
+        )
