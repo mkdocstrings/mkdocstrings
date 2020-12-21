@@ -7,7 +7,7 @@ from xml.etree.ElementTree import Element  # noqa: S405 (input is our own, and M
 
 from markdown.inlinepatterns import REFERENCE_RE, ReferenceInlineProcessor
 
-AUTO_REF_RE = re.compile(r'<span data-mkdocstrings-identifier="(?P<identifier>[^"<>]*)">(?P<title>.*?)</span>')
+AUTO_REF_RE = re.compile(r'<span data-mkdocstrings-identifier=("?)(?P<identifier>[^"<>]*)\1>(?P<title>.*?)</span>')
 """
 A regular expression to match mkdocstrings' special reference markers
 in the [`on_post_page` hook][mkdocstrings.plugin.MkdocstringsPlugin.on_post_page].
