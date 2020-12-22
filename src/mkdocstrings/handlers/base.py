@@ -380,7 +380,7 @@ class _IdPrependingTreeprocessor(Treeprocessor):
         super().__init__(md)
         self.id_prefix = id_prefix
 
-    def run(self, root: Element):
+    def run(self, root: Element):  # noqa: WPS231 (not complex)
         if not self.id_prefix:
             return
         for el in root.iter():
