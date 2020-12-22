@@ -2,6 +2,7 @@
 {% if config.show_if_no_docstring or module.has_contents %}
 
   <div class="doc doc-object doc-module">
+  {% with html_id = module.path %}
 
     {% if not root or config.show_root_heading %}
 
@@ -16,7 +17,7 @@
       {% endif %}
 
       <h{{ heading_level }}
-          id="{{ module.path }}"
+          id="{{ html_id }}"
           class="doc doc-heading"
           data-toc-label="{{ module.name }}">
 
@@ -31,8 +32,8 @@
     {% else %}
       {% if config.show_root_toc_entry %}
         <h{{ heading_level }} class="hidden-toc"
-            href="#{{ module.path }}"
-            id="{{ module.path }}"
+            href="#{{ html_id }}"
+            id="{{ html_id }}"
             data-toc-label="{{ module.path }}"
             style="visibility: hidden; position: absolute;">
         </h{{ heading_level }}>
@@ -52,6 +53,7 @@
       {% endwith %}
     </div>
 
+  {% endwith %}
   </div>
 
 {% endif %}

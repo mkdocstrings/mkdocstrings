@@ -128,7 +128,7 @@ def do_any(seq: Sequence, attribute: str = None) -> bool:
     return any(_[attribute] for _ in seq)
 
 
-def do_convert_markdown(md: Markdown, text: str, heading_level: int) -> Markup:
+def do_convert_markdown(md: Markdown, text: str, heading_level: int, html_id: str = "") -> Markup:
     """
     Render Markdown text; for use inside templates.
 
@@ -136,15 +136,18 @@ def do_convert_markdown(md: Markdown, text: str, heading_level: int) -> Markup:
         md: A `markdown.Markdown` instance.
         text: The text to convert.
         heading_level: The base heading level to start all Markdown headings from.
+        html_id: The HTML id of the element that's considered the parent of this element.
 
     Returns:
         An HTML string.
     """
     md.treeprocessors["mkdocstrings_headings"].shift_by = heading_level
+    md.treeprocessors["mkdocstrings_ids"].id_prefix = html_id and html_id + "--"
     try:  # noqa: WPS501 (no except)
         return Markup(md.convert(text))
     finally:
         md.treeprocessors["mkdocstrings_headings"].shift_by = 0
+        md.treeprocessors["mkdocstrings_ids"].id_prefix = ""
         md.reset()
 
 
@@ -221,7 +224,10 @@ class BaseRenderer(ABC):
                 of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.
         """
         # Re-instantiate md: see https://github.com/tomchristie/mkautodoc/issues/14
-        md = Markdown(extensions=config["mdx"] + [ShiftHeadingsExtension()], extension_configs=config["mdx_configs"])
+        md = Markdown(
+            extensions=config["mdx"] + [ShiftHeadingsExtension(), PrefixIdsExtension()],
+            extension_configs=config["mdx_configs"],
+        )
 
         self.env.filters["convert_markdown"] = functools.partial(do_convert_markdown, md)
 
@@ -367,6 +373,53 @@ class Handlers:
         for handler in self._handlers.values():
             handler.collector.teardown()
         self._handlers.clear()
+
+
+class _IdPrependingTreeprocessor(Treeprocessor):
+    def __init__(self, md, id_prefix: str):
+        super().__init__(md)
+        self.id_prefix = id_prefix
+
+    def run(self, root: Element):
+        if not self.id_prefix:
+            return
+        for el in root.iter():
+            id_attr = el.get("id")
+            if id_attr:
+                el.set("id", self.id_prefix + id_attr)
+
+            href_attr = el.get("href")
+            if href_attr and href_attr.startswith("#"):
+                el.set("href", "#" + self.id_prefix + href_attr[1:])
+
+            name_attr = el.get("name")
+            if name_attr:
+                el.set("name", self.id_prefix + name_attr)
+
+            if el.tag == "label":
+                for_attr = el.get("for")
+                if for_attr:
+                    el.set("for", self.id_prefix + for_attr)
+
+
+class PrefixIdsExtension(Extension):
+    """Prepend the configured prefix to IDs of all HTML elements."""
+
+    treeprocessor_priority = 4  # Right after 'toc'.
+
+    def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
+        """
+        Register the extension, with a treeprocessor under the name 'mkdocstrings_ids'.
+
+        Arguments:
+            md: A `markdown.Markdown` instance.
+        """
+        md.registerExtension(self)
+        md.treeprocessors.register(
+            _IdPrependingTreeprocessor(md, ""),
+            "mkdocstrings_ids",
+            self.treeprocessor_priority,
+        )
 
 
 class _HeadingShiftingTreeprocessor(Treeprocessor):

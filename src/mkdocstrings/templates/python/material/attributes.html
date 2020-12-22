@@ -13,7 +13,7 @@
       <tr>
         <td><code>{{ attribute.name }}</code></td>
         <td><code>{{ attribute.annotation }}</code></td>
-        <td>{{ attribute.description|convert_markdown(heading_level) }}</td>
+        <td>{{ attribute.description|convert_markdown(heading_level, html_id) }}</td>
       </tr>
     {% endfor %}
   </tbody>
