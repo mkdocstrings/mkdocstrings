@@ -190,7 +190,11 @@ class BaseRenderer(ABC):
         if self.fallback_theme != "":
             paths.append(themes_dir / self.fallback_theme)
 
-        self.env = Environment(autoescape=True, loader=FileSystemLoader(paths))  # type: ignore
+        self.env = Environment(
+            autoescape=True,
+            loader=FileSystemLoader(paths),
+            auto_reload=False,  # Editing a template in the middle of a build is not useful.
+        )  # type: ignore
         self.env.filters["any"] = do_any
         self.env.globals["log"] = get_template_logger()
 
