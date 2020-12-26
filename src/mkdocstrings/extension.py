@@ -110,6 +110,7 @@ class AutoDocProcessor(BlockProcessor):
         self.md = md
         self._config = config
         self._handlers = handlers
+        self._updated_env = False
 
     def test(self, parent: Element, block: Element) -> bool:
         """
@@ -199,8 +200,10 @@ class AutoDocProcessor(BlockProcessor):
             log.error(f"Could not collect '{identifier}'")
             raise
 
-        log.debug("Updating renderer's env")
-        handler.renderer.update_env(self.md, self._config)
+        if not self._updated_env:
+            log.debug("Updating renderer's env")
+            handler.renderer.update_env(self.md, self._config)
+            self._updated_env = True
 
         log.debug("Rendering templates")
         try:
