@@ -1,31 +1,31 @@
 {{ log.debug() }}
-{% if signature %}
-  {% with %}
-    {% set ns = namespace(render_pos_only_separator=True, render_kw_only_separator=True, equal="=") %}
+{%- if signature -%}
+  {%- with -%}
+    {%- set ns = namespace(render_pos_only_separator=True, render_kw_only_separator=True, equal="=") -%}
 
-    {% if config.show_signature_annotations %}
-      {% set ns.equal = " = " %}
-    {% endif %}
+    {%- if config.show_signature_annotations -%}
+      {%- set ns.equal = " = " -%}
+    {%- endif -%}
 
-    ({% for parameter in signature.parameters %}{% if parameter.kind == "POSITIONAL_ONLY" %}
-      {% if ns.render_pos_only_separator %}
-        {% set ns.render_pos_only_separator = False %}/, {% endif %}
-      {% elif parameter.kind == "KEYWORD_ONLY" %}
-        {% if ns.render_kw_only_separator %}
-          {% set ns.render_kw_only_separator = False %}*, {% endif %}
-      {% endif %}
-      {% if config.show_signature_annotations and "annotation" in parameter %}
-        {% set annotation = ": " + parameter.annotation|safe %}
-      {% endif %}
-      {% if "default" in parameter %}
-        {% set default = ns.equal + parameter.default|safe %}
-      {% endif %}
-      {% if parameter.kind == "VAR_POSITIONAL" %}*
-        {% set render_kw_only_separator = False %}
-      {% elif parameter.kind == "VAR_KEYWORD" %}**
-      {% endif %}{{ parameter.name }}{{ annotation }}{{ default }}{% if not loop.last %}, {% endif %}
-    {% endfor %}){% if config.show_signature_annotations and "return_annotation" in signature %} -> {{ signature.return_annotation }}
-    {% endif %}
+    ({%- for parameter in signature.parameters %}{% if parameter.kind == "POSITIONAL_ONLY" -%}
+      {%- if ns.render_pos_only_separator -%}
+        {%- set ns.render_pos_only_separator = False %}/, {% endif -%}
+      {%- elif parameter.kind == "KEYWORD_ONLY" -%}
+        {%- if ns.render_kw_only_separator -%}
+          {%- set ns.render_kw_only_separator = False %}*, {% endif -%}
+      {%- endif -%}
+      {%- if config.show_signature_annotations and "annotation" in parameter -%}
+        {%- set annotation = ": " + parameter.annotation|safe -%}
+      {%- endif -%}
+      {%- if "default" in parameter -%}
+        {%- set default = ns.equal + parameter.default|safe -%}
+      {%- endif -%}
+      {%- if parameter.kind == "VAR_POSITIONAL" %}*
+        {%- set render_kw_only_separator = False -%}
+      {%- elif parameter.kind == "VAR_KEYWORD" %}**
+      {%- endif %}{{ parameter.name }}{{ annotation }}{{ default }}{% if not loop.last %}, {% endif -%}
+    {%- endfor %}){% if config.show_signature_annotations and "return_annotation" in signature %} -> {{ signature.return_annotation }}
+    {%- endif -%}
 
-  {% endwith %}
-{% endif %}
+  {%- endwith -%}
+{%- endif -%}

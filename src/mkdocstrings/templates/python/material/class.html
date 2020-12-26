@@ -48,7 +48,7 @@
       {% if config.show_source and class.source %}
         <details class="quote">
           <summary>Source code in <code>{{ class.relative_file_path }}</code></summary>
-          {{ class.source.code|highlight(language="python", line_start=class.source.line_start) }}
+          {{ class.source.code|highlight(language="python", linestart=class.source.line_start, linenums=False) }}
         </details>
       {% endif %}
 
