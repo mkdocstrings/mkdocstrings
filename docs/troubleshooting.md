@@ -97,6 +97,26 @@ Version 2.11.1 seems to be working fine.
 
 ## Python specifics
 
+### Footnotes are duplicated or overridden
+
+MkDocstrings renders each docstring separately, in isolation.
+It means that it doesn't keep track of what footnotes were already rendered before
+when rendering a docstring, so the footnotes ID can be duplicated.
+In the end, it means that footnotes with the same ID could
+override each other, or create other issues.
+
+To circumvent this, try to use different IDs
+for footnotes that will be rendered in the same Markdown page.
+
+Note that this only happens when using footnotes in docstrings,
+and rendering these docstrings in the *same* Markdown page.
+You can still write footnotes normally in the Markdown page itself.
+
+See also:
+
+- [Issue #186](https://github.com/pawamoy/mkdocstrings/issues/186)
+- [Tabs in docstrings (from `pymdownx.tabbed`) are not working properly](#tabs-in-docstrings-from-pymdownxtabbed-are-not-working-properly).
+
 ### LaTeX in docstrings is not rendered correctly
 
 If you are using a Markdown extension like
@@ -196,3 +216,68 @@ def my_function(*args, **kwargs):
 [inspect]: https://docs.python.org/3/library/inspect.html
 [ast]: https://docs.python.org/3/library/ast.html
 [markdown-katex]: https://gitlab.com/mbarkhau/markdown-katex
+
+### Tabs in docstrings (from `pymdownx.tabbed`) are not working properly
+
+MkDocstrings renders each docstring separately, in isolation.
+It means that it doesn't keep track of what tabs were already rendered before
+when rendering a docstring, so the tabs ID can be duplicated.
+In the end, it means that tabs with the same title will always
+link to the first tab with this title on the page.
+
+To circumvent this, try to use different titles
+for tabs that will be rendered in the same Markdown page,
+or use the JavaScript workaround below.
+
+Note that this only happens when using tabs in docstrings,
+and rendering these docstrings in the *same* Markdown page.
+You can still write tabs normally in the Markdown page itself.
+
+See also:
+
+- [Issue #193](https://github.com/pawamoy/mkdocstrings/issues/193)
+- [Footnotes are duplicated or overridden](#footnotes-are-duplicated-or-overridden).
+
+**JavaScript workaround:**
+
+Put the following code in a .js file,
+and list it in MkDocs' `extra_javascript`: 
+
+```javascript
+// Credits to Nikolaos Zioulis (@zuru on GitHub)
+function setID(){
+    var tabs = document.getElementsByClassName("tabbed-set");
+    for (var i = 0; i < tabs.length; i++) {
+        children = tabs[i].children;
+        var counter = 0;
+        var iscontent = 0;
+        for(var j = 0; j < children.length;j++){
+            if(typeof children[j].htmlFor === 'undefined'){
+                if((iscontent + 1) % 2 == 0){
+                    // check if it is content
+                    if(iscontent == 1){
+                        btn = children[j].childNodes[1].getElementsByTagName("button");
+                    }
+                }
+                else{
+                    // if not change the id
+                    children[j].id = "__tabbed_" + String(i + 1) + "_" + String(counter + 1);
+                    children[j].name = "__tabbed_" + String(i + 1);
+                    // make default tab open
+                    if(j == 0)
+                        children[j].click();
+                }
+                iscontent++;
+            }
+            else{
+                // link to the correct tab
+                children[j].htmlFor = "__tabbed_" + String(i+1) + "_" + String(counter + 1);
+                counter ++;
+            }
+        }
+    }
+}
+setID();
+```
+
+This code will correctly reset the IDs for tabs on a same page.

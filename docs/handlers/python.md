@@ -44,7 +44,7 @@ Option | Type | Description | Default
 **`filters`** | `list of str` | List of filtering regular expressions. Prefix with `!` to exclude objects whose name match. The default means *exclude private members*. | `["!^_[^_]"]`
 **`members`** | `bool`, or `list of str` | Explicitly select members. True means *all*, false means *none*. | `True`
 **`inherited_members`** | `bool` | Also select members inherited from parent classes. | `False`
-**`docstring_style`** | `str` | Docstring style to parse. `pytkdocs` only supports `google` yet. | `"google"`
+**`docstring_style`** | `str` | Docstring style to parse. `pytkdocs` supports `google` and `restructured-text`. | `"google"`
 **`docstring_options`** | `dict` | Options to pass to the docstring parser. See [Collector: pytkdocs](#collector-pytkdocs) | `{}`
 **`new_path_syntax`** | `bool` | Whether to use the new "colon" path syntax when importing objects. | `False`
 
@@ -107,7 +107,7 @@ It stands for *(Python) Take Docs*, and is supposed to be a pun on MkDocs (*Make
 
 ### Supported docstrings styles
 
-Right now, `pytkdocs` supports only the Google-style docstring format.
+Right now, `pytkdocs` supports the Google-style and reStrcuturedText-style docstring formats.
 
 #### Google-style
 
@@ -201,7 +201,42 @@ Type annotations are read both in the code and in the docstrings.
 !!! example "Example with a function"
     **Expand the source at the end to see the original code!**
     
-    ::: snippets.function_annotations:my_function
+    ::: snippets.function_annotations_google:my_function
+        rendering:
+          show_root_heading: no
+          show_root_toc_entry: no
+
+#### reStructuredText-style
+
+You can see examples of reStructuredText-style docstrings
+in [Sphinx's documentation](https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html).
+
+##### Sections
+
+Docstrings directives are parsed by `pytkdocs` and rendered by MkDocstrings.
+Supported directives are:
+
+- `param` (or `parameter`, `arg`, `argument`, `key`, `keyword`)
+- `type`
+- `raises` (or `raise`, `except`, `exception`)
+- `var` (or `ivar`, `cvar`)
+- `vartype`
+- `returns` (or `return1`)
+- `rtype`
+
+Details about how to use each directive can be found in the
+[Sphinx domain documentation](https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html?highlight=python%20domain#info-field-lists)
+
+##### Annotations
+
+Type annotations are read both in the code and in the docstrings.
+
+!!! example "Example with a function"
+    **Expand the source at the end to see the original code!**
+    
+    ::: snippets.function_annotations_rst:my_function
+        selection:
+            docstring_style: "restructured-text"
         rendering:
           show_root_heading: no
           show_root_toc_entry: no

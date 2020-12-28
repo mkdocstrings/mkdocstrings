@@ -10,7 +10,7 @@
       <td class="field-body">
         <ul class="first simple">
           {% for exception in exceptions %}
-            <li>{{ ("`" + exception.annotation + "` – " + exception.description)|convert_markdown }}</li>
+            <li>{{ ("`" + exception.annotation + "` – " + exception.description)|convert_markdown(heading_level, html_id) }}</li>
           {% endfor %}
         </ul>
       </td>

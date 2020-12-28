@@ -10,7 +10,7 @@
   <tbody>
     <tr>
       <td><code>{{ return.annotation }}</code></td>
-      <td>{{ return.description|convert_markdown }}</td>
+      <td>{{ return.description|convert_markdown(heading_level, html_id) }}</td>
     </tr>
   </tbody>
 </table>

@@ -2,7 +2,7 @@
 {% if docstring_sections %}
   {% for section in docstring_sections %}
     {% if section.type == "markdown" %}
-      {{ section.value|convert_markdown }}
+      {{ section.value|convert_markdown(heading_level, html_id) }}
     {% elif section.type == "attributes" %}
       {% with attributes = section.value %}
         {% include "attributes.html" with context %}

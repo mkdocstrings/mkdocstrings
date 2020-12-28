@@ -14,7 +14,7 @@
       <tr>
         <td><code>{{ parameter.name }}</code></td>
         <td><code>{{ parameter.annotation }}</code></td>
-        <td>{{ parameter.description|convert_markdown }}</td>
+        <td>{{ parameter.description|convert_markdown(heading_level, html_id) }}</td>
         <td>{% if parameter.default %}<code>{{ parameter.default }}</code>{% else %}<em>required</em>{% endif %}</td>
       </tr>
     {% endfor %}
