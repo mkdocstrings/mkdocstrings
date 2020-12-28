@@ -254,19 +254,25 @@ def log_xml_parse_error(error: str, xml_text: str) -> None:
         xml_text: The XML text that generated the parsing error.
     """
     message = error
-    if "mismatched tag" in error:
+    mismatched_tag = "mismatched tag" in error
+    undefined_entity = "undefined entity" in error
+
+    if mismatched_tag or undefined_entity:
         line_column = error[error.rfind(":") + 1 :]
         line, column = line_column.split(", ")
         lineno = int(line[line.rfind(" ") + 1 :])
         columnno = int(column[column.rfind(" ") + 1 :])
 
         line = xml_text.split("\n")[lineno - 1]
-        character = line[columnno]
-        message += (
-            f" (character {character}):\n{line}\n"
-            "If your Markdown contains angle brackets < >, try to wrap them between backticks `< >`, "
-            "or replace them with &lt; and &gt;"
-        )
+        if mismatched_tag:
+            character = line[columnno]
+            message += (
+                f" (character {character}):\n{line}\n"
+                "If your Markdown contains angle brackets < >, try to wrap them between backticks `< >`, "
+                "or replace them with &lt; and &gt;"
+            )
+        elif undefined_entity:
+            message += f":\n{line}\n"
     log.error(message)
 
 
