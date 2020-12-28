@@ -43,16 +43,17 @@ log = get_logger(__name__)
 
 ENTITIES = """
     <!DOCTYPE html [
-        <!ENTITY nbsp '&amp;nbsp;'>
-        <!ENTITY lsquo '&amp;lsquo;'>
-        <!ENTITY rsquo '&amp;rsquo;'>
-        <!ENTITY ldquo '&amp;ldquo;'>
-        <!ENTITY rdquo '&amp;rdquo;'>
-        <!ENTITY laquo '&amp;laquo;'>
-        <!ENTITY raquo '&amp;raquo;'>
         <!ENTITY hellip '&amp;hellip;'>
-        <!ENTITY ndash '&amp;ndash;'>
+        <!ENTITY laquo '&amp;laquo;'>
+        <!ENTITY ldquo '&amp;ldquo;'>
+        <!ENTITY lsquo '&amp;lsquo;'>
         <!ENTITY mdash '&amp;mdash;'>
+        <!ENTITY nbsp '&amp;nbsp;'>
+        <!ENTITY ndash '&amp;ndash;'>
+        <!ENTITY para '&amp;para;'>
+        <!ENTITY raquo '&amp;raquo;'>
+        <!ENTITY rdquo '&amp;rdquo;'>
+        <!ENTITY rsquo '&amp;rsquo;'>
     ]>
 """
 
@@ -216,8 +217,9 @@ class AutoDocProcessor(BlockProcessor):
             raise
 
         log.debug("Loading HTML back into XML tree")
+        rendered = ENTITIES + rendered
         try:
-            xml_contents = XML(ENTITIES + rendered)
+            xml_contents = XML(rendered)
         except ParseError as error:
             log_xml_parse_error(str(error), rendered)
             raise
