@@ -277,9 +277,6 @@ class MkdocstringsExtension(Extension):
     It cannot work outside of `mkdocstrings`.
     """
 
-    blockprocessor_priority = 75  # Right before markdown.blockprocessors.HashHeaderProcessor
-    inlineprocessor_priority = 168  # Right after markdown.inlinepatterns.ReferenceInlineProcessor
-
     def __init__(self, config: dict, handlers: Handlers, **kwargs) -> None:
         """
         Initialize the object.
@@ -303,8 +300,13 @@ class MkdocstringsExtension(Extension):
         Arguments:
             md: A `markdown.Markdown` instance.
         """
-        md.registerExtension(self)
-        processor = AutoDocProcessor(md.parser, md, self._config, self._handlers)
-        md.parser.blockprocessors.register(processor, "mkdocstrings", self.blockprocessor_priority)
-        ref_processor = AutoRefInlineProcessor(md)
-        md.inlinePatterns.register(ref_processor, "mkdocstrings", self.inlineprocessor_priority)
+        md.parser.blockprocessors.register(
+            AutoDocProcessor(md.parser, md, self._config, self._handlers),
+            "mkdocstrings",
+            priority=75,  # Right before markdown.blockprocessors.HashHeaderProcessor
+        )
+        md.inlinePatterns.register(
+            AutoRefInlineProcessor(md),
+            "mkdocstrings",
+            priority=168,  # Right after markdown.inlinepatterns.ReferenceInlineProcessor
+        )

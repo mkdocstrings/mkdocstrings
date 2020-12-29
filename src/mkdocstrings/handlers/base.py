@@ -227,7 +227,7 @@ class BaseRenderer(ABC):
             config: Configuration options for `mkdocs` and `mkdocstrings`, read from `mkdocs.yml`. See the source code
                 of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.
         """
-        extensions = config["mdx"] + [ShiftHeadingsExtension(), PrefixIdsExtension()]
+        extensions = config["mdx"] + [_MkdocstringsInnerExtension()]
         configs = dict(config["mdx_configs"])
         # Prevent a bug that happens due to treeprocessors running on the same fragment both as the inner doc and as
         # part of the re-integrated doc. Namely, the permalink '¶' would be appended twice. This is the only known
@@ -412,28 +412,10 @@ class _IdPrependingTreeprocessor(Treeprocessor):
                     el.set("for", self.id_prefix + for_attr)
 
 
-class PrefixIdsExtension(Extension):
-    """Prepend the configured prefix to IDs of all HTML elements."""
-
-    treeprocessor_priority = 4  # Right after 'toc' (needed because that extension adds ids to headers).
-
-    def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
-        """
-        Register the extension, with a treeprocessor under the name 'mkdocstrings_ids'.
-
-        Arguments:
-            md: A `markdown.Markdown` instance.
-        """
-        md.registerExtension(self)
-        md.treeprocessors.register(
-            _IdPrependingTreeprocessor(md, ""),
-            "mkdocstrings_ids",
-            self.treeprocessor_priority,
-        )
-
-
 class _HeadingShiftingTreeprocessor(Treeprocessor):
-    def __init__(self, md, shift_by: int):
+    regex = re.compile(r"([Hh])([1-6])")
+
+    def __init__(self, md: Markdown, shift_by: int):
         super().__init__(md)
         self.shift_by = shift_by
 
@@ -441,21 +423,17 @@ class _HeadingShiftingTreeprocessor(Treeprocessor):
         if not self.shift_by:
             return
         for el in root.iter():
-            match = re.fullmatch(r"([Hh])([1-6])", el.tag)
+            match = self.regex.fullmatch(el.tag)
             if match:
                 level = int(match[2]) + self.shift_by
                 level = max(1, min(level, 6))
                 el.tag = f"{match[1]}{level}"
 
 
-class ShiftHeadingsExtension(Extension):
-    """Shift levels of all Markdown headings according to the configured base level."""
-
-    treeprocessor_priority = 12
-
+class _MkdocstringsInnerExtension(Extension):
     def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
         """
-        Register the extension, with a treeprocessor under the name 'mkdocstrings_headings'.
+        Register the extension.
 
         Arguments:
             md: A `markdown.Markdown` instance.
@@ -464,5 +442,10 @@ class ShiftHeadingsExtension(Extension):
         md.treeprocessors.register(
             _HeadingShiftingTreeprocessor(md, 0),
             "mkdocstrings_headings",
-            self.treeprocessor_priority,
+            priority=12,
+        )
+        md.treeprocessors.register(
+            _IdPrependingTreeprocessor(md, ""),
+            "mkdocstrings_ids",
+            priority=4,  # Right after 'toc' (needed because that extension adds ids to headers).
         )
