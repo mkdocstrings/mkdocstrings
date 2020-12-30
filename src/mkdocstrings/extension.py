@@ -93,7 +93,6 @@ class AutoDocProcessor(BlockProcessor):
     a matched block.
     """
 
-    classname = "autodoc"
     regex = re.compile(r"^(?P<heading>#{1,6} *|)::: ?(?P<name>.+?) *$", flags=re.MULTILINE)
 
     def __init__(self, parser: BlockParser, md: Markdown, config: dict, handlers: Handlers) -> None:
@@ -125,13 +124,7 @@ class AutoDocProcessor(BlockProcessor):
             Whether this block should be processed or not.
         """
         sibling = self.lastChild(parent)
-        bool1 = self.regex.search(str(block))
-        bool2 = (
-            str(block).startswith(" " * self.tab_length)
-            and sibling is not None
-            and sibling.get("class", "").find(self.classname) != -1
-        )
-        return bool(bool1 or bool2)
+        return bool(self.regex.search(str(block)))
 
     def run(self, parent: Element, blocks: Element) -> None:
         """
