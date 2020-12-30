@@ -35,7 +35,6 @@
     {% else %}
       {% if config.show_root_toc_entry %}
         <h{{ heading_level }} class="hidden-toc"
-            href="#{{ html_id }}"
             id="{{ html_id }}"
             data-toc-label="{{ function.path }}"
             style="visibility: hidden; position: absolute;">
