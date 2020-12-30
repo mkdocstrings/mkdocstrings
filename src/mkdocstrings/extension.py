@@ -148,6 +148,8 @@ class AutoDocProcessor(BlockProcessor):
         match = self.regex.search(str(block))
 
         if match:
+            if match.start() > 0:
+                self.parser.parseBlocks(parent, [block[: match.start()]])
             # removes the first line
             block = block[match.end() :]  # type: ignore
 
