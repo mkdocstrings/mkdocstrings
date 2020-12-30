@@ -23,9 +23,11 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`httpx`](https://github.com/encode/httpx) |
 [`ipython`](https://ipython.org) |
 [`isort`](https://github.com/timothycrosley/isort) |
+[`Jinja2`](https://palletsprojects.com/p/jinja/) |
 [`jinja2-cli`](https://github.com/mattrobenolt/jinja2-cli) |
 [`Markdown`](https://Python-Markdown.github.io/) |
 [`markdown-include`](https://github.com/cmacmackin/markdown-include/) |
+[`MarkupSafe`](https://palletsprojects.com/p/markupsafe/) |
 [`mkdocs`](https://www.mkdocs.org) |
 [`mkdocs-material`](https://squidfunk.github.io/mkdocs-material/) |
 [`mypy`](http://www.mypy-lang.org/) |
@@ -50,7 +52,6 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`attrs`](https://www.attrs.org/) |
 [`backcall`](https://github.com/takluyver/backcall) |
 [`bandit`](https://bandit.readthedocs.io/en/latest/) |
-[`beautifulsoup4`](http://www.crummy.com/software/BeautifulSoup/bs4/) |
 [`certifi`](https://certifiio.readthedocs.io/en/latest/) |
 [`chardet`](https://github.com/chardet/chardet) |
 [`click`](https://palletsprojects.com/p/click/) |
@@ -91,12 +92,10 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`iniconfig`](http://github.com/RonnyPfannschmidt/iniconfig) |
 [`ipython-genutils`](http://ipython.org) |
 [`jedi`](https://github.com/davidhalter/jedi) |
-[`Jinja2`](https://palletsprojects.com/p/jinja/) |
 [`joblib`](https://joblib.readthedocs.io) |
 [`lazy-object-proxy`](https://github.com/ionelmc/python-lazy-object-proxy) |
 [`livereload`](https://github.com/lepture/python-livereload) |
 [`lunr`](https://github.com/yeraydiazdiaz/lunr.py) |
-[`MarkupSafe`](https://palletsprojects.com/p/markupsafe/) |
 [`mccabe`](https://github.com/pycqa/mccabe) |
 [`mkdocs-material-extensions`](https://github.com/facelessuser/mkdocs-material-extensions) |
 [`mypy-extensions`](https://github.com/python/mypy_extensions) |
@@ -127,7 +126,6 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`smmap`](https://github.com/gitpython-developers/smmap) |
 [`sniffio`](https://github.com/python-trio/sniffio) |
 [`snowballstemmer`](https://github.com/snowballstem/snowball) |
-[`soupsieve`](https://github.com/facelessuser/soupsieve) |
 [`stevedore`](https://docs.openstack.org/stevedore/latest/) |
 [`termcolor`](http://pypi.python.org/pypi/termcolor) |
 [`testfixtures`](https://github.com/Simplistix/testfixtures) |
