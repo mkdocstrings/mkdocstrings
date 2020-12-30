@@ -17,7 +17,7 @@ _DEFAULT_CONFIG = {  # noqa: WPS407 (mutable constant)
 def test_render_html_escaped_sequences():
     """Assert HTML-escaped sequences are correctly parsed as XML."""
     config = dict(_DEFAULT_CONFIG)
-    config["mdx"].append(MkdocstringsExtension(config, Handlers(config)))
+    config["mdx"] = [MkdocstringsExtension(config, Handlers(config))]
     md = Markdown(extensions=config["mdx"])
 
     md.convert("::: tests.fixtures.html_escaped_sequences")
@@ -26,7 +26,7 @@ def test_render_html_escaped_sequences():
 def test_multiple_footnotes():
     """Assert footnotes don't get added to subsequent docstrings."""
     config = dict(_DEFAULT_CONFIG, mdx=["footnotes"])
-    config["mdx"].append(MkdocstringsExtension(config, Handlers(config)))
+    config["mdx"] = [MkdocstringsExtension(config, Handlers(config))]
     md = Markdown(extensions=config["mdx"])
 
     output = md.convert(
@@ -52,7 +52,7 @@ def test_multiple_footnotes():
 def test_markdown_heading_level():
     """Assert that Markdown headings' level doesn't exceed heading_level."""
     config = dict(_DEFAULT_CONFIG)
-    config["mdx"].append(MkdocstringsExtension(config, Handlers(config)))
+    config["mdx"] = [MkdocstringsExtension(config, Handlers(config))]
     md = Markdown(extensions=config["mdx"])
 
     output = md.convert("::: tests.fixtures.headings\n    rendering:\n      show_root_heading: true")
@@ -64,9 +64,20 @@ def test_markdown_heading_level():
 def test_reference_inside_autodoc():
     """Assert cross-reference Markdown extension works correctly."""
     config = dict(_DEFAULT_CONFIG)
-    config["mdx"].append(MkdocstringsExtension(config, Handlers(config)))
+    config["mdx"] = [MkdocstringsExtension(config, Handlers(config))]
     md = Markdown(extensions=config["mdx"])
 
     output = md.convert("::: tests.fixtures.cross_reference")
     snippet = 'Link to <span data-mkdocstrings-identifier="something.Else">something.Else</span>.'
     assert snippet in output
+
+
+def test_no_double_toc():
+    """Asserts that the 'toc' extension doesn't apply its modification twice."""
+    config = dict(_DEFAULT_CONFIG)
+    config["mdx_configs"] = {"toc": {"permalink": "@@@"}}
+    config["mdx"] = ["toc", MkdocstringsExtension(config, Handlers(config))]
+    md = Markdown(extensions=config["mdx"], extension_configs=config["mdx_configs"])
+
+    output = md.convert("::: tests.fixtures.headings")
+    assert 3 <= output.count("@@@") < 6

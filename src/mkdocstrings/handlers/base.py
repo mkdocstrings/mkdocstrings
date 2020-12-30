@@ -227,11 +227,14 @@ class BaseRenderer(ABC):
             config: Configuration options for `mkdocs` and `mkdocstrings`, read from `mkdocs.yml`. See the source code
                 of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.
         """
-        # Re-instantiate md: see https://github.com/tomchristie/mkautodoc/issues/14
-        md = Markdown(
-            extensions=config["mdx"] + [ShiftHeadingsExtension(), PrefixIdsExtension()],
-            extension_configs=config["mdx_configs"],
-        )
+        extensions = config["mdx"] + [ShiftHeadingsExtension(), PrefixIdsExtension()]
+        configs = dict(config["mdx_configs"])
+        # Prevent a bug that happens due to treeprocessors running on the same fragment both as the inner doc and as
+        # part of the re-integrated doc. Namely, the permalink '¶' would be appended twice. This is the only known
+        # non-idempotent effect of an extension, so specifically prevent it on the inner doc.
+        configs.setdefault("toc", {})["permalink"] = False
+
+        md = Markdown(extensions=extensions, extension_configs=configs)
 
         self.env.filters["convert_markdown"] = functools.partial(do_convert_markdown, md)
 
@@ -409,7 +412,7 @@ class _IdPrependingTreeprocessor(Treeprocessor):
 class PrefixIdsExtension(Extension):
     """Prepend the configured prefix to IDs of all HTML elements."""
 
-    treeprocessor_priority = 4  # Right after 'toc'.
+    treeprocessor_priority = 4  # Right after 'toc' (needed because that extension adds ids to headers).
 
     def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
         """
