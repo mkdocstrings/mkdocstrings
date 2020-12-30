@@ -159,10 +159,10 @@ Cross-references are written as Markdown *reference-style* links:
 
 ## Themes
 
-MkDocstrings can support multiple MkDocs theme,
-though it only supports the
+MkDocstrings can support multiple MkDocs theme.
+It currently supports supports the
 *[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)*
-theme right now.
+theme and, partially, the built-in ReadTheDocs theme.
 
 Each renderer can fallback to a particular theme when the user selected theme is not supported.
 For example, the Python renderer will fallback to the *Material for MkDocs* templates.
