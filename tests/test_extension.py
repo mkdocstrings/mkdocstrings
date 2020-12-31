@@ -61,6 +61,18 @@ def test_markdown_heading_level():
     assert "<h6>Baz</h6>" in output
 
 
+def test_keeps_preceding_text():
+    """Assert that autodoc is recognized in the middle of a block and preceding text is kept."""
+    config = dict(_DEFAULT_CONFIG)
+    config["mdx"] = [MkdocstringsExtension(config, Handlers(config))]
+    md = Markdown(extensions=config["mdx"])
+
+    output = md.convert("**preceding**\n::: tests.fixtures.headings")
+    assert "<strong>preceding</strong>" in output
+    assert "<h2>Foo</h2>" in output
+    assert ":::" not in output
+
+
 def test_reference_inside_autodoc():
     """Assert cross-reference Markdown extension works correctly."""
     config = dict(_DEFAULT_CONFIG)
