@@ -5,6 +5,54 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.14.0b1](https://github.com/pawamoy/mkdocstrings/releases/tag/0.14.0b1) - 2020-12-31
+
+<small>[Compare with 0.13.6](https://github.com/pawamoy/mkdocstrings/compare/0.13.6...0.14.0b1)</small>
+
+Special thanks to Oleh [@oprypin](https://github.com/oprypin) Prypin who did an amazing job (this is a euphemism)
+at improving MkDocstrings, fixing hard-to-fix bugs with clever solutions, implementing great new features
+and refactoring the code for better performance and readability! Thanks Oleh!
+
+### Bug Fixes
+- Preserve text immediately before an autodoc ([07466fa](https://github.com/pawamoy/mkdocstrings/commit/07466fafb54963a4e35e69007b6291a0382aaeb4) by Oleh Prypin). [PR #207](https://github.com/pawamoy/mkdocstrings/pull/207)
+- Remove `href` attributes from headings in templates ([d5602ff](https://github.com/pawamoy/mkdocstrings/commit/d5602ff3bb1a75ac1c8c457e972271b6c66eb8dd) by Oleh Prypin). [PR #204](https://github.com/pawamoy/mkdocstrings/pull/204)
+- Don't let `toc` extension append its permalink twice ([a154f5c](https://github.com/pawamoy/mkdocstrings/commit/a154f5c4c6ef9abd221e1f89e44847ae2cf25436) by Oleh Prypin). [PR #203](https://github.com/pawamoy/mkdocstrings/pull/203)
+- Fix undefined entity for `&para;` ([2c29211](https://github.com/pawamoy/mkdocstrings/commit/2c29211002d515db40e5bdabf6cbf32ec8633a05) by Timothée Mazzucotelli).
+- Make ids of Markdown sub-documents prefixed with the parent item id ([d493d33](https://github.com/pawamoy/mkdocstrings/commit/d493d33b3827d93e84a7b2e39f0a10dfcb782402) by Oleh Prypin). [Issue #186](https://github.com/pawamoy/mkdocstrings/issues/186) and [#193](https://github.com/pawamoy/mkdocstrings/issues/193), [PR #199](https://github.com/pawamoy/mkdocstrings/pull/199)
+- More lenient regex for data-mkdocstrings-identifier ([dcfec8e](https://github.com/pawamoy/mkdocstrings/commit/dcfec8edfdff050debc5856dfc213d3119a84792) by Oleh Prypin).
+- Shift Markdown headings according to the current `heading_level` ([13f41ae](https://github.com/pawamoy/mkdocstrings/commit/13f41aec5a95c82c1229baa4ac3caf4abb2add51) by Oleh Prypin). [Issue #192](https://github.com/pawamoy/mkdocstrings/issues/192), [PR #195](https://github.com/pawamoy/mkdocstrings/pull/195)
+- Fix footnotes appearing in all following objects ([af24bc2](https://github.com/pawamoy/mkdocstrings/commit/af24bc246a6938ebcae7cf6ff677b194cf1af95c) by Oleh Prypin). [Issue #186](https://github.com/pawamoy/mkdocstrings/issues/186), [PR #195](https://github.com/pawamoy/mkdocstrings/pull/195)
+- Fix cross-references from the root index page ([9c9f2a0](https://github.com/pawamoy/mkdocstrings/commit/9c9f2a04af94e0d88f57fd76249f7985166a9b88) by Oleh Prypin). [Issue #184](https://github.com/pawamoy/mkdocstrings/issues/184), [PR #185](https://github.com/pawamoy/mkdocstrings/pull/185)
+- Fix incorrect argument name passed to Markdown ([10ce502](https://github.com/pawamoy/mkdocstrings/commit/10ce502d5fd58f1e5a4e14308ffad1bc3d7116ee) by Timothée Mazzucotelli).
+- Fix error when a digit immediately follows a code tag ([9b92341](https://github.com/pawamoy/mkdocstrings/commit/9b9234160edc54b53c81a618b12095e7dd829059) by Oleh Prypin). [Issue #169](https://github.com/pawamoy/mkdocstrings/issues/169), [PR #175](https://github.com/pawamoy/mkdocstrings/pull/175)
+- Detecting paths relative to template directory in logging ([a50046b](https://github.com/pawamoy/mkdocstrings/commit/a50046b5d58d62df4ba13f4c197e80edd1995eb9) by Oleh Prypin). [Issue #166](https://github.com/pawamoy/mkdocstrings/issues/166)
+
+### Code Refactoring
+- Remove some unused code ([8504084](https://github.com/pawamoy/mkdocstrings/commit/850408421cc027be8374673cc74c71fff26f3833) by Oleh Prypin). [PR #206](https://github.com/pawamoy/mkdocstrings/pull/206)
+- Improve XML parsing error handling ([ad86410](https://github.com/pawamoy/mkdocstrings/commit/ad864100b644ab1ee8daaa0d3923bc87dee1c5ca) by Timothée Mazzucotelli).
+- Explicitly use MarkupSafe ([6b9ebe7](https://github.com/pawamoy/mkdocstrings/commit/6b9ebe7d510e82971acef89e9e946af3c0cc96d3) by Oleh Prypin).
+- Split out the handler cache, expose it through the plugin ([6453026](https://github.com/pawamoy/mkdocstrings/commit/6453026fac287387090a67cce70c078377d107dd) by Oleh Prypin). [Issue #179](https://github.com/pawamoy/mkdocstrings/issues/179), [PR #191](https://github.com/pawamoy/mkdocstrings/pull/191)
+- Use ChainMap instead of copying dicts ([c634d2c](https://github.com/pawamoy/mkdocstrings/commit/c634d2ce6377de26caa553048bb28ef1e672f7aa) by Oleh Prypin). [PR #171](https://github.com/pawamoy/mkdocstrings/pull/171)
+- Rename logging to loggers to avoid confusion ([7a119cc](https://github.com/pawamoy/mkdocstrings/commit/7a119ccf27cf77cf2cbd114e7fad0a9e4e97bbd8) by Timothée Mazzucotelli).
+- Simplify logging ([409f93e](https://github.com/pawamoy/mkdocstrings/commit/409f93ed26d7d8292a8bc7a6c32cb270b3769409) by Timothée Mazzucotelli).
+
+### Features
+- Allow specifying `heading_level` as a Markdown heading ([10efc28](https://github.com/pawamoy/mkdocstrings/commit/10efc281e04b2a430cec53e49208ccc09e591667) by Oleh Prypin). [PR #170](https://github.com/pawamoy/mkdocstrings/pull/170)
+- Allow any characters in identifiers ([7ede68a](https://github.com/pawamoy/mkdocstrings/commit/7ede68a0917b494eda2198931a8ad1c97fc8fce4) by Oleh Prypin). [PR #174](https://github.com/pawamoy/mkdocstrings/pull/174)
+- Allow namespace packages for handlers ([39b0465](https://github.com/pawamoy/mkdocstrings/commit/39b046548f57dc59993241b24d2cf12fb5e488eb) by Timothée Mazzucotelli).
+- Add template debugging/logging ([33b32c1](https://github.com/pawamoy/mkdocstrings/commit/33b32c1410bf6e8432768865c8aa86b8e091ab59) by Timothée Mazzucotelli).
+- Add initial support for the ReadTheDocs theme ([1028115](https://github.com/pawamoy/mkdocstrings/commit/1028115682ed0806d6570c749af0e382c67d6120) by Timothée Mazzucotelli). [Issue #107](https://github.com/pawamoy/mkdocstrings/issues/107), [PR #159](https://github.com/pawamoy/mkdocstrings/pull/159)
+- Add option to show type annotations in signatures ([f94ce9b](https://github.com/pawamoy/mkdocstrings/commit/f94ce9bdb2afc2c41c21a53636980ca077b757ce) by Timothée Mazzucotelli). [Issue #106](https://github.com/pawamoy/mkdocstrings/issues/106)
+
+### Packaging
+- Accept verions of `pytkdocs` up to 0.10.x (see [changelog](https://pawamoy.github.io/pytkdocs/changelog/#0100-2020-12-06)).
+
+### Performance Improvements
+- Call `update_env` only once per `Markdown` instance ([b198c74](https://github.com/pawamoy/mkdocstrings/commit/b198c74338dc3b54b999eadeef9946d69277ad77) by Oleh Prypin). [PR #201](https://github.com/pawamoy/mkdocstrings/pull/201)
+- Disable Jinja's `auto_reload` to reduce disk reads ([3b28c58](https://github.com/pawamoy/mkdocstrings/commit/3b28c58c77642071419d4a98e007d5a854b7984f) by Oleh Prypin). [PR #200](https://github.com/pawamoy/mkdocstrings/pull/200)
+- Rework autorefs replacement to not re-parse the final HTML ([22a9e4b](https://github.com/pawamoy/mkdocstrings/commit/22a9e4bf1b73f9b9b1a7c4876f0c677f919bc4d7) by Oleh Prypin). [Issue #187](https://github.com/pawamoy/mkdocstrings/issues/187), [PR #188](https://github.com/pawamoy/mkdocstrings/pull/188)
+
+
 ## [0.13.6](https://github.com/pawamoy/mkdocstrings/releases/tag/0.13.6) - 2020-09-28
 
 <small>[Compare with 0.13.5](https://github.com/pawamoy/mkdocstrings/compare/0.13.5...0.13.6)</small>
