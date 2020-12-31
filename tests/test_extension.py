@@ -10,7 +10,14 @@ from mkdocstrings.handlers.base import Handlers
 
 @contextmanager
 def ext_markdown(**kwargs):
-    """Yield a Markdown instance with MkdocstringsExtension, with config adjustments from **kwargs."""
+    """Yield a Markdown instance with MkdocstringsExtension, with config adjustments from **kwargs.
+
+    Arguments:
+        **kwargs: Changes to apply to the config, on top of the default config.
+
+    Yields:
+        A `markdown.Markdown` instance.
+    """
     config = {
         "theme_name": "material",
         "mdx": [],
