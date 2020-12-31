@@ -123,7 +123,6 @@ class AutoDocProcessor(BlockProcessor):
         Returns:
             Whether this block should be processed or not.
         """
-        sibling = self.lastChild(parent)
         return bool(self.regex.search(str(block)))
 
     def run(self, parent: Element, blocks: Element) -> None:
