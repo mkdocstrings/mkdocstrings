@@ -42,6 +42,7 @@ jobs:
       run: |
         pip install poetry
         poetry install -vvv || { rm -rf .venv; poetry install -vvv; }
+        poetry update
 
     - name: Check if the documentation builds correctly
       run: poetry run duty check-docs
@@ -85,6 +86,7 @@ jobs:
       run: |
         pip install poetry
         poetry install -vvv || { rm -rf .venv; poetry install -vvv; }
+        poetry update
 
     - name: Run the test suite
       run: poetry run duty test
