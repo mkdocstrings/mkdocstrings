@@ -271,13 +271,13 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
     
     <label class="md-nav__link" for="nav-4">
-      API Reference
+      Code Reference
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+    <nav class="md-nav" aria-label="Code Reference" data-md-level="1">
       <label class="md-nav__title" for="nav-4">
         <span class="md-nav__icon md-icon"></span>
-        API Reference
+        Code Reference
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -309,8 +309,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../reference/handlers/__init__/" title="__init__.py" class="md-nav__link">
-      __init__.py
+    <a href="../reference/handlers/base/" title="base.py" class="md-nav__link">
+      base.py
     </a>
   </li>
 
@@ -558,10 +558,8 @@
 <a href="https://github.com/pawamoy/copier-poetry"><code>copier-poetry</code></a></p>
 <h3 id="direct-dependencies">Direct dependencies<a class="headerlink" href="#direct-dependencies" title="Permanent link">¤</a></h3>
 <p><a href="https://github.com/myint/autoflake"><code>autoflake</code></a> |
-<a href="http://www.crummy.com/software/BeautifulSoup/bs4/"><code>beautifulsoup4</code></a> |
 <a href="https://github.com/psf/black"><code>black</code></a> |
-<a href="https://github.com/nedbat/coveragepy"><code>coverage</code></a> |
-<a href="https://github.com/pawamoy/failprint"><code>failprint</code></a> |
+<a href="https://github.com/pawamoy/duty"><code>duty</code></a> |
 <a href="https://github.com/peterjc/flake8-black"><code>flake8-black</code></a> |
 <a href="https://github.com/gforcada/flake8-builtins"><code>flake8-builtins</code></a> |
 <a href="https://pypi.org/project/flake8-pytest-style"><code>flake8-pytest-style</code></a> |
@@ -570,10 +568,13 @@
 <a href="None"><code>flakehell</code></a> |
 <a href="https://github.com/pawamoy/git-changelog"><code>git-changelog</code></a> |
 <a href="https://github.com/encode/httpx"><code>httpx</code></a> |
-<a href="http://docs.pyinvoke.org"><code>invoke</code></a> |
 <a href="https://ipython.org"><code>ipython</code></a> |
 <a href="https://github.com/timothycrosley/isort"><code>isort</code></a> |
+<a href="https://palletsprojects.com/p/jinja/"><code>Jinja2</code></a> |
 <a href="https://github.com/mattrobenolt/jinja2-cli"><code>jinja2-cli</code></a> |
+<a href="https://Python-Markdown.github.io/"><code>Markdown</code></a> |
+<a href="https://github.com/cmacmackin/markdown-include/"><code>markdown-include</code></a> |
+<a href="https://palletsprojects.com/p/markupsafe/"><code>MarkupSafe</code></a> |
 <a href="https://www.mkdocs.org"><code>mkdocs</code></a> |
 <a href="https://squidfunk.github.io/mkdocs-material/"><code>mkdocs-material</code></a> |
 <a href="http://www.mypy-lang.org/"><code>mypy</code></a> |
@@ -585,8 +586,7 @@
 <a href="https://github.com/pytest-dev/pytest-xdist"><code>pytest-xdist</code></a> |
 <a href="https://github.com/pawamoy/pytkdocs"><code>pytkdocs</code></a> |
 <a href="https://github.com/uiri/toml"><code>toml</code></a> |
-<a href="https://wemake-python-stylegui.de"><code>wemake-python-styleguide</code></a> |
-<a href="https://github.com/GrahamDumpleton/wrapt"><code>wrapt</code></a></p>
+<a href="https://wemake-python-stylegui.de"><code>wemake-python-styleguide</code></a></p>
 <h3 id="indirect-dependencies">Indirect dependencies<a class="headerlink" href="#indirect-dependencies" title="Permanent link">¤</a></h3>
 <p><a href="https://github.com/gvalkov/python-ansimarkup"><code>ansimarkup</code></a> |
 <a href="https://github.com/pytest-dev/apipkg"><code>apipkg</code></a> |
@@ -603,6 +603,7 @@
 <a href="https://palletsprojects.com/p/click/"><code>click</code></a> |
 <a href="https://github.com/tartley/colorama"><code>colorama</code></a> |
 <a href="http://github.com/MagicStack/contextvars"><code>contextvars</code></a> |
+<a href="https://github.com/nedbat/coveragepy"><code>coverage</code></a> |
 <a href="None"><code>darglint</code></a> |
 <a href="https://github.com/ericvsmith/dataclasses"><code>dataclasses</code></a> |
 <a href="https://github.com/micheles/decorator"><code>decorator</code></a> |
@@ -610,6 +611,7 @@
 <a href="https://github.com/takluyver/entrypoints"><code>entrypoints</code></a> |
 <a href="https://github.com/myint/eradicate"><code>eradicate</code></a> |
 <a href="https://execnet.readthedocs.io/en/latest/"><code>execnet</code></a> |
+<a href="https://github.com/pawamoy/failprint"><code>failprint</code></a> |
 <a href="https://gitlab.com/pycqa/flake8"><code>flake8</code></a> |
 <a href="https://github.com/tylerwince/flake8-bandit"><code>flake8-bandit</code></a> |
 <a href="https://github.com/sobolevn/flake8-broken-line"><code>flake8-broken-line</code></a> |
@@ -632,17 +634,14 @@
 <a href="https://github.com/encode/httpcore"><code>httpcore</code></a> |
 <a href="https://github.com/kjd/idna"><code>idna</code></a> |
 <a href="https://github.com/MagicStack/immutables"><code>immutables</code></a> |
-<a href="http://importlib-metadata.readthedocs.io/"><code>importlib-metadata</code></a> |
+<a href="https://github.com/python/importlib_metadata"><code>importlib-metadata</code></a> |
 <a href="http://github.com/RonnyPfannschmidt/iniconfig"><code>iniconfig</code></a> |
 <a href="http://ipython.org"><code>ipython-genutils</code></a> |
 <a href="https://github.com/davidhalter/jedi"><code>jedi</code></a> |
-<a href="https://palletsprojects.com/p/jinja/"><code>Jinja2</code></a> |
 <a href="https://joblib.readthedocs.io"><code>joblib</code></a> |
 <a href="https://github.com/ionelmc/python-lazy-object-proxy"><code>lazy-object-proxy</code></a> |
 <a href="https://github.com/lepture/python-livereload"><code>livereload</code></a> |
 <a href="https://github.com/yeraydiazdiaz/lunr.py"><code>lunr</code></a> |
-<a href="https://Python-Markdown.github.io/"><code>Markdown</code></a> |
-<a href="https://palletsprojects.com/p/markupsafe/"><code>MarkupSafe</code></a> |
 <a href="https://github.com/pycqa/mccabe"><code>mccabe</code></a> |
 <a href="https://github.com/facelessuser/mkdocs-material-extensions"><code>mkdocs-material-extensions</code></a> |
 <a href="https://github.com/python/mypy_extensions"><code>mypy-extensions</code></a> |
@@ -673,7 +672,6 @@
 <a href="https://github.com/gitpython-developers/smmap"><code>smmap</code></a> |
 <a href="https://github.com/python-trio/sniffio"><code>sniffio</code></a> |
 <a href="https://github.com/snowballstem/snowball"><code>snowballstemmer</code></a> |
-<a href="https://github.com/facelessuser/soupsieve"><code>soupsieve</code></a> |
 <a href="https://docs.openstack.org/stevedore/latest/"><code>stevedore</code></a> |
 <a href="http://pypi.python.org/pypi/termcolor"><code>termcolor</code></a> |
 <a href="https://github.com/Simplistix/testfixtures"><code>testfixtures</code></a> |
@@ -684,6 +682,7 @@
 <a href="https://github.com/python/typing/blob/master/typing_extensions/README.rst"><code>typing-extensions</code></a> |
 <a href="https://urllib3.readthedocs.io/"><code>urllib3</code></a> |
 <a href="https://github.com/jquast/wcwidth"><code>wcwidth</code></a> |
+<a href="https://github.com/GrahamDumpleton/wrapt"><code>wrapt</code></a> |
 <a href="https://github.com/jaraco/zipp"><code>zipp</code></a></p>
 <p><strong><a href="http://pawamoy.github.io/credits/">More credits from the author</a></strong></p>
                 
