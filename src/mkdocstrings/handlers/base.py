@@ -143,7 +143,7 @@ def do_convert_markdown(md: Markdown, text: str, heading_level: int, html_id: st
     """
     md.treeprocessors["mkdocstrings_headings"].shift_by = heading_level
     md.treeprocessors["mkdocstrings_ids"].id_prefix = html_id and html_id + "--"
-    try:  # noqa: WPS501 (no except)
+    try:
         return Markup(md.convert(text))
     finally:
         md.treeprocessors["mkdocstrings_headings"].shift_by = 0
@@ -387,7 +387,7 @@ class _IdPrependingTreeprocessor(Treeprocessor):
         super().__init__(md)
         self.id_prefix = id_prefix
 
-    def run(self, root: Element):  # noqa: WPS231 (not complex)
+    def run(self, root: Element):
         if not self.id_prefix:
             return
         for el in root.iter():

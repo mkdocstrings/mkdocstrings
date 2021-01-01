@@ -40,8 +40,7 @@ flake8-pytest-style = "^1.3.0"
 git-changelog = "^0.4.0"
 httpx = "^0.14.3"
 ipython = "^7.2"
-# TODO: accept v5 once https://github.com/wemake-services/wemake-python-styleguide/issues/1584 is resolved
-isort = {version = "<5", extras = ["pyproject"]}
+isort = "^5.7.0"
 jinja2-cli = "^0.7.0"
 markdown-include = "^0.6.0"
 mkdocs-material = "^5.5.12"
@@ -52,7 +51,6 @@ pytest-randomly = "^3.4.1"
 pytest-sugar = "^0.9.4"
 pytest-xdist = "^2.1.0"
 toml = "^0.10.1"
-wemake-python-styleguide = "^0.14.1"
 
 [tool.poetry.plugins."mkdocs.plugins"]
 mkdocstrings = "mkdocstrings.plugin:MkdocstringsPlugin"
@@ -99,32 +97,7 @@ exclude = ["tests/fixtures"]
     "-R0913",  # too many methods
     "-R0914",  # too many local variables
     "-R0915",  # too many statements
-    "-W0212",  # redundant with WPS437 (access to protected attribute)
     "-W0611",  # redundant with F401 (unused import)
     "-W1203",  # lazy formatting for logging calls
     "-VNE001",  # short name
-    "-WPS305",  # f-strings
-    "-WPS110",  # common variable names (too annoying)
-    "-WPS125",  # redundant with W0622 (builtin override), which is more precise about line number
-    "-WPS201",  # too many imports
-    "-WPS202",  # too many module members
-    "-WPS204",  # overused expression
-    "-WPS210",  # too many local variables
-    "-WPS211",  # too many arguments
-    "-WPS213",  # too many expressions
-    "-WPS214",  # too many methods
-    "-WPS220",  # too deep nesting
-    "-WPS223",  # too many elif branches
-    "-WPS226",  # string over-use: can't disable it per file?
-    "-WPS230",  # too many public instance attributes
-    "-WPS306",  # too cumbersome, asks to write class A(object)
-    "-WPS317",  # multi-line paramaters (incompatible with Black)
-    "-WPS322",  # multi-line strings (incompatible with attributes docstrings)
-    "-WPS326",  # implicit string concatenation
-    "-WPS336",  # explicit string concatenation
-    "-WPS402",  # noqa overuse
-    "-WPS412",  # __init__ modules with logic
-    "-WPS428",  # statement with no effect (not compatible with attribute docstrings)
-    "-WPS433",  # redundant with C0415 (not top-level import)
-    "-WPS529",  # implicit dict.get usage (generally false-positive)
 ]

@@ -36,7 +36,7 @@ jobs:
       uses: actions/cache@v1
       with:
         path: .venv
-        key: quality-venv-cache
+        key: quality-venv-cache-2
 
     - name: Set up the project
       run: |

@@ -14,7 +14,7 @@ from duty import duty
 from git_changelog.build import Changelog, Version
 from jinja2 import StrictUndefined
 from jinja2.sandbox import SandboxedEnvironment
-from pip._internal.commands.show import search_packages_info  # noqa: WPS436 (no other way?)
+from pip._internal.commands.show import search_packages_info
 
 PY_SRC_PATHS = (Path(_) for _ in ("src/mkdocstrings", "tests", "duties.py"))
 PY_SRC_LIST = tuple(str(_) for _ in PY_SRC_PATHS)
@@ -287,7 +287,7 @@ def docs_regen(ctx):
     url_prefix = "https://raw.githubusercontent.com/pawamoy/jinja-templates/master/"
     regen_list = (("CREDITS.md", get_credits_data, url_prefix + "credits.md"),)
 
-    def regen() -> int:  # noqa: WPS430 (nested function)
+    def regen() -> int:
         """
         Regenerate pages listed in global `REGEN` list.
 
@@ -296,7 +296,7 @@ def docs_regen(ctx):
         """
         env = SandboxedEnvironment(undefined=StrictUndefined)
         for target, get_data, template in regen_list:
-            print("Regenerating", target)  # noqa: WPS421 (print)
+            print("Regenerating", target)
             template_data = get_data()
             template_text = httpx.get(template).text
             rendered = env.from_string(template_text).render(**template_data)
