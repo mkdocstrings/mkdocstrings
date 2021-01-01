@@ -9,7 +9,6 @@ It also provides two methods:
 - `teardown`, that will teardown all the cached handlers, and then clear the cache.
 """
 
-import functools
 import importlib
 import re
 import textwrap
@@ -128,29 +127,6 @@ def do_any(seq: Sequence, attribute: str = None) -> bool:
     return any(_[attribute] for _ in seq)
 
 
-def do_convert_markdown(md: Markdown, text: str, heading_level: int, html_id: str = "") -> Markup:
-    """
-    Render Markdown text; for use inside templates.
-
-    Arguments:
-        md: A `markdown.Markdown` instance.
-        text: The text to convert.
-        heading_level: The base heading level to start all Markdown headings from.
-        html_id: The HTML id of the element that's considered the parent of this element.
-
-    Returns:
-        An HTML string.
-    """
-    md.treeprocessors["mkdocstrings_headings"].shift_by = heading_level
-    md.treeprocessors["mkdocstrings_ids"].id_prefix = html_id and html_id + "--"
-    try:
-        return Markup(md.convert(text))
-    finally:
-        md.treeprocessors["mkdocstrings_headings"].shift_by = 0
-        md.treeprocessors["mkdocstrings_ids"].id_prefix = ""
-        md.reset()
-
-
 class BaseRenderer(ABC):
     """
     The base renderer class.
@@ -205,6 +181,8 @@ class BaseRenderer(ABC):
 
         self.env.filters["highlight"] = highlight_function
 
+        self._md = None  # To be populated in `update_env`.
+
     @abstractmethod
     def render(self, data: Any, config: dict) -> str:
         """
@@ -218,6 +196,28 @@ class BaseRenderer(ABC):
             The rendered template as HTML.
         """  # noqa: DAR202 (excess return section)
 
+    def do_convert_markdown(self, text: str, heading_level: int, html_id: str = "") -> Markup:
+        """
+        Render Markdown text; for use inside templates.
+
+        Arguments:
+            text: The text to convert.
+            heading_level: The base heading level to start all Markdown headings from.
+            html_id: The HTML id of the element that's considered the parent of this element.
+
+        Returns:
+            An HTML string.
+        """
+        treeprocessors = self._md.treeprocessors
+        treeprocessors["mkdocstrings_headings"].shift_by = heading_level
+        treeprocessors["mkdocstrings_ids"].id_prefix = html_id and html_id + "--"
+        try:
+            return Markup(self._md.convert(text))
+        finally:
+            treeprocessors["mkdocstrings_headings"].shift_by = 0
+            treeprocessors["mkdocstrings_ids"].id_prefix = ""
+            self._md.reset()
+
     def update_env(self, md: Markdown, config: dict) -> None:  # noqa: W0613 (unused argument 'config')
         """
         Update the Jinja environment.
@@ -227,7 +227,8 @@ class BaseRenderer(ABC):
             config: Configuration options for `mkdocs` and `mkdocstrings`, read from `mkdocs.yml`. See the source code
                 of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.
         """
-        self.env.filters["convert_markdown"] = functools.partial(do_convert_markdown, md)
+        self._md = md
+        self.env.filters["convert_markdown"] = self.do_convert_markdown
 
     def _update_env(self, config: dict):
         extensions = config["mdx"] + [_MkdocstringsInnerExtension()]
