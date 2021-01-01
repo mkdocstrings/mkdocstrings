@@ -355,7 +355,7 @@ def format(ctx):  # noqa: W0622 (we don't mind shadowing the format builtin)
         title="Removing unused imports",
         pty=PTY,
     )
-    ctx.run(f"isort -y -rc {PY_SRC}", title="Ordering imports", pty=PTY)
+    ctx.run(f"isort {PY_SRC}", title="Ordering imports", pty=PTY)
     ctx.run(f"black {PY_SRC}", title="Formatting code", pty=PTY)
 
 
