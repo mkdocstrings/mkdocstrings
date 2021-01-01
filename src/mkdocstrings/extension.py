@@ -197,7 +197,7 @@ class AutoDocProcessor(BlockProcessor):
 
         if not self._updated_env:
             log.debug("Updating renderer's env")
-            handler.renderer.update_env(self.md, self._config)
+            handler.renderer._update_env(self._config)
             self._updated_env = True
 
         log.debug("Rendering templates")

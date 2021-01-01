@@ -218,7 +218,7 @@ class BaseRenderer(ABC):
             The rendered template as HTML.
         """  # noqa: DAR202 (excess return section)
 
-    def update_env(self, md: Markdown, config: dict) -> None:
+    def update_env(self, md: Markdown, config: dict) -> None:  # noqa: W0613 (unused argument 'config')
         """
         Update the Jinja environment.
 
@@ -227,6 +227,9 @@ class BaseRenderer(ABC):
             config: Configuration options for `mkdocs` and `mkdocstrings`, read from `mkdocs.yml`. See the source code
                 of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.
         """
+        self.env.filters["convert_markdown"] = functools.partial(do_convert_markdown, md)
+
+    def _update_env(self, config: dict):
         extensions = config["mdx"] + [_MkdocstringsInnerExtension()]
         configs = dict(config["mdx_configs"])
         # Prevent a bug that happens due to treeprocessors running on the same fragment both as the inner doc and as
@@ -238,8 +241,7 @@ class BaseRenderer(ABC):
             pass
 
         md = Markdown(extensions=extensions, extension_configs=configs)
-
-        self.env.filters["convert_markdown"] = functools.partial(do_convert_markdown, md)
+        self.update_env(md, config)
 
 
 class BaseCollector(ABC):
