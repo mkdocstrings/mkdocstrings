@@ -232,7 +232,10 @@ class BaseRenderer(ABC):
         # Prevent a bug that happens due to treeprocessors running on the same fragment both as the inner doc and as
         # part of the re-integrated doc. Namely, the permalink '¶' would be appended twice. This is the only known
         # non-idempotent effect of an extension, so specifically prevent it on the inner doc.
-        configs.setdefault("toc", {})["permalink"] = False
+        try:
+            configs["toc"] = dict(configs["toc"], permalink=False)
+        except KeyError:
+            pass
 
         md = Markdown(extensions=extensions, extension_configs=configs)
 
