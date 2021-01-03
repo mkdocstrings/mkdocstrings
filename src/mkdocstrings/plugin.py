@@ -125,7 +125,7 @@ class MkdocstringsPlugin(BasePlugin):
         if builder is None:
             # The builder parameter was added in mkdocs v1.1.1.
             # See issue https://github.com/mkdocs/mkdocs/issues/1952.
-            builder = list(server.watcher._tasks.values())[0]["func"]  # noqa: WPS437 (protected attribute)
+            builder = list(server.watcher._tasks.values())[0]["func"]  # noqa: W0212 (protected member)
         for element in self.config["watch"]:
             log.debug(f"Adding directory '{element}' to watcher")
             server.watch(element, builder)

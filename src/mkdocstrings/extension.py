@@ -24,7 +24,7 @@ instruction:
 """
 import re
 from collections import ChainMap
-from typing import Any, Mapping, Tuple
+from typing import Any, Mapping, MutableSequence, Tuple
 from xml.etree.ElementTree import XML, Element, ParseError  # noqa: S405 (we choose to trust the XML input)
 
 import yaml
@@ -112,7 +112,7 @@ class AutoDocProcessor(BlockProcessor):
         self._handlers = handlers
         self._updated_env = False
 
-    def test(self, parent: Element, block: Element) -> bool:
+    def test(self, parent: Element, block: str) -> bool:
         """
         Match our autodoc instructions.
 
@@ -123,9 +123,9 @@ class AutoDocProcessor(BlockProcessor):
         Returns:
             Whether this block should be processed or not.
         """
-        return bool(self.regex.search(str(block)))
+        return bool(self.regex.search(block))
 
-    def run(self, parent: Element, blocks: Element) -> None:
+    def run(self, parent: Element, blocks: MutableSequence[str]) -> None:
         """
         Run code on the matched blocks.
 
@@ -137,7 +137,7 @@ class AutoDocProcessor(BlockProcessor):
             blocks: The rest of the blocks to be processed.
         """
         block = blocks.pop(0)
-        match = self.regex.search(str(block))
+        match = self.regex.search(block)
 
         if match:
             if match.start() > 0:
@@ -151,7 +151,7 @@ class AutoDocProcessor(BlockProcessor):
             identifier = match["name"]
             heading_level = match["heading"].count("#")
             log.debug(f"Matched '::: {identifier}'")
-            xml_element = self.process_block(identifier, str(block), heading_level)
+            xml_element = self.process_block(identifier, block, heading_level)
             parent.append(xml_element)
 
         if the_rest:

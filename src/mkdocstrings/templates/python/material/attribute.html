@@ -21,10 +21,10 @@
           class="doc doc-heading"
           data-toc-label="{{ attribute.name }}">
 
-        <code class="highlight">
+        {% filter highlight(language="python", inline=True) %}
           {% if show_full_path %}{{ attribute.path }}{% else %}{{ attribute.name }}{% endif %}
-          {% if attribute.type %}: {{ attribute.type|highlight(language="python", inline=True) }}{% endif %}
-        </code>
+          {% if attribute.type %}: {{ attribute.type }}{% endif %}
+        {% endfilter %}
 
         {% with properties = attribute.properties %}
           {% include "properties.html" with context %}

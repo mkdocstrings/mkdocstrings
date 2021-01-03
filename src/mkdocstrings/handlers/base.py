@@ -138,7 +138,7 @@ def do_convert_markdown(md: Markdown, text: str, heading_level: int, html_id: st
     """
     md.treeprocessors["mkdocstrings_headings"].shift_by = heading_level
     md.treeprocessors["mkdocstrings_ids"].id_prefix = html_id and html_id + "--"
-    try:  # noqa: WPS501 (no except)
+    try:
         return Markup(md.convert(text))
     finally:
         md.treeprocessors["mkdocstrings_headings"].shift_by = 0
@@ -222,7 +222,10 @@ class BaseRenderer(ABC):
         # Prevent a bug that happens due to treeprocessors running on the same fragment both as the inner doc and as
         # part of the re-integrated doc. Namely, the permalink '¶' would be appended twice. This is the only known
         # non-idempotent effect of an extension, so specifically prevent it on the inner doc.
-        configs.setdefault("toc", {})["permalink"] = False
+        try:
+            configs["toc"] = dict(configs["toc"], permalink=False)
+        except KeyError:
+            pass
 
         md = Markdown(extensions=extensions, extension_configs=configs)
 
@@ -377,7 +380,7 @@ class _IdPrependingTreeprocessor(Treeprocessor):
         super().__init__(md)
         self.id_prefix = id_prefix
 
-    def run(self, root: Element):  # noqa: WPS231 (not complex)
+    def run(self, root: Element):
         if not self.id_prefix:
             return
         for el in root.iter():

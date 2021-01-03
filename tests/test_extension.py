@@ -1,7 +1,9 @@
 """Tests for the extension module."""
+import copy
 from contextlib import contextmanager
 from textwrap import dedent
 
+import pytest
 from markdown import Markdown
 
 from mkdocstrings.extension import MkdocstringsExtension
@@ -25,10 +27,17 @@ def ext_markdown(**kwargs):
         "mkdocstrings": {"default_handler": "python", "custom_templates": None, "watch": [], "handlers": {}},
     }
     config.update(kwargs)
+    original_config = copy.deepcopy(config)
+
     handlers = Handlers(config)
-    config["mdx"].append(MkdocstringsExtension(config, handlers))
+    extension = MkdocstringsExtension(config, handlers)
+    config["mdx"].append(extension)
+    original_config["mdx"].append(extension)
+
     yield Markdown(extensions=config["mdx"], extension_configs=config["mdx_configs"])
     handlers.teardown()
+
+    assert config == original_config  # Inadvertent mutations would propagate to the outer doc!
 
 
 def test_render_html_escaped_sequences():
@@ -86,8 +95,33 @@ def test_reference_inside_autodoc():
     assert snippet in output
 
 
-def test_no_double_toc():
-    """Asserts that the 'toc' extension doesn't apply its modification twice."""
-    with ext_markdown(mdx=["toc"], mdx_configs={"toc": {"permalink": "@@@"}}) as md:
-        output = md.convert("::: tests.fixtures.headings")
-    assert 3 <= output.count("@@@") < 6
+@pytest.mark.parametrize(
+    ("permalink_setting", "expect_permalink"),
+    [
+        ("@@@", "@@@"),
+        (True, "&para;"),
+    ],
+)
+def test_no_double_toc(permalink_setting, expect_permalink):
+    """
+    Assert that the 'toc' extension doesn't apply its modification twice.
+
+    Arguments:
+        permalink_setting: The 'permalink' setting of 'toc' extension.
+        expect_permalink: Text of the permalink to search for in the output.
+    """
+    with ext_markdown(mdx=["toc"], mdx_configs={"toc": {"permalink": permalink_setting}}) as md:
+        output = md.convert(
+            dedent(
+                """
+                # aa
+
+                ::: tests.fixtures.headings
+                    rendering:
+                        show_root_toc_entry: false
+
+                # bb
+                """
+            )
+        )
+    assert output.count(expect_permalink) == 5
