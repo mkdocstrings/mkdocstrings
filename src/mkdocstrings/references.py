@@ -25,7 +25,7 @@ class AutoRefInlineProcessor(ReferenceInlineProcessor):
     # Code based on
     # https://github.com/Python-Markdown/markdown/blob/8e7528fa5c98bf4652deb13206d6e6241d61630b/markdown/inlinepatterns.py#L780
 
-    def handleMatch(self, m, data) -> Union[Element, EvalIDType]:  # noqa: WPS111,N802 (parent's casing)
+    def handleMatch(self, m, data) -> Union[Element, EvalIDType]:  # noqa: N802 (parent's casing)
         """
         Handle an element that matched.
 
@@ -67,7 +67,7 @@ class AutoRefInlineProcessor(ReferenceInlineProcessor):
         Returns:
             A tuple containing the identifier, its end position, and whether it matched.
         """
-        m = self.RE_LINK.match(data, pos=index)  # noqa: WPS111
+        m = self.RE_LINK.match(data, pos=index)
         if not m:
             return None, index, False
         identifier = m.group(1) or text
@@ -113,12 +113,12 @@ def relative_url(url_a: str, url_b: str) -> str:
 
     # go up as many times as remaining a parts' depth
     levels = len(parts_a) - 1
-    parts_relative = [".."] * levels + parts_b  # noqa: WPS435 (list multiply ok)
+    parts_relative = [".."] * levels + parts_b
     relative = "/".join(parts_relative)
     return f"{relative}#{anchor}"
 
 
-def fix_ref(url_map: Dict[str, str], from_url: str, unmapped: List[str]) -> Callable:  # noqa: WPS231 (not that complex)
+def fix_ref(url_map: Dict[str, str], from_url: str, unmapped: List[str]) -> Callable:
     """
     Return a `repl` function for [`re.sub`](https://docs.python.org/3/library/re.html#re.sub).
 
@@ -138,7 +138,7 @@ def fix_ref(url_map: Dict[str, str], from_url: str, unmapped: List[str]) -> Call
         and returning the replacement strings.
     """
 
-    def inner(match: Match):  # noqa: WPS430 (nested function, no other way than side-effecting the warnings)
+    def inner(match: Match):
         identifier = match["identifier"]
         title = match["title"]
 
