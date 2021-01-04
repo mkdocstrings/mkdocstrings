@@ -9,13 +9,14 @@ It also provides two methods:
 - `teardown`, that will teardown all the cached handlers, and then clear the cache.
 """
 
+import copy
 import importlib
 import re
 import textwrap
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Any, Dict, Optional, Sequence
-from xml.etree.ElementTree import Element  # noqa: S405 (we choose to trust the XML input)
+from typing import Any, Dict, List, Optional, Sequence
+from xml.etree.ElementTree import Element, tostring
 
 from jinja2 import Environment, FileSystemLoader
 from markdown import Markdown
@@ -181,6 +182,7 @@ class BaseRenderer(ABC):
 
         self.env.filters["highlight"] = highlight_function
 
+        self._headings = []
         self._md = None  # To be populated in `update_env`.
 
     @abstractmethod
@@ -218,6 +220,65 @@ class BaseRenderer(ABC):
             treeprocessors["mkdocstrings_ids"].id_prefix = ""
             self._md.reset()
 
+    def do_heading(
+        self,
+        content: str,
+        heading_level: int,
+        *,
+        toc_label: Optional[str] = None,
+        **attributes: str,
+    ) -> Markup:
+        """
+        Render an HTML heading and register it for the table of contents. For use inside templates.
+
+        Arguments:
+            content: The HTML within the heading.
+            heading_level: The level of heading (e.g. 3 -> `h3`).
+            toc_label: The title to use in the table of contents ('data-toc-label' attribute).
+            attributes: Any extra HTML attributes of the heading.
+
+        Returns:
+            An HTML string.
+        """
+        # First, produce the "fake" heading, for ToC only.
+        el = Element(f"h{heading_level}", attributes)
+        if toc_label is None:
+            toc_label = content.unescape() if isinstance(el, Markup) else content
+        el.set("data-toc-label", toc_label)
+        self._headings.append(el)
+
+        # Now produce the actual HTML to be rendered. The goal is to wrap the HTML content into a heading.
+        # Start with a heading that has just attributes (no text), and add a placeholder into it.
+        el = Element(f"h{heading_level}", attributes)
+        el.append(Element("mkdocstrings-placeholder"))
+        # Tell the 'toc' extension to make its additions if configured so.
+        toc = self._md.treeprocessors["toc"]
+        if toc.use_anchors:
+            toc.add_anchor(el, attributes["id"])
+        if toc.use_permalinks:
+            toc.add_permalink(el, attributes["id"])
+
+        # The content we received is HTML, so it can't just be inserted into the tree. We had marked the middle
+        # of the heading with a placeholder that can never occur (text can't directly contain angle brackets).
+        # Now this HTML wrapper can be "filled" by replacing the placeholder.
+        html_with_placeholder = tostring(el, encoding="unicode")
+        assert (
+            html_with_placeholder.count("<mkdocstrings-placeholder />") == 1
+        ), f"Bug in mkdocstrings: failed to replace in {html_with_placeholder!r}"
+        html = html_with_placeholder.replace("<mkdocstrings-placeholder />", content)
+        return Markup(html)
+
+    def get_headings(self) -> Sequence[Element]:
+        """
+        Return and clear the headings gathered so far.
+
+        Returns:
+            A list of HTML elements.
+        """
+        result = list(self._headings)
+        self._headings.clear()
+        return result
+
     def update_env(self, md: Markdown, config: dict) -> None:  # noqa: W0613 (unused argument 'config')
         """
         Update the Jinja environment.
@@ -229,20 +290,17 @@ class BaseRenderer(ABC):
         """
         self._md = md
         self.env.filters["convert_markdown"] = self.do_convert_markdown
+        self.env.filters["heading"] = self.do_heading
 
-    def _update_env(self, config: dict):
-        extensions = config["mdx"] + [_MkdocstringsInnerExtension()]
-        configs = dict(config["mdx_configs"])
-        # Prevent a bug that happens due to treeprocessors running on the same fragment both as the inner doc and as
-        # part of the re-integrated doc. Namely, the permalink '¶' would be appended twice. This is the only known
-        # non-idempotent effect of an extension, so specifically prevent it on the inner doc.
-        try:
-            configs["toc"] = dict(configs["toc"], permalink=False)
-        except KeyError:
-            pass
+    def _update_env(self, md: Markdown, config: dict):
+        extensions = config["mdx"] + [_MkdocstringsInnerExtension(self._headings)]
 
-        md = Markdown(extensions=extensions, extension_configs=configs)
-        self.update_env(md, config)
+        new_md = Markdown(extensions=extensions, extension_configs=config["mdx_configs"])
+        # MkDocs adds its own (required) extension that's not part of the config. Propagate it.
+        if "relpath" in md.treeprocessors:
+            new_md.treeprocessors.register(md.treeprocessors["relpath"], "relpath", priority=0)
+
+        self.update_env(new_md, config)
 
 
 class BaseCollector(ABC):
@@ -433,7 +491,29 @@ class _HeadingShiftingTreeprocessor(Treeprocessor):
                 el.tag = f"{match[1]}{level}"
 
 
+class _HeadingReportingTreeprocessor(Treeprocessor):
+    regex = re.compile(r"[Hh][1-6]")
+
+    def __init__(self, md: Markdown, headings: List[Element]):
+        super().__init__(md)
+        self.headings = headings
+
+    def run(self, root: Element):
+        for el in root.iter():
+            if self.regex.fullmatch(el.tag):
+                el = copy.copy(el)
+                # 'toc' extension's first pass (which we require to build heading stubs/ids) also edits the HTML.
+                # Undo the permalink edit so we can pass this heading to the outer pass of the 'toc' extension.
+                if len(el) > 0 and el[-1].get("class") == self.md.treeprocessors["toc"].permalink_class:
+                    del el[-1]
+                self.headings.append(el)
+
+
 class _MkdocstringsInnerExtension(Extension):
+    def __init__(self, headings: List[Element]):
+        super().__init__()
+        self.headings = headings
+
     def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
         """
         Register the extension.
@@ -451,4 +531,9 @@ class _MkdocstringsInnerExtension(Extension):
             _IdPrependingTreeprocessor(md, ""),
             "mkdocstrings_ids",
             priority=4,  # Right after 'toc' (needed because that extension adds ids to headers).
+        )
+        md.treeprocessors.register(
+            _HeadingReportingTreeprocessor(md, self.headings),
+            "mkdocstrings_headings_list",
+            priority=1,  # Close to the end.
         )
