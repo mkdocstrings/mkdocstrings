@@ -225,6 +225,7 @@ class BaseRenderer(ABC):
         content: str,
         heading_level: int,
         *,
+        hidden: bool = False,
         toc_label: Optional[str] = None,
         **attributes: str,
     ) -> Markup:
@@ -234,6 +235,7 @@ class BaseRenderer(ABC):
         Arguments:
             content: The HTML within the heading.
             heading_level: The level of heading (e.g. 3 -> `h3`).
+            hidden: If True, only register it for the table of contents, don't render anything.
             toc_label: The title to use in the table of contents ('data-toc-label' attribute).
             attributes: Any extra HTML attributes of the heading.
 
@@ -246,6 +248,9 @@ class BaseRenderer(ABC):
             toc_label = content.unescape() if isinstance(el, Markup) else content
         el.set("data-toc-label", toc_label)
         self._headings.append(el)
+
+        if hidden:
+            return Markup('<a id="{0}"></a>').format(attributes["id"])
 
         # Now produce the actual HTML to be rendered. The goal is to wrap the HTML content into a heading.
         # Start with a heading that has just attributes (no text), and add a placeholder into it.

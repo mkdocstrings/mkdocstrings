@@ -32,10 +32,9 @@
     {% else %}
       {% if config.show_root_toc_entry %}
         {% filter heading(heading_level,
-            class="hidden-toc",
             id=html_id,
             toc_label=module.path,
-            style="visibility: hidden; position: absolute;") %}
+            hidden=True) %}
         {% endfilter %}
       {% endif %}
       {% set heading_level = heading_level - 1 %}
