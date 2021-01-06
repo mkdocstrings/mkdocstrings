@@ -711,7 +711,7 @@
                 
                 <div class="doc doc-object doc-module">
 <h2 class="hidden-toc" id="mkdocstrings.extension" style="visibility: hidden; position: absolute;">
-        </h2>
+        <a class="headerlink" href="#mkdocstrings.extension" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents first">
 <p>This module holds the code of the Markdown extension responsible for matching "autodoc" instructions.</p>
 <p>The extension is composed of a Markdown <a href="https://python-markdown.github.io/extensions/api/#blockparser">block processor</a>
@@ -740,7 +740,7 @@ instruction:</p>
 
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>Our "autodoc" Markdown block processor.</p>
 <p>It has a <a href="#mkdocstrings.extension.AutoDocProcessor.test"><code>test</code> method</a> that tells if a block matches a criterion,
@@ -757,7 +757,7 @@ a matched block.</p>
       <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor.__init__" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Initialize the object.</p>
 <p><strong>Parameters:</strong></p>
@@ -836,7 +836,7 @@ of the <code>mkdocstrings</code> plugin.</p>
 <code class="highlight language-python"><span class="n">process_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">yaml_block</span><span class="p">,</span> <span class="n">heading_level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor.process_block" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Process an autodoc block.</p>
 <p><strong>Parameters:</strong></p>
@@ -995,7 +995,7 @@ of the <code>mkdocstrings</code> plugin.</p>
 <code class="highlight language-python"><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">blocks</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor.run" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Run code on the matched blocks.</p>
 <p>The identifier and configuration lines are retrieved from a matched block
@@ -1021,7 +1021,7 @@ and used to collect and render an object.</p>
 </tr>
 <tr>
 <td><code>blocks</code></td>
-<td><code>Element</code></td>
+<td><code>MutableSequence[str]</code></td>
 <td>
 <p>The rest of the blocks to be processed.</p>
 </td>
@@ -1032,7 +1032,7 @@ and used to collect and render an object.</p>
 <details class="quote">
           <summary>Source code in <code>mkdocstrings/extension.py</code></summary>
           <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">blocks</span><span class="p">:</span> <span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">blocks</span><span class="p">:</span> <span class="n">MutableSequence</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Run code on the matched blocks.</span>
 
@@ -1044,7 +1044,7 @@ and used to collect and render an object.</p>
 <span class="sd">        blocks: The rest of the blocks to be processed.</span>
 <span class="sd">    """</span>
     <span class="n">block</span> <span class="o">=</span> <span class="n">blocks</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">match</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">match</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -1058,7 +1058,7 @@ and used to collect and render an object.</p>
         <span class="n">identifier</span> <span class="o">=</span> <span class="n">match</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span>
         <span class="n">heading_level</span> <span class="o">=</span> <span class="n">match</span><span class="p">[</span><span class="s2">"heading"</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">"#"</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Matched '::: </span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
-        <span class="n">xml_element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_block</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">block</span><span class="p">),</span> <span class="n">heading_level</span><span class="p">)</span>
+        <span class="n">xml_element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_block</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">heading_level</span><span class="p">)</span>
         <span class="n">parent</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xml_element</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">the_rest</span><span class="p">:</span>
@@ -1077,7 +1077,7 @@ and used to collect and render an object.</p>
 <code class="highlight language-python"><span class="n">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">block</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor.test" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Match our autodoc instructions.</p>
 <p><strong>Parameters:</strong></p>
@@ -1101,7 +1101,7 @@ and used to collect and render an object.</p>
 </tr>
 <tr>
 <td><code>block</code></td>
-<td><code>Element</code></td>
+<td><code>str</code></td>
 <td>
 <p>The block to be tested.</p>
 </td>
@@ -1129,7 +1129,7 @@ and used to collect and render an object.</p>
 <details class="quote">
           <summary>Source code in <code>mkdocstrings/extension.py</code></summary>
           <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">block</span><span class="p">:</span> <span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">block</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Match our autodoc instructions.</span>
 
@@ -1140,7 +1140,7 @@ and used to collect and render an object.</p>
 <span class="sd">    Returns:</span>
 <span class="sd">        Whether this block should be processed or not.</span>
 <span class="sd">    """</span>
-    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">block</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
 </code></pre>
 </div>
 </details>
@@ -1156,7 +1156,7 @@ and used to collect and render an object.</p>
 
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.extension.MkdocstringsExtension" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>Our Markdown extension.</p>
 <p>It cannot work outside of <code>mkdocstrings</code>.</p>
@@ -1170,7 +1170,7 @@ and used to collect and render an object.</p>
       <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.extension.MkdocstringsExtension.__init__" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Initialize the object.</p>
 <p><strong>Parameters:</strong></p>
@@ -1238,7 +1238,7 @@ when instantiated in <a href="#mkdocstrings.extension.MkdocstringsExtension.exte
 <code class="highlight language-python"><span class="n">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.extension.MkdocstringsExtension.extendMarkdown" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Register the extension.</p>
 <p>Add an instance of our <a href="#mkdocstrings.extension.AutoDocProcessor"><code>AutoDocProcessor</code></a> to the Markdown parser.</p>
@@ -1294,7 +1294,7 @@ when instantiated in <a href="#mkdocstrings.extension.MkdocstringsExtension.exte
 <code class="highlight language-python"><span class="n">atomic_brute_cast</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span></code>
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.extension.atomic_brute_cast" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>Cast every node's text into an atomic string to prevent further processing on it.</p>
 <p>Since we generate the final HTML with Jinja templates, we do not want other inline or tree processors
@@ -1375,7 +1375,7 @@ to keep modifying the data, so this function is used to mark the complete tree a
 <code class="highlight language-python"><span class="n">get_item_configs</span><span class="p">(</span><span class="n">handler_config</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.extension.get_item_configs" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>Get the selection and rendering configuration merged into the global configuration of the given handler.</p>
 <p><strong>Parameters:</strong></p>
@@ -1452,7 +1452,7 @@ to keep modifying the data, so this function is used to mark the complete tree a
 <code class="highlight language-python"><span class="n">log_xml_parse_error</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">xml_text</span><span class="p">)</span></code>
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.extension.log_xml_parse_error" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>Log an XML parsing error.</p>
 <p>If the error is a tag mismatch, augment the log message.</p>

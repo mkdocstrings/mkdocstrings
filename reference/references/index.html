@@ -657,19 +657,17 @@
                 
                 <div class="doc doc-object doc-module">
 <h2 class="hidden-toc" id="mkdocstrings.references" style="visibility: hidden; position: absolute;">
-        </h2>
+        <a class="headerlink" href="#mkdocstrings.references" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents first">
 <p>Cross-references module.</p>
 <div class="doc doc-children">
 <div class="doc doc-object doc-attribute">
 <h2 class="doc doc-heading" id="mkdocstrings.references.AUTO_REF_RE">
 
-        <code class="highlight">
-AUTO_REF_RE        </code>
+<code class="highlight language-python"><span class="n">AUTO_REF_RE</span></code>
 
 
-
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.references.AUTO_REF_RE" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>A regular expression to match mkdocstrings' special reference markers
 in the <a href="../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_post_page"><code>on_post_page</code> hook</a>.</p>
@@ -682,7 +680,7 @@ in the <a href="../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_post_page">
 
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.references.AutoRefInlineProcessor" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>A Markdown extension.</p>
 <div class="doc doc-children">
@@ -692,7 +690,7 @@ in the <a href="../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_post_page">
 <code class="highlight language-python"><span class="n">evalId</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.references.AutoRefInlineProcessor.evalId" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Evaluate the id portion of <code>[ref][id]</code>.</p>
 <p>If <code>[ref][]</code> use <code>[ref]</code>.</p>
@@ -767,7 +765,7 @@ in the <a href="../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_post_page">
 <span class="sd">    Returns:</span>
 <span class="sd">        A tuple containing the identifier, its end position, and whether it matched.</span>
 <span class="sd">    """</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RE_LINK</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>  <span class="c1"># noqa: WPS111</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RE_LINK</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="kc">False</span>
     <span class="n">identifier</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="n">text</span>
@@ -784,7 +782,7 @@ in the <a href="../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_post_page">
 <code class="highlight language-python"><span class="n">handleMatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.references.AutoRefInlineProcessor.handleMatch" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Handle an element that matched.</p>
 <p><strong>Parameters:</strong></p>
@@ -836,7 +834,7 @@ in the <a href="../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_post_page">
 <details class="quote">
           <summary>Source code in <code>mkdocstrings/references.py</code></summary>
           <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">handleMatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Element</span><span class="p">,</span> <span class="n">EvalIDType</span><span class="p">]:</span>  <span class="c1"># noqa: WPS111,N802 (parent's casing)</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">handleMatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Element</span><span class="p">,</span> <span class="n">EvalIDType</span><span class="p">]:</span>  <span class="c1"># noqa: N802 (parent's casing)</span>
     <span class="sd">"""</span>
 <span class="sd">    Handle an element that matched.</span>
 
@@ -874,7 +872,7 @@ in the <a href="../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_post_page">
 <code class="highlight language-python"><span class="n">makeTag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.references.AutoRefInlineProcessor.makeTag" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Create a tag that can be matched by <code>AUTO_REF_RE</code>.</p>
 <p><strong>Parameters:</strong></p>
@@ -955,7 +953,7 @@ in the <a href="../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_post_page">
 <code class="highlight language-python"><span class="n">fix_ref</span><span class="p">(</span><span class="n">url_map</span><span class="p">,</span> <span class="n">from_url</span><span class="p">,</span> <span class="n">unmapped</span><span class="p">)</span></code>
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.references.fix_ref" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>Return a <code>repl</code> function for <a href="https://docs.python.org/3/library/re.html#re.sub"><code>re.sub</code></a>.</p>
 <p>In our context, we match Markdown references and replace them with HTML links.</p>
@@ -1020,7 +1018,7 @@ and returning the replacement strings.</p>
 <details class="quote">
           <summary>Source code in <code>mkdocstrings/references.py</code></summary>
           <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">fix_ref</span><span class="p">(</span><span class="n">url_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">from_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">unmapped</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>  <span class="c1"># noqa: WPS231 (not that complex)</span>
+<pre><span></span><code><span class="k">def</span> <span class="nf">fix_ref</span><span class="p">(</span><span class="n">url_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">from_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">unmapped</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Return a `repl` function for [`re.sub`](https://docs.python.org/3/library/re.html#re.sub).</span>
 
@@ -1040,7 +1038,7 @@ and returning the replacement strings.</p>
 <span class="sd">        and returning the replacement strings.</span>
 <span class="sd">    """</span>
 
-    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">match</span><span class="p">:</span> <span class="n">Match</span><span class="p">):</span>  <span class="c1"># noqa: WPS430 (nested function, no other way than side-effecting the warnings)</span>
+    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">match</span><span class="p">:</span> <span class="n">Match</span><span class="p">):</span>
         <span class="n">identifier</span> <span class="o">=</span> <span class="n">match</span><span class="p">[</span><span class="s2">"identifier"</span><span class="p">]</span>
         <span class="n">title</span> <span class="o">=</span> <span class="n">match</span><span class="p">[</span><span class="s2">"title"</span><span class="p">]</span>
 
@@ -1066,7 +1064,7 @@ and returning the replacement strings.</p>
 <code class="highlight language-python"><span class="n">fix_refs</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="n">from_url</span><span class="p">,</span> <span class="n">url_map</span><span class="p">)</span></code>
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.references.fix_refs" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>Fix all references in the given HTML text.</p>
 <p><strong>Parameters:</strong></p>
@@ -1156,7 +1154,7 @@ and returning the replacement strings.</p>
 <code class="highlight language-python"><span class="n">relative_url</span><span class="p">(</span><span class="n">url_a</span><span class="p">,</span> <span class="n">url_b</span><span class="p">)</span></code>
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.references.relative_url" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>Compute the relative path from URL A to URL B.</p>
 <p><strong>Parameters:</strong></p>
@@ -1230,7 +1228,7 @@ and returning the replacement strings.</p>
 
     <span class="c1"># go up as many times as remaining a parts' depth</span>
     <span class="n">levels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts_a</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-    <span class="n">parts_relative</span> <span class="o">=</span> <span class="p">[</span><span class="s2">".."</span><span class="p">]</span> <span class="o">*</span> <span class="n">levels</span> <span class="o">+</span> <span class="n">parts_b</span>  <span class="c1"># noqa: WPS435 (list multiply ok)</span>
+    <span class="n">parts_relative</span> <span class="o">=</span> <span class="p">[</span><span class="s2">".."</span><span class="p">]</span> <span class="o">*</span> <span class="n">levels</span> <span class="o">+</span> <span class="n">parts_b</span>
     <span class="n">relative</span> <span class="o">=</span> <span class="s2">"/"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts_relative</span><span class="p">)</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">relative</span><span class="si">}</span><span class="s2">#</span><span class="si">{</span><span class="n">anchor</span><span class="si">}</span><span class="s2">"</span>
 </code></pre>

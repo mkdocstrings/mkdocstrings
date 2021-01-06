@@ -446,11 +446,11 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#0140b1-2020-12-31" class="md-nav__link">
-    0.14.0b1 - 2020-12-31
+  <a href="#0140-2021-01-06" class="md-nav__link">
+    0.14.0 - 2021-01-06
   </a>
   
-    <nav class="md-nav" aria-label="0.14.0b1 - 2020-12-31">
+    <nav class="md-nav" aria-label="0.14.0 - 2021-01-06">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1252,11 +1252,11 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#0140b1-2020-12-31" class="md-nav__link">
-    0.14.0b1 - 2020-12-31
+  <a href="#0140-2021-01-06" class="md-nav__link">
+    0.14.0 - 2021-01-06
   </a>
   
-    <nav class="md-nav" aria-label="0.14.0b1 - 2020-12-31">
+    <nav class="md-nav" aria-label="0.14.0 - 2021-01-06">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2028,13 +2028,15 @@
 <p>The format is based on <a href="http://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>
 and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <!-- insertion marker -->
-<h2 id="0140b1-2020-12-31"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.14.0b1">0.14.0b1</a> - 2020-12-31<a class="headerlink" href="#0140b1-2020-12-31" title="Permanent link">¤</a></h2>
-<p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.13.6...0.14.0b1">Compare with 0.13.6</a></small></p>
+<h2 id="0140-2021-01-06"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.14.0">0.14.0</a> - 2021-01-06<a class="headerlink" href="#0140-2021-01-06" title="Permanent link">¤</a></h2>
+<p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.13.6...0.14.0">Compare with 0.13.6</a></small></p>
 <p>Special thanks to Oleh <a href="https://github.com/oprypin">@oprypin</a> Prypin who did an amazing job (this is a euphemism)
 at improving MkDocstrings, fixing hard-to-fix bugs with clever solutions, implementing great new features
 and refactoring the code for better performance and readability! Thanks Oleh!</p>
 <h3 id="bug-fixes">Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">¤</a></h3>
 <ul>
+<li>Fix double code tags (<a href="https://github.com/pawamoy/mkdocstrings/commit/e84d401c6dcb9aecb8cc1a58d3a0f339e1c3e78f">e84d401</a> by Timothée Mazzucotelli).</li>
+<li>Don't mutate the original Markdown config for permalinks (<a href="https://github.com/pawamoy/mkdocstrings/commit/8f6b163b50551da22f65e9b736e042562f77f2d7">8f6b163</a> by Oleh Prypin).</li>
 <li>Preserve text immediately before an autodoc (<a href="https://github.com/pawamoy/mkdocstrings/commit/07466fafb54963a4e35e69007b6291a0382aaeb4">07466fa</a> by Oleh Prypin). <a href="https://github.com/pawamoy/mkdocstrings/pull/207">PR #207</a></li>
 <li>Remove <code>href</code> attributes from headings in templates (<a href="https://github.com/pawamoy/mkdocstrings/commit/d5602ff3bb1a75ac1c8c457e972271b6c66eb8dd">d5602ff</a> by Oleh Prypin). <a href="https://github.com/pawamoy/mkdocstrings/pull/204">PR #204</a></li>
 <li>Don't let <code>toc</code> extension append its permalink twice (<a href="https://github.com/pawamoy/mkdocstrings/commit/a154f5c4c6ef9abd221e1f89e44847ae2cf25436">a154f5c</a> by Oleh Prypin). <a href="https://github.com/pawamoy/mkdocstrings/pull/203">PR #203</a></li>
@@ -2050,6 +2052,7 @@ and refactoring the code for better performance and readability! Thanks Oleh!</p
 </ul>
 <h3 id="code-refactoring">Code Refactoring<a class="headerlink" href="#code-refactoring" title="Permanent link">¤</a></h3>
 <ul>
+<li>BlockProcessor already receives strings, use them as such (<a href="https://github.com/pawamoy/mkdocstrings/commit/bcf7da911a310a63351c5082e84bb763d90d5b3b">bcf7da9</a> by Oleh Prypin).</li>
 <li>Remove some unused code (<a href="https://github.com/pawamoy/mkdocstrings/commit/850408421cc027be8374673cc74c71fff26f3833">8504084</a> by Oleh Prypin). <a href="https://github.com/pawamoy/mkdocstrings/pull/206">PR #206</a></li>
 <li>Improve XML parsing error handling (<a href="https://github.com/pawamoy/mkdocstrings/commit/ad864100b644ab1ee8daaa0d3923bc87dee1c5ca">ad86410</a> by Timothée Mazzucotelli).</li>
 <li>Explicitly use MarkupSafe (<a href="https://github.com/pawamoy/mkdocstrings/commit/6b9ebe7d510e82971acef89e9e946af3c0cc96d3">6b9ebe7</a> by Oleh Prypin).</li>

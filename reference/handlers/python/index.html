@@ -727,7 +727,7 @@
                 
                 <div class="doc doc-object doc-module">
 <h2 class="hidden-toc" id="mkdocstrings.handlers.python" style="visibility: hidden; position: absolute;">
-        </h2>
+        <a class="headerlink" href="#mkdocstrings.handlers.python" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents first">
 <p>This module implements a handler for the Python language.</p>
 <p>The handler collects data with <a href="https://github.com/pawamoy/pytkdocs"><code>pytkdocs</code></a>.</p>
@@ -739,7 +739,7 @@
 
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>The class responsible for loading Jinja templates and rendering them.</p>
 <p>It defines some configuration options, implements the <code>render</code> method,
@@ -748,12 +748,10 @@ and overrides the <code>update_env</code> method of the <a href="../base/#mkdocs
 <div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonCollector.default_config">
 
-        <code class="highlight">
-default_config: <code class="highlight language-python"><span class="nb">dict</span></code>        </code>
+<code class="highlight language-python"><span class="n">default_config</span><span class="p">:</span> <span class="nb">dict</span></code>
 
 
-
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.default_config" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>The default selection options.</p>
 <table>
@@ -802,7 +800,7 @@ next one:</p>
       <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.__init__" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Initialize the object.</p>
 <p>When instantiating a Python collector, we open a subprocess in the background with <code>subprocess.Popen</code>.
@@ -886,7 +884,7 @@ too resource intensive, and would slow down <code>mkdocstrings</code> a lot.</p>
 <code class="highlight language-python"><span class="n">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.collect" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Collect the documentation tree given an identifier and selection options.</p>
 <p>In this method, we feed one line of JSON to the standard input of the subprocess that was opened
@@ -1050,7 +1048,7 @@ and return it.</p>
 <code class="highlight language-python"><span class="n">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.teardown" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Terminate the opened subprocess, set it to <code>None</code>.</p>
 <details class="quote">
@@ -1075,7 +1073,7 @@ and return it.</p>
 
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonHandler" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>The Python handler class, nothing specific here.</p>
 </div>
@@ -1087,7 +1085,7 @@ and return it.</p>
 
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonRenderer" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>The class responsible for loading Jinja templates and rendering them.</p>
 <p>It defines some configuration options, implements the <code>render</code> method,
@@ -1123,12 +1121,10 @@ see <a href="#mkdocstrings.handlers.python.PythonRenderer.default_config"><code>
 <div class="doc doc-object doc-attribute">
 <h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonRenderer.default_config">
 
-        <code class="highlight">
-default_config: <code class="highlight language-python"><span class="nb">dict</span></code>        </code>
+<code class="highlight language-python"><span class="n">default_config</span><span class="p">:</span> <span class="nb">dict</span></code>
 
 
-
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonRenderer.default_config" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>The default rendering options.</p>
 <table>
@@ -1217,7 +1213,7 @@ default_config: <code class="highlight language-python"><span class="nb">dict</s
 <code class="highlight language-python"><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonRenderer.render" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Render a template using provided data and configuration options.</p>
 <p><strong>Parameters:</strong></p>
@@ -1293,7 +1289,7 @@ default_config: <code class="highlight language-python"><span class="nb">dict</s
 <code class="highlight language-python"><span class="n">update_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonRenderer.update_env" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Update the Jinja environment.</p>
 <p><strong>Parameters:</strong></p>
@@ -1348,7 +1344,7 @@ of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdo
 <code class="highlight language-python"><span class="n">get_handler</span><span class="p">(</span><span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">setup_commands</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">config</span><span class="p">)</span></code>
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.python.get_handler" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>Simply return an instance of <code>PythonHandler</code>.</p>
 <p><strong>Parameters:</strong></p>
@@ -1449,7 +1445,7 @@ of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdo
 <code class="highlight language-python"><span class="n">rebuild_category_lists</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></code>
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.python.rebuild_category_lists" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>Recursively rebuild the category lists of a collected object.</p>
 <p>Since <code>pytkdocs</code> dumps JSON on standard output, it must serialize the object-tree and flatten it to reduce data

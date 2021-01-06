@@ -957,7 +957,7 @@
                 
                 <div class="doc doc-object doc-module">
 <h2 class="hidden-toc" id="mkdocstrings.handlers.base" style="visibility: hidden; position: absolute;">
-        </h2>
+        <a class="headerlink" href="#mkdocstrings.handlers.base" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents first">
 <p>Base module for handlers.</p>
 <p>This module contains the base classes for implementing collectors, renderers, and the combination of the two: handlers.</p>
@@ -974,7 +974,7 @@
 
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseCollector" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>The base collector class.</p>
 <p>Inherit from this class to implement a collector.</p>
@@ -987,7 +987,7 @@ You can also implement the <code>teardown</code> method.</p>
 <code class="highlight language-python"><span class="n">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseCollector.collect" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Collect data given an identifier and selection configuration.</p>
 <p>In the implementation, you typically call a subprocess that returns JSON, and load that JSON again into
@@ -1073,7 +1073,7 @@ these options modify how the objects or documentation are "selected" in the sour
 <code class="highlight language-python"><span class="n">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseCollector.teardown" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Teardown the collector.</p>
 <p>This method should be implemented to, for example, terminate a subprocess
@@ -1103,7 +1103,7 @@ that was started when creating the collector instance.</p>
 
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseHandler" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>The base handler class.</p>
 <p>Inherit from this class to implement a handler.</p>
@@ -1118,7 +1118,7 @@ that was started when creating the collector instance.</p>
       <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseHandler.__init__" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Initialize the object.</p>
 <p><strong>Parameters:</strong></p>
@@ -1178,7 +1178,7 @@ that was started when creating the collector instance.</p>
 
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseRenderer" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>The base renderer class.</p>
 <p>Inherit from this class to implement a renderer.</p>
@@ -1196,7 +1196,7 @@ making them available in your Jinja templates.</p>
       <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseRenderer.__init__" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Initialize the object.</p>
 <p>If the given theme is not supported (it does not exist), it will look for a <code>fallback_theme</code> attribute
@@ -1290,7 +1290,7 @@ in <code>self</code> to use as a fallback theme.</p>
 <code class="highlight language-python"><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseRenderer.render" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Render a template using provided data and configuration options.</p>
 <p><strong>Parameters:</strong></p>
@@ -1365,7 +1365,7 @@ in <code>self</code> to use as a fallback theme.</p>
 <code class="highlight language-python"><span class="n">update_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseRenderer.update_env" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Update the Jinja environment.</p>
 <p><strong>Parameters:</strong></p>
@@ -1415,7 +1415,10 @@ of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdo
     <span class="c1"># Prevent a bug that happens due to treeprocessors running on the same fragment both as the inner doc and as</span>
     <span class="c1"># part of the re-integrated doc. Namely, the permalink '¶' would be appended twice. This is the only known</span>
     <span class="c1"># non-idempotent effect of an extension, so specifically prevent it on the inner doc.</span>
-    <span class="n">configs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">"toc"</span><span class="p">,</span> <span class="p">{})[</span><span class="s2">"permalink"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">configs</span><span class="p">[</span><span class="s2">"toc"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">configs</span><span class="p">[</span><span class="s2">"toc"</span><span class="p">],</span> <span class="n">permalink</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
 
     <span class="n">md</span> <span class="o">=</span> <span class="n">Markdown</span><span class="p">(</span><span class="n">extensions</span><span class="o">=</span><span class="n">extensions</span><span class="p">,</span> <span class="n">extension_configs</span><span class="o">=</span><span class="n">configs</span><span class="p">)</span>
 
@@ -1435,7 +1438,7 @@ of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdo
 
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.CollectionError" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>An exception raised when some collection of data failed.</p>
 </div>
@@ -1447,7 +1450,7 @@ of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdo
 
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.Handlers" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>A collection of handlers.</p>
 <p>Do not instantiate this directly. <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin">The plugin</a> will keep one instance of
@@ -1462,7 +1465,7 @@ this for the purpose of caching. Use <a href="../../plugin/#mkdocstrings.plugin.
       <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.__init__" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Initialize the object.</p>
 <p><strong>Parameters:</strong></p>
@@ -1511,7 +1514,7 @@ of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdo
 <code class="highlight language-python"><span class="n">get_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">handler_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.get_handler" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Get a handler thanks to its name.</p>
 <p>This function dynamically imports a module named "mkdocstrings.handlers.NAME", calls its
@@ -1606,7 +1609,7 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 <code class="highlight language-python"><span class="n">get_handler_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.get_handler_config" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Return the global configuration of the given handler.</p>
 <p><strong>Parameters:</strong></p>
@@ -1675,7 +1678,7 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 <code class="highlight language-python"><span class="n">get_handler_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.get_handler_name" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Return the handler name defined in an "autodoc" instruction YAML configuration, or the global default handler.</p>
 <p><strong>Parameters:</strong></p>
@@ -1744,7 +1747,7 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 <code class="highlight language-python"><span class="n">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.teardown" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Teardown all cached handlers and clear the cache.</p>
 <details class="quote">
@@ -1770,7 +1773,7 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.PrefixIdsExtension" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>Prepend the configured prefix to IDs of all HTML elements.</p>
 <div class="doc doc-children">
@@ -1780,7 +1783,7 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 <code class="highlight language-python"><span class="n">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.PrefixIdsExtension.extendMarkdown" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Register the extension, with a treeprocessor under the name 'mkdocstrings_ids'.</p>
 <p><strong>Parameters:</strong></p>
@@ -1835,7 +1838,7 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.ShiftHeadingsExtension" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>Shift levels of all Markdown headings according to the configured base level.</p>
 <div class="doc doc-children">
@@ -1845,7 +1848,7 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 <code class="highlight language-python"><span class="n">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">)</span></code>
 
 
-      </h3>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.ShiftHeadingsExtension.extendMarkdown" title="Permanent link">¤</a></h3>
 <div class="doc doc-contents ">
 <p>Register the extension, with a treeprocessor under the name 'mkdocstrings_headings'.</p>
 <p><strong>Parameters:</strong></p>
@@ -1900,7 +1903,7 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.ThemeNotSupported" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>An exception raised to tell a theme is not supported.</p>
 </div>
@@ -1911,7 +1914,7 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 <code class="highlight language-python"><span class="n">do_any</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.do_any" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>Check if at least one of the item in the sequence evaluates to true.</p>
 <p>The <code>any</code> builtin as a filter for Jinja templates.</p>
@@ -1991,7 +1994,7 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 <code class="highlight language-python"><span class="n">do_convert_markdown</span><span class="p">(</span><span class="n">md</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">heading_level</span><span class="p">,</span> <span class="n">html_id</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span></code>
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.do_convert_markdown" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>Render Markdown text; for use inside templates.</p>
 <p><strong>Parameters:</strong></p>
@@ -2074,7 +2077,7 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 <span class="sd">    """</span>
     <span class="n">md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="p">[</span><span class="s2">"mkdocstrings_headings"</span><span class="p">]</span><span class="o">.</span><span class="n">shift_by</span> <span class="o">=</span> <span class="n">heading_level</span>
     <span class="n">md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="p">[</span><span class="s2">"mkdocstrings_ids"</span><span class="p">]</span><span class="o">.</span><span class="n">id_prefix</span> <span class="o">=</span> <span class="n">html_id</span> <span class="ow">and</span> <span class="n">html_id</span> <span class="o">+</span> <span class="s2">"--"</span>
-    <span class="k">try</span><span class="p">:</span>  <span class="c1"># noqa: WPS501 (no except)</span>
+    <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="n">md</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
     <span class="k">finally</span><span class="p">:</span>
         <span class="n">md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="p">[</span><span class="s2">"mkdocstrings_headings"</span><span class="p">]</span><span class="o">.</span><span class="n">shift_by</span> <span class="o">=</span> <span class="mi">0</span>
@@ -2091,7 +2094,7 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 <code class="highlight language-python"><span class="n">do_highlight</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">guess_lang</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dedent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">line_nums</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">line_start</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.do_highlight" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>Highlight a code-snippet.</p>
 <p>This function is used as a filter in Jinja templates.</p>
@@ -2230,7 +2233,7 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 <code class="highlight language-python"><span class="n">do_js_highlight</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">guess_lang</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dedent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">line_nums</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">line_start</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
 
 
-      </h2>
+      <a class="headerlink" href="#mkdocstrings.handlers.base.do_js_highlight" title="Permanent link">¤</a></h2>
 <div class="doc doc-contents ">
 <p>Prepare a code-snippet for JS highlighting.</p>
 <p>This function is used as a filter in Jinja templates.</p>
