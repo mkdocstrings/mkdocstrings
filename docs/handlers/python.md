@@ -107,7 +107,7 @@ It stands for *(Python) Take Docs*, and is supposed to be a pun on MkDocs (*Make
 
 ### Supported docstrings styles
 
-Right now, `pytkdocs` supports the Google-style and reStrcuturedText-style docstring formats.
+Right now, `pytkdocs` supports the Google-style and reStructuredText-style docstring formats.
 
 #### Google-style
 
@@ -208,6 +208,10 @@ Type annotations are read both in the code and in the docstrings.
 
 #### reStructuredText-style
 
+!!! warning "Partial support"
+    Only RST-**style** is supported, not the whole RST markup specification.
+    Docstrings will still be converted as Markdown.
+ 
 You can see examples of reStructuredText-style docstrings
 in [Sphinx's documentation](https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html).
 
