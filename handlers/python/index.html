@@ -1038,7 +1038,7 @@ See <a href="#collector-pytkdocs">Collector: pytkdocs</a> to learn more about <c
 is <a href="https://pawamoy.github.io/pytkdocs"><code>pytkdocs</code></a>.
 It stands for <em>(Python) Take Docs</em>, and is supposed to be a pun on MkDocs (<em>Make Docs</em>?).</p>
 <h3 id="supported-docstrings-styles">Supported docstrings styles<a class="headerlink" href="#supported-docstrings-styles" title="Permanent link">¤</a></h3>
-<p>Right now, <code>pytkdocs</code> supports the Google-style and reStrcuturedText-style docstring formats.</p>
+<p>Right now, <code>pytkdocs</code> supports the Google-style and reStructuredText-style docstring formats.</p>
 <h4 id="google-style">Google-style<a class="headerlink" href="#google-style" title="Permanent link">¤</a></h4>
 <p>You can see examples of Google-style docstrings
 in <a href="https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html">Napoleon's documentation</a>.</p>
@@ -1181,6 +1181,11 @@ Just remember to indent those lines consistently.</p>
 </div>
 </div>
 <h4 id="restructuredtext-style">reStructuredText-style<a class="headerlink" href="#restructuredtext-style" title="Permanent link">¤</a></h4>
+<div class="admonition warning">
+<p class="admonition-title">Partial support</p>
+<p>Only RST-<strong>style</strong> is supported, not the whole RST markup specification.
+Docstrings will still be converted as Markdown.</p>
+</div>
 <p>You can see examples of reStructuredText-style docstrings
 in <a href="https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html">Sphinx's documentation</a>.</p>
 <h5 id="sections_1">Sections<a class="headerlink" href="#sections_1" title="Permanent link">¤</a></h5>
