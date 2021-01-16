@@ -32,6 +32,7 @@ from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
 from mkdocs.structure.pages import Page
 from mkdocs.structure.toc import AnchorLink
+from mkdocs.utils import write_file
 
 from mkdocstrings.extension import MkdocstringsExtension
 from mkdocstrings.handlers.base import BaseHandler, Handlers
@@ -98,6 +99,8 @@ class MkdocstringsPlugin(BasePlugin):
                 selection_opt: 2
     ```
     """
+
+    css_filename = "assets/_mkdocstrings.css"
 
     def __init__(self) -> None:
         """Initialize the object."""
@@ -167,6 +170,9 @@ class MkdocstringsPlugin(BasePlugin):
         self.handlers = Handlers(extension_config)
         mkdocstrings_extension = MkdocstringsExtension(extension_config, self.handlers)
         config["markdown_extensions"].append(mkdocstrings_extension)
+
+        config["extra_css"].insert(0, self.css_filename)  # So that it has lower priority than user files.
+
         return config
 
     def on_page_content(self, html: str, page: Page, **kwargs) -> str:  # noqa: W0613 (unused arguments)
@@ -239,7 +245,7 @@ class MkdocstringsPlugin(BasePlugin):
 
         return fixed_output
 
-    def on_post_build(self, **kwargs) -> None:  # noqa: W0613,R0201 (unused arguments, cannot be static)
+    def on_post_build(self, config: Config, **kwargs) -> None:  # noqa: W0613,R0201 (unused arguments, cannot be static)
         """
         Teardown the handlers.
 
@@ -253,9 +259,13 @@ class MkdocstringsPlugin(BasePlugin):
         this hook.
 
         Arguments:
+            config: The MkDocs config object.
             kwargs: Additional arguments passed by MkDocs.
         """
         if self.handlers:
+            css_content = "\n".join(handler.renderer.extra_css for handler in self.handlers.seen_handlers)
+            write_file(css_content.encode("utf-8"), os.path.join(config["site_dir"], self.css_filename))
+
             log.debug("Tearing handlers down")
             self.handlers.teardown()
 

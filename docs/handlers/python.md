@@ -329,33 +329,6 @@ div.doc-contents:not(.first) {
   border-left: 4px solid rgba(230, 230, 230);
   margin-bottom: 80px;
 }
-
-/* Don't capitalize names. */
-h5.doc-heading {
-  text-transform: none !important;
-}
-
-/* Don't use vertical space on hidden ToC entries. */
-.hidden-toc::before {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-/* Don't show permalink of hidden ToC entries. */
-.hidden-toc a.headerlink {
-  display: none;
-}
-
-/* Avoid breaking parameters name, etc. in table cells. */
-td code {
-  word-break: normal !important;
-}
-
-/* For pieces of Markdown rendered in table cells. */
-td p {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-}
 ```
 
 ## Recommended style (ReadTheDocs)
@@ -368,44 +341,5 @@ div.doc-contents:not(.first) {
   padding-left: 25px;
   border-left: 4px solid rgba(230, 230, 230);
   margin-bottom: 60px;
-}
-
-/* Don't use vertical space on hidden ToC entries. */
-.hidden-toc::before {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-/* Don't show permalink of hidden ToC entries. */
-.hidden-toc a.headerlink {
-  display: none;
-}
-
-/* Avoid breaking parameters name, etc. in table cells. */
-td code {
-  word-break: normal !important;
-}
-
-/* For pieces of Markdown rendered in table cells. */
-td p {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-}
-
-/* Avoid breaking code headings. */
-.doc-heading code {
-  white-space: normal;
-}
-
-/* Improve rendering of parameters, returns and exceptions. */
-.field-name {
-  min-width: 100px;
-}
-.field-name, .field-body {
-  border: none !important;
-  padding: 0 !important;
-}
-.field-list {
-  margin: 0 !important;
 }
 ```
