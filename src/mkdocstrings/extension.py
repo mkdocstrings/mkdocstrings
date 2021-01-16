@@ -119,6 +119,9 @@ class AutoDocProcessor(BlockProcessor):
             # So we need to duplicate the headings directly (and delete later), just so 'toc' can pick them up.
             el.extend(headings)
 
+            for heading in headings:
+                self._handlers.register_anchor(self._handlers.current_page, heading.attrib["id"])
+
             parent.append(el)
 
         if the_rest:

@@ -31,7 +31,6 @@ from mkdocs.config import Config
 from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
 from mkdocs.structure.pages import Page
-from mkdocs.structure.toc import AnchorLink
 
 from mkdocstrings.extension import MkdocstringsExtension
 from mkdocstrings.handlers.base import BaseHandler, Handlers
@@ -183,7 +182,7 @@ class MkdocstringsPlugin(BasePlugin):
         config["markdown_extensions"].append(mkdocstrings_extension)
         return config
 
-    def on_page_content(self, html: str, page: Page, **kwargs) -> str:  # noqa: W0613 (unused arguments)
+    def on_page_markdown(self, markdown: str, page: Page, **kwargs) -> str:  # noqa: W0613 (unused arguments)
         """
         Map anchors to URLs.
 
@@ -193,31 +192,15 @@ class MkdocstringsPlugin(BasePlugin):
         `[identifier][]`.
 
         Arguments:
-            html: HTML converted from Markdown.
+            markdown: Input Markdown.
             page: The related MkDocs page instance.
             kwargs: Additional arguments passed by MkDocs.
 
         Returns:
-            The same HTML. We only use this hook to map anchors to URLs.
+            The same Markdown. We only use this hook to map anchors to URLs.
         """
-        log.debug(f"Mapping identifiers to URLs for page {page.file.src_path}")
-        for item in page.toc.items:
-            self.map_urls(page.url, item)
-        return html
-
-    def map_urls(self, base_url: str, anchor: AnchorLink) -> None:
-        """
-        Recurse on every anchor to map its ID to its absolute URL.
-
-        This method populates `self.handlers.url_map` by side-effect.
-
-        Arguments:
-            base_url: The base URL to use as a prefix for each anchor's relative URL.
-            anchor: The anchor to process and to recurse on.
-        """
-        self.handlers.register_anchor(base_url, anchor.id)
-        for child in anchor.children:
-            self.map_urls(base_url, child)
+        self.handlers.current_page = page.url
+        return markdown
 
     def on_post_page(self, output: str, page: Page, **kwargs) -> str:  # noqa: W0613 (unused arguments)
         """

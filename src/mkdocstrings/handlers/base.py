@@ -390,6 +390,8 @@ class Handlers:
     this for the purpose of caching. Use [mkdocstrings.plugin.MkdocstringsPlugin.get_handler][] for convenient access.
     """
 
+    current_page: Optional[str] = None
+
     def __init__(self, config: dict) -> None:
         """
         Initialize the object.
