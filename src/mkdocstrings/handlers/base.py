@@ -27,7 +27,8 @@ from pymdownx.highlight import Highlight
 
 from mkdocstrings.loggers import get_template_logger
 
-handlers_cache: Dict[str, Any] = {}
+CollectorItem = Any
+
 TEMPLATES_DIR = Path(__file__).parent.parent / "templates"
 
 
@@ -206,7 +207,7 @@ class BaseRenderer(ABC):
         self.env.filters["highlight"] = highlight_function
 
     @abstractmethod
-    def render(self, data: Any, config: dict) -> str:
+    def render(self, data: CollectorItem, config: dict) -> str:
         """
         Render a template using provided data and configuration options.
 
@@ -253,7 +254,7 @@ class BaseCollector(ABC):
     """
 
     @abstractmethod
-    def collect(self, identifier: str, config: dict) -> Any:
+    def collect(self, identifier: str, config: dict) -> CollectorItem:
         """
         Collect data given an identifier and selection configuration.
 

@@ -24,7 +24,7 @@ instruction:
 """
 import re
 from collections import ChainMap
-from typing import Any, Mapping, MutableSequence, Tuple
+from typing import Mapping, MutableSequence, Tuple
 from xml.etree.ElementTree import XML, Element, ParseError  # noqa: S405 (we choose to trust the XML input)
 
 import yaml
@@ -35,7 +35,7 @@ from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.util import AtomicString
 
-from mkdocstrings.handlers.base import CollectionError, Handlers
+from mkdocstrings.handlers.base import CollectionError, CollectorItem, Handlers
 from mkdocstrings.loggers import get_logger
 from mkdocstrings.references import AutoRefInlineProcessor
 
@@ -190,7 +190,7 @@ class AutoDocProcessor(BlockProcessor):
 
         log.debug("Collecting data")
         try:
-            data: Any = handler.collector.collect(identifier, selection)
+            data: CollectorItem = handler.collector.collect(identifier, selection)
         except CollectionError:
             log.error(f"Could not collect '{identifier}'")
             raise
