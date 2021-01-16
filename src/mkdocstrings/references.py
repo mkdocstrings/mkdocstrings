@@ -2,7 +2,7 @@
 
 import re
 from html import escape, unescape
-from typing import Any, Callable, Dict, List, Match, Tuple, Union
+from typing import Any, Callable, List, Mapping, Match, Tuple, Union
 from xml.etree.ElementTree import Element  # noqa: S405 (input is our own, and Markdown coming from code)
 
 from markdown.inlinepatterns import REFERENCE_RE, ReferenceInlineProcessor
@@ -118,7 +118,7 @@ def relative_url(url_a: str, url_b: str) -> str:
     return f"{relative}#{anchor}"
 
 
-def fix_ref(url_map: Dict[str, str], from_url: str, unmapped: List[str]) -> Callable:
+def fix_ref(url_map: Mapping[str, str], from_url: str, unmapped: List[str]) -> Callable:
     """
     Return a `repl` function for [`re.sub`](https://docs.python.org/3/library/re.html#re.sub).
 
@@ -158,7 +158,7 @@ def fix_ref(url_map: Dict[str, str], from_url: str, unmapped: List[str]) -> Call
 def fix_refs(
     html: str,
     from_url: str,
-    url_map: Dict[str, str],
+    url_map: Mapping[str, str],
 ) -> Tuple[str, List[str]]:
     """
     Fix all references in the given HTML text.

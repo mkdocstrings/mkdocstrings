@@ -79,6 +79,9 @@ class PythonRenderer(BaseRenderer):
             **{"config": final_config, data["category"]: data, "heading_level": heading_level, "root": True},
         )
 
+    def get_anchor(self, data: CollectorItem) -> str:  # noqa: D102 (ignore missing docstring)
+        return data.get("path")
+
     def update_env(self, md: Markdown, config: dict) -> None:  # noqa: D102 (ignore missing docstring)
         super().update_env(md, config)
         self.env.trim_blocks = True

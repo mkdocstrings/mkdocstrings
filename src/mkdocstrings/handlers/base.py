@@ -219,6 +219,20 @@ class BaseRenderer(ABC):
             The rendered template as HTML.
         """  # noqa: DAR202 (excess return section)
 
+    def get_anchor(self, data: Any) -> Optional[str]:
+        """
+        Return the canonical identifier (HTML anchor) for a collected item.
+
+        This must match what the renderer would've actually rendered,
+        e.g. if rendering the item contains `<h2 id="foo">...` then the return value should be "foo".
+
+        Arguments:
+            data: The collected data.
+
+        Returns:
+            The HTML anchor (without '#') as a string, or None if this item doesn't have an anchor.
+        """  # noqa: DAR202 (excess return section)
+
     def update_env(self, md: Markdown, config: dict) -> None:
         """
         Update the Jinja environment.
@@ -320,6 +334,28 @@ class Handlers:
         """
         self._config = config
         self._handlers: Dict[str, BaseHandler] = {}
+        self._url_map = {}
+
+    def register_anchor(self, page: str, anchor: str):
+        """
+        Register that an anchor corresponding to an identifier was encountered when rendering the page.
+
+        Arguments:
+            page: The URL of the current page.
+            anchor: The HTML anchor (without '#') as a string
+        """
+        self._url_map[anchor] = f"{page}#{anchor}"
+
+    def __getitem__(self, identifier: str) -> str:
+        try:
+            return self._url_map[identifier]
+        except KeyError:
+            for handler in self._handlers.values():
+                try:
+                    return self._url_map[handler.renderer.get_anchor(handler.collector.collect(identifier, {}))]
+                except (CollectionError, KeyError):
+                    continue
+            raise
 
     def get_handler_name(self, config: dict) -> str:
         """
