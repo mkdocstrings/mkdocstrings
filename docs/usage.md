@@ -1,8 +1,10 @@
 # Usage
 
+## Autodoc syntax
+
 MkDocstrings works by processing special expressions in your Markdown files.
 
-The syntax is as follow:
+The syntax is as follows:
 
 ```md
 ::: identifier
@@ -152,14 +154,24 @@ Cross-references are written as Markdown *reference-style* links:
 === "HTML Result"
     ```html
     <p>With a custom title:
-    <a href="https://site_url.com/page1#full.path.object1"><code>Object 1</code></a><p>
+    <a href="https://example.com/page1#full.path.object1"><code>Object 1</code></a><p>
     <p>With the identifier as title:
-    <a href="https://site_url.com/page2#full.path.object2">full.path.object2</a></p>
+    <a href="https://example.com/page2#full.path.object2">full.path.object2</a></p>
     ```
+
+Any item that was inserted using the [autodoc syntax](#autodoc-syntax)
+(e.g. `::: full.path.object1`) is possible to link to by using the same identifier with the
+cross-reference syntax (`[example][full.path.object1]`).
+But the cross-references are also applicable to the items' children that get pulled in.
+
+If you're not sure which exact identifier a doc item uses, you can look at its "anchor", which your
+Web browser will show in the URL bar when clicking an item's entry in the table of contents.
+If the URL is `https://example.com/some/page.html#full.path.object1` then you know that this item
+is possible to link to with `[example][full.path.object1]`, regardless of the current page.
 
 ## Themes
 
-MkDocstrings can support multiple MkDocs theme.
+MkDocstrings can support multiple MkDocs themes.
 It currently supports supports the
 *[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)*
 theme and, partially, the built-in ReadTheDocs theme.
