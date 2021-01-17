@@ -13,7 +13,7 @@ from typing import Any, List, Optional
 
 from markdown import Markdown
 
-from mkdocstrings.handlers.base import BaseCollector, BaseHandler, BaseRenderer, CollectionError
+from mkdocstrings.handlers.base import BaseCollector, BaseHandler, BaseRenderer, CollectionError, CollectorItem
 from mkdocstrings.loggers import get_logger
 
 log = get_logger(__name__)
@@ -65,7 +65,7 @@ class PythonRenderer(BaseRenderer):
     **`heading_level`** | `int` | The initial heading level to use. | `2`
     """  # noqa: E501
 
-    def render(self, data: Any, config: dict) -> str:  # noqa: D102 (ignore missing docstring)
+    def render(self, data: CollectorItem, config: dict) -> str:  # noqa: D102 (ignore missing docstring)
         final_config = ChainMap(config, self.default_config)
 
         template = self.env.get_template(f"{data['category']}.html")
@@ -161,7 +161,7 @@ class PythonCollector(BaseCollector):
             env=env,
         )
 
-    def collect(self, identifier: str, config: dict) -> Any:
+    def collect(self, identifier: str, config: dict) -> CollectorItem:
         """
         Collect the documentation tree given an identifier and selection options.
 

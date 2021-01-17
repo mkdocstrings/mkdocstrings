@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "mkdocstrings"
-version = "0.14.0b1"
+version = "0.14.0"
 description = "Automatic documentation from sources, for MkDocs."
 authors = ["Timothée Mazzucotelli <pawamoy@pm.me>"]
 license = "ISC License"
@@ -93,6 +93,7 @@ exclude = ["tests/fixtures"]
     "-F821",  # redundant with E0602 (undefined variable)
     "-Q000",  # black already deals with quoting
     "-S101",  # use of assert
+    "-S405",  # we are not parsing XML
     "-W503",  # line break before binary operator (incompatible with Black)
     "-C0103", # two-lowercase-letters variable DO conform to snake_case naming style
     "-C0116",  # redunant with D102 (missing docstring)

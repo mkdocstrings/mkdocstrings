@@ -27,6 +27,7 @@ def ext_markdown(**kwargs):
         "mkdocstrings": {"default_handler": "python", "custom_templates": None, "watch": [], "handlers": {}},
     }
     config.update(kwargs)
+    config["mdx"].append("toc")  # Guaranteed to be added by MkDocs.
     original_config = copy.deepcopy(config)
 
     handlers = Handlers(config)
@@ -73,9 +74,9 @@ def test_markdown_heading_level():
     """Assert that Markdown headings' level doesn't exceed heading_level."""
     with ext_markdown() as md:
         output = md.convert("::: tests.fixtures.headings\n    rendering:\n      show_root_heading: true")
-    assert "<h3>Foo</h3>" in output
-    assert "<h5>Bar</h5>" in output
-    assert "<h6>Baz</h6>" in output
+    assert ">Foo</h3>" in output
+    assert ">Bar</h5>" in output
+    assert ">Baz</h6>" in output
 
 
 def test_keeps_preceding_text():
@@ -83,7 +84,7 @@ def test_keeps_preceding_text():
     with ext_markdown() as md:
         output = md.convert("**preceding**\n::: tests.fixtures.headings")
     assert "<strong>preceding</strong>" in output
-    assert "<h2>Foo</h2>" in output
+    assert ">Foo</h2>" in output
     assert ":::" not in output
 
 
@@ -95,10 +96,19 @@ def test_reference_inside_autodoc():
     assert snippet in output
 
 
+def test_html_inside_heading():
+    """Assert that headings don't double-escape HTML."""
+    with ext_markdown() as md:
+        output = md.convert("::: tests.fixtures.builtin")
+    assert "=&lt;" in output
+    assert "&amp;" not in output
+
+
 @pytest.mark.parametrize(
     ("permalink_setting", "expect_permalink"),
     [
         ("@@@", "@@@"),
+        ("TeSt", "TeSt"),
         (True, "&para;"),
     ],
 )
@@ -110,7 +120,7 @@ def test_no_double_toc(permalink_setting, expect_permalink):
         permalink_setting: The 'permalink' setting of 'toc' extension.
         expect_permalink: Text of the permalink to search for in the output.
     """
-    with ext_markdown(mdx=["toc"], mdx_configs={"toc": {"permalink": permalink_setting}}) as md:
+    with ext_markdown(mdx_configs={"toc": {"permalink": permalink_setting}}) as md:
         output = md.convert(
             dedent(
                 """
@@ -125,3 +135,29 @@ def test_no_double_toc(permalink_setting, expect_permalink):
             )
         )
     assert output.count(expect_permalink) == 5
+    assert 'id="tests.fixtures.headings--foo"' in output
+    assert md.toc_tokens == [  # noqa: E1101 (the member gets populated only with 'toc' extension)
+        {
+            "level": 1,
+            "id": "aa",
+            "name": "aa",
+            "children": [
+                {
+                    "level": 2,
+                    "id": "tests.fixtures.headings--foo",
+                    "name": "Foo",
+                    "children": [
+                        {
+                            "level": 4,
+                            "id": "tests.fixtures.headings--bar",
+                            "name": "Bar",
+                            "children": [
+                                {"level": 6, "id": "tests.fixtures.headings--baz", "name": "Baz", "children": []}
+                            ],
+                        }
+                    ],
+                }
+            ],
+        },
+        {"level": 1, "id": "bb", "name": "bb", "children": []},
+    ]

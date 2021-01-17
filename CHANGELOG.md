@@ -5,15 +5,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
-## [0.14.0b1](https://github.com/pawamoy/mkdocstrings/releases/tag/0.14.0b1) - 2020-12-31
+## [0.14.0](https://github.com/pawamoy/mkdocstrings/releases/tag/0.14.0) - 2021-01-06
 
-<small>[Compare with 0.13.6](https://github.com/pawamoy/mkdocstrings/compare/0.13.6...0.14.0b1)</small>
+<small>[Compare with 0.13.6](https://github.com/pawamoy/mkdocstrings/compare/0.13.6...0.14.0)</small>
 
 Special thanks to Oleh [@oprypin](https://github.com/oprypin) Prypin who did an amazing job (this is a euphemism)
 at improving MkDocstrings, fixing hard-to-fix bugs with clever solutions, implementing great new features
 and refactoring the code for better performance and readability! Thanks Oleh!
 
 ### Bug Fixes
+- Fix double code tags ([e84d401](https://github.com/pawamoy/mkdocstrings/commit/e84d401c6dcb9aecb8cc1a58d3a0f339e1c3e78f) by Timothée Mazzucotelli).
+- Don't mutate the original Markdown config for permalinks ([8f6b163](https://github.com/pawamoy/mkdocstrings/commit/8f6b163b50551da22f65e9b736e042562f77f2d7) by Oleh Prypin).
 - Preserve text immediately before an autodoc ([07466fa](https://github.com/pawamoy/mkdocstrings/commit/07466fafb54963a4e35e69007b6291a0382aaeb4) by Oleh Prypin). [PR #207](https://github.com/pawamoy/mkdocstrings/pull/207)
 - Remove `href` attributes from headings in templates ([d5602ff](https://github.com/pawamoy/mkdocstrings/commit/d5602ff3bb1a75ac1c8c457e972271b6c66eb8dd) by Oleh Prypin). [PR #204](https://github.com/pawamoy/mkdocstrings/pull/204)
 - Don't let `toc` extension append its permalink twice ([a154f5c](https://github.com/pawamoy/mkdocstrings/commit/a154f5c4c6ef9abd221e1f89e44847ae2cf25436) by Oleh Prypin). [PR #203](https://github.com/pawamoy/mkdocstrings/pull/203)
@@ -28,6 +30,7 @@ and refactoring the code for better performance and readability! Thanks Oleh!
 - Detecting paths relative to template directory in logging ([a50046b](https://github.com/pawamoy/mkdocstrings/commit/a50046b5d58d62df4ba13f4c197e80edd1995eb9) by Oleh Prypin). [Issue #166](https://github.com/pawamoy/mkdocstrings/issues/166)
 
 ### Code Refactoring
+- BlockProcessor already receives strings, use them as such ([bcf7da9](https://github.com/pawamoy/mkdocstrings/commit/bcf7da911a310a63351c5082e84bb763d90d5b3b) by Oleh Prypin).
 - Remove some unused code ([8504084](https://github.com/pawamoy/mkdocstrings/commit/850408421cc027be8374673cc74c71fff26f3833) by Oleh Prypin). [PR #206](https://github.com/pawamoy/mkdocstrings/pull/206)
 - Improve XML parsing error handling ([ad86410](https://github.com/pawamoy/mkdocstrings/commit/ad864100b644ab1ee8daaa0d3923bc87dee1c5ca) by Timothée Mazzucotelli).
 - Explicitly use MarkupSafe ([6b9ebe7](https://github.com/pawamoy/mkdocstrings/commit/6b9ebe7d510e82971acef89e9e946af3c0cc96d3) by Oleh Prypin).

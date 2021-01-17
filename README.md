@@ -62,6 +62,7 @@ Automatic documentation from sources, for MkDocs.
     - **reStructuredText-style sections support in docstrings:** `pytkdocs` understands all the
       [reStructuredText fields](https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html?highlight=python%20domain#info-field-lists),
       and returns structured data for `mkdocstrings` to render them.
+      *Note: only RST **style** is supported, not the whole markup.*
     - **Admonition support in docstrings:** blocks like `Note: ` or `Warning: ` will be transformed
       to their [admonition](https://squidfunk.github.io/mkdocs-material/extensions/admonition/) equivalent.
       *We do not support nested admonitions in docstrings!*

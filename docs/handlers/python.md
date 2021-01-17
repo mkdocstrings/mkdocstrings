@@ -107,7 +107,7 @@ It stands for *(Python) Take Docs*, and is supposed to be a pun on MkDocs (*Make
 
 ### Supported docstrings styles
 
-Right now, `pytkdocs` supports the Google-style and reStrcuturedText-style docstring formats.
+Right now, `pytkdocs` supports the Google-style and reStructuredText-style docstring formats.
 
 #### Google-style
 
@@ -208,6 +208,10 @@ Type annotations are read both in the code and in the docstrings.
 
 #### reStructuredText-style
 
+!!! warning "Partial support"
+    Only RST-**style** is supported, not the whole RST markup specification.
+    Docstrings will still be converted as Markdown.
+ 
 You can see examples of reStructuredText-style docstrings
 in [Sphinx's documentation](https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html).
 
@@ -331,17 +335,6 @@ h5.doc-heading {
   text-transform: none !important;
 }
 
-/* Don't use vertical space on hidden ToC entries. */
-.hidden-toc::before {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-/* Don't show permalink of hidden ToC entries. */
-.hidden-toc a.headerlink {
-  display: none;
-}
-
 /* Avoid breaking parameters name, etc. in table cells. */
 td code {
   word-break: normal !important;
@@ -364,17 +357,6 @@ div.doc-contents:not(.first) {
   padding-left: 25px;
   border-left: 4px solid rgba(230, 230, 230);
   margin-bottom: 60px;
-}
-
-/* Don't use vertical space on hidden ToC entries. */
-.hidden-toc::before {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-/* Don't show permalink of hidden ToC entries. */
-.hidden-toc a.headerlink {
-  display: none;
 }
 
 /* Avoid breaking parameters name, etc. in table cells. */
