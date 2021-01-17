@@ -243,7 +243,7 @@ class MkdocstringsPlugin(BasePlugin):
         """
         log.debug(f"Fixing references in page {page.file.src_path}")
 
-        fixed_output, unmapped = fix_refs(output, page.url, self.handlers)
+        fixed_output, unmapped = fix_refs(output, page.url, self.handlers.get_item_url)
 
         if unmapped and log.isEnabledFor(logging.WARNING):
             for ref in unmapped:

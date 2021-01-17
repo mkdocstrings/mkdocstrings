@@ -412,7 +412,19 @@ class Handlers:
         """
         self._url_map[anchor] = f"{page}#{anchor}"
 
-    def __getitem__(self, identifier: str) -> str:
+    def get_item_url(self, identifier: str) -> str:
+        """
+        Return a site-relative URL with anchor to the identifier, if it's present anywhere.
+
+        Arguments:
+            identifier: The identifier (one that [collect][mkdocstrings.handlers.base.BaseCollector.collect] can accept).
+
+        Returns:
+            A site-relative URL.
+
+        Raises:
+            KeyError: If there isn't an item by this identifier anywhere on the site.
+        """
         try:
             return self._url_map[identifier]
         except KeyError:

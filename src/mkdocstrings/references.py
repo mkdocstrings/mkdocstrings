@@ -2,7 +2,7 @@
 
 import re
 from html import escape, unescape
-from typing import Any, Callable, List, Mapping, Match, Tuple, Union
+from typing import Any, Callable, List, Match, Tuple, Union
 from xml.etree.ElementTree import Element
 
 from markdown.inlinepatterns import REFERENCE_RE, ReferenceInlineProcessor
@@ -118,7 +118,7 @@ def relative_url(url_a: str, url_b: str) -> str:
     return f"{relative}#{anchor}"
 
 
-def fix_ref(url_map: Mapping[str, str], from_url: str, unmapped: List[str]) -> Callable:
+def fix_ref(url_mapper: Callable[[str], str], from_url: str, unmapped: List[str]) -> Callable:
     """
     Return a `repl` function for [`re.sub`](https://docs.python.org/3/library/re.html#re.sub).
 
@@ -129,7 +129,8 @@ def fix_ref(url_map: Mapping[str, str], from_url: str, unmapped: List[str]) -> C
     and rendered, making it impossible to link to it. We catch this exception in the caller to issue a warning.
 
     Arguments:
-        url_map: The mapping of objects and their URLs.
+        url_mapper: A callable that gets an object's site URL by its identifier,
+            such as [mkdocstrings.handlers.base.Handlers.get_item_url][].
         from_url: The URL of the base page, from which we link towards the targeted pages.
         unmapped: A list to store unmapped identifiers.
 
@@ -143,7 +144,7 @@ def fix_ref(url_map: Mapping[str, str], from_url: str, unmapped: List[str]) -> C
         title = match["title"]
 
         try:
-            url = relative_url(from_url, url_map[unescape(identifier)])
+            url = relative_url(from_url, url_mapper(unescape(identifier)))
         except KeyError:
             unmapped.append(identifier)
             if title == identifier:
@@ -158,7 +159,7 @@ def fix_ref(url_map: Mapping[str, str], from_url: str, unmapped: List[str]) -> C
 def fix_refs(
     html: str,
     from_url: str,
-    url_map: Mapping[str, str],
+    url_mapper: Callable[[str], str],
 ) -> Tuple[str, List[str]]:
     """
     Fix all references in the given HTML text.
@@ -166,11 +167,12 @@ def fix_refs(
     Arguments:
         html: The text to fix.
         from_url: The URL at which this HTML is served.
-        url_map: The mapping of objects and their URLs.
+        url_mapper: A callable that gets an object's site URL by its identifier,
+            such as [mkdocstrings.handlers.base.Handlers.get_item_url][].
 
     Returns:
         The fixed HTML.
     """
     unmapped = []  # type: ignore
-    html = AUTO_REF_RE.sub(fix_ref(url_map, from_url, unmapped), html)
+    html = AUTO_REF_RE.sub(fix_ref(url_mapper, from_url, unmapped), html)
     return html, unmapped
