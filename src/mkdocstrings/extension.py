@@ -24,8 +24,8 @@ instruction:
 """
 import re
 from collections import ChainMap
-from typing import Mapping, MutableSequence, Tuple
-from xml.etree.ElementTree import XML, Element, ParseError  # noqa: S405 (we choose to trust the XML input)
+from typing import Mapping, MutableSequence, Sequence, Tuple
+from xml.etree.ElementTree import Element
 
 import yaml
 from jinja2.exceptions import TemplateNotFound
@@ -33,53 +33,13 @@ from markdown import Markdown
 from markdown.blockparser import BlockParser
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
-from markdown.util import AtomicString
+from markdown.treeprocessors import Treeprocessor
 
 from mkdocstrings.handlers.base import CollectionError, CollectorItem, Handlers
 from mkdocstrings.loggers import get_logger
 from mkdocstrings.references import AutoRefInlineProcessor
 
 log = get_logger(__name__)
-
-ENTITIES = """
-    <!DOCTYPE html [
-        <!ENTITY hellip '&amp;hellip;'>
-        <!ENTITY laquo '&amp;laquo;'>
-        <!ENTITY ldquo '&amp;ldquo;'>
-        <!ENTITY lsquo '&amp;lsquo;'>
-        <!ENTITY mdash '&amp;mdash;'>
-        <!ENTITY nbsp '&amp;nbsp;'>
-        <!ENTITY ndash '&amp;ndash;'>
-        <!ENTITY para '&amp;para;'>
-        <!ENTITY raquo '&amp;raquo;'>
-        <!ENTITY rdquo '&amp;rdquo;'>
-        <!ENTITY rsquo '&amp;rsquo;'>
-    ]>
-"""
-
-
-def atomic_brute_cast(tree: Element) -> Element:
-    """
-    Cast every node's text into an atomic string to prevent further processing on it.
-
-    Since we generate the final HTML with Jinja templates, we do not want other inline or tree processors
-    to keep modifying the data, so this function is used to mark the complete tree as "do not touch".
-
-    Reference: issue [Python-Markdown/markdown#920](https://github.com/Python-Markdown/markdown/issues/920).
-
-    On a side note: isn't `atomic_brute_cast` such a beautiful function name?
-
-    Arguments:
-        tree: An XML node, used like the root of an XML tree.
-
-    Returns:
-        The same node, recursively modified by side-effect. You can skip re-assigning the return value.
-    """
-    if tree.text:
-        tree.text = AtomicString(tree.text)
-    for child in tree:
-        atomic_brute_cast(child)
-    return tree
 
 
 class AutoDocProcessor(BlockProcessor):
@@ -151,8 +111,15 @@ class AutoDocProcessor(BlockProcessor):
             identifier = match["name"]
             heading_level = match["heading"].count("#")
             log.debug(f"Matched '::: {identifier}'")
-            xml_element = self.process_block(identifier, block, heading_level)
-            parent.append(xml_element)
+
+            html, headings = self._process_block(identifier, block, heading_level)
+            el = Element("div", {"class": "mkdocstrings"})
+            # The final HTML is inserted as opaque to subsequent processing, and only revealed at the end.
+            el.text = self.md.htmlStash.store(html)
+            # So we need to duplicate the headings directly (and delete later), just so 'toc' can pick them up.
+            el.extend(headings)
+
+            parent.append(el)
 
         if the_rest:
             # This block contained unindented line(s) after the first indented
@@ -160,7 +127,7 @@ class AutoDocProcessor(BlockProcessor):
             # list for future processing.
             blocks.insert(0, the_rest)
 
-    def process_block(self, identifier: str, yaml_block: str, heading_level: int = 0) -> Element:
+    def _process_block(self, identifier: str, yaml_block: str, heading_level: int = 0) -> Tuple[str, Sequence[Element]]:
         """
         Process an autodoc block.
 
@@ -171,11 +138,10 @@ class AutoDocProcessor(BlockProcessor):
 
         Raises:
             CollectionError: When something wrong happened during collection.
-            ParseError: When the generated HTML could not be parsed as XML.
             TemplateNotFound: When a template used for rendering could not be found.
 
         Returns:
-            A new XML element.
+            Rendered HTML and the list of heading elements encoutered.
         """
         config = yaml.safe_load(yaml_block) or {}
         handler_name = self._handlers.get_handler_name(config)
@@ -197,7 +163,7 @@ class AutoDocProcessor(BlockProcessor):
 
         if not self._updated_env:
             log.debug("Updating renderer's env")
-            handler.renderer.update_env(self.md, self._config)
+            handler.renderer._update_env(self.md, self._config)  # noqa: W0212 (protected member OK)
             self._updated_env = True
 
         log.debug("Rendering templates")
@@ -210,15 +176,7 @@ class AutoDocProcessor(BlockProcessor):
             )
             raise
 
-        log.debug("Loading HTML back into XML tree")
-        rendered = ENTITIES + rendered
-        try:
-            xml_contents = XML(rendered)
-        except ParseError as error:
-            log_xml_parse_error(str(error), rendered)
-            raise
-
-        return atomic_brute_cast(xml_contents)  # type: ignore
+        return (rendered, handler.renderer.get_headings())
 
 
 def get_item_configs(handler_config: dict, config: dict) -> Tuple[Mapping, Mapping]:
@@ -237,37 +195,19 @@ def get_item_configs(handler_config: dict, config: dict) -> Tuple[Mapping, Mappi
     return item_selection_config, item_rendering_config
 
 
-def log_xml_parse_error(error: str, xml_text: str) -> None:
-    """
-    Log an XML parsing error.
-
-    If the error is a tag mismatch, augment the log message.
-
-    Arguments:
-        error: The error message (no traceback).
-        xml_text: The XML text that generated the parsing error.
-    """
-    message = error
-    mismatched_tag = "mismatched tag" in error
-    undefined_entity = "undefined entity" in error
-
-    if mismatched_tag or undefined_entity:
-        line_column = error[error.rfind(":") + 1 :]
-        line, column = line_column.split(", ")
-        lineno = int(line[line.rfind(" ") + 1 :])
-        columnno = int(column[column.rfind(" ") + 1 :])
-
-        line = xml_text.split("\n")[lineno - 1]
-        if mismatched_tag:
-            character = line[columnno]
-            message += (
-                f" (character {character}):\n{line}\n"
-                "If your Markdown contains angle brackets < >, try to wrap them between backticks `< >`, "
-                "or replace them with &lt; and &gt;"
-            )
-        elif undefined_entity:
-            message += f":\n{line}\n"
-    log.error(message)
+class _PostProcessor(Treeprocessor):
+    def run(self, root: Element):
+        carry_text = ""
+        for el in reversed(root):  # Reversed mainly for the ability to mutate during iteration.
+            if el.tag == "div" and el.get("class") == "mkdocstrings":
+                # Delete the duplicated headings along with their container, but keep the text (i.e. the actual HTML).
+                carry_text = (el.text or "") + carry_text
+                root.remove(el)
+            elif carry_text:
+                el.tail = (el.tail or "") + carry_text
+                carry_text = ""
+        if carry_text:
+            root.text = (root.text or "") + carry_text
 
 
 class MkdocstringsExtension(Extension):
@@ -276,9 +216,6 @@ class MkdocstringsExtension(Extension):
 
     It cannot work outside of `mkdocstrings`.
     """
-
-    blockprocessor_priority = 75  # Right before markdown.blockprocessors.HashHeaderProcessor
-    inlineprocessor_priority = 168  # Right after markdown.inlinepatterns.ReferenceInlineProcessor
 
     def __init__(self, config: dict, handlers: Handlers, **kwargs) -> None:
         """
@@ -303,8 +240,18 @@ class MkdocstringsExtension(Extension):
         Arguments:
             md: A `markdown.Markdown` instance.
         """
-        md.registerExtension(self)
-        processor = AutoDocProcessor(md.parser, md, self._config, self._handlers)
-        md.parser.blockprocessors.register(processor, "mkdocstrings", self.blockprocessor_priority)
-        ref_processor = AutoRefInlineProcessor(md)
-        md.inlinePatterns.register(ref_processor, "mkdocstrings", self.inlineprocessor_priority)
+        md.parser.blockprocessors.register(
+            AutoDocProcessor(md.parser, md, self._config, self._handlers),
+            "mkdocstrings",
+            priority=75,  # Right before markdown.blockprocessors.HashHeaderProcessor
+        )
+        md.treeprocessors.register(
+            _PostProcessor(md.parser),
+            "mkdocstrings_post",
+            priority=4,  # Right after 'toc'.
+        )
+        md.inlinePatterns.register(
+            AutoRefInlineProcessor(md),
+            "mkdocstrings",
+            priority=168,  # Right after markdown.inlinepatterns.ReferenceInlineProcessor
+        )

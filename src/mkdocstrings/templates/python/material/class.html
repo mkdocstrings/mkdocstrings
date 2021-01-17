@@ -16,10 +16,10 @@
         {% set show_full_path = config.show_object_full_path %}
       {% endif %}
 
-      <h{{ heading_level }}
-          id="{{ html_id }}"
-          class="doc doc-heading"
-          data-toc-label="{{ class.name }}">
+      {% filter heading(heading_level,
+          id=html_id,
+          class="doc doc-heading",
+          toc_label=class.name) %}
 
         <code>{% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}</code>
 
@@ -27,15 +27,15 @@
           {% include "properties.html" with context %}
         {% endwith %}
 
-      </h{{ heading_level }}>
+      {% endfilter %}
 
     {% else %}
       {% if config.show_root_toc_entry %}
-        <h{{ heading_level }} class="hidden-toc"
-            id="{{ html_id }}"
-            data-toc-label="{{ class.path }}"
-            style="visibility: hidden; position: absolute;">
-        </h{{ heading_level }}>
+        {% filter heading(heading_level,
+            id=html_id,
+            toc_label=class.path,
+            hidden=True) %}
+        {% endfilter %}
       {% endif %}
       {% set heading_level = heading_level - 1 %}
     {% endif %}

@@ -14,7 +14,7 @@
         {% endif %}
 
         {% if config.show_category_heading and obj.attributes|any("has_contents") %}
-          <h{{ heading_level }}>Attributes</h{{ heading_level }}>
+          {% filter heading(heading_level, id=html_id ~ "-attributes") %}Attributes{% endfilter %}
         {% endif %}
         {% with heading_level = heading_level + extra_level %}
           {% for attribute in obj.attributes|sort(attribute="name") %}
@@ -23,7 +23,7 @@
         {% endwith %}
 
         {% if config.show_category_heading and obj.classes|any("has_contents") %}
-          <h{{ heading_level }}>Classes</h{{ heading_level }}>
+          {% filter heading(heading_level, id=html_id ~ "-classes") %}Classes{% endfilter %}
         {% endif %}
         {% with heading_level = heading_level + extra_level %}
           {% for class in obj.classes|sort(attribute="name") %}
@@ -32,7 +32,7 @@
         {% endwith %}
 
         {% if config.show_category_heading and obj.functions|any("has_contents") %}
-          <h{{ heading_level }}>Functions</h{{ heading_level }}>
+          {% filter heading(heading_level, id=html_id ~ "-functions") %}Functions{% endfilter %}
         {% endif %}
         {% with heading_level = heading_level + extra_level %}
           {% for function in obj.functions|sort(attribute="name") %}
@@ -41,7 +41,7 @@
         {% endwith %}
 
         {% if config.show_category_heading and obj.methods|any("has_contents") %}
-          <h{{ heading_level }}>Methods</h{{ heading_level }}>
+          {% filter heading(heading_level, id=html_id ~ "-methods") %}Methods{% endfilter %}
         {% endif %}
         {% with heading_level = heading_level + extra_level %}
           {% for method in obj.methods|sort(attribute="name") %}
@@ -50,7 +50,7 @@
         {% endwith %}
 
         {% if config.show_category_heading and obj.modules|any("has_contents") %}
-          <h{{ heading_level }}>Modules</h{{ heading_level }}>
+          {% filter heading(heading_level, id=html_id ~ "-modules") %}Modules{% endfilter %}
         {% endif %}
         {% with heading_level = heading_level + extra_level %}
           {% for module in obj.modules|sort(attribute="name") %}
