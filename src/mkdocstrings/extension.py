@@ -197,10 +197,17 @@ def get_item_configs(handler_config: dict, config: dict) -> Tuple[Mapping, Mappi
 
 class _PostProcessor(Treeprocessor):
     def run(self, root: Element):
-        for el in root.iter("div"):
-            if el.get("class") == "mkdocstrings":
-                # Delete the duplicated headings from before, but keep the text (i.e. the actual HTML).
-                del el[:]
+        carry_text = ""
+        for el in reversed(root):  # Reversed mainly for the ability to mutate during iteration.
+            if el.tag == "div" and el.get("class") == "mkdocstrings":
+                # Delete the duplicated headings along with their container, but keep the text (i.e. the actual HTML).
+                carry_text = (el.text or "") + carry_text
+                root.remove(el)
+            elif carry_text:
+                el.tail = (el.tail or "") + carry_text
+                carry_text = ""
+        if carry_text:
+            root.text = (root.text or "") + carry_text
 
 
 class MkdocstringsExtension(Extension):
