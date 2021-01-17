@@ -65,7 +65,7 @@ class Highlighter(Highlight):
         self._css_class = config.pop("css_class", "highlight")
         super().__init__(**{k: v for k, v in config.items() if k in self._highlight_config_keys})
 
-    def highlight(
+    def highlight(  # noqa: W0221 (intentionally different params, we're extending the functionality)
         self,
         src: str,
         language: str = None,
