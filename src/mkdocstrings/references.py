@@ -3,7 +3,7 @@
 import re
 from html import escape, unescape
 from typing import Any, Callable, Dict, List, Match, Tuple, Union
-from xml.etree.ElementTree import Element  # noqa: S405 (input is our own, and Markdown coming from code)
+from xml.etree.ElementTree import Element
 
 from markdown.inlinepatterns import REFERENCE_RE, ReferenceInlineProcessor
 

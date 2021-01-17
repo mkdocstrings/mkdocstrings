@@ -24,7 +24,7 @@ during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on
 
 import logging
 import os
-from typing import Any, Callable, Dict, Optional, Tuple
+from typing import Callable, Dict, Optional, Tuple
 
 from livereload import Server
 from mkdocs.config import Config
@@ -35,7 +35,7 @@ from mkdocs.structure.toc import AnchorLink
 from mkdocs.utils import write_file
 
 from mkdocstrings.extension import MkdocstringsExtension
-from mkdocstrings.handlers.base import BaseHandler, Handlers
+from mkdocstrings.handlers.base import BaseHandler, CollectorItem, Handlers
 from mkdocstrings.loggers import get_logger
 from mkdocstrings.references import fix_refs
 
@@ -105,7 +105,7 @@ class MkdocstringsPlugin(BasePlugin):
     def __init__(self) -> None:
         """Initialize the object."""
         super().__init__()
-        self.url_map: Dict[Any, str] = {}
+        self.url_map: Dict[CollectorItem, str] = {}
         self.handlers: Optional[Handlers] = None
 
     def on_serve(self, server: Server, builder: Callable = None, **kwargs) -> Server:  # noqa: W0613 (unused arguments)
