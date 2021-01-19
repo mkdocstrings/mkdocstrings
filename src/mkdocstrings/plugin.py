@@ -24,7 +24,7 @@ during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on
 
 import logging
 import os
-from typing import Callable, Dict, Optional, Tuple
+from typing import Callable, Optional, Tuple
 
 from livereload import Server
 from mkdocs.config import Config
@@ -35,7 +35,7 @@ from mkdocs.structure.toc import AnchorLink
 from mkdocs.utils import write_file
 
 from mkdocstrings.extension import MkdocstringsExtension
-from mkdocstrings.handlers.base import BaseHandler, CollectorItem, Handlers
+from mkdocstrings.handlers.base import BaseHandler, Handlers
 from mkdocstrings.loggers import get_logger
 from mkdocstrings.references import fix_refs
 
@@ -105,8 +105,22 @@ class MkdocstringsPlugin(BasePlugin):
     def __init__(self) -> None:
         """Initialize the object."""
         super().__init__()
-        self.url_map: Dict[CollectorItem, str] = {}
-        self.handlers: Optional[Handlers] = None
+        self._handlers: Optional[Handlers] = None
+
+    @property
+    def handlers(self) -> Handlers:
+        """
+        Get the instance of [mkdocstrings.handlers.base.Handlers][] for this plugin/build.
+
+        Raises:
+            RuntimeError: If the plugin hasn't been initialized with a config.
+
+        Returns:
+            An instance of [mkdocstrings.handlers.base.Handlers][] (the same throughout the build).
+        """
+        if not self._handlers:
+            raise RuntimeError("The plugin hasn't been initialized with a config yet")
+        return self._handlers
 
     def on_serve(self, server: Server, builder: Callable = None, **kwargs) -> Server:  # noqa: W0613 (unused arguments)
         """
@@ -167,8 +181,8 @@ class MkdocstringsPlugin(BasePlugin):
             "mkdocstrings": self.config,
         }
 
-        self.handlers = Handlers(extension_config)
-        mkdocstrings_extension = MkdocstringsExtension(extension_config, self.handlers)
+        self._handlers = Handlers(extension_config)
+        mkdocstrings_extension = MkdocstringsExtension(extension_config, self._handlers)
         config["markdown_extensions"].append(mkdocstrings_extension)
 
         config["extra_css"].insert(0, self.css_filename)  # So that it has lower priority than user files.
@@ -201,13 +215,13 @@ class MkdocstringsPlugin(BasePlugin):
         """
         Recurse on every anchor to map its ID to its absolute URL.
 
-        This method populates `self.url_map` by side-effect.
+        This method populates `self.handlers.url_map` by side-effect.
 
         Arguments:
             base_url: The base URL to use as a prefix for each anchor's relative URL.
             anchor: The anchor to process and to recurse on.
         """
-        self.url_map[anchor.id] = base_url + anchor.url
+        self.handlers.register_anchor(base_url, anchor.id)
         for child in anchor.children:
             self.map_urls(base_url, child)
 
@@ -235,7 +249,7 @@ class MkdocstringsPlugin(BasePlugin):
         """
         log.debug(f"Fixing references in page {page.file.src_path}")
 
-        fixed_output, unmapped = fix_refs(output, page.url, self.url_map)
+        fixed_output, unmapped = fix_refs(output, page.url, self.handlers.get_item_url)
 
         if unmapped and log.isEnabledFor(logging.WARNING):
             for ref in unmapped:
@@ -262,12 +276,12 @@ class MkdocstringsPlugin(BasePlugin):
             config: The MkDocs config object.
             kwargs: Additional arguments passed by MkDocs.
         """
-        if self.handlers:
+        if self._handlers:
             css_content = "\n".join(handler.renderer.extra_css for handler in self.handlers.seen_handlers)
             write_file(css_content.encode("utf-8"), os.path.join(config["site_dir"], self.css_filename))
 
             log.debug("Tearing handlers down")
-            self.handlers.teardown()
+            self._handlers.teardown()
 
     def get_handler(self, handler_name: str) -> BaseHandler:
         """
@@ -276,12 +290,7 @@ class MkdocstringsPlugin(BasePlugin):
         Arguments:
             handler_name: The name of the handler.
 
-        Raises:
-            RuntimeError: If the plugin hasn't been initialized with a config.
-
         Returns:
             An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler].
         """
-        if not self.handlers:
-            raise RuntimeError("The plugin hasn't been initialized with a config yet")
         return self.handlers.get_handler(handler_name)

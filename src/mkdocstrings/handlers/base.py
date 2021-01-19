@@ -207,6 +207,20 @@ class BaseRenderer(ABC):
             The rendered template as HTML.
         """  # noqa: DAR202 (excess return section)
 
+    def get_anchor(self, data: CollectorItem) -> Optional[str]:
+        """
+        Return the canonical identifier (HTML anchor) for a collected item.
+
+        This must match what the renderer would've actually rendered,
+        e.g. if rendering the item contains `<h2 id="foo">...` then the return value should be "foo".
+
+        Arguments:
+            data: The collected data.
+
+        Returns:
+            The HTML anchor (without '#') as a string, or None if this item doesn't have an anchor.
+        """  # noqa: DAR202 (excess return section)
+
     def do_convert_markdown(self, text: str, heading_level: int, html_id: str = "") -> Markup:
         """
         Render Markdown text; for use inside templates.
@@ -394,6 +408,40 @@ class Handlers:
         """
         self._config = config
         self._handlers: Dict[str, BaseHandler] = {}
+        self._url_map = {}
+
+    def register_anchor(self, page: str, anchor: str):
+        """
+        Register that an anchor corresponding to an identifier was encountered when rendering the page.
+
+        Arguments:
+            page: The URL of the current page.
+            anchor: The HTML anchor (without '#') as a string
+        """
+        self._url_map[anchor] = f"{page}#{anchor}"
+
+    def get_item_url(self, identifier: str) -> str:
+        """
+        Return a site-relative URL with anchor to the identifier, if it's present anywhere.
+
+        Arguments:
+            identifier: The identifier (one that [collect][mkdocstrings.handlers.base.BaseCollector.collect] can accept).
+
+        Returns:
+            A site-relative URL.
+
+        Raises:
+            KeyError: If there isn't an item by this identifier anywhere on the site.
+        """
+        try:
+            return self._url_map[identifier]
+        except KeyError:
+            for handler in self._handlers.values():
+                try:
+                    return self._url_map[handler.renderer.get_anchor(handler.collector.collect(identifier, {}))]
+                except (CollectionError, KeyError):
+                    continue
+            raise
 
     def get_handler_name(self, config: dict) -> str:
         """
