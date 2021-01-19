@@ -5,6 +5,8 @@ from html import escape, unescape
 from typing import Any, Callable, List, Match, Tuple, Union
 from xml.etree.ElementTree import Element
 
+from markdown import Markdown
+from markdown.extensions import Extension
 from markdown.inlinepatterns import REFERENCE_RE, ReferenceInlineProcessor
 
 AUTO_REF_RE = re.compile(r'<span data-mkdocstrings-identifier=("?)(?P<identifier>[^"<>]*)\1>(?P<title>.*?)</span>')
@@ -176,3 +178,22 @@ def fix_refs(
     unmapped = []  # type: ignore
     html = AUTO_REF_RE.sub(fix_ref(url_mapper, from_url, unmapped), html)
     return html, unmapped
+
+
+class AutorefsExtension(Extension):
+    """Extension that inserts auto-references in Markdown."""
+
+    def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
+        """
+        Register the extension.
+
+        Add an instance of our [`AutoRefInlineProcessor`][mkdocs_autorefs.references.AutoRefInlineProcessor] to the Markdown parser.
+
+        Arguments:
+            md: A `markdown.Markdown` instance.
+        """
+        md.inlinePatterns.register(
+            AutoRefInlineProcessor(md),
+            "mkdocstrings",
+            priority=168,  # Right after markdown.inlinepatterns.ReferenceInlineProcessor
+        )

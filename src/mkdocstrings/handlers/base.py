@@ -400,40 +400,26 @@ class Handlers:
         """
         self._config = config
         self._handlers: Dict[str, BaseHandler] = {}
-        self._url_map = {}
 
-    def register_anchor(self, page: str, anchor: str):
+    def get_anchor(self, identifier: str) -> Optional[str]:
         """
-        Register that an anchor corresponding to an identifier was encountered when rendering the page.
-
-        Arguments:
-            page: The URL of the current page.
-            anchor: The HTML anchor (without '#') as a string
-        """
-        self._url_map[anchor] = f"{page}#{anchor}"
-
-    def get_item_url(self, identifier: str) -> str:
-        """
-        Return a site-relative URL with anchor to the identifier, if it's present anywhere.
+        Return the canonical HTML anchor for the identifier, if any of the seen handlers can collect it.
 
         Arguments:
             identifier: The identifier (one that [collect][mkdocstrings.handlers.base.BaseCollector.collect] can accept).
 
         Returns:
-            A site-relative URL.
-
-        Raises:
-            KeyError: If there isn't an item by this identifier anywhere on the site.
+            A string - anchor without '#', or None if there isn't any identifier familiar with it.
         """
-        try:
-            return self._url_map[identifier]
-        except KeyError:
-            for handler in self._handlers.values():
-                try:
-                    return self._url_map[handler.renderer.get_anchor(handler.collector.collect(identifier, {}))]
-                except (CollectionError, KeyError):
-                    continue
-            raise
+        for handler in self._handlers.values():
+            try:
+                anchor = handler.renderer.get_anchor(handler.collector.collect(identifier, {}))
+            except CollectionError:
+                continue
+            else:
+                if anchor is not None:
+                    return anchor
+        return None
 
     def get_handler_name(self, config: dict) -> str:
         """

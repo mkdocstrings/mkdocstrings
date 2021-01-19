@@ -2,9 +2,7 @@
 import markdown
 import pytest
 
-from mkdocstrings.extension import MkdocstringsExtension
-from mkdocstrings.handlers.base import Handlers
-from mkdocstrings.references import fix_refs, relative_url
+from mkdocs_autorefs.references import AutorefsExtension, fix_refs, relative_url
 
 
 @pytest.mark.parametrize(
@@ -55,10 +53,9 @@ def run_references_test(url_map, source, output, unmapped=None, from_url="page.h
         unmapped: The expected unmapped list.
         from_url: The source page URL.
     """
-    config = {}
-    ext = MkdocstringsExtension(config, Handlers(config))
-    md = markdown.Markdown(extensions=[ext])
+    md = markdown.Markdown(extensions=[AutorefsExtension()])
     content = md.convert(source)
+
     actual_output, actual_unmapped = fix_refs(content, from_url, url_map.__getitem__)
     assert actual_output == output
     assert actual_unmapped == (unmapped or [])

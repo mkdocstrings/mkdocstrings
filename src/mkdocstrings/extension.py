@@ -35,9 +35,9 @@ from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.treeprocessors import Treeprocessor
 
+from mkdocs_autorefs.plugin import AutorefsPlugin
 from mkdocstrings.handlers.base import CollectionError, CollectorItem, Handlers
 from mkdocstrings.loggers import get_logger
-from mkdocstrings.references import AutoRefInlineProcessor
 
 log = get_logger(__name__)
 
@@ -55,7 +55,9 @@ class AutoDocProcessor(BlockProcessor):
 
     regex = re.compile(r"^(?P<heading>#{1,6} *|)::: ?(?P<name>.+?) *$", flags=re.MULTILINE)
 
-    def __init__(self, parser: BlockParser, md: Markdown, config: dict, handlers: Handlers) -> None:
+    def __init__(
+        self, parser: BlockParser, md: Markdown, config: dict, handlers: Handlers, autorefs: AutorefsPlugin
+    ) -> None:
         """
         Initialize the object.
 
@@ -65,11 +67,13 @@ class AutoDocProcessor(BlockProcessor):
             config: The [configuration][mkdocstrings.plugin.MkdocstringsPlugin.config_scheme]
                 of the `mkdocstrings` plugin.
             handlers: A [mkdocstrings.handlers.base.Handlers][] instance.
+            autorefs: A [mkdocs_aurorefs.plugin.AutorefsPlugin][] instance.
         """
         super().__init__(parser=parser)
         self.md = md
         self._config = config
         self._handlers = handlers
+        self._autorefs = autorefs
         self._updated_env = False
 
     def test(self, parent: Element, block: str) -> bool:
@@ -118,6 +122,9 @@ class AutoDocProcessor(BlockProcessor):
             el.text = self.md.htmlStash.store(html)
             # So we need to duplicate the headings directly (and delete later), just so 'toc' can pick them up.
             el.extend(headings)
+
+            for heading in headings:
+                self._autorefs.register_anchor(self._autorefs.current_page, heading.attrib["id"])
 
             parent.append(el)
 
@@ -217,7 +224,7 @@ class MkdocstringsExtension(Extension):
     It cannot work outside of `mkdocstrings`.
     """
 
-    def __init__(self, config: dict, handlers: Handlers, **kwargs) -> None:
+    def __init__(self, config: dict, handlers: Handlers, autorefs: AutorefsPlugin, **kwargs) -> None:
         """
         Initialize the object.
 
@@ -225,11 +232,13 @@ class MkdocstringsExtension(Extension):
             config: The configuration items from `mkdocs` and `mkdocstrings` that must be passed to the block processor
                 when instantiated in [`extendMarkdown`][mkdocstrings.extension.MkdocstringsExtension.extendMarkdown].
             handlers: A [mkdocstrings.handlers.base.Handlers][] instance.
+            autorefs: A [mkdocs_aurorefs.plugin.AutorefsPlugin][] instance.
             kwargs: Keyword arguments used by `markdown.extensions.Extension`.
         """
         super().__init__(**kwargs)
         self._config = config
         self._handlers = handlers
+        self._autorefs = autorefs
 
     def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
         """
@@ -241,7 +250,7 @@ class MkdocstringsExtension(Extension):
             md: A `markdown.Markdown` instance.
         """
         md.parser.blockprocessors.register(
-            AutoDocProcessor(md.parser, md, self._config, self._handlers),
+            AutoDocProcessor(md.parser, md, self._config, self._handlers, self._autorefs),
             "mkdocstrings",
             priority=75,  # Right before markdown.blockprocessors.HashHeaderProcessor
         )
@@ -249,9 +258,4 @@ class MkdocstringsExtension(Extension):
             _PostProcessor(md.parser),
             "mkdocstrings_post",
             priority=4,  # Right after 'toc'.
-        )
-        md.inlinePatterns.register(
-            AutoRefInlineProcessor(md),
-            "mkdocstrings",
-            priority=168,  # Right after markdown.inlinepatterns.ReferenceInlineProcessor
         )

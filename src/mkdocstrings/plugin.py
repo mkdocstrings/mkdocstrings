@@ -22,7 +22,6 @@ Finally, when serving the documentation, it can add directories to watch
 during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on_serve).
 """
 
-import logging
 import os
 from typing import Callable, Optional, Tuple
 
@@ -30,13 +29,11 @@ from livereload import Server
 from mkdocs.config import Config
 from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
-from mkdocs.structure.pages import Page
-from mkdocs.structure.toc import AnchorLink
 
+from mkdocs_autorefs.plugin import AutorefsPlugin
 from mkdocstrings.extension import MkdocstringsExtension
 from mkdocstrings.handlers.base import BaseHandler, Handlers
 from mkdocstrings.loggers import get_logger
-from mkdocstrings.references import fix_refs
 
 log = get_logger(__name__)
 
@@ -177,81 +174,22 @@ class MkdocstringsPlugin(BasePlugin):
             "mdx_configs": config["mdx_configs"],
             "mkdocstrings": self.config,
         }
-
         self._handlers = Handlers(extension_config)
-        mkdocstrings_extension = MkdocstringsExtension(extension_config, self._handlers)
+
+        try:
+            # If autorefs plugin is explicitly enabled, just use it.
+            autorefs = config["plugins"]["autorefs"]
+        except KeyError:
+            # Otherwise, add a limited instance of it that acts only on what's added through `register_anchor`.
+            autorefs = AutorefsPlugin()
+            autorefs.scan_toc = False
+            config["plugins"]["autorefs"] = autorefs
+        # Add collector-based fallback in either case.
+        autorefs.get_fallback_anchor = self._handlers.get_anchor
+
+        mkdocstrings_extension = MkdocstringsExtension(extension_config, self._handlers, autorefs)
         config["markdown_extensions"].append(mkdocstrings_extension)
         return config
-
-    def on_page_content(self, html: str, page: Page, **kwargs) -> str:  # noqa: W0613 (unused arguments)
-        """
-        Map anchors to URLs.
-
-        Hook for the [`on_page_contents` event](https://www.mkdocs.org/user-guide/plugins/#on_page_contents).
-        In this hook, we map the IDs of every anchor found in the table of contents to the anchors absolute URLs.
-        This mapping will be used later to fix unresolved reference of the form `[title][identifier]` or
-        `[identifier][]`.
-
-        Arguments:
-            html: HTML converted from Markdown.
-            page: The related MkDocs page instance.
-            kwargs: Additional arguments passed by MkDocs.
-
-        Returns:
-            The same HTML. We only use this hook to map anchors to URLs.
-        """
-        log.debug(f"Mapping identifiers to URLs for page {page.file.src_path}")
-        for item in page.toc.items:
-            self.map_urls(page.url, item)
-        return html
-
-    def map_urls(self, base_url: str, anchor: AnchorLink) -> None:
-        """
-        Recurse on every anchor to map its ID to its absolute URL.
-
-        This method populates `self.handlers.url_map` by side-effect.
-
-        Arguments:
-            base_url: The base URL to use as a prefix for each anchor's relative URL.
-            anchor: The anchor to process and to recurse on.
-        """
-        self.handlers.register_anchor(base_url, anchor.id)
-        for child in anchor.children:
-            self.map_urls(base_url, child)
-
-    def on_post_page(self, output: str, page: Page, **kwargs) -> str:  # noqa: W0613 (unused arguments)
-        """
-        Fix cross-references.
-
-        Hook for the [`on_post_page` event](https://www.mkdocs.org/user-guide/plugins/#on_post_page).
-        In this hook, we try to fix unresolved references of the form `[title][identifier]` or `[identifier][]`.
-        Doing that allows the user of `mkdocstrings` to cross-reference objects in their documentation strings.
-        It uses the native Markdown syntax so it's easy to remember and use.
-
-        We log a warning for each reference that we couldn't map to an URL, but try to be smart and ignore identifiers
-        that do not look legitimate (sometimes documentation can contain strings matching
-        our [`AUTO_REF_RE`][mkdocstrings.references.AUTO_REF_RE] regular expression that did not intend to reference anything).
-        We currently ignore references when their identifier contains a space or a slash.
-
-        Arguments:
-            output: HTML converted from Markdown.
-            page: The related MkDocs page instance.
-            kwargs: Additional arguments passed by MkDocs.
-
-        Returns:
-            Modified HTML.
-        """
-        log.debug(f"Fixing references in page {page.file.src_path}")
-
-        fixed_output, unmapped = fix_refs(output, page.url, self.handlers.get_item_url)
-
-        if unmapped and log.isEnabledFor(logging.WARNING):
-            for ref in unmapped:
-                log.warning(
-                    f"{page.file.src_path}: Could not find cross-reference target '[{ref}]'",
-                )
-
-        return fixed_output
 
     def on_post_build(self, **kwargs) -> None:  # noqa: W0613,R0201 (unused arguments, cannot be static)
         """

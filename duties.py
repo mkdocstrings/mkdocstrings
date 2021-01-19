@@ -16,8 +16,7 @@ from jinja2 import StrictUndefined
 from jinja2.sandbox import SandboxedEnvironment
 from pip._internal.commands.show import search_packages_info
 
-PY_SRC_PATHS = (Path(_) for _ in ("src/mkdocstrings", "tests", "duties.py"))
-PY_SRC_LIST = tuple(str(_) for _ in PY_SRC_PATHS)
+PY_SRC_LIST = ("src/mkdocstrings", "src/mkdocs_autorefs", "tests", "duties.py")
 PY_SRC = " ".join(PY_SRC_LIST)
 TESTING = os.environ.get("TESTING", "0") in {"1", "true"}
 CI = os.environ.get("CI", "0") in {"1", "true", "yes", ""}
@@ -214,7 +213,8 @@ def check_types(ctx):
     Arguments:
         ctx: The context instance (passed automatically).
     """
-    ctx.run(f"mypy --config-file config/mypy.ini {PY_SRC}", title="Type-checking", pty=PTY)
+    for f in PY_SRC_LIST:
+        ctx.run(f"mypy --config-file config/mypy.ini {f}", title="Type-checking", pty=PTY, progress=True)
 
 
 @duty(silent=True)

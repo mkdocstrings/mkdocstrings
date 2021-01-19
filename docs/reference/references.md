@@ -1,1 +1,1 @@
-::: mkdocstrings.references
+::: mkdocs_autorefs.references
