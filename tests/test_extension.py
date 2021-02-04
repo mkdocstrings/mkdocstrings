@@ -1,13 +1,11 @@
 """Tests for the extension module."""
-import copy
+from collections import ChainMap
 from contextlib import contextmanager
 from textwrap import dedent
 
 import pytest
 from markdown import Markdown
-
-from mkdocstrings.extension import MkdocstringsExtension
-from mkdocstrings.handlers.base import Handlers
+from mkdocs import config
 
 
 @contextmanager
@@ -20,25 +18,27 @@ def ext_markdown(**kwargs):
     Yields:
         A `markdown.Markdown` instance.
     """
-    config = {
-        "theme_name": "material",
-        "mdx": [],
-        "mdx_configs": {},
-        "mkdocstrings": {"default_handler": "python", "custom_templates": None, "watch": [], "handlers": {}},
+    conf = config.Config(schema=config.DEFAULT_SCHEMA)
+
+    conf_dict = {
+        "site_name": "foo",
+        "plugins": [{"mkdocstrings": {"default_handler": "python"}}],
+        **kwargs,
     }
-    config.update(kwargs)
-    config["mdx"].append("toc")  # Guaranteed to be added by MkDocs.
-    original_config = copy.deepcopy(config)
+    # Re-create it manually as a workaround for https://github.com/mkdocs/mkdocs/issues/2289
+    mdx_configs = dict(ChainMap(*conf_dict.get("markdown_extensions", [])))
 
-    handlers = Handlers(config)
-    extension = MkdocstringsExtension(config, handlers)
-    config["mdx"].append(extension)
-    original_config["mdx"].append(extension)
+    conf.load_dict(conf_dict)
+    assert conf.validate() == ([], [])
 
-    yield Markdown(extensions=config["mdx"], extension_configs=config["mdx_configs"])
-    handlers.teardown()
+    conf["mdx_configs"] = mdx_configs
+    conf["markdown_extensions"].insert(0, "toc")  # Guaranteed to be added by MkDocs.
 
-    assert config == original_config  # Inadvertent mutations would propagate to the outer doc!
+    conf = conf["plugins"]["mkdocstrings"].on_config(conf)
+    conf = conf["plugins"]["autorefs"].on_config(conf)
+    md = Markdown(extensions=conf["markdown_extensions"], extension_configs=conf["mdx_configs"])
+    yield md
+    conf["plugins"]["mkdocstrings"].on_post_build(conf)
 
 
 def test_render_html_escaped_sequences():
@@ -49,7 +49,7 @@ def test_render_html_escaped_sequences():
 
 def test_multiple_footnotes():
     """Assert footnotes don't get added to subsequent docstrings."""
-    with ext_markdown(mdx=["footnotes"]) as md:
+    with ext_markdown(markdown_extensions=[{"footnotes": {}}]) as md:
         output = md.convert(
             dedent(
                 """
@@ -120,7 +120,7 @@ def test_no_double_toc(permalink_setting, expect_permalink):
         permalink_setting: The 'permalink' setting of 'toc' extension.
         expect_permalink: Text of the permalink to search for in the output.
     """
-    with ext_markdown(mdx_configs={"toc": {"permalink": permalink_setting}}) as md:
+    with ext_markdown(markdown_extensions=[{"toc": {"permalink": permalink_setting}}]) as md:
         output = md.convert(
             dedent(
                 """

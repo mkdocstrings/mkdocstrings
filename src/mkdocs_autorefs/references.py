@@ -5,12 +5,14 @@ from html import escape, unescape
 from typing import Any, Callable, List, Match, Tuple, Union
 from xml.etree.ElementTree import Element
 
+from markdown import Markdown
+from markdown.extensions import Extension
 from markdown.inlinepatterns import REFERENCE_RE, ReferenceInlineProcessor
 
 AUTO_REF_RE = re.compile(r'<span data-mkdocstrings-identifier=("?)(?P<identifier>[^"<>]*)\1>(?P<title>.*?)</span>')
 """
 A regular expression to match mkdocstrings' special reference markers
-in the [`on_post_page` hook][mkdocstrings.plugin.MkdocstringsPlugin.on_post_page].
+in the [`on_post_page` hook][mkdocs_autorefs.plugin.AutorefsPlugin.on_post_page].
 """
 
 EvalIDType = Tuple[Any, Any, Any]
@@ -130,7 +132,7 @@ def fix_ref(url_mapper: Callable[[str], str], from_url: str, unmapped: List[str]
 
     Arguments:
         url_mapper: A callable that gets an object's site URL by its identifier,
-            such as [mkdocstrings.handlers.base.Handlers.get_item_url][].
+            such as [mkdocs_autorefs.plugin.AutorefsPlugin.get_item_url][].
         from_url: The URL of the base page, from which we link towards the targeted pages.
         unmapped: A list to store unmapped identifiers.
 
@@ -168,7 +170,7 @@ def fix_refs(
         html: The text to fix.
         from_url: The URL at which this HTML is served.
         url_mapper: A callable that gets an object's site URL by its identifier,
-            such as [mkdocstrings.handlers.base.Handlers.get_item_url][].
+            such as [mkdocs_autorefs.plugin.AutorefsPlugin.get_item_url][].
 
     Returns:
         The fixed HTML.
@@ -176,3 +178,22 @@ def fix_refs(
     unmapped = []  # type: ignore
     html = AUTO_REF_RE.sub(fix_ref(url_mapper, from_url, unmapped), html)
     return html, unmapped
+
+
+class AutorefsExtension(Extension):
+    """Extension that inserts auto-references in Markdown."""
+
+    def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
+        """
+        Register the extension.
+
+        Add an instance of our [`AutoRefInlineProcessor`][mkdocs_autorefs.references.AutoRefInlineProcessor] to the Markdown parser.
+
+        Arguments:
+            md: A `markdown.Markdown` instance.
+        """
+        md.inlinePatterns.register(
+            AutoRefInlineProcessor(md),
+            "mkdocstrings",
+            priority=168,  # Right after markdown.inlinepatterns.ReferenceInlineProcessor
+        )
