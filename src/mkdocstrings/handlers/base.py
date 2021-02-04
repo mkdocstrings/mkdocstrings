@@ -15,7 +15,7 @@ import re
 import textwrap
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Sequence
+from typing import Any, Dict, Iterable, List, Optional, Sequence
 from xml.etree.ElementTree import Element, tostring
 
 from jinja2 import Environment, FileSystemLoader
@@ -139,10 +139,12 @@ class BaseRenderer(ABC):
     You can also override the `update_env` method, to add more filters to the Jinja environment,
     making them available in your Jinja templates.
 
-    To define a fallback theme, add a `FALLBACK_THEME` class-variable.
+    To define a fallback theme, add a `fallback_theme` class-variable.
+    To add custom CSS, add an `extra_css` variable or create an 'style.css' file beside the templates.
     """
 
     fallback_theme: str = ""
+    extra_css = ""
 
     def __init__(self, directory: str, theme: str, custom_templates: Optional[str] = None) -> None:
         """
@@ -158,15 +160,21 @@ class BaseRenderer(ABC):
         """
         paths = []
 
-        if custom_templates is not None:
-            paths.append(Path(custom_templates) / directory / theme)
-
         themes_dir = TEMPLATES_DIR / directory
 
         paths.append(themes_dir / theme)
 
-        if self.fallback_theme != "":
+        if self.fallback_theme:
             paths.append(themes_dir / self.fallback_theme)
+
+        for path in paths:
+            css_path = path / "style.css"
+            if css_path.is_file():
+                self.extra_css += "\n" + css_path.read_text(encoding="utf-8")
+                break
+
+        if custom_templates is not None:
+            paths.insert(0, Path(custom_templates) / directory / theme)
 
         self.env = Environment(
             autoescape=True,
@@ -493,9 +501,20 @@ class Handlers:
             )  # type: ignore
         return self._handlers[name]
 
-    def teardown(self):
+    @property
+    def seen_handlers(self) -> Iterable[BaseHandler]:
+        """
+        Get the handlers that were encountered so far throughout the build.
+
+        Returns:
+            An iterable of instances of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler]
+            (usable only to loop through it).
+        """
+        return self._handlers.values()
+
+    def teardown(self) -> None:
         """Teardown all cached handlers and clear the cache."""
-        for handler in self._handlers.values():
+        for handler in self.seen_handlers:
             handler.collector.teardown()
         self._handlers.clear()
 

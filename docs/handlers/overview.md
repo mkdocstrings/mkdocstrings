@@ -61,6 +61,32 @@ arguments, and you can add any other keyword argument you'd like.
 The global configuration items (other than `selection` and `rendering`)
 will be passed to this function when getting your handler.
 
+### Templates
+
+You renderer's implementation should normally be backed by templates, which go
+to the directory `mkdocstrings/handlers/custom_handler/some_theme`.
+(`custom_handler` here should be replaced with the actual name of your handler,
+and `some_theme` should be the name of an actual MkDocs theme that you support,
+e.g. `material`).
+
+With that structure, you can use `self.env.get_template("foo.html")` inside
+your `render` implementation. This already chooses the subdirectory based on
+the current MkDocs theme.
+
+If you wish to support *any* MkDocs theme, rather than a few specifically
+selected ones, you can pick one theme's subdirectory to be the fallback for
+when an unknown theme is encountered. Then you just need to set the
+`fallback_theme` variable on your renderer subclass. The fallback directory can
+be used even for themes you explicitly support: you can omit some template from
+one of the other theme directories in case they're exactly the same as in the
+fallback theme.
+
+If your theme's HTML requires CSS to go along with it, put it into a file named
+`mkdocstrings/handlers/custom_handler/some_theme/style.css`, then this will be
+included into the final site automatically if this handler is ever used.
+Alternatively, you can put the CSS as a string into the `extra_css` variable of
+your renderer.
+
 ### Usage
 
 When a custom handler is installed,
