@@ -38,7 +38,7 @@ def ext_markdown(**kwargs):
     conf = conf["plugins"]["autorefs"].on_config(conf)
     md = Markdown(extensions=conf["markdown_extensions"], extension_configs=conf["mdx_configs"])
     yield md
-    conf["plugins"]["mkdocstrings"].on_post_build()
+    conf["plugins"]["mkdocstrings"].on_post_build(conf)
 
 
 def test_render_html_escaped_sequences():

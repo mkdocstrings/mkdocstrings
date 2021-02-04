@@ -4,6 +4,6 @@
   {% if section_type == "markdown" %}
     {{ sub_section|convert_markdown(heading_level, html_id) }}
   {% elif section_type == "examples" %}
-    {{ sub_section|highlight(language="python", line_nums=False) }}
+    {{ sub_section|highlight(language="python", linenums=False) }}
   {% endif %}
 {% endfor %}
