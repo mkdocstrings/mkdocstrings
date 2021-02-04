@@ -21,9 +21,10 @@ from xml.etree.ElementTree import Element, tostring
 from jinja2 import Environment, FileSystemLoader
 from markdown import Markdown
 from markdown.extensions import Extension
+from markdown.extensions.codehilite import CodeHiliteExtension
 from markdown.treeprocessors import Treeprocessor
 from markupsafe import Markup
-from pymdownx.highlight import Highlight
+from pymdownx.highlight import Highlight, HighlightExtension
 
 from mkdocstrings.loggers import get_template_logger
 
@@ -40,75 +41,69 @@ class ThemeNotSupported(Exception):
     """An exception raised to tell a theme is not supported."""
 
 
-def do_highlight(
-    src: str,
-    guess_lang: bool = False,
-    language: str = None,
-    inline: bool = False,
-    dedent: bool = True,
-    line_nums: bool = False,
-    line_start: int = 1,
-) -> str:
-    """
-    Highlight a code-snippet.
+class Highlighter(Highlight):
+    """Code highlighter that tries to match the Markdown configuration."""
 
-    This function is used as a filter in Jinja templates.
+    _highlight_config_keys = frozenset(
+        "use_pygments guess_lang css_class pygments_style noclasses linenums language_prefix".split(),
+    )
 
-    Arguments:
-        src: The code to highlight.
-        guess_lang: Whether to guess the language or not.
-        language: Explicitly tell what language to use for highlighting.
-        inline: Whether to do inline highlighting.
-        dedent: Whether to dedent the code before highlighting it or not.
-        line_nums: Whether to add line numbers in the result.
-        line_start: The line number to start with.
+    def __init__(self, md: Markdown):
+        """Configure to match a `markdown.Markdown` instance.
 
-    Returns:
-        The highlighted code as HTML text, marked safe (not escaped for HTML).
-    """
-    if dedent:
-        src = textwrap.dedent(src)
+        Arguments:
+            md: The Markdown instance to read configs from.
+        """
+        config = {}
+        for ext in md.registeredExtensions:
+            if isinstance(ext, HighlightExtension) and (ext.enabled or not config):
+                config = ext.getConfigs()
+                break  # This one takes priority, no need to continue looking
+            if isinstance(ext, CodeHiliteExtension) and not config:
+                config = ext.getConfigs()
+                config["language_prefix"] = config["lang_prefix"]
+        self._css_class = config.pop("css_class", "highlight")
+        super().__init__(**{k: v for k, v in config.items() if k in self._highlight_config_keys})
 
-    highlighter = Highlight(use_pygments=True, guess_lang=guess_lang, linenums=line_nums)
-    result = highlighter.highlight(src=src, language=language, linestart=line_start, inline=inline)
+    def highlight(  # noqa: W0221 (intentionally different params, we're extending the functionality)
+        self,
+        src: str,
+        language: str = None,
+        *,
+        inline: bool = False,
+        dedent: bool = True,
+        linenums: Optional[bool] = None,
+        **kwargs,
+    ) -> str:
+        """
+        Highlight a code-snippet.
 
-    if inline:
-        return Markup(f'<code class="highlight language-{language}">{result.text}</code>')
-    return Markup(result)
+        Arguments:
+            src: The code to highlight.
+            language: Explicitly tell what language to use for highlighting.
+            inline: Whether to highlight as inline.
+            dedent: Whether to dedent the code before highlighting it or not.
+            linenums: Whether to add line numbers in the result.
+            **kwargs: Pass on to `pymdownx.highlight.Highlight.highlight`.
 
+        Returns:
+            The highlighted code as HTML text, marked safe (not escaped for HTML).
+        """
+        if dedent:
+            src = textwrap.dedent(src)
 
-def do_js_highlight(
-    src: str,
-    guess_lang: bool = False,  # noqa: W0613 (we must accept the same parameters as do_highlight)
-    language: str = None,
-    inline: bool = False,
-    dedent: bool = True,
-    line_nums: bool = False,  # noqa: W0613
-    line_start: int = 1,  # noqa: W0613
-) -> str:
-    """
-    Prepare a code-snippet for JS highlighting.
+        kwargs.setdefault("css_class", self._css_class)
+        old_linenums = self.linenums
+        if linenums is not None:
+            self.linenums = linenums
+        try:
+            result = super().highlight(src, language, inline=inline, **kwargs)
+        finally:
+            self.linenums = old_linenums
 
-    This function is used as a filter in Jinja templates.
-
-    Arguments:
-        src: The code to highlight.
-        guess_lang: Whether to guess the language or not.
-        language: Explicitly tell what language to use for highlighting.
-        inline: Whether to do inline highlighting.
-        dedent: Whether to dedent the code before highlighting it or not.
-        line_nums: Whether to add line numbers in the result.
-        line_start: The line number to start with.
-
-    Returns:
-        The code properly wrapped for later highlighting by JavaScript.
-    """
-    if dedent:
-        src = textwrap.dedent(src)
-    if inline:
-        src = re.sub(r"\n\s*", "", src)
-        return Markup(f'<code class="highlight">{src}</code>')
-    return Markup(f'<div class="highlight {language or ""}"><pre><code>\n{src}\n</code></pre></div>')
+        if inline:
+            return Markup(f'<code class="highlight language-{language}">{result.text}</code>')
+        return Markup(result)
 
 
 def do_any(seq: Sequence, attribute: str = None) -> bool:
@@ -183,13 +178,6 @@ class BaseRenderer(ABC):
         )  # type: ignore
         self.env.filters["any"] = do_any
         self.env.globals["log"] = get_template_logger()
-
-        if theme == "readthedocs":
-            highlight_function = do_js_highlight
-        else:
-            highlight_function = do_highlight
-
-        self.env.filters["highlight"] = highlight_function
 
         self._headings = []
         self._md = None  # To be populated in `update_env`.
@@ -317,6 +305,7 @@ class BaseRenderer(ABC):
                 of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.
         """
         self._md = md
+        self.env.filters["highlight"] = Highlighter(md).highlight
         self.env.filters["convert_markdown"] = self.do_convert_markdown
         self.env.filters["heading"] = self.do_heading
 
