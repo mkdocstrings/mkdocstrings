@@ -1,3 +1,16 @@
+"""
+This module contains the "mkdocs-autorefs" plugin.
+
+After each page is processed by the Markdown converter, this plugin stores absolute URLs of every HTML anchors
+it finds to later be able to fix unresolved references.
+It stores them during the [`on_page_content` event hook](https://www.mkdocs.org/user-guide/plugins/#on_page_content).
+
+Just before writing the final HTML to the disc, during the
+[`on_post_page` event hook](https://www.mkdocs.org/user-guide/plugins/#on_post_page),
+this plugin searches for references of the form `[identifier][]` or `[title][identifier]` that were not resolved,
+and fixes them using the previously stored identifier-URL mapping.
+"""
+
 import logging
 from typing import Callable, Dict, Optional
 
@@ -14,6 +27,19 @@ log.addFilter(warning_filter)
 
 
 class AutorefsPlugin(BasePlugin):
+    """
+    An `mkdocs` plugin.
+
+    This plugin defines the following event hooks:
+
+    - `on_config`
+    - `on_page_content`
+    - `on_post_page`
+
+    Check the [Developing Plugins](https://www.mkdocs.org/user-guide/plugins/#developing-plugins) page of `mkdocs`
+    for more information about its plugin system.
+    """
+
     scan_toc: bool = True
     current_page: Optional[str] = None
 
@@ -28,8 +54,8 @@ class AutorefsPlugin(BasePlugin):
         Register that an anchor corresponding to an identifier was encountered when rendering the page.
 
         Arguments:
-            page: The URL of the current page.
-            anchor: The HTML anchor (without '#') as a string
+            page: The relative URL of the current page. Examples: `'foo/bar/'`, `'foo/index.html'`
+            anchor: The HTML anchor (without '#') as a string.
         """
         self._url_map[anchor] = f"{page}#{anchor}"
 
@@ -54,7 +80,7 @@ class AutorefsPlugin(BasePlugin):
                 return self._url_map[new_anchor]
             raise
 
-    def on_config(self, config: Config, **kwargs) -> Config:  # noqa: W0613 (unused arguments)
+    def on_config(self, config: Config, **kwargs) -> Config:  # noqa: W0613,R0201 (unused arguments, cannot be static)
         """
         Instantiate our Markdown extension.
 
@@ -92,7 +118,7 @@ class AutorefsPlugin(BasePlugin):
         """
         Map anchors to URLs.
 
-        Hook for the [`on_page_contents` event](https://www.mkdocs.org/user-guide/plugins/#on_page_contents).
+        Hook for the [`on_page_content` event](https://www.mkdocs.org/user-guide/plugins/#on_page_content).
         In this hook, we map the IDs of every anchor found in the table of contents to the anchors absolute URLs.
         This mapping will be used later to fix unresolved reference of the form `[title][identifier]` or
         `[identifier][]`.

@@ -1,18 +1,9 @@
 """
-This module contains the `mkdocs` plugin.
+This module contains the "mkdocstrings" plugin for MkDocs.
 
 The plugin instantiates a Markdown extension ([`MkdocstringsExtension`][mkdocstrings.extension.MkdocstringsExtension]),
 and adds it to the list of Markdown extensions used by `mkdocs`
 during the [`on_config` event hook](https://www.mkdocs.org/user-guide/plugins/#on_config).
-
-After each page is processed by the Markdown converter, this plugin stores absolute URLs of every HTML anchors
-it finds to later be able to fix unresolved references.
-It stores them during the [`on_page_contents` event hook](https://www.mkdocs.org/user-guide/plugins/#on_page_contents).
-
-Just before writing the final HTML to the disc, during the
-[`on_post_page` event hook](https://www.mkdocs.org/user-guide/plugins/#on_post_page),
-this plugin searches for references of the form `[identifier][]` or `[title][identifier]` that were not resolved,
-and fixes them using the previously stored identifier-URL mapping.
 
 Once the documentation is built, the [`on_post_build` event hook](https://www.mkdocs.org/user-guide/plugins/#on_post_build)
 is triggered and calls the [`handlers.teardown()` method][mkdocstrings.handlers.base.Handlers.teardown]. This method is
@@ -51,13 +42,11 @@ class MkdocstringsPlugin(BasePlugin):
     This plugin defines the following event hooks:
 
     - `on_config`
-    - `on_page_contents`
-    - `on_post_page`
     - `on_post_build`
     - `on_serve`
 
     Check the [Developing Plugins](https://www.mkdocs.org/user-guide/plugins/#developing-plugins) page of `mkdocs`
-    for more information about its plugin system..
+    for more information about its plugin system.
     """
 
     config_scheme: Tuple[Tuple[str, MkType]] = (
@@ -182,11 +171,13 @@ class MkdocstringsPlugin(BasePlugin):
         try:
             # If autorefs plugin is explicitly enabled, just use it.
             autorefs = config["plugins"]["autorefs"]
+            log.debug(f"Picked up existing autorefs instance {autorefs!r}")
         except KeyError:
             # Otherwise, add a limited instance of it that acts only on what's added through `register_anchor`.
             autorefs = AutorefsPlugin()
             autorefs.scan_toc = False
             config["plugins"]["autorefs"] = autorefs
+            log.debug(f"Added a subdued autorefs instance {autorefs!r}")
         # Add collector-based fallback in either case.
         autorefs.get_fallback_anchor = self._handlers.get_anchor
 

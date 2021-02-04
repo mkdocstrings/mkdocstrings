@@ -12,12 +12,15 @@ nav:
   - Python: handlers/python.md
 
 - Code Reference:
-  - handlers:
-    - base.py: reference/handlers/base.md
-    - python.py: reference/handlers/python.md
-  - extension.py: reference/extension.md
-  - plugin.py: reference/plugin.md
-  - references.py: reference/references.md
+  - mkdocstrings:
+    - handlers:
+      - base.py: reference/handlers/base.md
+      - python.py: reference/handlers/python.md
+    - extension.py: reference/extension.md
+    - plugin.py: reference/plugin.md
+  - mkdocs_autorefs:
+    - references.py: reference/autorefs/references.md
+    - plugin.py: reference/autorefs/plugin.md
 
 - Troubleshooting: troubleshooting.md
 - Contributing: contributing.md
