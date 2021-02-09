@@ -1,1 +1,1 @@
-{!CODE_OF_CONDUCT.md!}
+--8<-- "CODE_OF_CONDUCT.md"
