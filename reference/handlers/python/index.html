@@ -44,6 +44,8 @@
     
     
     
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../../css/mkdocstrings.css">
     
     
@@ -296,11 +298,34 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1" checked>
     
     <label class="md-nav__link" for="nav-4-1">
+      mkdocstrings
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="mkdocstrings" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon"></span>
+        mkdocstrings
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-1" type="checkbox" id="nav-4-1-1" checked>
+    
+    <label class="md-nav__link" for="nav-4-1-1">
       handlers
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="handlers" data-md-level="2">
-      <label class="md-nav__title" for="nav-4-1">
+    <nav class="md-nav" aria-label="handlers" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-1">
         <span class="md-nav__icon md-icon"></span>
         handlers
       </label>
@@ -422,6 +447,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.python.PythonRenderer.get_anchor" class="md-nav__link">
+    get_anchor()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mkdocstrings.handlers.python.PythonRenderer.render" class="md-nav__link">
     render()
   </a>
@@ -490,15 +522,58 @@
   </li>
 
         
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
+    
+    <label class="md-nav__link" for="nav-4-2">
+      mkdocs_autorefs
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-2">
+        <span class="md-nav__icon md-icon"></span>
+        mkdocs_autorefs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
           
           
           
 
 
   <li class="md-nav__item">
-    <a href="../../references/" title="references.py" class="md-nav__link">
+    <a href="../../autorefs/references/" title="references.py" class="md-nav__link">
       references.py
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../autorefs/plugin/" title="plugin.py" class="md-nav__link">
+      plugin.py
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -671,6 +746,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.python.PythonRenderer.get_anchor" class="md-nav__link">
+    get_anchor()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mkdocstrings.handlers.python.PythonRenderer.render" class="md-nav__link">
     render()
   </a>
@@ -726,34 +808,64 @@
                   <h1>python.py</h1>
                 
                 <div class="doc doc-object doc-module">
-<h2 class="hidden-toc" id="mkdocstrings.handlers.python" style="visibility: hidden; position: absolute;">
-        <a class="headerlink" href="#mkdocstrings.handlers.python" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents first">
-<p>This module implements a handler for the Python language.</p>
-<p>The handler collects data with <a href="https://github.com/pawamoy/pytkdocs"><code>pytkdocs</code></a>.</p>
-<div class="doc doc-children">
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonCollector">
 
+<a id="mkdocstrings.handlers.python"></a>
+    <div class="doc doc-contents first">
+
+      <p>This module implements a handler for the Python language.</p>
+<p>The handler collects data with <a href="https://github.com/pawamoy/pytkdocs"><code>pytkdocs</code></a>.</p>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="mkdocstrings.handlers.python.PythonCollector" class="doc doc-heading">
         <code>PythonCollector</code>
 
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>The class responsible for loading Jinja templates and rendering them.</p>
+<a href="#mkdocstrings.handlers.python.PythonCollector" class="headerlink" title="Permanent link">¤</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>The class responsible for loading Jinja templates and rendering them.</p>
 <p>It defines some configuration options, implements the <code>render</code> method,
 and overrides the <code>update_env</code> method of the <a href="../base/#mkdocstrings.handlers.base.BaseRenderer"><code>BaseRenderer</code> class</a>.</p>
-<div class="doc doc-children">
-<div class="doc doc-object doc-attribute">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonCollector.default_config">
 
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="mkdocstrings.handlers.python.PythonCollector.default_config" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">default_config</span><span class="p">:</span> <span class="nb">dict</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.default_config" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>The default selection options.</p>
+<a href="#mkdocstrings.handlers.python.PythonCollector.default_config" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>The default selection options.</p>
 <table>
 <thead>
 <tr>
@@ -789,82 +901,91 @@ next one:</p>
 <li><code>"^__"</code>: but select all objects starting with <strong>two</strong> underscores</li>
 </ul>
 <p>Obviously one could use a single filter instead: <code>"!^_[^_]"</code>, which is the default.</p>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonCollector.__init__">
+    </div>
 
+  </div>
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.python.PythonCollector.__init__" class="doc doc-heading">
 <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup_commands</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
-      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.__init__" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Initialize the object.</p>
+<a href="#mkdocstrings.handlers.python.PythonCollector.__init__" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initialize the object.</p>
 <p>When instantiating a Python collector, we open a subprocess in the background with <code>subprocess.Popen</code>.
 It will allow us to feed input to and read output from this subprocess, keeping it alive during
 the whole documentation generation. Spawning a new Python subprocess for each "autodoc" instruction would be
 too resource intensive, and would slow down <code>mkdocstrings</code> a lot.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>setup_commands</code></td>
-<td><code>Optional[List[str]]</code></td>
-<td>
-<p>A list of python commands as strings to be executed in the subprocess before <code>pytkdocs</code>.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>setup_commands</code></td>
+        <td><code>Optional[List[str]]</code></td>
+        <td><p>A list of python commands as strings to be executed in the subprocess before <code>pytkdocs</code>.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/python.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup_commands</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup_commands</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialize the object.</span>
 
 <span class="sd">    When instantiating a Python collector, we open a subprocess in the background with `subprocess.Popen`.</span>
 <span class="sd">    It will allow us to feed input to and read output from this subprocess, keeping it alive during</span>
-<span class="sd">    the whole documentation generation. Spawning a new Python subprocess for each "autodoc" instruction would be</span>
+<span class="sd">    the whole documentation generation. Spawning a new Python subprocess for each &quot;autodoc&quot; instruction would be</span>
 <span class="sd">    too resource intensive, and would slow down `mkdocstrings` a lot.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        setup_commands: A list of python commands as strings to be executed in the subprocess before `pytkdocs`.</span>
-<span class="sd">    """</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Opening 'pytkdocs' subprocess"</span><span class="p">)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Opening &#39;pytkdocs&#39; subprocess&quot;</span><span class="p">)</span>
     <span class="n">env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">env</span><span class="p">[</span><span class="s2">"PYTHONUNBUFFERED"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"1"</span>
+    <span class="n">env</span><span class="p">[</span><span class="s2">&quot;PYTHONUNBUFFERED&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
 
     <span class="k">if</span> <span class="n">setup_commands</span><span class="p">:</span>
         <span class="c1"># prevent the Python interpreter or the setup commands</span>
         <span class="c1"># from writing to stdout as it would break pytkdocs output</span>
         <span class="n">commands</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">"import sys"</span><span class="p">,</span>
-            <span class="s2">"from io import StringIO"</span><span class="p">,</span>
-            <span class="s2">"from pytkdocs.cli import main as pytkdocs"</span><span class="p">,</span>
-            <span class="s2">"sys.stdout = StringIO()"</span><span class="p">,</span>  <span class="c1"># redirect stdout to memory buffer</span>
+            <span class="s2">&quot;import sys&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;from io import StringIO&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;from pytkdocs.cli import main as pytkdocs&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sys.stdout = StringIO()&quot;</span><span class="p">,</span>  <span class="c1"># redirect stdout to memory buffer</span>
             <span class="o">*</span><span class="n">setup_commands</span><span class="p">,</span>
-            <span class="s2">"sys.stdout.flush()"</span><span class="p">,</span>
-            <span class="s2">"sys.stdout = sys.__stdout__"</span><span class="p">,</span>  <span class="c1"># restore stdout</span>
-            <span class="s2">"pytkdocs(['--line-by-line'])"</span><span class="p">,</span>
+            <span class="s2">&quot;sys.stdout.flush()&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sys.stdout = sys.__stdout__&quot;</span><span class="p">,</span>  <span class="c1"># restore stdout</span>
+            <span class="s2">&quot;pytkdocs([&#39;--line-by-line&#39;])&quot;</span><span class="p">,</span>
         <span class="p">]</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">"-c"</span><span class="p">,</span> <span class="s2">"; "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">commands</span><span class="p">)]</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="s2">&quot;; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">commands</span><span class="p">)]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">"-m"</span><span class="p">,</span> <span class="s2">"pytkdocs"</span><span class="p">,</span> <span class="s2">"--line-by-line"</span><span class="p">]</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pytkdocs&quot;</span><span class="p">,</span> <span class="s2">&quot;--line-by-line&quot;</span><span class="p">]</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span>  <span class="c1"># noqa: S603,S607 (we trust the input, and we don't want to use the absolute path)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">process</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span>  <span class="c1"># noqa: S603,S607 (we trust the input, and we don&#39;t want to use the absolute path)</span>
         <span class="n">cmd</span><span class="p">,</span>
         <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span>
@@ -873,20 +994,27 @@ too resource intensive, and would slow down <code>mkdocstrings</code> a lot.</p>
         <span class="n">bufsize</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span>
     <span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonCollector.collect">
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.python.PythonCollector.collect" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.collect" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Collect the documentation tree given an identifier and selection options.</p>
+<a href="#mkdocstrings.handlers.python.PythonCollector.collect" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Collect the documentation tree given an identifier and selection options.</p>
 <p>In this method, we feed one line of JSON to the standard input of the subprocess that was opened
 during instantiation of the collector. Then we read one line of JSON on its standard output.</p>
 <p>We load back the JSON text into a Python dictionary.
@@ -899,74 +1027,66 @@ we log them as warnings.</p>
 them one by one), rebuild it's categories lists
 (see <a href="#mkdocstrings.handlers.python.rebuild_category_lists"><code>rebuild_category_lists()</code></a>),
 and return it.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>identifier</code></td>
-<td><code>str</code></td>
-<td>
-<p>The dotted-path of a Python object available in the Python path.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>config</code></td>
-<td><code>dict</code></td>
-<td>
-<p>Selection options, used to alter the data collection done by <code>pytkdocs</code>.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>identifier</code></td>
+        <td><code>str</code></td>
+        <td><p>The dotted-path of a Python object available in the Python path.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>config</code></td>
+        <td><code>dict</code></td>
+        <td><p>Selection options, used to alter the data collection done by <code>pytkdocs</code>.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Exceptions:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>CollectionError</code></td>
-<td>
-<p>When there was a problem collecting the object documentation.</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>CollectionError</code></td>
+        <td><p>When there was a problem collecting the object documentation.</p></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Any</code></td>
-<td>
-<p>The collected object-tree.</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Any</code></td>
+      <td><p>The collected object-tree.</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/python.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CollectorItem</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Collect the documentation tree given an identifier and selection options.</span>
 
 <span class="sd">    In this method, we feed one line of JSON to the standard input of the subprocess that was opened</span>
@@ -981,8 +1101,8 @@ and return it.</p>
 <span class="sd">    If the dictionary values for keys `loading_errors` and `parsing_errors` are not empty,</span>
 <span class="sd">    we log them as warnings.</span>
 
-<span class="sd">    Then we pick up the only object within the `objects` list (there's always only one, because we collect</span>
-<span class="sd">    them one by one), rebuild it's categories lists</span>
+<span class="sd">    Then we pick up the only object within the `objects` list (there&#39;s always only one, because we collect</span>
+<span class="sd">    them one by one), rebuild it&#39;s categories lists</span>
 <span class="sd">    (see [`rebuild_category_lists()`][mkdocstrings.handlers.python.rebuild_category_lists]),</span>
 <span class="sd">    and return it.</span>
 
@@ -995,138 +1115,180 @@ and return it.</p>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The collected object-tree.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">final_config</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_config</span><span class="p">)</span>
 
-    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Preparing input"</span><span class="p">)</span>
-    <span class="n">json_input</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">"objects"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"path"</span><span class="p">:</span> <span class="n">identifier</span><span class="p">,</span> <span class="o">**</span><span class="n">final_config</span><span class="p">}]})</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Preparing input&quot;</span><span class="p">)</span>
+    <span class="n">json_input</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;objects&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">identifier</span><span class="p">,</span> <span class="o">**</span><span class="n">final_config</span><span class="p">}]})</span>
 
-    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Writing to process' stdin"</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json_input</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Writing to process&#39; stdin&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json_input</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>  <span class="c1"># type: ignore</span>
 
-    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Reading process' stdout"</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Reading process&#39; stdout&quot;</span><span class="p">)</span>
     <span class="n">stdout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>  <span class="c1"># type: ignore</span>
 
-    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Loading JSON output as Python object"</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Loading JSON output as Python object&quot;</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">stdout</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">JSONDecodeError</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error while loading JSON: </span><span class="si">{</span><span class="n">stdout</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error while loading JSON: </span><span class="si">{</span><span class="n">stdout</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">CollectionError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">exception</span><span class="p">))</span> <span class="kn">from</span> <span class="nn">exception</span>
 
-    <span class="n">error</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"error"</span><span class="p">)</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">error</span><span class="p">:</span>
-        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Collection failed: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">"</span>
-        <span class="k">if</span> <span class="s2">"traceback"</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-            <span class="n">message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'traceback'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Collection failed: </span><span class="si">{</span><span class="n">error</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;traceback&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;traceback&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">CollectionError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">loading_error</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">"loading_errors"</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">loading_error</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;loading_errors&quot;</span><span class="p">]:</span>
         <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">loading_error</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">errors</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">"parsing_errors"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">errors</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;parsing_errors&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
         <span class="k">for</span> <span class="n">parsing_error</span> <span class="ow">in</span> <span class="n">errors</span><span class="p">:</span>
             <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">parsing_error</span><span class="p">)</span>
 
     <span class="c1"># We always collect only one object at a time</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">"objects"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;objects&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Rebuilding categories and children lists"</span><span class="p">)</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Rebuilding categories and children lists&quot;</span><span class="p">)</span>
     <span class="n">rebuild_category_lists</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">result</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonCollector.teardown">
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.python.PythonCollector.teardown" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonCollector.teardown" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Terminate the opened subprocess, set it to <code>None</code>.</p>
-<details class="quote">
-          <summary>Source code in <code>handlers/python.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""Terminate the opened subprocess, set it to `None`."""</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Tearing process down"</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonHandler">
+<a href="#mkdocstrings.handlers.python.PythonCollector.teardown" class="headerlink" title="Permanent link">¤</a></h3>
 
+    <div class="doc doc-contents ">
+
+      <p>Terminate the opened subprocess, set it to <code>None</code>.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>handlers/python.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Terminate the opened subprocess, set it to `None`.&quot;&quot;&quot;</span>
+    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Tearing process down&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="mkdocstrings.handlers.python.PythonHandler" class="doc doc-heading">
         <code>PythonHandler</code>
 
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonHandler" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>The Python handler class, nothing specific here.</p>
-</div>
-</div>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonRenderer">
+<a href="#mkdocstrings.handlers.python.PythonHandler" class="headerlink" title="Permanent link">¤</a></h2>
 
+    <div class="doc doc-contents ">
+
+      <p>The Python handler class, nothing specific here.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="mkdocstrings.handlers.python.PythonRenderer" class="doc doc-heading">
         <code>PythonRenderer</code>
 
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonRenderer" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>The class responsible for loading Jinja templates and rendering them.</p>
+<a href="#mkdocstrings.handlers.python.PythonRenderer" class="headerlink" title="Permanent link">¤</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>The class responsible for loading Jinja templates and rendering them.</p>
 <p>It defines some configuration options, implements the <code>render</code> method,
 and overrides the <code>update_env</code> method of the <a href="../base/#mkdocstrings.handlers.base.BaseRenderer"><code>BaseRenderer</code> class</a>.</p>
+
 <p><strong>Attributes:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>fallback_theme</code></td>
-<td><code>str</code></td>
-<td>
-<p>The theme to fallback to.</p>
-</td>
-</tr>
-<tr>
-<td><code>default_config</code></td>
-<td><code>dict</code></td>
-<td>
-<p>The default rendering options,
-see <a href="#mkdocstrings.handlers.python.PythonRenderer.default_config"><code>default_config</code></a>.</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>fallback_theme</code></td>
+        <td><code>str</code></td>
+        <td><p>The theme to fallback to.</p></td>
+      </tr>
+      <tr>
+        <td><code>default_config</code></td>
+        <td><code>dict</code></td>
+        <td><p>The default rendering options,
+see <a href="#mkdocstrings.handlers.python.PythonRenderer.default_config"><code>default_config</code></a>.</p></td>
+      </tr>
+  </tbody>
 </table>
-<div class="doc doc-children">
-<div class="doc doc-object doc-attribute">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonRenderer.default_config">
 
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="mkdocstrings.handlers.python.PythonRenderer.default_config" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">default_config</span><span class="p">:</span> <span class="nb">dict</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonRenderer.default_config" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>The default rendering options.</p>
+<a href="#mkdocstrings.handlers.python.PythonRenderer.default_config" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>The default rendering options.</p>
 <table>
 <thead>
 <tr>
@@ -1205,220 +1367,296 @@ see <a href="#mkdocstrings.handlers.python.PythonRenderer.default_config"><code>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonRenderer.render">
+    </div>
 
-<code class="highlight language-python"><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
+  </div>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonRenderer.render" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Render a template using provided data and configuration options.</p>
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.python.PythonRenderer.get_anchor" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_anchor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></code>
+
+
+<a href="#mkdocstrings.handlers.python.PythonRenderer.get_anchor" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the canonical identifier (HTML anchor) for a collected item.</p>
+<p>This must match what the renderer would've actually rendered,
+e.g. if rendering the item contains <code>&lt;h2 id="foo"&gt;...</code> then the return value should be "foo".</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>data</code></td>
-<td><code>Any</code></td>
-<td>
-<p>The collected data to render.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>config</code></td>
-<td><code>dict</code></td>
-<td>
-<p>The rendering options.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>data</code></td>
+        <td><code>Any</code></td>
+        <td><p>The collected data.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>str</code></td>
-<td>
-<p>The rendered template as HTML.</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>str</code></td>
+      <td><p>The HTML anchor (without '#') as a string, or None if this item doesn't have an anchor.</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/python.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>  <span class="c1"># noqa: D102 (ignore missing docstring)</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_anchor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">CollectorItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>  <span class="c1"># noqa: D102 (ignore missing docstring)</span>
+    <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.python.PythonRenderer.render" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
+
+
+<a href="#mkdocstrings.handlers.python.PythonRenderer.render" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Render a template using provided data and configuration options.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>data</code></td>
+        <td><code>Any</code></td>
+        <td><p>The collected data to render.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>config</code></td>
+        <td><code>dict</code></td>
+        <td><p>The rendering options.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>str</code></td>
+      <td><p>The rendered template as HTML.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>handlers/python.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">CollectorItem</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>  <span class="c1"># noqa: D102 (ignore missing docstring)</span>
     <span class="n">final_config</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_config</span><span class="p">)</span>
 
-    <span class="n">template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">'category'</span><span class="p">]</span><span class="si">}</span><span class="s2">.html"</span><span class="p">)</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;category&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.html&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Heading level is a "state" variable, that will change at each step</span>
-    <span class="c1"># of the rendering recursion. Therefore, it's easier to use it as a plain value</span>
+    <span class="c1"># Heading level is a &quot;state&quot; variable, that will change at each step</span>
+    <span class="c1"># of the rendering recursion. Therefore, it&#39;s easier to use it as a plain value</span>
     <span class="c1"># than as an item in a dictionary.</span>
-    <span class="n">heading_level</span> <span class="o">=</span> <span class="n">final_config</span><span class="p">[</span><span class="s2">"heading_level"</span><span class="p">]</span>
+    <span class="n">heading_level</span> <span class="o">=</span> <span class="n">final_config</span><span class="p">[</span><span class="s2">&quot;heading_level&quot;</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
-        <span class="o">**</span><span class="p">{</span><span class="s2">"config"</span><span class="p">:</span> <span class="n">final_config</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">"category"</span><span class="p">]:</span> <span class="n">data</span><span class="p">,</span> <span class="s2">"heading_level"</span><span class="p">:</span> <span class="n">heading_level</span><span class="p">,</span> <span class="s2">"root"</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+        <span class="o">**</span><span class="p">{</span><span class="s2">&quot;config&quot;</span><span class="p">:</span> <span class="n">final_config</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]:</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;heading_level&quot;</span><span class="p">:</span> <span class="n">heading_level</span><span class="p">,</span> <span class="s2">&quot;root&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
     <span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.python.PythonRenderer.update_env">
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.python.PythonRenderer.update_env" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">update_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.python.PythonRenderer.update_env" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Update the Jinja environment.</p>
+<a href="#mkdocstrings.handlers.python.PythonRenderer.update_env" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Update the Jinja environment.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>md</code></td>
-<td><code>Markdown</code></td>
-<td>
-<p>The Markdown instance. Useful to add functions able to convert Markdown into the environment filters.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>config</code></td>
-<td><code>dict</code></td>
-<td>
-<p>Configuration options for <code>mkdocs</code> and <code>mkdocstrings</code>, read from <code>mkdocs.yml</code>. See the source code
-of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdocstrings.plugin.MkdocstringsPlugin.on_config</a> to see what's in this dictionary.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>md</code></td>
+        <td><code>Markdown</code></td>
+        <td><p>The Markdown instance. Useful to add functions able to convert Markdown into the environment filters.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>config</code></td>
+        <td><code>dict</code></td>
+        <td><p>Configuration options for <code>mkdocs</code> and <code>mkdocstrings</code>, read from <code>mkdocs.yml</code>. See the source code
+of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdocstrings.plugin.MkdocstringsPlugin.on_config</a> to see what's in this dictionary.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/python.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">update_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: D102 (ignore missing docstring)</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">update_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: D102 (ignore missing docstring)</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update_env</span><span class="p">(</span><span class="n">md</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">trim_blocks</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">lstrip_blocks</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">keep_trailing_newline</span> <span class="o">=</span> <span class="kc">False</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="doc doc-object doc-function">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.python.get_handler">
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="mkdocstrings.handlers.python.get_handler" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">get_handler</span><span class="p">(</span><span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">setup_commands</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">config</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.python.get_handler" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>Simply return an instance of <code>PythonHandler</code>.</p>
+<a href="#mkdocstrings.handlers.python.get_handler" class="headerlink" title="Permanent link">¤</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Simply return an instance of <code>PythonHandler</code>.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>theme</code></td>
-<td><code>str</code></td>
-<td>
-<p>The theme to use when rendering contents.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>custom_templates</code></td>
-<td><code>Optional[str]</code></td>
-<td>
-<p>Directory containing custom templates.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>setup_commands</code></td>
-<td><code>Optional[List[str]]</code></td>
-<td>
-<p>A list of commands as strings to be executed in the subprocess before <code>pytkdocs</code>.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>config</code></td>
-<td><code>Any</code></td>
-<td>
-<p>Configuration passed to the handler.</p>
-</td>
-<td><code>{}</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>theme</code></td>
+        <td><code>str</code></td>
+        <td><p>The theme to use when rendering contents.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>custom_templates</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>Directory containing custom templates.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>setup_commands</code></td>
+        <td><code>Optional[List[str]]</code></td>
+        <td><p>A list of commands as strings to be executed in the subprocess before <code>pytkdocs</code>.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>config</code></td>
+        <td><code>Any</code></td>
+        <td><p>Configuration passed to the handler.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>PythonHandler</code></td>
-<td>
-<p>An instance of <code>PythonHandler</code>.</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>PythonHandler</code></td>
+      <td><p>An instance of <code>PythonHandler</code>.</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/python.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_handler</span><span class="p">(</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_handler</span><span class="p">(</span>
     <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c1"># noqa: W0613 (unused argument config)</span>
     <span class="n">custom_templates</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">setup_commands</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">config</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PythonHandler</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Simply return an instance of `PythonHandler`.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1429,57 +1667,62 @@ of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdo
 
 <span class="sd">    Returns:</span>
 <span class="sd">        An instance of `PythonHandler`.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">PythonHandler</span><span class="p">(</span>
         <span class="n">collector</span><span class="o">=</span><span class="n">PythonCollector</span><span class="p">(</span><span class="n">setup_commands</span><span class="o">=</span><span class="n">setup_commands</span><span class="p">),</span>
-        <span class="n">renderer</span><span class="o">=</span><span class="n">PythonRenderer</span><span class="p">(</span><span class="s2">"python"</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="p">),</span>
+        <span class="n">renderer</span><span class="o">=</span><span class="n">PythonRenderer</span><span class="p">(</span><span class="s2">&quot;python&quot;</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="p">),</span>
     <span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-function">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.python.rebuild_category_lists">
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="mkdocstrings.handlers.python.rebuild_category_lists" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">rebuild_category_lists</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.python.rebuild_category_lists" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>Recursively rebuild the category lists of a collected object.</p>
+<a href="#mkdocstrings.handlers.python.rebuild_category_lists" class="headerlink" title="Permanent link">¤</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Recursively rebuild the category lists of a collected object.</p>
 <p>Since <code>pytkdocs</code> dumps JSON on standard output, it must serialize the object-tree and flatten it to reduce data
 duplication and avoid cycle-references. Indeed, each node of the object-tree has a <code>children</code> list, containing
 all children, and another list for each category of children: <code>attributes</code>, <code>classes</code>, <code>functions</code>, <code>methods</code>
 and <code>modules</code>. It replaces the values in category lists with only the paths of the objects.</p>
 <p>Here, we reconstruct these category lists by picking objects in the <code>children</code> list using their path.</p>
 <p>For each object, we recurse on every one of its children.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>obj</code></td>
-<td><code>dict</code></td>
-<td>
-<p>The collected object, loaded back from JSON into a Python dictionary.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>obj</code></td>
+        <td><code>dict</code></td>
+        <td><p>The collected object, loaded back from JSON into a Python dictionary.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/python.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">rebuild_category_lists</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">rebuild_category_lists</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Recursively rebuild the category lists of a collected object.</span>
 
 <span class="sd">    Since `pytkdocs` dumps JSON on standard output, it must serialize the object-tree and flatten it to reduce data</span>
@@ -1493,20 +1736,28 @@ and <code>modules</code>. It replaces the values in category lists with only the
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        obj: The collected object, loaded back from JSON into a Python dictionary.</span>
-<span class="sd">    """</span>
-    <span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"attributes"</span><span class="p">,</span> <span class="s2">"classes"</span><span class="p">,</span> <span class="s2">"functions"</span><span class="p">,</span> <span class="s2">"methods"</span><span class="p">,</span> <span class="s2">"modules"</span><span class="p">):</span>
-        <span class="n">obj</span><span class="p">[</span><span class="n">category</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">obj</span><span class="p">[</span><span class="s2">"children"</span><span class="p">][</span><span class="n">path</span><span class="p">]</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">[</span><span class="n">category</span><span class="p">]]</span>
-    <span class="n">obj</span><span class="p">[</span><span class="s2">"children"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">child</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">[</span><span class="s2">"children"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
-    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">[</span><span class="s2">"children"</span><span class="p">]:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;attributes&quot;</span><span class="p">,</span> <span class="s2">&quot;classes&quot;</span><span class="p">,</span> <span class="s2">&quot;functions&quot;</span><span class="p">,</span> <span class="s2">&quot;methods&quot;</span><span class="p">,</span> <span class="s2">&quot;modules&quot;</span><span class="p">):</span>
+        <span class="n">obj</span><span class="p">[</span><span class="n">category</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">obj</span><span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">][</span><span class="n">path</span><span class="p">]</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">[</span><span class="n">category</span><span class="p">]]</span>
+    <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">child</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">]:</span>
         <span class="n">rebuild_category_lists</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
                 
               
               

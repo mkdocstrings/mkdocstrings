@@ -44,6 +44,8 @@
     
     
     
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../css/mkdocstrings.css">
     
     
@@ -467,11 +469,32 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
     
     <label class="md-nav__link" for="nav-4-1">
+      mkdocstrings
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="mkdocstrings" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon"></span>
+        mkdocstrings
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-1" type="checkbox" id="nav-4-1-1">
+    
+    <label class="md-nav__link" for="nav-4-1-1">
       handlers
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="handlers" data-md-level="2">
-      <label class="md-nav__title" for="nav-4-1">
+    <nav class="md-nav" aria-label="handlers" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-1">
         <span class="md-nav__icon md-icon"></span>
         handlers
       </label>
@@ -531,15 +554,58 @@
   </li>
 
         
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
+    
+    <label class="md-nav__link" for="nav-4-2">
+      mkdocs_autorefs
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-2">
+        <span class="md-nav__icon md-icon"></span>
+        mkdocs_autorefs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
           
           
           
 
 
   <li class="md-nav__item">
-    <a href="../../reference/references/" title="references.py" class="md-nav__link">
+    <a href="../../reference/autorefs/references/" title="references.py" class="md-nav__link">
       references.py
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/autorefs/plugin/" title="plugin.py" class="md-nav__link">
+      plugin.py
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -926,9 +992,14 @@ See <a href="#collector-pytkdocs">Collector: pytkdocs</a> to learn more about <c
 </div>
 </div>
 <h3 id="rendering">Rendering<a class="headerlink" href="#rendering" title="Permanent link">¤</a></h3>
-<div class="doc doc-object doc-attribute">
-<div class="doc doc-contents first">
-<p>The default rendering options.</p>
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+    <div class="doc doc-contents first">
+
+      <p>The default rendering options.</p>
 <table>
 <thead>
 <tr>
@@ -1007,8 +1078,10 @@ See <a href="#collector-pytkdocs">Collector: pytkdocs</a> to learn more about <c
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+    </div>
+
+  </div>
+
 <p>These options affect how the documentation is rendered.</p>
 <div class="admonition example">
 <p class="admonition-title">Configuration example</p>
@@ -1119,48 +1192,49 @@ with the <code>replace_admonitions</code> option of the Google-style parser:</p>
 <div class="admonition example">
 <p class="admonition-title">Example with a function</p>
 <p><strong>Expand the source at the end to see the original code!</strong></p>
-<div class="doc doc-object doc-function">
-<div class="doc doc-contents first">
-<p>A short description of this function.</p>
+<div class="mkdocstrings">
+
+  <div class="doc doc-object doc-function">
+
+
+    <div class="doc doc-contents first">
+
+      <p>A short description of this function.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>param1</code></td>
-<td><code>int</code></td>
-<td>
-<p>An integer?</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>param2</code></td>
-<td><code>Optional[str]</code></td>
-<td>
-<p>A string? If you have a long description,
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>param1</code></td>
+        <td><code>int</code></td>
+        <td><p>An integer?</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>param2</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>A string? If you have a long description,
 you can split it on multiple lines.
 Just remember to indent those lines consistently.</p>
 <p>Complex markup is supported in sections items.</p>
 <pre><code>I'm a code block!
-</code></pre>
-</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
+</code></pre></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>snippets/function_annotations_google.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">param1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param2</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">param1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param2</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A short description of this function.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1171,13 +1245,15 @@ Just remember to indent those lines consistently.</p>
 
 <span class="sd">            Complex markup is supported in sections items.</span>
 
-<span class="sd">                I'm a code block!</span>
-<span class="sd">    """</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">param2</span><span class="si">}{</span><span class="n">param1</span><span class="si">}</span><span class="s2">"</span>
-</code></pre>
-</div>
-</details>
-</div>
+<span class="sd">                I&#39;m a code block!</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">param2</span><span class="si">}{</span><span class="n">param1</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
 </div>
 </div>
 <h4 id="restructuredtext-style">reStructuredText-style<a class="headerlink" href="#restructuredtext-style" title="Permanent link">¤</a></h4>
@@ -1207,61 +1283,64 @@ Supported directives are:</p>
 <div class="admonition example">
 <p class="admonition-title">Example with a function</p>
 <p><strong>Expand the source at the end to see the original code!</strong></p>
-<div class="doc doc-object doc-function">
-<div class="doc doc-contents first">
-<p>A short description of this function.</p>
+<div class="mkdocstrings">
+
+  <div class="doc doc-object doc-function">
+
+
+    <div class="doc doc-contents first">
+
+      <p>A short description of this function.</p>
 <p>Complex markup is supported in the main description section.</p>
 <pre><code>I'm a code block!
 </code></pre>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>param1</code></td>
-<td><code>int</code></td>
-<td>
-<p>An integer?</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>param2</code></td>
-<td><code>Optional[str]</code></td>
-<td>
-<p>A string? If you have a long description, you can split it on multiple lines.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>param1</code></td>
+        <td><code>int</code></td>
+        <td><p>An integer?</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>param2</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>A string? If you have a long description, you can split it on multiple lines.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>snippets/function_annotations_rst.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">param1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param2</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">my_function</span><span class="p">(</span><span class="n">param1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">param2</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A short description of this function.</span>
 
 <span class="sd">    Complex markup is supported in the main description section.</span>
 
-<span class="sd">        I'm a code block!</span>
+<span class="sd">        I&#39;m a code block!</span>
 
 <span class="sd">    :param param1: An integer?</span>
 <span class="sd">    :param param2: A string? If you have a long description,</span>
 <span class="sd">        you can split it on multiple lines.</span>
-<span class="sd">    """</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">param2</span><span class="si">}{</span><span class="n">param1</span><span class="si">}</span><span class="s2">"</span>
-</code></pre>
-</div>
-</details>
-</div>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">param2</span><span class="si">}{</span><span class="n">param1</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
 </div>
 </div>
 <h2 id="finding-modules">Finding modules<a class="headerlink" href="#finding-modules" title="Permanent link">¤</a></h2>
@@ -1329,33 +1408,6 @@ but you can use the <code>setup_commands</code> to mock them manually:</p>
   <span class="k">border-left</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span> <span class="kc">solid</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">);</span>
   <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">80</span><span class="kt">px</span><span class="p">;</span>
 <span class="p">}</span>
-
-<span class="c">/* Don&#39;t capitalize names. */</span>
-<span class="nt">h5</span><span class="p">.</span><span class="nc">doc-heading</span> <span class="p">{</span>
-  <span class="k">text-transform</span><span class="p">:</span> <span class="kc">none</span> <span class="cp">!important</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c">/* Don&#39;t use vertical space on hidden ToC entries. */</span>
-<span class="p">.</span><span class="nc">hidden-toc</span><span class="p">::</span><span class="nd">before</span> <span class="p">{</span>
-  <span class="k">margin-top</span><span class="p">:</span> <span class="mi">0</span> <span class="cp">!important</span><span class="p">;</span>
-  <span class="k">padding-top</span><span class="p">:</span> <span class="mi">0</span> <span class="cp">!important</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c">/* Don&#39;t show permalink of hidden ToC entries. */</span>
-<span class="p">.</span><span class="nc">hidden-toc</span> <span class="nt">a</span><span class="p">.</span><span class="nc">headerlink</span> <span class="p">{</span>
-  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c">/* Avoid breaking parameters name, etc. in table cells. */</span>
-<span class="nt">td</span> <span class="nt">code</span> <span class="p">{</span>
-  <span class="k">word-break</span><span class="p">:</span> <span class="kc">normal</span> <span class="cp">!important</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c">/* For pieces of Markdown rendered in table cells. */</span>
-<span class="nt">td</span> <span class="nt">p</span> <span class="p">{</span>
-  <span class="k">margin-top</span><span class="p">:</span> <span class="mi">0</span> <span class="cp">!important</span><span class="p">;</span>
-  <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">0</span> <span class="cp">!important</span><span class="p">;</span>
-<span class="p">}</span>
 </code></pre></div>
 <h2 id="recommended-style-readthedocs">Recommended style (ReadTheDocs)<a class="headerlink" href="#recommended-style-readthedocs" title="Permanent link">¤</a></h2>
 <p>Here are some CSS rules for the built-in <em>ReadTheDocs</em> theme:</p>
@@ -1364,45 +1416,6 @@ but you can use the <code>setup_commands</code> to mock them manually:</p>
   <span class="k">padding-left</span><span class="p">:</span> <span class="mi">25</span><span class="kt">px</span><span class="p">;</span>
   <span class="k">border-left</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span> <span class="kc">solid</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">);</span>
   <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c">/* Don&#39;t use vertical space on hidden ToC entries. */</span>
-<span class="p">.</span><span class="nc">hidden-toc</span><span class="p">::</span><span class="nd">before</span> <span class="p">{</span>
-  <span class="k">margin-top</span><span class="p">:</span> <span class="mi">0</span> <span class="cp">!important</span><span class="p">;</span>
-  <span class="k">padding-top</span><span class="p">:</span> <span class="mi">0</span> <span class="cp">!important</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c">/* Don&#39;t show permalink of hidden ToC entries. */</span>
-<span class="p">.</span><span class="nc">hidden-toc</span> <span class="nt">a</span><span class="p">.</span><span class="nc">headerlink</span> <span class="p">{</span>
-  <span class="k">display</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c">/* Avoid breaking parameters name, etc. in table cells. */</span>
-<span class="nt">td</span> <span class="nt">code</span> <span class="p">{</span>
-  <span class="k">word-break</span><span class="p">:</span> <span class="kc">normal</span> <span class="cp">!important</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c">/* For pieces of Markdown rendered in table cells. */</span>
-<span class="nt">td</span> <span class="nt">p</span> <span class="p">{</span>
-  <span class="k">margin-top</span><span class="p">:</span> <span class="mi">0</span> <span class="cp">!important</span><span class="p">;</span>
-  <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">0</span> <span class="cp">!important</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c">/* Avoid breaking code headings. */</span>
-<span class="p">.</span><span class="nc">doc-heading</span> <span class="nt">code</span> <span class="p">{</span>
-  <span class="k">white-space</span><span class="p">:</span> <span class="kc">normal</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c">/* Improve rendering of parameters, returns and exceptions. */</span>
-<span class="p">.</span><span class="nc">field-name</span> <span class="p">{</span>
-  <span class="k">min-width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">.</span><span class="nc">field-name</span><span class="o">,</span> <span class="p">.</span><span class="nc">field-body</span> <span class="p">{</span>
-  <span class="k">border</span><span class="p">:</span> <span class="kc">none</span> <span class="cp">!important</span><span class="p">;</span>
-  <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span> <span class="cp">!important</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">.</span><span class="nc">field-list</span> <span class="p">{</span>
-  <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span> <span class="cp">!important</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
                 

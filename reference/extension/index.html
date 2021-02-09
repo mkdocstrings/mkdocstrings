@@ -44,6 +44,8 @@
     
     
     
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../css/mkdocstrings.css">
     
     
@@ -288,17 +290,40 @@
           
           
 
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1" checked>
+    
+    <label class="md-nav__link" for="nav-4-1">
+      mkdocstrings
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="mkdocstrings" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon"></span>
+        mkdocstrings
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-1" type="checkbox" id="nav-4-1-1">
     
-    <label class="md-nav__link" for="nav-4-1">
+    <label class="md-nav__link" for="nav-4-1-1">
       handlers
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="handlers" data-md-level="2">
-      <label class="md-nav__title" for="nav-4-1">
+    <nav class="md-nav" aria-label="handlers" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-1">
         <span class="md-nav__icon md-icon"></span>
         handlers
       </label>
@@ -389,13 +414,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#mkdocstrings.extension.AutoDocProcessor.process_block" class="md-nav__link">
-    process_block()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#mkdocstrings.extension.AutoDocProcessor.run" class="md-nav__link">
     run()
   </a>
@@ -442,22 +460,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mkdocstrings.extension.atomic_brute_cast" class="md-nav__link">
-    atomic_brute_cast()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#mkdocstrings.extension.get_item_configs" class="md-nav__link">
     get_item_configs()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mkdocstrings.extension.log_xml_parse_error" class="md-nav__link">
-    log_xml_parse_error()
   </a>
   
 </li>
@@ -481,15 +485,58 @@
   </li>
 
         
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
+    
+    <label class="md-nav__link" for="nav-4-2">
+      mkdocs_autorefs
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-2">
+        <span class="md-nav__icon md-icon"></span>
+        mkdocs_autorefs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
           
           
           
 
 
   <li class="md-nav__item">
-    <a href="../references/" title="references.py" class="md-nav__link">
+    <a href="../autorefs/references/" title="references.py" class="md-nav__link">
       references.py
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../autorefs/plugin/" title="plugin.py" class="md-nav__link">
+      plugin.py
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -614,13 +661,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#mkdocstrings.extension.AutoDocProcessor.process_block" class="md-nav__link">
-    process_block()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#mkdocstrings.extension.AutoDocProcessor.run" class="md-nav__link">
     run()
   </a>
@@ -667,22 +707,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mkdocstrings.extension.atomic_brute_cast" class="md-nav__link">
-    atomic_brute_cast()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#mkdocstrings.extension.get_item_configs" class="md-nav__link">
     get_item_configs()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mkdocstrings.extension.log_xml_parse_error" class="md-nav__link">
-    log_xml_parse_error()
   </a>
   
 </li>
@@ -710,18 +736,18 @@
                   <h1>extension.py</h1>
                 
                 <div class="doc doc-object doc-module">
-<h2 class="hidden-toc" id="mkdocstrings.extension" style="visibility: hidden; position: absolute;">
-        <a class="headerlink" href="#mkdocstrings.extension" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents first">
-<p>This module holds the code of the Markdown extension responsible for matching "autodoc" instructions.</p>
+
+<a id="mkdocstrings.extension"></a>
+    <div class="doc doc-contents first">
+
+      <p>This module holds the code of the Markdown extension responsible for matching "autodoc" instructions.</p>
 <p>The extension is composed of a Markdown <a href="https://python-markdown.github.io/extensions/api/#blockparser">block processor</a>
 that matches indented blocks starting with a line like '::: identifier'.</p>
 <p>For each of these blocks, it uses a <a href="../handlers/base/#mkdocstrings.handlers.base.BaseHandler">handler</a> to collect documentation about
 the given identifier and render it with Jinja templates.</p>
 <p>Both the collection and rendering process can be configured by adding YAML configuration under the "autodoc"
 instruction:</p>
-<div class="highlight">
-<pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">::</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">some.identifier</span>
+<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">::</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">some.identifier</span>
     <span class="l l-Scalar l-Scalar-Plain">handler</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">python</span>
     <span class="l l-Scalar l-Scalar-Plain">selection</span><span class="p p-Indicator">:</span>
       <span class="nt">option1</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value1</span>
@@ -730,87 +756,119 @@ instruction:</p>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">value2b</span>
 <span class=" -Error">    </span><span class="nt">rendering</span><span class="p">:</span>
       <span class="nt">option_x</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">etc</span>
-</code></pre>
-</div>
-<div class="doc doc-children">
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="mkdocstrings.extension.AutoDocProcessor">
+</code></pre></div>
 
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="mkdocstrings.extension.AutoDocProcessor" class="doc doc-heading">
         <code>AutoDocProcessor</code>
 
 
 
-      <a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>Our "autodoc" Markdown block processor.</p>
+<a href="#mkdocstrings.extension.AutoDocProcessor" class="headerlink" title="Permanent link">¤</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Our "autodoc" Markdown block processor.</p>
 <p>It has a <a href="#mkdocstrings.extension.AutoDocProcessor.test"><code>test</code> method</a> that tells if a block matches a criterion,
 and a <a href="#mkdocstrings.extension.AutoDocProcessor.run"><code>run</code> method</a> that processes it.</p>
 <p>It also has utility methods allowing to get handlers and their configuration easily, useful when processing
 a matched block.</p>
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.extension.AutoDocProcessor.__init__">
 
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">handlers</span><span class="p">)</span></code>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.extension.AutoDocProcessor.__init__" class="doc doc-heading">
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">handlers</span><span class="p">,</span> <span class="n">autorefs</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
-      <a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor.__init__" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Initialize the object.</p>
+<a href="#mkdocstrings.extension.AutoDocProcessor.__init__" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initialize the object.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>parser</code></td>
-<td><code>BlockParser</code></td>
-<td>
-<p>A <code>markdown.blockparser.BlockParser</code> instance.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>md</code></td>
-<td><code>Markdown</code></td>
-<td>
-<p>A <code>markdown.Markdown</code> instance.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>config</code></td>
-<td><code>dict</code></td>
-<td>
-<p>The <a href="../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.config_scheme">configuration</a>
-of the <code>mkdocstrings</code> plugin.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>handlers</code></td>
-<td><code>Handlers</code></td>
-<td>
-<p>A <a href="../handlers/base/#mkdocstrings.handlers.base.Handlers">mkdocstrings.handlers.base.Handlers</a> instance.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>parser</code></td>
+        <td><code>BlockParser</code></td>
+        <td><p>A <code>markdown.blockparser.BlockParser</code> instance.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>md</code></td>
+        <td><code>Markdown</code></td>
+        <td><p>A <code>markdown.Markdown</code> instance.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>config</code></td>
+        <td><code>dict</code></td>
+        <td><p>The <a href="../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.config_scheme">configuration</a>
+of the <code>mkdocstrings</code> plugin.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>handlers</code></td>
+        <td><code>Handlers</code></td>
+        <td><p>A <a href="../handlers/base/#mkdocstrings.handlers.base.Handlers">mkdocstrings.handlers.base.Handlers</a> instance.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>autorefs</code></td>
+        <td><code>AutorefsPlugin</code></td>
+        <td><p>A <a href="../autorefs/plugin/#mkdocs_autorefs.plugin.AutorefsPlugin">mkdocs_autorefs.plugin.AutorefsPlugin</a> instance.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>mkdocstrings/extension.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">:</span> <span class="n">BlockParser</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">handlers</span><span class="p">:</span> <span class="n">Handlers</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">:</span> <span class="n">BlockParser</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">handlers</span><span class="p">:</span> <span class="n">Handlers</span><span class="p">,</span> <span class="n">autorefs</span><span class="p">:</span> <span class="n">AutorefsPlugin</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialize the object.</span>
 
 <span class="sd">    Arguments:</span>
@@ -819,221 +877,67 @@ of the <code>mkdocstrings</code> plugin.</p>
 <span class="sd">        config: The [configuration][mkdocstrings.plugin.MkdocstringsPlugin.config_scheme]</span>
 <span class="sd">            of the `mkdocstrings` plugin.</span>
 <span class="sd">        handlers: A [mkdocstrings.handlers.base.Handlers][] instance.</span>
-<span class="sd">    """</span>
+<span class="sd">        autorefs: A [mkdocs_autorefs.plugin.AutorefsPlugin][] instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parser</span><span class="o">=</span><span class="n">parser</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">md</span> <span class="o">=</span> <span class="n">md</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="n">config</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span> <span class="o">=</span> <span class="n">handlers</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_autorefs</span> <span class="o">=</span> <span class="n">autorefs</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_updated_env</span> <span class="o">=</span> <span class="kc">False</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.extension.AutoDocProcessor.process_block">
+</code></pre></div>
+        </details>
+    </div>
 
-<code class="highlight language-python"><span class="n">process_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">yaml_block</span><span class="p">,</span> <span class="n">heading_level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+  </div>
 
 
-      <a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor.process_block" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Process an autodoc block.</p>
-<p><strong>Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>identifier</code></td>
-<td><code>str</code></td>
-<td>
-<p>The identifier of the object to collect and render.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>yaml_block</code></td>
-<td><code>str</code></td>
-<td>
-<p>The YAML configuration.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>heading_level</code></td>
-<td><code>int</code></td>
-<td>
-<p>Suggested level of the the heading to insert (0 to ignore).</p>
-</td>
-<td><code>0</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Exceptions:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>CollectionError</code></td>
-<td>
-<p>When something wrong happened during collection.</p>
-</td>
-</tr>
-<tr>
-<td><code>ParseError</code></td>
-<td>
-<p>When the generated HTML could not be parsed as XML.</p>
-</td>
-</tr>
-<tr>
-<td><code>TemplateNotFound</code></td>
-<td>
-<p>When a template used for rendering could not be found.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Element</code></td>
-<td>
-<p>A new XML element.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<details class="quote">
-          <summary>Source code in <code>mkdocstrings/extension.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">process_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">yaml_block</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">heading_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Element</span><span class="p">:</span>
-    <span class="sd">"""</span>
-<span class="sd">    Process an autodoc block.</span>
 
-<span class="sd">    Arguments:</span>
-<span class="sd">        identifier: The identifier of the object to collect and render.</span>
-<span class="sd">        yaml_block: The YAML configuration.</span>
-<span class="sd">        heading_level: Suggested level of the the heading to insert (0 to ignore).</span>
+  <div class="doc doc-object doc-method">
 
-<span class="sd">    Raises:</span>
-<span class="sd">        CollectionError: When something wrong happened during collection.</span>
-<span class="sd">        ParseError: When the generated HTML could not be parsed as XML.</span>
-<span class="sd">        TemplateNotFound: When a template used for rendering could not be found.</span>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        A new XML element.</span>
-<span class="sd">    """</span>
-    <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">yaml_block</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
-    <span class="n">handler_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="o">.</span><span class="n">get_handler_name</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 
-    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Using handler '</span><span class="si">{</span><span class="n">handler_name</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
-    <span class="n">handler_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="o">.</span><span class="n">get_handler_config</span><span class="p">(</span><span class="n">handler_name</span><span class="p">)</span>
-    <span class="n">handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="o">.</span><span class="n">get_handler</span><span class="p">(</span><span class="n">handler_name</span><span class="p">,</span> <span class="n">handler_config</span><span class="p">)</span>
-
-    <span class="n">selection</span><span class="p">,</span> <span class="n">rendering</span> <span class="o">=</span> <span class="n">get_item_configs</span><span class="p">(</span><span class="n">handler_config</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">heading_level</span><span class="p">:</span>
-        <span class="n">rendering</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">rendering</span><span class="p">,</span> <span class="p">{</span><span class="s2">"heading_level"</span><span class="p">:</span> <span class="n">heading_level</span><span class="p">})</span>  <span class="c1"># like setdefault</span>
-
-    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Collecting data"</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">data</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">collector</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">selection</span><span class="p">)</span>
-    <span class="k">except</span> <span class="n">CollectionError</span><span class="p">:</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Could not collect '</span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
-        <span class="k">raise</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updated_env</span><span class="p">:</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Updating renderer's env"</span><span class="p">)</span>
-        <span class="n">handler</span><span class="o">.</span><span class="n">renderer</span><span class="o">.</span><span class="n">update_env</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">md</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_updated_env</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Rendering templates"</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">rendered</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">renderer</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rendering</span><span class="p">)</span>
-    <span class="k">except</span> <span class="n">TemplateNotFound</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-        <span class="n">theme_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s2">"theme_name"</span><span class="p">]</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">"Template '</span><span class="si">{</span><span class="n">exc</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' not found for '</span><span class="si">{</span><span class="n">handler_name</span><span class="si">}</span><span class="s2">' handler and theme '</span><span class="si">{</span><span class="n">theme_name</span><span class="si">}</span><span class="s2">'."</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="k">raise</span>
-
-    <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"Loading HTML back into XML tree"</span><span class="p">)</span>
-    <span class="n">rendered</span> <span class="o">=</span> <span class="n">ENTITIES</span> <span class="o">+</span> <span class="n">rendered</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">xml_contents</span> <span class="o">=</span> <span class="n">XML</span><span class="p">(</span><span class="n">rendered</span><span class="p">)</span>
-    <span class="k">except</span> <span class="n">ParseError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
-        <span class="n">log_xml_parse_error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">error</span><span class="p">),</span> <span class="n">rendered</span><span class="p">)</span>
-        <span class="k">raise</span>
-
-    <span class="k">return</span> <span class="n">atomic_brute_cast</span><span class="p">(</span><span class="n">xml_contents</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.extension.AutoDocProcessor.run">
-
+<h3 id="mkdocstrings.extension.AutoDocProcessor.run" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">blocks</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor.run" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Run code on the matched blocks.</p>
+<a href="#mkdocstrings.extension.AutoDocProcessor.run" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Run code on the matched blocks.</p>
 <p>The identifier and configuration lines are retrieved from a matched block
 and used to collect and render an object.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>parent</code></td>
-<td><code>Element</code></td>
-<td>
-<p>The parent element in the XML tree.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>blocks</code></td>
-<td><code>MutableSequence[str]</code></td>
-<td>
-<p>The rest of the blocks to be processed.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>parent</code></td>
+        <td><code>Element</code></td>
+        <td><p>The parent element in the XML tree.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>blocks</code></td>
+        <td><code>MutableSequence[str]</code></td>
+        <td><p>The rest of the blocks to be processed.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>mkdocstrings/extension.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">blocks</span><span class="p">:</span> <span class="n">MutableSequence</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">blocks</span><span class="p">:</span> <span class="n">MutableSequence</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Run code on the matched blocks.</span>
 
 <span class="sd">    The identifier and configuration lines are retrieved from a matched block</span>
@@ -1042,7 +946,7 @@ and used to collect and render an object.</p>
 <span class="sd">    Arguments:</span>
 <span class="sd">        parent: The parent element in the XML tree.</span>
 <span class="sd">        blocks: The rest of the blocks to be processed.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">block</span> <span class="o">=</span> <span class="n">blocks</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">match</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
 
@@ -1055,82 +959,93 @@ and used to collect and render an object.</p>
     <span class="n">block</span><span class="p">,</span> <span class="n">the_rest</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detab</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
-        <span class="n">identifier</span> <span class="o">=</span> <span class="n">match</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span>
-        <span class="n">heading_level</span> <span class="o">=</span> <span class="n">match</span><span class="p">[</span><span class="s2">"heading"</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">"#"</span><span class="p">)</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Matched '::: </span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
-        <span class="n">xml_element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_block</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">heading_level</span><span class="p">)</span>
-        <span class="n">parent</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xml_element</span><span class="p">)</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+        <span class="n">heading_level</span> <span class="o">=</span> <span class="n">match</span><span class="p">[</span><span class="s2">&quot;heading&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matched &#39;::: </span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+        <span class="n">html</span><span class="p">,</span> <span class="n">headings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_block</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">heading_level</span><span class="p">)</span>
+        <span class="n">el</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;mkdocstrings&quot;</span><span class="p">})</span>
+        <span class="c1"># The final HTML is inserted as opaque to subsequent processing, and only revealed at the end.</span>
+        <span class="n">el</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">htmlStash</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+        <span class="c1"># So we need to duplicate the headings directly (and delete later), just so &#39;toc&#39; can pick them up.</span>
+        <span class="n">el</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">headings</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">heading</span> <span class="ow">in</span> <span class="n">headings</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_autorefs</span><span class="o">.</span><span class="n">register_anchor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_autorefs</span><span class="o">.</span><span class="n">current_page</span><span class="p">,</span> <span class="n">heading</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+
+        <span class="n">parent</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">the_rest</span><span class="p">:</span>
         <span class="c1"># This block contained unindented line(s) after the first indented</span>
         <span class="c1"># line. Insert these lines as the first block of the master blocks</span>
         <span class="c1"># list for future processing.</span>
         <span class="n">blocks</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">the_rest</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.extension.AutoDocProcessor.test">
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.extension.AutoDocProcessor.test" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">block</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor.test" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Match our autodoc instructions.</p>
+<a href="#mkdocstrings.extension.AutoDocProcessor.test" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Match our autodoc instructions.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>parent</code></td>
-<td><code>Element</code></td>
-<td>
-<p>The parent element in the XML tree.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>block</code></td>
-<td><code>str</code></td>
-<td>
-<p>The block to be tested.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>parent</code></td>
+        <td><code>Element</code></td>
+        <td><p>The parent element in the XML tree.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>block</code></td>
+        <td><code>str</code></td>
+        <td><p>The block to be tested.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>bool</code></td>
-<td>
-<p>Whether this block should be processed or not.</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>bool</code></td>
+      <td><p>Whether this block should be processed or not.</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>mkdocstrings/extension.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">block</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">block</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Match our autodoc instructions.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1139,296 +1054,267 @@ and used to collect and render an object.</p>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Whether this block should be processed or not.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="mkdocstrings.extension.MkdocstringsExtension">
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="mkdocstrings.extension.MkdocstringsExtension" class="doc doc-heading">
         <code>MkdocstringsExtension</code>
 
 
 
-      <a class="headerlink" href="#mkdocstrings.extension.MkdocstringsExtension" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>Our Markdown extension.</p>
-<p>It cannot work outside of <code>mkdocstrings</code>.</p>
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.extension.MkdocstringsExtension.__init__">
+<a href="#mkdocstrings.extension.MkdocstringsExtension" class="headerlink" title="Permanent link">¤</a></h2>
 
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">handlers</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+    <div class="doc doc-contents ">
+
+      <p>Our Markdown extension.</p>
+<p>It cannot work outside of <code>mkdocstrings</code>.</p>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.extension.MkdocstringsExtension.__init__" class="doc doc-heading">
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">handlers</span><span class="p">,</span> <span class="n">autorefs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
-      <a class="headerlink" href="#mkdocstrings.extension.MkdocstringsExtension.__init__" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Initialize the object.</p>
+<a href="#mkdocstrings.extension.MkdocstringsExtension.__init__" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initialize the object.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>config</code></td>
-<td><code>dict</code></td>
-<td>
-<p>The configuration items from <code>mkdocs</code> and <code>mkdocstrings</code> that must be passed to the block processor
-when instantiated in <a href="#mkdocstrings.extension.MkdocstringsExtension.extendMarkdown"><code>extendMarkdown</code></a>.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>handlers</code></td>
-<td><code>Handlers</code></td>
-<td>
-<p>A <a href="../handlers/base/#mkdocstrings.handlers.base.Handlers">mkdocstrings.handlers.base.Handlers</a> instance.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>kwargs</code></td>
-<td><code></code></td>
-<td>
-<p>Keyword arguments used by <code>markdown.extensions.Extension</code>.</p>
-</td>
-<td><code>{}</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>config</code></td>
+        <td><code>dict</code></td>
+        <td><p>The configuration items from <code>mkdocs</code> and <code>mkdocstrings</code> that must be passed to the block processor
+when instantiated in <a href="#mkdocstrings.extension.MkdocstringsExtension.extendMarkdown"><code>extendMarkdown</code></a>.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>handlers</code></td>
+        <td><code>Handlers</code></td>
+        <td><p>A <a href="../handlers/base/#mkdocstrings.handlers.base.Handlers">mkdocstrings.handlers.base.Handlers</a> instance.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>autorefs</code></td>
+        <td><code>AutorefsPlugin</code></td>
+        <td><p>A <a href="../autorefs/plugin/#mkdocs_autorefs.plugin.AutorefsPlugin">mkdocs_autorefs.plugin.AutorefsPlugin</a> instance.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>kwargs</code></td>
+        <td><code></code></td>
+        <td><p>Keyword arguments used by <code>markdown.extensions.Extension</code>.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>mkdocstrings/extension.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">handlers</span><span class="p">:</span> <span class="n">Handlers</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">handlers</span><span class="p">:</span> <span class="n">Handlers</span><span class="p">,</span> <span class="n">autorefs</span><span class="p">:</span> <span class="n">AutorefsPlugin</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialize the object.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        config: The configuration items from `mkdocs` and `mkdocstrings` that must be passed to the block processor</span>
 <span class="sd">            when instantiated in [`extendMarkdown`][mkdocstrings.extension.MkdocstringsExtension.extendMarkdown].</span>
 <span class="sd">        handlers: A [mkdocstrings.handlers.base.Handlers][] instance.</span>
+<span class="sd">        autorefs: A [mkdocs_autorefs.plugin.AutorefsPlugin][] instance.</span>
 <span class="sd">        kwargs: Keyword arguments used by `markdown.extensions.Extension`.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="n">config</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span> <span class="o">=</span> <span class="n">handlers</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.extension.MkdocstringsExtension.extendMarkdown">
+    <span class="bp">self</span><span class="o">.</span><span class="n">_autorefs</span> <span class="o">=</span> <span class="n">autorefs</span>
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.extension.MkdocstringsExtension.extendMarkdown" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.extension.MkdocstringsExtension.extendMarkdown" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Register the extension.</p>
+<a href="#mkdocstrings.extension.MkdocstringsExtension.extendMarkdown" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Register the extension.</p>
 <p>Add an instance of our <a href="#mkdocstrings.extension.AutoDocProcessor"><code>AutoDocProcessor</code></a> to the Markdown parser.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>md</code></td>
-<td><code>Markdown</code></td>
-<td>
-<p>A <code>markdown.Markdown</code> instance.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>md</code></td>
+        <td><code>Markdown</code></td>
+        <td><p>A <code>markdown.Markdown</code> instance.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>mkdocstrings/extension.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: N802 (casing: parent method's name)</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: N802 (casing: parent method&#39;s name)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Register the extension.</span>
 
 <span class="sd">    Add an instance of our [`AutoDocProcessor`][mkdocstrings.extension.AutoDocProcessor] to the Markdown parser.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        md: A `markdown.Markdown` instance.</span>
-<span class="sd">    """</span>
-    <span class="n">md</span><span class="o">.</span><span class="n">registerExtension</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-    <span class="n">processor</span> <span class="o">=</span> <span class="n">AutoDocProcessor</span><span class="p">(</span><span class="n">md</span><span class="o">.</span><span class="n">parser</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">)</span>
-    <span class="n">md</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">blockprocessors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">processor</span><span class="p">,</span> <span class="s2">"mkdocstrings"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">blockprocessor_priority</span><span class="p">)</span>
-    <span class="n">ref_processor</span> <span class="o">=</span> <span class="n">AutoRefInlineProcessor</span><span class="p">(</span><span class="n">md</span><span class="p">)</span>
-    <span class="n">md</span><span class="o">.</span><span class="n">inlinePatterns</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">ref_processor</span><span class="p">,</span> <span class="s2">"mkdocstrings"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inlineprocessor_priority</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="doc doc-object doc-function">
-<h2 class="doc doc-heading" id="mkdocstrings.extension.atomic_brute_cast">
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">md</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">blockprocessors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+        <span class="n">AutoDocProcessor</span><span class="p">(</span><span class="n">md</span><span class="o">.</span><span class="n">parser</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_autorefs</span><span class="p">),</span>
+        <span class="s2">&quot;mkdocstrings&quot;</span><span class="p">,</span>
+        <span class="n">priority</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span>  <span class="c1"># Right before markdown.blockprocessors.HashHeaderProcessor</span>
+    <span class="p">)</span>
+    <span class="n">md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+        <span class="n">_PostProcessor</span><span class="p">(</span><span class="n">md</span><span class="o">.</span><span class="n">parser</span><span class="p">),</span>
+        <span class="s2">&quot;mkdocstrings_post&quot;</span><span class="p">,</span>
+        <span class="n">priority</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>  <span class="c1"># Right after &#39;toc&#39;.</span>
+    <span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
 
-<code class="highlight language-python"><span class="n">atomic_brute_cast</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span></code>
+  </div>
 
 
-      <a class="headerlink" href="#mkdocstrings.extension.atomic_brute_cast" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>Cast every node's text into an atomic string to prevent further processing on it.</p>
-<p>Since we generate the final HTML with Jinja templates, we do not want other inline or tree processors
-to keep modifying the data, so this function is used to mark the complete tree as "do not touch".</p>
-<p>Reference: issue <a href="https://github.com/Python-Markdown/markdown/issues/920">Python-Markdown/markdown#920</a>.</p>
-<p>On a side note: isn't <code>atomic_brute_cast</code> such a beautiful function name?</p>
-<p><strong>Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>tree</code></td>
-<td><code>Element</code></td>
-<td>
-<p>An XML node, used like the root of an XML tree.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Element</code></td>
-<td>
-<p>The same node, recursively modified by side-effect. You can skip re-assigning the return value.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<details class="quote">
-          <summary>Source code in <code>mkdocstrings/extension.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">atomic_brute_cast</span><span class="p">(</span><span class="n">tree</span><span class="p">:</span> <span class="n">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Element</span><span class="p">:</span>
-    <span class="sd">"""</span>
-<span class="sd">    Cast every node's text into an atomic string to prevent further processing on it.</span>
 
-<span class="sd">    Since we generate the final HTML with Jinja templates, we do not want other inline or tree processors</span>
-<span class="sd">    to keep modifying the data, so this function is used to mark the complete tree as "do not touch".</span>
 
-<span class="sd">    Reference: issue [Python-Markdown/markdown#920](https://github.com/Python-Markdown/markdown/issues/920).</span>
 
-<span class="sd">    On a side note: isn't `atomic_brute_cast` such a beautiful function name?</span>
+  </div>
 
-<span class="sd">    Arguments:</span>
-<span class="sd">        tree: An XML node, used like the root of an XML tree.</span>
+    </div>
 
-<span class="sd">    Returns:</span>
-<span class="sd">        The same node, recursively modified by side-effect. You can skip re-assigning the return value.</span>
-<span class="sd">    """</span>
-    <span class="k">if</span> <span class="n">tree</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
-        <span class="n">tree</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">AtomicString</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">tree</span><span class="p">:</span>
-        <span class="n">atomic_brute_cast</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">tree</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-function">
-<h2 class="doc doc-heading" id="mkdocstrings.extension.get_item_configs">
+  </div>
 
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="mkdocstrings.extension.get_item_configs" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">get_item_configs</span><span class="p">(</span><span class="n">handler_config</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.extension.get_item_configs" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>Get the selection and rendering configuration merged into the global configuration of the given handler.</p>
+<a href="#mkdocstrings.extension.get_item_configs" class="headerlink" title="Permanent link">¤</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Get the selection and rendering configuration merged into the global configuration of the given handler.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>handler_config</code></td>
-<td><code>dict</code></td>
-<td>
-<p>The global configuration of a handler. It can be an empty dictionary.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>config</code></td>
-<td><code>dict</code></td>
-<td>
-<p>The configuration to merge into the global handler configuration.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>handler_config</code></td>
+        <td><code>dict</code></td>
+        <td><p>The global configuration of a handler. It can be an empty dictionary.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>config</code></td>
+        <td><code>dict</code></td>
+        <td><p>The configuration to merge into the global handler configuration.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Tuple[Mapping, Mapping]</code></td>
-<td>
-<p>Two dictionaries: selection and rendering. The local configurations are merged into the global ones.</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Tuple[Mapping, Mapping]</code></td>
+      <td><p>Two dictionaries: selection and rendering. The local configurations are merged into the global ones.</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>mkdocstrings/extension.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_item_configs</span><span class="p">(</span><span class="n">handler_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Mapping</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">]:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_item_configs</span><span class="p">(</span><span class="n">handler_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Mapping</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the selection and rendering configuration merged into the global configuration of the given handler.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1437,96 +1323,26 @@ to keep modifying the data, so this function is used to mark the complete tree a
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Two dictionaries: selection and rendering. The local configurations are merged into the global ones.</span>
-<span class="sd">    """</span>
-    <span class="n">item_selection_config</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"selection"</span><span class="p">,</span> <span class="p">{}),</span> <span class="n">handler_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"selection"</span><span class="p">,</span> <span class="p">{}))</span>
-    <span class="n">item_rendering_config</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"rendering"</span><span class="p">,</span> <span class="p">{}),</span> <span class="n">handler_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"rendering"</span><span class="p">,</span> <span class="p">{}))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">item_selection_config</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;selection&quot;</span><span class="p">,</span> <span class="p">{}),</span> <span class="n">handler_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;selection&quot;</span><span class="p">,</span> <span class="p">{}))</span>
+    <span class="n">item_rendering_config</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rendering&quot;</span><span class="p">,</span> <span class="p">{}),</span> <span class="n">handler_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;rendering&quot;</span><span class="p">,</span> <span class="p">{}))</span>
     <span class="k">return</span> <span class="n">item_selection_config</span><span class="p">,</span> <span class="n">item_rendering_config</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-function">
-<h2 class="doc doc-heading" id="mkdocstrings.extension.log_xml_parse_error">
+</code></pre></div>
+        </details>
+    </div>
 
-<code class="highlight language-python"><span class="n">log_xml_parse_error</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">xml_text</span><span class="p">)</span></code>
+  </div>
 
 
-      <a class="headerlink" href="#mkdocstrings.extension.log_xml_parse_error" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>Log an XML parsing error.</p>
-<p>If the error is a tag mismatch, augment the log message.</p>
-<p><strong>Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>error</code></td>
-<td><code>str</code></td>
-<td>
-<p>The error message (no traceback).</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>xml_text</code></td>
-<td><code>str</code></td>
-<td>
-<p>The XML text that generated the parsing error.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
-</table>
-<details class="quote">
-          <summary>Source code in <code>mkdocstrings/extension.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">log_xml_parse_error</span><span class="p">(</span><span class="n">error</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">xml_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""</span>
-<span class="sd">    Log an XML parsing error.</span>
 
-<span class="sd">    If the error is a tag mismatch, augment the log message.</span>
 
-<span class="sd">    Arguments:</span>
-<span class="sd">        error: The error message (no traceback).</span>
-<span class="sd">        xml_text: The XML text that generated the parsing error.</span>
-<span class="sd">    """</span>
-    <span class="n">message</span> <span class="o">=</span> <span class="n">error</span>
-    <span class="n">mismatched_tag</span> <span class="o">=</span> <span class="s2">"mismatched tag"</span> <span class="ow">in</span> <span class="n">error</span>
-    <span class="n">undefined_entity</span> <span class="o">=</span> <span class="s2">"undefined entity"</span> <span class="ow">in</span> <span class="n">error</span>
 
-    <span class="k">if</span> <span class="n">mismatched_tag</span> <span class="ow">or</span> <span class="n">undefined_entity</span><span class="p">:</span>
-        <span class="n">line_column</span> <span class="o">=</span> <span class="n">error</span><span class="p">[</span><span class="n">error</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s2">":"</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]</span>
-        <span class="n">line</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="n">line_column</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">", "</span><span class="p">)</span>
-        <span class="n">lineno</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s2">" "</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:])</span>
-        <span class="n">columnno</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">column</span><span class="p">[</span><span class="n">column</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s2">" "</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:])</span>
 
-        <span class="n">line</span> <span class="o">=</span> <span class="n">xml_text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)[</span><span class="n">lineno</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">mismatched_tag</span><span class="p">:</span>
-            <span class="n">character</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="n">columnno</span><span class="p">]</span>
-            <span class="n">message</span> <span class="o">+=</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">" (character </span><span class="si">{</span><span class="n">character</span><span class="si">}</span><span class="s2">):</span><span class="se">\n</span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
-                <span class="s2">"If your Markdown contains angle brackets &lt; &gt;, try to wrap them between backticks `&lt; &gt;`, "</span>
-                <span class="s2">"or replace them with &lt; and &gt;"</span>
-            <span class="p">)</span>
-        <span class="k">elif</span> <span class="n">undefined_entity</span><span class="p">:</span>
-            <span class="n">message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">":</span><span class="se">\n</span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
-    <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
+  </div>
+
+    </div>
+
+  </div>
                 
               
               

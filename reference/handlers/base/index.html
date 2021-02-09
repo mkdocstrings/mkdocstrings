@@ -44,6 +44,8 @@
     
     
     
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../../css/mkdocstrings.css">
     
     
@@ -296,11 +298,34 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1" checked>
     
     <label class="md-nav__link" for="nav-4-1">
+      mkdocstrings
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="mkdocstrings" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon"></span>
+        mkdocstrings
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-1" type="checkbox" id="nav-4-1-1" checked>
+    
+    <label class="md-nav__link" for="nav-4-1-1">
       handlers
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="handlers" data-md-level="2">
-      <label class="md-nav__title" for="nav-4-1">
+    <nav class="md-nav" aria-label="handlers" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-1">
         <span class="md-nav__icon md-icon"></span>
         handlers
       </label>
@@ -409,6 +434,34 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.base.BaseRenderer.do_convert_markdown" class="md-nav__link">
+    do_convert_markdown()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.base.BaseRenderer.do_heading" class="md-nav__link">
+    do_heading()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.base.BaseRenderer.get_anchor" class="md-nav__link">
+    get_anchor()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.base.BaseRenderer.get_headings" class="md-nav__link">
+    get_headings()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mkdocstrings.handlers.base.BaseRenderer.render" class="md-nav__link">
     render()
   </a>
@@ -443,8 +496,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.base.Handlers.seen_handlers" class="md-nav__link">
+    seen_handlers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mkdocstrings.handlers.base.Handlers.__init__" class="md-nav__link">
     __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.base.Handlers.get_anchor" class="md-nav__link">
+    get_anchor()
   </a>
   
 </li>
@@ -483,36 +550,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.base.PrefixIdsExtension" class="md-nav__link">
-    PrefixIdsExtension
+  <a href="#mkdocstrings.handlers.base.Highlighter" class="md-nav__link">
+    Highlighter
   </a>
   
-    <nav class="md-nav" aria-label="PrefixIdsExtension">
+    <nav class="md-nav" aria-label="Highlighter">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.base.PrefixIdsExtension.extendMarkdown" class="md-nav__link">
-    extendMarkdown()
+  <a href="#mkdocstrings.handlers.base.Highlighter.__init__" class="md-nav__link">
+    __init__()
   </a>
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.base.ShiftHeadingsExtension" class="md-nav__link">
-    ShiftHeadingsExtension
-  </a>
-  
-    <nav class="md-nav" aria-label="ShiftHeadingsExtension">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.base.ShiftHeadingsExtension.extendMarkdown" class="md-nav__link">
-    extendMarkdown()
+  <a href="#mkdocstrings.handlers.base.Highlighter.highlight" class="md-nav__link">
+    highlight()
   </a>
   
 </li>
@@ -532,27 +586,6 @@
         <li class="md-nav__item">
   <a href="#mkdocstrings.handlers.base.do_any" class="md-nav__link">
     do_any()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.base.do_convert_markdown" class="md-nav__link">
-    do_convert_markdown()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.base.do_highlight" class="md-nav__link">
-    do_highlight()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.base.do_js_highlight" class="md-nav__link">
-    do_js_highlight()
   </a>
   
 </li>
@@ -605,15 +638,58 @@
   </li>
 
         
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
+    
+    <label class="md-nav__link" for="nav-4-2">
+      mkdocs_autorefs
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-2">
+        <span class="md-nav__icon md-icon"></span>
+        mkdocs_autorefs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
           
           
           
 
 
   <li class="md-nav__item">
-    <a href="../../references/" title="references.py" class="md-nav__link">
+    <a href="../../autorefs/references/" title="references.py" class="md-nav__link">
       references.py
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../autorefs/plugin/" title="plugin.py" class="md-nav__link">
+      plugin.py
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -785,6 +861,34 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.base.BaseRenderer.do_convert_markdown" class="md-nav__link">
+    do_convert_markdown()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.base.BaseRenderer.do_heading" class="md-nav__link">
+    do_heading()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.base.BaseRenderer.get_anchor" class="md-nav__link">
+    get_anchor()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.base.BaseRenderer.get_headings" class="md-nav__link">
+    get_headings()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mkdocstrings.handlers.base.BaseRenderer.render" class="md-nav__link">
     render()
   </a>
@@ -819,8 +923,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.base.Handlers.seen_handlers" class="md-nav__link">
+    seen_handlers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mkdocstrings.handlers.base.Handlers.__init__" class="md-nav__link">
     __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.base.Handlers.get_anchor" class="md-nav__link">
+    get_anchor()
   </a>
   
 </li>
@@ -859,36 +977,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.base.PrefixIdsExtension" class="md-nav__link">
-    PrefixIdsExtension
+  <a href="#mkdocstrings.handlers.base.Highlighter" class="md-nav__link">
+    Highlighter
   </a>
   
-    <nav class="md-nav" aria-label="PrefixIdsExtension">
+    <nav class="md-nav" aria-label="Highlighter">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.base.PrefixIdsExtension.extendMarkdown" class="md-nav__link">
-    extendMarkdown()
+  <a href="#mkdocstrings.handlers.base.Highlighter.__init__" class="md-nav__link">
+    __init__()
   </a>
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.base.ShiftHeadingsExtension" class="md-nav__link">
-    ShiftHeadingsExtension
-  </a>
-  
-    <nav class="md-nav" aria-label="ShiftHeadingsExtension">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.base.ShiftHeadingsExtension.extendMarkdown" class="md-nav__link">
-    extendMarkdown()
+  <a href="#mkdocstrings.handlers.base.Highlighter.highlight" class="md-nav__link">
+    highlight()
   </a>
   
 </li>
@@ -908,27 +1013,6 @@
         <li class="md-nav__item">
   <a href="#mkdocstrings.handlers.base.do_any" class="md-nav__link">
     do_any()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.base.do_convert_markdown" class="md-nav__link">
-    do_convert_markdown()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.base.do_highlight" class="md-nav__link">
-    do_highlight()
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.base.do_js_highlight" class="md-nav__link">
-    do_js_highlight()
   </a>
   
 </li>
@@ -956,97 +1040,125 @@
                   <h1>base.py</h1>
                 
                 <div class="doc doc-object doc-module">
-<h2 class="hidden-toc" id="mkdocstrings.handlers.base" style="visibility: hidden; position: absolute;">
-        <a class="headerlink" href="#mkdocstrings.handlers.base" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents first">
-<p>Base module for handlers.</p>
+
+<a id="mkdocstrings.handlers.base"></a>
+    <div class="doc doc-contents first">
+
+      <p>Base module for handlers.</p>
 <p>This module contains the base classes for implementing collectors, renderers, and the combination of the two: handlers.</p>
 <p>It also provides two methods:</p>
 <ul>
 <li><code>get_handler</code>, that will cache handlers into the <code>HANDLERS_CACHE</code> dictionary.</li>
 <li><code>teardown</code>, that will teardown all the cached handlers, and then clear the cache.</li>
 </ul>
-<div class="doc doc-children">
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseCollector">
 
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="mkdocstrings.handlers.base.BaseCollector" class="doc doc-heading">
         <code>BaseCollector</code>
 
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseCollector" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>The base collector class.</p>
+<a href="#mkdocstrings.handlers.base.BaseCollector" class="headerlink" title="Permanent link">¤</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>The base collector class.</p>
 <p>Inherit from this class to implement a collector.</p>
 <p>You will have to implement the <code>collect</code> method.
 You can also implement the <code>teardown</code> method.</p>
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseCollector.collect">
 
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.BaseCollector.collect" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseCollector.collect" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Collect data given an identifier and selection configuration.</p>
+<a href="#mkdocstrings.handlers.base.BaseCollector.collect" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Collect data given an identifier and selection configuration.</p>
 <p>In the implementation, you typically call a subprocess that returns JSON, and load that JSON again into
 a Python dictionary for example, though the implementation is completely free.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>identifier</code></td>
-<td><code>str</code></td>
-<td>
-<p>An identifier for which to collect data. For example, in Python,
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>identifier</code></td>
+        <td><code>str</code></td>
+        <td><p>An identifier for which to collect data. For example, in Python,
 it would be 'mkdocstrings.handlers' to collect documentation about the handlers module.
-It can be anything that you can feed to the tool of your choice.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>config</code></td>
-<td><code>dict</code></td>
-<td>
-<p>Configuration options for the tool you use to collect data. Typically called "selection" because
-these options modify how the objects or documentation are "selected" in the source code.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+It can be anything that you can feed to the tool of your choice.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>config</code></td>
+        <td><code>dict</code></td>
+        <td><p>Configuration options for the tool you use to collect data. Typically called "selection" because
+these options modify how the objects or documentation are "selected" in the source code.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Any</code></td>
-<td>
-<p>Anything you want, as long as you can feed it to the renderer's <code>render</code> method.</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Any</code></td>
+      <td><p>Anything you want, as long as you can feed it to the renderer's <code>render</code> method.</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="nd">@abstractmethod</span>
-<span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="nd">@abstractmethod</span>
+<span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CollectorItem</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Collect data given an identifier and selection configuration.</span>
 
 <span class="sd">    In the implementation, you typically call a subprocess that returns JSON, and load that JSON again into</span>
@@ -1054,195 +1166,257 @@ these options modify how the objects or documentation are "selected" in the sour
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        identifier: An identifier for which to collect data. For example, in Python,</span>
-<span class="sd">            it would be 'mkdocstrings.handlers' to collect documentation about the handlers module.</span>
+<span class="sd">            it would be &#39;mkdocstrings.handlers&#39; to collect documentation about the handlers module.</span>
 <span class="sd">            It can be anything that you can feed to the tool of your choice.</span>
-<span class="sd">        config: Configuration options for the tool you use to collect data. Typically called "selection" because</span>
-<span class="sd">            these options modify how the objects or documentation are "selected" in the source code.</span>
+<span class="sd">        config: Configuration options for the tool you use to collect data. Typically called &quot;selection&quot; because</span>
+<span class="sd">            these options modify how the objects or documentation are &quot;selected&quot; in the source code.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Anything you want, as long as you can feed it to the renderer's `render` method.</span>
-<span class="sd">    """</span>  <span class="c1"># noqa: DAR202 (excess return section)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseCollector.teardown">
+<span class="sd">        Anything you want, as long as you can feed it to the renderer&#39;s `render` method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: DAR202 (excess return section)</span>
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.BaseCollector.teardown" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseCollector.teardown" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Teardown the collector.</p>
+<a href="#mkdocstrings.handlers.base.BaseCollector.teardown" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Teardown the collector.</p>
 <p>This method should be implemented to, for example, terminate a subprocess
 that was started when creating the collector instance.</p>
-<details class="quote">
+
+        <details class="quote">
           <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Teardown the collector.</span>
 
 <span class="sd">    This method should be implemented to, for example, terminate a subprocess</span>
 <span class="sd">    that was started when creating the collector instance.</span>
-<span class="sd">    """</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseHandler">
+<span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="mkdocstrings.handlers.base.BaseHandler" class="doc doc-heading">
         <code>BaseHandler</code>
 
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseHandler" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>The base handler class.</p>
+<a href="#mkdocstrings.handlers.base.BaseHandler" class="headerlink" title="Permanent link">¤</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>The base handler class.</p>
 <p>Inherit from this class to implement a handler.</p>
 <p>It's usually just a combination of a collector and a renderer, but you can make it as complex as you need.</p>
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseHandler.__init__">
 
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.BaseHandler.__init__" class="doc doc-heading">
 <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collector</span><span class="p">,</span> <span class="n">renderer</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseHandler.__init__" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Initialize the object.</p>
+<a href="#mkdocstrings.handlers.base.BaseHandler.__init__" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initialize the object.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>collector</code></td>
-<td><code>BaseCollector</code></td>
-<td>
-<p>A collector instance.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>renderer</code></td>
-<td><code>BaseRenderer</code></td>
-<td>
-<p>A renderer instance.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>collector</code></td>
+        <td><code>BaseCollector</code></td>
+        <td><p>A collector instance.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>renderer</code></td>
+        <td><code>BaseRenderer</code></td>
+        <td><p>A renderer instance.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collector</span><span class="p">:</span> <span class="n">BaseCollector</span><span class="p">,</span> <span class="n">renderer</span><span class="p">:</span> <span class="n">BaseRenderer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collector</span><span class="p">:</span> <span class="n">BaseCollector</span><span class="p">,</span> <span class="n">renderer</span><span class="p">:</span> <span class="n">BaseRenderer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialize the object.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        collector: A collector instance.</span>
 <span class="sd">        renderer: A renderer instance.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">collector</span> <span class="o">=</span> <span class="n">collector</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">renderer</span> <span class="o">=</span> <span class="n">renderer</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseRenderer">
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="mkdocstrings.handlers.base.BaseRenderer" class="doc doc-heading">
         <code>BaseRenderer</code>
 
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseRenderer" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>The base renderer class.</p>
+<a href="#mkdocstrings.handlers.base.BaseRenderer" class="headerlink" title="Permanent link">¤</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>The base renderer class.</p>
 <p>Inherit from this class to implement a renderer.</p>
 <p>You will have to implement the <code>render</code> method.
 You can also override the <code>update_env</code> method, to add more filters to the Jinja environment,
 making them available in your Jinja templates.</p>
-<p>To define a fallback theme, add a <code>FALLBACK_THEME</code> class-variable.</p>
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseRenderer.__init__">
+<p>To define a fallback theme, add a <code>fallback_theme</code> class-variable.
+To add custom CSS, add an <code>extra_css</code> variable or create an 'style.css' file beside the templates.</p>
 
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.BaseRenderer.__init__" class="doc doc-heading">
 <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseRenderer.__init__" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Initialize the object.</p>
+<a href="#mkdocstrings.handlers.base.BaseRenderer.__init__" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initialize the object.</p>
 <p>If the given theme is not supported (it does not exist), it will look for a <code>fallback_theme</code> attribute
 in <code>self</code> to use as a fallback theme.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>directory</code></td>
-<td><code>str</code></td>
-<td>
-<p>The name of the directory containing the themes for this renderer.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>theme</code></td>
-<td><code>str</code></td>
-<td>
-<p>The name of theme to use.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>custom_templates</code></td>
-<td><code>Optional[str]</code></td>
-<td>
-<p>Directory containing custom templates.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>directory</code></td>
+        <td><code>str</code></td>
+        <td><p>The name of the directory containing the themes for this renderer.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>theme</code></td>
+        <td><code>str</code></td>
+        <td><p>The name of theme to use.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>custom_templates</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>Directory containing custom templates.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">custom_templates</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">custom_templates</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialize the object.</span>
 
 <span class="sd">    If the given theme is not supported (it does not exist), it will look for a `fallback_theme` attribute</span>
@@ -1252,99 +1426,449 @@ in <code>self</code> to use as a fallback theme.</p>
 <span class="sd">        directory: The name of the directory containing the themes for this renderer.</span>
 <span class="sd">        theme: The name of theme to use.</span>
 <span class="sd">        custom_templates: Directory containing custom templates.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">paths</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">if</span> <span class="n">custom_templates</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">custom_templates</span><span class="p">)</span> <span class="o">/</span> <span class="n">directory</span> <span class="o">/</span> <span class="n">theme</span><span class="p">)</span>
 
     <span class="n">themes_dir</span> <span class="o">=</span> <span class="n">TEMPLATES_DIR</span> <span class="o">/</span> <span class="n">directory</span>
 
     <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">themes_dir</span> <span class="o">/</span> <span class="n">theme</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fallback_theme</span> <span class="o">!=</span> <span class="s2">""</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fallback_theme</span><span class="p">:</span>
         <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">themes_dir</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">fallback_theme</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+        <span class="n">css_path</span> <span class="o">=</span> <span class="n">path</span> <span class="o">/</span> <span class="s2">&quot;style.css&quot;</span>
+        <span class="k">if</span> <span class="n">css_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">extra_css</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">css_path</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+            <span class="k">break</span>
+
+    <span class="k">if</span> <span class="n">custom_templates</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">paths</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="n">custom_templates</span><span class="p">)</span> <span class="o">/</span> <span class="n">directory</span> <span class="o">/</span> <span class="n">theme</span><span class="p">)</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span>
         <span class="n">autoescape</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">loader</span><span class="o">=</span><span class="n">FileSystemLoader</span><span class="p">(</span><span class="n">paths</span><span class="p">),</span>
         <span class="n">auto_reload</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># Editing a template in the middle of a build is not useful.</span>
     <span class="p">)</span>  <span class="c1"># type: ignore</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="s2">"any"</span><span class="p">]</span> <span class="o">=</span> <span class="n">do_any</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">"log"</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_template_logger</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="s2">&quot;any&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">do_any</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;log&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_template_logger</span><span class="p">()</span>
 
-    <span class="k">if</span> <span class="n">theme</span> <span class="o">==</span> <span class="s2">"readthedocs"</span><span class="p">:</span>
-        <span class="n">highlight_function</span> <span class="o">=</span> <span class="n">do_js_highlight</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">highlight_function</span> <span class="o">=</span> <span class="n">do_highlight</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_headings</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_md</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># To be populated in `update_env`.</span>
+</code></pre></div>
+        </details>
+    </div>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="s2">"highlight"</span><span class="p">]</span> <span class="o">=</span> <span class="n">highlight_function</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseRenderer.render">
-
-<code class="highlight language-python"><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
+  </div>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseRenderer.render" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Render a template using provided data and configuration options.</p>
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.BaseRenderer.do_convert_markdown" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">do_convert_markdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">heading_level</span><span class="p">,</span> <span class="n">html_id</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+
+
+<a href="#mkdocstrings.handlers.base.BaseRenderer.do_convert_markdown" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Render Markdown text; for use inside templates.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>data</code></td>
-<td><code>Any</code></td>
-<td>
-<p>The collected data to render.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>config</code></td>
-<td><code>dict</code></td>
-<td>
-<p>The rendering options.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>text</code></td>
+        <td><code>str</code></td>
+        <td><p>The text to convert.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>heading_level</code></td>
+        <td><code>int</code></td>
+        <td><p>The base heading level to start all Markdown headings from.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>html_id</code></td>
+        <td><code>str</code></td>
+        <td><p>The HTML id of the element that's considered the parent of this element.</p></td>
+        <td><code>&#39;&#39;</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>str</code></td>
-<td>
-<p>The rendered template as HTML.</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Markup</code></td>
+      <td><p>An HTML string.</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="nd">@abstractmethod</span>
-<span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_convert_markdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">heading_level</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">html_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Markup</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Render Markdown text; for use inside templates.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        text: The text to convert.</span>
+<span class="sd">        heading_level: The base heading level to start all Markdown headings from.</span>
+<span class="sd">        html_id: The HTML id of the element that&#39;s considered the parent of this element.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An HTML string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">treeprocessors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_md</span><span class="o">.</span><span class="n">treeprocessors</span>
+    <span class="n">treeprocessors</span><span class="p">[</span><span class="s2">&quot;mkdocstrings_headings&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shift_by</span> <span class="o">=</span> <span class="n">heading_level</span>
+    <span class="n">treeprocessors</span><span class="p">[</span><span class="s2">&quot;mkdocstrings_ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">id_prefix</span> <span class="o">=</span> <span class="n">html_id</span> <span class="ow">and</span> <span class="n">html_id</span> <span class="o">+</span> <span class="s2">&quot;--&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_md</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">treeprocessors</span><span class="p">[</span><span class="s2">&quot;mkdocstrings_headings&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shift_by</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">treeprocessors</span><span class="p">[</span><span class="s2">&quot;mkdocstrings_ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">id_prefix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_md</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.BaseRenderer.do_heading" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">do_heading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">heading_level</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">hidden</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">toc_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">attributes</span><span class="p">)</span></code>
+
+
+<a href="#mkdocstrings.handlers.base.BaseRenderer.do_heading" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Render an HTML heading and register it for the table of contents. For use inside templates.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>content</code></td>
+        <td><code>str</code></td>
+        <td><p>The HTML within the heading.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>heading_level</code></td>
+        <td><code>int</code></td>
+        <td><p>The level of heading (e.g. 3 -&gt; <code>h3</code>).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>hidden</code></td>
+        <td><code>bool</code></td>
+        <td><p>If True, only register it for the table of contents, don't render anything.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>toc_label</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>The title to use in the table of contents ('data-toc-label' attribute).</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>attributes</code></td>
+        <td><code>str</code></td>
+        <td><p>Any extra HTML attributes of the heading.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Markup</code></td>
+      <td><p>An HTML string.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>handlers/base.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_heading</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">heading_level</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">hidden</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">toc_label</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">attributes</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Markup</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Render an HTML heading and register it for the table of contents. For use inside templates.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        content: The HTML within the heading.</span>
+<span class="sd">        heading_level: The level of heading (e.g. 3 -&gt; `h3`).</span>
+<span class="sd">        hidden: If True, only register it for the table of contents, don&#39;t render anything.</span>
+<span class="sd">        toc_label: The title to use in the table of contents (&#39;data-toc-label&#39; attribute).</span>
+<span class="sd">        attributes: Any extra HTML attributes of the heading.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An HTML string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># First, produce the &quot;fake&quot; heading, for ToC only.</span>
+    <span class="n">el</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;h</span><span class="si">{</span><span class="n">heading_level</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">attributes</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">toc_label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">toc_label</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">unescape</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="n">Markup</span><span class="p">)</span> <span class="k">else</span> <span class="n">content</span>
+    <span class="n">el</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;data-toc-label&quot;</span><span class="p">,</span> <span class="n">toc_label</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_headings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">hidden</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="s1">&#39;&lt;a id=&quot;</span><span class="si">{0}</span><span class="s1">&quot;&gt;&lt;/a&gt;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+
+    <span class="c1"># Now produce the actual HTML to be rendered. The goal is to wrap the HTML content into a heading.</span>
+    <span class="c1"># Start with a heading that has just attributes (no text), and add a placeholder into it.</span>
+    <span class="n">el</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;h</span><span class="si">{</span><span class="n">heading_level</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">attributes</span><span class="p">)</span>
+    <span class="n">el</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Element</span><span class="p">(</span><span class="s2">&quot;mkdocstrings-placeholder&quot;</span><span class="p">))</span>
+    <span class="c1"># Tell the &#39;toc&#39; extension to make its additions if configured so.</span>
+    <span class="n">toc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="p">[</span><span class="s2">&quot;toc&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">toc</span><span class="o">.</span><span class="n">use_anchors</span><span class="p">:</span>
+        <span class="n">toc</span><span class="o">.</span><span class="n">add_anchor</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">toc</span><span class="o">.</span><span class="n">use_permalinks</span><span class="p">:</span>
+        <span class="n">toc</span><span class="o">.</span><span class="n">add_permalink</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+
+    <span class="c1"># The content we received is HTML, so it can&#39;t just be inserted into the tree. We had marked the middle</span>
+    <span class="c1"># of the heading with a placeholder that can never occur (text can&#39;t directly contain angle brackets).</span>
+    <span class="c1"># Now this HTML wrapper can be &quot;filled&quot; by replacing the placeholder.</span>
+    <span class="n">html_with_placeholder</span> <span class="o">=</span> <span class="n">tostring</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;unicode&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span>
+        <span class="n">html_with_placeholder</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;&lt;mkdocstrings-placeholder /&gt;&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Bug in mkdocstrings: failed to replace in </span><span class="si">{</span><span class="n">html_with_placeholder</span><span class="si">!r}</span><span class="s2">&quot;</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="n">html_with_placeholder</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;mkdocstrings-placeholder /&gt;&quot;</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.BaseRenderer.get_anchor" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_anchor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></code>
+
+
+<a href="#mkdocstrings.handlers.base.BaseRenderer.get_anchor" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the canonical identifier (HTML anchor) for a collected item.</p>
+<p>This must match what the renderer would've actually rendered,
+e.g. if rendering the item contains <code>&lt;h2 id="foo"&gt;...</code> then the return value should be "foo".</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>data</code></td>
+        <td><code>Any</code></td>
+        <td><p>The collected data.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[str]</code></td>
+      <td><p>The HTML anchor (without '#') as a string, or None if this item doesn't have an anchor.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>handlers/base.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_anchor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">CollectorItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the canonical identifier (HTML anchor) for a collected item.</span>
+
+<span class="sd">    This must match what the renderer would&#39;ve actually rendered,</span>
+<span class="sd">    e.g. if rendering the item contains `&lt;h2 id=&quot;foo&quot;&gt;...` then the return value should be &quot;foo&quot;.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        data: The collected data.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The HTML anchor (without &#39;#&#39;) as a string, or None if this item doesn&#39;t have an anchor.</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: DAR202 (excess return section)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.BaseRenderer.get_headings" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_headings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
+
+
+<a href="#mkdocstrings.handlers.base.BaseRenderer.get_headings" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return and clear the headings gathered so far.</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Sequence[xml.etree.ElementTree.Element]</code></td>
+      <td><p>A list of HTML elements.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>handlers/base.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_headings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return and clear the headings gathered so far.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of HTML elements.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_headings</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_headings</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.BaseRenderer.render" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
+
+
+<a href="#mkdocstrings.handlers.base.BaseRenderer.render" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Render a template using provided data and configuration options.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>data</code></td>
+        <td><code>Any</code></td>
+        <td><p>The collected data to render.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>config</code></td>
+        <td><code>dict</code></td>
+        <td><p>The rendering options.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>str</code></td>
+      <td><p>The rendered template as HTML.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>handlers/base.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@abstractmethod</span>
+<span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">CollectorItem</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Render a template using provided data and configuration options.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1353,308 +1877,462 @@ in <code>self</code> to use as a fallback theme.</p>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The rendered template as HTML.</span>
-<span class="sd">    """</span>  <span class="c1"># noqa: DAR202 (excess return section)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseRenderer.update_env">
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: DAR202 (excess return section)</span>
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.BaseRenderer.update_env" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">update_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.BaseRenderer.update_env" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Update the Jinja environment.</p>
+<a href="#mkdocstrings.handlers.base.BaseRenderer.update_env" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Update the Jinja environment.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>md</code></td>
-<td><code>Markdown</code></td>
-<td>
-<p>The Markdown instance. Useful to add functions able to convert Markdown into the environment filters.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>config</code></td>
-<td><code>dict</code></td>
-<td>
-<p>Configuration options for <code>mkdocs</code> and <code>mkdocstrings</code>, read from <code>mkdocs.yml</code>. See the source code
-of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdocstrings.plugin.MkdocstringsPlugin.on_config</a> to see what's in this dictionary.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>md</code></td>
+        <td><code>Markdown</code></td>
+        <td><p>The Markdown instance. Useful to add functions able to convert Markdown into the environment filters.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>config</code></td>
+        <td><code>dict</code></td>
+        <td><p>Configuration options for <code>mkdocs</code> and <code>mkdocstrings</code>, read from <code>mkdocs.yml</code>. See the source code
+of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdocstrings.plugin.MkdocstringsPlugin.on_config</a> to see what's in this dictionary.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">update_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">update_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: W0613 (unused argument &#39;config&#39;)</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Update the Jinja environment.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        md: The Markdown instance. Useful to add functions able to convert Markdown into the environment filters.</span>
 <span class="sd">        config: Configuration options for `mkdocs` and `mkdocstrings`, read from `mkdocs.yml`. See the source code</span>
-<span class="sd">            of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.</span>
-<span class="sd">    """</span>
-    <span class="n">extensions</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">"mdx"</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">ShiftHeadingsExtension</span><span class="p">(),</span> <span class="n">PrefixIdsExtension</span><span class="p">()]</span>
-    <span class="n">configs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">"mdx_configs"</span><span class="p">])</span>
-    <span class="c1"># Prevent a bug that happens due to treeprocessors running on the same fragment both as the inner doc and as</span>
-    <span class="c1"># part of the re-integrated doc. Namely, the permalink '¶' would be appended twice. This is the only known</span>
-    <span class="c1"># non-idempotent effect of an extension, so specifically prevent it on the inner doc.</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">configs</span><span class="p">[</span><span class="s2">"toc"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">configs</span><span class="p">[</span><span class="s2">"toc"</span><span class="p">],</span> <span class="n">permalink</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-        <span class="k">pass</span>
+<span class="sd">            of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what&#39;s in this dictionary.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_md</span> <span class="o">=</span> <span class="n">md</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="s2">&quot;highlight&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Highlighter</span><span class="p">(</span><span class="n">md</span><span class="p">)</span><span class="o">.</span><span class="n">highlight</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="s2">&quot;convert_markdown&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_convert_markdown</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="s2">&quot;heading&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_heading</span>
+</code></pre></div>
+        </details>
+    </div>
 
-    <span class="n">md</span> <span class="o">=</span> <span class="n">Markdown</span><span class="p">(</span><span class="n">extensions</span><span class="o">=</span><span class="n">extensions</span><span class="p">,</span> <span class="n">extension_configs</span><span class="o">=</span><span class="n">configs</span><span class="p">)</span>
+  </div>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">filters</span><span class="p">[</span><span class="s2">"convert_markdown"</span><span class="p">]</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">do_convert_markdown</span><span class="p">,</span> <span class="n">md</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.CollectionError">
 
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="mkdocstrings.handlers.base.CollectionError" class="doc doc-heading">
         <code>CollectionError</code>
 
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.CollectionError" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>An exception raised when some collection of data failed.</p>
-</div>
-</div>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.Handlers">
+<a href="#mkdocstrings.handlers.base.CollectionError" class="headerlink" title="Permanent link">¤</a></h2>
 
+    <div class="doc doc-contents ">
+
+      <p>An exception raised when some collection of data failed.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="mkdocstrings.handlers.base.Handlers" class="doc doc-heading">
         <code>Handlers</code>
 
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.Handlers" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>A collection of handlers.</p>
+<a href="#mkdocstrings.handlers.base.Handlers" class="headerlink" title="Permanent link">¤</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>A collection of handlers.</p>
 <p>Do not instantiate this directly. <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin">The plugin</a> will keep one instance of
 this for the purpose of caching. Use <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.get_handler">mkdocstrings.plugin.MkdocstringsPlugin.get_handler</a> for convenient access.</p>
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.Handlers.__init__">
 
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="mkdocstrings.handlers.base.Handlers.seen_handlers" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">seen_handlers</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">mkdocstrings</span><span class="o">.</span><span class="n">handlers</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">BaseHandler</span><span class="p">]</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+<a href="#mkdocstrings.handlers.base.Handlers.seen_handlers" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Get the handlers that were encountered so far throughout the build.</p>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Iterable[mkdocstrings.handlers.base.BaseHandler]</code></td>
+      <td><p>An iterable of instances of <a href="#mkdocstrings.handlers.base.BaseHandler"><code>BaseHandler</code></a>
+(usable only to loop through it).</p></td>
+    </tr>
+  </tbody>
+</table>    </div>
+
+  </div>
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.Handlers.__init__" class="doc doc-heading">
 <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.__init__" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Initialize the object.</p>
+<a href="#mkdocstrings.handlers.base.Handlers.__init__" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Initialize the object.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>config</code></td>
-<td><code>dict</code></td>
-<td>
-<p>Configuration options for <code>mkdocs</code> and <code>mkdocstrings</code>, read from <code>mkdocs.yml</code>. See the source code
-of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdocstrings.plugin.MkdocstringsPlugin.on_config</a> to see what's in this dictionary.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>config</code></td>
+        <td><code>dict</code></td>
+        <td><p>Configuration options for <code>mkdocs</code> and <code>mkdocstrings</code>, read from <code>mkdocs.yml</code>. See the source code
+of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdocstrings.plugin.MkdocstringsPlugin.on_config</a> to see what's in this dictionary.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialize the object.</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        config: Configuration options for `mkdocs` and `mkdocstrings`, read from `mkdocs.yml`. See the source code</span>
-<span class="sd">            of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.</span>
-<span class="sd">    """</span>
+<span class="sd">            of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what&#39;s in this dictionary.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="n">config</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">BaseHandler</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.Handlers.get_handler">
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.Handlers.get_anchor" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_anchor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">)</span></code>
+
+
+<a href="#mkdocstrings.handlers.base.Handlers.get_anchor" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the canonical HTML anchor for the identifier, if any of the seen handlers can collect it.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>identifier</code></td>
+        <td><code>str</code></td>
+        <td><p>The identifier (one that <a href="#mkdocstrings.handlers.base.BaseCollector.collect">collect</a> can accept).</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Optional[str]</code></td>
+      <td><p>A string - anchor without '#', or None if there isn't any identifier familiar with it.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>handlers/base.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_anchor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the canonical HTML anchor for the identifier, if any of the seen handlers can collect it.</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        identifier: The identifier (one that [collect][mkdocstrings.handlers.base.BaseCollector.collect] can accept).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A string - anchor without &#39;#&#39;, or None if there isn&#39;t any identifier familiar with it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">anchor</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">renderer</span><span class="o">.</span><span class="n">get_anchor</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">collector</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="p">{}))</span>
+        <span class="k">except</span> <span class="n">CollectionError</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">anchor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">anchor</span>
+    <span class="k">return</span> <span class="kc">None</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.Handlers.get_handler" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">get_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">handler_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.get_handler" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Get a handler thanks to its name.</p>
+<a href="#mkdocstrings.handlers.base.Handlers.get_handler" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Get a handler thanks to its name.</p>
 <p>This function dynamically imports a module named "mkdocstrings.handlers.NAME", calls its
 <code>get_handler</code> method to get an instance of a handler, and caches it in dictionary.
 It means that during one run (for each reload when serving, or once when building),
 a handler is instantiated only once, and reused for each "autodoc" instruction asking for it.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>name</code></td>
-<td><code>str</code></td>
-<td>
-<p>The name of the handler. Really, it's the name of the Python module holding it.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>handler_config</code></td>
-<td><code>Optional[dict]</code></td>
-<td>
-<p>Configuration passed to the handler.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>name</code></td>
+        <td><code>str</code></td>
+        <td><p>The name of the handler. Really, it's the name of the Python module holding it.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>handler_config</code></td>
+        <td><code>Optional[dict]</code></td>
+        <td><p>Configuration passed to the handler.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>BaseHandler</code></td>
-<td>
-<p>An instance of a subclass of <a href="#mkdocstrings.handlers.base.BaseHandler"><code>BaseHandler</code></a>,
-as instantiated by the <code>get_handler</code> method of the handler's module.</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>BaseHandler</code></td>
+      <td><p>An instance of a subclass of <a href="#mkdocstrings.handlers.base.BaseHandler"><code>BaseHandler</code></a>,
+as instantiated by the <code>get_handler</code> method of the handler's module.</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">handler_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseHandler</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">handler_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseHandler</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get a handler thanks to its name.</span>
 
-<span class="sd">    This function dynamically imports a module named "mkdocstrings.handlers.NAME", calls its</span>
+<span class="sd">    This function dynamically imports a module named &quot;mkdocstrings.handlers.NAME&quot;, calls its</span>
 <span class="sd">    `get_handler` method to get an instance of a handler, and caches it in dictionary.</span>
 <span class="sd">    It means that during one run (for each reload when serving, or once when building),</span>
-<span class="sd">    a handler is instantiated only once, and reused for each "autodoc" instruction asking for it.</span>
+<span class="sd">    a handler is instantiated only once, and reused for each &quot;autodoc&quot; instruction asking for it.</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        name: The name of the handler. Really, it's the name of the Python module holding it.</span>
+<span class="sd">        name: The name of the handler. Really, it&#39;s the name of the Python module holding it.</span>
 <span class="sd">        handler_config: Configuration passed to the handler.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler],</span>
-<span class="sd">        as instantiated by the `get_handler` method of the handler's module.</span>
-<span class="sd">    """</span>
+<span class="sd">        as instantiated by the `get_handler` method of the handler&#39;s module.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">handler_config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">handler_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_handler_config</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mkdocstrings.handlers.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mkdocstrings.handlers.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">get_handler</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s2">"theme_name"</span><span class="p">],</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s2">"mkdocstrings"</span><span class="p">][</span><span class="s2">"custom_templates"</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s2">&quot;theme_name&quot;</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s2">&quot;mkdocstrings&quot;</span><span class="p">][</span><span class="s2">&quot;custom_templates&quot;</span><span class="p">],</span>
             <span class="o">**</span><span class="n">handler_config</span><span class="p">,</span>
         <span class="p">)</span>  <span class="c1"># type: ignore</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.Handlers.get_handler_config">
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.Handlers.get_handler_config" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">get_handler_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.get_handler_config" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Return the global configuration of the given handler.</p>
+<a href="#mkdocstrings.handlers.base.Handlers.get_handler_config" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the global configuration of the given handler.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>name</code></td>
-<td><code>str</code></td>
-<td>
-<p>The name of the handler to get the global configuration of.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>name</code></td>
+        <td><code>str</code></td>
+        <td><p>The name of the handler to get the global configuration of.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>dict</code></td>
-<td>
-<p>The global configuration of the given handler. It can be an empty dictionary.</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>dict</code></td>
+      <td><p>The global configuration of the given handler. It can be an empty dictionary.</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_handler_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_handler_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the global configuration of the given handler.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1662,313 +2340,440 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The global configuration of the given handler. It can be an empty dictionary.</span>
-<span class="sd">    """</span>
-    <span class="n">handlers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s2">"mkdocstrings"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"handlers"</span><span class="p">,</span> <span class="p">{})</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">handlers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s2">&quot;mkdocstrings&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;handlers&quot;</span><span class="p">,</span> <span class="p">{})</span>
     <span class="k">if</span> <span class="n">handlers</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">handlers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">{})</span>
     <span class="k">return</span> <span class="p">{}</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.Handlers.get_handler_name">
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.Handlers.get_handler_name" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">get_handler_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.get_handler_name" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Return the handler name defined in an "autodoc" instruction YAML configuration, or the global default handler.</p>
+<a href="#mkdocstrings.handlers.base.Handlers.get_handler_name" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Return the handler name defined in an "autodoc" instruction YAML configuration, or the global default handler.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>config</code></td>
-<td><code>dict</code></td>
-<td>
-<p>A configuration dictionary, obtained from YAML below the "autodoc" instruction.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>config</code></td>
+        <td><code>dict</code></td>
+        <td><p>A configuration dictionary, obtained from YAML below the "autodoc" instruction.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>str</code></td>
-<td>
-<p>The name of the handler to use.</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>str</code></td>
+      <td><p>The name of the handler to use.</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">get_handler_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">"""</span>
-<span class="sd">    Return the handler name defined in an "autodoc" instruction YAML configuration, or the global default handler.</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_handler_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the handler name defined in an &quot;autodoc&quot; instruction YAML configuration, or the global default handler.</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        config: A configuration dictionary, obtained from YAML below the "autodoc" instruction.</span>
+<span class="sd">        config: A configuration dictionary, obtained from YAML below the &quot;autodoc&quot; instruction.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The name of the handler to use.</span>
-<span class="sd">    """</span>
-    <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s2">"mkdocstrings"</span><span class="p">]</span>
-    <span class="k">if</span> <span class="s2">"handler"</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">config</span><span class="p">[</span><span class="s2">"handler"</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">config</span><span class="p">[</span><span class="s2">"default_handler"</span><span class="p">]</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.Handlers.teardown">
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s2">&quot;mkdocstrings&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s2">&quot;handler&quot;</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;handler&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;default_handler&quot;</span><span class="p">]</span>
+</code></pre></div>
+        </details>
+    </div>
 
+  </div>
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.Handlers.teardown" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.teardown" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Teardown all cached handlers and clear the cache.</p>
-<details class="quote">
+<a href="#mkdocstrings.handlers.base.Handlers.teardown" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Teardown all cached handlers and clear the cache.</p>
+
+        <details class="quote">
           <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">"""Teardown all cached handlers and clear the cache."""</span>
-    <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Teardown all cached handlers and clear the cache.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">seen_handlers</span><span class="p">:</span>
         <span class="n">handler</span><span class="o">.</span><span class="n">collector</span><span class="o">.</span><span class="n">teardown</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.PrefixIdsExtension">
+</code></pre></div>
+        </details>
+    </div>
 
-        <code>PrefixIdsExtension</code>
+  </div>
 
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.PrefixIdsExtension" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>Prepend the configured prefix to IDs of all HTML elements.</p>
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.PrefixIdsExtension.extendMarkdown">
-
-<code class="highlight language-python"><span class="n">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.PrefixIdsExtension.extendMarkdown" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Register the extension, with a treeprocessor under the name 'mkdocstrings_ids'.</p>
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="mkdocstrings.handlers.base.Highlighter" class="doc doc-heading">
+        <code>Highlighter</code>
+
+
+
+<a href="#mkdocstrings.handlers.base.Highlighter" class="headerlink" title="Permanent link">¤</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Code highlighter that tries to match the Markdown configuration.</p>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h3 id="mkdocstrings.handlers.base.Highlighter.__init__" class="doc doc-heading">
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a href="#mkdocstrings.handlers.base.Highlighter.__init__" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Configure to match a <code>markdown.Markdown</code> instance.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>md</code></td>
-<td><code>Markdown</code></td>
-<td>
-<p>A <code>markdown.Markdown</code> instance.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>md</code></td>
+        <td><code>Markdown</code></td>
+        <td><p>The Markdown instance to read configs from.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: N802 (casing: parent method's name)</span>
-    <span class="sd">"""</span>
-<span class="sd">    Register the extension, with a treeprocessor under the name 'mkdocstrings_ids'.</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Configure to match a `markdown.Markdown` instance.</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        md: A `markdown.Markdown` instance.</span>
-<span class="sd">    """</span>
-    <span class="n">md</span><span class="o">.</span><span class="n">registerExtension</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-    <span class="n">md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
-        <span class="n">_IdPrependingTreeprocessor</span><span class="p">(</span><span class="n">md</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
-        <span class="s2">"mkdocstrings_ids"</span><span class="p">,</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">treeprocessor_priority</span><span class="p">,</span>
-    <span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.ShiftHeadingsExtension">
+<span class="sd">        md: The Markdown instance to read configs from.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">md</span><span class="o">.</span><span class="n">registeredExtensions</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">HighlightExtension</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ext</span><span class="o">.</span><span class="n">enabled</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">config</span><span class="p">):</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">ext</span><span class="o">.</span><span class="n">getConfigs</span><span class="p">()</span>
+            <span class="k">break</span>  <span class="c1"># This one takes priority, no need to continue looking</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">CodeHiliteExtension</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">config</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">ext</span><span class="o">.</span><span class="n">getConfigs</span><span class="p">()</span>
+            <span class="n">config</span><span class="p">[</span><span class="s2">&quot;language_prefix&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;lang_prefix&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_css_class</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;css_class&quot;</span><span class="p">,</span> <span class="s2">&quot;highlight&quot;</span><span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_config_keys</span><span class="p">})</span>
+</code></pre></div>
+        </details>
+    </div>
 
-        <code>ShiftHeadingsExtension</code>
+  </div>
 
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.ShiftHeadingsExtension" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>Shift levels of all Markdown headings according to the configured base level.</p>
-<div class="doc doc-children">
-<div class="doc doc-object doc-method">
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.ShiftHeadingsExtension.extendMarkdown">
-
-<code class="highlight language-python"><span class="n">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">)</span></code>
+  <div class="doc doc-object doc-method">
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.ShiftHeadingsExtension.extendMarkdown" title="Permanent link">¤</a></h3>
-<div class="doc doc-contents ">
-<p>Register the extension, with a treeprocessor under the name 'mkdocstrings_headings'.</p>
+
+<h3 id="mkdocstrings.handlers.base.Highlighter.highlight" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">highlight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dedent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">linenums</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+<a href="#mkdocstrings.handlers.base.Highlighter.highlight" class="headerlink" title="Permanent link">¤</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Highlight a code-snippet.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>md</code></td>
-<td><code>Markdown</code></td>
-<td>
-<p>A <code>markdown.Markdown</code> instance.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>src</code></td>
+        <td><code>str</code></td>
+        <td><p>The code to highlight.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>language</code></td>
+        <td><code>str</code></td>
+        <td><p>Explicitly tell what language to use for highlighting.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>inline</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to highlight as inline.</p></td>
+        <td><code>False</code></td>
+      </tr>
+      <tr>
+        <td><code>dedent</code></td>
+        <td><code>bool</code></td>
+        <td><p>Whether to dedent the code before highlighting it or not.</p></td>
+        <td><code>True</code></td>
+      </tr>
+      <tr>
+        <td><code>linenums</code></td>
+        <td><code>Optional[bool]</code></td>
+        <td><p>Whether to add line numbers in the result.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td><code></code></td>
+        <td><p>Pass on to <code>pymdownx.highlight.Highlight.highlight</code>.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
 </table>
-<details class="quote">
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>str</code></td>
+      <td><p>The highlighted code as HTML text, marked safe (not escaped for HTML).</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
           <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: N802 (casing: parent method's name)</span>
-    <span class="sd">"""</span>
-<span class="sd">    Register the extension, with a treeprocessor under the name 'mkdocstrings_headings'.</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">highlight</span><span class="p">(</span>  <span class="c1"># noqa: W0221 (intentionally different params, we&#39;re extending the functionality)</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">language</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">inline</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">dedent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">linenums</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Highlight a code-snippet.</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        md: A `markdown.Markdown` instance.</span>
-<span class="sd">    """</span>
-    <span class="n">md</span><span class="o">.</span><span class="n">registerExtension</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-    <span class="n">md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
-        <span class="n">_HeadingShiftingTreeprocessor</span><span class="p">(</span><span class="n">md</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-        <span class="s2">"mkdocstrings_headings"</span><span class="p">,</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">treeprocessor_priority</span><span class="p">,</span>
-    <span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="doc doc-object doc-class">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.ThemeNotSupported">
+<span class="sd">        src: The code to highlight.</span>
+<span class="sd">        language: Explicitly tell what language to use for highlighting.</span>
+<span class="sd">        inline: Whether to highlight as inline.</span>
+<span class="sd">        dedent: Whether to dedent the code before highlighting it or not.</span>
+<span class="sd">        linenums: Whether to add line numbers in the result.</span>
+<span class="sd">        **kwargs: Pass on to `pymdownx.highlight.Highlight.highlight`.</span>
 
+<span class="sd">    Returns:</span>
+<span class="sd">        The highlighted code as HTML text, marked safe (not escaped for HTML).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">dedent</span><span class="p">:</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+    <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;css_class&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_css_class</span><span class="p">)</span>
+    <span class="n">old_linenums</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linenums</span>
+    <span class="k">if</span> <span class="n">linenums</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linenums</span> <span class="o">=</span> <span class="n">linenums</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="n">inline</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linenums</span> <span class="o">=</span> <span class="n">old_linenums</span>
+
+    <span class="k">if</span> <span class="n">inline</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&lt;code class=&quot;highlight language-</span><span class="si">{</span><span class="n">language</span><span class="si">}</span><span class="s1">&quot;&gt;</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s1">&lt;/code&gt;&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="mkdocstrings.handlers.base.ThemeNotSupported" class="doc doc-heading">
         <code>ThemeNotSupported</code>
 
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.ThemeNotSupported" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>An exception raised to tell a theme is not supported.</p>
-</div>
-</div>
-<div class="doc doc-object doc-function">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.do_any">
+<a href="#mkdocstrings.handlers.base.ThemeNotSupported" class="headerlink" title="Permanent link">¤</a></h2>
 
+    <div class="doc doc-contents ">
+
+      <p>An exception raised to tell a theme is not supported.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="mkdocstrings.handlers.base.do_any" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">do_any</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.do_any" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>Check if at least one of the item in the sequence evaluates to true.</p>
+<a href="#mkdocstrings.handlers.base.do_any" class="headerlink" title="Permanent link">¤</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Check if at least one of the item in the sequence evaluates to true.</p>
 <p>The <code>any</code> builtin as a filter for Jinja templates.</p>
+
 <p><strong>Parameters:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>seq</code></td>
-<td><code>Sequence</code></td>
-<td>
-<p>An iterable object.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>attribute</code></td>
-<td><code>str</code></td>
-<td>
-<p>The attribute name to use on each object of the iterable.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>seq</code></td>
+        <td><code>Sequence</code></td>
+        <td><p>An iterable object.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>attribute</code></td>
+        <td><code>str</code></td>
+        <td><p>The attribute name to use on each object of the iterable.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>Returns:</strong></p>
 <table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>bool</code></td>
-<td>
-<p>A boolean telling if any object of the iterable evaluated to True.</p>
-</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>bool</code></td>
+      <td><p>A boolean telling if any object of the iterable evaluated to True.</p></td>
+    </tr>
+  </tbody>
 </table>
-<details class="quote">
+        <details class="quote">
           <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">do_any</span><span class="p">(</span><span class="n">seq</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">"""</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_any</span><span class="p">(</span><span class="n">seq</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Check if at least one of the item in the sequence evaluates to true.</span>
 
 <span class="sd">    The `any` builtin as a filter for Jinja templates.</span>
@@ -1979,393 +2784,26 @@ as instantiated by the <code>get_handler</code> method of the handler's module.<
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A boolean telling if any object of the iterable evaluated to True.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">attribute</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">_</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-function">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.do_convert_markdown">
+</code></pre></div>
+        </details>
+    </div>
 
-<code class="highlight language-python"><span class="n">do_convert_markdown</span><span class="p">(</span><span class="n">md</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">heading_level</span><span class="p">,</span> <span class="n">html_id</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span></code>
+  </div>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.do_convert_markdown" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>Render Markdown text; for use inside templates.</p>
-<p><strong>Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>md</code></td>
-<td><code>Markdown</code></td>
-<td>
-<p>A <code>markdown.Markdown</code> instance.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>text</code></td>
-<td><code>str</code></td>
-<td>
-<p>The text to convert.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>heading_level</code></td>
-<td><code>int</code></td>
-<td>
-<p>The base heading level to start all Markdown headings from.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>html_id</code></td>
-<td><code>str</code></td>
-<td>
-<p>The HTML id of the element that's considered the parent of this element.</p>
-</td>
-<td><code>''</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Markup</code></td>
-<td>
-<p>An HTML string.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<details class="quote">
-          <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">do_convert_markdown</span><span class="p">(</span><span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">heading_level</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">html_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Markup</span><span class="p">:</span>
-    <span class="sd">"""</span>
-<span class="sd">    Render Markdown text; for use inside templates.</span>
-
-<span class="sd">    Arguments:</span>
-<span class="sd">        md: A `markdown.Markdown` instance.</span>
-<span class="sd">        text: The text to convert.</span>
-<span class="sd">        heading_level: The base heading level to start all Markdown headings from.</span>
-<span class="sd">        html_id: The HTML id of the element that's considered the parent of this element.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        An HTML string.</span>
-<span class="sd">    """</span>
-    <span class="n">md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="p">[</span><span class="s2">"mkdocstrings_headings"</span><span class="p">]</span><span class="o">.</span><span class="n">shift_by</span> <span class="o">=</span> <span class="n">heading_level</span>
-    <span class="n">md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="p">[</span><span class="s2">"mkdocstrings_ids"</span><span class="p">]</span><span class="o">.</span><span class="n">id_prefix</span> <span class="o">=</span> <span class="n">html_id</span> <span class="ow">and</span> <span class="n">html_id</span> <span class="o">+</span> <span class="s2">"--"</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="n">md</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
-    <span class="k">finally</span><span class="p">:</span>
-        <span class="n">md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="p">[</span><span class="s2">"mkdocstrings_headings"</span><span class="p">]</span><span class="o">.</span><span class="n">shift_by</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="p">[</span><span class="s2">"mkdocstrings_ids"</span><span class="p">]</span><span class="o">.</span><span class="n">id_prefix</span> <span class="o">=</span> <span class="s2">""</span>
-        <span class="n">md</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-function">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.do_highlight">
-
-<code class="highlight language-python"><span class="n">do_highlight</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">guess_lang</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dedent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">line_nums</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">line_start</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.do_highlight" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>Highlight a code-snippet.</p>
-<p>This function is used as a filter in Jinja templates.</p>
-<p><strong>Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>src</code></td>
-<td><code>str</code></td>
-<td>
-<p>The code to highlight.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>guess_lang</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Whether to guess the language or not.</p>
-</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><code>language</code></td>
-<td><code>str</code></td>
-<td>
-<p>Explicitly tell what language to use for highlighting.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>inline</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Whether to do inline highlighting.</p>
-</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><code>dedent</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Whether to dedent the code before highlighting it or not.</p>
-</td>
-<td><code>True</code></td>
-</tr>
-<tr>
-<td><code>line_nums</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Whether to add line numbers in the result.</p>
-</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><code>line_start</code></td>
-<td><code>int</code></td>
-<td>
-<p>The line number to start with.</p>
-</td>
-<td><code>1</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>str</code></td>
-<td>
-<p>The highlighted code as HTML text, marked safe (not escaped for HTML).</p>
-</td>
-</tr>
-</tbody>
-</table>
-<details class="quote">
-          <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">do_highlight</span><span class="p">(</span>
-    <span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">guess_lang</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">language</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">inline</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">dedent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">line_nums</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">line_start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">"""</span>
-<span class="sd">    Highlight a code-snippet.</span>
-
-<span class="sd">    This function is used as a filter in Jinja templates.</span>
-
-<span class="sd">    Arguments:</span>
-<span class="sd">        src: The code to highlight.</span>
-<span class="sd">        guess_lang: Whether to guess the language or not.</span>
-<span class="sd">        language: Explicitly tell what language to use for highlighting.</span>
-<span class="sd">        inline: Whether to do inline highlighting.</span>
-<span class="sd">        dedent: Whether to dedent the code before highlighting it or not.</span>
-<span class="sd">        line_nums: Whether to add line numbers in the result.</span>
-<span class="sd">        line_start: The line number to start with.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        The highlighted code as HTML text, marked safe (not escaped for HTML).</span>
-<span class="sd">    """</span>
-    <span class="k">if</span> <span class="n">dedent</span><span class="p">:</span>
-        <span class="n">src</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
-
-    <span class="n">highlighter</span> <span class="o">=</span> <span class="n">Highlight</span><span class="p">(</span><span class="n">use_pygments</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">guess_lang</span><span class="o">=</span><span class="n">guess_lang</span><span class="p">,</span> <span class="n">linenums</span><span class="o">=</span><span class="n">line_nums</span><span class="p">)</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">highlighter</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">src</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="n">language</span><span class="p">,</span> <span class="n">linestart</span><span class="o">=</span><span class="n">line_start</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="n">inline</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">inline</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="sa">f</span><span class="s1">'&lt;code class="highlight language-</span><span class="si">{</span><span class="n">language</span><span class="si">}</span><span class="s1">"&gt;</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s1">&lt;/code&gt;'</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-<div class="doc doc-object doc-function">
-<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.do_js_highlight">
-
-<code class="highlight language-python"><span class="n">do_js_highlight</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">guess_lang</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dedent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">line_nums</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">line_start</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code>
 
 
-      <a class="headerlink" href="#mkdocstrings.handlers.base.do_js_highlight" title="Permanent link">¤</a></h2>
-<div class="doc doc-contents ">
-<p>Prepare a code-snippet for JS highlighting.</p>
-<p>This function is used as a filter in Jinja templates.</p>
-<p><strong>Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>src</code></td>
-<td><code>str</code></td>
-<td>
-<p>The code to highlight.</p>
-</td>
-<td><em>required</em></td>
-</tr>
-<tr>
-<td><code>guess_lang</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Whether to guess the language or not.</p>
-</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><code>language</code></td>
-<td><code>str</code></td>
-<td>
-<p>Explicitly tell what language to use for highlighting.</p>
-</td>
-<td><code>None</code></td>
-</tr>
-<tr>
-<td><code>inline</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Whether to do inline highlighting.</p>
-</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><code>dedent</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Whether to dedent the code before highlighting it or not.</p>
-</td>
-<td><code>True</code></td>
-</tr>
-<tr>
-<td><code>line_nums</code></td>
-<td><code>bool</code></td>
-<td>
-<p>Whether to add line numbers in the result.</p>
-</td>
-<td><code>False</code></td>
-</tr>
-<tr>
-<td><code>line_start</code></td>
-<td><code>int</code></td>
-<td>
-<p>The line number to start with.</p>
-</td>
-<td><code>1</code></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>str</code></td>
-<td>
-<p>The code properly wrapped for later highlighting by JavaScript.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<details class="quote">
-          <summary>Source code in <code>handlers/base.py</code></summary>
-          <div class="highlight">
-<pre><span></span><code><span class="k">def</span> <span class="nf">do_js_highlight</span><span class="p">(</span>
-    <span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">guess_lang</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># noqa: W0613 (we must accept the same parameters as do_highlight)</span>
-    <span class="n">language</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">inline</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">dedent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">line_nums</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># noqa: W0613</span>
-    <span class="n">line_start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># noqa: W0613</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">"""</span>
-<span class="sd">    Prepare a code-snippet for JS highlighting.</span>
+  </div>
 
-<span class="sd">    This function is used as a filter in Jinja templates.</span>
+    </div>
 
-<span class="sd">    Arguments:</span>
-<span class="sd">        src: The code to highlight.</span>
-<span class="sd">        guess_lang: Whether to guess the language or not.</span>
-<span class="sd">        language: Explicitly tell what language to use for highlighting.</span>
-<span class="sd">        inline: Whether to do inline highlighting.</span>
-<span class="sd">        dedent: Whether to dedent the code before highlighting it or not.</span>
-<span class="sd">        line_nums: Whether to add line numbers in the result.</span>
-<span class="sd">        line_start: The line number to start with.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        The code properly wrapped for later highlighting by JavaScript.</span>
-<span class="sd">    """</span>
-    <span class="k">if</span> <span class="n">dedent</span><span class="p">:</span>
-        <span class="n">src</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">inline</span><span class="p">:</span>
-        <span class="n">src</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\n\s*"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="sa">f</span><span class="s1">'&lt;code class="highlight"&gt;</span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="s1">&lt;/code&gt;'</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="sa">f</span><span class="s1">'&lt;div class="highlight </span><span class="si">{</span><span class="n">language</span> <span class="ow">or</span> <span class="s2">""</span><span class="si">}</span><span class="s1">"&gt;&lt;pre&gt;&lt;code&gt;</span><span class="se">\n</span><span class="si">{</span><span class="n">src</span><span class="si">}</span><span class="se">\n</span><span class="s1">&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;'</span><span class="p">)</span>
-</code></pre>
-</div>
-</details>
-</div>
-</div>
-</div>
-</div>
-</div>
+  </div>
                 
               
               

@@ -44,6 +44,8 @@
     
     
     
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../css/mkdocstrings.css">
     
     
@@ -236,6 +238,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#autodoc-syntax" class="md-nav__link">
+    Autodoc syntax
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#global-options" class="md-nav__link">
     Global options
   </a>
@@ -391,11 +400,32 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
     
     <label class="md-nav__link" for="nav-4-1">
+      mkdocstrings
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="mkdocstrings" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon"></span>
+        mkdocstrings
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-1" type="checkbox" id="nav-4-1-1">
+    
+    <label class="md-nav__link" for="nav-4-1-1">
       handlers
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="handlers" data-md-level="2">
-      <label class="md-nav__title" for="nav-4-1">
+    <nav class="md-nav" aria-label="handlers" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-1">
         <span class="md-nav__icon md-icon"></span>
         handlers
       </label>
@@ -455,15 +485,58 @@
   </li>
 
         
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
+    
+    <label class="md-nav__link" for="nav-4-2">
+      mkdocs_autorefs
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-2">
+        <span class="md-nav__icon md-icon"></span>
+        mkdocs_autorefs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
           
           
           
 
 
   <li class="md-nav__item">
-    <a href="../reference/references/" title="references.py" class="md-nav__link">
+    <a href="../reference/autorefs/references/" title="references.py" class="md-nav__link">
       references.py
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../reference/autorefs/plugin/" title="plugin.py" class="md-nav__link">
+      plugin.py
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -568,6 +641,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#autodoc-syntax" class="md-nav__link">
+    Autodoc syntax
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#global-options" class="md-nav__link">
     Global options
   </a>
@@ -656,8 +736,9 @@
                 
                 
                 <h1 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">¤</a></h1>
+<h2 id="autodoc-syntax">Autodoc syntax<a class="headerlink" href="#autodoc-syntax" title="Permanent link">¤</a></h2>
 <p>MkDocstrings works by processing special expressions in your Markdown files.</p>
-<p>The syntax is as follow:</p>
+<p>The syntax is as follows:</p>
 <div class="highlight"><pre><span></span><code>::: identifier
     YAML block
 </code></pre></div>
@@ -783,14 +864,22 @@ With the identifier as title:
 </div>
 <input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">HTML Result</label><div class="tabbed-content">
 <div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>With a custom title:
-<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://site_url.com/page1#full.path.object1&quot;</span><span class="p">&gt;&lt;</span><span class="nt">code</span><span class="p">&gt;</span>Object 1<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://example.com/page1#full.path.object1&quot;</span><span class="p">&gt;&lt;</span><span class="nt">code</span><span class="p">&gt;</span>Object 1<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>With the identifier as title:
-<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://site_url.com/page2#full.path.object2&quot;</span><span class="p">&gt;</span>full.path.object2<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://example.com/page2#full.path.object2&quot;</span><span class="p">&gt;</span>full.path.object2<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </code></pre></div>
 </div>
 </div>
+<p>Any item that was inserted using the <a href="#autodoc-syntax">autodoc syntax</a>
+(e.g. <code>::: full.path.object1</code>) is possible to link to by using the same identifier with the
+cross-reference syntax (<code>[example][full.path.object1]</code>).
+But the cross-references are also applicable to the items' children that get pulled in.</p>
+<p>If you're not sure which exact identifier a doc item uses, you can look at its "anchor", which your
+Web browser will show in the URL bar when clicking an item's entry in the table of contents.
+If the URL is <code>https://example.com/some/page.html#full.path.object1</code> then you know that this item
+is possible to link to with <code>[example][full.path.object1]</code>, regardless of the current page.</p>
 <h2 id="themes">Themes<a class="headerlink" href="#themes" title="Permanent link">¤</a></h2>
-<p>MkDocstrings can support multiple MkDocs theme.
+<p>MkDocstrings can support multiple MkDocs themes.
 It currently supports supports the
 <em><a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a></em>
 theme and, partially, the built-in ReadTheDocs theme.</p>

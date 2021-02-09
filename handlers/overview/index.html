@@ -44,6 +44,8 @@
     
     
     
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
       <link rel="stylesheet" href="../../css/mkdocstrings.css">
     
     
@@ -300,6 +302,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#templates" class="md-nav__link">
+    Templates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#usage" class="md-nav__link">
     Usage
   </a>
@@ -366,11 +375,32 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
     
     <label class="md-nav__link" for="nav-4-1">
+      mkdocstrings
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="mkdocstrings" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon"></span>
+        mkdocstrings
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-1" type="checkbox" id="nav-4-1-1">
+    
+    <label class="md-nav__link" for="nav-4-1-1">
       handlers
       <span class="md-nav__icon md-icon"></span>
     </label>
-    <nav class="md-nav" aria-label="handlers" data-md-level="2">
-      <label class="md-nav__title" for="nav-4-1">
+    <nav class="md-nav" aria-label="handlers" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-1">
         <span class="md-nav__icon md-icon"></span>
         handlers
       </label>
@@ -430,15 +460,58 @@
   </li>
 
         
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
+    
+    <label class="md-nav__link" for="nav-4-2">
+      mkdocs_autorefs
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-2">
+        <span class="md-nav__icon md-icon"></span>
+        mkdocs_autorefs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
           
           
           
 
 
   <li class="md-nav__item">
-    <a href="../../reference/references/" title="references.py" class="md-nav__link">
+    <a href="../../reference/autorefs/references/" title="references.py" class="md-nav__link">
       references.py
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reference/autorefs/plugin/" title="plugin.py" class="md-nav__link">
+      plugin.py
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -572,6 +645,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#templates" class="md-nav__link">
+    Templates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#usage" class="md-nav__link">
     Usage
   </a>
@@ -648,6 +728,27 @@ This function takes the <code>theme</code> (string, theme name) and
 arguments, and you can add any other keyword argument you'd like.
 The global configuration items (other than <code>selection</code> and <code>rendering</code>)
 will be passed to this function when getting your handler.</p>
+<h3 id="templates">Templates<a class="headerlink" href="#templates" title="Permanent link">¤</a></h3>
+<p>You renderer's implementation should normally be backed by templates, which go
+to the directory <code>mkdocstrings/handlers/custom_handler/some_theme</code>.
+(<code>custom_handler</code> here should be replaced with the actual name of your handler,
+and <code>some_theme</code> should be the name of an actual MkDocs theme that you support,
+e.g. <code>material</code>).</p>
+<p>With that structure, you can use <code>self.env.get_template("foo.html")</code> inside
+your <code>render</code> implementation. This already chooses the subdirectory based on
+the current MkDocs theme.</p>
+<p>If you wish to support <em>any</em> MkDocs theme, rather than a few specifically
+selected ones, you can pick one theme's subdirectory to be the fallback for
+when an unknown theme is encountered. Then you just need to set the
+<code>fallback_theme</code> variable on your renderer subclass. The fallback directory can
+be used even for themes you explicitly support: you can omit some template from
+one of the other theme directories in case they're exactly the same as in the
+fallback theme.</p>
+<p>If your theme's HTML requires CSS to go along with it, put it into a file named
+<code>mkdocstrings/handlers/custom_handler/some_theme/style.css</code>, then this will be
+included into the final site automatically if this handler is ever used.
+Alternatively, you can put the CSS as a string into the <code>extra_css</code> variable of
+your renderer.</p>
 <h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">¤</a></h3>
 <p>When a custom handler is installed,
 it is then available to MkDocstrings.
