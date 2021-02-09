@@ -32,7 +32,6 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`Jinja2`](https://palletsprojects.com/p/jinja/) |
 [`jinja2-cli`](https://github.com/mattrobenolt/jinja2-cli) |
 [`Markdown`](https://Python-Markdown.github.io/) |
-[`markdown-include`](https://github.com/cmacmackin/markdown-include/) |
 [`MarkupSafe`](https://palletsprojects.com/p/markupsafe/) |
 [`mkdocs`](https://www.mkdocs.org) |
 [`mkdocs-material`](https://squidfunk.github.io/mkdocs-material/) |
@@ -107,7 +106,7 @@ These projects were used to build `mkdocstrings`. **Thank you!**
 [`pylint`](https://github.com/PyCQA/pylint) |
 [`pyparsing`](https://github.com/pyparsing/pyparsing/) |
 [`pytest-forked`](https://github.com/pytest-dev/pytest-forked) |
-[`PyYAML`](https://github.com/yaml/pyyaml) |
+[`PyYAML`](https://pyyaml.org/) |
 [`regex`](https://bitbucket.org/mrabarnett/mrab-regex) |
 [`rfc3986`](http://rfc3986.readthedocs.io) |
 [`six`](https://github.com/benjaminp/six) |
