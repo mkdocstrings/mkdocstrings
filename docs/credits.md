@@ -1,1 +1,1 @@
-{!CREDITS.md!}
+--8<-- "CREDITS.md"

@@ -41,9 +41,10 @@ extra_css:
 
 markdown_extensions:
 - admonition
-- markdown_include.include
 - pymdownx.emoji
 - pymdownx.magiclink
+- pymdownx.snippets:
+    check_paths: true
 - pymdownx.superfences
 - pymdownx.tabbed
 - pymdownx.tasklist
