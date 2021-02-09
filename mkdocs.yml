@@ -43,7 +43,8 @@ markdown_extensions:
 - admonition
 - pymdownx.emoji
 - pymdownx.magiclink
-- pymdownx.snippets
+- pymdownx.snippets:
+    check_paths: true
 - pymdownx.superfences
 - pymdownx.tabbed
 - pymdownx.tasklist
