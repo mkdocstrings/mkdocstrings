@@ -39,6 +39,12 @@ from mkdocs_autorefs.plugin import AutorefsPlugin
 from mkdocstrings.handlers.base import CollectionError, CollectorItem, Handlers
 from mkdocstrings.loggers import get_logger
 
+try:
+    from mkdocs.exceptions import PluginError  # New in MkDocs 1.2
+except ImportError:
+    PluginError = SystemExit
+
+
 log = get_logger(__name__)
 
 
@@ -144,7 +150,7 @@ class AutoDocProcessor(BlockProcessor):
             heading_level: Suggested level of the the heading to insert (0 to ignore).
 
         Raises:
-            CollectionError: When something wrong happened during collection.
+            PluginError: When something wrong happened during collection.
             TemplateNotFound: When a template used for rendering could not be found.
 
         Returns:
@@ -164,9 +170,11 @@ class AutoDocProcessor(BlockProcessor):
         log.debug("Collecting data")
         try:
             data: CollectorItem = handler.collector.collect(identifier, selection)
-        except CollectionError:
-            log.error(f"Could not collect '{identifier}'")
-            raise
+        except CollectionError as exception:
+            log.error(str(exception))
+            if PluginError is SystemExit:  # When MkDocs 1.2 is sufficiently common, this can be dropped.
+                log.error(f"Error reading page '{self._autorefs.current_page}':")
+            raise PluginError(f"Could not collect '{identifier}'") from exception
 
         if not self._updated_env:
             log.debug("Updating renderer's env")
