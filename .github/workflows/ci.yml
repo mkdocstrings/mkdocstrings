@@ -41,7 +41,7 @@ jobs:
     - name: Set up the project
       run: |
         pip install poetry
-        poetry install -vvv || { rm -rf .venv; poetry install -vvv; }
+        poetry install -v || { rm -rf .venv; poetry install -v; }
         poetry update
 
     - name: Check if the documentation builds correctly
@@ -85,7 +85,7 @@ jobs:
     - name: Set up the project
       run: |
         pip install poetry
-        poetry install -vvv || { rm -rf .venv; poetry install -vvv; }
+        poetry install -v || { rm -rf .venv; poetry install -v; }
         poetry update
 
     - name: Run the test suite
