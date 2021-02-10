@@ -1,1 +1,1 @@
---8<-- "CREDITS.md"
+[[ credits() ]]

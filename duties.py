@@ -3,20 +3,15 @@
 import os
 import re
 import sys
-from itertools import chain
-from pathlib import Path
 from shutil import which
 from typing import List, Optional, Pattern
 
 import httpx
-import toml
 from duty import duty
 from git_changelog.build import Changelog, Version
-from jinja2 import StrictUndefined
 from jinja2.sandbox import SandboxedEnvironment
-from pip._internal.commands.show import search_packages_info
 
-PY_SRC_LIST = ("src/mkdocstrings", "src/mkdocs_autorefs", "tests", "duties.py")
+PY_SRC_LIST = ("src/mkdocstrings", "src/mkdocs_autorefs", "tests", "duties.py", "docs/macros.py")
 PY_SRC = " ".join(PY_SRC_LIST)
 TESTING = os.environ.get("TESTING", "0") in {"1", "true"}
 CI = os.environ.get("CI", "0") in {"1", "true", "yes", ""}
@@ -102,7 +97,7 @@ def update_changelog(
         template_url: The URL to the Jinja template used to render contents.
         commit_style: The style of commit messages to parse.
     """
-    env = SandboxedEnvironment(autoescape=True)
+    env = SandboxedEnvironment(autoescape=False)
     template = env.from_string(httpx.get(template_url).text)
     changelog = Changelog(".", style=commit_style)  # noqa: W0621 (shadowing changelog)
 
@@ -236,78 +231,7 @@ def clean(ctx):
     ctx.run("find . -name '*.rej' -delete")
 
 
-def get_credits_data() -> dict:
-    """
-    Return data used to generate the credits file.
-
-    Returns:
-        Data required to render the credits template.
-    """
-    project_dir = Path(__file__).parent.parent
-    metadata = toml.load(project_dir / "pyproject.toml")["tool"]["poetry"]
-    lock_data = toml.load(project_dir / "poetry.lock")
-    project_name = metadata["name"]
-
-    poetry_dependencies = chain(metadata["dependencies"].keys(), metadata["dev-dependencies"].keys())
-    direct_dependencies = {dep.lower() for dep in poetry_dependencies}
-    direct_dependencies.remove("python")
-    indirect_dependencies = {pkg["name"].lower() for pkg in lock_data["package"]}
-    indirect_dependencies -= direct_dependencies
-    dependencies = direct_dependencies | indirect_dependencies
-
-    packages = {}
-    for pkg in search_packages_info(dependencies):
-        pkg = {_: pkg[_] for _ in ("name", "home-page")}
-        packages[pkg["name"].lower()] = pkg
-
-    for dependency in dependencies:
-        if dependency not in packages:
-            pkg_data = httpx.get(f"https://pypi.python.org/pypi/{dependency}/json").json()["info"]
-            home_page = pkg_data["home_page"] or pkg_data["project_url"] or pkg_data["package_url"]
-            pkg_name = pkg_data["name"]
-            package = {"name": pkg_name, "home-page": home_page}
-            packages.update({pkg_name.lower(): package})
-
-    return {
-        "project_name": project_name,
-        "direct_dependencies": sorted(direct_dependencies),
-        "indirect_dependencies": sorted(indirect_dependencies),
-        "package_info": packages,
-    }
-
-
 @duty
-def docs_regen(ctx):
-    """
-    Regenerate some documentation pages.
-
-    Arguments:
-        ctx: The context instance (passed automatically).
-    """
-    url_prefix = "https://raw.githubusercontent.com/pawamoy/jinja-templates/master/"
-    regen_list = (("CREDITS.md", get_credits_data, url_prefix + "credits.md"),)
-
-    def regen() -> int:
-        """
-        Regenerate pages listed in global `REGEN` list.
-
-        Returns:
-            An exit code.
-        """
-        env = SandboxedEnvironment(undefined=StrictUndefined)
-        for target, get_data, template in regen_list:
-            print("Regenerating", target)
-            template_data = get_data()
-            template_text = httpx.get(template).text
-            rendered = env.from_string(template_text).render(**template_data)
-            with open(target, "w") as stream:
-                stream.write(rendered)
-        return 0
-
-    ctx.run(regen, title="Regenerating docfiles", pty=PTY)
-
-
-@duty(pre=[docs_regen])
 def docs(ctx):
     """
     Build the documentation locally.
@@ -318,7 +242,7 @@ def docs(ctx):
     ctx.run("mkdocs build", title="Building documentation")
 
 
-@duty(pre=[docs_regen])
+@duty
 def docs_serve(ctx, host="127.0.0.1", port=8000):
     """
     Serve the documentation (localhost:8000).
@@ -331,7 +255,7 @@ def docs_serve(ctx, host="127.0.0.1", port=8000):
     ctx.run(f"mkdocs serve -a {host}:{port}", title="Serving documentation", capture=False)
 
 
-@duty(pre=[docs_regen])
+@duty
 def docs_deploy(ctx):
     """
     Deploy the documentation on GitHub pages.
@@ -339,7 +263,8 @@ def docs_deploy(ctx):
     Arguments:
         ctx: The context instance (passed automatically).
     """
-    ctx.run("mkdocs gh-deploy", title="Deploying documentation")
+    ctx.run("git remote set-url org-pages git@github.com:mkdocstrings/mkdocstrings.github.io", silent=True)
+    ctx.run("mkdocs gh-deploy --remote-name org-pages", title="Deploying documentation")
 
 
 @duty
@@ -377,7 +302,7 @@ def release(ctx, version):
         ctx.run("git push --tags", title="Pushing tags", pty=False)
         ctx.run("poetry build", title="Building dist/wheel", pty=PTY)
         ctx.run("poetry publish", title="Publishing version", pty=PTY)
-        ctx.run("mkdocs gh-deploy", title="Deploying documentation", pty=PTY)
+        docs_deploy.run()
 
 
 @duty(silent=True)
@@ -392,15 +317,18 @@ def coverage(ctx):
     ctx.run("coverage html --rcfile=config/coverage.ini")
 
 
-@duty(pre=[duty(lambda ctx: ctx.run("rm -f .coverage", silent=True))])
-def test(ctx, match=""):
+@duty
+def test(ctx, cleancov: bool = True, match: str = ""):
     """
     Run the test suite.
 
     Arguments:
         ctx: The context instance (passed automatically).
+        cleancov: Whether to remove the `.coverage` file before running the tests.
         match: A pytest expression to filter selected tests.
     """
+    if cleancov:
+        ctx.run("rm -f .coverage", silent=True)
     ctx.run(
         ["pytest", "-c", "config/pytest.ini", "-n", "auto", "-k", match, "tests"],
         title="Running tests",

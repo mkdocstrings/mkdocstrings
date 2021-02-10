@@ -1,16 +1,21 @@
 site_name: "mkdocstrings"
 site_description: "Automatic documentation from sources, for MkDocs."
-site_url: "https://pawamoy.github.io/mkdocstrings"
-repo_url: "https://github.com/pawamoy/mkdocstrings"
-repo_name: "pawamoy/mkdocstrings"
+site_url: "https://mkdocstrings.github.io/"
+repo_url: "https://github.com/mkdocstrings/mkdocstrings"
+repo_name: "mkdocstrings/mkdocstrings"
 
 nav:
-- Overview: index.md
-- Usage: usage.md
-- Handlers:
-  - Overview: handlers/overview.md
-  - Python: handlers/python.md
-
+- Home:
+  - Overview: index.md
+  - Changelog: changelog.md
+  - Credits: credits.md
+  - License: license.md
+- Usage:
+  - Usage: usage.md
+  - Handlers:
+    - Overview: handlers/overview.md
+    - Python: handlers/python.md
+  - Troubleshooting: troubleshooting.md
 - Code Reference:
   - mkdocstrings:
     - handlers:
@@ -21,16 +26,16 @@ nav:
   - mkdocs_autorefs:
     - references.py: reference/autorefs/references.md
     - plugin.py: reference/autorefs/plugin.md
-
-- Troubleshooting: troubleshooting.md
-- Contributing: contributing.md
-- Code of Conduct: code_of_conduct.md
-- Changelog: changelog.md
-- Credits: credits.md
-- License: license.md
+- Development:
+  - Contributing: contributing.md
+  - Code of Conduct: code_of_conduct.md
+  - Coverage report: coverage.md
 
 theme:
   name: material
+  features:
+  - navigation.tabs
+  - navigation.expand
   palette:
     scheme: slate
     primary: teal
@@ -53,6 +58,12 @@ markdown_extensions:
 
 plugins:
 - search
+- coverage:
+    html_report_dir: build/coverage
+- macros:
+    module_name: docs/macros
+    j2_variable_start_string: "[["
+    j2_variable_end_string: "]]"
 - mkdocstrings:
     handlers:
       python:
