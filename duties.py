@@ -179,8 +179,14 @@ def check_dependencies(ctx):
         else:
             safety = "safety"
             nofail = True
+
+    # Ignore tornado/39462 as there is currently no fix
+    # See https://github.com/tornadoweb/tornado/issues/2981
+    ignored_cves = "39462"
+
     ctx.run(
-        f"poetry export -f requirements.txt --without-hashes | {safety} check --stdin --full-report",
+        "poetry export -f requirements.txt --without-hashes | "
+        f"{safety} check --stdin --full-report -i {ignored_cves}",
         title="Checking dependencies",
         pty=PTY,
         nofail=nofail,
