@@ -9,23 +9,22 @@ It also provides two methods:
 - `teardown`, that will teardown all the cached handlers, and then clear the cache.
 """
 
-import copy
 import importlib
-import re
-import textwrap
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Sequence
+from typing import Any, Dict, Iterable, Optional, Sequence
 from xml.etree.ElementTree import Element, tostring
 
 from jinja2 import Environment, FileSystemLoader
 from markdown import Markdown
-from markdown.extensions import Extension
-from markdown.extensions.codehilite import CodeHiliteExtension
-from markdown.treeprocessors import Treeprocessor
 from markupsafe import Markup
-from pymdownx.highlight import Highlight, HighlightExtension
 
+from mkdocstrings.handlers.rendering import (
+    HeadingShiftingTreeprocessor,
+    Highlighter,
+    IdPrependingTreeprocessor,
+    MkdocstringsInnerExtension,
+)
 from mkdocstrings.loggers import get_template_logger
 
 CollectorItem = Any
@@ -39,71 +38,6 @@ class CollectionError(Exception):
 
 class ThemeNotSupported(Exception):
     """An exception raised to tell a theme is not supported."""
-
-
-class Highlighter(Highlight):
-    """Code highlighter that tries to match the Markdown configuration."""
-
-    _highlight_config_keys = frozenset(
-        "use_pygments guess_lang css_class pygments_style noclasses linenums language_prefix".split(),
-    )
-
-    def __init__(self, md: Markdown):
-        """Configure to match a `markdown.Markdown` instance.
-
-        Arguments:
-            md: The Markdown instance to read configs from.
-        """
-        config = {}
-        for ext in md.registeredExtensions:
-            if isinstance(ext, HighlightExtension) and (ext.enabled or not config):
-                config = ext.getConfigs()
-                break  # This one takes priority, no need to continue looking
-            if isinstance(ext, CodeHiliteExtension) and not config:
-                config = ext.getConfigs()
-                config["language_prefix"] = config["lang_prefix"]
-        self._css_class = config.pop("css_class", "highlight")
-        super().__init__(**{k: v for k, v in config.items() if k in self._highlight_config_keys})
-
-    def highlight(  # noqa: W0221 (intentionally different params, we're extending the functionality)
-        self,
-        src: str,
-        language: str = None,
-        *,
-        inline: bool = False,
-        dedent: bool = True,
-        linenums: Optional[bool] = None,
-        **kwargs,
-    ) -> str:
-        """
-        Highlight a code-snippet.
-
-        Arguments:
-            src: The code to highlight.
-            language: Explicitly tell what language to use for highlighting.
-            inline: Whether to highlight as inline.
-            dedent: Whether to dedent the code before highlighting it or not.
-            linenums: Whether to add line numbers in the result.
-            **kwargs: Pass on to `pymdownx.highlight.Highlight.highlight`.
-
-        Returns:
-            The highlighted code as HTML text, marked safe (not escaped for HTML).
-        """
-        if dedent:
-            src = textwrap.dedent(src)
-
-        kwargs.setdefault("css_class", self._css_class)
-        old_linenums = self.linenums
-        if linenums is not None:
-            self.linenums = linenums
-        try:
-            result = super().highlight(src, language, inline=inline, **kwargs)
-        finally:
-            self.linenums = old_linenums
-
-        if inline:
-            return Markup(f'<code class="highlight language-{language}">{result.text}</code>')
-        return Markup(result)
 
 
 def do_any(seq: Sequence, attribute: str = None) -> bool:
@@ -222,13 +156,13 @@ class BaseRenderer(ABC):
             An HTML string.
         """
         treeprocessors = self._md.treeprocessors
-        treeprocessors["mkdocstrings_headings"].shift_by = heading_level
-        treeprocessors["mkdocstrings_ids"].id_prefix = html_id and html_id + "--"
+        treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = heading_level
+        treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"
         try:
             return Markup(self._md.convert(text))
         finally:
-            treeprocessors["mkdocstrings_headings"].shift_by = 0
-            treeprocessors["mkdocstrings_ids"].id_prefix = ""
+            treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0
+            treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""
             self._md.reset()
 
     def do_heading(
@@ -310,7 +244,7 @@ class BaseRenderer(ABC):
         self.env.filters["heading"] = self.do_heading
 
     def _update_env(self, md: Markdown, config: dict):
-        extensions = config["mdx"] + [_MkdocstringsInnerExtension(self._headings)]
+        extensions = config["mdx"] + [MkdocstringsInnerExtension(self._headings)]
 
         new_md = Markdown(extensions=extensions, extension_configs=config["mdx_configs"])
         # MkDocs adds its own (required) extension that's not part of the config. Propagate it.
@@ -492,96 +426,3 @@ class Handlers:
         for handler in self.seen_handlers:
             handler.collector.teardown()
         self._handlers.clear()
-
-
-class _IdPrependingTreeprocessor(Treeprocessor):
-    def __init__(self, md, id_prefix: str):
-        super().__init__(md)
-        self.id_prefix = id_prefix
-
-    def run(self, root: Element):
-        if not self.id_prefix:
-            return
-        for el in root.iter():
-            id_attr = el.get("id")
-            if id_attr:
-                el.set("id", self.id_prefix + id_attr)
-
-            href_attr = el.get("href")
-            if href_attr and href_attr.startswith("#"):
-                el.set("href", "#" + self.id_prefix + href_attr[1:])
-
-            name_attr = el.get("name")
-            if name_attr:
-                el.set("name", self.id_prefix + name_attr)
-
-            if el.tag == "label":
-                for_attr = el.get("for")
-                if for_attr:
-                    el.set("for", self.id_prefix + for_attr)
-
-
-class _HeadingShiftingTreeprocessor(Treeprocessor):
-    regex = re.compile(r"([Hh])([1-6])")
-
-    def __init__(self, md: Markdown, shift_by: int):
-        super().__init__(md)
-        self.shift_by = shift_by
-
-    def run(self, root: Element):
-        if not self.shift_by:
-            return
-        for el in root.iter():
-            match = self.regex.fullmatch(el.tag)
-            if match:
-                level = int(match[2]) + self.shift_by
-                level = max(1, min(level, 6))
-                el.tag = f"{match[1]}{level}"
-
-
-class _HeadingReportingTreeprocessor(Treeprocessor):
-    regex = re.compile(r"[Hh][1-6]")
-
-    def __init__(self, md: Markdown, headings: List[Element]):
-        super().__init__(md)
-        self.headings = headings
-
-    def run(self, root: Element):
-        for el in root.iter():
-            if self.regex.fullmatch(el.tag):
-                el = copy.copy(el)
-                # 'toc' extension's first pass (which we require to build heading stubs/ids) also edits the HTML.
-                # Undo the permalink edit so we can pass this heading to the outer pass of the 'toc' extension.
-                if len(el) > 0 and el[-1].get("class") == self.md.treeprocessors["toc"].permalink_class:
-                    del el[-1]
-                self.headings.append(el)
-
-
-class _MkdocstringsInnerExtension(Extension):
-    def __init__(self, headings: List[Element]):
-        super().__init__()
-        self.headings = headings
-
-    def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
-        """
-        Register the extension.
-
-        Arguments:
-            md: A `markdown.Markdown` instance.
-        """
-        md.registerExtension(self)
-        md.treeprocessors.register(
-            _HeadingShiftingTreeprocessor(md, 0),
-            "mkdocstrings_headings",
-            priority=12,
-        )
-        md.treeprocessors.register(
-            _IdPrependingTreeprocessor(md, ""),
-            "mkdocstrings_ids",
-            priority=4,  # Right after 'toc' (needed because that extension adds ids to headers).
-        )
-        md.treeprocessors.register(
-            _HeadingReportingTreeprocessor(md, self.headings),
-            "mkdocstrings_headings_list",
-            priority=1,  # Close to the end.
-        )
