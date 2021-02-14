@@ -1,6 +1,5 @@
 """Tests for the extension module."""
 from collections import ChainMap
-from contextlib import contextmanager
 from textwrap import dedent
 
 import pytest
@@ -8,22 +7,16 @@ from markdown import Markdown
 from mkdocs import config
 
 
-@contextmanager
-def ext_markdown(**kwargs):
-    """Yield a Markdown instance with MkdocstringsExtension, with config adjustments from **kwargs.
-
-    Arguments:
-        **kwargs: Changes to apply to the config, on top of the default config.
-
-    Yields:
-        A `markdown.Markdown` instance.
-    """
+@pytest.fixture(name="ext_markdown")
+def fixture_ext_markdown(request, tmp_path):
+    """Yield a Markdown instance with MkdocstringsExtension, with config adjustments."""
     conf = config.Config(schema=config.DEFAULT_SCHEMA)
 
     conf_dict = {
         "site_name": "foo",
+        "site_dir": str(tmp_path),
         "plugins": [{"mkdocstrings": {"default_handler": "python"}}],
-        **kwargs,
+        **getattr(request, "param", {}),
     }
     # Re-create it manually as a workaround for https://github.com/mkdocs/mkdocs/issues/2289
     mdx_configs = dict(ChainMap(*conf_dict.get("markdown_extensions", [])))
@@ -41,102 +34,91 @@ def ext_markdown(**kwargs):
     conf["plugins"]["mkdocstrings"].on_post_build(conf)
 
 
-def test_render_html_escaped_sequences():
+def test_render_html_escaped_sequences(ext_markdown):
     """Assert HTML-escaped sequences are correctly parsed as XML."""
-    with ext_markdown() as md:
-        md.convert("::: tests.fixtures.html_escaped_sequences")
+    ext_markdown.convert("::: tests.fixtures.html_escaped_sequences")
 
 
-def test_multiple_footnotes():
+@pytest.mark.parametrize("ext_markdown", [{"markdown_extensions": [{"footnotes": {}}]}], indirect=["ext_markdown"])
+def test_multiple_footnotes(ext_markdown):
     """Assert footnotes don't get added to subsequent docstrings."""
-    with ext_markdown(markdown_extensions=[{"footnotes": {}}]) as md:
-        output = md.convert(
-            dedent(
-                """
-                Top.[^aaa]
+    output = ext_markdown.convert(
+        dedent(
+            """
+            Top.[^aaa]
 
-                ::: tests.fixtures.footnotes.func_a
+            ::: tests.fixtures.footnotes.func_a
 
-                ::: tests.fixtures.footnotes.func_b
+            ::: tests.fixtures.footnotes.func_b
 
-                ::: tests.fixtures.footnotes.func_c
+            ::: tests.fixtures.footnotes.func_c
 
-                [^aaa]: Top footnote
-                """,
-            ),
-        )
+            [^aaa]: Top footnote
+            """,
+        ),
+    )
     assert output.count("Footnote A") == 1
     assert output.count("Footnote B") == 1
     assert output.count("Top footnote") == 1
 
 
-def test_markdown_heading_level():
+def test_markdown_heading_level(ext_markdown):
     """Assert that Markdown headings' level doesn't exceed heading_level."""
-    with ext_markdown() as md:
-        output = md.convert("::: tests.fixtures.headings\n    rendering:\n      show_root_heading: true")
+    output = ext_markdown.convert("::: tests.fixtures.headings\n    rendering:\n      show_root_heading: true")
     assert ">Foo</h3>" in output
     assert ">Bar</h5>" in output
     assert ">Baz</h6>" in output
 
 
-def test_keeps_preceding_text():
+def test_keeps_preceding_text(ext_markdown):
     """Assert that autodoc is recognized in the middle of a block and preceding text is kept."""
-    with ext_markdown() as md:
-        output = md.convert("**preceding**\n::: tests.fixtures.headings")
+    output = ext_markdown.convert("**preceding**\n::: tests.fixtures.headings")
     assert "<strong>preceding</strong>" in output
     assert ">Foo</h2>" in output
     assert ":::" not in output
 
 
-def test_reference_inside_autodoc():
+def test_reference_inside_autodoc(ext_markdown):
     """Assert cross-reference Markdown extension works correctly."""
-    with ext_markdown() as md:
-        output = md.convert("::: tests.fixtures.cross_reference")
+    output = ext_markdown.convert("::: tests.fixtures.cross_reference")
     snippet = 'Link to <span data-mkdocstrings-identifier="something.Else">something.Else</span>.'
     assert snippet in output
 
 
-def test_html_inside_heading():
+def test_html_inside_heading(ext_markdown):
     """Assert that headings don't double-escape HTML."""
-    with ext_markdown() as md:
-        output = md.convert("::: tests.fixtures.builtin")
+    output = ext_markdown.convert("::: tests.fixtures.builtin")
     assert "=&lt;" in output
     assert "&amp;" not in output
 
 
 @pytest.mark.parametrize(
-    ("permalink_setting", "expect_permalink"),
+    ("ext_markdown", "expect_permalink"),
     [
-        ("@@@", "@@@"),
-        ("TeSt", "TeSt"),
-        (True, "&para;"),
+        ({"markdown_extensions": [{"toc": {"permalink": "@@@"}}]}, "@@@"),
+        ({"markdown_extensions": [{"toc": {"permalink": "TeSt"}}]}, "TeSt"),
+        ({"markdown_extensions": [{"toc": {"permalink": True}}]}, "&para;"),
     ],
+    indirect=["ext_markdown"],
 )
-def test_no_double_toc(permalink_setting, expect_permalink):
-    """
-    Assert that the 'toc' extension doesn't apply its modification twice.
+def test_no_double_toc(ext_markdown, expect_permalink):
+    """Assert that the 'toc' extension doesn't apply its modification twice."""
+    output = ext_markdown.convert(
+        dedent(
+            """
+            # aa
 
-    Arguments:
-        permalink_setting: The 'permalink' setting of 'toc' extension.
-        expect_permalink: Text of the permalink to search for in the output.
-    """
-    with ext_markdown(markdown_extensions=[{"toc": {"permalink": permalink_setting}}]) as md:
-        output = md.convert(
-            dedent(
-                """
-                # aa
+            ::: tests.fixtures.headings
+                rendering:
+                    show_root_toc_entry: false
 
-                ::: tests.fixtures.headings
-                    rendering:
-                        show_root_toc_entry: false
-
-                # bb
-                """
-            )
+            # bb
+            """
         )
+    )
     assert output.count(expect_permalink) == 5
     assert 'id="tests.fixtures.headings--foo"' in output
-    assert md.toc_tokens == [  # noqa: E1101 (the member gets populated only with 'toc' extension)
+    assert ext_markdown.toc_tokens == [  # noqa: E1101 (the member gets populated only with 'toc' extension)
         {
             "level": 1,
             "id": "aa",
