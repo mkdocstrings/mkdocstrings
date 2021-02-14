@@ -4,7 +4,8 @@ A handler is what makes it possible to collect and render documentation for a pa
 
 ## Available handlers
 
-- [Python](../python)
+- [Python](python.md)
+- <a class="external" href="https://mkdocstrings.github.io/crystal/">Crystal</a>
 
 ## Custom handlers
 
@@ -14,23 +15,13 @@ thanks to namespace packages. For more information about namespace packages,
 
 ### Packaging
 
-For MkDocstrings, a custom handler package would have the following structure:
+For *mkdocstrings*, a custom handler package would have the following structure:
 
 ```
 📁 your_repository
-└── 📁 mkdocstrings
-    └── 📁 handlers
-        └── 📄 custom_handler.py
-```
-
-Or with a `src` layout:
-
-```
-📁 your_repository
-└── 📁 src
-    └── 📁 mkdocstrings
-        └── 📁 handlers
-            └── 📄 custom_handler.py
+└─╴📁 mkdocstrings
+   └─╴📁 handlers
+      └─╴📄 custom_handler.py
 ```
 
 **Note the absence of `__init__.py` modules!**
@@ -89,22 +80,21 @@ your renderer.
 
 ### Usage
 
-When a custom handler is installed,
-it is then available to MkDocstrings.
+When a custom handler is installed, it is then available to *mkdocstrings*.
 You can configure it as usual:
 
-```yaml
-# mkdocs.yml
-plugins:
-- mkdocstrings:
-    handlers:
-      custom_handler:
-        selection:
-          some_config_option: "a"
-        rendering:
-          other_config_option: 0
-        handler_config_option: yes
-```
+!!! example "mkdocs.yml"
+    ```yaml
+    plugins:
+    - mkdocstrings:
+        handlers:
+          custom_handler:
+            selection:
+              some_config_option: "a"
+            rendering:
+              other_config_option: 0
+            handler_config_option: yes
+    ```
 
 ...and use it in your autodoc instructions:
 

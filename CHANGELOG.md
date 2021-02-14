@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 <small>[Compare with 0.13.6](https://github.com/pawamoy/mkdocstrings/compare/0.13.6...0.14.0)</small>
 
 Special thanks to Oleh [@oprypin](https://github.com/oprypin) Prypin who did an amazing job (this is a euphemism)
-at improving MkDocstrings, fixing hard-to-fix bugs with clever solutions, implementing great new features
+at improving *mkdocstrings*, fixing hard-to-fix bugs with clever solutions, implementing great new features
 and refactoring the code for better performance and readability! Thanks Oleh!
 
 ### Bug Fixes

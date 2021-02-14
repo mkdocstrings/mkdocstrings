@@ -116,7 +116,7 @@ in [Napoleon's documentation](https://sphinxcontrib-napoleon.readthedocs.io/en/l
 
 ##### Sections
 
-Docstrings sections are parsed by `pytkdocs` and rendered by MkDocstrings.
+Docstrings sections are parsed by `pytkdocs` and rendered by *mkdocstrings*.
 Supported sections are:
 
 - `Arguments` (or `Args`, `Parameters`, `Params`)
@@ -217,7 +217,7 @@ in [Sphinx's documentation](https://sphinx-rtd-tutorial.readthedocs.io/en/latest
 
 ##### Sections
 
-Docstrings directives are parsed by `pytkdocs` and rendered by MkDocstrings.
+Docstrings directives are parsed by `pytkdocs` and rendered by *mkdocstrings*.
 Supported directives are:
 
 - `param` (or `parameter`, `arg`, `argument`, `key`, `keyword`)
@@ -301,21 +301,21 @@ You may want to to generate documentation for a package while its dependencies a
 The Python handler provides itself no builtin way to mock libraries,
 but you can use the `setup_commands` to mock them manually:
 
-```yaml
-# mkdocs.yml
-plugins:
-  - mkdocstrings:
-      handlers:
-        python:
-          setup_commands:
-            - import sys
-            - from unittest.mock import MagicMock as mock
-            - sys.modules["lib1"] = mock()
-            - sys.modules["lib2"] = mock()
-            - sys.modules["lib2.module1"] = mock()
-            - sys.modules["lib2.module1.moduleB"] = mock()
-            # etc
-```
+!!! example "mkdocs.yml"
+    ```yaml
+    plugins:
+      - mkdocstrings:
+          handlers:
+            python:
+              setup_commands:
+                - import sys
+                - from unittest.mock import MagicMock as mock
+                - sys.modules["lib1"] = mock()
+                - sys.modules["lib2"] = mock()
+                - sys.modules["lib2.module1"] = mock()
+                - sys.modules["lib2.module1.moduleB"] = mock()
+                # etc
+    ```
 
 ## Recommended style (Material)
 

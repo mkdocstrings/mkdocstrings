@@ -2,19 +2,18 @@ site_name: "mkdocstrings"
 site_description: "Automatic documentation from sources, for MkDocs."
 site_url: "https://mkdocstrings.github.io/"
 repo_url: "https://github.com/mkdocstrings/mkdocstrings"
+edit_uri: "blob/master/docs/"
 repo_name: "mkdocstrings/mkdocstrings"
 
 nav:
-- Home:
-  - Overview: index.md
-  - Changelog: changelog.md
-  - Credits: credits.md
-  - License: license.md
+- Overview: index.md
 - Usage:
-  - Usage: usage.md
+  - usage.md
+  - Theming: theming.md
   - Handlers:
-    - Overview: handlers/overview.md
+    - handlers/overview.md
     - Python: handlers/python.md
+    - Crystal: https://mkdocstrings.github.io/crystal/
   - Troubleshooting: troubleshooting.md
 - Code Reference:
   - mkdocstrings:
@@ -26,23 +25,23 @@ nav:
   - mkdocs_autorefs:
     - references.py: reference/autorefs/references.md
     - plugin.py: reference/autorefs/plugin.md
-- Development:
-  - Contributing: contributing.md
+- Contributing:
+  - contributing.md
   - Code of Conduct: code_of_conduct.md
   - Coverage report: coverage.md
+- Changelog: changelog.md
+- Credits: credits.md
+- License: license.md
 
 theme:
   name: material
-  features:
-  - navigation.tabs
-  - navigation.expand
   palette:
     scheme: slate
     primary: teal
     accent: purple
 
 extra_css:
-- css/mkdocstrings.css
+- css/style.css
 
 markdown_extensions:
 - admonition
@@ -58,6 +57,7 @@ markdown_extensions:
 
 plugins:
 - search
+- section-index
 - coverage:
     html_report_dir: build/coverage
 - macros:
