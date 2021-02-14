@@ -34,8 +34,8 @@ from markdown.blockparser import BlockParser
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.treeprocessors import Treeprocessor
-
 from mkdocs_autorefs.plugin import AutorefsPlugin
+
 from mkdocstrings.handlers.base import CollectionError, CollectorItem, Handlers
 from mkdocstrings.loggers import get_logger
 

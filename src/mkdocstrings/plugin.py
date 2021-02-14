@@ -21,8 +21,8 @@ from mkdocs.config import Config
 from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
 from mkdocs.utils import write_file
-
 from mkdocs_autorefs.plugin import AutorefsPlugin
+
 from mkdocstrings.extension import MkdocstringsExtension
 from mkdocstrings.handlers.base import BaseHandler, Handlers
 from mkdocstrings.loggers import get_logger

@@ -12,10 +12,7 @@ readme = "README.md"
 repository = "https://github.com/pawamoy/mkdocstrings"
 homepage = "https://github.com/pawamoy/mkdocstrings"
 keywords = ["mkdocs", "mkdocs-plugin", "docstrings", "autodoc", "documentation"]
-packages = [
-    { include = "mkdocstrings", from = "src" },
-    { include = "mkdocs_autorefs", from = "src" }
-]
+packages = [ { include = "mkdocstrings", from = "src" } ]
 include = [
     "README.md",
     "pyproject.toml"
@@ -27,6 +24,7 @@ Jinja2 = "^2.11"
 Markdown = "^3.3"
 MarkupSafe = "^1.1"
 mkdocs = "^1.1"
+mkdocs-autorefs = { git = "https://github.com/mkdocstrings/autorefs.git" }
 pymdown-extensions = ">=6.3, <9.0"
 pytkdocs = ">=0.2.0, <0.11.0"
 
@@ -65,7 +63,6 @@ pep8-naming = "^0.11.1"
 
 [tool.poetry.plugins."mkdocs.plugins"]
 mkdocstrings = "mkdocstrings.plugin:MkdocstringsPlugin"
-autorefs = "mkdocs_autorefs.plugin:AutorefsPlugin"
 
 [tool.black]
 line-length = 120
