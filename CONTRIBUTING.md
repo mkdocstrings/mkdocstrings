@@ -36,7 +36,7 @@ Run `make help` to see all the available actions!
 
 ## Tasks
 
-This project uses [Duty](https://github.com/pawamoy/duty) to run tasks.
+This project uses [duty](https://github.com/pawamoy/duty) to run tasks.
 A Makefile is also provided. The Makefile will try to run certain tasks
 on multiple Python versions. If for some reason you don't want to run the task
 on multiple Python versions, you can do one of the following:
