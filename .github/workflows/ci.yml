@@ -45,7 +45,10 @@ jobs:
         poetry update
 
     - name: Check if the documentation builds correctly
-      run: poetry run duty check-docs
+      run: |
+        mkdir -p build/coverage
+        touch build/coverage/index.html
+        poetry run duty check-docs
 
     - name: Check the code quality
       run: poetry run duty check-code-quality
