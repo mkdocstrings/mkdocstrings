@@ -159,7 +159,7 @@ def check_code_quality(ctx, files=PY_SRC):
         ctx: The context instance (passed automatically).
         files: The files to check.
     """
-    ctx.run(f"flakehell lint {files}", title="Checking code quality", pty=PTY)
+    ctx.run(f"flake8 --config=config/flake8.ini {files}", title="Checking code quality", pty=PTY)
 
 
 @duty
