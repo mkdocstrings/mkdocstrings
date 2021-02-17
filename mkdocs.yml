@@ -20,6 +20,7 @@ nav:
   - mkdocstrings:
     - handlers:
       - base.py: reference/handlers/base.md
+      - rendering.py: reference/handlers/rendering.md
       - python.py: reference/handlers/python.md
     - extension.py: reference/extension.md
     - plugin.py: reference/plugin.md

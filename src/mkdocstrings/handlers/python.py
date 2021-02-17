@@ -7,6 +7,7 @@ The handler collects data with [`pytkdocs`](https://github.com/pawamoy/pytkdocs)
 import json
 import os
 import sys
+import traceback
 from collections import ChainMap
 from subprocess import PIPE, Popen  # noqa: S404 (what other option, more secure that PIPE do we have? sockets?)
 from typing import Any, List, Optional
@@ -211,15 +212,13 @@ class PythonCollector(BaseCollector):
         try:
             result = json.loads(stdout)
         except json.decoder.JSONDecodeError as exception:
-            log.error(f"Error while loading JSON: {stdout}")
-            raise CollectionError(str(exception)) from exception
+            error = "\n".join(("Error while loading JSON:", stdout, traceback.format_exc()))
+            raise CollectionError(error) from exception
 
         error = result.get("error")
         if error:
-            message = f"Collection failed: {error}"
             if "traceback" in result:
-                message += f"\n{result['traceback']}"
-            log.error(message)
+                error += f"\n{result['traceback']}"
             raise CollectionError(error)
 
         for loading_error in result["loading_errors"]:
