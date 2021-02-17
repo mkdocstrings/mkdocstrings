@@ -11,7 +11,7 @@ from duty import duty
 from git_changelog.build import Changelog, Version
 from jinja2.sandbox import SandboxedEnvironment
 
-PY_SRC_LIST = ("src/mkdocstrings", "src/mkdocs_autorefs", "tests", "duties.py", "docs/macros.py")
+PY_SRC_LIST = ("src/mkdocstrings", "tests", "duties.py", "docs/macros.py")
 PY_SRC = " ".join(PY_SRC_LIST)
 TESTING = os.environ.get("TESTING", "0") in {"1", "true"}
 CI = os.environ.get("CI", "0") in {"1", "true", "yes", ""}
@@ -214,8 +214,7 @@ def check_types(ctx):
     Arguments:
         ctx: The context instance (passed automatically).
     """
-    for f in PY_SRC_LIST:
-        ctx.run(f"mypy --config-file config/mypy.ini {f}", title="Type-checking", pty=PTY, progress=True)
+    ctx.run(f"mypy --config-file config/mypy.ini {PY_SRC}", title="Type-checking", pty=PTY, progress=True)
 
 
 @duty(silent=True)
