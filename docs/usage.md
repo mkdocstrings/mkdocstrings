@@ -2,14 +2,14 @@
 
 ## Autodoc syntax
 
-MkDocstrings works by processing special expressions in your Markdown files.
+*mkdocstrings* works by processing special expressions in your Markdown files.
 
 The syntax is as follows:
 
 ```md
 ::: identifier
     YAML block
-``` 
+```
 
 The `identifier` is a string identifying the object you want to document.
 The format of an identifier can vary from one handler to another.
@@ -30,13 +30,13 @@ The YAML block is optional, and contains some configuration options:
 
 Every handler accepts at least these two keys, `selection` and `rendering`,
 and some handlers accept additional keys.
-Check the documentation for your handler of interest in [Handlers](../handlers/overview).
+Check the documentation for your handler of interest in [Handlers](handlers/overview.md).
 
 !!! example "Example with the Python handler"
     === "docs/my_page.md"
         ```md
         # Documentation for `MyClass`
-        
+
         ::: my_package.my_module.MyClass
             handler: python
             selection:
@@ -47,31 +47,31 @@ Check the documentation for your handler of interest in [Handlers](../handlers/o
               show_root_heading: false
               show_source: false
         ```
-        
+
     === "mkdocs.yml"
         ```yaml
         nav:
           - "My page": my_page.md
         ```
-          
+
     === "src/my_package/my_module.py"
         ```python
         class MyClass:
             """Print print print!"""
-            
+
             def method_a(self):
                 """Print A!"""
                 print("A!")
-               
+
             def method_b(self):
                 """Print B!"""
                 print("B!")
-                
+
             def method_c(self):
                 """Print C!"""
                 print("C!")
         ```
-        
+
     === "Result"
         <h3 id="documentation-for-myclass" style="margin: 0;">Documentation for <code>MyClass</code></h3>
         <div><div><p>Print print print!</p><div><div>
@@ -101,34 +101,33 @@ The above is equivalent to:
       heading_level: 2
 ```
 
-
-
 ## Global options
 
-MkDocstrings accept a few top-level configuration options in `mkdocs.yml`:
+*mkdocstrings* accepts a few top-level configuration options in `mkdocs.yml`:
 
 - `watch`: a list of directories to watch while serving the documentation.
   See [Watch directories](#watch-directories).
 - `default_handler`: the handler that is used by default when no handler is specified.
 - `custom_templates`: the path to a directory containing custom templates.
   The path is relative to the docs directory.
-  See [Customization](#customization).
+  See [Theming](theming.md).
 - `handlers`: the handlers global configuration.
 
 Example:
 
-```yaml
-plugins:
-- mkdocstrings:
-    default_handler: python
-    handlers:
-      python:
-        rendering:
-          show_source: false  
-    custom_templates: templates
-    watch:
-      - src/my_package
-```
+!!! example "mkdocs.yml"
+    ```yaml
+    plugins:
+    - mkdocstrings:
+        default_handler: python
+        handlers:
+          python:
+            rendering:
+              show_source: false
+        custom_templates: templates
+        watch:
+          - src/my_package
+    ```
 
 The handlers global configuration can then be overridden by local configurations:
 
@@ -146,11 +145,11 @@ Cross-references are written as Markdown *reference-style* links:
     ```md
     With a custom title:
     [`Object 1`][full.path.object1]
-    
+
     With the identifier as title:
     [full.path.object2][]
     ```
-    
+
 === "HTML Result"
     ```html
     <p>With a custom title:
@@ -169,149 +168,62 @@ Web browser will show in the URL bar when clicking an item's entry in the table 
 If the URL is `https://example.com/some/page.html#full.path.object1` then you know that this item
 is possible to link to with `[example][full.path.object1]`, regardless of the current page.
 
-## Themes
+### Cross-references to any Markdown heading
 
-MkDocstrings can support multiple MkDocs themes.
-It currently supports supports the
-*[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)*
-theme and, partially, the built-in ReadTheDocs theme.
+If you want to link to *any* Markdown heading, not just *mkdocstrings*-inserted items, please
+enable the [*autorefs* plugin for *MkDocs*](https://github.com/mkdocstrings/autorefs) by adding
+`autorefs` to `plugins`:
 
-Each renderer can fallback to a particular theme when the user selected theme is not supported.
-For example, the Python renderer will fallback to the *Material for MkDocs* templates.
+!!! example "mkdocs.yml"
+    ```yaml hl_lines="4"
+    plugins:
+      - admonition
+      - search
+      - autorefs
+      - mkdocstrings:
+          [...]
+    ```
 
-## Customization
+Prior to *mkdocstrings* version 0.15 this was the default, but now opt-in is required.
 
-There is some degree of customization possible in MkDocstrings.
-First, you can write custom templates to override the theme templates.
-Second, the provided templates make use of CSS classes,
-so you can tweak the look and feel with extra CSS rules. 
+Note that you don't need to (`pip`) install anything more; this plugin is guaranteed to be pulled in with *mkdocstrings*.
 
-### Templates
 
-To use custom templates and override the theme ones,
-specify the relative path to your templates directory
-with the `custom_templates` global configuration option:
+!!! example
+    === "doc1.md"
+        ```md
+        ## Hello, world!
 
-```yaml
-# mkdocs.yml
-plugins:
-  - mkdocstrings:
-      custom_templates: templates
-```
-
-You directory structure must be identical to the provided templates one:
-
-```
-templates
-├── <HANDLER 1>
-│   ├── <THEME 1>
-│   └── <THEME 2>
-└── <HANDLER 2>
-    ├── <THEME 1>
-    └── <THEME 2>
-```
-
-(*[Check out the template tree on GitHub](https://github.com/pawamoy/mkdocstrings/tree/master/src/mkdocstrings/templates/)*)
-
-You don't have to replicate the whole tree,
-only the handlers, themes or templates you want to override.
-For example, to override some templates of the *Material* theme for Python:
-
-```
-templates
-└── python
-    └── material
-        ├── parameters.html
-        └── exceptions.html
-```
-
-In the HTML files, replace the original contents with your modified version.
-In the future, the templates will use Jinja blocks, so it will be easier
-to modify a small part of the template without copy-pasting the whole file.
-
-The *Material* theme provides the following template structure:
-
-- `children.html`: where the recursion happen, to render all children of an object
-    - `attribute.html`: to render attributes (class-attributes, etc.)
-    - `class.html`: to render classes
-    - `function.html`: to render functions
-    - `method.html`: to render methods
-    - `module.html`: to render modules
-- `docstring.html`: to render docstrings
-    - `attributes.html`: to render attributes sections of docstrings
-    - `examples.html`: to render examples sections of docstrings
-    - `exceptions.html`: to render exceptions/"raises" sections of docstrings
-    - `parameters.html`: to render parameters/arguments sections of docstrings
-    - `return.html`: to render "return" sections of docstrings
-- `properties.html`: to render the properties of an object (`staticmethod`, `read-only`, etc.)
-- `signature.html`: to render functions and methods signatures
-
-#### Debugging
-
-Every template has access to a `log` function, allowing to log messages as usual:
-
-```jinja
-{{ log.debug("A DEBUG message.") }}
-{{ log.info("An INFO message.") }}
-{{ log.warning("A WARNING message.") }}
-{{ log.error("An ERROR message.") }}
-{{ log.critical("A CRITICAL message.") }}
-```
-
-### CSS classes
-
-The *Material* theme uses the following CSS classes in the HTML:
-
-- `doc`: on all the following elements
-- `doc-children`: on `div`s containing the children of an object
-- `doc-object`: on `div`s containing an object
-    - `doc-attribute`: on `div`s containing an attribute 
-    - `doc-class`: on `div`s containing a class 
-    - `doc-function`: on `div`s containing a function 
-    - `doc-method`: on `div`s containing a method 
-    - `doc-module`: on `div`s containing a module 
-- `doc-heading`: on objects headings 
-- `doc-contents`: on `div`s wrapping the docstring then the children (if any)
-    - `first`: same, but only on the root object's contents `div`
-- `doc-properties`: on `span`s wrapping the object's properties
-    - `doc-property`: on `small` elements containing a property
-        - `doc-property-PROPERTY`: same, where `PROPERTY` is replaced by the actual property
-        
-!!! example "Example with colorful properties"
-    === "CSS"
-        ```css
-        .doc-property { border-radius: 15px; padding: 0 5px; }
-        .doc-property-special { background-color: blue; color: white; }
-        .doc-property-private { background-color: red; color: white; }
-        .doc-property-property { background-color: green; color: white; }
-        .doc-property-read-only { background-color: yellow; color: black; }
+        Testing
         ```
-        
-    === "Result"
-        <style>
-          .prop { border-radius: 15px; padding: 0 5px; }
-        </style>
-        <h3 style="margin: 0;"><span>
-            <small class="prop" style="background-color: blue; color: white !important;">special</small>
-            <small class="prop" style="background-color: red; color: white !important;">private</small>
-            <small class="prop" style="background-color: green; color: white !important;">property</small>
-            <small class="prop" style="background-color: yellow; color: black !important;">read-only</small>
-        </span></h3>
-        
-        As you can see, CSS is not my field of predilection...
+
+    === "doc2.md"
+        ```md
+        ## Something else
+
+        Please see the [Hello, World!][hello-world] section.
+        ```
+
+    === "Result HTML for doc2"
+        ```html
+        <p>Please see the <a href="doc1.html#hello-world">Hello, World!</a> section.</p>
+        ```
+
 
 ## Watch directories
 
 You can add directories to watch with the `watch` key.
 It accepts a list of paths.
 
-```yaml
-plugins:
-  - mkdocstrings:
-      watch:
-        - src/my_package_1
-        - src/my_package_2
-```
+!!! example "mkdocs.yml"
+    ```yaml
+    plugins:
+      - mkdocstrings:
+          watch:
+            - src/my_package_1
+            - src/my_package_2
+    ```
+
 When serving your documentation
 and a change occur in one of the listed path,
 MkDocs will rebuild the site and reload the current page.
@@ -321,4 +233,4 @@ MkDocs will rebuild the site and reload the current page.
     For example, it will not tell the Python handler to look for packages in these paths
     (the paths are not added to the `PYTHONPATH` variable).
     If you want to tell Python where to look for packages and modules,
-    see [Python Handler: Finding modules](../handlers/python/#finding-modules).
+    see [Python Handler: Finding modules](handlers/python.md#finding-modules).
