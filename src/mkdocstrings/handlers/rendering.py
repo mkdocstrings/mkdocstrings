@@ -62,6 +62,8 @@ class Highlighter(Highlight):
         Returns:
             The highlighted code as HTML text, marked safe (not escaped for HTML).
         """
+        if isinstance(src, Markup):
+            src = src.unescape()
         if dedent:
             src = textwrap.dedent(src)
 
