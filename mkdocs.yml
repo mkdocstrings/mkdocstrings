@@ -61,14 +61,11 @@ plugins:
 - search
 - gen-files:
     scripts:
+    - docs/gen_credits.py
     - docs/gen_doc_stubs.py
 - section-index
 - coverage:
     html_report_dir: build/coverage
-- macros:
-    module_name: docs/macros
-    j2_variable_start_string: "[["
-    j2_variable_end_string: "]]"
 - mkdocstrings:
     handlers:
       python:
