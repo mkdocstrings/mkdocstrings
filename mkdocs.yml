@@ -23,6 +23,7 @@ nav:
       - python.py: reference/handlers/python.md
     - extension.py: reference/extension.md
     - plugin.py: reference/plugin.md
+    - loggers.py: reference/loggers.md
   - mkdocs_autorefs:
     - references.py: reference/autorefs/references.md
     - plugin.py: reference/autorefs/plugin.md
@@ -58,6 +59,9 @@ markdown_extensions:
 
 plugins:
 - search
+- gen-files:
+    scripts:
+    - scripts/gen_doc_stubs.py
 - section-index
 - coverage:
     html_report_dir: build/coverage

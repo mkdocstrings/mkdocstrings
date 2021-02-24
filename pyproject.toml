@@ -44,6 +44,7 @@ isort = {version = "^5.7.0", extras = ["pyproject"]}
 jinja2-cli = "^0.7.0"
 mkdocs-coverage = "^0.2.1"
 mkdocs-macros-plugin = "^0.5.0"
+mkdocs-gen-files = {version = "^0.3.0", markers = "python_version>='3.7'"}
 mkdocs-material = "^6.2.7"
 mkdocs-section-index = "^0.2.3"
 mypy = "^0.782"
