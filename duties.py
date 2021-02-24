@@ -11,7 +11,7 @@ from duty import duty
 from git_changelog.build import Changelog, Version
 from jinja2.sandbox import SandboxedEnvironment
 
-PY_SRC_LIST = ("src/mkdocstrings", "tests", "duties.py", "docs/macros.py")
+PY_SRC_LIST = ("src/mkdocstrings", "tests", "duties.py", "docs")
 PY_SRC = " ".join(PY_SRC_LIST)
 TESTING = os.environ.get("TESTING", "0") in {"1", "true"}
 CI = os.environ.get("CI", "0") in {"1", "true", "yes", ""}

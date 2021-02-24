@@ -11,4 +11,4 @@ for path in Path("src", "mkdocstrings").glob("**/*.py"):
         ident = ".".join(path.relative_to("src").with_suffix("").parts)
         print("::: " + ident, file=f)
 
-    mkdocs_gen_files.set_edit_path(doc_path, Path('..', path))
+    mkdocs_gen_files.set_edit_path(doc_path, Path("..", path))
