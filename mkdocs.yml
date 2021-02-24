@@ -61,7 +61,7 @@ plugins:
 - search
 - gen-files:
     scripts:
-    - scripts/gen_doc_stubs.py
+    - docs/gen_doc_stubs.py
 - section-index
 - coverage:
     html_report_dir: build/coverage
