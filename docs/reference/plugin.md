@@ -1,1 +1,0 @@
-::: mkdocstrings.plugin
