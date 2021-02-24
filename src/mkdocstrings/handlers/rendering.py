@@ -15,7 +15,23 @@ from pymdownx.highlight import Highlight, HighlightExtension
 
 
 class Highlighter(Highlight):
-    """Code highlighter that tries to match the Markdown configuration."""
+    """Code highlighter that tries to match the Markdown configuration.
+
+    Picking up the global config and defaults works only if you use the `codehilite` or
+    `pymdownx.highlight` (recommended) Markdown extension.
+
+    -   If you use `pymdownx.highlight`, highlighting settings are picked up from it, and the
+        default CSS class is `.highlight`. This also means the default of `guess_lang: false`.
+
+    -   Otherwise, if you use the `codehilite` extension, settings are picked up from it, and the
+        default CSS class is `.codehilite`. Also consider setting `guess_lang: false`.
+
+    -   If neither are added to `markdown_extensions`, highlighting is enabled anyway. This is for
+        backwards compatibility. If you really want to disable highlighting even in *mkdocstrings*,
+        add one of these extensions anyway and set `use_pygments: false`.
+
+    The underlying implementation is `pymdownx.highlight` regardless.
+    """
 
     _highlight_config_keys = frozenset(
         "use_pygments guess_lang css_class pygments_style noclasses linenums language_prefix".split(),
@@ -41,7 +57,7 @@ class Highlighter(Highlight):
     def highlight(  # noqa: W0221 (intentionally different params, we're extending the functionality)
         self,
         src: str,
-        language: str = None,
+        language: Optional[str] = None,
         *,
         inline: bool = False,
         dedent: bool = True,

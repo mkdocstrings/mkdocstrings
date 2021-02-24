@@ -128,3 +128,14 @@ The *Material* theme uses the following CSS classes in the HTML:
         </span></h3>
 
         As you can see, CSS is not my field of predilection...
+
+### Syntax highlighting
+
+Code blocks that occur in the docstring of an item inserted with *mkdocstrings*, as well as code blocks (such as *Source code*) that *mkdocstrings* inserts itself, are syntax-highlighted according to the same rules as other normal code blocks in your document. See more details in [mkdocstrings.handlers.rendering.Highlighter][].
+
+As for the CSS class used for code blocks -- it will also match the "normal" config, so the default (`.codehilite` or `.highlight`) will match your chosen Markdown extension for highlighting.
+
+!!! important "Changed in version 0.15"
+    The CSS class used to always be `.highlight`, but now it depends on the configuration.
+
+Long story short, you probably should add `pymdownx.highlight` to your `markdown_extensions`, and then use `.doc-contents .highlight` as the CSS selector in case you want to change something about *mkdocstrings'* code blocks specifically.

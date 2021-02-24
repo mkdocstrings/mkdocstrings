@@ -163,12 +163,17 @@ Any item that was inserted using the [autodoc syntax](#autodoc-syntax)
 cross-reference syntax (`[example][full.path.object1]`).
 But the cross-references are also applicable to the items' children that get pulled in.
 
+#### Finding out the anchor
+
 If you're not sure which exact identifier a doc item uses, you can look at its "anchor", which your
 Web browser will show in the URL bar when clicking an item's entry in the table of contents.
 If the URL is `https://example.com/some/page.html#full.path.object1` then you know that this item
 is possible to link to with `[example][full.path.object1]`, regardless of the current page.
 
 ### Cross-references to any Markdown heading
+
+!!! important "Changed in version 0.15"
+    Linking to any Markdown heading used to be the default, but now opt-in is required.
 
 If you want to link to *any* Markdown heading, not just *mkdocstrings*-inserted items, please
 enable the [*autorefs* plugin for *MkDocs*](https://github.com/mkdocstrings/autorefs) by adding
@@ -183,8 +188,6 @@ enable the [*autorefs* plugin for *MkDocs*](https://github.com/mkdocstrings/auto
       - mkdocstrings:
           [...]
     ```
-
-Prior to *mkdocstrings* version 0.15 this was the default, but now opt-in is required.
 
 Note that you don't need to (`pip`) install anything more; this plugin is guaranteed to be pulled in with *mkdocstrings*.
 
@@ -208,6 +211,44 @@ Note that you don't need to (`pip`) install anything more; this plugin is guaran
         ```html
         <p>Please see the <a href="doc1.html#hello-world">Hello, World!</a> section.</p>
         ```
+
+### Cross-references to a sub-heading in a docstring
+
+!!! important "New in version 0.14"
+
+If you have a Markdown heading *inside* your docstring, you can also link directly to it.
+In the example below you see the identifier to be linked is `foo.bar--tips`, because it's the "Tips" heading that's part of the `foo.bar` object, joined with "`--`".
+
+!!! example
+    === "foo.py"
+        ```python
+        def bar():
+            """Hello, world!
+
+            # Tips
+
+            - Stay hydrated.
+            """
+        ```
+
+    === "doc1.md"
+        ```md
+        ::: foo.bar
+        ```
+
+    === "doc2.md"
+        ```md
+        Check out the [tips][foo.bar--tips]
+        ```
+
+    === "Result HTML for doc2"
+        ```html
+        <p>Check out the <a href="doc1.html#foo.bar--tips">tips</a></p>
+        ```
+
+The above tip about [Finding out the anchor](#finding-out-the-anchor) also applies the same way here.
+
+You may also notice that such a heading does not get rendered as a `<h1>` element directly, but rather the level gets shifted to fit the encompassing document structure. If you're curious about the implementation, check out [mkdocstrings.handlers.rendering.HeadingShiftingTreeprocessor][] and others.
 
 
 ## Watch directories
