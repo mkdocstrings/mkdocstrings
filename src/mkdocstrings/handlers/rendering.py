@@ -77,7 +77,7 @@ class Highlighter(Highlight):
             self.linenums = old_linenums
 
         if inline:
-            return Markup(f'<code class="highlight language-{language}">{result.text}</code>')
+            return Markup(f'<code class="{kwargs["css_class"]} language-{language}">{result.text}</code>')
         return Markup(result)
 
 
