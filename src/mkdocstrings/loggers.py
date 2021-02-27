@@ -15,8 +15,7 @@ class LoggerAdapter(logging.LoggerAdapter):
     """A logger adapter to prefix messages."""
 
     def __init__(self, prefix: str, logger):
-        """
-        Initialize the object.
+        """Initialize the object.
 
         Arguments:
             prefix: The string to insert in front of every message.
@@ -26,8 +25,7 @@ class LoggerAdapter(logging.LoggerAdapter):
         self.prefix = prefix
 
     def process(self, msg: str, kwargs) -> Tuple[str, Any]:
-        """
-        Process the message.
+        """Process the message.
 
         Arguments:
             msg: The message:
@@ -40,8 +38,7 @@ class LoggerAdapter(logging.LoggerAdapter):
 
 
 class TemplateLogger:
-    """
-    A wrapper class to allow logging in templates.
+    """A wrapper class to allow logging in templates.
 
     Attributes:
         debug: Function to log a DEBUG message.
@@ -52,8 +49,7 @@ class TemplateLogger:
     """
 
     def __init__(self, logger: LoggerAdapter):
-        """
-        Initialize the object.
+        """Initialize the object.
 
         Arguments:
             logger: A logger adapter.
@@ -66,8 +62,7 @@ class TemplateLogger:
 
 
 def get_template_logger_function(logger_func: Callable) -> Callable:
-    """
-    Create a wrapper function that automatically receives the Jinja template context.
+    """Create a wrapper function that automatically receives the Jinja template context.
 
     Arguments:
         logger_func: The logger function to use within the wrapper.
@@ -78,8 +73,7 @@ def get_template_logger_function(logger_func: Callable) -> Callable:
 
     @contextfunction
     def wrapper(context: Context, msg: Optional[str] = None) -> str:
-        """
-        Log a message.
+        """Log a message.
 
         Arguments:
             context: The template context, automatically provided by Jinja.
@@ -96,8 +90,7 @@ def get_template_logger_function(logger_func: Callable) -> Callable:
 
 
 def get_template_path(context: Context) -> str:
-    """
-    Return the path to the template currently using the given context.
+    """Return the path to the template currently using the given context.
 
     Arguments:
         context: The template context.
@@ -115,8 +108,7 @@ def get_template_path(context: Context) -> str:
 
 
 def get_logger(name: str) -> LoggerAdapter:
-    """
-    Return a pre-configured logger.
+    """Return a pre-configured logger.
 
     Arguments:
         name: The name to use with `logging.getLogger`.
@@ -130,8 +122,7 @@ def get_logger(name: str) -> LoggerAdapter:
 
 
 def get_template_logger() -> TemplateLogger:
-    """
-    Return a logger usable in templates.
+    """Return a logger usable in templates.
 
     Returns:
         A template logger.

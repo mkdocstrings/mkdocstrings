@@ -36,8 +36,7 @@ RENDERING_OPTS_KEY: str = "rendering"
 
 
 class MkdocstringsPlugin(BasePlugin):
-    """
-    An `mkdocs` plugin.
+    """An `mkdocs` plugin.
 
     This plugin defines the following event hooks:
 
@@ -95,8 +94,7 @@ class MkdocstringsPlugin(BasePlugin):
 
     @property
     def handlers(self) -> Handlers:
-        """
-        Get the instance of [mkdocstrings.handlers.base.Handlers][] for this plugin/build.
+        """Get the instance of [mkdocstrings.handlers.base.Handlers][] for this plugin/build.
 
         Raises:
             RuntimeError: If the plugin hasn't been initialized with a config.
@@ -109,8 +107,7 @@ class MkdocstringsPlugin(BasePlugin):
         return self._handlers
 
     def on_serve(self, server: Server, builder: Callable = None, **kwargs) -> Server:  # noqa: W0613 (unused arguments)
-        """
-        Watch directories.
+        """Watch directories.
 
         Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).
         In this hook, we add the directories specified in the plugin's configuration to the list of directories
@@ -135,8 +132,7 @@ class MkdocstringsPlugin(BasePlugin):
         return server
 
     def on_config(self, config: Config, **kwargs) -> Config:  # noqa: W0613 (unused arguments)
-        """
-        Instantiate our Markdown extension.
+        """Instantiate our Markdown extension.
 
         Hook for the [`on_config` event](https://www.mkdocs.org/user-guide/plugins/#on_config).
         In this hook, we instantiate our [`MkdocstringsExtension`][mkdocstrings.extension.MkdocstringsExtension]
@@ -189,8 +185,7 @@ class MkdocstringsPlugin(BasePlugin):
         return config
 
     def on_post_build(self, config: Config, **kwargs) -> None:  # noqa: W0613,R0201 (unused arguments, cannot be static)
-        """
-        Teardown the handlers.
+        """Teardown the handlers.
 
         Hook for the [`on_post_build` event](https://www.mkdocs.org/user-guide/plugins/#on_post_build).
         This hook is used to teardown all the handlers that were instantiated and cached during documentation buildup.
@@ -213,8 +208,7 @@ class MkdocstringsPlugin(BasePlugin):
             self._handlers.teardown()
 
     def get_handler(self, handler_name: str) -> BaseHandler:
-        """
-        Get a handler by its name. See [mkdocstrings.handlers.base.Handlers.get_handler][].
+        """Get a handler by its name. See [mkdocstrings.handlers.base.Handlers.get_handler][].
 
         Arguments:
             handler_name: The name of the handler.

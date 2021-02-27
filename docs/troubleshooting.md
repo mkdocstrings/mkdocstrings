@@ -214,8 +214,7 @@ You can use:
 import enum
 
 class MyEnum(enum.Enum):
-    """
-    My enum.
+    """My enum.
     
     Attributes:
         v1: The first choice.
