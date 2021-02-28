@@ -202,7 +202,7 @@ def check_docs(ctx):
         ctx: The context instance (passed automatically).
     """
     # mkdocs-gen-files works on 3.7+ only
-    nofail = sys.version.startswith("3.6")
+    nofail = sys.version_info < (3, 7)
     ctx.run("mkdocs build -s", title="Building documentation", pty=PTY, nofail=nofail, quiet=nofail)
 
 
