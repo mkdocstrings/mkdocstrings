@@ -1,5 +1,4 @@
-"""
-Base module for handlers.
+"""Base module for handlers.
 
 This module contains the base classes for implementing collectors, renderers, and the combination of the two: handlers.
 

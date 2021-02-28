@@ -1,5 +1,4 @@
-"""
-This module contains the "mkdocstrings" plugin for MkDocs.
+"""This module contains the "mkdocstrings" plugin for MkDocs.
 
 The plugin instantiates a Markdown extension ([`MkdocstringsExtension`][mkdocstrings.extension.MkdocstringsExtension]),
 and adds it to the list of Markdown extensions used by `mkdocs`

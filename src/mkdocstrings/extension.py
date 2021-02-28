@@ -1,5 +1,4 @@
-"""
-This module holds the code of the Markdown extension responsible for matching "autodoc" instructions.
+"""This module holds the code of the Markdown extension responsible for matching "autodoc" instructions.
 
 The extension is composed of a Markdown [block processor](https://python-markdown.github.io/extensions/api/#blockparser)
 that matches indented blocks starting with a line like '::: identifier'.

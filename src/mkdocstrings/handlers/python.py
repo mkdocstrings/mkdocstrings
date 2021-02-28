@@ -1,5 +1,4 @@
-"""
-This module implements a handler for the Python language.
+"""This module implements a handler for the Python language.
 
 The handler collects data with [`pytkdocs`](https://github.com/pawamoy/pytkdocs).
 """
