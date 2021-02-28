@@ -2355,10 +2355,11 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
 <li>Cross-linking to arbitrary headings now requires to opt-in to the <em>autorefs</em> plugin,
   which is installed as a dependency of <em>mkdocstrings</em>.
   See <a href="https://mkdocstrings.github.io/usage/#cross-references-to-any-markdown-heading">Cross-references to any Markdown heading</a>.</li>
-<li><em>mkdocstrings</em> now respects your code highlighting configured method,
-  so if you are using CodeHilite, the <code>highlight</code> CSS classes in the rendered HTML will be replaced by <code>codehilite</code>.
-  In that case make sure to replace <code>.highlight</code> by <code>.codehilite</code> in any extra CSS rule of yours.
+<li><em>mkdocstrings</em> now respects your configured code highlighting method,
+  so if you are using the CodeHilite extension, the <code>.highlight</code> CSS class in the rendered HTML will become <code>.codehilite</code>.
+  So make sure to adapt your extra CSS accordingly. Or just switch to using <a href="https://facelessuser.github.io/pymdown-extensions/extensions/highlight/">pymdownx.highlight</a>, it's better supported by <em>mkdocstrings</em> anyway.
   See <a href="https://mkdocstrings.github.io/theming/#syntax-highlighting">Syntax highlighting</a>.</li>
+<li>Most of the <a href="https://mkdocstrings.github.io/handlers/python/#recommended-style-material">CSS rules that <em>mkdocstrings</em> used to recommend</a> for manual addition, now become mandatory (auto-injected into the site). This shouldn't <em>break</em> any of your styles, but you are welcome to remove the now-redundant lines that you had copied into <code>extra_css</code>, <a href="https://github.com/mkdocstrings/mkdocstrings/pull/218/files#diff-7889a1924c66ff9318f1d81c4a3b75658d09bebf0db3b2e4023ba3e40294eb73">similarly to this diff</a>.</li>
 </ul>
 <h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">¤</a></h3>
 <ul>
