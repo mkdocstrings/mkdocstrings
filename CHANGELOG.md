@@ -16,10 +16,11 @@ The following two items are *possible* breaking changes:
 - Cross-linking to arbitrary headings now requires to opt-in to the *autorefs* plugin,
   which is installed as a dependency of *mkdocstrings*.
   See [Cross-references to any Markdown heading](https://mkdocstrings.github.io/usage/#cross-references-to-any-markdown-heading).
-- *mkdocstrings* now respects your code highlighting configured method,
-  so if you are using CodeHilite, the `highlight` CSS classes in the rendered HTML will be replaced by `codehilite`.
-  In that case make sure to replace `.highlight` by `.codehilite` in any extra CSS rule of yours.
+- *mkdocstrings* now respects your configured code highlighting method,
+  so if you are using the CodeHilite extension, the `.highlight` CSS class in the rendered HTML will become `.codehilite`.
+  So make sure to adapt your extra CSS accordingly. Or just switch to using [pymdownx.highlight](https://facelessuser.github.io/pymdown-extensions/extensions/highlight/), it's better supported by *mkdocstrings* anyway.
   See [Syntax highlighting](https://mkdocstrings.github.io/theming/#syntax-highlighting).
+- Most of the [CSS rules that *mkdocstrings* used to recommend](https://mkdocstrings.github.io/handlers/python/#recommended-style-material) for manual addition, now become mandatory (auto-injected into the site). This shouldn't *break* any of your styles, but you are welcome to remove the now-redundant lines that you had copied into `extra_css`, [similarly to this diff](https://github.com/mkdocstrings/mkdocstrings/pull/218/files#diff-7889a1924c66ff9318f1d81c4a3b75658d09bebf0db3b2e4023ba3e40294eb73).
 
 ### Features
 - Nicer-looking error outputs - no tracebacks from mkdocstrings ([6baf720](https://github.com/mkdocstrings/mkdocstrings/commit/6baf720850d359ddb55713553a757fe7b2283e10) by Oleh Prypin). [PR #230](https://github.com/mkdocstrings/mkdocstrings/pull/230)
