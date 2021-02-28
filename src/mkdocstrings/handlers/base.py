@@ -1,5 +1,4 @@
-"""
-Base module for handlers.
+"""Base module for handlers.
 
 This module contains the base classes for implementing collectors, renderers, and the combination of the two: handlers.
 
@@ -41,8 +40,7 @@ class ThemeNotSupported(Exception):
 
 
 def do_any(seq: Sequence, attribute: str = None) -> bool:
-    """
-    Check if at least one of the item in the sequence evaluates to true.
+    """Check if at least one of the item in the sequence evaluates to true.
 
     The `any` builtin as a filter for Jinja templates.
 
@@ -59,8 +57,7 @@ def do_any(seq: Sequence, attribute: str = None) -> bool:
 
 
 class BaseRenderer(ABC):
-    """
-    The base renderer class.
+    """The base renderer class.
 
     Inherit from this class to implement a renderer.
 
@@ -76,8 +73,7 @@ class BaseRenderer(ABC):
     extra_css = ""
 
     def __init__(self, directory: str, theme: str, custom_templates: Optional[str] = None) -> None:
-        """
-        Initialize the object.
+        """Initialize the object.
 
         If the given theme is not supported (it does not exist), it will look for a `fallback_theme` attribute
         in `self` to use as a fallback theme.
@@ -118,8 +114,7 @@ class BaseRenderer(ABC):
 
     @abstractmethod
     def render(self, data: CollectorItem, config: dict) -> str:
-        """
-        Render a template using provided data and configuration options.
+        """Render a template using provided data and configuration options.
 
         Arguments:
             data: The collected data to render.
@@ -130,8 +125,7 @@ class BaseRenderer(ABC):
         """  # noqa: DAR202 (excess return section)
 
     def get_anchor(self, data: CollectorItem) -> Optional[str]:
-        """
-        Return the canonical identifier (HTML anchor) for a collected item.
+        """Return the canonical identifier (HTML anchor) for a collected item.
 
         This must match what the renderer would've actually rendered,
         e.g. if rendering the item contains `<h2 id="foo">...` then the return value should be "foo".
@@ -144,8 +138,7 @@ class BaseRenderer(ABC):
         """  # noqa: DAR202 (excess return section)
 
     def do_convert_markdown(self, text: str, heading_level: int, html_id: str = "") -> Markup:
-        """
-        Render Markdown text; for use inside templates.
+        """Render Markdown text; for use inside templates.
 
         Arguments:
             text: The text to convert.
@@ -174,8 +167,7 @@ class BaseRenderer(ABC):
         toc_label: Optional[str] = None,
         **attributes: str,
     ) -> Markup:
-        """
-        Render an HTML heading and register it for the table of contents. For use inside templates.
+        """Render an HTML heading and register it for the table of contents. For use inside templates.
 
         Arguments:
             content: The HTML within the heading.
@@ -219,8 +211,7 @@ class BaseRenderer(ABC):
         return Markup(html)
 
     def get_headings(self) -> Sequence[Element]:
-        """
-        Return and clear the headings gathered so far.
+        """Return and clear the headings gathered so far.
 
         Returns:
             A list of HTML elements.
@@ -230,8 +221,7 @@ class BaseRenderer(ABC):
         return result
 
     def update_env(self, md: Markdown, config: dict) -> None:  # noqa: W0613 (unused argument 'config')
-        """
-        Update the Jinja environment.
+        """Update the Jinja environment.
 
         Arguments:
             md: The Markdown instance. Useful to add functions able to convert Markdown into the environment filters.
@@ -255,8 +245,7 @@ class BaseRenderer(ABC):
 
 
 class BaseCollector(ABC):
-    """
-    The base collector class.
+    """The base collector class.
 
     Inherit from this class to implement a collector.
 
@@ -266,8 +255,7 @@ class BaseCollector(ABC):
 
     @abstractmethod
     def collect(self, identifier: str, config: dict) -> CollectorItem:
-        """
-        Collect data given an identifier and selection configuration.
+        """Collect data given an identifier and selection configuration.
 
         In the implementation, you typically call a subprocess that returns JSON, and load that JSON again into
         a Python dictionary for example, though the implementation is completely free.
@@ -284,8 +272,7 @@ class BaseCollector(ABC):
         """  # noqa: DAR202 (excess return section)
 
     def teardown(self) -> None:
-        """
-        Teardown the collector.
+        """Teardown the collector.
 
         This method should be implemented to, for example, terminate a subprocess
         that was started when creating the collector instance.
@@ -293,8 +280,7 @@ class BaseCollector(ABC):
 
 
 class BaseHandler:
-    """
-    The base handler class.
+    """The base handler class.
 
     Inherit from this class to implement a handler.
 
@@ -302,8 +288,7 @@ class BaseHandler:
     """
 
     def __init__(self, collector: BaseCollector, renderer: BaseRenderer) -> None:
-        """
-        Initialize the object.
+        """Initialize the object.
 
         Arguments:
             collector: A collector instance.
@@ -314,16 +299,14 @@ class BaseHandler:
 
 
 class Handlers:
-    """
-    A collection of handlers.
+    """A collection of handlers.
 
     Do not instantiate this directly. [The plugin][mkdocstrings.plugin.MkdocstringsPlugin] will keep one instance of
     this for the purpose of caching. Use [mkdocstrings.plugin.MkdocstringsPlugin.get_handler][] for convenient access.
     """
 
     def __init__(self, config: dict) -> None:
-        """
-        Initialize the object.
+        """Initialize the object.
 
         Arguments:
             config: Configuration options for `mkdocs` and `mkdocstrings`, read from `mkdocs.yml`. See the source code
@@ -333,8 +316,7 @@ class Handlers:
         self._handlers: Dict[str, BaseHandler] = {}
 
     def get_anchor(self, identifier: str) -> Optional[str]:
-        """
-        Return the canonical HTML anchor for the identifier, if any of the seen handlers can collect it.
+        """Return the canonical HTML anchor for the identifier, if any of the seen handlers can collect it.
 
         Arguments:
             identifier: The identifier (one that [collect][mkdocstrings.handlers.base.BaseCollector.collect] can accept).
@@ -353,8 +335,7 @@ class Handlers:
         return None
 
     def get_handler_name(self, config: dict) -> str:
-        """
-        Return the handler name defined in an "autodoc" instruction YAML configuration, or the global default handler.
+        """Return the handler name defined in an "autodoc" instruction YAML configuration, or the global default handler.
 
         Arguments:
             config: A configuration dictionary, obtained from YAML below the "autodoc" instruction.
@@ -368,8 +349,7 @@ class Handlers:
         return config["default_handler"]
 
     def get_handler_config(self, name: str) -> dict:
-        """
-        Return the global configuration of the given handler.
+        """Return the global configuration of the given handler.
 
         Arguments:
             name: The name of the handler to get the global configuration of.
@@ -383,8 +363,7 @@ class Handlers:
         return {}
 
     def get_handler(self, name: str, handler_config: Optional[dict] = None) -> BaseHandler:
-        """
-        Get a handler thanks to its name.
+        """Get a handler thanks to its name.
 
         This function dynamically imports a module named "mkdocstrings.handlers.NAME", calls its
         `get_handler` method to get an instance of a handler, and caches it in dictionary.
@@ -412,8 +391,7 @@ class Handlers:
 
     @property
     def seen_handlers(self) -> Iterable[BaseHandler]:
-        """
-        Get the handlers that were encountered so far throughout the build.
+        """Get the handlers that were encountered so far throughout the build.
 
         Returns:
             An iterable of instances of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler]

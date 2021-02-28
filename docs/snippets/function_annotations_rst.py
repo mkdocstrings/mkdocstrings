@@ -2,8 +2,7 @@ from typing import Optional
 
 
 def my_function(param1: int, param2: Optional[str] = None) -> str:
-    """
-    A short description of this function.
+    """A short description of this function.
 
     Complex markup is supported in the main description section.
 

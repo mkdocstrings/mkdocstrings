@@ -1,5 +1,4 @@
-"""
-This module implements a handler for the Python language.
+"""This module implements a handler for the Python language.
 
 The handler collects data with [`pytkdocs`](https://github.com/pawamoy/pytkdocs).
 """
@@ -21,8 +20,7 @@ log = get_logger(__name__)
 
 
 class PythonRenderer(BaseRenderer):
-    """
-    The class responsible for loading Jinja templates and rendering them.
+    """The class responsible for loading Jinja templates and rendering them.
 
     It defines some configuration options, implements the `render` method,
     and overrides the `update_env` method of the [`BaseRenderer` class][mkdocstrings.handlers.base.BaseRenderer].
@@ -48,8 +46,7 @@ class PythonRenderer(BaseRenderer):
         "group_by_category": True,
         "heading_level": 2,
     }
-    """
-    The default rendering options.
+    """The default rendering options.
 
     Option | Type | Description | Default
     ------ | ---- | ----------- | -------
@@ -91,16 +88,14 @@ class PythonRenderer(BaseRenderer):
 
 
 class PythonCollector(BaseCollector):
-    """
-    The class responsible for loading Jinja templates and rendering them.
+    """The class responsible for loading Jinja templates and rendering them.
 
     It defines some configuration options, implements the `render` method,
     and overrides the `update_env` method of the [`BaseRenderer` class][mkdocstrings.handlers.base.BaseRenderer].
     """
 
     default_config: dict = {"filters": ["!^_[^_]"]}
-    """
-    The default selection options.
+    """The default selection options.
 
     Option | Type | Description | Default
     ------ | ---- | ----------- | -------
@@ -123,8 +118,7 @@ class PythonCollector(BaseCollector):
     """
 
     def __init__(self, setup_commands: Optional[List[str]] = None) -> None:
-        """
-        Initialize the object.
+        """Initialize the object.
 
         When instantiating a Python collector, we open a subprocess in the background with `subprocess.Popen`.
         It will allow us to feed input to and read output from this subprocess, keeping it alive during
@@ -166,8 +160,7 @@ class PythonCollector(BaseCollector):
         )
 
     def collect(self, identifier: str, config: dict) -> CollectorItem:
-        """
-        Collect the documentation tree given an identifier and selection options.
+        """Collect the documentation tree given an identifier and selection options.
 
         In this method, we feed one line of JSON to the standard input of the subprocess that was opened
         during instantiation of the collector. Then we read one line of JSON on its standard output.
@@ -252,8 +245,7 @@ def get_handler(
     setup_commands: Optional[List[str]] = None,
     **config: Any,
 ) -> PythonHandler:
-    """
-    Simply return an instance of `PythonHandler`.
+    """Simply return an instance of `PythonHandler`.
 
     Arguments:
         theme: The theme to use when rendering contents.
@@ -271,8 +263,7 @@ def get_handler(
 
 
 def rebuild_category_lists(obj: dict) -> None:
-    """
-    Recursively rebuild the category lists of a collected object.
+    """Recursively rebuild the category lists of a collected object.
 
     Since `pytkdocs` dumps JSON on standard output, it must serialize the object-tree and flatten it to reduce data
     duplication and avoid cycle-references. Indeed, each node of the object-tree has a `children` list, containing

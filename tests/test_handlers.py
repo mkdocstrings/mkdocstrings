@@ -8,8 +8,7 @@ from mkdocstrings.handlers.base import Highlighter
 
 @pytest.mark.parametrize("extension_name", ["codehilite", "pymdownx.highlight"])
 def test_highlighter_without_pygments(extension_name):
-    """
-    Assert that it's possible to disable Pygments highlighting.
+    """Assert that it's possible to disable Pygments highlighting.
 
     Arguments:
         extension_name: The "user-chosen" Markdown extension for syntax highlighting.
@@ -30,8 +29,7 @@ def test_highlighter_without_pygments(extension_name):
 @pytest.mark.parametrize("extension_name", [None, "codehilite", "pymdownx.highlight"])
 @pytest.mark.parametrize("inline", [False, True])
 def test_highlighter_basic(extension_name, inline):
-    """
-    Assert that Pygments syntax highlighting works.
+    """Assert that Pygments syntax highlighting works.
 
     Arguments:
         extension_name: The "user-chosen" Markdown extension for syntax highlighting.

@@ -64,8 +64,7 @@ class Highlighter(Highlight):
         linenums: Optional[bool] = None,
         **kwargs,
     ) -> str:
-        """
-        Highlight a code-snippet.
+        """Highlight a code-snippet.
 
         Arguments:
             src: The code to highlight.

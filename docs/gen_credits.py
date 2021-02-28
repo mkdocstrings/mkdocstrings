@@ -11,8 +11,7 @@ from pip._internal.commands.show import search_packages_info  # noqa: WPS436 (no
 
 
 def get_credits_data() -> dict:
-    """
-    Return data used to generate the credits file.
+    """Return data used to generate the credits file.
 
     Returns:
         Data required to render the credits template.
@@ -50,8 +49,7 @@ def get_credits_data() -> dict:
 
 @functools.lru_cache(maxsize=None)
 def get_credits():
-    """
-    Return credits as Markdown.
+    """Return credits as Markdown.
 
     Returns:
         The credits page Markdown.

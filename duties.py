@@ -20,8 +20,7 @@ PTY = not WINDOWS and not CI
 
 
 def latest(lines: List[str], regex: Pattern) -> Optional[str]:
-    """
-    Return the last released version.
+    """Return the last released version.
 
     Arguments:
         lines: Lines of the changelog file.
@@ -38,8 +37,7 @@ def latest(lines: List[str], regex: Pattern) -> Optional[str]:
 
 
 def unreleased(versions: List[Version], last_release: str) -> List[Version]:
-    """
-    Return the most recent versions down to latest release.
+    """Return the most recent versions down to latest release.
 
     Arguments:
         versions: All the versions (released and unreleased).
@@ -55,8 +53,7 @@ def unreleased(versions: List[Version], last_release: str) -> List[Version]:
 
 
 def read_changelog(filepath: str) -> List[str]:
-    """
-    Read the changelog file.
+    """Read the changelog file.
 
     Arguments:
         filepath: The path to the changelog file.
@@ -69,8 +66,7 @@ def read_changelog(filepath: str) -> List[str]:
 
 
 def write_changelog(filepath: str, lines: List[str]) -> None:
-    """
-    Write the changelog file.
+    """Write the changelog file.
 
     Arguments:
         filepath: The path to the changelog file.
@@ -87,8 +83,7 @@ def update_changelog(
     template_url: str,
     commit_style: str,
 ) -> None:
-    """
-    Update the given changelog file in place.
+    """Update the given changelog file in place.
 
     Arguments:
         inplace_file: The file to update in-place.
@@ -120,8 +115,7 @@ def update_changelog(
 
 @duty
 def changelog(ctx):
-    """
-    Update the changelog in-place with latest commits.
+    """Update the changelog in-place with latest commits.
 
     Arguments:
         ctx: The context instance (passed automatically).
@@ -142,8 +136,7 @@ def changelog(ctx):
 
 @duty(pre=["check_code_quality", "check_types", "check_docs", "check_dependencies"])
 def check(ctx):  # noqa: W0613 (no use for the context argument)
-    """
-    Check it all!
+    """Check it all!
 
     Arguments:
         ctx: The context instance (passed automatically).
@@ -152,8 +145,7 @@ def check(ctx):  # noqa: W0613 (no use for the context argument)
 
 @duty
 def check_code_quality(ctx, files=PY_SRC):
-    """
-    Check the code quality.
+    """Check the code quality.
 
     Arguments:
         ctx: The context instance (passed automatically).
@@ -164,8 +156,7 @@ def check_code_quality(ctx, files=PY_SRC):
 
 @duty
 def check_dependencies(ctx):
-    """
-    Check for vulnerabilities in dependencies.
+    """Check for vulnerabilities in dependencies.
 
     Arguments:
         ctx: The context instance (passed automatically).
@@ -195,8 +186,7 @@ def check_dependencies(ctx):
 
 @duty
 def check_docs(ctx):
-    """
-    Check if the documentation builds correctly.
+    """Check if the documentation builds correctly.
 
     Arguments:
         ctx: The context instance (passed automatically).
@@ -208,8 +198,7 @@ def check_docs(ctx):
 
 @duty
 def check_types(ctx):
-    """
-    Check that the code is correctly typed.
+    """Check that the code is correctly typed.
 
     Arguments:
         ctx: The context instance (passed automatically).
@@ -219,8 +208,7 @@ def check_types(ctx):
 
 @duty(silent=True)
 def clean(ctx):
-    """
-    Delete temporary files.
+    """Delete temporary files.
 
     Arguments:
         ctx: The context instance (passed automatically).
@@ -238,8 +226,7 @@ def clean(ctx):
 
 @duty
 def docs(ctx):
-    """
-    Build the documentation locally.
+    """Build the documentation locally.
 
     Arguments:
         ctx: The context instance (passed automatically).
@@ -249,8 +236,7 @@ def docs(ctx):
 
 @duty
 def docs_serve(ctx, host="127.0.0.1", port=8000):
-    """
-    Serve the documentation (localhost:8000).
+    """Serve the documentation (localhost:8000).
 
     Arguments:
         ctx: The context instance (passed automatically).
@@ -262,8 +248,7 @@ def docs_serve(ctx, host="127.0.0.1", port=8000):
 
 @duty
 def docs_deploy(ctx):
-    """
-    Deploy the documentation on GitHub pages.
+    """Deploy the documentation on GitHub pages.
 
     Arguments:
         ctx: The context instance (passed automatically).
@@ -274,8 +259,7 @@ def docs_deploy(ctx):
 
 @duty
 def format(ctx):  # noqa: W0622 (we don't mind shadowing the format builtin)
-    """
-    Run formatting tools on the code.
+    """Run formatting tools on the code.
 
     Arguments:
         ctx: The context instance (passed automatically).
@@ -291,8 +275,7 @@ def format(ctx):  # noqa: W0622 (we don't mind shadowing the format builtin)
 
 @duty
 def release(ctx, version):
-    """
-    Release a new Python package.
+    """Release a new Python package.
 
     Arguments:
         ctx: The context instance (passed automatically).
@@ -312,8 +295,7 @@ def release(ctx, version):
 
 @duty(silent=True)
 def coverage(ctx):
-    """
-    Report coverage as text and HTML.
+    """Report coverage as text and HTML.
 
     Arguments:
         ctx: The context instance (passed automatically).
@@ -324,8 +306,7 @@ def coverage(ctx):
 
 @duty
 def test(ctx, cleancov: bool = True, match: str = ""):
-    """
-    Run the test suite.
+    """Run the test suite.
 
     Arguments:
         ctx: The context instance (passed automatically).

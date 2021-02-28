@@ -1,5 +1,4 @@
-"""
-This module holds the code of the Markdown extension responsible for matching "autodoc" instructions.
+"""This module holds the code of the Markdown extension responsible for matching "autodoc" instructions.
 
 The extension is composed of a Markdown [block processor](https://python-markdown.github.io/extensions/api/#blockparser)
 that matches indented blocks starting with a line like '::: identifier'.
@@ -49,8 +48,7 @@ log = get_logger(__name__)
 
 
 class AutoDocProcessor(BlockProcessor):
-    """
-    Our "autodoc" Markdown block processor.
+    """Our "autodoc" Markdown block processor.
 
     It has a [`test` method][mkdocstrings.extension.AutoDocProcessor.test] that tells if a block matches a criterion,
     and a [`run` method][mkdocstrings.extension.AutoDocProcessor.run] that processes it.
@@ -64,8 +62,7 @@ class AutoDocProcessor(BlockProcessor):
     def __init__(
         self, parser: BlockParser, md: Markdown, config: dict, handlers: Handlers, autorefs: AutorefsPlugin
     ) -> None:
-        """
-        Initialize the object.
+        """Initialize the object.
 
         Arguments:
             parser: A `markdown.blockparser.BlockParser` instance.
@@ -83,8 +80,7 @@ class AutoDocProcessor(BlockProcessor):
         self._updated_env = False
 
     def test(self, parent: Element, block: str) -> bool:
-        """
-        Match our autodoc instructions.
+        """Match our autodoc instructions.
 
         Arguments:
             parent: The parent element in the XML tree.
@@ -96,8 +92,7 @@ class AutoDocProcessor(BlockProcessor):
         return bool(self.regex.search(block))
 
     def run(self, parent: Element, blocks: MutableSequence[str]) -> None:
-        """
-        Run code on the matched blocks.
+        """Run code on the matched blocks.
 
         The identifier and configuration lines are retrieved from a matched block
         and used to collect and render an object.
@@ -141,8 +136,7 @@ class AutoDocProcessor(BlockProcessor):
             blocks.insert(0, the_rest)
 
     def _process_block(self, identifier: str, yaml_block: str, heading_level: int = 0) -> Tuple[str, Sequence[Element]]:
-        """
-        Process an autodoc block.
+        """Process an autodoc block.
 
         Arguments:
             identifier: The identifier of the object to collect and render.
@@ -195,8 +189,7 @@ class AutoDocProcessor(BlockProcessor):
 
 
 def get_item_configs(handler_config: dict, config: dict) -> Tuple[Mapping, Mapping]:
-    """
-    Get the selection and rendering configuration merged into the global configuration of the given handler.
+    """Get the selection and rendering configuration merged into the global configuration of the given handler.
 
     Arguments:
         handler_config: The global configuration of a handler. It can be an empty dictionary.
@@ -226,15 +219,13 @@ class _PostProcessor(Treeprocessor):
 
 
 class MkdocstringsExtension(Extension):
-    """
-    Our Markdown extension.
+    """Our Markdown extension.
 
     It cannot work outside of `mkdocstrings`.
     """
 
     def __init__(self, config: dict, handlers: Handlers, autorefs: AutorefsPlugin, **kwargs) -> None:
-        """
-        Initialize the object.
+        """Initialize the object.
 
         Arguments:
             config: The configuration items from `mkdocs` and `mkdocstrings` that must be passed to the block processor
@@ -249,8 +240,7 @@ class MkdocstringsExtension(Extension):
         self._autorefs = autorefs
 
     def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
-        """
-        Register the extension.
+        """Register the extension.
 
         Add an instance of our [`AutoDocProcessor`][mkdocstrings.extension.AutoDocProcessor] to the Markdown parser.
 
