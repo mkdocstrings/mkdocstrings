@@ -1,7 +1,4 @@
 
-
-
-
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -12,11 +9,12 @@
         <meta name="description" content="Automatic documentation from sources, for MkDocs.">
       
       
+      
+      
         <link rel="canonical" href="https://mkdocstrings.github.io/">
       
-      
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
     
     
       
@@ -24,20 +22,22 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.d3202873.min.css">
-      
-        <link rel="stylesheet" href="assets/stylesheets/palette.ff0a5ce4.min.css">
-      
+      <link rel="stylesheet" href="assets/stylesheets/main.cb6bc1d0.min.css">
       
         
+        <link rel="stylesheet" href="assets/stylesheets/palette.39b8e14a.min.css">
         
-        <meta name="theme-color" content="#009485">
+          
+          
+          <meta name="theme-color" content="#009485">
+        
       
     
     
     
       
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
@@ -46,7 +46,7 @@
     
       <link rel="stylesheet" href="assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="css/mkdocstrings.css">
+      <link rel="stylesheet" href="css/style.css">
     
     
       
@@ -58,7 +58,10 @@
     
     
     
+    
+    
     <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="purple">
+      
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -76,7 +79,9 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://mkdocstrings.github.io/" title="mkdocstrings" class="md-header-nav__button md-logo" aria-label="mkdocstrings">
       
@@ -88,18 +93,20 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
     <div class="md-header-nav__title" data-md-component="header-title">
-      
-        <div class="md-header-nav__ellipsis">
-          <span class="md-header-nav__topic md-ellipsis">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             mkdocstrings
           </span>
-          <span class="md-header-nav__topic md-ellipsis">
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             
               Overview
             
           </span>
         </div>
-      
+      </div>
     </div>
     
       <label class="md-header-nav__button md-icon" for="__search">
@@ -110,7 +117,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
@@ -151,8 +158,6 @@
     
     <div class="md-container" data-md-component="container">
       
-        
-      
       
         
       
@@ -160,10 +165,16 @@
         <div class="md-main__inner md-grid">
           
             
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="https://mkdocstrings.github.io/" title="mkdocstrings" class="md-nav__button md-logo" aria-label="mkdocstrings">
       
@@ -194,25 +205,29 @@
       
 
   
-
-
-  <li class="md-nav__item md-nav__item--active">
+  
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
       
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Overview
+          
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
         Overview
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-    
-    <a href="." title="Overview" class="md-nav__link md-nav__link--active">
-      Overview
-    </a>
-    
+      </a>
       
+        
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -276,318 +291,473 @@
     </ul>
   
 </nav>
-    
-  </li>
+      
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item">
-    <a href="usage/" title="Usage" class="md-nav__link">
-      Usage
-    </a>
-  </li>
-
+  
+  
+  
     
+    <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
       
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
-    
-    <label class="md-nav__link" for="nav-3">
-      Handlers
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Handlers" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
+      <label class="md-nav__link" for="nav-2">
         <span class="md-nav__icon md-icon"></span>
-        Handlers
+        
+          <a href="usage/" class="md-nav__link"
+            style="margin: initial; padding: initial; pointer-events: initial">
+        
+          Usage
+        </a>
       </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+      <nav class="md-nav" aria-label="Usage" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            <a href="usage/" class="md-nav__link"
+              style="margin: initial; padding: initial; pointer-events: initial">
+          
+            Usage
+          </a>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="theming/" class="md-nav__link">
+        Theming
+      </a>
+    </li>
+  
+
           
-
-
-  <li class="md-nav__item">
-    <a href="handlers/overview/" title="Overview" class="md-nav__link">
-      Overview
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="handlers/python/" title="Python" class="md-nav__link">
-      Python
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
+            
+  
+  
+  
     
+    <li class="md-nav__item md-nav__item--nested">
       
       
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2" >
       
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
-    
-    <label class="md-nav__link" for="nav-4">
-      Code Reference
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Code Reference" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
+      <label class="md-nav__link" for="nav-2-2">
         <span class="md-nav__icon md-icon"></span>
-        Code Reference
+        
+          <a href="handlers/overview/" class="md-nav__link"
+            style="margin: initial; padding: initial; pointer-events: initial">
+        
+          Handlers
+        </a>
       </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+      <nav class="md-nav" aria-label="Handlers" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            <a href="handlers/overview/" class="md-nav__link"
+              style="margin: initial; padding: initial; pointer-events: initial">
+          
+            Handlers
+          </a>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
           
-          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="handlers/python/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
 
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
+        Crystal
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="troubleshooting/" class="md-nav__link">
+        Troubleshooting
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
+      
+      
+      
+
+  
+  
+  
     
-    <label class="md-nav__link" for="nav-4-1">
-      mkdocstrings
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="mkdocstrings" data-md-level="2">
-      <label class="md-nav__title" for="nav-4-1">
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
         <span class="md-nav__icon md-icon"></span>
-        mkdocstrings
+        
+          Code Reference
+        
       </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+      <nav class="md-nav" aria-label="Code Reference" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Code Reference
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
           
-          
-
-
-  <li class="md-nav__item md-nav__item--nested">
+            
+  
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-1" type="checkbox" id="nav-4-1-1">
-    
-    <label class="md-nav__link" for="nav-4-1-1">
-      handlers
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="handlers" data-md-level="3">
-      <label class="md-nav__title" for="nav-4-1-1">
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1" >
+      
+      <label class="md-nav__link" for="nav-3-1">
         <span class="md-nav__icon md-icon"></span>
-        handlers
+        
+          mkdocstrings
+        
       </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
+      <nav class="md-nav" aria-label="mkdocstrings" data-md-level="2">
+        <label class="md-nav__title" for="nav-3-1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            mkdocstrings
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
           
-          
-
-
-  <li class="md-nav__item">
-    <a href="reference/handlers/base/" title="base.py" class="md-nav__link">
-      base.py
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="reference/handlers/python/" title="python.py" class="md-nav__link">
-      python.py
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="reference/extension/" title="extension.py" class="md-nav__link">
-      extension.py
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="reference/plugin/" title="plugin.py" class="md-nav__link">
-      plugin.py
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item md-nav__item--nested">
+            
+  
+  
+  
     
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
-    
-    <label class="md-nav__link" for="nav-4-2">
-      mkdocs_autorefs
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
-      <label class="md-nav__title" for="nav-4-2">
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1-1" type="checkbox" id="nav-3-1-1" >
+      
+      <label class="md-nav__link" for="nav-3-1-1">
         <span class="md-nav__icon md-icon"></span>
-        mkdocs_autorefs
+        
+          handlers
+        
       </label>
-      <ul class="md-nav__list" data-md-scrollfix>
+      <nav class="md-nav" aria-label="handlers" data-md-level="3">
+        <label class="md-nav__title" for="nav-3-1-1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            handlers
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/handlers/base/" class="md-nav__link">
+        base.py
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/handlers/rendering/" class="md-nav__link">
+        rendering.py
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/handlers/python/" class="md-nav__link">
+        python.py
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/extension/" class="md-nav__link">
+        extension.py
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/plugin/" class="md-nav__link">
+        plugin.py
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/loggers/" class="md-nav__link">
+        loggers.py
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2" >
+      
+      <label class="md-nav__link" for="nav-3-2">
+        <span class="md-nav__icon md-icon"></span>
         
+          mkdocs_autorefs
         
+      </label>
+      <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
+        <label class="md-nav__title" for="nav-3-2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            mkdocs_autorefs
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
           
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/autorefs/references/" class="md-nav__link">
+        references.py
+      </a>
+    </li>
+  
+
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/autorefs/plugin/" class="md-nav__link">
+        plugin.py
+      </a>
+    </li>
+  
 
+          
+        </ul>
+      </nav>
+    </li>
+  
 
-  <li class="md-nav__item">
-    <a href="reference/autorefs/references/" title="references.py" class="md-nav__link">
-      references.py
-    </a>
-  </li>
+          
+        </ul>
+      </nav>
+    </li>
+  
 
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
         
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="reference/autorefs/plugin/" title="plugin.py" class="md-nav__link">
-      plugin.py
-    </a>
-  </li>
-
+          <a href="contributing/" class="md-nav__link"
+            style="margin: initial; padding: initial; pointer-events: initial">
         
-      </ul>
-    </nav>
-  </li>
+          Contributing
+        </a>
+      </label>
+      <nav class="md-nav" aria-label="Contributing" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          
+            <a href="contributing/" class="md-nav__link"
+              style="margin: initial; padding: initial; pointer-events: initial">
+          
+            Contributing
+          </a>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="code_of_conduct/" class="md-nav__link">
+        Code of Conduct
+      </a>
+    </li>
+  
 
-        
-      </ul>
-    </nav>
-  </li>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="coverage/" class="md-nav__link">
+        Coverage report
+      </a>
+    </li>
+  
 
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="troubleshooting/" title="Troubleshooting" class="md-nav__link">
-      Troubleshooting
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="contributing/" title="Contributing" class="md-nav__link">
-      Contributing
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="code_of_conduct/" title="Code of Conduct" class="md-nav__link">
-      Code of Conduct
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="changelog/" title="Changelog" class="md-nav__link">
-      Changelog
-    </a>
-  </li>
+          
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item">
-    <a href="credits/" title="Credits" class="md-nav__link">
-      Credits
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="changelog/" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
 
     
       
       
       
 
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="credits/" class="md-nav__link">
+        Credits
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item">
-    <a href="license/" title="License" class="md-nav__link">
-      License
-    </a>
-  </li>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="license/" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
 
     
   </ul>
@@ -597,7 +767,8 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -673,21 +844,18 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/mkdocstrings/mkdocstrings/edit/master/docs/index.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/mkdocstrings/mkdocstrings/blob/master/docs/index.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                  
-                
-                
                 <h1 id="mkdocstrings">mkdocstrings<a class="headerlink" href="#mkdocstrings" title="Permanent link">¤</a></h1>
-<p><a href="https://github.com/pawamoy/mkdocstrings/actions?query=workflow%3Aci"><img alt="ci" src="https://github.com/pawamoy/mkdocstrings/workflows/ci/badge.svg" /></a>
-<a href="https://pawamoy.github.io/mkdocstrings/"><img alt="documentation" src="https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat" /></a>
+<p><a href="https://github.com/mkdocstrings/mkdocstrings/actions?query=workflow%3Aci"><img alt="ci" src="https://github.com/mkdocstrings/mkdocstrings/workflows/ci/badge.svg" /></a>
+<a href="https://mkdocstrings.github.io/"><img alt="documentation" src="https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat" /></a>
 <a href="https://pypi.org/project/mkdocstrings/"><img alt="pypi version" src="https://img.shields.io/pypi/v/mkdocstrings.svg" /></a>
 <a href="https://anaconda.org/conda-forge/mkdocstrings"><img alt="conda version" src="https://img.shields.io/conda/vn/conda-forge/mkdocstrings" /></a>
 <a href="https://gitter.im/mkdocstrings/community"><img alt="gitter" src="https://badges.gitter.im/join%20chat.svg" /></a></p>
-<p>Automatic documentation from sources, for MkDocs.</p>
+<p>Automatic documentation from sources, for <a href="https://mkdocs.org/">MkDocs</a>.</p>
 <hr />
 <p><img alt="mkdocstrings_gif1" src="https://user-images.githubusercontent.com/3999221/77157604-fb807480-6aa1-11ea-99e0-d092371d4de0.gif" /></p>
 <hr />
@@ -702,33 +870,57 @@
 </ul>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">¤</a></h2>
 <ul>
-<li><strong>Language agnostic:</strong> just like <code>mkdocs</code>, <code>mkdocstrings</code> is written in Python but is language-agnostic.
-  It means you can use it for any language, as long as you implement a
-  <a href="https://pawamoy.github.io/mkdocstrings/reference/handlers/__init__/"><code>handler</code></a> for it.
-  Currently, we only have a <a href="https://pawamoy.github.io/mkdocstrings/reference/handlers/python/">Python handler</a>.
-  Maybe you'd like to contribute another one <img alt="😉" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f609.png" title=":wink:" />?</li>
-<li><strong>Multiple themes support:</strong> each handler can offer multiple themes. Currently, we offer the
+<li>
+<p><a href="https://mkdocstrings.github.io/handlers/overview/"><strong>Language-agnostic:</strong></a>
+  just like <em>MkDocs</em>, <em>mkdocstrings</em> is written in Python but is language-agnostic.
+  It means you can use it with any programming language, as long as there is a
+  <a href="https://mkdocstrings.github.io/reference/handlers/base/"><strong>handler</strong></a> for it.
+  The <a href="https://mkdocstrings.github.io/handlers/python/">Python handler</a> is built-in.
+  <a href="https://mkdocstrings.github.io/handlers/overview/">Others</a> are external.
+  Maybe you'd like to add another one to the list? <img alt="😉" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f609.png" title=":wink:" /></p>
+</li>
+<li>
+<p><a href="https://mkdocstrings.github.io/theming/"><strong>Multiple themes support:</strong></a>
+  each handler can offer multiple themes. Currently, we offer the
   <img alt="⭐️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2b50.png" title=":star:" /> <a href="https://squidfunk.github.io/mkdocs-material/">Material theme</a> <img alt="⭐️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2b50.png" title=":star:" />
-  as well as basic support for the ReadTheDocs theme for the Python handler.</li>
-<li><strong>Cross-references to other objects:</strong> <code>mkdocstrings</code> makes it possible to reference other headings from your
-  Markdown files with the classic Markdown syntax: <code>[identifier][]</code> or <code>[title][identifier]</code>. This feature is language
-  agnostic as well: you can cross-reference any heading that appear in your Markdown pages.
-  If the handler for a particular language renders headings for documented objects, you'll be able to reference them!</li>
-<li><strong>Inline injection in Markdown:</strong> instead of generating Markdown files, <code>mkdocstrings</code> allows you to inject
+  as well as basic support for the ReadTheDocs theme for the Python handler.</p>
+</li>
+<li>
+<p><a href="https://mkdocstrings.github.io/usage/#cross-references"><strong>Cross-links across pages:</strong></a>
+  <em>mkdocstrings</em> makes it possible to reference headings in other Markdown files with the classic Markdown linking
+  syntax: <code>[identifier][]</code> or <code>[title][identifier]</code> -- and you don't need to remember which exact page this object was
+  on. This works for any heading that's produced by a <em>mkdocstrings</em> language handler, and you can opt to include
+  <em>any</em> Markdown heading into the global referencing scheme.</p>
+<p><strong>Note</strong>: in versions prior to 0.15 <em>all</em> Markdown headers were included, but now you need to
+<a href="https://mkdocstrings.github.io/usage/#cross-references">opt in</a>.</p>
+</li>
+<li>
+<p><a href="https://mkdocstrings.github.io/usage/"><strong>Inline injection in Markdown:</strong></a>
+  instead of generating Markdown files, <em>mkdocstrings</em> allows you to inject
   documentation anywhere in your Markdown contents. The syntax is simple: <code>::: identifier</code> followed by a 4-spaces
   indented YAML block. The identifier and YAML configuration will be passed to the appropriate handler
-  to collect and render documentation.</li>
-<li><strong>Global and local configuration:</strong> each handler can be configured globally in <code>mkdocs.yml</code>, and locally for each
-  "autodoc" instruction.</li>
-<li><strong>Watch source code directories:</strong> you can tell <code>mkdocstrings</code> to add directories to be watched by <code>mkdocs</code> when
-  serving the documentation, for auto-reload.</li>
-<li><strong>Sane defaults:</strong> you should be able to just drop the plugin in your configuration and enjoy your auto-generated docs.</li>
+  to collect and render documentation.</p>
+</li>
+<li>
+<p><a href="https://mkdocstrings.github.io/usage/#global-options"><strong>Global and local configuration:</strong></a>
+  each handler can be configured globally in <code>mkdocs.yml</code>, and locally for each
+  "autodoc" instruction.</p>
+</li>
+<li>
+<p><a href="https://mkdocstrings.github.io/usage/#watch-directories"><strong>Watch source code directories:</strong></a>
+  you can tell <em>mkdocstrings</em> to add directories to be watched by <em>MkDocs</em> when
+  serving the documentation, for auto-reload.</p>
+</li>
+<li>
+<p><strong>Reasonable defaults:</strong>
+  you should be able to just drop the plugin in your configuration and enjoy your auto-generated docs.</p>
+</li>
 </ul>
 <h3 id="python-handler-features">Python handler features<a class="headerlink" href="#python-handler-features" title="Permanent link">¤</a></h3>
 <ul>
 <li><strong>Data collection from source code</strong>: collection of the object-tree and the docstrings is done by
   <a href="https://github.com/pawamoy/pytkdocs"><code>pytkdocs</code></a>. The following features are possible thanks to it:<ul>
-<li><strong>Support for type annotations:</strong> <code>pytkdocs</code> collects your type annotations and <code>mkdocstrings</code> uses them
+<li><strong>Support for type annotations:</strong> <code>pytkdocs</code> collects your type annotations and <em>mkdocstrings</em> uses them
   to display parameters types or return types.</li>
 <li><strong>Recursive documentation of Python objects:</strong> just use the module dotted-path as identifier, and you get the full
   module docs. You don't need to inject documentation for each class, function, etc.</li>
@@ -736,12 +928,12 @@
   be recognized by <code>pytkdocs</code> in modules, classes and even in <code>__init__</code> methods.</li>
 <li><strong>Support for objects properties:</strong> <code>pytkdocs</code> detects if a method is a <code>staticmethod</code>, a <code>classmethod</code>, etc.,
   it also detects if a property is read-only or writable, and more! These properties will be displayed
-  next to the object signature by <code>mkdocstrings</code>.</li>
+  next to the object signature by <em>mkdocstrings</em>.</li>
 <li><strong>Google-style sections support in docstrings:</strong> <code>pytkdocs</code> understands <code>Arguments:</code>, <code>Raises:</code>
-  and <code>Returns:</code> sections, and returns structured data for <code>mkdocstrings</code> to render them.</li>
+  and <code>Returns:</code> sections, and returns structured data for <em>mkdocstrings</em> to render them.</li>
 <li><strong>reStructuredText-style sections support in docstrings:</strong> <code>pytkdocs</code> understands all the
   <a href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html?highlight=python%20domain#info-field-lists">reStructuredText fields</a>,
-  and returns structured data for <code>mkdocstrings</code> to render them.
+  and returns structured data for <em>mkdocstrings</em> to render them.
   <em>Note: only RST </em><em>style</em><em> is supported, not the whole markup.</em></li>
 <li><strong>Admonition support in docstrings:</strong> blocks like <code>Note:</code> or <code>Warning:</code> will be transformed
   to their <a href="https://squidfunk.github.io/mkdocs-material/extensions/admonition/">admonition</a> equivalent.
@@ -749,21 +941,21 @@
 <li><strong>Support for reStructuredText in docstrings:</strong> <code>pytkdocs</code> can parse simple RST.</li>
 </ul>
 </li>
-<li><strong>Every object has a TOC entry:</strong> we render a heading for each object, meaning <code>mkdocs</code> picks them into the Table
-  of Contents, which is nicely display by the Material theme. Thanks to <code>mkdocstrings</code> cross-reference ability,
+<li><strong>Every object has a TOC entry:</strong> we render a heading for each object, meaning <em>MkDocs</em> picks them into the Table
+  of Contents, which is nicely display by the Material theme. Thanks to <em>mkdocstrings</em> cross-reference ability,
   you can even reference other objects within your docstrings, with the classic Markdown syntax:
   <code>[this object][package.module.object]</code> or directly with <code>[package.module.object][]</code></li>
-<li><strong>Source code display:</strong> <code>mkdocstrings</code> can add a collapsible div containing the highlighted source code
+<li><strong>Source code display:</strong> <em>mkdocstrings</em> can add a collapsible div containing the highlighted source code
   of the Python object.</li>
 </ul>
-<p>To get an example of what is possible, check <code>mkdocstrings</code>'
-own <a href="https://pawamoy.github.io/mkdocstrings">documentation</a>, auto-generated from sources by itself of course,
+<p>To get an example of what is possible, check <em>mkdocstrings</em>'
+own <a href="https://mkdocstrings.github.io/">documentation</a>, auto-generated from sources by itself of course,
 and the following GIF:</p>
 <p><img alt="mkdocstrings_gif2" src="https://user-images.githubusercontent.com/3999221/77157838-7184db80-6aa2-11ea-9f9a-fe77405202de.gif" /></p>
 <h2 id="roadmap">Roadmap<a class="headerlink" href="#roadmap" title="Permanent link">¤</a></h2>
-<p>See the <a href="https://github.com/pawamoy/mkdocstrings/issues/183">Feature Roadmap issue</a> on the bugtracker.</p>
+<p>See the <a href="https://github.com/mkdocstrings/mkdocstrings/issues/183">Feature Roadmap issue</a> on the bugtracker.</p>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">¤</a></h2>
-<p><code>mkdocstrings</code> requires Python 3.6 or above.</p>
+<p><em>mkdocstrings</em> requires Python 3.6 or above.</p>
 <details>
 <summary>To install Python 3.6, I recommend using <a href="https://github.com/pyenv/pyenv"><code>pyenv</code></a>.</summary>
 
@@ -804,11 +996,11 @@ Therefore, it is required that you have it installed.</p>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">mkdocstrings</span>
 </code></pre></div>
 <p>In one of your markdown files:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Reference</span>
+<div class="highlight"><pre><span></span><code><span class="gh"># Reference</span>
 
-<span class="l l-Scalar l-Scalar-Plain">::</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">my_library.my_module.my_class</span>
+::: my_library.my_module.my_class
 </code></pre></div>
-<p>See the <a href="https://pawamoy.github.io/mkdocstrings/usage">Usage</a> section of the docs for more examples!</p>
+<p>See the <a href="https://mkdocstrings.github.io/usage">Usage</a> section of the docs for more examples!</p>
                 
               
               
@@ -828,7 +1020,7 @@ Therefore, it is required that you have it installed.</p>
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
         
-          <a href="usage/" title="Usage" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="usage/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
@@ -861,15 +1053,15 @@ Therefore, it is required that you have it installed.</p>
       
     </div>
     
-      <script src="assets/javascripts/vendor.2d1db4bd.min.js"></script>
-      <script src="assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
           base: ".",
           features: [],
           search: Object.assign({
-            worker: "assets/javascripts/worker/search.5eca75d3.min.js"
+            worker: "assets/javascripts/worker/search.9c0e82ba.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

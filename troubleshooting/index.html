@@ -1,7 +1,4 @@
 
-
-
-
 <!doctype html>
 <html lang="en" class="no-js">
   <head>
@@ -12,11 +9,12 @@
         <meta name="description" content="Automatic documentation from sources, for MkDocs.">
       
       
+      
+      
         <link rel="canonical" href="https://mkdocstrings.github.io/troubleshooting/">
       
-      
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
     
     
       
@@ -24,20 +22,22 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.d3202873.min.css">
-      
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ff0a5ce4.min.css">
-      
+      <link rel="stylesheet" href="../assets/stylesheets/main.cb6bc1d0.min.css">
       
         
+        <link rel="stylesheet" href="../assets/stylesheets/palette.39b8e14a.min.css">
         
-        <meta name="theme-color" content="#009485">
+          
+          
+          <meta name="theme-color" content="#009485">
+        
       
     
     
     
       
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
@@ -46,7 +46,7 @@
     
       <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../css/mkdocstrings.css">
+      <link rel="stylesheet" href="../css/style.css">
     
     
       
@@ -58,7 +58,10 @@
     
     
     
+    
+    
     <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="purple">
+      
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -76,7 +79,9 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
+      
+
+<header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid" aria-label="Header">
     <a href="https://mkdocstrings.github.io/" title="mkdocstrings" class="md-header-nav__button md-logo" aria-label="mkdocstrings">
       
@@ -88,18 +93,20 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
     <div class="md-header-nav__title" data-md-component="header-title">
-      
-        <div class="md-header-nav__ellipsis">
-          <span class="md-header-nav__topic md-ellipsis">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             mkdocstrings
           </span>
-          <span class="md-header-nav__topic md-ellipsis">
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
             
               Troubleshooting
             
           </span>
         </div>
-      
+      </div>
     </div>
     
       <label class="md-header-nav__button md-icon" for="__search">
@@ -110,7 +117,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
@@ -151,8 +158,6 @@
     
     <div class="md-container" data-md-component="container">
       
-        
-      
       
         
       
@@ -160,10 +165,16 @@
         <div class="md-main__inner md-grid">
           
             
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="https://mkdocstrings.github.io/" title="mkdocstrings" class="md-nav__button md-logo" aria-label="mkdocstrings">
       
@@ -193,250 +204,15 @@
       
       
 
-
-  <li class="md-nav__item">
-    <a href=".." title="Overview" class="md-nav__link">
-      Overview
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../usage/" title="Usage" class="md-nav__link">
-      Usage
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
-    
-    <label class="md-nav__link" for="nav-3">
-      Handlers
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Handlers" data-md-level="1">
-      <label class="md-nav__title" for="nav-3">
-        <span class="md-nav__icon md-icon"></span>
-        Handlers
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../handlers/overview/" title="Overview" class="md-nav__link">
-      Overview
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../handlers/python/" title="Python" class="md-nav__link">
-      Python
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
-    
-    <label class="md-nav__link" for="nav-4">
-      Code Reference
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="Code Reference" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
-        <span class="md-nav__icon md-icon"></span>
-        Code Reference
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1">
-    
-    <label class="md-nav__link" for="nav-4-1">
-      mkdocstrings
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="mkdocstrings" data-md-level="2">
-      <label class="md-nav__title" for="nav-4-1">
-        <span class="md-nav__icon md-icon"></span>
-        mkdocstrings
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-1" type="checkbox" id="nav-4-1-1">
-    
-    <label class="md-nav__link" for="nav-4-1-1">
-      handlers
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="handlers" data-md-level="3">
-      <label class="md-nav__title" for="nav-4-1-1">
-        <span class="md-nav__icon md-icon"></span>
-        handlers
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../reference/handlers/base/" title="base.py" class="md-nav__link">
-      base.py
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../reference/handlers/python/" title="python.py" class="md-nav__link">
-      python.py
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../reference/extension/" title="extension.py" class="md-nav__link">
-      extension.py
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../reference/plugin/" title="plugin.py" class="md-nav__link">
-      plugin.py
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-2" type="checkbox" id="nav-4-2">
-    
-    <label class="md-nav__link" for="nav-4-2">
-      mkdocs_autorefs
-      <span class="md-nav__icon md-icon"></span>
-    </label>
-    <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
-      <label class="md-nav__title" for="nav-4-2">
-        <span class="md-nav__icon md-icon"></span>
-        mkdocs_autorefs
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../reference/autorefs/references/" title="references.py" class="md-nav__link">
-      references.py
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../reference/autorefs/plugin/" title="plugin.py" class="md-nav__link">
-      plugin.py
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
 
     
       
@@ -444,25 +220,140 @@
       
 
   
-
-
-  <li class="md-nav__item md-nav__item--active">
+  
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+  
+  
     
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Troubleshooting
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+      
+      <label class="md-nav__link" for="nav-2">
         <span class="md-nav__icon md-icon"></span>
+        
+          <a href="../usage/" class="md-nav__link"
+            style="margin: initial; padding: initial; pointer-events: initial">
+        
+          Usage
+        </a>
       </label>
+      <nav class="md-nav" aria-label="Usage" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            <a href="../usage/" class="md-nav__link"
+              style="margin: initial; padding: initial; pointer-events: initial">
+          
+            Usage
+          </a>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theming/" class="md-nav__link">
+        Theming
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
     
-    <a href="./" title="Troubleshooting" class="md-nav__link md-nav__link--active">
-      Troubleshooting
-    </a>
-    
+    <li class="md-nav__item md-nav__item--nested">
       
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2" >
+      
+      <label class="md-nav__link" for="nav-2-2">
+        <span class="md-nav__icon md-icon"></span>
+        
+          <a href="../handlers/overview/" class="md-nav__link"
+            style="margin: initial; padding: initial; pointer-events: initial">
+        
+          Handlers
+        </a>
+      </label>
+      <nav class="md-nav" aria-label="Handlers" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            <a href="../handlers/overview/" class="md-nav__link"
+              style="margin: initial; padding: initial; pointer-events: initial">
+          
+            Handlers
+          </a>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../handlers/python/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
+        Crystal
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-nav__icon md-icon"></span>
+          
+            <a href="./" class="md-nav__link md-nav__link--active"
+              style="margin: initial; padding: initial; pointer-events: initial">
+          
+            Troubleshooting
+          </a>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Troubleshooting
+      </a>
+      
+        
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -492,13 +383,6 @@
         <li class="md-nav__item">
   <a href="#mkdocs-warns-me-about-links-to-unfound-documentation-files" class="md-nav__link">
     MkDocs warns me about links to unfound documentation files
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#nothing-is-rendered-at-all" class="md-nav__link">
-    Nothing is rendered at all
   </a>
   
 </li>
@@ -547,6 +431,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#nothing-is-rendered-at-all" class="md-nav__link">
+    Nothing is rendered at all
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#latex-in-docstrings-is-not-rendered-correctly" class="md-nav__link">
     LaTeX in docstrings is not rendered correctly
   </a>
@@ -575,68 +466,352 @@
     </ul>
   
 </nav>
-    
-  </li>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Code Reference
+        
+      </label>
+      <nav class="md-nav" aria-label="Code Reference" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Code Reference
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1" >
+      
+      <label class="md-nav__link" for="nav-3-1">
+        <span class="md-nav__icon md-icon"></span>
+        
+          mkdocstrings
+        
+      </label>
+      <nav class="md-nav" aria-label="mkdocstrings" data-md-level="2">
+        <label class="md-nav__title" for="nav-3-1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            mkdocstrings
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1-1" type="checkbox" id="nav-3-1-1" >
+      
+      <label class="md-nav__link" for="nav-3-1-1">
+        <span class="md-nav__icon md-icon"></span>
+        
+          handlers
+        
+      </label>
+      <nav class="md-nav" aria-label="handlers" data-md-level="3">
+        <label class="md-nav__title" for="nav-3-1-1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            handlers
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/handlers/base/" class="md-nav__link">
+        base.py
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item">
-    <a href="../contributing/" title="Contributing" class="md-nav__link">
-      Contributing
-    </a>
-  </li>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/handlers/rendering/" class="md-nav__link">
+        rendering.py
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/handlers/python/" class="md-nav__link">
+        python.py
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/extension/" class="md-nav__link">
+        extension.py
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/plugin/" class="md-nav__link">
+        plugin.py
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/loggers/" class="md-nav__link">
+        loggers.py
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2" >
+      
+      <label class="md-nav__link" for="nav-3-2">
+        <span class="md-nav__icon md-icon"></span>
+        
+          mkdocs_autorefs
+        
+      </label>
+      <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
+        <label class="md-nav__title" for="nav-3-2">
+          <span class="md-nav__icon md-icon"></span>
+          
+            mkdocs_autorefs
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/autorefs/references/" class="md-nav__link">
+        references.py
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/autorefs/plugin/" class="md-nav__link">
+        plugin.py
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        
+          <a href="../contributing/" class="md-nav__link"
+            style="margin: initial; padding: initial; pointer-events: initial">
+        
+          Contributing
+        </a>
+      </label>
+      <nav class="md-nav" aria-label="Contributing" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          
+            <a href="../contributing/" class="md-nav__link"
+              style="margin: initial; padding: initial; pointer-events: initial">
+          
+            Contributing
+          </a>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../code_of_conduct/" class="md-nav__link">
+        Code of Conduct
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item">
-    <a href="../code_of_conduct/" title="Code of Conduct" class="md-nav__link">
-      Code of Conduct
-    </a>
-  </li>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../coverage/" class="md-nav__link">
+        Coverage report
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
 
     
       
       
       
 
-
-  <li class="md-nav__item">
-    <a href="../changelog/" title="Changelog" class="md-nav__link">
-      Changelog
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../credits/" title="Credits" class="md-nav__link">
-      Credits
-    </a>
-  </li>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
 
     
       
       
       
 
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../credits/" class="md-nav__link">
+        Credits
+      </a>
+    </li>
+  
 
-  <li class="md-nav__item">
-    <a href="../license/" title="License" class="md-nav__link">
-      License
-    </a>
-  </li>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        License
+      </a>
+    </li>
+  
 
     
   </ul>
@@ -646,7 +821,8 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -684,13 +860,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#nothing-is-rendered-at-all" class="md-nav__link">
-    Nothing is rendered at all
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#some-objects-are-not-rendered-they-do-not-appear-in-the-generated-docs" class="md-nav__link">
     Some objects are not rendered (they do not appear in the generated docs)
   </a>
@@ -732,6 +901,13 @@
   
     <nav class="md-nav" aria-label="Python specifics">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nothing-is-rendered-at-all" class="md-nav__link">
+    Nothing is rendered at all
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#latex-in-docstrings-is-not-rendered-correctly" class="md-nav__link">
@@ -771,12 +947,9 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/mkdocstrings/mkdocstrings/edit/master/docs/troubleshooting.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/mkdocstrings/mkdocstrings/blob/master/docs/troubleshooting.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
-                
-                
-                  
                 
                 
                 <h1 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">¤</a></h1>
@@ -786,9 +959,9 @@ Markdown extensions in <code>mkdocs.yml</code>. For example:</p>
 <div class="highlight"><pre><span></span><code>!!! note
     Some text.
 
-    ```bash
-    echo &quot;some code&quot;
-    ```
+<span class="sb">    ```bash</span>
+    <span class="nb">echo</span> <span class="s2">&quot;some code&quot;</span>
+<span class="sb">    ```</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span>
 <span class="nt">markdown_extensions</span><span class="p">:</span>
@@ -801,7 +974,7 @@ Markdown extensions in <code>mkdocs.yml</code>. For example:</p>
 Please upgrade to version 0.14 or higher.</p>
 <p>See also:</p>
 <ul>
-<li><a href="https://github.com/pawamoy/mkdocstrings/issues/186">Issue #186</a></li>
+<li><a href="https://github.com/mkdocstrings/mkdocstrings/issues/186">Issue #186</a></li>
 <li><a href="#tabs-in-docstrings-from-pymdownxtabbed-are-not-working-properly">Tabs in docstrings (from <code>pymdownx.tabbed</code>) are not working properly</a>.</li>
 </ul>
 <h2 id="mkdocs-warns-me-about-links-to-unfound-documentation-files">MkDocs warns me about links to unfound documentation files<a class="headerlink" href="#mkdocs-warns-me-about-links-to-unfound-documentation-files" title="Permanent link">¤</a></h2>
@@ -816,87 +989,86 @@ Notice the dots in <code>reference/parsers/pytkdocs.parsers.docstrings.Section</
 It shows that it's probably a cross-reference, not a direct link.
 It's probably written like <code>[Section](pytkdocs.parsers.docstrings.Section)</code> in the docs,
 when it should be <code>[Section][pytkdocs.parsers.docstrings.Section]</code>.</p>
-<h2 id="nothing-is-rendered-at-all">Nothing is rendered at all<a class="headerlink" href="#nothing-is-rendered-at-all" title="Permanent link">¤</a></h2>
-<p>Python?</p>
-<ul>
-<li>"No": we only support Python right now.</li>
-<li>"Yes": is your package available in the Python path?
-  See <a href="../handlers/python/#finding-modules">Python handler: Finding module</a>.</li>
-</ul>
 <h2 id="some-objects-are-not-rendered-they-do-not-appear-in-the-generated-docs">Some objects are not rendered (they do not appear in the generated docs)<a class="headerlink" href="#some-objects-are-not-rendered-they-do-not-appear-in-the-generated-docs" title="Permanent link">¤</a></h2>
 <ul>
 <li>Make sure the configuration options of the handler for both selection and rendering are correct.
-  Check the documentation for <a href="../handlers/overview">Handlers</a> to see the available options for each handler.</li>
+  Check the documentation for <a href="../handlers/overview/">Handlers</a> to see the available options for each handler.</li>
 <li>Also make sure your documentation in your source code is formatted correctly.
   For Python code, check the <a href="../handlers/python/#supported-docstrings-styles">supported docstring styles</a> page.</li>
 <li>Re-run the Mkdocs command with <code>-v</code>, and carefully read any traceback.</li>
 </ul>
 <h2 id="tabs-in-docstrings-from-pymdownxtabbed-are-not-working-properly">Tabs in docstrings (from <code>pymdownx.tabbed</code>) are not working properly<a class="headerlink" href="#tabs-in-docstrings-from-pymdownxtabbed-are-not-working-properly" title="Permanent link">¤</a></h2>
-<p>Before version 0.14, multiple tabs blocks injected on the same page
+<p>Before version 0.14, multiple tab blocks injected on the same page
 would result in broken links: clicking on a tab would bring the user to the wrong one.
 Please upgrade to version 0.14 or higher.</p>
 <p>See also:</p>
 <ul>
-<li><a href="https://github.com/pawamoy/mkdocstrings/issues/193">Issue #193</a></li>
+<li><a href="https://github.com/mkdocstrings/mkdocstrings/issues/193">Issue #193</a></li>
 <li><a href="#footnotes-are-duplicated-or-overridden">Footnotes are duplicated or overridden</a>.</li>
 </ul>
-<p><strong>JavaScript workaround:</strong></p>
-<p>If you are stuck on version lower than 0.14,
-and want to use multiple tabs blocks in one page,
+<p>If you are stuck on a version before 0.14,
+and want to use multiple tab blocks in one page,
 use this workaround.</p>
-<p>Put the following code in a .js file,
-and list it in MkDocs' <code>extra_javascript</code>: </p>
-<div class="highlight"><pre><span></span><code><span class="c1">// Credits to Nikolaos Zioulis (@zuru on GitHub)</span>
-<span class="kd">function</span> <span class="nx">setID</span><span class="p">(){</span>
-    <span class="kd">var</span> <span class="nx">tabs</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s2">&quot;tabbed-set&quot;</span><span class="p">);</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">tabs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">children</span> <span class="o">=</span> <span class="nx">tabs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">children</span><span class="p">;</span>
-        <span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
-        <span class="kd">var</span> <span class="nx">iscontent</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">children</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">j</span><span class="o">++</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">children</span><span class="p">[</span><span class="nx">j</span><span class="p">].</span><span class="nx">htmlFor</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span><span class="p">){</span>
-                <span class="k">if</span><span class="p">((</span><span class="nx">iscontent</span> <span class="o">+</span> <span class="mf">1</span><span class="p">)</span> <span class="o">%</span> <span class="mf">2</span> <span class="o">==</span> <span class="mf">0</span><span class="p">){</span>
-                    <span class="c1">// check if it is content</span>
-                    <span class="k">if</span><span class="p">(</span><span class="nx">iscontent</span> <span class="o">==</span> <span class="mf">1</span><span class="p">){</span>
-                        <span class="nx">btn</span> <span class="o">=</span> <span class="nx">children</span><span class="p">[</span><span class="nx">j</span><span class="p">].</span><span class="nx">childNodes</span><span class="p">[</span><span class="mf">1</span><span class="p">].</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">);</span>
-                    <span class="p">}</span>
-                <span class="p">}</span>
-                <span class="k">else</span><span class="p">{</span>
-                    <span class="c1">// if not change the id</span>
-                    <span class="nx">children</span><span class="p">[</span><span class="nx">j</span><span class="p">].</span><span class="nx">id</span> <span class="o">=</span> <span class="s2">&quot;__tabbed_&quot;</span> <span class="o">+</span> <span class="nb">String</span><span class="p">(</span><span class="nx">i</span> <span class="o">+</span> <span class="mf">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nb">String</span><span class="p">(</span><span class="nx">counter</span> <span class="o">+</span> <span class="mf">1</span><span class="p">);</span>
-                    <span class="nx">children</span><span class="p">[</span><span class="nx">j</span><span class="p">].</span><span class="nx">name</span> <span class="o">=</span> <span class="s2">&quot;__tabbed_&quot;</span> <span class="o">+</span> <span class="nb">String</span><span class="p">(</span><span class="nx">i</span> <span class="o">+</span> <span class="mf">1</span><span class="p">);</span>
-                    <span class="c1">// make default tab open</span>
-                    <span class="k">if</span><span class="p">(</span><span class="nx">j</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span>
-                        <span class="nx">children</span><span class="p">[</span><span class="nx">j</span><span class="p">].</span><span class="nx">click</span><span class="p">();</span>
-                <span class="p">}</span>
-                <span class="nx">iscontent</span><span class="o">++</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="k">else</span><span class="p">{</span>
-                <span class="c1">// link to the correct tab</span>
-                <span class="nx">children</span><span class="p">[</span><span class="nx">j</span><span class="p">].</span><span class="nx">htmlFor</span> <span class="o">=</span> <span class="s2">&quot;__tabbed_&quot;</span> <span class="o">+</span> <span class="nb">String</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mf">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nb">String</span><span class="p">(</span><span class="nx">counter</span> <span class="o">+</span> <span class="mf">1</span><span class="p">);</span>
-                <span class="nx">counter</span> <span class="o">++</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="nx">setID</span><span class="p">();</span>
-</code></pre></div>
-<p>This code will correctly reset the IDs for tabs on a same page.</p>
+<p>??? example "JavaScript workaround"</p>
+<pre><code>Put the following code in a .js file,
+and list it in MkDocs' `extra_javascript`:
+
+```javascript
+// Credits to Nikolaos Zioulis (@zuru on GitHub)
+function setID(){
+    var tabs = document.getElementsByClassName("tabbed-set");
+    for (var i = 0; i &lt; tabs.length; i++) {
+        children = tabs[i].children;
+        var counter = 0;
+        var iscontent = 0;
+        for(var j = 0; j &lt; children.length;j++){
+            if(typeof children[j].htmlFor === 'undefined'){
+                if((iscontent + 1) % 2 == 0){
+                    // check if it is content
+                    if(iscontent == 1){
+                        btn = children[j].childNodes[1].getElementsByTagName("button");
+                    }
+                }
+                else{
+                    // if not change the id
+                    children[j].id = "__tabbed_" + String(i + 1) + "_" + String(counter + 1);
+                    children[j].name = "__tabbed_" + String(i + 1);
+                    // make default tab open
+                    if(j == 0)
+                        children[j].click();
+                }
+                iscontent++;
+            }
+            else{
+                // link to the correct tab
+                children[j].htmlFor = "__tabbed_" + String(i+1) + "_" + String(counter + 1);
+                counter ++;
+            }
+        }
+    }
+}
+setID();
+```
+
+This code will correctly reset the IDs for tabs on a same page.
+</code></pre>
 <h2 id="the-generated-documentation-does-not-look-good">The generated documentation does not look good<a class="headerlink" href="#the-generated-documentation-does-not-look-good" title="Permanent link">¤</a></h2>
 <p>Are you using the Material theme?</p>
 <ul>
 <li>"No": We do not support any other theme yet.
-  Check the <a href="https://github.com/pawamoy/mkdocstrings">bugtracker</a> to see if there is a feature request
+  Check the <a href="https://github.com/mkdocstrings/mkdocstrings">bugtracker</a> to see if there is a feature request
   asking to support your theme. If you find one, vote with a thumbs up. If not, you can open a ticket.</li>
-<li>"Yes": Please open an ticket on the <a href="https://github.com/pawamoy/mkdocstrings">bugtracker</a> with a detailed
+<li>"Yes": Please open an ticket on the <a href="https://github.com/mkdocstrings/mkdocstrings">bugtracker</a> with a detailed
   explanation and screenshots of the bad-looking parts.</li>
 </ul>
+<p>Note that you can always <a href="../theming/">customize the look</a> of <em>mkdocstrings</em> blocks -- through both HTML and CSS.</p>
 <h2 id="warning-could-not-find-cross-reference-target">Warning: could not find cross-reference target<a class="headerlink" href="#warning-could-not-find-cross-reference-target" title="Permanent link">¤</a></h2>
-<ul>
-<li>Make sure you have defined <code>site_url</code> in <code>mkdocs.yml</code>, as it is required for cross-references when building the site
-  (the error does not happen when serving because then <code>site_url</code> is auto-populated by <code>mkdocs</code>).</li>
-<li>Make sure the referenced object was both collected and rendered: verify your selection and rendering options.</li>
-</ul>
+<div class="admonition important">
+<p class="admonition-title">New in version 0.15</p>
+<p>Cross-linking used to include any Markdown heading, but now it's only for <em>mkdocstrings</em> identifiers by default.
+See <a href="../usage/#cross-references-to-any-markdown-heading">Cross-references to any Markdown heading</a> to opt back in.</p>
+</div>
+<p>Make sure the referenced object was both collected and rendered: verify your selection and rendering options.</p>
 <p>For false-positives, you can wrap the text in backticks (`) to prevent <code>mkdocstrings</code> from trying to process it.</p>
 <h2 id="windowspath-object-is-not-iterable">WindowsPath object is not iterable<a class="headerlink" href="#windowspath-object-is-not-iterable" title="Permanent link">¤</a></h2>
 <p>If you get a traceback like this one:</p>
@@ -915,6 +1087,9 @@ TypeError: &#39;WindowsPath&#39; object is not iterable
 <p>Version 2.11.1 seems to be working fine.</p>
 <hr />
 <h2 id="python-specifics">Python specifics<a class="headerlink" href="#python-specifics" title="Permanent link">¤</a></h2>
+<h3 id="nothing-is-rendered-at-all">Nothing is rendered at all<a class="headerlink" href="#nothing-is-rendered-at-all" title="Permanent link">¤</a></h3>
+<p>Is your package available in the Python path?</p>
+<p>See <a href="../handlers/python/#finding-modules">Python handler: Finding modules</a>.</p>
 <h3 id="latex-in-docstrings-is-not-rendered-correctly">LaTeX in docstrings is not rendered correctly<a class="headerlink" href="#latex-in-docstrings-is-not-rendered-correctly" title="Permanent link">¤</a></h3>
 <p>If you are using a Markdown extension like
 <a href="https://squidfunk.github.io/mkdocs-material/extensions/pymdown/#arithmatex-mathjax">Arithmatex Mathjax</a>
@@ -949,8 +1124,7 @@ searching for pairs of nodes like <code>assignment</code>-<code>string</code>, a
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">enum</span>
 
 <span class="k">class</span> <span class="nc">MyEnum</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    My enum.</span>
+    <span class="sd">&quot;&quot;&quot;My enum.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        v1: The first choice.</span>
@@ -1007,7 +1181,7 @@ searching for pairs of nodes like <code>assignment</code>-<code>string</code>, a
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../reference/autorefs/plugin/" title="plugin.py" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../handlers/python/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1016,19 +1190,19 @@ searching for pairs of nodes like <code>assignment</code>-<code>string</code>, a
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                plugin.py
+                Python
               </div>
             </div>
           </a>
         
         
-          <a href="../contributing/" title="Contributing" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../reference/handlers/base/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Contributing
+                base.py
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
@@ -1055,15 +1229,15 @@ searching for pairs of nodes like <code>assignment</code>-<code>string</code>, a
       
     </div>
     
-      <script src="../assets/javascripts/vendor.2d1db4bd.min.js"></script>
-      <script src="../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
           base: "..",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.5eca75d3.min.js"
+            worker: "../assets/javascripts/worker/search.9c0e82ba.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
