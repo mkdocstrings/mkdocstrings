@@ -8,7 +8,7 @@ from jinja2 import contextfunction
 from jinja2.runtime import Context
 from mkdocs.utils import warning_filter
 
-from mkdocstrings.handlers import base
+TEMPLATES_DIR = Path(__file__).parent / "templates"
 
 
 class LoggerAdapter(logging.LoggerAdapter):
@@ -108,7 +108,7 @@ def get_template_path(context: Context) -> str:
     filename = context.environment.get_template(context.name).filename
     if filename:
         try:
-            return str(Path(filename).relative_to(base.TEMPLATES_DIR))
+            return str(Path(filename).relative_to(TEMPLATES_DIR))
         except ValueError:
             return filename
     return context.name
