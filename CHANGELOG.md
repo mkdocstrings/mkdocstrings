@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Breaking Changes
 
-The following two items are *possible* breaking changes:
+The following items are *possible* breaking changes:
 
 - Cross-linking to arbitrary headings now requires to opt-in to the *autorefs* plugin,
   which is installed as a dependency of *mkdocstrings*.
