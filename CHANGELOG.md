@@ -5,6 +5,41 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.15.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.15.0) - 2021-02-28
+
+<small>[Compare with 0.14.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.14.0...0.15.0)</small>
+
+### Breaking Changes
+
+The following two items are *possible* breaking changes:
+
+- Cross-linking to arbitrary headings now requires to opt-in to the *autorefs* plugin,
+  which is installed as a dependency of *mkdocstrings*.
+  See [Cross-references to any Markdown heading](https://mkdocstrings.github.io/usage/#cross-references-to-any-markdown-heading).
+- *mkdocstrings* now respects your code highlighting configured method,
+  so if you are using CodeHilite, the `highlight` CSS classes in the rendered HTML will be replaced by `codehilite`.
+  In that case make sure to replace `.highlight` by `.codehilite` in any extra CSS rule of yours.
+  See [Syntax highlighting](https://mkdocstrings.github.io/theming/#syntax-highlighting).
+
+### Features
+- Nicer-looking error outputs - no tracebacks from mkdocstrings ([6baf720](https://github.com/mkdocstrings/mkdocstrings/commit/6baf720850d359ddb55713553a757fe7b2283e10) by Oleh Prypin). [PR #230](https://github.com/mkdocstrings/mkdocstrings/pull/230)
+- Let handlers add CSS to the pages, do so for Python handler ([05c7a3f](https://github.com/mkdocstrings/mkdocstrings/commit/05c7a3fc83b67d3244ea3bfe97dab19aa53f2d38) by Oleh Prypin). [Issue #189](https://github.com/mkdocstrings/mkdocstrings/issues/189), [PR #218](https://github.com/mkdocstrings/mkdocstrings/pull/218)
+- Allow linking to an object heading not only by its canonical identifier, but also by its possible aliases ([4789950](https://github.com/mkdocstrings/mkdocstrings/commit/4789950ff43c354d47afbed5c89d5abb917ffee6) by Oleh Prypin). [PR #217](https://github.com/mkdocstrings/mkdocstrings/pull/217)
+
+### Bug Fixes
+- Propagate the CSS class to inline highlighting as well ([c7d80e6](https://github.com/mkdocstrings/mkdocstrings/commit/c7d80e63a042913b7511c38a788967796dd10997) by Oleh Prypin). [PR #245](https://github.com/mkdocstrings/mkdocstrings/pull/245)
+- Don't double-escape characters in highlighted headings ([6357144](https://github.com/mkdocstrings/mkdocstrings/commit/6357144b100be6a2e7e6140e035c289c225cec22) by Oleh Prypin). [Issue #228](https://github.com/mkdocstrings/mkdocstrings/issues/228), [PR #241](https://github.com/mkdocstrings/mkdocstrings/pull/241)
+
+### Code Refactoring
+- Use the autorefs plugin from its new external location ([e2d74ef](https://github.com/mkdocstrings/mkdocstrings/commit/e2d74efb0d59f9a1aa45e42525ceb1d4b7638426) by Oleh Prypin). [PR #235](https://github.com/mkdocstrings/mkdocstrings/pull/235)
+- Split out Markdown extensions from `handlers` to `handlers.rendering` ([7533852](https://github.com/mkdocstrings/mkdocstrings/commit/7533852e3ac0a378b70a380cef1100421b7d5763) by Oleh Prypin). [PR #233](https://github.com/mkdocstrings/mkdocstrings/pull/233)
+- Theme-agnostic code highlighting, respecting configs ([f9ea009](https://github.com/mkdocstrings/mkdocstrings/commit/f9ea00979545e39983ba377f1930d73ae94165ea) by Oleh Prypin). [PR #202](https://github.com/mkdocstrings/mkdocstrings/pull/202)
+- Split out autorefs plugin, make it optional ([fc67656](https://github.com/mkdocstrings/mkdocstrings/commit/fc676564f9b11269b3e0b0482703ac924069a3fa) by Oleh Prypin). [PR #220](https://github.com/mkdocstrings/mkdocstrings/pull/220)
+- Remove the extra wrapper div from the final doc ([7fe438c](https://github.com/mkdocstrings/mkdocstrings/commit/7fe438c4040a2124b00c39e582ef4c38be7c55c9) by Oleh Prypin). [PR #209](https://github.com/mkdocstrings/mkdocstrings/pull/209)
+- Don't re-parse the whole subdoc, expose only headings ([15f84f9](https://github.com/mkdocstrings/mkdocstrings/commit/15f84f981982c8e2b15498f5c869ac207f3ce5d7) by Oleh Prypin). [PR #209](https://github.com/mkdocstrings/mkdocstrings/pull/209)
+- Actually exclude hidden headings from the doc ([0fdb082](https://github.com/mkdocstrings/mkdocstrings/commit/0fdb0821867eb0e14a972a603c22301aafecf4f4) by Oleh Prypin). [PR #209](https://github.com/mkdocstrings/mkdocstrings/pull/209)
+
+
 ## [0.14.0](https://github.com/pawamoy/mkdocstrings/releases/tag/0.14.0) - 2021-01-06
 
 <small>[Compare with 0.13.6](https://github.com/pawamoy/mkdocstrings/compare/0.13.6...0.14.0)</small>
