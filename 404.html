@@ -58,7 +58,9 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="purple">
+    <body dir="ltr" data-md-color-scheme="preference" data-md-color-primary="teal" data-md-color-accent="purple">
+      
+        <script>matchMedia("(prefers-color-scheme: dark)").matches&&document.body.setAttribute("data-md-color-scheme","slate")</script>
       
   
     
