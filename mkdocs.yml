@@ -38,7 +38,7 @@ nav:
 theme:
   name: material
   palette:
-    scheme: slate
+    scheme: preference
     primary: teal
     accent: purple
 
