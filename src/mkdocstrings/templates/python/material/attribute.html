@@ -17,6 +17,7 @@
       {% endif %}
 
       {% filter heading(heading_level,
+          role="data" if obj == module else "attr",
           id=html_id,
           class="doc doc-heading",
           toc_label=attribute.name) %}
@@ -35,6 +36,7 @@
     {% else %}
       {% if config.show_root_toc_entry %}
         {% filter heading(heading_level,
+            role="data" if obj == module else "attr",
             id=html_id,
             toc_label=attribute.path,
             hidden=True) %}

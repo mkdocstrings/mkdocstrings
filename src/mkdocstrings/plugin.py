@@ -156,6 +156,7 @@ class MkdocstringsPlugin(BasePlugin):
             theme_name = config["theme"].name
 
         extension_config = {
+            "site_name": config["site_name"],
             "theme_name": theme_name,
             "mdx": config["markdown_extensions"],
             "mdx_configs": config["mdx_configs"],
@@ -205,6 +206,9 @@ class MkdocstringsPlugin(BasePlugin):
 
             log.debug("Tearing handlers down")
             self._handlers.teardown()
+
+            inv_contents = self._handlers.inventory.format_sphinx()
+            write_file(inv_contents, os.path.join(config["site_dir"], "objects.inv"))
 
     def get_handler(self, handler_name: str) -> BaseHandler:
         """Get a handler by its name. See [mkdocstrings.handlers.base.Handlers.get_handler][].

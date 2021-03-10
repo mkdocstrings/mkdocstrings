@@ -235,7 +235,13 @@ class PythonCollector(BaseCollector):
 
 
 class PythonHandler(BaseHandler):
-    """The Python handler class, nothing specific here."""
+    """The Python handler class.
+
+    Attributes:
+        domain: The cross-documentation domain/language for this handler.
+    """
+
+    domain: str = "py"  # to match Sphinx's default domain
 
 
 def get_handler(

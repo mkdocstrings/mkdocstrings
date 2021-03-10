@@ -17,6 +17,7 @@
       {% endif %}
 
       {% filter heading(heading_level,
+          role="class",
           id=html_id,
           class="doc doc-heading",
           toc_label=class.name) %}
@@ -32,6 +33,7 @@
     {% else %}
       {% if config.show_root_toc_entry %}
         {% filter heading(heading_level,
+            role="class",
             id=html_id,
             toc_label=class.path,
             hidden=True) %}
