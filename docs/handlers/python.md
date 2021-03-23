@@ -44,7 +44,7 @@ Option | Type | Description | Default
 **`filters`** | `list of str` | List of filtering regular expressions. Prefix with `!` to exclude objects whose name match. The default means *exclude private members*. | `["!^_[^_]"]`
 **`members`** | `bool`, or `list of str` | Explicitly select members. True means *all*, false means *none*. | `True`
 **`inherited_members`** | `bool` | Also select members inherited from parent classes. | `False`
-**`docstring_style`** | `str` | Docstring style to parse. `pytkdocs` supports `google` and `restructured-text`. | `"google"`
+**`docstring_style`** | `str` | Docstring style to parse. `pytkdocs` supports `google`, `numpy` and `restructured-text`. *Note: Numpy-style requires the `numpy-style` extra of `pytkdocs`.* | `"google"`
 **`docstring_options`** | `dict` | Options to pass to the docstring parser. See [Collector: pytkdocs](#collector-pytkdocs) | `{}`
 **`new_path_syntax`** | `bool` | Whether to use the new "colon" path syntax when importing objects. | `False`
 
@@ -107,7 +107,7 @@ It stands for *(Python) Take Docs*, and is supposed to be a pun on MkDocs (*Make
 
 ### Supported docstrings styles
 
-Right now, `pytkdocs` supports the Google-style and reStructuredText-style docstring formats.
+Right now, `pytkdocs` supports the Google-style, Numpy-style and reStructuredText-style docstring formats.
 
 #### Google-style
 
@@ -205,6 +205,11 @@ Type annotations are read both in the code and in the docstrings.
         rendering:
           show_root_heading: no
           show_root_toc_entry: no
+
+#### Numpy-style
+
+You can see examples of Numpy-style docstrings
+in [numpydoc's documentation](https://numpydoc.readthedocs.io/en/latest/format.html).
 
 #### reStructuredText-style
 

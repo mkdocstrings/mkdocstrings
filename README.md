@@ -10,15 +10,9 @@ Automatic documentation from sources, for [MkDocs](https://mkdocs.org/).
 
 ---
 
+**[Features](#features)** - **[Python handler](#python-handler)** - **[Requirements](#requirements)** - **[Installation](#installation)** - **[Quick usage](#quick-usage)**
+
 ![mkdocstrings_gif1](https://user-images.githubusercontent.com/3999221/77157604-fb807480-6aa1-11ea-99e0-d092371d4de0.gif)
-
----
-
-- [Features](#features)
-    - [Python handler features](#python-handler-features)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Quick usage](#quick-usage)
 
 ## Features
 
@@ -61,41 +55,40 @@ Automatic documentation from sources, for [MkDocs](https://mkdocs.org/).
 - **Reasonable defaults:**
   you should be able to just drop the plugin in your configuration and enjoy your auto-generated docs.
 
-### Python handler features
-
-- **Data collection from source code**: collection of the object-tree and the docstrings is done by
-  [`pytkdocs`](https://github.com/pawamoy/pytkdocs). The following features are possible thanks to it:
-    - **Support for type annotations:** `pytkdocs` collects your type annotations and *mkdocstrings* uses them
-      to display parameters types or return types.
-    - **Recursive documentation of Python objects:** just use the module dotted-path as identifier, and you get the full
-      module docs. You don't need to inject documentation for each class, function, etc.
-    - **Support for documented attribute:** attributes (variables) followed by a docstring (triple-quoted string) will
-      be recognized by `pytkdocs` in modules, classes and even in `__init__` methods.
-    - **Support for objects properties:** `pytkdocs` detects if a method is a `staticmethod`, a `classmethod`, etc.,
-      it also detects if a property is read-only or writable, and more! These properties will be displayed
-      next to the object signature by *mkdocstrings*.
-    - **Google-style sections support in docstrings:** `pytkdocs` understands `Arguments:`, `Raises:`
-      and `Returns:` sections, and returns structured data for *mkdocstrings* to render them.
-    - **reStructuredText-style sections support in docstrings:** `pytkdocs` understands all the
-      [reStructuredText fields](https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html?highlight=python%20domain#info-field-lists),
-      and returns structured data for *mkdocstrings* to render them.
-      *Note: only RST **style** is supported, not the whole markup.*
-    - **Admonition support in docstrings:** blocks like `Note: ` or `Warning: ` will be transformed
-      to their [admonition](https://squidfunk.github.io/mkdocs-material/extensions/admonition/) equivalent.
-      *We do not support nested admonitions in docstrings!*
-    - **Support for reStructuredText in docstrings:** `pytkdocs` can parse simple RST.
-- **Every object has a TOC entry:** we render a heading for each object, meaning *MkDocs* picks them into the Table
-  of Contents, which is nicely display by the Material theme. Thanks to *mkdocstrings* cross-reference ability,
-  you can even reference other objects within your docstrings, with the classic Markdown syntax:
-  `[this object][package.module.object]` or directly with `[package.module.object][]`
-- **Source code display:** *mkdocstrings* can add a collapsible div containing the highlighted source code
-  of the Python object.
-
-To get an example of what is possible, check *mkdocstrings*'
-own [documentation](https://mkdocstrings.github.io/), auto-generated from sources by itself of course,
-and the following GIF:
+### Python handler
 
 ![mkdocstrings_gif2](https://user-images.githubusercontent.com/3999221/77157838-7184db80-6aa2-11ea-9f9a-fe77405202de.gif)
+
+- **Data collection from source code**: collection of the object-tree and the docstrings is done by
+  [`pytkdocs`](https://github.com/pawamoy/pytkdocs).
+
+- **Support for type annotations:** `pytkdocs` collects your type annotations and *mkdocstrings* uses them
+  to display parameters types or return types.
+
+- **Recursive documentation of Python objects:** just use the module dotted-path as identifier, and you get the full
+  module docs. You don't need to inject documentation for each class, function, etc.
+
+- **Support for documented attributes:** attributes (variables) followed by a docstring (triple-quoted string) will
+  be recognized by `pytkdocs` in modules, classes and even in `__init__` methods.
+
+- **Support for objects properties:** `pytkdocs` detects if a method is a `staticmethod`, a `classmethod`, etc.,
+  it also detects if a property is read-only or writable, and more! These properties will be displayed
+  next to the object signature by *mkdocstrings*.
+
+- **Multiple docstring-styles support:** almost complete support for Google-style, Numpy-style,
+  and reStructuredText-style docstrings. *Note: only RST **style** is supported, not the whole markup.*
+
+- **Admonition support in docstrings:** blocks like `Note:` or `Warning:` will be transformed
+  to their [admonition](https://squidfunk.github.io/mkdocs-material/extensions/admonition/) equivalent.
+  *We do not support nested admonitions in docstrings!*
+
+- **Every object has a TOC entry:** we render a heading for each object, meaning *MkDocs* picks them into the Table
+  of Contents, which is nicely display by the Material theme. Thanks to *mkdocstrings* cross-reference ability,
+  you can reference other objects within your docstrings, with the classic Markdown syntax:
+  `[this object][package.module.object]` or directly with `[package.module.object][]`
+
+- **Source code display:** *mkdocstrings* can add a collapsible div containing the highlighted source code
+  of the Python object.
 
 ## Roadmap
 
