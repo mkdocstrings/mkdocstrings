@@ -152,7 +152,6 @@ class PythonCollector(BaseCollector):
         self.process = Popen(  # noqa: S603,S607 (we trust the input, and we don't want to use the absolute path)
             cmd,
             universal_newlines=True,
-            stderr=PIPE,
             stdout=PIPE,
             stdin=PIPE,
             bufsize=-1,
