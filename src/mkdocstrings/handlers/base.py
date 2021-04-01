@@ -343,10 +343,10 @@ class Handlers:
         Returns:
             The name of the handler to use.
         """
-        config = self._config["mkdocstrings"]
+        global_config = self._config["mkdocstrings"]
         if "handler" in config:
             return config["handler"]
-        return config["default_handler"]
+        return global_config["default_handler"]
 
     def get_handler_config(self, name: str) -> dict:
         """Return the global configuration of the given handler.

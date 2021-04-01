@@ -152,3 +152,9 @@ def test_no_double_toc(ext_markdown, expect_permalink):
         },
         {"level": 1, "id": "bb", "name": "bb", "children": []},
     ]
+
+
+def test_use_custom_handler(ext_markdown):
+    """Assert that we use the custom handler declared in an individual autodoc instruction."""
+    with pytest.raises(ModuleNotFoundError):
+        ext_markdown.convert("::: tests.fixtures.headings\n    handler: not_here")
