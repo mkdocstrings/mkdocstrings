@@ -3,7 +3,7 @@
 import copy
 import re
 import textwrap
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from xml.etree.ElementTree import Element
 
 from markdown import Markdown
@@ -43,8 +43,8 @@ class Highlighter(Highlight):
         Arguments:
             md: The Markdown instance to read configs from.
         """
-        config = {}
-        for ext in md.registeredExtensions:
+        config: Dict[str, Any] = {}
+        for ext in md.registeredExtensions:  # type: ignore
             if isinstance(ext, HighlightExtension) and (ext.enabled or not config):
                 config = ext.getConfigs()
                 break  # This one takes priority, no need to continue looking
@@ -83,7 +83,7 @@ class Highlighter(Highlight):
             src = textwrap.dedent(src)
 
         kwargs.setdefault("css_class", self._css_class)
-        old_linenums = self.linenums
+        old_linenums = self.linenums  # type: ignore
         if linenums is not None:
             self.linenums = linenums
         try:

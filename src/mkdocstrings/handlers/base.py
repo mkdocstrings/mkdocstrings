@@ -11,7 +11,7 @@ It also provides two methods:
 import importlib
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Any, Dict, Iterable, Optional, Sequence
+from typing import Any, Dict, Iterable, List, Optional, Sequence
 from xml.etree.ElementTree import Element, tostring
 
 from jinja2 import Environment, FileSystemLoader
@@ -103,14 +103,14 @@ class BaseRenderer(ABC):
 
         self.env = Environment(
             autoescape=True,
-            loader=FileSystemLoader(paths),
+            loader=FileSystemLoader(paths),  # type: ignore
             auto_reload=False,  # Editing a template in the middle of a build is not useful.
         )  # type: ignore
         self.env.filters["any"] = do_any
         self.env.globals["log"] = get_template_logger()
 
-        self._headings = []
-        self._md = None  # To be populated in `update_env`.
+        self._headings: List[Element] = []
+        self._md: Markdown = None  # type: ignore  # To be populated in `update_env`.
 
     @abstractmethod
     def render(self, data: CollectorItem, config: dict) -> str:
@@ -182,7 +182,7 @@ class BaseRenderer(ABC):
         # First, produce the "fake" heading, for ToC only.
         el = Element(f"h{heading_level}", attributes)
         if toc_label is None:
-            toc_label = content.unescape() if isinstance(el, Markup) else content
+            toc_label = content.unescape() if isinstance(el, Markup) else content  # type: ignore
         el.set("data-toc-label", toc_label)
         self._headings.append(el)
 
@@ -382,7 +382,7 @@ class Handlers:
             if handler_config is None:
                 handler_config = self.get_handler_config(name)
             module = importlib.import_module(f"mkdocstrings.handlers.{name}")
-            self._handlers[name] = module.get_handler(
+            self._handlers[name] = module.get_handler(  # type: ignore
                 self._config["theme_name"],
                 self._config["mkdocstrings"]["custom_templates"],
                 **handler_config,

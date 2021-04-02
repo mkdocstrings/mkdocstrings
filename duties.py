@@ -3,6 +3,7 @@
 import os
 import re
 import sys
+from pathlib import Path
 from shutil import which
 from typing import List, Optional, Pattern
 
@@ -94,7 +95,7 @@ def update_changelog(
     """
     env = SandboxedEnvironment(autoescape=False)
     template = env.from_string(httpx.get(template_url).text)
-    changelog = Changelog(".", style=commit_style)  # noqa: W0621 (shadowing changelog)
+    changelog = Changelog(".", style=commit_style)
 
     if len(changelog.versions_list) == 1:
         last_version = changelog.versions_list[0]
@@ -135,12 +136,12 @@ def changelog(ctx):
 
 
 @duty(pre=["check_code_quality", "check_types", "check_docs", "check_dependencies"])
-def check(ctx):  # noqa: W0613 (no use for the context argument)
+def check(ctx):
     """Check it all!
 
     Arguments:
         ctx: The context instance (passed automatically).
-    """  # noqa: D400 (exclamation mark is funnier)
+    """
 
 
 @duty
@@ -193,6 +194,8 @@ def check_docs(ctx):
     """
     # mkdocs-gen-files works on 3.7+ only
     nofail = sys.version_info < (3, 7)
+    Path("build/coverage").mkdir(parents=True, exist_ok=True)
+    Path("build/coverage/index.html").touch(exist_ok=True)
     ctx.run("mkdocs build -s", title="Building documentation", pty=PTY, nofail=nofail, quiet=nofail)
 
 
@@ -216,6 +219,7 @@ def clean(ctx):
     ctx.run("rm -rf .coverage*")
     ctx.run("rm -rf .mypy_cache")
     ctx.run("rm -rf .pytest_cache")
+    ctx.run("rm -rf tests/.pytest_cache")
     ctx.run("rm -rf build")
     ctx.run("rm -rf dist")
     ctx.run("rm -rf pip-wheel-metadata")
@@ -258,7 +262,7 @@ def docs_deploy(ctx):
 
 
 @duty
-def format(ctx):  # noqa: W0622 (we don't mind shadowing the format builtin)
+def format(ctx):
     """Run formatting tools on the code.
 
     Arguments:
@@ -290,7 +294,7 @@ def release(ctx, version):
         ctx.run("git push --tags", title="Pushing tags", pty=False)
         ctx.run("poetry build", title="Building dist/wheel", pty=PTY)
         ctx.run("poetry publish", title="Publishing version", pty=PTY)
-        docs_deploy.run()
+        docs_deploy.run()  # type: ignore
 
 
 @duty(silent=True)
@@ -300,21 +304,21 @@ def coverage(ctx):
     Arguments:
         ctx: The context instance (passed automatically).
     """
+    ctx.run("coverage combine .coverage-*", nofail=True)
     ctx.run("coverage report --rcfile=config/coverage.ini", capture=False)
     ctx.run("coverage html --rcfile=config/coverage.ini")
 
 
 @duty
-def test(ctx, cleancov: bool = True, match: str = ""):
+def test(ctx, match: str = ""):
     """Run the test suite.
 
     Arguments:
         ctx: The context instance (passed automatically).
-        cleancov: Whether to remove the `.coverage` file before running the tests.
         match: A pytest expression to filter selected tests.
     """
-    if cleancov:
-        ctx.run("rm -f .coverage", silent=True)
+    py_version = f"{sys.version_info.major}{sys.version_info.minor}"
+    os.environ["COVERAGE_FILE"] = f".coverage-{py_version}"
     ctx.run(
         ["pytest", "-c", "config/pytest.ini", "-n", "auto", "-k", match, "tests"],
         title="Running tests",

@@ -11,11 +11,18 @@ defaults:
     shell: bash
 
 env:
-  LANG: "en_US.utf-8"
-  LC_ALL: "en_US.utf-8"
-  POETRY_VIRTUALENVS_IN_PROJECT: "true"
-  PYTHONIOENCODING: "UTF-8"
+  LANG: en_US.utf-8
+  LC_ALL: en_US.utf-8
+  PYTHONIOENCODING: UTF-8
   PYTHONPATH: docs
+
+  # To fix an error when running Poetry on Windows
+  # (https://github.com/python-poetry/poetry/issues/2629),
+  # we set Poetry's cache directory to .poetry_cache in the current directory.
+  # It makes it easier to later remove the virtualenv when it's broken.
+  # Absolute path is necessary to avoid this issue:
+  # https://github.com/python-poetry/poetry/issues/3049
+  POETRY_CACHE_DIR: ${{ github.workspace }}/.poetry_cache
 
 jobs:
 
@@ -32,17 +39,17 @@ jobs:
       with:
         python-version: 3.8
 
+    - name: Set up Poetry
+      run: pip install poetry
+
     - name: Set up the cache
       uses: actions/cache@v1
       with:
-        path: .venv
-        key: quality-venv-cache-2
+        path: .poetry_cache
+        key: quality-poetry-cache
 
     - name: Set up the project
-      run: |
-        pip install poetry
-        poetry install -v || { rm -rf .venv; poetry install -v; }
-        poetry update
+      run: poetry install -vv
 
     - name: Check if the documentation builds correctly
       run: |
@@ -79,17 +86,17 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: Set up Poetry
+      run: pip install poetry
+
     - name: Set up the cache
       uses: actions/cache@v1
       with:
-        path: .venv
-        key: tests-venv-cache-${{ matrix.os }}-py${{ matrix.python-version }}
+        path: .poetry_cache
+        key: tests-poetry-cache-${{ matrix.os }}-py${{ matrix.python-version }}
 
     - name: Set up the project
-      run: |
-        pip install poetry
-        poetry install -v || { rm -rf .venv; poetry install -v; }
-        poetry update
+      run: poetry install -vv || { rm -rf .poetry_cache/virtualenvs/*; poetry install -vv; }
 
     - name: Run the test suite
       run: poetry run duty test
