@@ -79,7 +79,7 @@ class AutoDocProcessor(BlockProcessor):
         self._autorefs = autorefs
         self._updated_env = False
 
-    def test(self, parent: Element, block: str) -> bool:
+    def test(self, parent: Element, block: str) -> bool:  # type: ignore
         """Match our autodoc instructions.
 
         Arguments:
