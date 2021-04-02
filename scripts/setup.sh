@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-PYTHON_VERSIONS="${PYTHON_VERSIONS:-3.6 3.7 3.8 3.9}"
+PYTHON_VERSIONS="${PYTHON_VERSIONS-3.6 3.7 3.8 3.9}"
 
 install_with_pipx() {
     if ! command -v "$1" &>/dev/null; then
