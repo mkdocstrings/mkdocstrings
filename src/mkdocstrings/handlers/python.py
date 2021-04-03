@@ -242,6 +242,7 @@ class PythonHandler(BaseHandler):
     """
 
     domain: str = "py"  # to match Sphinx's default domain
+    enable_inventory: bool = True
 
 
 def get_handler(

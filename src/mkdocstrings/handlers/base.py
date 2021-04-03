@@ -293,9 +293,12 @@ class BaseHandler:
 
     Attributes:
         domain: The cross-documentation domain/language for this handler.
+        enable_inventory: Whether this handler is interested in enabling the creation
+            of the `objects.inv` Sphinx inventory file.
     """
 
     domain: str = "default"
+    enable_inventory: bool = False
 
     def __init__(self, collector: BaseCollector, renderer: BaseRenderer) -> None:
         """Initialize the object.

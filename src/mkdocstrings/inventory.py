@@ -70,11 +70,8 @@ class Inventory(dict):
         item = InventoryItem(*args, **kwargs)
         self[item.name] = item
 
-    def format_sphinx(self, compress: bool = True) -> bytes:
+    def format_sphinx(self) -> bytes:
         """Format this inventory as a Sphinx `objects.inv` file.
-
-        Arguments:
-            compress: Whether to compress the data using zlib.
 
         Returns:
             The inventory as bytes.
@@ -96,7 +93,4 @@ class Inventory(dict):
         for item in self.values():
             lines.append(item.format_sphinx().encode("utf8"))
 
-        data = b"\n".join(lines)
-        if compress:
-            data = zlib.compress(data, 9)
-        return header + data
+        return header + zlib.compress(b"\n".join(lines), 0)
