@@ -218,6 +218,7 @@ class MkdocstringsPlugin(BasePlugin):
             write_file(css_content.encode("utf-8"), os.path.join(config["site_dir"], self.css_filename))
 
             if self.inventory_enabled:
+                log.debug("Creating inventory file objects.inv")
                 inv_contents = self.handlers.inventory.format_sphinx()
                 write_file(inv_contents, os.path.join(config["site_dir"], "objects.inv"))
 
