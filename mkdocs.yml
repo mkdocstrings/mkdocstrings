@@ -22,8 +22,9 @@ nav:
       - rendering.py: reference/handlers/rendering.md
       - python.py: reference/handlers/python.md
     - extension.py: reference/extension.md
-    - plugin.py: reference/plugin.md
+    - inventory.py: reference/inventory.md
     - loggers.py: reference/loggers.md
+    - plugin.py: reference/plugin.md
   - mkdocs_autorefs:
     - references.py: reference/autorefs/references.md
     - plugin.py: reference/autorefs/plugin.md

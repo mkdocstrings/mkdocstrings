@@ -317,6 +317,12 @@ def test(ctx, match: str = ""):
         ctx: The context instance (passed automatically).
         match: A pytest expression to filter selected tests.
     """
+    try:
+        import sphinx  # isort:skip  # noqa: F401
+        import docutils  # isort:skip  # noqa: F401
+    except ImportError:
+        ctx.run("pip install sphinx docutils --no-deps", title="Installing additional test dependencies")
+
     py_version = f"{sys.version_info.major}{sys.version_info.minor}"
     os.environ["COVERAGE_FILE"] = f".coverage-{py_version}"
     ctx.run(

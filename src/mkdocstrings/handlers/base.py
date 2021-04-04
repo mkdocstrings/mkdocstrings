@@ -24,6 +24,7 @@ from mkdocstrings.handlers.rendering import (
     IdPrependingTreeprocessor,
     MkdocstringsInnerExtension,
 )
+from mkdocstrings.inventory import Inventory
 from mkdocstrings.loggers import get_template_logger
 
 CollectorItem = Any
@@ -163,6 +164,7 @@ class BaseRenderer(ABC):
         content: str,
         heading_level: int,
         *,
+        role: Optional[str] = None,
         hidden: bool = False,
         toc_label: Optional[str] = None,
         **attributes: str,
@@ -172,6 +174,7 @@ class BaseRenderer(ABC):
         Arguments:
             content: The HTML within the heading.
             heading_level: The level of heading (e.g. 3 -> `h3`).
+            role: An optional role for the object bound to this heading.
             hidden: If True, only register it for the table of contents, don't render anything.
             toc_label: The title to use in the table of contents ('data-toc-label' attribute).
             attributes: Any extra HTML attributes of the heading.
@@ -184,6 +187,8 @@ class BaseRenderer(ABC):
         if toc_label is None:
             toc_label = content.unescape() if isinstance(el, Markup) else content  # type: ignore
         el.set("data-toc-label", toc_label)
+        if role:
+            el.set("data-role", role)
         self._headings.append(el)
 
         if hidden:
@@ -285,7 +290,15 @@ class BaseHandler:
     Inherit from this class to implement a handler.
 
     It's usually just a combination of a collector and a renderer, but you can make it as complex as you need.
+
+    Attributes:
+        domain: The cross-documentation domain/language for this handler.
+        enable_inventory: Whether this handler is interested in enabling the creation
+            of the `objects.inv` Sphinx inventory file.
     """
+
+    domain: str = "default"
+    enable_inventory: bool = False
 
     def __init__(self, collector: BaseCollector, renderer: BaseRenderer) -> None:
         """Initialize the object.
@@ -314,6 +327,7 @@ class Handlers:
         """
         self._config = config
         self._handlers: Dict[str, BaseHandler] = {}
+        self.inventory: Inventory = Inventory(project=self._config["site_name"])
 
     def get_anchor(self, identifier: str) -> Optional[str]:
         """Return the canonical HTML anchor for the identifier, if any of the seen handlers can collect it.

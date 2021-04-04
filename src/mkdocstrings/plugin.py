@@ -52,6 +52,7 @@ class MkdocstringsPlugin(BasePlugin):
         ("handlers", MkType(dict, default={})),
         ("default_handler", MkType(str, default="python")),
         ("custom_templates", MkType(str, default=None)),
+        ("enable_inventory", MkType(bool, default=None)),
     )
     """
     The configuration options of `mkdocstrings`, written in `mkdocs.yml`.
@@ -156,6 +157,7 @@ class MkdocstringsPlugin(BasePlugin):
             theme_name = config["theme"].name
 
         extension_config = {
+            "site_name": config["site_name"],
             "theme_name": theme_name,
             "mdx": config["markdown_extensions"],
             "mdx_configs": config["mdx_configs"],
@@ -174,14 +176,26 @@ class MkdocstringsPlugin(BasePlugin):
             config["plugins"]["autorefs"] = autorefs
             log.debug(f"Added a subdued autorefs instance {autorefs!r}")
         # Add collector-based fallback in either case.
-        autorefs.get_fallback_anchor = self._handlers.get_anchor
+        autorefs.get_fallback_anchor = self.handlers.get_anchor
 
-        mkdocstrings_extension = MkdocstringsExtension(extension_config, self._handlers, autorefs)
+        mkdocstrings_extension = MkdocstringsExtension(extension_config, self.handlers, autorefs)
         config["markdown_extensions"].append(mkdocstrings_extension)
 
         config["extra_css"].insert(0, self.css_filename)  # So that it has lower priority than user files.
 
         return config
+
+    @property
+    def inventory_enabled(self) -> bool:
+        """Tell if the inventory is enabled or not.
+
+        Returns:
+            Whether the inventory is enabled.
+        """
+        inventory_enabled = self.config["enable_inventory"]
+        if inventory_enabled is None:
+            inventory_enabled = any(handler.enable_inventory for handler in self.handlers.seen_handlers)
+        return inventory_enabled
 
     def on_post_build(self, config: Config, **kwargs) -> None:  # noqa: W0613,R0201 (unused arguments, cannot be static)
         """Teardown the handlers.
@@ -199,12 +213,17 @@ class MkdocstringsPlugin(BasePlugin):
             config: The MkDocs config object.
             kwargs: Additional arguments passed by MkDocs.
         """
-        if self._handlers:
+        if self.handlers:
             css_content = "\n".join(handler.renderer.extra_css for handler in self.handlers.seen_handlers)
             write_file(css_content.encode("utf-8"), os.path.join(config["site_dir"], self.css_filename))
 
+            if self.inventory_enabled:
+                log.debug("Creating inventory file objects.inv")
+                inv_contents = self.handlers.inventory.format_sphinx()
+                write_file(inv_contents, os.path.join(config["site_dir"], "objects.inv"))
+
             log.debug("Tearing handlers down")
-            self._handlers.teardown()
+            self.handlers.teardown()
 
     def get_handler(self, handler_name: str) -> BaseHandler:
         """Get a handler by its name. See [mkdocstrings.handlers.base.Handlers.get_handler][].
