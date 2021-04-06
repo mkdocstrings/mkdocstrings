@@ -91,4 +91,4 @@ class Inventory(dict):
 
         lines = [item.format_sphinx().encode("utf8") for item in self.values()]
         # we use compression level 0 to make the file readable by humans
-        return header + zlib.compress(b"\n".join(lines), 0)
+        return header + zlib.compress(b"\n".join(lines) + b"\n", 0)
