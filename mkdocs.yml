@@ -5,37 +5,6 @@ repo_url: "https://github.com/mkdocstrings/mkdocstrings"
 edit_uri: "blob/master/docs/"
 repo_name: "mkdocstrings/mkdocstrings"
 
-nav:
-- Overview: index.md
-- Usage:
-  - usage.md
-  - Theming: theming.md
-  - Handlers:
-    - handlers/overview.md
-    - Python: handlers/python.md
-    - Crystal: https://mkdocstrings.github.io/crystal/
-  - Troubleshooting: troubleshooting.md
-- Code Reference:
-  - mkdocstrings:
-    - handlers:
-      - base.py: reference/handlers/base.md
-      - rendering.py: reference/handlers/rendering.md
-      - python.py: reference/handlers/python.md
-    - extension.py: reference/extension.md
-    - inventory.py: reference/inventory.md
-    - loggers.py: reference/loggers.md
-    - plugin.py: reference/plugin.md
-  - mkdocs_autorefs:
-    - references.py: reference/autorefs/references.md
-    - plugin.py: reference/autorefs/plugin.md
-- Contributing:
-  - contributing.md
-  - Code of Conduct: code_of_conduct.md
-  - Coverage report: coverage.md
-- Changelog: changelog.md
-- Credits: credits.md
-- License: license.md
-
 theme:
   name: material
   palette:
@@ -64,6 +33,8 @@ plugins:
     scripts:
     - docs/gen_credits.py
     - docs/gen_doc_stubs.py
+- literate-nav:
+    nav_file: sidebar.md
 - section-index
 - coverage:
     html_report_dir: build/coverage
