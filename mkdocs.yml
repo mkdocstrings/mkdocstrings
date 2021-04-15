@@ -34,7 +34,7 @@ plugins:
     - docs/gen_credits.py
     - docs/gen_doc_stubs.py
 - literate-nav:
-    nav_file: sidebar.md
+    nav_file: nav.md
 - section-index
 - coverage:
     html_report_dir: build/coverage
