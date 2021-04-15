@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from pathlib import Path
+from typing import Union
 
 import mkdocs_gen_files
 
@@ -27,16 +28,21 @@ nav_data = {
 
 for path in Path("src", "mkdocstrings").glob("**/*.py"):
     module_path = path.relative_to("src", "mkdocstrings").with_suffix(".md")
-    current_dict = nav_data["mkdocstrings"]
+    current_dict: dict = nav_data["mkdocstrings"]  # type: ignore
+
     for part in module_path.parts:
+        value: Union[str, dict]
+
         if part.endswith(".md"):
             key = part[:-3]
             value = str(module_path)
         else:
             key = part
             value = {}
+
         if key not in current_dict:
             current_dict[key] = value
+
         if isinstance(current_dict[key], dict):
             current_dict = current_dict[key]
 
