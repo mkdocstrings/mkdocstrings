@@ -22,7 +22,7 @@ sidebar_data = {
     "mkdocs_autorefs": {
         "references": "autorefs/references.md",
         "plugin": "autorefs/plugin.md",
-    }
+    },
 }
 
 for path in Path("src", "mkdocstrings").glob("**/*.py"):
@@ -50,4 +50,3 @@ for path in Path("src", "mkdocstrings").glob("**/*.py"):
 with mkdocs_gen_files.open("reference/sidebar.md", "w") as sidebar_file:
     sidebar_contents = "\n".join(build_sidebar(sidebar_data))
     print(sidebar_contents, file=sidebar_file)
-    
