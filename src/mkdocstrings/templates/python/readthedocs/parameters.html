@@ -10,7 +10,7 @@
       <td class="field-body">
         <ul class="first simple">
           {% for parameter in parameters %}
-            <li>{{ ("**" + parameter.name + "** (`" + parameter.annotation + "`) – " + parameter.description)|convert_markdown(heading_level, html_id) }}</li>
+            <li>{{ ("**" + parameter.name + "**" + (" (`" + parameter.annotation + "`)" if parameter.annotation else "") + " – " + parameter.description)|convert_markdown(heading_level, html_id) }}</li>
           {% endfor %}
         </ul>
       </td>
