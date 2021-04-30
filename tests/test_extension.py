@@ -7,11 +7,19 @@ import pytest
 from markdown import Markdown
 from mkdocs import config
 
+try:
+    from mkdocs.config.defaults import get_schema
+except ImportError:
+
+    def get_schema():
+        """Fallback for old versions of MkDocs."""
+        return config.DEFAULT_SCHEMA
+
 
 @pytest.fixture(name="ext_markdown")
 def fixture_ext_markdown(request, tmp_path):
     """Yield a Markdown instance with MkdocstringsExtension, with config adjustments."""
-    conf = config.Config(schema=config.DEFAULT_SCHEMA)
+    conf = config.Config(schema=get_schema())
 
     conf_dict = {
         "site_name": "foo",
