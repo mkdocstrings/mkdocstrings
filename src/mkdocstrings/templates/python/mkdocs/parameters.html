@@ -1,0 +1,7 @@
+{{ log.debug() }}
+<dl>
+  <dt>Parameters:</th>
+  {% for parameter in parameters %}
+    <dd>{{ ("**" + parameter.name + ":** " + ("`" + parameter.annotation + "` – " if parameter.annotation else "") + parameter.description)|convert_markdown(heading_level, html_id) }}</dd>
+  {% endfor %}
+</dl>

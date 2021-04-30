@@ -1,0 +1,5 @@
+{{ log.debug() }}
+<dl>
+    <dt>Returns:</th>
+    <dd>{{ (("`" + return.annotation + "` – " if return.annotation else "") + return.description)|convert_markdown(heading_level, html_id) }}</dd>
+</dl>
