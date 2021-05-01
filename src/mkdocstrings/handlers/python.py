@@ -49,6 +49,7 @@ class PythonRenderer(BaseRenderer):
         "show_bases": True,
         "group_by_category": True,
         "heading_level": 2,
+        "sort_members": "lexical",
     }
     """The default rendering options.
 
@@ -66,6 +67,7 @@ class PythonRenderer(BaseRenderer):
     **`show_bases`** | `bool` | Show the base classes of a class. | `True`
     **`group_by_category`** | `bool` | Group the object's children by categories: attributes, classes, functions, methods, and modules. | `True`
     **`heading_level`** | `int` | The initial heading level to use. | `2`
+    **`sort_members`** | `str` | The sort option to use. Options: `lexical` - order by the member name, `source` - order members as they appear in the source file | `lexical`
     """  # noqa: E501
 
     def render(self, data: CollectorItem, config: dict) -> str:  # noqa: D102 (ignore missing docstring)
@@ -77,6 +79,8 @@ class PythonRenderer(BaseRenderer):
         # of the rendering recursion. Therefore, it's easier to use it as a plain value
         # than as an item in a dictionary.
         heading_level = final_config["heading_level"]
+
+        sort_object(data, sort_style=final_config["sort_members"])
 
         return template.render(
             **{"config": final_config, data["category"]: data, "heading_level": heading_level, "root": True},
@@ -324,3 +328,30 @@ def rebuild_category_lists(obj: dict) -> None:
     obj["children"] = [child for _, child in obj["children"].items()]
     for child in obj["children"]:
         rebuild_category_lists(child)
+
+
+def sort_object(obj: CollectorItem, sort_style: str) -> None:
+    """Sort the collected object's children.
+
+    Sorts the object's children list, then each category separately, and then recurses into each.
+
+    Arguments:
+        obj: The collected object, as a dict. Note that this argument is mutated.
+        sort_style: How to sort the children lists - 'lexical' or 'source'.
+    """
+
+    def sort_key(a: dict) -> Any:
+        if sort_style == "lexical":
+            return a.get("name")
+        elif sort_style == "source":
+            return a.get("source", {}).get("line_start", 0)
+        else:
+            raise Exception("unknown sort_style")
+
+    obj["children"].sort(key=sort_key)
+
+    for category in ("attributes", "classes", "functions", "methods", "modules"):
+        obj[category].sort(key=sort_key)
+
+    for child in obj["children"]:
+        sort_object(child, sort_style=sort_style)
