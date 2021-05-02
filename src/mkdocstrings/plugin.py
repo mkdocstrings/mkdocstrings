@@ -12,8 +12,13 @@ Finally, when serving the documentation, it can add directories to watch
 during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on_serve).
 """
 
+import collections
+import concurrent.futures
+import functools
+import gzip
 import os
-from typing import Callable, Optional, Tuple
+import urllib.request
+from typing import BinaryIO, Callable, Iterable, Mapping, Optional, Tuple
 
 from livereload import Server
 from mkdocs.config import Config
@@ -156,6 +161,11 @@ class MkdocstringsPlugin(BasePlugin):
         else:
             theme_name = config["theme"].name
 
+        to_import = []
+        for name, conf in self.config["handlers"].items():
+            for url in conf.pop("import", ()):
+                to_import.append((name, url))
+
         extension_config = {
             "site_name": config["site_name"],
             "theme_name": theme_name,
@@ -182,6 +192,14 @@ class MkdocstringsPlugin(BasePlugin):
         config["markdown_extensions"].append(mkdocstrings_extension)
 
         config["extra_css"].insert(0, self.css_filename)  # So that it has lower priority than user files.
+
+        self._inv_futures = []
+        if to_import:
+            inv_loader = concurrent.futures.ThreadPoolExecutor(4)
+            for name, url in to_import:
+                future = inv_loader.submit(self._load_inventory, self.get_handler(name).load_inventory, url)
+                self._inv_futures.append(future)
+            inv_loader.shutdown(wait=False)
 
         return config
 
@@ -213,6 +231,9 @@ class MkdocstringsPlugin(BasePlugin):
             config: The MkDocs config object.
             kwargs: Additional arguments passed by MkDocs.
         """
+        for f in self._inv_futures:
+            f.cancel()
+
         if self.handlers:
             css_content = "\n".join(handler.renderer.extra_css for handler in self.handlers.seen_handlers)
             write_file(css_content.encode("utf-8"), os.path.join(config["site_dir"], self.css_filename))
@@ -235,3 +256,33 @@ class MkdocstringsPlugin(BasePlugin):
             An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler].
         """
         return self.handlers.get_handler(handler_name)
+
+    @classmethod
+    @functools.lru_cache(maxsize=None)
+    def _load_inventory(
+        cls, loader: Callable[[BinaryIO, str], Iterable[Tuple[str, str]]], url: str
+    ) -> Mapping[str, str]:
+        """Download and process inventory files using a handler.
+
+        Arguments:
+            loader: A function returning a sequence of pairs (identifier, url).
+            url: The URL to download and process.
+
+        Returns:
+            A mapping from identifier to absolute URL.
+        """
+        log.debug(f"Downloading inventory from {url!r}")
+        req = urllib.request.Request(url, headers={"Accept-Encoding": "gzip"})
+        with urllib.request.urlopen(req) as resp:  # noqa: S310 (URL audit OK: comes from a checked-in config)
+            if "gzip" in resp.headers.get("content-encoding", ""):
+                resp = gzip.GzipFile(fileobj=resp)
+            result = dict(loader(resp, url=url))
+        log.debug(f"Loaded inventory from {url!r}: {len(result)} items")
+        return result
+
+    def on_env(self, env, config: Config, **kwargs):  # noqa: W0613 (unused arguments)
+        """Before getting to the HTML rendering stage, gather results from background tasks."""
+        concurrent.futures.wait(self._inv_futures, timeout=30)
+        for k, v in collections.ChainMap(*(f.result() for f in self._inv_futures)).items():
+            config["plugins"]["autorefs"].register_url(k, v)
+        self._inv_futures = []
