@@ -108,6 +108,10 @@ It stands for *(Python) Take Docs*, and is supposed to be a pun on MkDocs (*Make
 ### Supported docstrings styles
 
 Right now, `pytkdocs` supports the Google-style, Numpy-style and reStructuredText-style docstring formats.
+The style used by default is the Google-style.
+You can configure what style you want to use with
+the `docstring_style` and `docstring_options` [selection options](#selection),
+both globally or per autodoc instruction.
 
 #### Google-style
 
