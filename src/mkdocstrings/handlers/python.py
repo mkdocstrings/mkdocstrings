@@ -341,18 +341,21 @@ def sort_object(obj: CollectorItem, sort_style: str) -> None:
         sort_style: How to sort the children lists - 'alphabetical' or 'source'.
     """
 
-    def sort_key(a: dict) -> Any:
-        if sort_style == "alphabetical":
-            return a.get("name")
-        elif sort_style == "source":
-            return a.get("source", {}).get("line_start", 0)
-        else:
-            raise PluginError("unknown sort_style")
+    if sort_style == "alphabetical":
+        # sort_last is a string that contains the final unicode character, so
+        # if 'name' isn't found on the object, the item will go to the end of
+        # the list.
+        sort_last = chr(sys.maxunicode)
+        sort_function = lambda item: item.get("name", sort_last)
+    elif sort_style == "source":
+        sort_function = lambda item: item.get("source", {}).get("line_start", 0)
+    else:
+        raise PluginError('unknown sort_style')
 
-    obj["children"].sort(key=sort_key)
+    obj["children"].sort(key=sort_function)
 
     for category in ("attributes", "classes", "functions", "methods", "modules"):
-        obj[category].sort(key=sort_key)
+        obj[category].sort(key=sort_function)
 
     for child in obj["children"]:
         sort_object(child, sort_style=sort_style)
