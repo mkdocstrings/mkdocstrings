@@ -18,6 +18,7 @@ from markupsafe import Markup
 from mkdocstrings.handlers.base import BaseCollector, BaseHandler, BaseRenderer, CollectionError, CollectorItem
 from mkdocstrings.inventory import Inventory
 from mkdocstrings.loggers import get_logger
+from mkdocstrings.extension import PluginError
 
 log = get_logger(__name__)
 
@@ -346,7 +347,7 @@ def sort_object(obj: CollectorItem, sort_style: str) -> None:
         elif sort_style == "source":
             return a.get("source", {}).get("line_start", 0)
         else:
-            raise Exception("unknown sort_style")
+            raise PluginError("unknown sort_style")
 
     obj["children"].sort(key=sort_key)
 
