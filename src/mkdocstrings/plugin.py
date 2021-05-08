@@ -197,6 +197,20 @@ class MkdocstringsPlugin(BasePlugin):
             inventory_enabled = any(handler.enable_inventory for handler in self.handlers.seen_handlers)
         return inventory_enabled
 
+    def on_env(self, env, config: Config, **kwargs):
+        """Write mkdocstrings' extra files into the site dir.
+
+        This is done in `on_env` because it's the only event that happens right after all Markdown rendering.
+        """
+        if self._handlers:
+            css_content = "\n".join(handler.renderer.extra_css for handler in self.handlers.seen_handlers)
+            write_file(css_content.encode("utf-8"), os.path.join(config["site_dir"], self.css_filename))
+
+            if self.inventory_enabled:
+                log.debug("Creating inventory file objects.inv")
+                inv_contents = self.handlers.inventory.format_sphinx()
+                write_file(inv_contents, os.path.join(config["site_dir"], "objects.inv"))
+
     def on_post_build(self, config: Config, **kwargs) -> None:  # noqa: W0613,R0201 (unused arguments, cannot be static)
         """Teardown the handlers.
 
@@ -213,15 +227,7 @@ class MkdocstringsPlugin(BasePlugin):
             config: The MkDocs config object.
             kwargs: Additional arguments passed by MkDocs.
         """
-        if self.handlers:
-            css_content = "\n".join(handler.renderer.extra_css for handler in self.handlers.seen_handlers)
-            write_file(css_content.encode("utf-8"), os.path.join(config["site_dir"], self.css_filename))
-
-            if self.inventory_enabled:
-                log.debug("Creating inventory file objects.inv")
-                inv_contents = self.handlers.inventory.format_sphinx()
-                write_file(inv_contents, os.path.join(config["site_dir"], "objects.inv"))
-
+        if self._handlers:
             log.debug("Tearing handlers down")
             self.handlers.teardown()
 
