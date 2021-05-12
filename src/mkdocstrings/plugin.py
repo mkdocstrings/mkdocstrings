@@ -235,6 +235,7 @@ class MkdocstringsPlugin(BasePlugin):
                 write_file(inv_contents, os.path.join(config["site_dir"], "objects.inv"))
 
         if self._inv_futures:
+            log.debug(f"Waiting for {len(self._inv_futures)} inventory download(s)")
             concurrent.futures.wait(self._inv_futures, timeout=30)
             for k, v in collections.ChainMap(*(f.result() for f in self._inv_futures)).items():
                 config["plugins"]["autorefs"].register_url(k, v)
