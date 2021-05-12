@@ -200,7 +200,7 @@ class MkdocstringsPlugin(BasePlugin):
             inv_loader = concurrent.futures.ThreadPoolExecutor(4)
             for handler_name, import_item in to_import:
                 future = inv_loader.submit(
-                    self._load_inventory, self.get_handler(handler_name).load_inventory, import_item
+                    self._load_inventory, self.get_handler(handler_name).load_inventory, **import_item
                 )
                 self._inv_futures.append(future)
             inv_loader.shutdown(wait=False)
@@ -277,25 +277,23 @@ class MkdocstringsPlugin(BasePlugin):
 
     @classmethod
     @functools.lru_cache(maxsize=None)
-    def _load_inventory(
-        cls, loader: Callable[..., Iterable[Tuple[str, str]]], import_item: Mapping[str, Any]
-    ) -> Mapping[str, str]:
+    def _load_inventory(cls, loader: Callable[..., Iterable[Tuple[str, str]]], url: str, **kwargs) -> Mapping[str, str]:
         """Download and process inventory files using a handler.
 
         Arguments:
             loader: A function returning a sequence of pairs (identifier, url).
-            import_item: The item to download and process. The dict must have at least the `url` key.
+            url: The URL to download and process.
+            kwargs: Extra arguments to pass to the loader.
 
         Returns:
             A mapping from identifier to absolute URL.
         """
-        url = import_item["url"]
         log.debug(f"Downloading inventory from {url!r}")
         req = urllib.request.Request(url, headers={"Accept-Encoding": "gzip"})
         with urllib.request.urlopen(req) as resp:  # noqa: S310 (URL audit OK: comes from a checked-in config)
             content: BinaryIO = resp
             if "gzip" in resp.headers.get("content-encoding", ""):
                 content = gzip.GzipFile(fileobj=resp)  # type: ignore[assignment]
-            result = dict(loader(content, **import_item))
+            result = dict(loader(content, url=url, **kwargs))
         log.debug(f"Loaded inventory from {url!r}: {len(result)} items")
         return result
