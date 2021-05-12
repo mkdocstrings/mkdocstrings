@@ -18,7 +18,7 @@ import functools
 import gzip
 import os
 import urllib.request
-from typing import BinaryIO, Callable, Iterable, Mapping, Optional, Tuple
+from typing import Any, BinaryIO, Callable, Iterable, List, Mapping, Optional, Tuple
 
 from livereload import Server
 from mkdocs.config import Config
@@ -161,10 +161,12 @@ class MkdocstringsPlugin(BasePlugin):
         else:
             theme_name = config["theme"].name
 
-        to_import = []
-        for name, conf in self.config["handlers"].items():
-            for url in conf.pop("import", ()):
-                to_import.append((name, url))
+        to_import: List[Tuple[str, Mapping[str, Any]]] = []
+        for handler_name, conf in self.config["handlers"].items():
+            for import_item in conf.pop("import", ()):
+                if isinstance(import_item, str):
+                    import_item = {"url": import_item}
+                to_import.append((handler_name, import_item))
 
         extension_config = {
             "site_name": config["site_name"],
@@ -196,8 +198,10 @@ class MkdocstringsPlugin(BasePlugin):
         self._inv_futures = []
         if to_import:
             inv_loader = concurrent.futures.ThreadPoolExecutor(4)
-            for name, url in to_import:
-                future = inv_loader.submit(self._load_inventory, self.get_handler(name).load_inventory, url)
+            for handler_name, import_item in to_import:
+                future = inv_loader.submit(
+                    self._load_inventory, self.get_handler(handler_name).load_inventory, import_item
+                )
                 self._inv_futures.append(future)
             inv_loader.shutdown(wait=False)
 
@@ -273,23 +277,24 @@ class MkdocstringsPlugin(BasePlugin):
     @classmethod
     @functools.lru_cache(maxsize=None)
     def _load_inventory(
-        cls, loader: Callable[[BinaryIO, str], Iterable[Tuple[str, str]]], url: str
+        cls, loader: Callable[..., Iterable[Tuple[str, str]]], import_item: Mapping[str, Any]
     ) -> Mapping[str, str]:
         """Download and process inventory files using a handler.
 
         Arguments:
             loader: A function returning a sequence of pairs (identifier, url).
-            url: The URL to download and process.
+            import_item: The item to download and process. The dict must have at least the `url` key.
 
         Returns:
             A mapping from identifier to absolute URL.
         """
+        url = import_item["url"]
         log.debug(f"Downloading inventory from {url!r}")
         req = urllib.request.Request(url, headers={"Accept-Encoding": "gzip"})
         with urllib.request.urlopen(req) as resp:  # noqa: S310 (URL audit OK: comes from a checked-in config)
+            content: BinaryIO = resp
             if "gzip" in resp.headers.get("content-encoding", ""):
-                resp = gzip.GzipFile(fileobj=resp)
-            items = loader(resp, url=url)  # type: ignore
-            result = dict(items)
+                content = gzip.GzipFile(fileobj=resp)  # type: ignore[assignment]
+            result = dict(loader(content, **import_item))
         log.debug(f"Loaded inventory from {url!r}: {len(result)} items")
         return result
