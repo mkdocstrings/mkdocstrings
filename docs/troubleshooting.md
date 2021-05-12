@@ -135,29 +135,6 @@ Make sure the referenced object was both collected and rendered: verify your sel
 
 For false-positives, you can wrap the text in backticks (\`) to prevent `mkdocstrings` from trying to process it.
 
-## WindowsPath object is not iterable
-
-If you get a traceback like this one:
-
-```
-...
-File "c:\users\me\appdata\local\continuum\anaconda3\lib\site-packages\mkdocstrings\handlers\python.py", line 244, in get_handler
-  return PythonHandler(collector=PythonCollector(), renderer=PythonRenderer("python", theme))
-File "c:\users\me\appdata\local\continuum\anaconda3\lib\site-packages\mkdocstrings\handlers\__init__.py", line 124, in __init__
-  self.env = Environment(autoescape=True, loader=FileSystemLoader(theme_dir))
-File "c:\users\me\appdata\local\continuum\anaconda3\lib\site-packages\jinja2\loaders.py", line 163, in __init__
-  self.searchpath = list(searchpath)
-TypeError: 'WindowsPath' object is not iterable
-```
-
-Try upgrading your installed version of Jinja2:
-
-```
-pip install -U jinja2
-```
-
-Version 2.11.1 seems to be working fine.
-
 ---
 
 ## Python specifics

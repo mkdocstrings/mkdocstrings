@@ -215,6 +215,27 @@ class MkdocstringsPlugin(BasePlugin):
             inventory_enabled = any(handler.enable_inventory for handler in self.handlers.seen_handlers)
         return inventory_enabled
 
+    def on_env(self, env, config: Config, **kwargs):
+        """Extra actions that need to happen after all Markdown rendering and before HTML rendering.
+
+        - Write mkdocstrings' extra files into the site dir.
+        - Gather results from background inventory download tasks.
+        """
+        if self._handlers:
+            css_content = "\n".join(handler.renderer.extra_css for handler in self.handlers.seen_handlers)
+            write_file(css_content.encode("utf-8"), os.path.join(config["site_dir"], self.css_filename))
+
+            if self.inventory_enabled:
+                log.debug("Creating inventory file objects.inv")
+                inv_contents = self.handlers.inventory.format_sphinx()
+                write_file(inv_contents, os.path.join(config["site_dir"], "objects.inv"))
+
+        if self._inv_futures:
+            concurrent.futures.wait(self._inv_futures, timeout=30)
+            for k, v in collections.ChainMap(*(f.result() for f in self._inv_futures)).items():
+                config["plugins"]["autorefs"].register_url(k, v)
+            self._inv_futures = []
+
     def on_post_build(self, config: Config, **kwargs) -> None:  # noqa: W0613,R0201 (unused arguments, cannot be static)
         """Teardown the handlers.
 
@@ -234,15 +255,7 @@ class MkdocstringsPlugin(BasePlugin):
         for f in self._inv_futures:
             f.cancel()
 
-        if self.handlers:
-            css_content = "\n".join(handler.renderer.extra_css for handler in self.handlers.seen_handlers)
-            write_file(css_content.encode("utf-8"), os.path.join(config["site_dir"], self.css_filename))
-
-            if self.inventory_enabled:
-                log.debug("Creating inventory file objects.inv")
-                inv_contents = self.handlers.inventory.format_sphinx()
-                write_file(inv_contents, os.path.join(config["site_dir"], "objects.inv"))
-
+        if self._handlers:
             log.debug("Tearing handlers down")
             self.handlers.teardown()
 
@@ -279,10 +292,3 @@ class MkdocstringsPlugin(BasePlugin):
             result = dict(loader(resp, url=url))
         log.debug(f"Loaded inventory from {url!r}: {len(result)} items")
         return result
-
-    def on_env(self, env, config: Config, **kwargs):  # noqa: W0613 (unused arguments)
-        """Before getting to the HTML rendering stage, gather results from background tasks."""
-        concurrent.futures.wait(self._inv_futures, timeout=30)
-        for k, v in collections.ChainMap(*(f.result() for f in self._inv_futures)).items():
-            config["plugins"]["autorefs"].register_url(k, v)
-        self._inv_futures = []

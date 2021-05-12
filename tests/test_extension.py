@@ -1,4 +1,5 @@
 """Tests for the extension module."""
+import re
 import sys
 from collections import ChainMap
 from textwrap import dedent
@@ -90,8 +91,7 @@ def test_keeps_preceding_text(ext_markdown):
 def test_reference_inside_autodoc(ext_markdown):
     """Assert cross-reference Markdown extension works correctly."""
     output = ext_markdown.convert("::: tests.fixtures.cross_reference")
-    snippet = 'Link to <span data-mkdocstrings-identifier="something.Else">something.Else</span>.'
-    assert snippet in output
+    assert re.search(r"Link to <.*something\.Else.*>something\.Else<.*>\.", output)
 
 
 @pytest.mark.skipif(sys.version_info < (3, 8), reason="typing.Literal requires Python 3.8")
