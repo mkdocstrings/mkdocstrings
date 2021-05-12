@@ -289,6 +289,7 @@ class MkdocstringsPlugin(BasePlugin):
         with urllib.request.urlopen(req) as resp:  # noqa: S310 (URL audit OK: comes from a checked-in config)
             if "gzip" in resp.headers.get("content-encoding", ""):
                 resp = gzip.GzipFile(fileobj=resp)
-            result = dict(loader(resp, url=url))
+            items = loader(resp, url=url)  # type: ignore
+            result = dict(items)
         log.debug(f"Loaded inventory from {url!r}: {len(result)} items")
         return result
