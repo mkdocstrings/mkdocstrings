@@ -12,8 +12,13 @@ Finally, when serving the documentation, it can add directories to watch
 during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on_serve).
 """
 
+import collections
+import concurrent.futures
+import functools
+import gzip
 import os
-from typing import Callable, Optional, Tuple
+import urllib.request
+from typing import Any, BinaryIO, Callable, Iterable, List, Mapping, Optional, Tuple
 
 from livereload import Server
 from mkdocs.config import Config
@@ -156,6 +161,13 @@ class MkdocstringsPlugin(BasePlugin):
         else:
             theme_name = config["theme"].name
 
+        to_import: List[Tuple[str, Mapping[str, Any]]] = []
+        for handler_name, conf in self.config["handlers"].items():
+            for import_item in conf.pop("import", ()):
+                if isinstance(import_item, str):
+                    import_item = {"url": import_item}
+                to_import.append((handler_name, import_item))
+
         extension_config = {
             "site_name": config["site_name"],
             "theme_name": theme_name,
@@ -183,6 +195,16 @@ class MkdocstringsPlugin(BasePlugin):
 
         config["extra_css"].insert(0, self.css_filename)  # So that it has lower priority than user files.
 
+        self._inv_futures = []
+        if to_import:
+            inv_loader = concurrent.futures.ThreadPoolExecutor(4)
+            for handler_name, import_item in to_import:
+                future = inv_loader.submit(
+                    self._load_inventory, self.get_handler(handler_name).load_inventory, **import_item
+                )
+                self._inv_futures.append(future)
+            inv_loader.shutdown(wait=False)
+
         return config
 
     @property
@@ -198,9 +220,10 @@ class MkdocstringsPlugin(BasePlugin):
         return inventory_enabled
 
     def on_env(self, env, config: Config, **kwargs):
-        """Write mkdocstrings' extra files into the site dir.
+        """Extra actions that need to happen after all Markdown rendering and before HTML rendering.
 
-        This is done in `on_env` because it's the only event that happens right after all Markdown rendering.
+        - Write mkdocstrings' extra files into the site dir.
+        - Gather results from background inventory download tasks.
         """
         if self._handlers:
             css_content = "\n".join(handler.renderer.extra_css for handler in self.handlers.seen_handlers)
@@ -210,6 +233,13 @@ class MkdocstringsPlugin(BasePlugin):
                 log.debug("Creating inventory file objects.inv")
                 inv_contents = self.handlers.inventory.format_sphinx()
                 write_file(inv_contents, os.path.join(config["site_dir"], "objects.inv"))
+
+        if self._inv_futures:
+            log.debug(f"Waiting for {len(self._inv_futures)} inventory download(s)")
+            concurrent.futures.wait(self._inv_futures, timeout=30)
+            for k, v in collections.ChainMap(*(f.result() for f in self._inv_futures)).items():
+                config["plugins"]["autorefs"].register_url(k, v)
+            self._inv_futures = []
 
     def on_post_build(self, config: Config, **kwargs) -> None:  # noqa: W0613,R0201 (unused arguments, cannot be static)
         """Teardown the handlers.
@@ -227,6 +257,9 @@ class MkdocstringsPlugin(BasePlugin):
             config: The MkDocs config object.
             kwargs: Additional arguments passed by MkDocs.
         """
+        for f in self._inv_futures:
+            f.cancel()
+
         if self._handlers:
             log.debug("Tearing handlers down")
             self.handlers.teardown()
@@ -241,3 +274,26 @@ class MkdocstringsPlugin(BasePlugin):
             An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler].
         """
         return self.handlers.get_handler(handler_name)
+
+    @classmethod
+    @functools.lru_cache(maxsize=None)
+    def _load_inventory(cls, loader: Callable[..., Iterable[Tuple[str, str]]], url: str, **kwargs) -> Mapping[str, str]:
+        """Download and process inventory files using a handler.
+
+        Arguments:
+            loader: A function returning a sequence of pairs (identifier, url).
+            url: The URL to download and process.
+            kwargs: Extra arguments to pass to the loader.
+
+        Returns:
+            A mapping from identifier to absolute URL.
+        """
+        log.debug(f"Downloading inventory from {url!r}")
+        req = urllib.request.Request(url, headers={"Accept-Encoding": "gzip"})
+        with urllib.request.urlopen(req) as resp:  # noqa: S310 (URL audit OK: comes from a checked-in config)
+            content: BinaryIO = resp
+            if "gzip" in resp.headers.get("content-encoding", ""):
+                content = gzip.GzipFile(fileobj=resp)  # type: ignore[assignment]
+            result = dict(loader(content, url=url, **kwargs))
+        log.debug(f"Loaded inventory from {url!r}: {len(result)} items")
+        return result
