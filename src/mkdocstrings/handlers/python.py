@@ -5,6 +5,7 @@ The handler collects data with [`pytkdocs`](https://github.com/pawamoy/pytkdocs)
 
 import json
 import os
+import posixpath
 import sys
 import traceback
 from collections import ChainMap
@@ -14,6 +15,7 @@ from typing import Any, List, Optional
 from markdown import Markdown
 
 from mkdocstrings.handlers.base import BaseCollector, BaseHandler, BaseRenderer, CollectionError, CollectorItem
+from mkdocstrings.inventory import Inventory
 from mkdocstrings.loggers import get_logger
 
 log = get_logger(__name__)
@@ -245,6 +247,14 @@ class PythonHandler(BaseHandler):
 
     domain: str = "py"  # to match Sphinx's default domain
     enable_inventory: bool = True
+
+    @classmethod
+    def load_inventory(cls, file, url, base_url=None, **kwargs):
+        if base_url is None:
+            base_url = posixpath.dirname(url)
+
+        for item in Inventory.parse_sphinx(file, domain_filter="py:").values():
+            yield item.name, posixpath.join(base_url, item.uri)
 
 
 def get_handler(

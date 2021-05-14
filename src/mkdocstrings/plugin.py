@@ -289,7 +289,7 @@ class MkdocstringsPlugin(BasePlugin):
             A mapping from identifier to absolute URL.
         """
         log.debug(f"Downloading inventory from {url!r}")
-        req = urllib.request.Request(url, headers={"Accept-Encoding": "gzip"})
+        req = urllib.request.Request(url, headers={"Accept-Encoding": "gzip", "User-Agent": "mkdocstrings/0.15.0"})
         with urllib.request.urlopen(req) as resp:  # noqa: S310 (URL audit OK: comes from a checked-in config)
             content: BinaryIO = resp
             if "gzip" in resp.headers.get("content-encoding", ""):
