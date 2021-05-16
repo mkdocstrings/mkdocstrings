@@ -46,12 +46,12 @@ class InventoryItem:
             uri = uri[: -len(self.name)] + "$"
         return f"{self.name} {self.domain}:{self.role} {self.priority} {uri} {dispname}"
 
-    regex = re.compile(r"^(.+?)\s+(\S+):(\S+)\s+(-?\d+)\s+(\S+)\s+(.*)$")
+    sphinx_item_regex = re.compile(r"^(.+?)\s+(\S+):(\S+)\s+(-?\d+)\s+(\S+)\s+(.*)$")
 
     @classmethod
     def parse_sphinx(cls, line: str) -> "InventoryItem":
         """Parse a line from a Sphinx v2 inventory file and return an `InventoryItem` from it."""
-        m = cls.regex.search(line)
+        m = cls.sphinx_item_regex.search(line)
         if not m:
             raise ValueError(line)
         name, domain, role, priority, uri, dispname = m.groups()
