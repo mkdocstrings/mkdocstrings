@@ -6,7 +6,7 @@
 import re
 import zlib
 from textwrap import dedent
-from typing import BinaryIO, List, Optional
+from typing import BinaryIO, Collection, List, Optional
 
 
 class InventoryItem:
@@ -46,9 +46,12 @@ class InventoryItem:
             uri = uri[: -len(self.name)] + "$"
         return f"{self.name} {self.domain}:{self.role} {self.priority} {uri} {dispname}"
 
+    regex = re.compile(r"^(.+?)\s+(\S+):(\S+)\s+(-?\d+)\s+(\S+)\s+(.*)$")
+
     @classmethod
     def parse_sphinx(cls, line: str) -> "InventoryItem":
-        m = re.search(r"^(.+?)\s+(\S+):(\S+)\s+(-?\d+)\s+(\S+)\s+(.*)$", line)
+        """Parse a line from a Sphinx v2 inventory file and return an `InventoryItem` from it."""
+        m = cls.regex.search(line)
         if not m:
             raise ValueError(line)
         name, domain, role, priority, uri, dispname = m.groups()
@@ -110,9 +113,20 @@ class Inventory(dict):
         return header + zlib.compress(b"\n".join(lines) + b"\n", 9)
 
     @classmethod
-    def parse_sphinx(cls, file: BinaryIO, *, domain_filter: str = "") -> "Inventory":
+    def parse_sphinx(cls, in_file: BinaryIO, *, domain_filter: Collection[str] = ()) -> "Inventory":
+        """Parse a Sphinx v2 inventory file and return an `Inventory` from it.
+
+        Arguments:
+            in_file: The binary file-like object to read from.
+            domain_filter: A collection of domain values to allow (and filter out all other ones).
+
+        Returns:
+            An `Inventory` containing the collected `InventoryItem`s.
+        """
         for _ in range(4):
-            file.readline()
-        lines = zlib.decompress(file.read()).splitlines()
-        items = (InventoryItem.parse_sphinx(line.decode("utf8")) for line in lines)
-        return cls([item for item in items if item.domain.startswith(domain_filter)])
+            in_file.readline()
+        lines = zlib.decompress(in_file.read()).splitlines()
+        items = [InventoryItem.parse_sphinx(line.decode("utf8")) for line in lines]
+        if domain_filter:
+            items = [item for item in items if item.domain in domain_filter]
+        return cls(items)
