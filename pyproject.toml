@@ -13,10 +13,6 @@ repository = "https://github.com/mkdocstrings/mkdocstrings"
 homepage = "https://github.com/mkdocstrings/mkdocstrings"
 keywords = ["mkdocs", "mkdocs-plugin", "docstrings", "autodoc", "documentation"]
 packages = [ { include = "mkdocstrings", from = "src" } ]
-include = [
-    "README.md",
-    "pyproject.toml"
-]
 
 [tool.poetry.dependencies]
 python = "^3.6"
