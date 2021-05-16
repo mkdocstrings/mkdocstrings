@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.15.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.15.1) - 2021-05-16
+
+<small>[Compare with 0.15.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.15.0...0.15.1)</small>
+
+### Bug Fixes
+- Prevent error during parallel installations ([fac2c71](https://github.com/mkdocstrings/mkdocstrings/commit/fac2c711351f7b62bf5308f19cfc612a3944588a) by Timothée Mazzucotelli).
+
+### Packaging
+- Support the upcoming major Jinja and MarkupSafe releases ([bb4f9de](https://github.com/mkdocstrings/mkdocstrings/commit/bb4f9de08a77bef85e550d70deb0db13e6aa0c96) by Oleh Prypin). [PR #283](https://github.com/mkdocstrings/mkdocstrings/pull/283)
+- Accept a higher version of mkdocs-autorefs ([c8de08e](https://github.com/mkdocstrings/mkdocstrings/commit/c8de08e177f78290d3baaca2716d1ec64c9059b6) by Oleh Prypin). [PR #282](https://github.com/mkdocstrings/mkdocstrings/pull/282)
+
+
 ## [0.15.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.15.0) - 2021-02-28
 
 <small>[Compare with 0.14.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.14.0...0.15.0)</small>
