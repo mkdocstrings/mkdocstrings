@@ -1,3 +1,3 @@
 ::: mkdocs_autorefs.plugin
     rendering:
-      sort_members: source
+      members_order: source

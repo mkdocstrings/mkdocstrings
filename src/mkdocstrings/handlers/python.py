@@ -68,7 +68,7 @@ class PythonRenderer(BaseRenderer):
     **`show_bases`** | `bool` | Show the base classes of a class. | `True`
     **`group_by_category`** | `bool` | Group the object's children by categories: attributes, classes, functions, methods, and modules. | `True`
     **`heading_level`** | `int` | The initial heading level to use. | `2`
-    **`members_order`** | `str` | The sort option to use. Options: `alphabetical` - order by the member name, `source` - order members as they appear in the source file | `alphabetical`
+    **`members_order`** | `str` | The members ordering to use. Options: `alphabetical` - order by the members names, `source` - order members as they appear in the source file. | `alphabetical`
     """  # noqa: E501
 
     def render(self, data: CollectorItem, config: dict) -> str:  # noqa: D102 (ignore missing docstring)
