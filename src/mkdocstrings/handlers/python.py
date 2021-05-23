@@ -10,7 +10,7 @@ import sys
 import traceback
 from collections import ChainMap
 from subprocess import PIPE, Popen  # noqa: S404 (what other option, more secure that PIPE do we have? sockets?)
-from typing import Any, BinaryIO, Iterator, List, Optional, Tuple
+from typing import Any, BinaryIO, Callable, Iterator, List, Optional, Tuple
 
 from markdown import Markdown
 from markupsafe import Markup
@@ -80,8 +80,16 @@ class PythonRenderer(BaseRenderer):
         # of the rendering recursion. Therefore, it's easier to use it as a plain value
         # than as an item in a dictionary.
         heading_level = final_config["heading_level"]
+        members_order = final_config["members_order"]
 
-        sort_object(data, sort_style=final_config["members_order"])
+        if members_order == "alphabetical":
+            sort_function = _sort_key_alphabetical
+        elif members_order == "source":
+            sort_function = _sort_key_source
+        else:
+            raise PluginError("unknown members_order")
+
+        sort_object(data, sort_function=sort_function)
 
         return template.render(
             **{"config": final_config, data["category"]: data, "heading_level": heading_level, "root": True},
@@ -166,12 +174,7 @@ class PythonCollector(BaseCollector):
             cmd = [sys.executable, "-m", "pytkdocs", "--line-by-line"]
 
         self.process = Popen(  # noqa: S603,S607 (we trust the input, and we don't want to use the absolute path)
-            cmd,
-            universal_newlines=True,
-            stdout=PIPE,
-            stdin=PIPE,
-            bufsize=-1,
-            env=env,
+            cmd, universal_newlines=True, stdout=PIPE, stdin=PIPE, bufsize=-1, env=env,
         )
 
     def collect(self, identifier: str, config: dict) -> CollectorItem:
@@ -331,26 +334,15 @@ def rebuild_category_lists(obj: dict) -> None:
         rebuild_category_lists(child)
 
 
-def sort_object(obj: CollectorItem, sort_style: str) -> None:
+def sort_object(obj: CollectorItem, sort_function: Callable[[CollectorItem], Any]) -> None:
     """Sort the collected object's children.
 
     Sorts the object's children list, then each category separately, and then recurses into each.
 
     Arguments:
         obj: The collected object, as a dict. Note that this argument is mutated.
-        sort_style: How to sort the children lists - 'alphabetical' or 'source'.
+        sort_function: The sort key function used to determine the order of elements.
     """
-
-    if sort_style == "alphabetical":
-        # sort_last is a string that contains the final unicode character, so
-        # if 'name' isn't found on the object, the item will go to the end of
-        # the list.
-        sort_last = chr(sys.maxunicode)
-        sort_function = lambda item: item.get("name", sort_last)
-    elif sort_style == "source":
-        sort_function = lambda item: item.get("source", {}).get("line_start", 0)
-    else:
-        raise PluginError('unknown sort_style')
 
     obj["children"].sort(key=sort_function)
 
@@ -358,4 +350,17 @@ def sort_object(obj: CollectorItem, sort_style: str) -> None:
         obj[category].sort(key=sort_function)
 
     for child in obj["children"]:
-        sort_object(child, sort_style=sort_style)
+        sort_object(child, sort_function=sort_function)
+
+
+def _sort_key_alphabetical(item: CollectorItem) -> Any:
+    """Returns a sort key for 'alphabetical' sorting of CollectorItems"""
+    # chr(sys.maxunicode) is a string that contains the final unicode
+    # character, so if 'name' isn't found on the object, the item will go to
+    # the end of the list.
+    return item.get("name", chr(sys.maxunicode))
+
+
+def _sort_key_source(item: CollectorItem) -> Any:
+    """Returns a sort key for 'source' sorting of CollectorItems"""
+    return item.get("source", {}).get("line_start", 0)
