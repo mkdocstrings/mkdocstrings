@@ -5,15 +5,17 @@ The handler collects data with [`pytkdocs`](https://github.com/pawamoy/pytkdocs)
 
 import json
 import os
+import posixpath
 import sys
 import traceback
 from collections import ChainMap
 from subprocess import PIPE, Popen  # noqa: S404 (what other option, more secure that PIPE do we have? sockets?)
-from typing import Any, List, Optional
+from typing import Any, BinaryIO, Iterator, List, Optional, Tuple
 
 from markdown import Markdown
 
 from mkdocstrings.handlers.base import BaseCollector, BaseHandler, BaseRenderer, CollectionError, CollectorItem
+from mkdocstrings.inventory import Inventory
 from mkdocstrings.loggers import get_logger
 
 log = get_logger(__name__)
@@ -245,6 +247,29 @@ class PythonHandler(BaseHandler):
 
     domain: str = "py"  # to match Sphinx's default domain
     enable_inventory: bool = True
+
+    @classmethod
+    def load_inventory(
+        cls, in_file: BinaryIO, url: str, base_url: Optional[str] = None, **kwargs
+    ) -> Iterator[Tuple[str, str]]:
+        """Yield items and their URLs from an inventory file streamed from `in_file`.
+
+        This implements mkdocstrings' `load_inventory` "protocal" (see plugin.py).
+
+        Arguments:
+            in_file: The binary file-like object to read the inventory from.
+            url: The URL that this file is being streamed from (used to guess `base_url`).
+            base_url: The URL that this inventory's sub-paths are relative to.
+            **kwargs: Ignore additional arguments passed from the config.
+
+        Yields:
+            Tuples of (item identifier, item URL).
+        """
+        if base_url is None:
+            base_url = posixpath.dirname(url)
+
+        for item in Inventory.parse_sphinx(in_file, domain_filter=("py",)).values():
+            yield item.name, posixpath.join(base_url, item.uri)
 
 
 def get_handler(

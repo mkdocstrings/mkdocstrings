@@ -3,15 +3,18 @@
 # Credits to Brian Skinn and the sphobjinv project:
 # https://github.com/bskinn/sphobjinv
 
+import re
 import zlib
 from textwrap import dedent
-from typing import List, Optional
+from typing import BinaryIO, Collection, List, Optional
 
 
 class InventoryItem:
     """Inventory item."""
 
-    def __init__(self, name: str, domain: str, role: str, uri: str, priority: str = "1", dispname: str = "-"):
+    def __init__(
+        self, name: str, domain: str, role: str, uri: str, priority: str = "1", dispname: Optional[str] = None
+    ):
         """Initialize the object.
 
         Arguments:
@@ -27,7 +30,7 @@ class InventoryItem:
         self.role: str = role
         self.uri: str = uri
         self.priority: str = priority
-        self.dispname: str = dispname
+        self.dispname: str = dispname or name
 
     def format_sphinx(self) -> str:
         """Format this item as a Sphinx inventory line.
@@ -35,11 +38,28 @@ class InventoryItem:
         Returns:
             A line formatted for an `objects.inv` file.
         """
+        dispname = self.dispname
+        if dispname == self.name:
+            dispname = "-"
         uri = self.uri
-        name_length = len(self.name)
-        if uri[-name_length - 1 :] == "#" + self.name:
-            uri = uri[:-name_length] + "$"
-        return f"{self.name} {self.domain}:{self.role} {self.priority} {uri} {self.dispname}"
+        if uri.endswith(self.name):
+            uri = uri[: -len(self.name)] + "$"
+        return f"{self.name} {self.domain}:{self.role} {self.priority} {uri} {dispname}"
+
+    sphinx_item_regex = re.compile(r"^(.+?)\s+(\S+):(\S+)\s+(-?\d+)\s+(\S+)\s+(.*)$")
+
+    @classmethod
+    def parse_sphinx(cls, line: str) -> "InventoryItem":
+        """Parse a line from a Sphinx v2 inventory file and return an `InventoryItem` from it."""
+        m = cls.sphinx_item_regex.search(line)
+        if not m:
+            raise ValueError(line)
+        name, domain, role, priority, uri, dispname = m.groups()
+        if uri.endswith("$"):
+            uri = uri[:-1] + name
+        if dispname == "-":
+            dispname = name
+        return cls(name, domain, role, uri, priority, dispname)
 
 
 class Inventory(dict):
@@ -91,3 +111,22 @@ class Inventory(dict):
 
         lines = [item.format_sphinx().encode("utf8") for item in self.values()]
         return header + zlib.compress(b"\n".join(lines) + b"\n", 9)
+
+    @classmethod
+    def parse_sphinx(cls, in_file: BinaryIO, *, domain_filter: Collection[str] = ()) -> "Inventory":
+        """Parse a Sphinx v2 inventory file and return an `Inventory` from it.
+
+        Arguments:
+            in_file: The binary file-like object to read from.
+            domain_filter: A collection of domain values to allow (and filter out all other ones).
+
+        Returns:
+            An `Inventory` containing the collected `InventoryItem`s.
+        """
+        for _ in range(4):
+            in_file.readline()
+        lines = zlib.decompress(in_file.read()).splitlines()
+        items = [InventoryItem.parse_sphinx(line.decode("utf8")) for line in lines]
+        if domain_filter:
+            items = [item for item in items if item.domain in domain_filter]
+        return cls(items)
