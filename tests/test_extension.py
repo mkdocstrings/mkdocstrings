@@ -24,6 +24,7 @@ def fixture_ext_markdown(request, tmp_path):
 
     conf_dict = {
         "site_name": "foo",
+        "site_url": "https://example.org/",
         "site_dir": str(tmp_path),
         "plugins": [{"mkdocstrings": {"default_handler": "python"}}],
         **getattr(request, "param", {}),

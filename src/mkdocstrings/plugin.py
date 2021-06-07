@@ -20,7 +20,6 @@ import os
 import urllib.request
 from typing import Any, BinaryIO, Callable, Iterable, List, Mapping, Optional, Tuple
 
-from livereload import Server
 from mkdocs.config import Config
 from mkdocs.config.config_options import Type as MkType
 from mkdocs.plugins import BasePlugin
@@ -111,7 +110,7 @@ class MkdocstringsPlugin(BasePlugin):
             raise RuntimeError("The plugin hasn't been initialized with a config yet")
         return self._handlers
 
-    def on_serve(self, server: Server, builder: Callable = None, **kwargs) -> Server:  # noqa: W0613 (unused arguments)
+    def on_serve(self, server, builder: Callable, **kwargs):  # noqa: W0613 (unused arguments)
         """Watch directories.
 
         Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).
@@ -123,18 +122,10 @@ class MkdocstringsPlugin(BasePlugin):
             server: The `livereload` server instance.
             builder: The function to build the site.
             kwargs: Additional arguments passed by MkDocs.
-
-        Returns:
-            The server instance.
         """
-        if builder is None:
-            # The builder parameter was added in mkdocs v1.1.1.
-            # See issue https://github.com/mkdocs/mkdocs/issues/1952.
-            builder = list(server.watcher._tasks.values())[0]["func"]  # noqa: W0212 (protected member)
         for element in self.config["watch"]:
             log.debug(f"Adding directory '{element}' to watcher")
             server.watch(element, builder)
-        return server
 
     def on_config(self, config: Config, **kwargs) -> Config:  # noqa: W0613 (unused arguments)
         """Instantiate our Markdown extension.
