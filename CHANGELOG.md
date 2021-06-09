@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.15.2](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.15.2) - 2021-06-09
+
+<small>[Compare with 0.15.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.15.1...0.15.2)</small>
+
+### Packaging
+- MkDocs default schema needs to be obtained differently now ([b3e122b](https://github.com/mkdocstrings/mkdocstrings/commit/b3e122b36d586632738ddedaed7d3df8d5dead44) by Oleh Prypin). [PR #273](https://github.com/mkdocstrings/mkdocstrings/pull/273)
+- Compatibility with MkDocs 1.2: livereload isn't guaranteed now ([36e8024](https://github.com/mkdocstrings/mkdocstrings/commit/36e80248d2ab9e61975f6c83ae517115c9410fc1) by Oleh Prypin). [PR #294](https://github.com/mkdocstrings/mkdocstrings/pull/294)
+
+
 ## [0.15.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.15.1) - 2021-05-16
 
 <small>[Compare with 0.15.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.15.0...0.15.1)</small>
