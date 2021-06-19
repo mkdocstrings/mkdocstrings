@@ -13,6 +13,7 @@ from subprocess import PIPE, Popen  # noqa: S404 (what other option, more secure
 from typing import Any, BinaryIO, Iterator, List, Optional, Tuple
 
 from markdown import Markdown
+from markupsafe import Markup
 
 from mkdocstrings.handlers.base import BaseCollector, BaseHandler, BaseRenderer, CollectionError, CollectorItem
 from mkdocstrings.inventory import Inventory
@@ -45,6 +46,7 @@ class PythonRenderer(BaseRenderer):
         "show_if_no_docstring": False,
         "show_signature_annotations": False,
         "show_source": True,
+        "show_bases": True,
         "group_by_category": True,
         "heading_level": 2,
     }
@@ -61,6 +63,7 @@ class PythonRenderer(BaseRenderer):
     **`show_if_no_docstring`** | `bool` | Show the object heading even if it has no docstring or children with docstrings. | `False`
     **`show_signature_annotations`** | `bool` | Show the type annotations in methods and functions signatures. | `False`
     **`show_source`** | `bool` | Show the source code of this object. | `True`
+    **`show_bases`** | `bool` | Show the base classes of a class. | `True`
     **`group_by_category`** | `bool` | Group the object's children by categories: attributes, classes, functions, methods, and modules. | `True`
     **`heading_level`** | `int` | The initial heading level to use. | `2`
     """  # noqa: E501
@@ -87,6 +90,12 @@ class PythonRenderer(BaseRenderer):
         self.env.trim_blocks = True
         self.env.lstrip_blocks = True
         self.env.keep_trailing_newline = False
+        self.env.filters["brief_xref"] = self.do_brief_xref
+
+    def do_brief_xref(self, path: str) -> Markup:
+        """Filter to create cross-reference with brief text and full identifier as hover text."""
+        brief = path.split(".")[-1]
+        return Markup("<span data-autorefs-optional-hover={path}>{brief}</span>").format(path=path, brief=brief)
 
 
 class PythonCollector(BaseCollector):
