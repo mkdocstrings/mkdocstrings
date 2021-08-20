@@ -3,11 +3,11 @@
 import os
 import re
 import sys
+import urllib
 from pathlib import Path
 from shutil import which
 from typing import List, Optional, Pattern
 
-import httpx
 from duty import duty
 from git_changelog.build import Changelog, Version
 from jinja2.sandbox import SandboxedEnvironment
@@ -94,7 +94,8 @@ def update_changelog(
         commit_style: The style of commit messages to parse.
     """
     env = SandboxedEnvironment(autoescape=False)
-    template = env.from_string(httpx.get(template_url).text)
+    template_text = urllib.request.urlopen(template_url).read().decode("utf8")  # noqa: S310
+    template = env.from_string(template_text)
     changelog = Changelog(".", style=commit_style)
 
     if len(changelog.versions_list) == 1:

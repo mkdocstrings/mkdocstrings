@@ -1,8 +1,8 @@
 import functools
+import urllib
 from itertools import chain
 from pathlib import Path
 
-import httpx
 import mkdocs_gen_files
 import toml
 from jinja2 import StrictUndefined
@@ -26,24 +26,12 @@ def get_credits_data() -> dict:
     direct_dependencies.remove("python")
     indirect_dependencies = {pkg["name"].lower() for pkg in lock_data["package"]}
     indirect_dependencies -= direct_dependencies
-    dependencies = direct_dependencies | indirect_dependencies
-
-    packages = {}
-    for pkg in search_packages_info(sorted(dependencies)):
-        pkg = {_: pkg[_] for _ in ("name", "home-page")}
-        packages[pkg["name"].lower()] = pkg
-
-    # all packages might not be credited,
-    # like the ones that are now part of the standard library
-    # or the ones that are only used on other operating systems,
-    # and therefore are not installed,
-    # but it's not that important
 
     return {
         "project_name": project_name,
         "direct_dependencies": sorted(direct_dependencies),
         "indirect_dependencies": sorted(indirect_dependencies),
-        "package_info": packages,
+        "more_credits": "http://pawamoy.github.io/credits/",
     }
 
 
@@ -55,10 +43,10 @@ def get_credits():
         The credits page Markdown.
     """
     jinja_env = SandboxedEnvironment(undefined=StrictUndefined)
-    commit = "166758a98d5e544aaa94fda698128e00733497f4"
+    commit = "398879aba2a365049870709116a689618afeb5b7"
     template_url = f"https://raw.githubusercontent.com/pawamoy/jinja-templates/{commit}/credits.md"
     template_data = get_credits_data()
-    template_text = httpx.get(template_url).text
+    template_text = urllib.request.urlopen(template_url).read().decode("utf8")  # noqa: S310
     return jinja_env.from_string(template_text).render(**template_data)
 
 
