@@ -348,7 +348,6 @@ def sort_object(obj: CollectorItem, sort_function: Callable[[CollectorItem], Any
         obj: The collected object, as a dict. Note that this argument is mutated.
         sort_function: The sort key function used to determine the order of elements.
     """
-
     obj["children"].sort(key=sort_function)
 
     for category in ("attributes", "classes", "functions", "methods", "modules"):
@@ -368,4 +367,6 @@ def _sort_key_alphabetical(item: CollectorItem) -> Any:
 
 def _sort_key_source(item: CollectorItem) -> Any:
     """Return a sort key for 'source' sorting of CollectorItems."""
-    return item.get("source", {}).get("line_start", 0)
+    # if 'line_start' isn't found on the object, the item will go to
+    # the start of the list.
+    return item.get("source", {}).get("line_start", -1)

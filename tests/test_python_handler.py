@@ -1,66 +1,81 @@
 """Tests for the handlers.python module."""
 
-from mkdocstrings.handlers.python import _sort_key_alphabetical, _sort_key_source, sort_object
+from copy import deepcopy
+
+from mkdocstrings.handlers.python import _sort_key_alphabetical, _sort_key_source, rebuild_category_lists, sort_object
 
 
 def test_members_order():
     """Assert that members sorting functions work correctly."""
+    subcategories = {key: [] for key in ("attributes", "classes", "functions", "methods", "modules")}
+    categories = {"children": {}, **subcategories}
     collected = {
-        key: [
-            {"name": "z", "source": {"line_start": 100}},
-            {"name": "b", "source": {"line_start": 0}},
-            {"source": {"line_start": 10}},
-            {"name": "a"},
-            {
+        "name": "root",
+        "children": {
+            "b": {"name": "b", "source": {"line_start": 0}, **categories},
+            "a": {"name": "a", **categories},
+            "z": {"name": "z", "source": {"line_start": 100}, **categories},
+            "no_name": {"source": {"line_start": 10}, **categories},
+            "c": {
                 "name": "c",
                 "source": {"line_start": 30},
-                "children": [
-                    {
-                        {"name": "z", "source": {"line_start": 200}},
-                        {"name": "a", "source": {"line_start": 20}},
-                    }
-                ],
+                "children": {
+                    "z": {"name": "z", "source": {"line_start": 200}, **categories},
+                    "a": {"name": "a", "source": {"line_start": 20}, **categories},
+                },
+                **subcategories,
             },
-        ]
-        for key in ("children", "attributes", "classes", "functions", "methods", "modules")
+        },
+        "attributes": ["b", "c", "no_name", "z", "a"],
+        "classes": [],
+        "functions": [],
+        "methods": [],
+        "modules": [],
     }
+    rebuild_category_lists(collected)
+    alphebetical = deepcopy(collected)
+    sort_object(alphebetical, _sort_key_alphabetical)
 
-    alphebetical = sort_object(collected, _sort_key_alphabetical)
-
-    for category in ("children", "attributes", "classes", "functions", "methods", "modules"):
-        assert alphebetical[category] == [
-            {"name": "a"},
-            {"name": "b", "source": {"line_start": 0}},
+    rebuilt_categories = {"children": [], **subcategories}
+    assert (
+        alphebetical["children"]
+        == alphebetical["attributes"]
+        == [
+            {"name": "a", **rebuilt_categories},
+            {"name": "b", "source": {"line_start": 0}, **rebuilt_categories},
             {
                 "name": "c",
                 "source": {"line_start": 30},
                 "children": [
-                    {
-                        {"name": "a", "source": {"line_start": 20}},
-                        {"name": "z", "source": {"line_start": 200}},
-                    }
+                    {"name": "a", "source": {"line_start": 20}, **rebuilt_categories},
+                    {"name": "z", "source": {"line_start": 200}, **rebuilt_categories},
                 ],
+                **subcategories,
             },
-            {"name": "z", "source": {"line_start": 100}},
-            {"source": {"line_start": 10}},
+            {"name": "z", "source": {"line_start": 100}, **rebuilt_categories},
+            {"source": {"line_start": 10}, **rebuilt_categories},
         ]
+    )
 
-    source = sort_object(collected, _sort_key_source)
+    source = deepcopy(collected)
+    sort_object(source, _sort_key_source)
 
-    for category in ("children", "attributes", "classes", "functions", "methods", "modules"):
-        assert source[category] == [
-            {"name": "a"},
-            {"name": "b", "source": {"line_start": 0}},
-            {"source": {"line_start": 10}},
+    assert (
+        source["children"]
+        == source["attributes"]
+        == [
+            {"name": "a", **rebuilt_categories},
+            {"name": "b", "source": {"line_start": 0}, **rebuilt_categories},
+            {"source": {"line_start": 10}, **rebuilt_categories},
             {
                 "name": "c",
                 "source": {"line_start": 30},
                 "children": [
-                    {
-                        {"name": "a", "source": {"line_start": 20}},
-                        {"name": "z", "source": {"line_start": 200}},
-                    }
+                    {"name": "a", "source": {"line_start": 20}, **rebuilt_categories},
+                    {"name": "z", "source": {"line_start": 200}, **rebuilt_categories},
                 ],
+                **subcategories,
             },
-            {"name": "z", "source": {"line_start": 100}},
+            {"name": "z", "source": {"line_start": 100}, **rebuilt_categories},
         ]
+    )
