@@ -15,10 +15,10 @@ from typing import Any, BinaryIO, Callable, Iterator, List, Optional, Tuple
 from markdown import Markdown
 from markupsafe import Markup
 
+from mkdocstrings.extension import PluginError
 from mkdocstrings.handlers.base import BaseCollector, BaseHandler, BaseRenderer, CollectionError, CollectorItem
 from mkdocstrings.inventory import Inventory
 from mkdocstrings.loggers import get_logger
-from mkdocstrings.extension import PluginError
 
 log = get_logger(__name__)
 
@@ -174,7 +174,12 @@ class PythonCollector(BaseCollector):
             cmd = [sys.executable, "-m", "pytkdocs", "--line-by-line"]
 
         self.process = Popen(  # noqa: S603,S607 (we trust the input, and we don't want to use the absolute path)
-            cmd, universal_newlines=True, stdout=PIPE, stdin=PIPE, bufsize=-1, env=env,
+            cmd,
+            universal_newlines=True,
+            stdout=PIPE,
+            stdin=PIPE,
+            bufsize=-1,
+            env=env,
         )
 
     def collect(self, identifier: str, config: dict) -> CollectorItem:
