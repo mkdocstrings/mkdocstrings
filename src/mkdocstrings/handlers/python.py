@@ -87,7 +87,7 @@ class PythonRenderer(BaseRenderer):
         elif members_order == "source":
             sort_function = _sort_key_source
         else:
-            raise PluginError("unknown members_order")
+            raise PluginError(f"Unknown members_order '{members_order}', choose between 'alphabetical' and 'source'.")
 
         sort_object(data, sort_function=sort_function)
 
