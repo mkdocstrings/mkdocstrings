@@ -17,7 +17,7 @@
           {% filter heading(heading_level, id=html_id ~ "-attributes") %}Attributes{% endfilter %}
         {% endif %}
         {% with heading_level = heading_level + extra_level %}
-          {% for attribute in obj.attributes|sort(attribute="name") %}
+          {% for attribute in obj.attributes %}
             {% include "attribute.html" with context %}
           {% endfor %}
         {% endwith %}
@@ -26,7 +26,7 @@
           {% filter heading(heading_level, id=html_id ~ "-classes") %}Classes{% endfilter %}
         {% endif %}
         {% with heading_level = heading_level + extra_level %}
-          {% for class in obj.classes|sort(attribute="name") %}
+          {% for class in obj.classes %}
             {% include "class.html" with context %}
           {% endfor %}
         {% endwith %}
@@ -35,7 +35,7 @@
           {% filter heading(heading_level, id=html_id ~ "-functions") %}Functions{% endfilter %}
         {% endif %}
         {% with heading_level = heading_level + extra_level %}
-          {% for function in obj.functions|sort(attribute="name") %}
+          {% for function in obj.functions %}
             {% include "function.html" with context %}
           {% endfor %}
         {% endwith %}
@@ -44,7 +44,7 @@
           {% filter heading(heading_level, id=html_id ~ "-methods") %}Methods{% endfilter %}
         {% endif %}
         {% with heading_level = heading_level + extra_level %}
-          {% for method in obj.methods|sort(attribute="name") %}
+          {% for method in obj.methods %}
             {% include "method.html" with context %}
           {% endfor %}
         {% endwith %}
@@ -53,7 +53,7 @@
           {% filter heading(heading_level, id=html_id ~ "-modules") %}Modules{% endfilter %}
         {% endif %}
         {% with heading_level = heading_level + extra_level %}
-          {% for module in obj.modules|sort(attribute="name") %}
+          {% for module in obj.modules %}
             {% include "module.html" with context %}
           {% endfor %}
         {% endwith %}
@@ -62,7 +62,7 @@
 
     {% else %}
 
-      {% for child in obj.children|sort(attribute="name") %}
+      {% for child in obj.children %}
         {% if child.category == "attribute" %}
           {% with attribute = child %}
             {% include "attribute.html" with context %}

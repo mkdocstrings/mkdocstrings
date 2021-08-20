@@ -10,11 +10,12 @@ import sys
 import traceback
 from collections import ChainMap
 from subprocess import PIPE, Popen  # noqa: S404 (what other option, more secure that PIPE do we have? sockets?)
-from typing import Any, BinaryIO, Iterator, List, Optional, Tuple
+from typing import Any, BinaryIO, Callable, Iterator, List, Optional, Tuple
 
 from markdown import Markdown
 from markupsafe import Markup
 
+from mkdocstrings.extension import PluginError
 from mkdocstrings.handlers.base import BaseCollector, BaseHandler, BaseRenderer, CollectionError, CollectorItem
 from mkdocstrings.inventory import Inventory
 from mkdocstrings.loggers import get_logger
@@ -49,6 +50,7 @@ class PythonRenderer(BaseRenderer):
         "show_bases": True,
         "group_by_category": True,
         "heading_level": 2,
+        "members_order": "alphabetical",
     }
     """The default rendering options.
 
@@ -66,6 +68,7 @@ class PythonRenderer(BaseRenderer):
     **`show_bases`** | `bool` | Show the base classes of a class. | `True`
     **`group_by_category`** | `bool` | Group the object's children by categories: attributes, classes, functions, methods, and modules. | `True`
     **`heading_level`** | `int` | The initial heading level to use. | `2`
+    **`members_order`** | `str` | The members ordering to use. Options: `alphabetical` - order by the members names, `source` - order members as they appear in the source file. | `alphabetical`
     """  # noqa: E501
 
     def render(self, data: CollectorItem, config: dict) -> str:  # noqa: D102 (ignore missing docstring)
@@ -77,6 +80,16 @@ class PythonRenderer(BaseRenderer):
         # of the rendering recursion. Therefore, it's easier to use it as a plain value
         # than as an item in a dictionary.
         heading_level = final_config["heading_level"]
+        members_order = final_config["members_order"]
+
+        if members_order == "alphabetical":
+            sort_function = _sort_key_alphabetical
+        elif members_order == "source":
+            sort_function = _sort_key_source
+        else:
+            raise PluginError(f"Unknown members_order '{members_order}', choose between 'alphabetical' and 'source'.")
+
+        sort_object(data, sort_function=sort_function)
 
         return template.render(
             **{"config": final_config, data["category"]: data, "heading_level": heading_level, "root": True},
@@ -324,3 +337,36 @@ def rebuild_category_lists(obj: dict) -> None:
     obj["children"] = [child for _, child in obj["children"].items()]
     for child in obj["children"]:
         rebuild_category_lists(child)
+
+
+def sort_object(obj: CollectorItem, sort_function: Callable[[CollectorItem], Any]) -> None:
+    """Sort the collected object's children.
+
+    Sorts the object's children list, then each category separately, and then recurses into each.
+
+    Arguments:
+        obj: The collected object, as a dict. Note that this argument is mutated.
+        sort_function: The sort key function used to determine the order of elements.
+    """
+    obj["children"].sort(key=sort_function)
+
+    for category in ("attributes", "classes", "functions", "methods", "modules"):
+        obj[category].sort(key=sort_function)
+
+    for child in obj["children"]:
+        sort_object(child, sort_function=sort_function)
+
+
+def _sort_key_alphabetical(item: CollectorItem) -> Any:
+    """Return a sort key for 'alphabetical' sorting of CollectorItems."""
+    # chr(sys.maxunicode) is a string that contains the final unicode
+    # character, so if 'name' isn't found on the object, the item will go to
+    # the end of the list.
+    return item.get("name", chr(sys.maxunicode))
+
+
+def _sort_key_source(item: CollectorItem) -> Any:
+    """Return a sort key for 'source' sorting of CollectorItems."""
+    # if 'line_start' isn't found on the object, the item will go to
+    # the start of the list.
+    return item.get("source", {}).get("line_start", -1)
