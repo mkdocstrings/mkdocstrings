@@ -22,7 +22,14 @@
           class="doc doc-heading",
           toc_label=class.name) %}
 
-        <code>{% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}</code>
+        <code>
+          {% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}
+          {% if config.show_bases and class.bases != ['object'] %}
+            ({% for base in class.bases -%}
+              {{ base|brief_xref() }}{% if not loop.last %}, {% endif %}
+             {% endfor %})
+          {% endif %}
+        </code>
 
         {% with properties = class.properties %}
           {% include "properties.html" with context %}
