@@ -41,7 +41,6 @@ pytest-xdist = "^2.2.0"
 # tasks
 duty = "^0.6.0"
 git-changelog = "^0.4.2"
-httpx = "^0.16.1"
 toml = "^0.10.2"
 
 # flake8 plugins
