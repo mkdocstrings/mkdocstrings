@@ -354,7 +354,7 @@ def sort_object(obj: CollectorItem, sort_function: Callable[[CollectorItem], Any
 
 
 def _sort_key_alphabetical(item: CollectorItem) -> Any:
-    """Returns a sort key for 'alphabetical' sorting of CollectorItems"""
+    """Return a sort key for 'alphabetical' sorting of CollectorItems."""
     # chr(sys.maxunicode) is a string that contains the final unicode
     # character, so if 'name' isn't found on the object, the item will go to
     # the end of the list.
