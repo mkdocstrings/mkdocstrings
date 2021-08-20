@@ -3,10 +3,10 @@
 import os
 import re
 import sys
-import urllib
 from pathlib import Path
 from shutil import which
 from typing import List, Optional, Pattern
+from urllib import request
 
 from duty import duty
 from git_changelog.build import Changelog, Version
@@ -94,7 +94,7 @@ def update_changelog(
         commit_style: The style of commit messages to parse.
     """
     env = SandboxedEnvironment(autoescape=False)
-    template_text = urllib.request.urlopen(template_url).read().decode("utf8")  # noqa: S310
+    template_text = request.urlopen(template_url).read().decode("utf8")  # noqa: S310
     template = env.from_string(template_text)
     changelog = Changelog(".", style=commit_style)
 

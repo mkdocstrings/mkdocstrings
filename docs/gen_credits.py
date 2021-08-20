@@ -1,13 +1,12 @@
 import functools
-import urllib
 from itertools import chain
 from pathlib import Path
+from urllib import request
 
 import mkdocs_gen_files
 import toml
 from jinja2 import StrictUndefined
 from jinja2.sandbox import SandboxedEnvironment
-from pip._internal.commands.show import search_packages_info  # noqa: WPS436 (no other way?)
 
 
 def get_credits_data() -> dict:
@@ -43,10 +42,10 @@ def get_credits():
         The credits page Markdown.
     """
     jinja_env = SandboxedEnvironment(undefined=StrictUndefined)
-    commit = "398879aba2a365049870709116a689618afeb5b7"
+    commit = "c78c29caa345b6ace19494a98b1544253cbaf8c1"
     template_url = f"https://raw.githubusercontent.com/pawamoy/jinja-templates/{commit}/credits.md"
     template_data = get_credits_data()
-    template_text = urllib.request.urlopen(template_url).read().decode("utf8")  # noqa: S310
+    template_text = request.urlopen(template_url).read().decode("utf8")  # noqa: S310
     return jinja_env.from_string(template_text).render(**template_data)
 
 
