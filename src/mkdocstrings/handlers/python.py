@@ -362,5 +362,5 @@ def _sort_key_alphabetical(item: CollectorItem) -> Any:
 
 
 def _sort_key_source(item: CollectorItem) -> Any:
-    """Returns a sort key for 'source' sorting of CollectorItems"""
+    """Return a sort key for 'source' sorting of CollectorItems."""
     return item.get("source", {}).get("line_start", 0)
