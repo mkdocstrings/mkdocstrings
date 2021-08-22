@@ -112,6 +112,8 @@ The above is equivalent to:
   The path is relative to the docs directory.
   See [Theming](theming.md).
 - `handlers`: the handlers global configuration.
+- `enable_inventory`: whether to enable inventory file generation.
+  See [Cross-references to other projects / inventories](#cross-references-to-other-projects-inventories)
 
 Example:
 
@@ -250,6 +252,85 @@ The above tip about [Finding out the anchor](#finding-out-the-anchor) also appli
 
 You may also notice that such a heading does not get rendered as a `<h1>` element directly, but rather the level gets shifted to fit the encompassing document structure. If you're curious about the implementation, check out [mkdocstrings.handlers.rendering.HeadingShiftingTreeprocessor][] and others.
 
+### Cross-references to other projects / inventories
+
+!!! tip "New in version 0.16."
+
+Python developers coming from Sphinx might know about its `intersphinx` extension,
+that allows to cross-reference items between several projects.
+*mkdocstrings* has a similar feature.
+
+To reference an item from another project, you must first tell *mkdocstrings*
+to load the inventory it provides. Each handler will be responsible of loading
+inventories specific to its language. For example, the Python handler
+can load Sphinx-generated inventories (`objects.inv`).
+
+In the following snippet, we load the inventory provided by `requests`:
+
+```yaml
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        import:
+        - https://docs.python-requests.org/en/master/objects.inv
+```
+
+Now it is possible to cross-reference `requests`' items! For example:
+
+=== "Markdown"
+    ```md
+    See [requests.request][] to know what parameters you can pass.
+    ```
+
+=== "Result (HTML)"
+    ```html
+    <p>See <a href="https://docs.python-requests.org/en/latest/api/#requests.request">requests.request</a>
+    to know what parameters you can pass.</p>
+    ```
+
+=== "Result (displayed)"
+    See [requests.request][] to know what parameters you can pass.
+
+You can of course select another version of the inventory, for example:
+
+```yaml
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        import:
+        - https://docs.python-requests.org/en/v3.0.0/objects.inv
+```
+
+In case the inventory file is not served under the base documentation URL,
+you can explicitly specify both URLs:
+
+```yaml
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        import:
+        - url: https://cdn.example.com/version/objects.inv
+          base_url: https://docs.example.com/version
+```
+
+Absolute URLs to cross-referenced items will then be based
+on `https://docs.example.com/version/` instead of `https://cdn.example.com/version/`.
+
+Reciprocally, *mkdocstrings* also allows to *generate* an inventory file in the Sphinx format.
+It will be enabled by default if the Python handler is used, and generated as `objects.inv` in the final site directory.
+Other projects will be able to cross-reference items from your project!
+
+To explicitely enable or disable the generation of the inventory file, use the global
+`enable_inventory` option:
+
+```yaml
+plugins:
+- mkdocstrings:
+    enable_inventory: false
+```
 
 ## Watch directories
 

@@ -46,5 +46,7 @@ plugins:
         - sys.path.append("docs")
         selection:
           new_path_syntax: yes
+        import:  # demonstration purpose in the docs
+        - https://docs.python-requests.org/en/master/objects.inv
     watch:
     - src/mkdocstrings
