@@ -165,7 +165,7 @@ Any item that was inserted using the [autodoc syntax](#autodoc-syntax)
 cross-reference syntax (`[example][full.path.object1]`).
 But the cross-references are also applicable to the items' children that get pulled in.
 
-#### Finding out the anchor
+### Finding out the anchor
 
 If you're not sure which exact identifier a doc item uses, you can look at its "anchor", which your
 Web browser will show in the URL bar when clicking an item's entry in the table of contents.

@@ -249,7 +249,7 @@ Type annotations are read both in the code and in the docstrings.
     
     ::: snippets.function_annotations_rst:my_function
         selection:
-            docstring_style: "restructured-text"
+          docstring_style: "restructured-text"
         rendering:
           show_root_heading: no
           show_root_toc_entry: no
