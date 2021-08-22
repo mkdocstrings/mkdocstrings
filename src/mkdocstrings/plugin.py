@@ -44,6 +44,7 @@ class MkdocstringsPlugin(BasePlugin):
     This plugin defines the following event hooks:
 
     - `on_config`
+    - `on_env`
     - `on_post_build`
     - `on_serve`
 
@@ -212,6 +213,8 @@ class MkdocstringsPlugin(BasePlugin):
 
     def on_env(self, env, config: Config, **kwargs):
         """Extra actions that need to happen after all Markdown rendering and before HTML rendering.
+
+        Hook for the [`on_env` event](https://www.mkdocs.org/user-guide/plugins/#on_env).
 
         - Write mkdocstrings' extra files into the site dir.
         - Gather results from background inventory download tasks.
