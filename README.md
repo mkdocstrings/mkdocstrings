@@ -76,7 +76,8 @@ Automatic documentation from sources, for [MkDocs](https://mkdocs.org/).
   next to the object signature by *mkdocstrings*.
 
 - **Multiple docstring-styles support:** almost complete support for Google-style, Numpy-style,
-  and reStructuredText-style docstrings. *Note: only RST **style** is supported, not the whole markup.*
+  and reStructuredText-style docstrings. *Notes: only RST **style** is supported, not the whole markup.
+  Numpy-style requires an extra dependency from `pytkdocs`: `pytkdocs[numpy-style]`.*
 
 - **Admonition support in docstrings:** blocks like `Note:` or `Warning:` will be transformed
   to their [admonition](https://squidfunk.github.io/mkdocs-material/extensions/admonition/) equivalent.
@@ -129,12 +130,18 @@ pip install mkdocs-material
 
 With `pip`:
 ```bash
-python3.6 -m pip install mkdocstrings
+pip install mkdocstrings
 ```
 
 With `conda`:
 ```bash
 conda install -c conda-forge mkdocstrings
+```
+
+Note for Python: you'll need an extra dependency to parse Numpy-style docstrings:
+
+```
+pip install pytkdocs[numpy-style]
 ```
 
 ## Quick usage
