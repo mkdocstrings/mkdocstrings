@@ -15,3 +15,8 @@ a.external:hover::after, a.md-nav__link[href^="https:"]:hover::after {
   content: ' ';
   display: inline-block;
 }
+
+/* More space at the bottom of the page */
+.md-main__inner {
+  margin-bottom: 1.5rem;
+}
