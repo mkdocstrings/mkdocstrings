@@ -36,7 +36,7 @@ Automatic documentation from sources, for [MkDocs](https://mkdocs.org/).
   *any* Markdown heading into the global referencing scheme.
 
     **Note**: in versions prior to 0.15 *all* Markdown headers were included, but now you need to
-    [opt in](https://mkdocstrings.github.io/usage/#cross-references).
+    [opt in](https://mkdocstrings.github.io/usage/#cross-references-to-any-markdown-heading).
 
 - [**Inline injection in Markdown:**](https://mkdocstrings.github.io/usage/)
   instead of generating Markdown files, *mkdocstrings* allows you to inject
