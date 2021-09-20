@@ -290,7 +290,7 @@ class PythonHandler(BaseHandler):
         if base_url is None:
             base_url = posixpath.dirname(url)
 
-        for item in Inventory.parse_sphinx(in_file, domain_filter=("py",)).values():
+        for item in Inventory.parse_sphinx(in_file, domain_filter=("py",)).values():  # noqa: WPS526
             yield item.name, posixpath.join(base_url, item.uri)
 
 

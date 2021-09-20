@@ -148,8 +148,7 @@ def check_dependencies(ctx):
 
 
 def no_docs_py36(nofail=True):
-    """
-    Decorate a duty that builds docs to warn that it's not possible on Python 3.6.
+    """Decorate a duty that builds docs to warn that it's not possible on Python 3.6.
 
     Arguments:
         nofail: Whether to fail or not.
@@ -305,11 +304,15 @@ def test(ctx, match: str = ""):
         ctx: The context instance (passed automatically).
         match: A pytest expression to filter selected tests.
     """
-    try:
+    try:  # noqa: WPS229
         import sphinx  # isort:skip  # noqa: F401
         import docutils  # isort:skip  # noqa: F401
     except ImportError:
-        ctx.run("pip install sphinx docutils --no-deps", title="Installing additional test dependencies")
+        py = f"{sys.version_info.major}.{sys.version_info.minor}"
+        ctx.run(
+            f"pip install sphinx docutils --no-deps -t __pypackages__/{py}/lib",
+            title="Installing additional test dependencies",
+        )
 
     py_version = f"{sys.version_info.major}{sys.version_info.minor}"
     os.environ["COVERAGE_FILE"] = f".coverage.{py_version}"

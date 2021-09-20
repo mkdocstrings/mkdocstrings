@@ -52,7 +52,7 @@ class Highlighter(Highlight):
                 config = ext.getConfigs()
                 config["language_prefix"] = config["lang_prefix"]
         self._css_class = config.pop("css_class", "highlight")
-        super().__init__(**{k: v for k, v in config.items() if k in self._highlight_config_keys})
+        super().__init__(**{name: opt for name, opt in config.items() if name in self._highlight_config_keys})
 
     def highlight(  # noqa: W0221 (intentionally different params, we're extending the functionality)
         self,
@@ -185,7 +185,7 @@ class _HeadingReportingTreeprocessor(Treeprocessor):
                 el = copy.copy(el)
                 # 'toc' extension's first pass (which we require to build heading stubs/ids) also edits the HTML.
                 # Undo the permalink edit so we can pass this heading to the outer pass of the 'toc' extension.
-                if len(el) > 0 and el[-1].get("class") == self.md.treeprocessors["toc"].permalink_class:
+                if len(el) > 0 and el[-1].get("class") == self.md.treeprocessors["toc"].permalink_class:  # noqa: WPS507
                     del el[-1]
                 self.headings.append(el)
 
