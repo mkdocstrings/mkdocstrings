@@ -1,6 +1,6 @@
 # Changes here will be overwritten by Copier
-_commit: 0.3.1
-_src_path: gh:pawamoy/copier-poetry
+_commit: e9e472d
+_src_path: gh:pawamoy/copier-pdm.git
 author_email: pawamoy@pm.me
 author_fullname: "Timoth\xE9e Mazzucotelli"
 author_username: pawamoy
