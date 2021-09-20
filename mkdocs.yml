@@ -51,6 +51,7 @@ theme:
       name: Switch to light mode
 
 extra_css:
+- css/style.css
 - css/material.css
 - css/mkdocstrings.css
 
