@@ -212,6 +212,16 @@ Type annotations are read both in the code and in the docstrings.
 
 #### Numpy-style
 
+!!! important "Extra dependency required"
+    You'll need an extra dependency to parse Numpy-style docstrings:
+
+    ```
+    pdm add -d --group docs 'pytkdocs[numpy-style]'
+    poetry add -D 'pytkdocs[numpy-style]'
+    pip install 'pytkdocs[numpy-style]'
+    # etc.
+    ```
+
 You can see examples of Numpy-style docstrings
 in [numpydoc's documentation](https://numpydoc.readthedocs.io/en/latest/format.html).
 
