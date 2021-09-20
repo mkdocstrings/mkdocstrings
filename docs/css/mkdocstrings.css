@@ -4,3 +4,8 @@ div.doc-contents:not(.first) {
   border-left: 4px solid rgba(230, 230, 230);
   margin-bottom: 80px;
 }
+
+/* Avoid breaking parameters name, etc. in table cells. */
+td code {
+  word-break: normal !important;
+}
