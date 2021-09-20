@@ -40,6 +40,8 @@ Funding = "https://github.com/sponsors/mkdocstrings"
 [project.entry-points."mkdocs.plugins"]
 mkdocstrings = "mkdocstrings.plugin:MkdocstringsPlugin"
 
+
+[project.optional-dependencies]
 [tool.pdm]
 package-dir = "src"
 
@@ -78,6 +80,7 @@ quality = [
     "wps-light~=0.15",
 ]
 tests = [
+    "pygments~=2.10",  # python 3.6
     "pytest~=6.2",
     "pytest-cov~=2.11",
     "pytest-randomly~=3.6",
