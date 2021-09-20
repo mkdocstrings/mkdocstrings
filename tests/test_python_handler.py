@@ -2,7 +2,12 @@
 
 from copy import deepcopy
 
-from mkdocstrings.handlers.python import _sort_key_alphabetical, _sort_key_source, rebuild_category_lists, sort_object
+from mkdocstrings.handlers.python import (  # noqa: WPS450
+    _sort_key_alphabetical,
+    _sort_key_source,
+    rebuild_category_lists,
+    sort_object,
+)
 
 
 def test_members_order():

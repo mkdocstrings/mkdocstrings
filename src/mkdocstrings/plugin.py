@@ -13,12 +13,12 @@ during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on
 """
 
 import collections
-import concurrent.futures
 import functools
 import gzip
 import os
-import urllib.request
+from concurrent import futures
 from typing import Any, BinaryIO, Callable, Iterable, List, Mapping, Optional, Tuple
+from urllib import request
 
 from mkdocs.config import Config
 from mkdocs.config.config_options import Type as MkType
@@ -36,6 +36,9 @@ SELECTION_OPTS_KEY: str = "selection"
 """The name of the selection parameter in YAML configuration blocks."""
 RENDERING_OPTS_KEY: str = "rendering"
 """The name of the rendering parameter in YAML configuration blocks."""
+
+InventoryImportType = List[Tuple[str, Mapping[str, Any]]]
+InventoryLoaderType = Callable[..., Iterable[Tuple[str, str]]]
 
 
 class MkdocstringsPlugin(BasePlugin):
@@ -153,7 +156,7 @@ class MkdocstringsPlugin(BasePlugin):
         else:
             theme_name = config["theme"].name
 
-        to_import: List[Tuple[str, Mapping[str, Any]]] = []
+        to_import: InventoryImportType = []
         for handler_name, conf in self.config["handlers"].items():
             for import_item in conf.pop("import", ()):
                 if isinstance(import_item, str):
@@ -169,7 +172,7 @@ class MkdocstringsPlugin(BasePlugin):
         }
         self._handlers = Handlers(extension_config)
 
-        try:
+        try:  # noqa: WPS229
             # If autorefs plugin is explicitly enabled, just use it.
             autorefs = config["plugins"]["autorefs"]
             log.debug(f"Picked up existing autorefs instance {autorefs!r}")
@@ -189,8 +192,8 @@ class MkdocstringsPlugin(BasePlugin):
 
         self._inv_futures = []
         if to_import:
-            inv_loader = concurrent.futures.ThreadPoolExecutor(4)
-            for handler_name, import_item in to_import:
+            inv_loader = futures.ThreadPoolExecutor(4)
+            for handler_name, import_item in to_import:  # noqa: WPS440
                 future = inv_loader.submit(
                     self._load_inventory, self.get_handler(handler_name).load_inventory, **import_item
                 )
@@ -230,9 +233,9 @@ class MkdocstringsPlugin(BasePlugin):
 
         if self._inv_futures:
             log.debug(f"Waiting for {len(self._inv_futures)} inventory download(s)")
-            concurrent.futures.wait(self._inv_futures, timeout=30)
-            for k, v in collections.ChainMap(*(f.result() for f in self._inv_futures)).items():
-                config["plugins"]["autorefs"].register_url(k, v)
+            futures.wait(self._inv_futures, timeout=30)
+            for page, identifier in collections.ChainMap(*(fut.result() for fut in self._inv_futures)).items():
+                config["plugins"]["autorefs"].register_url(page, identifier)
             self._inv_futures = []
 
     def on_post_build(self, config: Config, **kwargs) -> None:  # noqa: W0613,R0201 (unused arguments, cannot be static)
@@ -251,8 +254,8 @@ class MkdocstringsPlugin(BasePlugin):
             config: The MkDocs config object.
             kwargs: Additional arguments passed by MkDocs.
         """
-        for f in self._inv_futures:
-            f.cancel()
+        for future in self._inv_futures:
+            future.cancel()
 
         if self._handlers:
             log.debug("Tearing handlers down")
@@ -271,7 +274,7 @@ class MkdocstringsPlugin(BasePlugin):
 
     @classmethod
     @functools.lru_cache(maxsize=None)
-    def _load_inventory(cls, loader: Callable[..., Iterable[Tuple[str, str]]], url: str, **kwargs) -> Mapping[str, str]:
+    def _load_inventory(cls, loader: InventoryLoaderType, url: str, **kwargs) -> Mapping[str, str]:
         """Download and process inventory files using a handler.
 
         Arguments:
@@ -283,8 +286,8 @@ class MkdocstringsPlugin(BasePlugin):
             A mapping from identifier to absolute URL.
         """
         log.debug(f"Downloading inventory from {url!r}")
-        req = urllib.request.Request(url, headers={"Accept-Encoding": "gzip", "User-Agent": "mkdocstrings/0.15.0"})
-        with urllib.request.urlopen(req) as resp:  # noqa: S310 (URL audit OK: comes from a checked-in config)
+        req = request.Request(url, headers={"Accept-Encoding": "gzip", "User-Agent": "mkdocstrings/0.15.0"})
+        with request.urlopen(req) as resp:  # noqa: S310 (URL audit OK: comes from a checked-in config)
             content: BinaryIO = resp
             if "gzip" in resp.headers.get("content-encoding", ""):
                 content = gzip.GzipFile(fileobj=resp)  # type: ignore[assignment]

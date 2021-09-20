@@ -96,7 +96,7 @@ class BaseRenderer(ABC):
         for path in paths:
             css_path = path / "style.css"
             if css_path.is_file():
-                self.extra_css += "\n" + css_path.read_text(encoding="utf-8")
+                self.extra_css += "\n" + css_path.read_text(encoding="utf-8")  # noqa: WPS601
                 break
 
         if custom_templates is not None:
@@ -343,9 +343,8 @@ class Handlers:
                 anchor = handler.renderer.get_anchor(handler.collector.collect(identifier, {}))
             except CollectionError:
                 continue
-            else:
-                if anchor is not None:
-                    return anchor
+            if anchor is not None:
+                return anchor
         return None
 
     def get_handler_name(self, config: dict) -> str:

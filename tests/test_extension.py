@@ -12,7 +12,7 @@ try:
     from mkdocs.config.defaults import get_schema
 except ImportError:
 
-    def get_schema():
+    def get_schema():  # noqa: WPS440
         """Fallback for old versions of MkDocs."""
         return config.DEFAULT_SCHEMA
 

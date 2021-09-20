@@ -51,10 +51,10 @@ class InventoryItem:
     @classmethod
     def parse_sphinx(cls, line: str) -> "InventoryItem":
         """Parse a line from a Sphinx v2 inventory file and return an `InventoryItem` from it."""
-        m = cls.sphinx_item_regex.search(line)
-        if not m:
+        match = cls.sphinx_item_regex.search(line)
+        if not match:
             raise ValueError(line)
-        name, domain, role, priority, uri, dispname = m.groups()
+        name, domain, role, priority, uri, dispname = match.groups()
         if uri.endswith("$"):
             uri = uri[:-1] + name
         if dispname == "-":

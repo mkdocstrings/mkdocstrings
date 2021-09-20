@@ -41,7 +41,7 @@ from mkdocstrings.loggers import get_logger
 try:
     from mkdocs.exceptions import PluginError  # New in MkDocs 1.2
 except ImportError:
-    PluginError = SystemExit
+    PluginError = SystemExit  # noqa: WPS440
 
 
 log = get_logger(__name__)
@@ -183,7 +183,7 @@ class AutoDocProcessor(BlockProcessor):
 
         if not self._updated_env:
             log.debug("Updating renderer's env")
-            handler.renderer._update_env(self.md, self._config)  # noqa: W0212 (protected member OK)
+            handler.renderer._update_env(self.md, self._config)  # noqa: WPS437 (protected member OK)
             self._updated_env = True
 
         log.debug("Rendering templates")
