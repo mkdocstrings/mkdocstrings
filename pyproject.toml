@@ -44,6 +44,7 @@ mkdocstrings = "mkdocstrings.plugin:MkdocstringsPlugin"
 [project.optional-dependencies]
 [tool.pdm]
 package-dir = "src"
+includes = ["src/mkdocstrings"]
 
 [tool.pdm.dev-dependencies]
 duty = ["duty~=0.6"]
