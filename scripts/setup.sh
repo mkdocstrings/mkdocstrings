@@ -12,21 +12,17 @@ install_with_pipx() {
     fi
 }
 
-install_with_pipx poetry
+install_with_pipx pdm
 
 if [ -n "${PYTHON_VERSIONS}" ]; then
     for python_version in ${PYTHON_VERSIONS}; do
-        if output=$(poetry env use "${python_version}" 2>&1); then
-            if echo "${output}" | grep -q ^Creating; then
-                echo "> Created environment for Python ${python_version}"
-            else
-                echo "> Using Python ${python_version} environment"
-            fi
-            poetry install
+        if pdm use -f "${python_version}" &>/dev/null; then
+            echo "> Using Python ${python_version} environment"
+            pdm install
         else
-            echo "> poetry env use ${python_version}: Python version not available?" >&2
+            echo "> pdm use -f ${python_version}: Python version not available?" >&2
         fi
     done
 else
-    poetry install
+    pdm install
 fi
