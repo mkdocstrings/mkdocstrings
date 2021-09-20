@@ -24,7 +24,7 @@
 
         <code>
           {% if show_full_path %}{{ class.path }}{% else %}{{ class.name }}{% endif %}
-          {% if config.show_bases and class.bases != ['object'] %}
+          {% if config.show_bases and class.bases and class.bases != ['object'] %}
             ({% for base in class.bases -%}
               {{ base|brief_xref() }}{% if not loop.last %}, {% endif %}
              {% endfor %})
