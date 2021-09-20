@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := help
 SHELL := bash
 
-DUTY = $(shell [ -n "${VIRTUAL_ENV}" ] || echo poetry run) duty
+DUTY = $(shell [ -n "${VIRTUAL_ENV}" ] || echo pdm run) duty
 
 args = $(foreach a,$($(subst -,_,$1)_args),$(if $(value $a),$a="$($a)"))
 check_code_quality_args = files

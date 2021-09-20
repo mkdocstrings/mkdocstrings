@@ -3,16 +3,16 @@
 import os
 import re
 import sys
+from functools import wraps
 from pathlib import Path
 from shutil import which
 from typing import List, Optional, Pattern
-from urllib import request
+from urllib.request import urlopen
 
 from duty import duty
-from git_changelog.build import Changelog, Version
-from jinja2.sandbox import SandboxedEnvironment
 
-PY_SRC_LIST = ("src/mkdocstrings", "tests", "duties.py", "docs")
+PY_SRC_PATHS = (Path(_) for _ in ("src", "tests", "duties.py", "docs"))
+PY_SRC_LIST = tuple(str(_) for _ in PY_SRC_PATHS)
 PY_SRC = " ".join(PY_SRC_LIST)
 TESTING = os.environ.get("TESTING", "0") in {"1", "true"}
 CI = os.environ.get("CI", "0") in {"1", "true", "yes", ""}
@@ -20,16 +20,7 @@ WINDOWS = os.name == "nt"
 PTY = not WINDOWS and not CI
 
 
-def latest(lines: List[str], regex: Pattern) -> Optional[str]:
-    """Return the last released version.
-
-    Arguments:
-        lines: Lines of the changelog file.
-        regex: A compiled regex to find version numbers.
-
-    Returns:
-        The last version.
-    """
+def _latest(lines: List[str], regex: Pattern) -> Optional[str]:
     for line in lines:
         match = regex.search(line)
         if match:
@@ -37,44 +28,11 @@ def latest(lines: List[str], regex: Pattern) -> Optional[str]:
     return None
 
 
-def unreleased(versions: List[Version], last_release: str) -> List[Version]:
-    """Return the most recent versions down to latest release.
-
-    Arguments:
-        versions: All the versions (released and unreleased).
-        last_release: The latest release.
-
-    Returns:
-        A list of versions.
-    """
+def _unreleased(versions, last_release):
     for index, version in enumerate(versions):
         if version.tag == last_release:
             return versions[:index]
     return versions
-
-
-def read_changelog(filepath: str) -> List[str]:
-    """Read the changelog file.
-
-    Arguments:
-        filepath: The path to the changelog file.
-
-    Returns:
-        The changelog lines.
-    """
-    with open(filepath, "r") as changelog_file:
-        return changelog_file.read().splitlines()
-
-
-def write_changelog(filepath: str, lines: List[str]) -> None:
-    """Write the changelog file.
-
-    Arguments:
-        filepath: The path to the changelog file.
-        lines: The lines to write to the file.
-    """
-    with open(filepath, "w") as changelog_file:
-        changelog_file.write("\n".join(lines).rstrip("\n") + "\n")
 
 
 def update_changelog(
@@ -93,8 +51,11 @@ def update_changelog(
         template_url: The URL to the Jinja template used to render contents.
         commit_style: The style of commit messages to parse.
     """
+    from git_changelog.build import Changelog
+    from jinja2.sandbox import SandboxedEnvironment
+
     env = SandboxedEnvironment(autoescape=False)
-    template_text = request.urlopen(template_url).read().decode("utf8")  # noqa: S310
+    template_text = urlopen(template_url).read().decode("utf8")  # noqa: S310
     template = env.from_string(template_text)
     changelog = Changelog(".", style=commit_style)
 
@@ -106,13 +67,17 @@ def update_changelog(
             last_version.url += planned_tag
             last_version.compare_url = last_version.compare_url.replace("HEAD", planned_tag)
 
-    lines = read_changelog(inplace_file)
-    last_released = latest(lines, re.compile(version_regex))
+    with open(inplace_file, "r") as changelog_file:
+        lines = changelog_file.read().splitlines()
+
+    last_released = _latest(lines, re.compile(version_regex))
     if last_released:
-        changelog.versions_list = unreleased(changelog.versions_list, last_released)
+        changelog.versions_list = _unreleased(changelog.versions_list, last_released)
     rendered = template.render(changelog=changelog, inplace=True)
     lines[lines.index(marker)] = rendered
-    write_changelog(inplace_file, lines)
+
+    with open(inplace_file, "w") as changelog_file:  # noqa: WPS440
+        changelog_file.write("\n".join(lines).rstrip("\n") + "\n")
 
 
 @duty
@@ -122,13 +87,15 @@ def changelog(ctx):
     Arguments:
         ctx: The context instance (passed automatically).
     """
+    commit = "166758a98d5e544aaa94fda698128e00733497f4"
+    template_url = f"https://raw.githubusercontent.com/pawamoy/jinja-templates/{commit}/keepachangelog.md"
     ctx.run(
         update_changelog,
         kwargs={
             "inplace_file": "CHANGELOG.md",
             "marker": "<!-- insertion marker -->",
             "version_regex": r"^## \[v?(?P<version>[^\]]+)",
-            "template_url": "https://raw.githubusercontent.com/pawamoy/jinja-templates/master/keepachangelog.md",
+            "template_url": template_url,
             "commit_style": "angular",
         },
         title="Updating changelog",
@@ -172,32 +139,49 @@ def check_dependencies(ctx):
         else:
             safety = "safety"
             nofail = True
-
-    # Ignore tornado/39462 as there is currently no fix
-    # See https://github.com/tornadoweb/tornado/issues/2981
-    ignored_cves = "39462"
-
     ctx.run(
-        "poetry export -f requirements.txt --without-hashes | "
-        f"{safety} check --stdin --full-report -i {ignored_cves}",
+        f"pdm export -f requirements --without-hashes | {safety} check --stdin --full-report",
         title="Checking dependencies",
         pty=PTY,
         nofail=nofail,
     )
 
 
+def no_docs_py36(nofail=True):
+    """
+    Decorate a duty that builds docs to warn that it's not possible on Python 3.6.
+
+    Arguments:
+        nofail: Whether to fail or not.
+
+    Returns:
+        The decorated function.
+    """
+
+    def decorator(func):
+        @wraps(func)
+        def wrapper(ctx):
+            if sys.version_info <= (3, 7, 0):
+                ctx.run(["false"], title="Docs can't be built on Python 3.6", nofail=nofail, quiet=True)
+            else:
+                func(ctx)
+
+        return wrapper
+
+    return decorator
+
+
 @duty
+@no_docs_py36()
 def check_docs(ctx):
     """Check if the documentation builds correctly.
 
     Arguments:
         ctx: The context instance (passed automatically).
     """
-    # mkdocs-gen-files works on 3.7+ only
-    nofail = sys.version_info < (3, 7)
-    Path("build/coverage").mkdir(parents=True, exist_ok=True)
-    Path("build/coverage/index.html").touch(exist_ok=True)
-    ctx.run("mkdocs build -s", title="Building documentation", pty=PTY, nofail=nofail, quiet=nofail)
+    Path("htmlcov").mkdir(parents=True, exist_ok=True)
+    Path("htmlcov/index.html").touch(exist_ok=True)
+    ctx.run("mkdocs build -s", title="Building documentation", pty=PTY)
 
 
 @duty
@@ -223,6 +207,7 @@ def clean(ctx):
     ctx.run("rm -rf tests/.pytest_cache")
     ctx.run("rm -rf build")
     ctx.run("rm -rf dist")
+    ctx.run("rm -rf htmlcov")
     ctx.run("rm -rf pip-wheel-metadata")
     ctx.run("rm -rf site")
     ctx.run("find . -type d -name __pycache__ | xargs rm -rf")
@@ -230,6 +215,7 @@ def clean(ctx):
 
 
 @duty
+@no_docs_py36(nofail=False)
 def docs(ctx):
     """Build the documentation locally.
 
@@ -240,6 +226,7 @@ def docs(ctx):
 
 
 @duty
+@no_docs_py36(nofail=False)
 def docs_serve(ctx, host="127.0.0.1", port=8000):
     """Serve the documentation (localhost:8000).
 
@@ -252,6 +239,7 @@ def docs_serve(ctx, host="127.0.0.1", port=8000):
 
 
 @duty
+@no_docs_py36(nofail=False)
 def docs_deploy(ctx):
     """Deploy the documentation on GitHub pages.
 
@@ -286,15 +274,14 @@ def release(ctx, version):
         ctx: The context instance (passed automatically).
         version: The new version number to use.
     """
-    ctx.run(f"poetry version {version}", title=f"Bumping version in pyproject.toml to {version}", pty=PTY)
     ctx.run("git add pyproject.toml CHANGELOG.md", title="Staging files", pty=PTY)
     ctx.run(["git", "commit", "-m", f"chore: Prepare release {version}"], title="Committing changes", pty=PTY)
     ctx.run(f"git tag {version}", title="Tagging commit", pty=PTY)
     if not TESTING:
         ctx.run("git push", title="Pushing commits", pty=False)
         ctx.run("git push --tags", title="Pushing tags", pty=False)
-        ctx.run("poetry build", title="Building dist/wheel", pty=PTY)
-        ctx.run("poetry publish", title="Publishing version", pty=PTY)
+        ctx.run("pdm build", title="Building dist/wheel", pty=PTY)
+        ctx.run("twine upload --skip-existing dist/*", title="Publishing version", pty=PTY)
         docs_deploy.run()  # type: ignore
 
 
@@ -305,7 +292,7 @@ def coverage(ctx):
     Arguments:
         ctx: The context instance (passed automatically).
     """
-    ctx.run("coverage combine .coverage-*", nofail=True)
+    ctx.run("coverage combine", nofail=True)
     ctx.run("coverage report --rcfile=config/coverage.ini", capture=False)
     ctx.run("coverage html --rcfile=config/coverage.ini")
 
@@ -325,7 +312,7 @@ def test(ctx, match: str = ""):
         ctx.run("pip install sphinx docutils --no-deps", title="Installing additional test dependencies")
 
     py_version = f"{sys.version_info.major}{sys.version_info.minor}"
-    os.environ["COVERAGE_FILE"] = f".coverage-{py_version}"
+    os.environ["COVERAGE_FILE"] = f".coverage.{py_version}"
     ctx.run(
         ["pytest", "-c", "config/pytest.ini", "-n", "auto", "-k", match, "tests"],
         title="Running tests",

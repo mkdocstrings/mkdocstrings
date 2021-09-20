@@ -4,9 +4,36 @@ site_url: "https://mkdocstrings.github.io/"
 repo_url: "https://github.com/mkdocstrings/mkdocstrings"
 edit_uri: "blob/master/docs/"
 repo_name: "mkdocstrings/mkdocstrings"
+site_dir: "site"
+
+nav:
+- Home:
+  - Overview: index.md
+  - Changelog: changelog.md
+  - Credits: credits.md
+  - License: license.md
+- Usage:
+  - Theming: theming.md
+  - Handlers:
+    - handlers/overview.md
+    - Python: handlers/python.md
+    - Crystal: https://mkdocstrings.github.io/crystal/
+  - Troubleshooting: troubleshooting.md
+# defer to gen-files + literate-nav
+- Code Reference: reference/
+- Development:
+  - Contributing: contributing.md
+  - Code of Conduct: code_of_conduct.md
+  - Coverage report: coverage.md
+- Author's website: https://pawamoy.github.io/
 
 theme:
   name: material
+  icon:
+    logo: material/currency-sign
+  features:
+  - navigation.tabs
+  - navigation.top
   palette:
   - media: "(prefers-color-scheme: light)"
     scheme: default
@@ -24,10 +51,12 @@ theme:
       name: Switch to light mode
 
 extra_css:
-- css/style.css
+- css/material.css
+- css/mkdocstrings.css
 
 markdown_extensions:
 - admonition
+- pymdownx.details
 - pymdownx.emoji
 - pymdownx.magiclink
 - pymdownx.snippets:
@@ -43,12 +72,11 @@ plugins:
 - gen-files:
     scripts:
     - docs/gen_credits.py
-    - docs/gen_doc_stubs.py
+    - docs/gen_ref_nav.py
 - literate-nav:
     nav_file: SUMMARY.md
 - section-index
-- coverage:
-    html_report_dir: build/coverage
+- coverage
 - mkdocstrings:
     handlers:
       python:
@@ -61,3 +89,10 @@ plugins:
         - https://docs.python-requests.org/en/master/objects.inv
     watch:
     - src/mkdocstrings
+
+extra:
+  social:
+  - icon: fontawesome/brands/github
+    link: https://github.com/pawamoy
+  - icon: fontawesome/brands/twitter
+    link: https://twitter.com/pawamoy
