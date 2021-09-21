@@ -21,8 +21,8 @@ for path in sorted(Path("src").glob("**/*.py")):
 
     mkdocs_gen_files.set_edit_path(full_doc_path, path)
 
-nav["mkdocs_autorefs", "references"] = "autorefs/references.md"
-nav["mkdocs_autorefs", "plugin"] = "autorefs/plugin.md"
+nav["mkdocs_autorefs", "references.py"] = "autorefs/references.md"
+nav["mkdocs_autorefs", "plugin.py"] = "autorefs/plugin.md"
 
 with mkdocs_gen_files.open("reference/SUMMARY.md", "w") as nav_file:
     nav_file.writelines(nav.build_literate_nav())

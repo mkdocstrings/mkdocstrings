@@ -13,6 +13,7 @@ nav:
   - Credits: credits.md
   - License: license.md
 - Usage:
+  - usage.md
   - Theming: theming.md
   - Handlers:
     - handlers/overview.md
