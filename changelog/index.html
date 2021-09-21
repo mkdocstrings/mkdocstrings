@@ -13,8 +13,8 @@
       
         <link rel="canonical" href="https://mkdocstrings.github.io/changelog/">
       
-      <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.8">
     
     
       
@@ -22,14 +22,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.cb6bc1d0.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.92558b1b.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.39b8e14a.min.css">
-        
-          
-          
-          <meta name="theme-color" content="#009485">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
         
       
     
@@ -39,7 +35,7 @@
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
       
     
     
@@ -48,8 +44,14 @@
     
       <link rel="stylesheet" href="../css/style.css">
     
+      <link rel="stylesheet" href="../css/material.css">
+    
+      <link rel="stylesheet" href="../css/mkdocstrings.css">
+    
     
       
+
+
     
     
   </head>
@@ -57,14 +59,17 @@
   
     
     
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="preference" data-md-color-primary="teal" data-md-color-accent="purple">
       
-        <script>matchMedia("(prefers-color-scheme: dark)").matches&&document.body.setAttribute("data-md-color-scheme","slate")</script>
-      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
   
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -81,27 +86,25 @@
       
     </div>
     
-      
-
-<header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="https://mkdocstrings.github.io/" title="mkdocstrings" class="md-header-nav__button md-logo" aria-label="mkdocstrings">
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="mkdocstrings" class="md-header__button md-logo" aria-label="mkdocstrings" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.41 3 3 4.41 5.69 7.1A7.924 7.924 0 0 0 4 12c0 1.85.63 3.55 1.69 4.9L3 19.59 4.41 21l2.69-2.69A7.924 7.924 0 0 0 12 20c1.85 0 3.55-.63 4.9-1.69L19.59 21 21 19.59l-2.69-2.69A7.924 7.924 0 0 0 20 12c0-1.85-.63-3.55-1.69-4.9L21 4.41 19.59 3 16.9 5.69A7.924 7.924 0 0 0 12 4c-1.85 0-3.55.63-4.9 1.69L4.41 3M12 6c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6 2.69-6 6-6z"/></svg>
 
     </a>
-    <label class="md-header-nav__button md-icon" for="__drawer">
+    <label class="md-header__button md-icon" for="__drawer">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
     </label>
-    <div class="md-header-nav__title" data-md-component="header-title">
-      <div class="md-header-nav__ellipsis">
-        <div class="md-header-nav__topic">
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
           <span class="md-ellipsis">
             mkdocstrings
           </span>
         </div>
-        <div class="md-header-nav__topic">
+        <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
               Changelog
@@ -111,22 +114,50 @@
       </div>
     </div>
     
-      <label class="md-header-nav__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
       </label>
       
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -142,12 +173,12 @@
 </div>
     
     
-      <div class="md-header-nav__source">
+      <div class="md-header__source">
         
-<a href="https://github.com/mkdocstrings/mkdocstrings/" title="Go to repository" class="md-source">
+<a href="https://github.com/mkdocstrings/mkdocstrings/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     mkdocstrings/mkdocstrings
@@ -162,26 +193,116 @@
       
       
         
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link md-tabs__link--active">
+        Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../usage/" class="md-tabs__link">
+      Usage
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../reference/extension/" class="md-tabs__link">
+        Code Reference
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../contributing/" class="md-tabs__link">
+        Development
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https:/pawamoy.github.io" class="md-tabs__link">
+      Author's website
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
       
       <main class="md-main" data-md-component="main">
         <div class="md-main__inner md-grid">
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
 
+  
 
 
-
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="https://mkdocstrings.github.io/" title="mkdocstrings" class="md-nav__button md-logo" aria-label="mkdocstrings">
+    <a href=".." title="mkdocstrings" class="md-nav__button md-logo" aria-label="mkdocstrings" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.41 3 3 4.41 5.69 7.1A7.924 7.924 0 0 0 4 12c0 1.85.63 3.55 1.69 4.9L3 19.59 4.41 21l2.69-2.69A7.924 7.924 0 0 0 12 20c1.85 0 3.55-.63 4.9-1.69L19.59 21 21 19.59l-2.69-2.69A7.924 7.924 0 0 0 20 12c0-1.85-.63-3.55-1.69-4.9L21 4.41 19.59 3 16.9 5.69A7.924 7.924 0 0 0 12 4c-1.85 0-3.55.63-4.9 1.69L4.41 3M12 6c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6 2.69-6 6-6z"/></svg>
 
     </a>
     mkdocstrings
@@ -189,10 +310,10 @@
   
     <div class="md-nav__source">
       
-<a href="https://github.com/mkdocstrings/mkdocstrings/" title="Go to repository" class="md-source">
+<a href="https://github.com/mkdocstrings/mkdocstrings/" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     mkdocstrings/mkdocstrings
@@ -208,6 +329,33 @@
 
   
   
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      <label class="md-nav__link" for="__nav_1">
+        <span class="md-nav__icon md-icon"></span>
+        
+          Home
+        
+      </label>
+      <nav class="md-nav" aria-label="Home" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          
+            Home
+          
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
   
     <li class="md-nav__item">
       <a href=".." class="md-nav__link">
@@ -216,49 +364,938 @@
     </li>
   
 
-    
-      
-      
-      
-
-  
+          
+            
   
   
     
-    <li class="md-nav__item md-nav__item--nested">
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
-      
-      <label class="md-nav__link" for="nav-2">
-        <span class="md-nav__icon md-icon"></span>
         
-          <a href="../usage/" class="md-nav__link"
-            style="margin: initial; padding: initial; pointer-events: initial">
-        
-          Usage
-        </a>
-      </label>
-      <nav class="md-nav" aria-label="Usage" data-md-level="1">
-        <label class="md-nav__title" for="nav-2">
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
           <span class="md-nav__icon md-icon"></span>
           
-            <a href="../usage/" class="md-nav__link"
+            <a href="./" class="md-nav__link md-nav__link--active"
               style="margin: initial; padding: initial; pointer-events: initial">
           
-            Usage
+            Changelog
           </a>
         </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Changelog
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0160-2021-09-20" class="md-nav__link">
+    0.16.0 - 2021-09-20
+  </a>
+  
+    <nav class="md-nav" aria-label="0.16.0 - 2021-09-20">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-refactoring" class="md-nav__link">
+    Code Refactoring
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0152-2021-06-09" class="md-nav__link">
+    0.15.2 - 2021-06-09
+  </a>
+  
+    <nav class="md-nav" aria-label="0.15.2 - 2021-06-09">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packaging" class="md-nav__link">
+    Packaging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0151-2021-05-16" class="md-nav__link">
+    0.15.1 - 2021-05-16
+  </a>
+  
+    <nav class="md-nav" aria-label="0.15.1 - 2021-05-16">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_1" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packaging_1" class="md-nav__link">
+    Packaging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0150-2021-02-28" class="md-nav__link">
+    0.15.0 - 2021-02-28
+  </a>
+  
+    <nav class="md-nav" aria-label="0.15.0 - 2021-02-28">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breaking-changes" class="md-nav__link">
+    Breaking Changes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_1" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_2" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-refactoring_1" class="md-nav__link">
+    Code Refactoring
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0140-2021-01-06" class="md-nav__link">
+    0.14.0 - 2021-01-06
+  </a>
+  
+    <nav class="md-nav" aria-label="0.14.0 - 2021-01-06">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_3" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-refactoring_2" class="md-nav__link">
+    Code Refactoring
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_2" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packaging_2" class="md-nav__link">
+    Packaging
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-improvements" class="md-nav__link">
+    Performance Improvements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0136-2020-09-28" class="md-nav__link">
+    0.13.6 - 2020-09-28
+  </a>
+  
+    <nav class="md-nav" aria-label="0.13.6 - 2020-09-28">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_4" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0135-2020-09-28" class="md-nav__link">
+    0.13.5 - 2020-09-28
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packaging_3" class="md-nav__link">
+    Packaging
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0134-2020-09-25" class="md-nav__link">
+    0.13.4 - 2020-09-25
+  </a>
+  
+    <nav class="md-nav" aria-label="0.13.4 - 2020-09-25">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_5" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0133-2020-09-25" class="md-nav__link">
+    0.13.3 - 2020-09-25
+  </a>
+  
+    <nav class="md-nav" aria-label="0.13.3 - 2020-09-25">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packaging_4" class="md-nav__link">
+    Packaging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0132-2020-09-08" class="md-nav__link">
+    0.13.2 - 2020-09-08
+  </a>
+  
+    <nav class="md-nav" aria-label="0.13.2 - 2020-09-08">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_6" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0131-2020-09-03" class="md-nav__link">
+    0.13.1 - 2020-09-03
+  </a>
+  
+    <nav class="md-nav" aria-label="0.13.1 - 2020-09-03">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_7" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0130-2020-08-21" class="md-nav__link">
+    0.13.0 - 2020-08-21
+  </a>
+  
+    <nav class="md-nav" aria-label="0.13.0 - 2020-08-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_8" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_3" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packaging_5" class="md-nav__link">
+    Packaging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0122-2020-07-24" class="md-nav__link">
+    0.12.2 - 2020-07-24
+  </a>
+  
+    <nav class="md-nav" aria-label="0.12.2 - 2020-07-24">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packaging_6" class="md-nav__link">
+    Packaging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0121-2020-07-07" class="md-nav__link">
+    0.12.1 - 2020-07-07
+  </a>
+  
+    <nav class="md-nav" aria-label="0.12.1 - 2020-07-07">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_9" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0120-2020-06-14" class="md-nav__link">
+    0.12.0 - 2020-06-14
+  </a>
+  
+    <nav class="md-nav" aria-label="0.12.0 - 2020-06-14">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_4" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packaging_7" class="md-nav__link">
+    Packaging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0114-2020-06-08" class="md-nav__link">
+    0.11.4 - 2020-06-08
+  </a>
+  
+    <nav class="md-nav" aria-label="0.11.4 - 2020-06-08">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packaging_8" class="md-nav__link">
+    Packaging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0113-2020-06-07" class="md-nav__link">
+    0.11.3 - 2020-06-07
+  </a>
+  
+    <nav class="md-nav" aria-label="0.11.3 - 2020-06-07">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_10" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0112-2020-05-20" class="md-nav__link">
+    0.11.2 - 2020-05-20
+  </a>
+  
+    <nav class="md-nav" aria-label="0.11.2 - 2020-05-20">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packaging_9" class="md-nav__link">
+    Packaging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0111-2020-05-14" class="md-nav__link">
+    0.11.1 - 2020-05-14
+  </a>
+  
+    <nav class="md-nav" aria-label="0.11.1 - 2020-05-14">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_11" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0110-2020-04-23" class="md-nav__link">
+    0.11.0 - 2020-04-23
+  </a>
+  
+    <nav class="md-nav" aria-label="0.11.0 - 2020-04-23">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_12" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_5" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0103-2020-04-10" class="md-nav__link">
+    0.10.3 - 2020-04-10
+  </a>
+  
+    <nav class="md-nav" aria-label="0.10.3 - 2020-04-10">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_13" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packaging_10" class="md-nav__link">
+    Packaging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0102-2020-04-07" class="md-nav__link">
+    0.10.2 - 2020-04-07
+  </a>
+  
+    <nav class="md-nav" aria-label="0.10.2 - 2020-04-07">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packaging_11" class="md-nav__link">
+    Packaging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0101-2020-04-03" class="md-nav__link">
+    0.10.1 - 2020-04-03
+  </a>
+  
+    <nav class="md-nav" aria-label="0.10.1 - 2020-04-03">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_14" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0100-2020-03-27" class="md-nav__link">
+    0.10.0 - 2020-03-27
+  </a>
+  
+    <nav class="md-nav" aria-label="0.10.0 - 2020-03-27">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_6" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#091-2020-03-21" class="md-nav__link">
+    0.9.1 - 2020-03-21
+  </a>
+  
+    <nav class="md-nav" aria-label="0.9.1 - 2020-03-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_15" class="md-nav__link">
+    Bug fixes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#090-2020-03-21" class="md-nav__link">
+    0.9.0 - 2020-03-21
+  </a>
+  
+    <nav class="md-nav" aria-label="0.9.0 - 2020-03-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_7" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_16" class="md-nav__link">
+    Bug fixes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#080-2020-03-04" class="md-nav__link">
+    0.8.0 - 2020-03-04
+  </a>
+  
+    <nav class="md-nav" aria-label="0.8.0 - 2020-03-04">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breaking-changes_1" class="md-nav__link">
+    Breaking Changes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#072-2020-03-04" class="md-nav__link">
+    0.7.2 - 2020-03-04
+  </a>
+  
+    <nav class="md-nav" aria-label="0.7.2 - 2020-03-04">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_17" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#071-2020-02-18" class="md-nav__link">
+    0.7.1 - 2020-02-18
+  </a>
+  
+    <nav class="md-nav" aria-label="0.7.1 - 2020-02-18">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_18" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#070-2020-01-13" class="md-nav__link">
+    0.7.0 - 2020-01-13
+  </a>
+  
+    <nav class="md-nav" aria-label="0.7.0 - 2020-01-13">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_19" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-refactoring_3" class="md-nav__link">
+    Code Refactoring
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_8" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#061-2020-01-02" class="md-nav__link">
+    0.6.1 - 2020-01-02
+  </a>
+  
+    <nav class="md-nav" aria-label="0.6.1 - 2020-01-02">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_20" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-refactoring_4" class="md-nav__link">
+    Code Refactoring
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#060-2019-12-28" class="md-nav__link">
+    0.6.0 - 2019-12-28
+  </a>
+  
+    <nav class="md-nav" aria-label="0.6.0 - 2019-12-28">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_21" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-refactoring_5" class="md-nav__link">
+    Code Refactoring
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#050-2019-12-22" class="md-nav__link">
+    0.5.0 - 2019-12-22
+  </a>
+  
+    <nav class="md-nav" aria-label="0.5.0 - 2019-12-22">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_9" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#040-2019-12-22" class="md-nav__link">
+    0.4.0 - 2019-12-22
+  </a>
+  
+    <nav class="md-nav" aria-label="0.4.0 - 2019-12-22">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_10" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#030-2019-12-21" class="md-nav__link">
+    0.3.0 - 2019-12-21
+  </a>
+  
+    <nav class="md-nav" aria-label="0.3.0 - 2019-12-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_11" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#020-2019-12-15" class="md-nav__link">
+    0.2.0 - 2019-12-15
+  </a>
+  
+    <nav class="md-nav" aria-label="0.2.0 - 2019-12-15">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#misc" class="md-nav__link">
+    Misc
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#010-2019-12-12" class="md-nav__link">
+    0.1.0 - 2019-12-12
+  </a>
+  
+    <nav class="md-nav" aria-label="0.1.0 - 2019-12-12">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#misc_1" class="md-nav__link">
+    Misc
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
           
             
   
   
   
     <li class="md-nav__item">
-      <a href="../theming/" class="md-nav__link">
-        Theming
+      <a href="../credits/" class="md-nav__link">
+        Credits
       </a>
     </li>
   
@@ -268,53 +1305,9 @@
   
   
   
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2" >
-      
-      <label class="md-nav__link" for="nav-2-2">
-        <span class="md-nav__icon md-icon"></span>
-        
-          <a href="../handlers/overview/" class="md-nav__link"
-            style="margin: initial; padding: initial; pointer-events: initial">
-        
-          Handlers
-        </a>
-      </label>
-      <nav class="md-nav" aria-label="Handlers" data-md-level="2">
-        <label class="md-nav__title" for="nav-2-2">
-          <span class="md-nav__icon md-icon"></span>
-          
-            <a href="../handlers/overview/" class="md-nav__link"
-              style="margin: initial; padding: initial; pointer-events: initial">
-          
-            Handlers
-          </a>
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-          
-            
-  
-  
-  
     <li class="md-nav__item">
-      <a href="../handlers/python/" class="md-nav__link">
-        Python
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
-        Crystal
+      <a href="../license/" class="md-nav__link">
+        License
       </a>
     </li>
   
@@ -325,21 +1318,18 @@
     </li>
   
 
-          
-            
+    
+      
+      
+      
+
   
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
-        Troubleshooting
+      <a href="../usage/" class="md-nav__link">
+        Usage
       </a>
-    </li>
-  
-
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -355,16 +1345,16 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
-      <label class="md-nav__link" for="nav-3">
+      <label class="md-nav__link" for="__nav_3">
         <span class="md-nav__icon md-icon"></span>
         
           Code Reference
         
       </label>
       <nav class="md-nav" aria-label="Code Reference" data-md-level="1">
-        <label class="md-nav__title" for="nav-3">
+        <label class="md-nav__title" for="__nav_3">
           <span class="md-nav__icon md-icon"></span>
           
             Code Reference
@@ -372,7 +1362,6 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
-          
             
   
   
@@ -381,16 +1370,16 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
       
-      <label class="md-nav__link" for="nav-3-1">
+      <label class="md-nav__link" for="__nav_3_1">
         <span class="md-nav__icon md-icon"></span>
         
           mkdocstrings
         
       </label>
       <nav class="md-nav" aria-label="mkdocstrings" data-md-level="2">
-        <label class="md-nav__title" for="nav-3-1">
+        <label class="md-nav__title" for="__nav_3_1">
           <span class="md-nav__icon md-icon"></span>
           
             mkdocstrings
@@ -398,6 +1387,17 @@
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/extension/" class="md-nav__link">
+        extension.py
+      </a>
+    </li>
+  
+
           
             
   
@@ -407,23 +1407,22 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1-1" type="checkbox" id="nav-3-1-1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1_2" type="checkbox" id="__nav_3_1_2" >
       
-      <label class="md-nav__link" for="nav-3-1-1">
+      <label class="md-nav__link" for="__nav_3_1_2">
         <span class="md-nav__icon md-icon"></span>
         
           handlers
         
       </label>
       <nav class="md-nav" aria-label="handlers" data-md-level="3">
-        <label class="md-nav__title" for="nav-3-1-1">
+        <label class="md-nav__title" for="__nav_3_1_2">
           <span class="md-nav__icon md-icon"></span>
           
             handlers
           
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -442,8 +1441,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/handlers/rendering/" class="md-nav__link">
-        rendering.py
+      <a href="../reference/handlers/python/" class="md-nav__link">
+        python.py
       </a>
     </li>
   
@@ -454,8 +1453,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/handlers/python/" class="md-nav__link">
-        python.py
+      <a href="../reference/handlers/rendering/" class="md-nav__link">
+        rendering.py
       </a>
     </li>
   
@@ -472,20 +1471,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/extension/" class="md-nav__link">
-        extension.py
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../reference/plugin/" class="md-nav__link">
-        plugin.py
+      <a href="../reference/inventory/" class="md-nav__link">
+        inventory.py
       </a>
     </li>
   
@@ -498,6 +1485,18 @@
     <li class="md-nav__item">
       <a href="../reference/loggers/" class="md-nav__link">
         loggers.py
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/plugin/" class="md-nav__link">
+        plugin.py
       </a>
     </li>
   
@@ -517,23 +1516,22 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
       
-      <label class="md-nav__link" for="nav-3-2">
+      <label class="md-nav__link" for="__nav_3_2">
         <span class="md-nav__icon md-icon"></span>
         
           mkdocs_autorefs
         
       </label>
       <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
-        <label class="md-nav__title" for="nav-3-2">
+        <label class="md-nav__title" for="__nav_3_2">
           <span class="md-nav__icon md-icon"></span>
           
             mkdocs_autorefs
           
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
-          
           
             
   
@@ -582,29 +1580,34 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
-      <label class="md-nav__link" for="nav-4">
+      <label class="md-nav__link" for="__nav_4">
         <span class="md-nav__icon md-icon"></span>
         
-          <a href="../contributing/" class="md-nav__link"
-            style="margin: initial; padding: initial; pointer-events: initial">
+          Development
         
-          Contributing
-        </a>
       </label>
-      <nav class="md-nav" aria-label="Contributing" data-md-level="1">
-        <label class="md-nav__title" for="nav-4">
+      <nav class="md-nav" aria-label="Development" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           
-            <a href="../contributing/" class="md-nav__link"
-              style="margin: initial; padding: initial; pointer-events: initial">
+            Development
           
-            Contributing
-          </a>
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        Contributing
+      </a>
+    </li>
+  
+
           
             
   
@@ -642,869 +1645,10 @@
 
   
   
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          <span class="md-nav__icon md-icon"></span>
-          
-            <a href="./" class="md-nav__link md-nav__link--active"
-              style="margin: initial; padding: initial; pointer-events: initial">
-          
-            Changelog
-          </a>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        Changelog
-      </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#0150-2021-02-28" class="md-nav__link">
-    0.15.0 - 2021-02-28
-  </a>
-  
-    <nav class="md-nav" aria-label="0.15.0 - 2021-02-28">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#breaking-changes" class="md-nav__link">
-    Breaking Changes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#features" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#code-refactoring" class="md-nav__link">
-    Code Refactoring
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0140-2021-01-06" class="md-nav__link">
-    0.14.0 - 2021-01-06
-  </a>
-  
-    <nav class="md-nav" aria-label="0.14.0 - 2021-01-06">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_1" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#code-refactoring_1" class="md-nav__link">
-    Code Refactoring
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#features_1" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#packaging" class="md-nav__link">
-    Packaging
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#performance-improvements" class="md-nav__link">
-    Performance Improvements
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0136-2020-09-28" class="md-nav__link">
-    0.13.6 - 2020-09-28
-  </a>
-  
-    <nav class="md-nav" aria-label="0.13.6 - 2020-09-28">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_2" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0135-2020-09-28" class="md-nav__link">
-    0.13.5 - 2020-09-28
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#packaging_1" class="md-nav__link">
-    Packaging
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0134-2020-09-25" class="md-nav__link">
-    0.13.4 - 2020-09-25
-  </a>
-  
-    <nav class="md-nav" aria-label="0.13.4 - 2020-09-25">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_3" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0133-2020-09-25" class="md-nav__link">
-    0.13.3 - 2020-09-25
-  </a>
-  
-    <nav class="md-nav" aria-label="0.13.3 - 2020-09-25">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#packaging_2" class="md-nav__link">
-    Packaging
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0132-2020-09-08" class="md-nav__link">
-    0.13.2 - 2020-09-08
-  </a>
-  
-    <nav class="md-nav" aria-label="0.13.2 - 2020-09-08">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_4" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0131-2020-09-03" class="md-nav__link">
-    0.13.1 - 2020-09-03
-  </a>
-  
-    <nav class="md-nav" aria-label="0.13.1 - 2020-09-03">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_5" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0130-2020-08-21" class="md-nav__link">
-    0.13.0 - 2020-08-21
-  </a>
-  
-    <nav class="md-nav" aria-label="0.13.0 - 2020-08-21">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_6" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#features_2" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#packaging_3" class="md-nav__link">
-    Packaging
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0122-2020-07-24" class="md-nav__link">
-    0.12.2 - 2020-07-24
-  </a>
-  
-    <nav class="md-nav" aria-label="0.12.2 - 2020-07-24">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#packaging_4" class="md-nav__link">
-    Packaging
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0121-2020-07-07" class="md-nav__link">
-    0.12.1 - 2020-07-07
-  </a>
-  
-    <nav class="md-nav" aria-label="0.12.1 - 2020-07-07">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_7" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0120-2020-06-14" class="md-nav__link">
-    0.12.0 - 2020-06-14
-  </a>
-  
-    <nav class="md-nav" aria-label="0.12.0 - 2020-06-14">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#features_3" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#packaging_5" class="md-nav__link">
-    Packaging
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0114-2020-06-08" class="md-nav__link">
-    0.11.4 - 2020-06-08
-  </a>
-  
-    <nav class="md-nav" aria-label="0.11.4 - 2020-06-08">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#packaging_6" class="md-nav__link">
-    Packaging
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0113-2020-06-07" class="md-nav__link">
-    0.11.3 - 2020-06-07
-  </a>
-  
-    <nav class="md-nav" aria-label="0.11.3 - 2020-06-07">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_8" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0112-2020-05-20" class="md-nav__link">
-    0.11.2 - 2020-05-20
-  </a>
-  
-    <nav class="md-nav" aria-label="0.11.2 - 2020-05-20">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#packaging_7" class="md-nav__link">
-    Packaging
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0111-2020-05-14" class="md-nav__link">
-    0.11.1 - 2020-05-14
-  </a>
-  
-    <nav class="md-nav" aria-label="0.11.1 - 2020-05-14">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_9" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0110-2020-04-23" class="md-nav__link">
-    0.11.0 - 2020-04-23
-  </a>
-  
-    <nav class="md-nav" aria-label="0.11.0 - 2020-04-23">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_10" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#features_4" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0103-2020-04-10" class="md-nav__link">
-    0.10.3 - 2020-04-10
-  </a>
-  
-    <nav class="md-nav" aria-label="0.10.3 - 2020-04-10">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_11" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#packaging_8" class="md-nav__link">
-    Packaging
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0102-2020-04-07" class="md-nav__link">
-    0.10.2 - 2020-04-07
-  </a>
-  
-    <nav class="md-nav" aria-label="0.10.2 - 2020-04-07">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#packaging_9" class="md-nav__link">
-    Packaging
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0101-2020-04-03" class="md-nav__link">
-    0.10.1 - 2020-04-03
-  </a>
-  
-    <nav class="md-nav" aria-label="0.10.1 - 2020-04-03">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_12" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0100-2020-03-27" class="md-nav__link">
-    0.10.0 - 2020-03-27
-  </a>
-  
-    <nav class="md-nav" aria-label="0.10.0 - 2020-03-27">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#features_5" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#091-2020-03-21" class="md-nav__link">
-    0.9.1 - 2020-03-21
-  </a>
-  
-    <nav class="md-nav" aria-label="0.9.1 - 2020-03-21">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_13" class="md-nav__link">
-    Bug fixes
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#090-2020-03-21" class="md-nav__link">
-    0.9.0 - 2020-03-21
-  </a>
-  
-    <nav class="md-nav" aria-label="0.9.0 - 2020-03-21">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#features_6" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_14" class="md-nav__link">
-    Bug fixes
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#080-2020-03-04" class="md-nav__link">
-    0.8.0 - 2020-03-04
-  </a>
-  
-    <nav class="md-nav" aria-label="0.8.0 - 2020-03-04">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#breaking-changes_1" class="md-nav__link">
-    Breaking Changes
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#072-2020-03-04" class="md-nav__link">
-    0.7.2 - 2020-03-04
-  </a>
-  
-    <nav class="md-nav" aria-label="0.7.2 - 2020-03-04">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_15" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#071-2020-02-18" class="md-nav__link">
-    0.7.1 - 2020-02-18
-  </a>
-  
-    <nav class="md-nav" aria-label="0.7.1 - 2020-02-18">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_16" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#070-2020-01-13" class="md-nav__link">
-    0.7.0 - 2020-01-13
-  </a>
-  
-    <nav class="md-nav" aria-label="0.7.0 - 2020-01-13">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_17" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#code-refactoring_2" class="md-nav__link">
-    Code Refactoring
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#features_7" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#061-2020-01-02" class="md-nav__link">
-    0.6.1 - 2020-01-02
-  </a>
-  
-    <nav class="md-nav" aria-label="0.6.1 - 2020-01-02">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_18" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#code-refactoring_3" class="md-nav__link">
-    Code Refactoring
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#060-2019-12-28" class="md-nav__link">
-    0.6.0 - 2019-12-28
-  </a>
-  
-    <nav class="md-nav" aria-label="0.6.0 - 2019-12-28">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_19" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#code-refactoring_4" class="md-nav__link">
-    Code Refactoring
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#050-2019-12-22" class="md-nav__link">
-    0.5.0 - 2019-12-22
-  </a>
-  
-    <nav class="md-nav" aria-label="0.5.0 - 2019-12-22">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#features_8" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#040-2019-12-22" class="md-nav__link">
-    0.4.0 - 2019-12-22
-  </a>
-  
-    <nav class="md-nav" aria-label="0.4.0 - 2019-12-22">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#features_9" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#030-2019-12-21" class="md-nav__link">
-    0.3.0 - 2019-12-21
-  </a>
-  
-    <nav class="md-nav" aria-label="0.3.0 - 2019-12-21">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#features_10" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#020-2019-12-15" class="md-nav__link">
-    0.2.0 - 2019-12-15
-  </a>
-  
-    <nav class="md-nav" aria-label="0.2.0 - 2019-12-15">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#misc" class="md-nav__link">
-    Misc
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#010-2019-12-12" class="md-nav__link">
-    0.1.0 - 2019-12-12
-  </a>
-  
-    <nav class="md-nav" aria-label="0.1.0 - 2019-12-12">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#misc_1" class="md-nav__link">
-    Misc
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
   
     <li class="md-nav__item">
-      <a href="../credits/" class="md-nav__link">
-        Credits
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../license/" class="md-nav__link">
-        License
+      <a href="https:/pawamoy.github.io" class="md-nav__link">
+        Author's website
       </a>
     </li>
   
@@ -1518,11 +1662,12 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
     
@@ -1532,22 +1677,15 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#0150-2021-02-28" class="md-nav__link">
-    0.15.0 - 2021-02-28
+  <a href="#0160-2021-09-20" class="md-nav__link">
+    0.16.0 - 2021-09-20
   </a>
   
-    <nav class="md-nav" aria-label="0.15.0 - 2021-02-28">
+    <nav class="md-nav" aria-label="0.16.0 - 2021-09-20">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#breaking-changes" class="md-nav__link">
-    Breaking Changes
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#features" class="md-nav__link">
@@ -1576,11 +1714,31 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#0140-2021-01-06" class="md-nav__link">
-    0.14.0 - 2021-01-06
+  <a href="#0152-2021-06-09" class="md-nav__link">
+    0.15.2 - 2021-06-09
   </a>
   
-    <nav class="md-nav" aria-label="0.14.0 - 2021-01-06">
+    <nav class="md-nav" aria-label="0.15.2 - 2021-06-09">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packaging" class="md-nav__link">
+    Packaging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0151-2021-05-16" class="md-nav__link">
+    0.15.1 - 2021-05-16
+  </a>
+  
+    <nav class="md-nav" aria-label="0.15.1 - 2021-05-16">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1591,8 +1749,28 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_1" class="md-nav__link">
-    Code Refactoring
+  <a href="#packaging_1" class="md-nav__link">
+    Packaging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0150-2021-02-28" class="md-nav__link">
+    0.15.0 - 2021-02-28
+  </a>
+  
+    <nav class="md-nav" aria-label="0.15.0 - 2021-02-28">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#breaking-changes" class="md-nav__link">
+    Breaking Changes
   </a>
   
 </li>
@@ -1605,7 +1783,55 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#packaging" class="md-nav__link">
+  <a href="#bug-fixes_2" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-refactoring_1" class="md-nav__link">
+    Code Refactoring
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0140-2021-01-06" class="md-nav__link">
+    0.14.0 - 2021-01-06
+  </a>
+  
+    <nav class="md-nav" aria-label="0.14.0 - 2021-01-06">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_3" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-refactoring_2" class="md-nav__link">
+    Code Refactoring
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_2" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packaging_2" class="md-nav__link">
     Packaging
   </a>
   
@@ -1632,7 +1858,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_2" class="md-nav__link">
+  <a href="#bug-fixes_4" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1651,7 +1877,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#packaging_1" class="md-nav__link">
+  <a href="#packaging_3" class="md-nav__link">
     Packaging
   </a>
   
@@ -1666,7 +1892,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_3" class="md-nav__link">
+  <a href="#bug-fixes_5" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1686,7 +1912,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#packaging_2" class="md-nav__link">
+  <a href="#packaging_4" class="md-nav__link">
     Packaging
   </a>
   
@@ -1706,7 +1932,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_4" class="md-nav__link">
+  <a href="#bug-fixes_6" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1726,7 +1952,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_5" class="md-nav__link">
+  <a href="#bug-fixes_7" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1746,78 +1972,11 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_6" class="md-nav__link">
+  <a href="#bug-fixes_8" class="md-nav__link">
     Bug Fixes
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#features_2" class="md-nav__link">
-    Features
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#packaging_3" class="md-nav__link">
-    Packaging
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0122-2020-07-24" class="md-nav__link">
-    0.12.2 - 2020-07-24
-  </a>
-  
-    <nav class="md-nav" aria-label="0.12.2 - 2020-07-24">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#packaging_4" class="md-nav__link">
-    Packaging
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0121-2020-07-07" class="md-nav__link">
-    0.12.1 - 2020-07-07
-  </a>
-  
-    <nav class="md-nav" aria-label="0.12.1 - 2020-07-07">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bug-fixes_7" class="md-nav__link">
-    Bug Fixes
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#0120-2020-06-14" class="md-nav__link">
-    0.12.0 - 2020-06-14
-  </a>
-  
-    <nav class="md-nav" aria-label="0.12.0 - 2020-06-14">
-      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#features_3" class="md-nav__link">
@@ -1839,6 +1998,73 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#0122-2020-07-24" class="md-nav__link">
+    0.12.2 - 2020-07-24
+  </a>
+  
+    <nav class="md-nav" aria-label="0.12.2 - 2020-07-24">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packaging_6" class="md-nav__link">
+    Packaging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0121-2020-07-07" class="md-nav__link">
+    0.12.1 - 2020-07-07
+  </a>
+  
+    <nav class="md-nav" aria-label="0.12.1 - 2020-07-07">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bug-fixes_9" class="md-nav__link">
+    Bug Fixes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0120-2020-06-14" class="md-nav__link">
+    0.12.0 - 2020-06-14
+  </a>
+  
+    <nav class="md-nav" aria-label="0.12.0 - 2020-06-14">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features_4" class="md-nav__link">
+    Features
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packaging_7" class="md-nav__link">
+    Packaging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0114-2020-06-08" class="md-nav__link">
     0.11.4 - 2020-06-08
   </a>
@@ -1847,7 +2073,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#packaging_6" class="md-nav__link">
+  <a href="#packaging_8" class="md-nav__link">
     Packaging
   </a>
   
@@ -1867,7 +2093,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_8" class="md-nav__link">
+  <a href="#bug-fixes_10" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1887,7 +2113,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#packaging_7" class="md-nav__link">
+  <a href="#packaging_9" class="md-nav__link">
     Packaging
   </a>
   
@@ -1907,7 +2133,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_9" class="md-nav__link">
+  <a href="#bug-fixes_11" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -1927,14 +2153,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_10" class="md-nav__link">
+  <a href="#bug-fixes_12" class="md-nav__link">
     Bug Fixes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#features_4" class="md-nav__link">
+  <a href="#features_5" class="md-nav__link">
     Features
   </a>
   
@@ -1954,14 +2180,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_11" class="md-nav__link">
+  <a href="#bug-fixes_13" class="md-nav__link">
     Bug Fixes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#packaging_8" class="md-nav__link">
+  <a href="#packaging_10" class="md-nav__link">
     Packaging
   </a>
   
@@ -1981,7 +2207,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#packaging_9" class="md-nav__link">
+  <a href="#packaging_11" class="md-nav__link">
     Packaging
   </a>
   
@@ -2001,7 +2227,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_12" class="md-nav__link">
+  <a href="#bug-fixes_14" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -2021,7 +2247,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#features_5" class="md-nav__link">
+  <a href="#features_6" class="md-nav__link">
     Features
   </a>
   
@@ -2041,7 +2267,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_13" class="md-nav__link">
+  <a href="#bug-fixes_15" class="md-nav__link">
     Bug fixes
   </a>
   
@@ -2061,14 +2287,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#features_6" class="md-nav__link">
+  <a href="#features_7" class="md-nav__link">
     Features
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_14" class="md-nav__link">
+  <a href="#bug-fixes_16" class="md-nav__link">
     Bug fixes
   </a>
   
@@ -2108,7 +2334,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_15" class="md-nav__link">
+  <a href="#bug-fixes_17" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -2128,7 +2354,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_16" class="md-nav__link">
+  <a href="#bug-fixes_18" class="md-nav__link">
     Bug Fixes
   </a>
   
@@ -2148,21 +2374,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_17" class="md-nav__link">
+  <a href="#bug-fixes_19" class="md-nav__link">
     Bug Fixes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_2" class="md-nav__link">
+  <a href="#code-refactoring_3" class="md-nav__link">
     Code Refactoring
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#features_7" class="md-nav__link">
+  <a href="#features_8" class="md-nav__link">
     Features
   </a>
   
@@ -2182,14 +2408,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_18" class="md-nav__link">
+  <a href="#bug-fixes_20" class="md-nav__link">
     Bug Fixes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_3" class="md-nav__link">
+  <a href="#code-refactoring_4" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -2209,14 +2435,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#bug-fixes_19" class="md-nav__link">
+  <a href="#bug-fixes_21" class="md-nav__link">
     Bug Fixes
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#code-refactoring_4" class="md-nav__link">
+  <a href="#code-refactoring_5" class="md-nav__link">
     Code Refactoring
   </a>
   
@@ -2236,7 +2462,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#features_8" class="md-nav__link">
+  <a href="#features_9" class="md-nav__link">
     Features
   </a>
   
@@ -2256,7 +2482,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#features_9" class="md-nav__link">
+  <a href="#features_10" class="md-nav__link">
     Features
   </a>
   
@@ -2276,7 +2502,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#features_10" class="md-nav__link">
+  <a href="#features_11" class="md-nav__link">
     Features
   </a>
   
@@ -2335,7 +2561,7 @@
               </div>
             
           
-          <div class="md-content">
+          <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
                 
@@ -2349,6 +2575,45 @@
 <p>The format is based on <a href="http://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>
 and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
 <!-- insertion marker -->
+<h2 id="0160-2021-09-20"><a href="https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.16.0">0.16.0</a> - 2021-09-20<a class="headerlink" href="#0160-2021-09-20" title="Permanent link">¤</a></h2>
+<p><small><a href="https://github.com/mkdocstrings/mkdocstrings/compare/0.15.0...0.16.0">Compare with 0.15.0</a></small></p>
+<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">¤</a></h3>
+<ul>
+<li>Add a rendering option to change the sorting of members (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/b1fff8b8ef4d6d77417fc43ed8be4b578d6437e4">b1fff8b</a> by Joe Rickerby). <a href="https://github.com/mkdocstrings/mkdocstrings/issues/114">Issue #114</a>, <a href="https://github.com/mkdocstrings/mkdocstrings/pull/274">PR #274</a></li>
+<li>Add option to show Python base classes (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/436f5504ad72ab6d1f5b4303e6b68bc84562c32b">436f550</a> by Brian Koropoff). <a href="https://github.com/mkdocstrings/mkdocstrings/issues/269">Issue #269</a>, <a href="https://github.com/mkdocstrings/mkdocstrings/pull/297">PR #297</a></li>
+<li>Support loading external Python inventories in Sphinx format (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/a8418cb4c6193d35cdc72508b118a712cf0334e1">a8418cb</a> by Oleh Prypin). <a href="https://github.com/mkdocstrings/mkdocstrings/pull/287">PR #287</a></li>
+<li>Support loading external inventories and linking to them (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/8b675f4671f8bbfd2f337ed043e3682b0a0ad0f6">8b675f4</a> by Oleh Prypin). <a href="https://github.com/mkdocstrings/mkdocstrings/pull/277">PR #277</a></li>
+<li>Very basic support for MkDocs theme (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/974ca9010efca1b8279767faf8efcd2470a8371d">974ca90</a> by Oleh Prypin). <a href="https://github.com/mkdocstrings/mkdocstrings/pull/272">PR #272</a></li>
+<li>Generate objects inventory (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/14ed959860a784a835cd71f911081f2026d66c81">14ed959</a> and <a href="https://github.com/mkdocstrings/mkdocstrings/commit/bbd85a92fa70bddfe10a907a4d63b8daf0810cb2">bbd85a9</a> by Timothée Mazzucotelli). <a href="https://github.com/mkdocstrings/mkdocstrings/issues/251">Issue #251</a>, <a href="https://github.com/mkdocstrings/mkdocstrings/pull/253">PR #253</a></li>
+</ul>
+<h3 id="bug-fixes">Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">¤</a></h3>
+<ul>
+<li>Don't render empty code blocks for missing type annotations (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/d2e9e1ef3cf304081b07f763843a9722bf9b117e">d2e9e1e</a> by Oleh Prypin).</li>
+<li>Fix custom handler not being used (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/6dcf342fb83b19e385d56d37235f2b23e8c8c767">6dcf342</a> by Timothée Mazzucotelli). <a href="https://github.com/mkdocstrings/mkdocstrings/issues/259">Issue #259</a>, <a href="https://github.com/mkdocstrings/mkdocstrings/pull/263">PR #263</a></li>
+<li>Don't hide <code>setup_commands</code> errors (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/92418c4b3e80b67d5116efa73931fc113daa60e9">92418c4</a> by Gabriel Vîjială). <a href="https://github.com/mkdocstrings/mkdocstrings/pull/258">PR #258</a></li>
+</ul>
+<h3 id="code-refactoring">Code Refactoring<a class="headerlink" href="#code-refactoring" title="Permanent link">¤</a></h3>
+<ul>
+<li>Move writing extra files to an earlier stage in the build (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/3890ab597692e56d7ece576c166373b66ff4e615">3890ab5</a> by Oleh Prypin). <a href="https://github.com/mkdocstrings/mkdocstrings/pull/275">PR #275</a></li>
+</ul>
+<h2 id="0152-2021-06-09"><a href="https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.15.2">0.15.2</a> - 2021-06-09<a class="headerlink" href="#0152-2021-06-09" title="Permanent link">¤</a></h2>
+<p><small><a href="https://github.com/mkdocstrings/mkdocstrings/compare/0.15.1...0.15.2">Compare with 0.15.1</a></small></p>
+<h3 id="packaging">Packaging<a class="headerlink" href="#packaging" title="Permanent link">¤</a></h3>
+<ul>
+<li>MkDocs default schema needs to be obtained differently now (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/b3e122b36d586632738ddedaed7d3df8d5dead44">b3e122b</a> by Oleh Prypin). <a href="https://github.com/mkdocstrings/mkdocstrings/pull/273">PR #273</a></li>
+<li>Compatibility with MkDocs 1.2: livereload isn't guaranteed now (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/36e80248d2ab9e61975f6c83ae517115c9410fc1">36e8024</a> by Oleh Prypin). <a href="https://github.com/mkdocstrings/mkdocstrings/pull/294">PR #294</a></li>
+</ul>
+<h2 id="0151-2021-05-16"><a href="https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.15.1">0.15.1</a> - 2021-05-16<a class="headerlink" href="#0151-2021-05-16" title="Permanent link">¤</a></h2>
+<p><small><a href="https://github.com/mkdocstrings/mkdocstrings/compare/0.15.0...0.15.1">Compare with 0.15.0</a></small></p>
+<h3 id="bug-fixes_1">Bug Fixes<a class="headerlink" href="#bug-fixes_1" title="Permanent link">¤</a></h3>
+<ul>
+<li>Prevent error during parallel installations (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/fac2c711351f7b62bf5308f19cfc612a3944588a">fac2c71</a> by Timothée Mazzucotelli).</li>
+</ul>
+<h3 id="packaging_1">Packaging<a class="headerlink" href="#packaging_1" title="Permanent link">¤</a></h3>
+<ul>
+<li>Support the upcoming major Jinja and MarkupSafe releases (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/bb4f9de08a77bef85e550d70deb0db13e6aa0c96">bb4f9de</a> by Oleh Prypin). <a href="https://github.com/mkdocstrings/mkdocstrings/pull/283">PR #283</a></li>
+<li>Accept a higher version of mkdocs-autorefs (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/c8de08e177f78290d3baaca2716d1ec64c9059b6">c8de08e</a> by Oleh Prypin). <a href="https://github.com/mkdocstrings/mkdocstrings/pull/282">PR #282</a></li>
+</ul>
 <h2 id="0150-2021-02-28"><a href="https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.15.0">0.15.0</a> - 2021-02-28<a class="headerlink" href="#0150-2021-02-28" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/mkdocstrings/mkdocstrings/compare/0.14.0...0.15.0">Compare with 0.14.0</a></small></p>
 <h3 id="breaking-changes">Breaking Changes<a class="headerlink" href="#breaking-changes" title="Permanent link">¤</a></h3>
@@ -2363,18 +2628,18 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
   See <a href="https://mkdocstrings.github.io/theming/#syntax-highlighting">Syntax highlighting</a>.</li>
 <li>Most of the <a href="https://mkdocstrings.github.io/handlers/python/#recommended-style-material">CSS rules that <em>mkdocstrings</em> used to recommend</a> for manual addition, now become mandatory (auto-injected into the site). This shouldn't <em>break</em> any of your styles, but you are welcome to remove the now-redundant lines that you had copied into <code>extra_css</code>, <a href="https://github.com/mkdocstrings/mkdocstrings/pull/218/files#diff-7889a1924c66ff9318f1d81c4a3b75658d09bebf0db3b2e4023ba3e40294eb73">similarly to this diff</a>.</li>
 </ul>
-<h3 id="features">Features<a class="headerlink" href="#features" title="Permanent link">¤</a></h3>
+<h3 id="features_1">Features<a class="headerlink" href="#features_1" title="Permanent link">¤</a></h3>
 <ul>
 <li>Nicer-looking error outputs - no tracebacks from mkdocstrings (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/6baf720850d359ddb55713553a757fe7b2283e10">6baf720</a> by Oleh Prypin). <a href="https://github.com/mkdocstrings/mkdocstrings/pull/230">PR #230</a></li>
 <li>Let handlers add CSS to the pages, do so for Python handler (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/05c7a3fc83b67d3244ea3bfe97dab19aa53f2d38">05c7a3f</a> by Oleh Prypin). <a href="https://github.com/mkdocstrings/mkdocstrings/issues/189">Issue #189</a>, <a href="https://github.com/mkdocstrings/mkdocstrings/pull/218">PR #218</a></li>
 <li>Allow linking to an object heading not only by its canonical identifier, but also by its possible aliases (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/4789950ff43c354d47afbed5c89d5abb917ffee6">4789950</a> by Oleh Prypin). <a href="https://github.com/mkdocstrings/mkdocstrings/pull/217">PR #217</a></li>
 </ul>
-<h3 id="bug-fixes">Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_2">Bug Fixes<a class="headerlink" href="#bug-fixes_2" title="Permanent link">¤</a></h3>
 <ul>
 <li>Propagate the CSS class to inline highlighting as well (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/c7d80e63a042913b7511c38a788967796dd10997">c7d80e6</a> by Oleh Prypin). <a href="https://github.com/mkdocstrings/mkdocstrings/pull/245">PR #245</a></li>
 <li>Don't double-escape characters in highlighted headings (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/6357144b100be6a2e7e6140e035c289c225cec22">6357144</a> by Oleh Prypin). <a href="https://github.com/mkdocstrings/mkdocstrings/issues/228">Issue #228</a>, <a href="https://github.com/mkdocstrings/mkdocstrings/pull/241">PR #241</a></li>
 </ul>
-<h3 id="code-refactoring">Code Refactoring<a class="headerlink" href="#code-refactoring" title="Permanent link">¤</a></h3>
+<h3 id="code-refactoring_1">Code Refactoring<a class="headerlink" href="#code-refactoring_1" title="Permanent link">¤</a></h3>
 <ul>
 <li>Use the autorefs plugin from its new external location (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/e2d74efb0d59f9a1aa45e42525ceb1d4b7638426">e2d74ef</a> by Oleh Prypin). <a href="https://github.com/mkdocstrings/mkdocstrings/pull/235">PR #235</a></li>
 <li>Split out Markdown extensions from <code>handlers</code> to <code>handlers.rendering</code> (<a href="https://github.com/mkdocstrings/mkdocstrings/commit/7533852e3ac0a378b70a380cef1100421b7d5763">7533852</a> by Oleh Prypin). <a href="https://github.com/mkdocstrings/mkdocstrings/pull/233">PR #233</a></li>
@@ -2389,7 +2654,7 @@ and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semanti
 <p>Special thanks to Oleh <a href="https://github.com/oprypin">@oprypin</a> Prypin who did an amazing job (this is a euphemism)
 at improving <em>mkdocstrings</em>, fixing hard-to-fix bugs with clever solutions, implementing great new features
 and refactoring the code for better performance and readability! Thanks Oleh!</p>
-<h3 id="bug-fixes_1">Bug Fixes<a class="headerlink" href="#bug-fixes_1" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_3">Bug Fixes<a class="headerlink" href="#bug-fixes_3" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix double code tags (<a href="https://github.com/pawamoy/mkdocstrings/commit/e84d401c6dcb9aecb8cc1a58d3a0f339e1c3e78f">e84d401</a> by Timothée Mazzucotelli).</li>
 <li>Don't mutate the original Markdown config for permalinks (<a href="https://github.com/pawamoy/mkdocstrings/commit/8f6b163b50551da22f65e9b736e042562f77f2d7">8f6b163</a> by Oleh Prypin).</li>
@@ -2406,7 +2671,7 @@ and refactoring the code for better performance and readability! Thanks Oleh!</p
 <li>Fix error when a digit immediately follows a code tag (<a href="https://github.com/pawamoy/mkdocstrings/commit/9b9234160edc54b53c81a618b12095e7dd829059">9b92341</a> by Oleh Prypin). <a href="https://github.com/pawamoy/mkdocstrings/issues/169">Issue #169</a>, <a href="https://github.com/pawamoy/mkdocstrings/pull/175">PR #175</a></li>
 <li>Detecting paths relative to template directory in logging (<a href="https://github.com/pawamoy/mkdocstrings/commit/a50046b5d58d62df4ba13f4c197e80edd1995eb9">a50046b</a> by Oleh Prypin). <a href="https://github.com/pawamoy/mkdocstrings/issues/166">Issue #166</a></li>
 </ul>
-<h3 id="code-refactoring_1">Code Refactoring<a class="headerlink" href="#code-refactoring_1" title="Permanent link">¤</a></h3>
+<h3 id="code-refactoring_2">Code Refactoring<a class="headerlink" href="#code-refactoring_2" title="Permanent link">¤</a></h3>
 <ul>
 <li>BlockProcessor already receives strings, use them as such (<a href="https://github.com/pawamoy/mkdocstrings/commit/bcf7da911a310a63351c5082e84bb763d90d5b3b">bcf7da9</a> by Oleh Prypin).</li>
 <li>Remove some unused code (<a href="https://github.com/pawamoy/mkdocstrings/commit/850408421cc027be8374673cc74c71fff26f3833">8504084</a> by Oleh Prypin). <a href="https://github.com/pawamoy/mkdocstrings/pull/206">PR #206</a></li>
@@ -2417,7 +2682,7 @@ and refactoring the code for better performance and readability! Thanks Oleh!</p
 <li>Rename logging to loggers to avoid confusion (<a href="https://github.com/pawamoy/mkdocstrings/commit/7a119ccf27cf77cf2cbd114e7fad0a9e4e97bbd8">7a119cc</a> by Timothée Mazzucotelli).</li>
 <li>Simplify logging (<a href="https://github.com/pawamoy/mkdocstrings/commit/409f93ed26d7d8292a8bc7a6c32cb270b3769409">409f93e</a> by Timothée Mazzucotelli).</li>
 </ul>
-<h3 id="features_1">Features<a class="headerlink" href="#features_1" title="Permanent link">¤</a></h3>
+<h3 id="features_2">Features<a class="headerlink" href="#features_2" title="Permanent link">¤</a></h3>
 <ul>
 <li>Allow specifying <code>heading_level</code> as a Markdown heading (<a href="https://github.com/pawamoy/mkdocstrings/commit/10efc281e04b2a430cec53e49208ccc09e591667">10efc28</a> by Oleh Prypin). <a href="https://github.com/pawamoy/mkdocstrings/pull/170">PR #170</a></li>
 <li>Allow any characters in identifiers (<a href="https://github.com/pawamoy/mkdocstrings/commit/7ede68a0917b494eda2198931a8ad1c97fc8fce4">7ede68a</a> by Oleh Prypin). <a href="https://github.com/pawamoy/mkdocstrings/pull/174">PR #174</a></li>
@@ -2426,7 +2691,7 @@ and refactoring the code for better performance and readability! Thanks Oleh!</p
 <li>Add initial support for the ReadTheDocs theme (<a href="https://github.com/pawamoy/mkdocstrings/commit/1028115682ed0806d6570c749af0e382c67d6120">1028115</a> by Timothée Mazzucotelli). <a href="https://github.com/pawamoy/mkdocstrings/issues/107">Issue #107</a>, <a href="https://github.com/pawamoy/mkdocstrings/pull/159">PR #159</a></li>
 <li>Add option to show type annotations in signatures (<a href="https://github.com/pawamoy/mkdocstrings/commit/f94ce9bdb2afc2c41c21a53636980ca077b757ce">f94ce9b</a> by Timothée Mazzucotelli). <a href="https://github.com/pawamoy/mkdocstrings/issues/106">Issue #106</a></li>
 </ul>
-<h3 id="packaging">Packaging<a class="headerlink" href="#packaging" title="Permanent link">¤</a></h3>
+<h3 id="packaging_2">Packaging<a class="headerlink" href="#packaging_2" title="Permanent link">¤</a></h3>
 <ul>
 <li>Accept verions of <code>pytkdocs</code> up to 0.10.x (see <a href="https://pawamoy.github.io/pytkdocs/changelog/#0100-2020-12-06">changelog</a>).</li>
 </ul>
@@ -2438,81 +2703,81 @@ and refactoring the code for better performance and readability! Thanks Oleh!</p
 </ul>
 <h2 id="0136-2020-09-28"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.13.6">0.13.6</a> - 2020-09-28<a class="headerlink" href="#0136-2020-09-28" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.13.5...0.13.6">Compare with 0.13.5</a></small></p>
-<h3 id="bug-fixes_2">Bug Fixes<a class="headerlink" href="#bug-fixes_2" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_4">Bug Fixes<a class="headerlink" href="#bug-fixes_4" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix rendering when clicking on hidden toc entries (<a href="https://github.com/pawamoy/mkdocstrings/commit/2af4d310adefec614235a2c1d04d5ff56bf9c220">2af4d31</a> by Timothée Mazzucotelli). Issue <a href="https://github.com/pawamoy/mkdocstrings/issues/60">#60</a>.</li>
 </ul>
 <h2 id="0135-2020-09-28"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.13.5">0.13.5</a> - 2020-09-28<a class="headerlink" href="#0135-2020-09-28" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.13.4...0.13.5">Compare with 0.13.4</a></small></p>
-<h2 id="packaging_1">Packaging<a class="headerlink" href="#packaging_1" title="Permanent link">¤</a></h2>
+<h2 id="packaging_3">Packaging<a class="headerlink" href="#packaging_3" title="Permanent link">¤</a></h2>
 <ul>
 <li>Accept <code>pytkdocs</code> version up to 0.9.x (<a href="https://pawamoy.github.io/pytkdocs/changelog/#090-2020-09-28">changelog</a>).</li>
 </ul>
 <h2 id="0134-2020-09-25"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.13.4">0.13.4</a> - 2020-09-25<a class="headerlink" href="#0134-2020-09-25" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.13.3...0.13.4">Compare with 0.13.3</a></small></p>
-<h3 id="bug-fixes_3">Bug Fixes<a class="headerlink" href="#bug-fixes_3" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_5">Bug Fixes<a class="headerlink" href="#bug-fixes_5" title="Permanent link">¤</a></h3>
 <ul>
 <li>Bring back arbitrary <code>**config</code> to Python handler (<a href="https://github.com/pawamoy/mkdocstrings/commit/fca7d4c75ffd7a84eaeccd27facd5575604dbfab">fca7d4c</a> by Florimond Manca). Issue <a href="https://github.com/pawamoy/mkdocstrings/issues/154">#154</a>, PR <a href="https://github.com/pawamoy/mkdocstrings/pull/155">#155</a></li>
 </ul>
 <h2 id="0133-2020-09-25"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.13.3">0.13.3</a> - 2020-09-25<a class="headerlink" href="#0133-2020-09-25" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.13.2...0.13.3">Compare with 0.13.2</a></small></p>
-<h3 id="packaging_2">Packaging<a class="headerlink" href="#packaging_2" title="Permanent link">¤</a></h3>
+<h3 id="packaging_4">Packaging<a class="headerlink" href="#packaging_4" title="Permanent link">¤</a></h3>
 <ul>
 <li>Accept <code>pytkdocs</code> version up to 0.8.x (<a href="https://pawamoy.github.io/pytkdocs/changelog/#080-2020-09-25">changelog</a>).</li>
 </ul>
 <h2 id="0132-2020-09-08"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.13.2">0.13.2</a> - 2020-09-08<a class="headerlink" href="#0132-2020-09-08" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.13.1...0.13.2">Compare with 0.13.1</a></small></p>
-<h3 id="bug-fixes_4">Bug Fixes<a class="headerlink" href="#bug-fixes_4" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_6">Bug Fixes<a class="headerlink" href="#bug-fixes_6" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix relative URLs when <code>use_directory_urls</code> is false (<a href="https://github.com/pawamoy/mkdocstrings/commit/421d189fff9ea2608e40d85e0a93e30334782b90">421d189</a> by Timothée Mazzucotelli). References: <a href="https://github.com/pawamoy/mkdocstrings/issues/149">#149</a></li>
 </ul>
 <h2 id="0131-2020-09-03"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.13.1">0.13.1</a> - 2020-09-03<a class="headerlink" href="#0131-2020-09-03" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.13.0...0.13.1">Compare with 0.13.0</a></small></p>
-<h3 id="bug-fixes_5">Bug Fixes<a class="headerlink" href="#bug-fixes_5" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_7">Bug Fixes<a class="headerlink" href="#bug-fixes_7" title="Permanent link">¤</a></h3>
 <ul>
 <li>Use relative links for cross-references (<a href="https://github.com/pawamoy/mkdocstrings/commit/9c77f1f461fa87842ae39945f9521ee85b1e413b">9c77f1f</a> by Timothée Mazzucotelli). References: <a href="https://github.com/pawamoy/mkdocstrings/issues/144">#144</a>, <a href="https://github.com/pawamoy/mkdocstrings/issues/147">#147</a></li>
 </ul>
 <h2 id="0130-2020-08-21"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.13.0">0.13.0</a> - 2020-08-21<a class="headerlink" href="#0130-2020-08-21" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.12.2...0.13.0">Compare with 0.12.2</a></small></p>
-<h3 id="bug-fixes_6">Bug Fixes<a class="headerlink" href="#bug-fixes_6" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_8">Bug Fixes<a class="headerlink" href="#bug-fixes_8" title="Permanent link">¤</a></h3>
 <ul>
 <li>Accept dashes in module names (<a href="https://github.com/pawamoy/mkdocstrings/commit/fcf79d0024ec46c3862c94202864e054c04a6d0b">fcf79d0</a> by Timothée Mazzucotelli). References: <a href="https://github.com/pawamoy/mkdocstrings/issues/140">#140</a></li>
 </ul>
-<h3 id="features_2">Features<a class="headerlink" href="#features_2" title="Permanent link">¤</a></h3>
+<h3 id="features_3">Features<a class="headerlink" href="#features_3" title="Permanent link">¤</a></h3>
 <ul>
 <li>Add option to show full path of direct members only (<a href="https://github.com/pawamoy/mkdocstrings/commit/d1b9401afecb20d3123eec7334605cb15bf9d877">d1b9401</a> by Aaron Dunmore). References: <a href="https://github.com/pawamoy/mkdocstrings/issues/134">#134</a>, <a href="https://github.com/pawamoy/mkdocstrings/issues/136">#136</a></li>
 </ul>
-<h3 id="packaging_3">Packaging<a class="headerlink" href="#packaging_3" title="Permanent link">¤</a></h3>
+<h3 id="packaging_5">Packaging<a class="headerlink" href="#packaging_5" title="Permanent link">¤</a></h3>
 <ul>
 <li>Accept <code>pymdown-extensions</code> versions up to 0.8.x (<a href="https://facelessuser.github.io/pymdown-extensions/about/releases/8.0/#8.0">see release notes</a>) (<a href="https://github.com/pawamoy/mkdocstrings/commit/178d48da7a62daf285dfc5f6ff230e8bce82ed53">178d48d</a> by Hugo van Kemenade). PR <a href="https://github.com/pawamoy/mkdocstrings/issue/146">#146</a></li>
 </ul>
 <h2 id="0122-2020-07-24"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.12.2">0.12.2</a> - 2020-07-24<a class="headerlink" href="#0122-2020-07-24" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.12.1...0.12.2">Compare with 0.12.1</a></small></p>
-<h3 id="packaging_4">Packaging<a class="headerlink" href="#packaging_4" title="Permanent link">¤</a></h3>
+<h3 id="packaging_6">Packaging<a class="headerlink" href="#packaging_6" title="Permanent link">¤</a></h3>
 <ul>
 <li>Accept <code>pytkdocs</code> version up to 0.7.x (<a href="https://pawamoy.github.io/pytkdocs/changelog/#070-2020-07-24">changelog</a>).</li>
 </ul>
 <h2 id="0121-2020-07-07"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.12.1">0.12.1</a> - 2020-07-07<a class="headerlink" href="#0121-2020-07-07" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.12.0...0.12.1">Compare with 0.12.0</a></small></p>
-<h3 id="bug-fixes_7">Bug Fixes<a class="headerlink" href="#bug-fixes_7" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_9">Bug Fixes<a class="headerlink" href="#bug-fixes_9" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix HTML-escaped sequence parsing as XML (<a href="https://github.com/pawamoy/mkdocstrings/commit/db297f19013fc402eeff1f2827057a959e481c66">db297f1</a> by Timothée Mazzucotelli).</li>
 <li>Allow running mkdocs from non-default interpreter (<a href="https://github.com/pawamoy/mkdocstrings/commit/283dd7b83eeba675a16d96d2e829851c1273a625">283dd7b</a> by Jared Khan).</li>
 </ul>
 <h2 id="0120-2020-06-14"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.12.0">0.12.0</a> - 2020-06-14<a class="headerlink" href="#0120-2020-06-14" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.11.4...0.12.0">Compare with 0.11.4</a></small></p>
-<h3 id="features_3">Features<a class="headerlink" href="#features_3" title="Permanent link">¤</a></h3>
+<h3 id="features_4">Features<a class="headerlink" href="#features_4" title="Permanent link">¤</a></h3>
 <ul>
 <li>Support attributes section in Google-style docstrings (<a href="https://github.com/pawamoy/mkdocstrings/commit/83002532b2294ea33dcec4f2672a5a6d0f64def1">8300253</a> by Timothée Mazzucotelli). References: <a href="https://github.com/pawamoy/mkdocstrings/issues/88">#88</a></li>
 <li>Support examples section in Google-style docstrings (<a href="https://github.com/pawamoy/mkdocstrings/commit/650c754afdd5d4fb96b1e2529f378d025a2e7daf">650c754</a> by Iago González). References: <a href="https://github.com/pawamoy/mkdocstrings/issues/112">#112</a></li>
 </ul>
-<h3 id="packaging_5">Packaging<a class="headerlink" href="#packaging_5" title="Permanent link">¤</a></h3>
+<h3 id="packaging_7">Packaging<a class="headerlink" href="#packaging_7" title="Permanent link">¤</a></h3>
 <ul>
 <li>Accept <code>pytkdocs</code> version up to 0.6.x (<a href="https://pawamoy.github.io/pytkdocs/changelog/#060-2020-06-14">changelog</a>).</li>
 </ul>
 <h2 id="0114-2020-06-08"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.11.4">0.11.4</a> - 2020-06-08<a class="headerlink" href="#0114-2020-06-08" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.11.3...0.11.4">Compare with 0.11.3</a></small></p>
-<h3 id="packaging_6">Packaging<a class="headerlink" href="#packaging_6" title="Permanent link">¤</a></h3>
+<h3 id="packaging_8">Packaging<a class="headerlink" href="#packaging_8" title="Permanent link">¤</a></h3>
 <ul>
 <li>Accept <code>pytkdocs</code> version up to 0.5.x (<a href="https://pawamoy.github.io/pytkdocs/changelog/#050-2020-06-08">changelog</a>).
   If it breaks your docs, please <a href="https://github.com/pawamoy/pytkdocs/issues">open issues on <code>pytkdocs</code>' bug-tracker</a>,
@@ -2520,20 +2785,20 @@ and refactoring the code for better performance and readability! Thanks Oleh!</p
 </ul>
 <h2 id="0113-2020-06-07"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.11.3">0.11.3</a> - 2020-06-07<a class="headerlink" href="#0113-2020-06-07" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.11.2...0.11.3">Compare with 0.11.2</a></small></p>
-<h3 id="bug-fixes_8">Bug Fixes<a class="headerlink" href="#bug-fixes_8" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_10">Bug Fixes<a class="headerlink" href="#bug-fixes_10" title="Permanent link">¤</a></h3>
 <ul>
 <li>Support custom theme directory configuration (<a href="https://github.com/pawamoy/mkdocstrings/commit/1243cf673aaf371e5cbf42a3e0d1aa80482398a3">1243cf6</a> by Abhishek Thakur). References: <a href="https://github.com/pawamoy/mkdocstrings/issues/120">#120</a>, <a href="https://github.com/pawamoy/mkdocstrings/issues/121">#121</a></li>
 </ul>
 <h2 id="0112-2020-05-20"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.11.2">0.11.2</a> - 2020-05-20<a class="headerlink" href="#0112-2020-05-20" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.11.1...0.11.2">Compare with 0.11.1</a></small></p>
-<h3 id="packaging_7">Packaging<a class="headerlink" href="#packaging_7" title="Permanent link">¤</a></h3>
+<h3 id="packaging_9">Packaging<a class="headerlink" href="#packaging_9" title="Permanent link">¤</a></h3>
 <ul>
 <li>Increase <code>pytkdocs</code> version range to accept 0.4.0
   (<a href="https://pawamoy.github.io/pytkdocs/changelog/#040-2020-05-17">changelog</a>).</li>
 </ul>
 <h2 id="0111-2020-05-14"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.11.1">0.11.1</a> - 2020-05-14<a class="headerlink" href="#0111-2020-05-14" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.11.0...0.11.1">Compare with 0.11.0</a></small></p>
-<h3 id="bug-fixes_9">Bug Fixes<a class="headerlink" href="#bug-fixes_9" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_11">Bug Fixes<a class="headerlink" href="#bug-fixes_11" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix integration with mkdocs logging <em>une bonne fois pour toute</em> (<a href="https://github.com/pawamoy/mkdocstrings/commit/3293cbf161f05d36de6c1d50b5de9742bf99066e">3293cbf</a> by Timothée Mazzucotelli).</li>
 <li>Discard setup commands stdout (<a href="https://github.com/pawamoy/mkdocstrings/commit/ea44cea33159ed3a6b0b34b4cd52a17a40bd6460">ea44cea</a> by Timothée Mazzucotelli). References: <a href="https://github.com/pawamoy/mkdocstrings/issues/91">#91</a></li>
@@ -2541,23 +2806,23 @@ and refactoring the code for better performance and readability! Thanks Oleh!</p
 </ul>
 <h2 id="0110-2020-04-23"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.11.0">0.11.0</a> - 2020-04-23<a class="headerlink" href="#0110-2020-04-23" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.10.3...0.11.0">Compare with 0.10.3</a></small></p>
-<h3 id="bug-fixes_10">Bug Fixes<a class="headerlink" href="#bug-fixes_10" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_12">Bug Fixes<a class="headerlink" href="#bug-fixes_12" title="Permanent link">¤</a></h3>
 <ul>
 <li>Properly raise on errors (respect strict mode) (<a href="https://github.com/pawamoy/mkdocstrings/commit/20972082a94b64bec02c77d6a80384d8042f60ea">2097208</a> by Timothée Mazzucotelli). Related issues/PRs: <a href="https://github.com/pawamoy/mkdocstrings/issues/86">#86</a></li>
 <li>Hook properly to MkDocs logging (<a href="https://github.com/pawamoy/mkdocstrings/commit/b23daed3743bbd2d3f024df34582a317c51a1af0">b23daed</a> by Timothée Mazzucotelli). Related issues/PRs: <a href="https://github.com/pawamoy/mkdocstrings/issues/86">#86</a></li>
 </ul>
-<h3 id="features_4">Features<a class="headerlink" href="#features_4" title="Permanent link">¤</a></h3>
+<h3 id="features_5">Features<a class="headerlink" href="#features_5" title="Permanent link">¤</a></h3>
 <ul>
 <li>Add <code>setup_commands</code> option to python handler (<a href="https://github.com/pawamoy/mkdocstrings/commit/599f8e528f55093b0011b732da959b747c1e02c0">599f8e5</a> by Ross Mechanic). Related issues/PRs: <a href="https://github.com/pawamoy/mkdocstrings/issues/89">#89</a>, <a href="https://github.com/pawamoy/mkdocstrings/issues/90">#90</a></li>
 <li>Add option to allow overriding templates (<a href="https://github.com/pawamoy/mkdocstrings/commit/7360021ab4753706d0f6209ed960050f5d424ad8">7360021</a> by Mikaël Capelle). Related issues/PRs: <a href="https://github.com/pawamoy/mkdocstrings/issues/59">#59</a>, <a href="https://github.com/pawamoy/mkdocstrings/issues/82">#82</a></li>
 </ul>
 <h2 id="0103-2020-04-10"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.10.3">0.10.3</a> - 2020-04-10<a class="headerlink" href="#0103-2020-04-10" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.10.2...0.10.3">Compare with 0.10.2</a></small></p>
-<h3 id="bug-fixes_11">Bug Fixes<a class="headerlink" href="#bug-fixes_11" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_13">Bug Fixes<a class="headerlink" href="#bug-fixes_13" title="Permanent link">¤</a></h3>
 <ul>
 <li>Handle <code>site_url</code> not being defined (<a href="https://github.com/pawamoy/mkdocstrings/commit/9fb4a9bbebe2457b389921ba1ee3e1f924c5691b">9fb4a9b</a> by Timothée Mazzucotelli). Related issues/PRs: <a href="https://github.com/pawamoy/mkdocstrings/issues/77">#77</a></li>
 </ul>
-<h3 id="packaging_8">Packaging<a class="headerlink" href="#packaging_8" title="Permanent link">¤</a></h3>
+<h3 id="packaging_10">Packaging<a class="headerlink" href="#packaging_10" title="Permanent link">¤</a></h3>
 <p>This version increases the accepted range of versions for the <code>pytkdocs</code> dependency to <code>&gt;=0.2.0, &lt;0.4.0</code>.
 The <code>pytkdocs</code> project just released <a href="https://pawamoy.github.io/pytkdocs/changelog/#030-2020-04-10">version 0.3.0</a>
 which:</p>
@@ -2568,14 +2833,14 @@ which:</p>
 </ul>
 <h2 id="0102-2020-04-07"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.10.2">0.10.2</a> - 2020-04-07<a class="headerlink" href="#0102-2020-04-07" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.10.1...0.10.2">Compare with 0.10.1</a></small></p>
-<h3 id="packaging_9">Packaging<a class="headerlink" href="#packaging_9" title="Permanent link">¤</a></h3>
+<h3 id="packaging_11">Packaging<a class="headerlink" href="#packaging_11" title="Permanent link">¤</a></h3>
 <p>This version increases the accepted range of versions for the <code>pymdown-extensions</code> dependency,
 as well as for the <code>mkdocs-material</code> development dependency. Indeed, both these projects recently
 released major versions 7 and 5 respectively. Users who wish to use these new versions will be able to.
 See issue <a href="https://github.com/pawamoy/mkdocstrings/issues/74">#74</a>.</p>
 <h2 id="0101-2020-04-03"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.10.1">0.10.1</a> - 2020-04-03<a class="headerlink" href="#0101-2020-04-03" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.10.0...0.10.1">Compare with 0.10.0</a></small></p>
-<h3 id="bug-fixes_12">Bug Fixes<a class="headerlink" href="#bug-fixes_12" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_14">Bug Fixes<a class="headerlink" href="#bug-fixes_14" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix jinja2 error for jinja2 &lt; 2.11 (<a href="https://github.com/pawamoy/mkdocstrings/commit/387f97088ad2b7b25389ae6cf303bae071e90e6c">387f970</a> by Timothée Mazzucotelli). Related issues/PRs: <a href="https://github.com/pawamoy/mkdocstrings/issues/67">#67</a>, <a href="https://github.com/pawamoy/mkdocstrings/issues/72">#72</a></li>
 <li>Fix missing dependency pymdown-extensions (<a href="https://github.com/pawamoy/mkdocstrings/commit/648b99dab9d1af87db474ce7683de50c9bf8996d">648b99d</a> by Timothée Mazzucotelli). Related issues/PRs: <a href="https://github.com/pawamoy/mkdocstrings/issues/66">#66</a></li>
@@ -2584,7 +2849,7 @@ See issue <a href="https://github.com/pawamoy/mkdocstrings/issues/74">#74</a>.</
 </ul>
 <h2 id="0100-2020-03-27"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.10.0">0.10.0</a> - 2020-03-27<a class="headerlink" href="#0100-2020-03-27" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.9.1...0.10.0">Compare with 0.9.1</a></small></p>
-<h3 id="features_5">Features<a class="headerlink" href="#features_5" title="Permanent link">¤</a></h3>
+<h3 id="features_6">Features<a class="headerlink" href="#features_6" title="Permanent link">¤</a></h3>
 <ul>
 <li>Prepare for new <code>pytkdocs</code> version (<a href="https://github.com/pawamoy/mkdocstrings/commit/336421af95d752671276c2e88c5c173bff4093cc">336421a</a>).
   Add options <code>filters</code> and <code>members</code> to the Python collector to reflect the new <code>pytkdocs</code> options.
@@ -2592,7 +2857,7 @@ See issue <a href="https://github.com/pawamoy/mkdocstrings/issues/74">#74</a>.</
 </ul>
 <h2 id="091-2020-03-21"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.9.1">0.9.1</a> - 2020-03-21<a class="headerlink" href="#091-2020-03-21" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.9.0...0.9.1">Compare with 0.9.0</a></small></p>
-<h3 id="bug-fixes_13">Bug fixes<a class="headerlink" href="#bug-fixes_13" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_15">Bug fixes<a class="headerlink" href="#bug-fixes_15" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix cross-references when deploying to GitHub pages (<a href="https://github.com/pawamoy/mkdocstrings/commit/36f804beab01531c0331ed89d21f3e5e15bd8585">36f804b</a>).</li>
 </ul>
@@ -2601,7 +2866,7 @@ See issue <a href="https://github.com/pawamoy/mkdocstrings/issues/74">#74</a>.</
 <p>This version is a big refactor. We will just list the new features without pointing to particular commits.
 The documentation rendering looks slightly different, and should be better than before.
 No identified breaking changes for end-users.</p>
-<h3 id="features_6">Features<a class="headerlink" href="#features_6" title="Permanent link">¤</a></h3>
+<h3 id="features_7">Features<a class="headerlink" href="#features_7" title="Permanent link">¤</a></h3>
 <ul>
 <li><strong>Language agnostic:</strong> we moved the code responsible for loading Python documentation into a new project,
   <a href="https://github.com/pawamoy/pytkdocs"><code>pytkdocs</code></a>, and implemented a "handlers" logic, effectively allowing to
@@ -2615,7 +2880,7 @@ No identified breaking changes for end-users.</p>
   Also see the <a href="https://pawamoy.github.io/mkdocstrings/handlers/python/#recommended-style">recommended CSS</a>.</li>
 <li><strong>Proper logging messages:</strong> <code>mkdocstrings</code> now logs debug, warning and error messages, useful when troubleshooting.</li>
 </ul>
-<h3 id="bug-fixes_14">Bug fixes<a class="headerlink" href="#bug-fixes_14" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_16">Bug fixes<a class="headerlink" href="#bug-fixes_16" title="Permanent link">¤</a></h3>
 <ul>
 <li>Various fixes and better error handling.</li>
 </ul>
@@ -2629,7 +2894,7 @@ No identified breaking changes for end-users.</p>
 </ul>
 <h2 id="072-2020-03-04"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.7.2">0.7.2</a> - 2020-03-04<a class="headerlink" href="#072-2020-03-04" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.7.1...0.7.2">Compare with 0.7.1</a></small></p>
-<h3 id="bug-fixes_15">Bug Fixes<a class="headerlink" href="#bug-fixes_15" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_17">Bug Fixes<a class="headerlink" href="#bug-fixes_17" title="Permanent link">¤</a></h3>
 <ul>
 <li>Catch <code>OSError</code> when trying to get source lines (<a href="https://github.com/pawamoy/mkdocstrings/commit/8e8d604ba95363c140841c84535d2350d7ebbfe3">8e8d604</a>).</li>
 <li>Do not render signature empty sentinel (<a href="https://github.com/pawamoy/mkdocstrings/commit/16dfd73cf30d01314dba756d3f10308b99c87dcc">16dfd73</a>).</li>
@@ -2639,23 +2904,23 @@ No identified breaking changes for end-users.</p>
 </ul>
 <h2 id="071-2020-02-18"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.7.1">0.7.1</a> - 2020-02-18<a class="headerlink" href="#071-2020-02-18" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.7.0...0.7.1">Compare with 0.7.0</a></small></p>
-<h3 id="bug-fixes_16">Bug Fixes<a class="headerlink" href="#bug-fixes_16" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_18">Bug Fixes<a class="headerlink" href="#bug-fixes_18" title="Permanent link">¤</a></h3>
 <ul>
 <li>Replace literal slash with os.sep for Windows compatibility (<a href="https://github.com/pawamoy/mkdocstrings/commit/70f9af5e33cda694cda33870c84a770c853d84b5">70f9af5</a>).</li>
 </ul>
 <h2 id="070-2020-01-13"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.7.0">0.7.0</a> - 2020-01-13<a class="headerlink" href="#070-2020-01-13" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.6.1...0.7.0">Compare with 0.6.1</a></small></p>
-<h3 id="bug-fixes_17">Bug Fixes<a class="headerlink" href="#bug-fixes_17" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_19">Bug Fixes<a class="headerlink" href="#bug-fixes_19" title="Permanent link">¤</a></h3>
 <ul>
 <li>Don't mark args or kwargs as required (<a href="https://github.com/pawamoy/mkdocstrings/commit/4049d6f27c332b05db06bcfe6cc564f3c1c0f013">4049d6f</a>).</li>
 <li>Filter submodules (<a href="https://github.com/pawamoy/mkdocstrings/commit/7b110959529c5fc0275fb98c6d97e7c71e205900">7b11095</a>).</li>
 </ul>
-<h3 id="code-refactoring_2">Code Refactoring<a class="headerlink" href="#code-refactoring_2" title="Permanent link">¤</a></h3>
+<h3 id="code-refactoring_3">Code Refactoring<a class="headerlink" href="#code-refactoring_3" title="Permanent link">¤</a></h3>
 <ul>
 <li>Don't guess lang in generated docs (<a href="https://github.com/pawamoy/mkdocstrings/commit/db4f60a13dd0d191d7515683d7d42ae374b39fae">db4f60a</a>).</li>
 <li>Render at HTML step with custom markdown converter (<a href="https://github.com/pawamoy/mkdocstrings/commit/9b5a3e126cd584893a8d0858ca9b67b8251e88f1">9b5a3e1</a>).</li>
 </ul>
-<h3 id="features_7">Features<a class="headerlink" href="#features_7" title="Permanent link">¤</a></h3>
+<h3 id="features_8">Features<a class="headerlink" href="#features_8" title="Permanent link">¤</a></h3>
 <ul>
 <li>Change forward ref to ref, fix optional unions (<a href="https://github.com/pawamoy/mkdocstrings/commit/2f0bfaabf367bfa513c20fb1230409306e43add2">2f0bfaa</a>).</li>
 <li>Discover package submodules (<a href="https://github.com/pawamoy/mkdocstrings/commit/231062a3a107abc02134f102a06693969cf603ad">231062a</a>).</li>
@@ -2663,25 +2928,25 @@ No identified breaking changes for end-users.</p>
 </ul>
 <h2 id="061-2020-01-02"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.6.1">0.6.1</a> - 2020-01-02<a class="headerlink" href="#061-2020-01-02" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.6.0...0.6.1">Compare with 0.6.0</a></small></p>
-<h3 id="bug-fixes_18">Bug Fixes<a class="headerlink" href="#bug-fixes_18" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_20">Bug Fixes<a class="headerlink" href="#bug-fixes_20" title="Permanent link">¤</a></h3>
 <ul>
 <li>Break docstring discarding loop if found (<a href="https://github.com/pawamoy/mkdocstrings/commit/5a17fec5beed2003d19ccdcb359b46b79bfcf469">5a17fec</a>).</li>
 <li>Fix discarding docstring (<a href="https://github.com/pawamoy/mkdocstrings/commit/143f7cb00f02a7d3179cc5606ed7903566250227">143f7cb</a>).</li>
 <li>Fix getting annotation from nodes (<a href="https://github.com/pawamoy/mkdocstrings/commit/ecde72bb22ccedb36aa847dd50504c63ad04498c">ecde72b</a>).</li>
 <li>Fix various things (<a href="https://github.com/pawamoy/mkdocstrings/commit/affbf064d457d4b626e8f67d38e94d7919bc2df2">affbf06</a>).</li>
 </ul>
-<h3 id="code-refactoring_3">Code Refactoring<a class="headerlink" href="#code-refactoring_3" title="Permanent link">¤</a></h3>
+<h3 id="code-refactoring_4">Code Refactoring<a class="headerlink" href="#code-refactoring_4" title="Permanent link">¤</a></h3>
 <ul>
 <li>Break as soon as we find the same attr in a parent class while trying to discard the docstring (<a href="https://github.com/pawamoy/mkdocstrings/commit/65d7908f489ec465b2803ea8f55c70d0f9d7586b">65d7908</a>).</li>
 <li>Split Docstring.parse method to improve readability (<a href="https://github.com/pawamoy/mkdocstrings/commit/2226e2d55a6b9bbdd5a56183f1a9ba3c5f01b5ac">2226e2d</a>).</li>
 </ul>
 <h2 id="060-2019-12-28"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.6.0">0.6.0</a> - 2019-12-28<a class="headerlink" href="#060-2019-12-28" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.5.0...0.6.0">Compare with 0.5.0</a></small></p>
-<h3 id="bug-fixes_19">Bug Fixes<a class="headerlink" href="#bug-fixes_19" title="Permanent link">¤</a></h3>
+<h3 id="bug-fixes_21">Bug Fixes<a class="headerlink" href="#bug-fixes_21" title="Permanent link">¤</a></h3>
 <ul>
 <li>Fix GenericMeta import error on Python 3.7+ (<a href="https://github.com/pawamoy/mkdocstrings/commit/febf2b9749d97cce80f5d20339372842fdffc908">febf2b9</a>).</li>
 </ul>
-<h3 id="code-refactoring_4">Code Refactoring<a class="headerlink" href="#code-refactoring_4" title="Permanent link">¤</a></h3>
+<h3 id="code-refactoring_5">Code Refactoring<a class="headerlink" href="#code-refactoring_5" title="Permanent link">¤</a></h3>
 <ul>
 <li>More classes. Still ugly code though :'( (<a href="https://github.com/pawamoy/mkdocstrings/commit/f41c11988d8d849a0310cca511c2d93a74cab86f">f41c119</a>).</li>
 <li>Split into more modules (<a href="https://github.com/pawamoy/mkdocstrings/commit/f1872a4c8d41a0b9603b7f344de3186110a4e1bd">f1872a4</a>).</li>
@@ -2689,19 +2954,19 @@ No identified breaking changes for end-users.</p>
 </ul>
 <h2 id="050-2019-12-22"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.5.0">0.5.0</a> - 2019-12-22<a class="headerlink" href="#050-2019-12-22" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.4.0...0.5.0">Compare with 0.4.0</a></small></p>
-<h3 id="features_8">Features<a class="headerlink" href="#features_8" title="Permanent link">¤</a></h3>
+<h3 id="features_9">Features<a class="headerlink" href="#features_9" title="Permanent link">¤</a></h3>
 <ul>
 <li>Use divs in HTML contents to ease styling (<a href="https://github.com/pawamoy/mkdocstrings/commit/2a36a0eba7f52c43a3eba593ddd971acaa0a9c92">2a36a0e</a>).</li>
 </ul>
 <h2 id="040-2019-12-22"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.4.0">0.4.0</a> - 2019-12-22<a class="headerlink" href="#040-2019-12-22" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.3.0...0.4.0">Compare with 0.3.0</a></small></p>
-<h3 id="features_9">Features<a class="headerlink" href="#features_9" title="Permanent link">¤</a></h3>
+<h3 id="features_10">Features<a class="headerlink" href="#features_10" title="Permanent link">¤</a></h3>
 <ul>
 <li>Parse docstrings Google-style blocks, get types from signature (<a href="https://github.com/pawamoy/mkdocstrings/commit/5af0c7b766ea7158d603b44c6df278dbcd189864">5af0c7b</a>).</li>
 </ul>
 <h2 id="030-2019-12-21"><a href="https://github.com/pawamoy/mkdocstrings/releases/tag/0.3.0">0.3.0</a> - 2019-12-21<a class="headerlink" href="#030-2019-12-21" title="Permanent link">¤</a></h2>
 <p><small><a href="https://github.com/pawamoy/mkdocstrings/compare/0.2.0...0.3.0">Compare with 0.2.0</a></small></p>
-<h3 id="features_10">Features<a class="headerlink" href="#features_10" title="Permanent link">¤</a></h3>
+<h3 id="features_11">Features<a class="headerlink" href="#features_11" title="Permanent link">¤</a></h3>
 <ul>
 <li>Allow object referencing in docstrings (<a href="https://github.com/pawamoy/mkdocstrings/commit/2dd50c06f96acaf0e2f969f217f0cbcfb1de2fd4">2dd50c0</a>).</li>
 </ul>
@@ -2734,45 +2999,51 @@ No identified breaking changes for end-users.</p>
             </article>
           </div>
         </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
       </main>
       
         
 <footer class="md-footer">
   
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
         
-          <a href="../coverage/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Overview
             </div>
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                Coverage report
-              </div>
-            </div>
-          </a>
+          </div>
+        </a>
+      
+      
         
-        
-          <a href="../credits/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                Credits
-              </div>
+        <a href="../credits/" class="md-footer__link md-footer__link--next" aria-label="Next: Credits" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Credits
             </div>
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -2782,26 +3053,43 @@ No identified breaking changes for end-users.</p>
         <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
           Material for MkDocs
         </a>
+        
       </div>
       
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/pawamoy" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/pawamoy" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+  </div>
+
     </div>
   </div>
 </footer>
       
     </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.94ec81fe.min.js", "version": null}</script>
     
-      <script src="../assets/javascripts/vendor.18f0862e.min.js"></script>
-      <script src="../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
-      
-      <script>
-        app = initialize({
-          base: "..",
-          features: [],
-          search: Object.assign({
-            worker: "../assets/javascripts/worker/search.9c0e82ba.min.js"
-          }, typeof search !== "undefined" && search)
-        })
-      </script>
+    
+      <script src="../assets/javascripts/bundle.48dfec6c.min.js"></script>
       
     
   </body>
