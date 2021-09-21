@@ -5,6 +5,27 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.16.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.16.0) - 2021-09-20
+
+<small>[Compare with 0.15.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.15.0...0.16.0)</small>
+
+### Features
+- Add a rendering option to change the sorting of members ([b1fff8b](https://github.com/mkdocstrings/mkdocstrings/commit/b1fff8b8ef4d6d77417fc43ed8be4b578d6437e4) by Joe Rickerby). [Issue #114](https://github.com/mkdocstrings/mkdocstrings/issues/114), [PR #274](https://github.com/mkdocstrings/mkdocstrings/pull/274)
+- Add option to show Python base classes ([436f550](https://github.com/mkdocstrings/mkdocstrings/commit/436f5504ad72ab6d1f5b4303e6b68bc84562c32b) by Brian Koropoff). [Issue #269](https://github.com/mkdocstrings/mkdocstrings/issues/269), [PR #297](https://github.com/mkdocstrings/mkdocstrings/pull/297)
+- Support loading external Python inventories in Sphinx format ([a8418cb](https://github.com/mkdocstrings/mkdocstrings/commit/a8418cb4c6193d35cdc72508b118a712cf0334e1) by Oleh Prypin). [PR #287](https://github.com/mkdocstrings/mkdocstrings/pull/287)
+- Support loading external inventories and linking to them ([8b675f4](https://github.com/mkdocstrings/mkdocstrings/commit/8b675f4671f8bbfd2f337ed043e3682b0a0ad0f6) by Oleh Prypin). [PR #277](https://github.com/mkdocstrings/mkdocstrings/pull/277)
+- Very basic support for MkDocs theme ([974ca90](https://github.com/mkdocstrings/mkdocstrings/commit/974ca9010efca1b8279767faf8efcd2470a8371d) by Oleh Prypin). [PR #272](https://github.com/mkdocstrings/mkdocstrings/pull/272)
+- Generate objects inventory ([14ed959](https://github.com/mkdocstrings/mkdocstrings/commit/14ed959860a784a835cd71f911081f2026d66c81) and [bbd85a9](https://github.com/mkdocstrings/mkdocstrings/commit/bbd85a92fa70bddfe10a907a4d63b8daf0810cb2) by Timothée Mazzucotelli). [Issue #251](https://github.com/mkdocstrings/mkdocstrings/issues/251), [PR #253](https://github.com/mkdocstrings/mkdocstrings/pull/253)
+
+### Bug Fixes
+- Don't render empty code blocks for missing type annotations ([d2e9e1e](https://github.com/mkdocstrings/mkdocstrings/commit/d2e9e1ef3cf304081b07f763843a9722bf9b117e) by Oleh Prypin).
+- Fix custom handler not being used ([6dcf342](https://github.com/mkdocstrings/mkdocstrings/commit/6dcf342fb83b19e385d56d37235f2b23e8c8c767) by Timothée Mazzucotelli). [Issue #259](https://github.com/mkdocstrings/mkdocstrings/issues/259), [PR #263](https://github.com/mkdocstrings/mkdocstrings/pull/263)
+- Don't hide `setup_commands` errors ([92418c4](https://github.com/mkdocstrings/mkdocstrings/commit/92418c4b3e80b67d5116efa73931fc113daa60e9) by Gabriel Vîjială). [PR #258](https://github.com/mkdocstrings/mkdocstrings/pull/258)
+
+### Code Refactoring
+- Move writing extra files to an earlier stage in the build ([3890ab5](https://github.com/mkdocstrings/mkdocstrings/commit/3890ab597692e56d7ece576c166373b66ff4e615) by Oleh Prypin). [PR #275](https://github.com/mkdocstrings/mkdocstrings/pull/275)
+
+
 ## [0.15.2](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.15.2) - 2021-06-09
 
 <small>[Compare with 0.15.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.15.1...0.15.2)</small>
