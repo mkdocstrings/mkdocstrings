@@ -79,6 +79,7 @@ quality = [
     "flake8-variables-names~=0.0",
     "pep8-naming~=0.11",
     "wps-light~=0.15",
+    "curlylint~=0.13",
 ]
 tests = [
     "pygments~=2.10",  # python 3.6

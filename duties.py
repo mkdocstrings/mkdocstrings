@@ -121,6 +121,7 @@ def check_code_quality(ctx, files=PY_SRC):
         files: The files to check.
     """
     ctx.run(f"flake8 --config=config/flake8.ini {files}", title="Checking code quality", pty=PTY)
+    ctx.run("curlylint src/mkdocstrings/templates", title="Checking templates quality", pty=PTY)
 
 
 @duty
