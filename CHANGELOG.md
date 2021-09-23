@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.16.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.16.1) - 2021-09-23
+
+<small>[Compare with 0.16.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.16.0...0.16.1)</small>
+
+### Bug Fixes
+- Fix ReadTheDocs "return" template ([598621b](https://github.com/mkdocstrings/mkdocstrings/commit/598621bff29d2aeda0e14f350cda36c1a1f418d5) by Timothée Mazzucotelli).
+
+
 ## [0.16.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.16.0) - 2021-09-20
 
 <small>[Compare with 0.15.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.15.0...0.16.0)</small>
