@@ -1,48 +1,9 @@
 """Tests for the extension module."""
 import re
 import sys
-from collections import ChainMap
 from textwrap import dedent
 
 import pytest
-from markdown import Markdown
-from mkdocs import config
-
-try:
-    from mkdocs.config.defaults import get_schema
-except ImportError:
-
-    def get_schema():  # noqa: WPS440
-        """Fallback for old versions of MkDocs."""
-        return config.DEFAULT_SCHEMA
-
-
-@pytest.fixture(name="ext_markdown")
-def fixture_ext_markdown(request, tmp_path):
-    """Yield a Markdown instance with MkdocstringsExtension, with config adjustments."""
-    conf = config.Config(schema=get_schema())
-
-    conf_dict = {
-        "site_name": "foo",
-        "site_url": "https://example.org/",
-        "site_dir": str(tmp_path),
-        "plugins": [{"mkdocstrings": {"default_handler": "python"}}],
-        **getattr(request, "param", {}),
-    }
-    # Re-create it manually as a workaround for https://github.com/mkdocs/mkdocs/issues/2289
-    mdx_configs = dict(ChainMap(*conf_dict.get("markdown_extensions", [])))
-
-    conf.load_dict(conf_dict)
-    assert conf.validate() == ([], [])
-
-    conf["mdx_configs"] = mdx_configs
-    conf["markdown_extensions"].insert(0, "toc")  # Guaranteed to be added by MkDocs.
-
-    conf = conf["plugins"]["mkdocstrings"].on_config(conf)
-    conf = conf["plugins"]["autorefs"].on_config(conf)
-    md = Markdown(extensions=conf["markdown_extensions"], extension_configs=conf["mdx_configs"])
-    yield md
-    conf["plugins"]["mkdocstrings"].on_post_build(conf)
 
 
 def test_render_html_escaped_sequences(ext_markdown):
