@@ -1,7 +1,7 @@
 # Themes
 
 *mkdocstrings* can support multiple MkDocs themes.
-It currently supports supports the
+It currently supports the
 *[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)*
 theme and, partially, the built-in ReadTheDocs theme.
 
