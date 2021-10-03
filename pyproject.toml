@@ -23,7 +23,7 @@ dependencies = [
     "MarkupSafe>=1.1,<3.0",
     "mkdocs~=1.2",
     "mkdocs-autorefs>=0.1,<0.4",
-    "pymdown-extensions>=6.3,<9.0",
+    "pymdown-extensions>=6.3,<10.0",
     "pytkdocs>=0.2.0,<0.13.0",
 ]
 
