@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.16.2](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.16.2) - 2021-10-04
+
+<small>[Compare with 0.16.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.16.1...0.16.2)</small>
+
+### Dependencies
+- Support `pymdown-extensions` v9.x ([0831343](https://github.com/mkdocstrings/mkdocstrings/commit/0831343aa8726ed785b17bba1c8d4adf49b46748) by Ofek Lev and [38b22ec](https://github.com/mkdocstrings/mkdocstrings/commit/38b22ec11cded4689115dafc43e16a1e8e40feda) by Timothée Mazzucotelli).
+
+
 ## [0.16.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.16.1) - 2021-09-23
 
 <small>[Compare with 0.16.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.16.0...0.16.1)</small>
