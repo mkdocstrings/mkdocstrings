@@ -33,8 +33,27 @@ class Highlighter(Highlight):
     The underlying implementation is `pymdownx.highlight` regardless.
     """
 
+    # https://raw.githubusercontent.com/facelessuser/pymdown-extensions/main/docs/src/markdown/extensions/highlight.md
     _highlight_config_keys = frozenset(
-        "use_pygments guess_lang css_class pygments_style noclasses linenums language_prefix".split(),
+        (
+            "css_class",
+            "guess_lang",
+            "pygments_style",
+            "noclasses",
+            "use_pygments",
+            "linenums",
+            "linenums_special",
+            "linenums_style",
+            "linenums_class",
+            "extend_pygments_lang",
+            "language_prefix",
+            "code_attr_on_pre",
+            "auto_title",
+            "auto_title_map",
+            "line_spans",
+            "anchor_linenums",
+            "line_anchors",
+        )
     )
 
     def __init__(self, md: Markdown):
