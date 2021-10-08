@@ -339,8 +339,9 @@ class Handlers:
             A string - anchor without '#', or None if there isn't any identifier familiar with it.
         """
         for handler in self._handlers.values():
+            fallback_config = getattr(handler.collector, "fallback_config", {})
             try:
-                anchor = handler.renderer.get_anchor(handler.collector.collect(identifier, {}))
+                anchor = handler.renderer.get_anchor(handler.collector.collect(identifier, fallback_config))
             except CollectionError:
                 continue
             if anchor is not None:

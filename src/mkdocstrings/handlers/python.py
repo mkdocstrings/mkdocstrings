@@ -141,6 +141,21 @@ class PythonCollector(BaseCollector):
     Obviously one could use a single filter instead: `"!^_[^_]"`, which is the default.
     """
 
+    fallback_config = {"docstring_style": "markdown", "filters": ["!.*"]}
+    """The configuration used when falling back to re-collecting an object to get its anchor.
+
+    This configuration is used in [`Handlers.get_anchor`][mkdocstrings.handlers.base.Handlers.get_anchor].
+
+    When trying to fix (optional) cross-references, the autorefs plugin will try to collect
+    an object with every configured handler until one succeeds. It will then try to get
+    an anchor for it. It's because objects can have multiple identifiers (aliases),
+    for example their definition path and multiple import paths in Python.
+
+    When re-collecting the object, we have no use for its members, or for its docstring being parsed.
+    This is why the fallback configuration filters every member out, and uses the Markdown style,
+    which we know will not generate any warnings.
+    """
+
     def __init__(self, setup_commands: Optional[List[str]] = None) -> None:
         """Initialize the object.
 
