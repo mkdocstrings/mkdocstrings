@@ -91,10 +91,6 @@ Automatic documentation from sources, for [MkDocs](https://mkdocs.org/).
 - **Source code display:** *mkdocstrings* can add a collapsible div containing the highlighted source code
   of the Python object.
 
-## Roadmap
-
-See the [Feature Roadmap issue](https://github.com/mkdocstrings/mkdocstrings/issues/183) on the bugtracker.
-
 ## Requirements
 
 *mkdocstrings* requires Python 3.6 or above.
@@ -118,13 +114,6 @@ pyenv install 3.6.12
 pyenv global system 3.6.12
 ```
 </details>
-
-This project currently only works with the Material theme of MkDocs.
-Therefore, it is required that you have it installed.
-
-```
-pip install mkdocs-material
-```
 
 ## Installation
 
