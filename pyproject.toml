@@ -24,7 +24,7 @@ dependencies = [
     "mkdocs~=1.2",
     "mkdocs-autorefs>=0.1,<0.4",
     "pymdown-extensions>=6.3,<10.0",
-    "pytkdocs>=0.2.0,<0.13.0",
+    "pytkdocs~=0.14.0",
 ]
 
 [project.urls]
