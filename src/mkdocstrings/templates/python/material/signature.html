@@ -1,5 +1,5 @@
 {{ log.debug() }}
-{%- if signature -%}
+{%- if signature and config.show_signature -%}
   {%- with -%}
     {%- set ns = namespace(render_pos_only_separator=True, render_kw_only_separator=True, equal="=") -%}
 
