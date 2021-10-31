@@ -80,7 +80,7 @@ Automatic documentation from sources, for [MkDocs](https://mkdocs.org/).
   Numpy-style requires an extra dependency from `pytkdocs`: `pytkdocs[numpy-style]`.*
 
 - **Admonition support in docstrings:** blocks like `Note:` or `Warning:` will be transformed
-  to their [admonition](https://squidfunk.github.io/mkdocs-material/extensions/admonition/) equivalent.
+  to their [admonition](https://squidfunk.github.io/mkdocs-material/reference/admonitions/) equivalent.
   *We do not support nested admonitions in docstrings!*
 
 - **Every object has a TOC entry:** we render a heading for each object, meaning *MkDocs* picks them into the Table
