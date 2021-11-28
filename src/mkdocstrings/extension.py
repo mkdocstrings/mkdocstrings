@@ -117,7 +117,7 @@ class AutoDocProcessor(BlockProcessor):
             heading_level = match["heading"].count("#")
             log.debug(f"Matched '::: {identifier}'")
 
-            html, handler = self._process_block(identifier, block, heading_level)
+            html, handler, data = self._process_block(identifier, block, heading_level)
             el = Element("div", {"class": "mkdocstrings"})
             # The final HTML is inserted as opaque to subsequent processing, and only revealed at the end.
             el.text = self.md.htmlStash.store(html)
@@ -125,17 +125,20 @@ class AutoDocProcessor(BlockProcessor):
             headings = handler.renderer.get_headings()
             el.extend(headings)
 
-            for heading in headings:
-                page = self._autorefs.current_page
-                anchor = heading.attrib["id"]
+            page = self._autorefs.current_page
+            for anchor in handler.renderer.get_anchors(data):
                 self._autorefs.register_anchor(page, anchor)
+
+            for heading in headings:
+                anchor = heading.attrib["id"]  # noqa: WPS440
+                self._autorefs.register_anchor(page, anchor)  # noqa: WPS441
 
                 if "data-role" in heading.attrib:
                     self._handlers.inventory.register(
-                        name=anchor,
+                        name=anchor,  # noqa: WPS441
                         domain=handler.domain,
                         role=heading.attrib["data-role"],
-                        uri=f"{page}#{anchor}",
+                        uri=f"{page}#{anchor}",  # noqa: WPS441
                     )
 
             parent.append(el)
@@ -146,7 +149,12 @@ class AutoDocProcessor(BlockProcessor):
             # list for future processing.
             blocks.insert(0, the_rest)
 
-    def _process_block(self, identifier: str, yaml_block: str, heading_level: int = 0) -> Tuple[str, BaseHandler]:
+    def _process_block(
+        self,
+        identifier: str,
+        yaml_block: str,
+        heading_level: int = 0,
+    ) -> Tuple[str, BaseHandler, CollectorItem]:
         """Process an autodoc block.
 
         Arguments:
@@ -159,7 +167,7 @@ class AutoDocProcessor(BlockProcessor):
             TemplateNotFound: When a template used for rendering could not be found.
 
         Returns:
-            Rendered HTML and the handler that was used.
+            Rendered HTML, the handler that was used, and the collected item.
         """
         config = yaml.safe_load(yaml_block) or {}
         handler_name = self._handlers.get_handler_name(config)
@@ -196,7 +204,7 @@ class AutoDocProcessor(BlockProcessor):
             )
             raise
 
-        return (rendered, handler)
+        return rendered, handler, data
 
 
 def get_item_configs(handler_config: dict, config: dict) -> Tuple[Mapping, Mapping]:
