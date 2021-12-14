@@ -125,18 +125,20 @@ class BaseRenderer(ABC):
             The rendered template as HTML.
         """  # noqa: DAR202 (excess return section)
 
-    def get_anchor(self, data: CollectorItem) -> Optional[str]:
-        """Return the canonical identifier (HTML anchor) for a collected item.
-
-        This must match what the renderer would've actually rendered,
-        e.g. if rendering the item contains `<h2 id="foo">...` then the return value should be "foo".
+    def get_anchors(self, data: CollectorItem) -> Sequence[str]:
+        """Return the possible identifiers (HTML anchors) for a collected item.
 
         Arguments:
             data: The collected data.
 
         Returns:
-            The HTML anchor (without '#') as a string, or None if this item doesn't have an anchor.
-        """  # noqa: DAR202 (excess return section)
+            The HTML anchors (without '#'), or an empty tuple if this item doesn't have an anchor.
+        """
+        # TODO: remove this at some point
+        try:
+            return (self.get_anchor(data),)  # type: ignore
+        except AttributeError:
+            return ()
 
     def do_convert_markdown(self, text: str, heading_level: int, html_id: str = "") -> Markup:
         """Render Markdown text; for use inside templates.
@@ -329,24 +331,24 @@ class Handlers:
         self._handlers: Dict[str, BaseHandler] = {}
         self.inventory: Inventory = Inventory(project=self._config["site_name"])
 
-    def get_anchor(self, identifier: str) -> Optional[str]:
+    def get_anchors(self, identifier: str) -> Sequence[str]:
         """Return the canonical HTML anchor for the identifier, if any of the seen handlers can collect it.
 
         Arguments:
             identifier: The identifier (one that [collect][mkdocstrings.handlers.base.BaseCollector.collect] can accept).
 
         Returns:
-            A string - anchor without '#', or None if there isn't any identifier familiar with it.
+            A tuple of strings - anchors without '#', or an empty tuple if there isn't any identifier familiar with it.
         """
         for handler in self._handlers.values():
             fallback_config = getattr(handler.collector, "fallback_config", {})
             try:
-                anchor = handler.renderer.get_anchor(handler.collector.collect(identifier, fallback_config))
+                anchors = handler.renderer.get_anchors(handler.collector.collect(identifier, fallback_config))
             except CollectionError:
                 continue
-            if anchor is not None:
-                return anchor
-        return None
+            if anchors:
+                return anchors
+        return ()
 
     def get_handler_name(self, config: dict) -> str:
         """Return the handler name defined in an "autodoc" instruction YAML configuration, or the global default handler.

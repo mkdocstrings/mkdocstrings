@@ -4,14 +4,13 @@ build-backend = "pdm.pep517.api"
 
 [project]
 name = "mkdocstrings"
-version = {use_scm = true}
 description = "Automatic documentation from sources, for MkDocs."
 authors = [{name = "Timothée Mazzucotelli", email = "pawamoy@pm.me"}]
 license = {file = "LICENSE"}
 readme = "README.md"
 requires-python = ">=3.6.1"
 keywords = ["mkdocs", "mkdocs-plugin", "docstrings", "autodoc", "documentation"]
-dynamic = ["version", "classifiers"]
+dynamic = ["version"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "License :: OSI Approved :: ISC License (ISCL)",
@@ -45,6 +44,7 @@ mkdocstrings = "mkdocstrings.plugin:MkdocstringsPlugin"
 [tool.pdm]
 package-dir = "src"
 includes = ["src/mkdocstrings"]
+version = {use_scm = true}
 
 [tool.pdm.dev-dependencies]
 duty = ["duty~=0.6"]
