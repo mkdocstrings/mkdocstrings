@@ -1,0 +1,19 @@
+{{ log.debug() }}
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Keyword arguments:</th>
+      <td class="field-body">
+        <ul class="first simple">
+          {% for kwarg in kwargs %}
+            <li>{{ ("**" + kwarg.name + "**" + (" (`" + kwarg.annotation + "`)" if kwarg.annotation else "") + " – " + kwarg.description)|convert_markdown(heading_level, html_id) }}</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>

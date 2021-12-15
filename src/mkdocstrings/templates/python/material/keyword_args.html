@@ -1,0 +1,20 @@
+{{ log.debug() }}
+<p><strong>Keyword arguments:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for kwarg in kwargs %}
+      <tr>
+        <td><code>{{ kwarg.name }}</code></td>
+        <td>{% if kwarg.annotation %}<code>{{ kwarg.annotation }}</code>{% endif %}</td>
+        <td>{{ kwarg.description|convert_markdown(heading_level, html_id) }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

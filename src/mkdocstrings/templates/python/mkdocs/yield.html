@@ -1,0 +1,5 @@
+{{ log.debug() }}
+<dl>
+    <dt>Yields:</dt>
+    <dd>{{ (("`" + yield.annotation + "` – " if yield.annotation else "") + yield.description)|convert_markdown(heading_level, html_id) }}</dd>
+</dl>

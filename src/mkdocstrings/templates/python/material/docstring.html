@@ -11,9 +11,17 @@
       {% with parameters = section.value %}
         {% include "parameters.html" with context %}
       {% endwith %}
+    {% elif section.type == "keyword_args" %}
+      {% with kwargs = section.value %}
+        {% include "keyword_args.html" with context %}
+      {% endwith %}
     {% elif section.type == "exceptions" %}
       {% with exceptions = section.value %}
         {% include "exceptions.html" with context %}
+      {% endwith %}
+    {% elif section.type == "yield" %}
+      {% with yield = section.value %}
+        {% include "yield.html" with context %}
       {% endwith %}
     {% elif section.type == "return" %}
       {% with return = section.value %}
