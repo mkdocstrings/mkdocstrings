@@ -104,9 +104,9 @@ class BaseRenderer(ABC):
 
         self.env = Environment(
             autoescape=True,
-            loader=FileSystemLoader(paths),  # type: ignore
+            loader=FileSystemLoader(paths),
             auto_reload=False,  # Editing a template in the middle of a build is not useful.
-        )  # type: ignore
+        )
         self.env.filters["any"] = do_any
         self.env.globals["log"] = get_template_logger()
 
@@ -402,7 +402,7 @@ class Handlers:
                 self._config["theme_name"],
                 self._config["mkdocstrings"]["custom_templates"],
                 **handler_config,
-            )  # type: ignore
+            )
         return self._handlers[name]
 
     @property

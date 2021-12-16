@@ -63,7 +63,7 @@ class Highlighter(Highlight):
             md: The Markdown instance to read configs from.
         """
         config: Dict[str, Any] = {}
-        for ext in md.registeredExtensions:  # type: ignore
+        for ext in md.registeredExtensions:
             if isinstance(ext, HighlightExtension) and (ext.enabled or not config):
                 config = ext.getConfigs()
                 break  # This one takes priority, no need to continue looking

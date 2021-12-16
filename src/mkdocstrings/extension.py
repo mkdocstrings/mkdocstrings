@@ -79,7 +79,7 @@ class AutoDocProcessor(BlockProcessor):
         self._autorefs = autorefs
         self._updated_env = False
 
-    def test(self, parent: Element, block: str) -> bool:  # type: ignore
+    def test(self, parent: Element, block: str) -> bool:
         """Match our autodoc instructions.
 
         Arguments:
@@ -108,7 +108,7 @@ class AutoDocProcessor(BlockProcessor):
             if match.start() > 0:
                 self.parser.parseBlocks(parent, [block[: match.start()]])
             # removes the first line
-            block = block[match.end() :]  # type: ignore
+            block = block[match.end() :]
 
         block, the_rest = self.detab(block)
 
