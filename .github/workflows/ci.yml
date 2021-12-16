@@ -27,9 +27,9 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up PDM
-      uses: pdm-project/setup-pdm@v2
+      uses: pdm-project/setup-pdm@v2.5
       with:
-        python-version: 3.8
+        python-version: "3.8"
 
     - name: Set cache variables
       id: set_variables
@@ -49,15 +49,13 @@ jobs:
       run: pdm lock
 
     - name: Install dependencies
-      run: |
-        pdm install -G duty -G docs -G quality -G typing
-        pip install safety
+      run: pdm install -G duty -G docs -G quality -G typing -G security
 
     - name: Check if the documentation builds correctly
       run: pdm run duty check-docs
 
     - name: Check the code quality
-      run: pdm run duty check-code-quality
+      run: pdm run duty check-quality
 
     - name: Check if the code is correctly typed
       run: pdm run duty check-types
@@ -69,8 +67,17 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        os:
+        - ubuntu-latest
+        - macos-latest
+        - windows-latest
+        python-version:
+        - "3.6"
+        - "3.7"
+        - "3.8"
+        - "3.9"
+        - "3.10"
+        - "3.11-dev"
 
     runs-on: ${{ matrix.os }}
 
@@ -79,7 +86,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up PDM
-      uses: pdm-project/setup-pdm@v2
+      uses: pdm-project/setup-pdm@v2.5
       with:
         python-version: ${{ matrix.python-version }}
 
