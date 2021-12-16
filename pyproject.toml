@@ -94,12 +94,14 @@ quality = [
     "curlylint>=0.13",
 ]
 tests = [
+    "docutils",
     "pygments>=2.10",  # python 3.6
     "pytest>=6.2",
     "pytest-cov>=3.0",
     "pytest-randomly>=3.10",
     "pytest-sugar>=0.9",
     "pytest-xdist>=2.4",
+    "sphinx",
 ]
 typing = [
     "mypy>=0.910",
