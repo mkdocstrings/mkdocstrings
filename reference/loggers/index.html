@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://mkdocstrings.github.io/reference/loggers/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.4">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.db9e7362.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a57b2b03.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -737,6 +737,8 @@
       </a>
       
         
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -1030,6 +1032,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -1166,7 +1170,8 @@
 
 <h2 id="mkdocstrings.loggers.LoggerAdapter" class="doc doc-heading">
         <code>
-LoggerAdapter        </code>
+LoggerAdapter            (<span title="logging.LoggerAdapter">LoggerAdapter</span>)
+        </code>
 
 
 
@@ -1176,6 +1181,34 @@ LoggerAdapter        </code>
 
       <p>A logger adapter to prefix messages.</p>
 
+        <details class="quote">
+          <summary>Source code in <code>mkdocstrings/loggers.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">LoggerAdapter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">LoggerAdapter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A logger adapter to prefix messages.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logger</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            prefix: The string to insert in front of every message.</span>
+<span class="sd">            logger: The logger instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">=</span> <span class="n">prefix</span>
+
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;Process the message.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            msg: The message:</span>
+<span class="sd">            kwargs: Remaining arguments.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The processed message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">kwargs</span>
+</code></pre></div>
+        </details>
 
 
 
@@ -1388,6 +1421,32 @@ TemplateLogger        </code>
       </tr>
   </tbody>
 </table>
+        <details class="quote">
+          <summary>Source code in <code>mkdocstrings/loggers.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">TemplateLogger</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A wrapper class to allow logging in templates.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        debug: Function to log a DEBUG message.</span>
+<span class="sd">        info: Function to log an INFO message.</span>
+<span class="sd">        warning: Function to log a WARNING message.</span>
+<span class="sd">        error: Function to log an ERROR message.</span>
+<span class="sd">        critical: Function to log a CRITICAL message.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">LoggerAdapter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            logger: A logger adapter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="n">get_template_logger_function</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">get_template_logger_function</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">warning</span> <span class="o">=</span> <span class="n">get_template_logger_function</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="n">get_template_logger_function</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critical</span> <span class="o">=</span> <span class="n">get_template_logger_function</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">)</span>
+</code></pre></div>
+        </details>
 
 
 
@@ -1850,10 +1909,10 @@ TemplateLogger        </code>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.1e84347e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b1047164.min.js"></script>
       
     
   </body>

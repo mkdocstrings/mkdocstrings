@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://mkdocstrings.github.io/reference/autorefs/references/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.4">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.db9e7362.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a57b2b03.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -798,6 +798,8 @@
       </a>
       
         
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -1037,6 +1039,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -1200,7 +1204,8 @@ in the <a href="../plugin/#mkdocs_autorefs.plugin.AutorefsPlugin.on_post_page"><
 
 <h2 id="mkdocs_autorefs.references.AutoRefInlineProcessor" class="doc doc-heading">
         <code>
-AutoRefInlineProcessor        </code>
+AutoRefInlineProcessor            (<span title="markdown.inlinepatterns.ReferenceInlineProcessor">ReferenceInlineProcessor</span>)
+        </code>
 
 
 
@@ -1210,6 +1215,89 @@ AutoRefInlineProcessor        </code>
 
       <p>A Markdown extension.</p>
 
+        <details class="quote">
+          <summary>Source code in <code>mkdocs_autorefs/references.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">AutoRefInlineProcessor</span><span class="p">(</span><span class="n">ReferenceInlineProcessor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A Markdown extension.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  <span class="c1"># noqa: D107</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">REFERENCE_RE</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="c1"># Code based on</span>
+    <span class="c1"># https://github.com/Python-Markdown/markdown/blob/8e7528fa5c98bf4652deb13206d6e6241d61630b/markdown/inlinepatterns.py#L780</span>
+
+    <span class="k">def</span> <span class="nf">handleMatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Element</span><span class="p">,</span> <span class="n">EvalIDType</span><span class="p">]:</span>  <span class="c1"># noqa: N802 (parent&#39;s casing)</span>
+        <span class="sd">&quot;&quot;&quot;Handle an element that matched.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            m: The match object.</span>
+<span class="sd">            data: The matched data.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A new element or a tuple.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">text</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">handled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getText</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">end</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">handled</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="n">identifier</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">handled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evalId</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">handled</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[/ \x00-\x1f]&quot;</span><span class="p">,</span> <span class="n">identifier</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
+            <span class="c1"># Do nothing if the matched reference contains:</span>
+            <span class="c1"># - a space, slash or control character (considered unintended);</span>
+            <span class="c1"># - specifically \x01 is used by Python-Markdown HTML stash when there&#39;s inline formatting,</span>
+            <span class="c1">#   but references with Markdown formatting are not possible anyway.</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">end</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">makeTag</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">text</span><span class="p">),</span> <span class="n">m</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">end</span>
+
+    <span class="k">def</span> <span class="nf">evalId</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EvalIDType</span><span class="p">:</span>  <span class="c1"># noqa: N802 (parent&#39;s casing)</span>
+        <span class="sd">&quot;&quot;&quot;Evaluate the id portion of `[ref][id]`.</span>
+
+<span class="sd">        If `[ref][]` use `[ref]`.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            data: The data to evaluate.</span>
+<span class="sd">            index: The starting position.</span>
+<span class="sd">            text: The text to use when no identifier.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A tuple containing the identifier, its end position, and whether it matched.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">RE_LINK</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="kc">False</span>
+
+        <span class="n">identifier</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">identifier</span><span class="p">:</span>
+            <span class="n">identifier</span> <span class="o">=</span> <span class="n">text</span>
+            <span class="c1"># Allow the entire content to be one placeholder, with the intent of catching things like [`Foo`][].</span>
+            <span class="c1"># It doesn&#39;t catch [*Foo*][] though, just due to the priority order.</span>
+            <span class="c1"># https://github.com/Python-Markdown/markdown/blob/1858c1b601ead62ed49646ae0d99298f41b1a271/markdown/inlinepatterns.py#L78</span>
+            <span class="k">if</span> <span class="n">INLINE_PLACEHOLDER_RE</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">identifier</span><span class="p">):</span>
+                <span class="n">identifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unescape</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
+
+        <span class="n">end</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">end</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">makeTag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Element</span><span class="p">:</span>  <span class="c1"># noqa: N802,W0221 (parent&#39;s casing, different params)</span>
+        <span class="sd">&quot;&quot;&quot;Create a tag that can be matched by `AUTO_REF_RE`.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            identifier: The identifier to use in the HTML property.</span>
+<span class="sd">            text: The text to use in the HTML tag.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A new element.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">el</span> <span class="o">=</span> <span class="n">Element</span><span class="p">(</span><span class="s2">&quot;span&quot;</span><span class="p">)</span>
+        <span class="n">el</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;data-autorefs-identifier&quot;</span><span class="p">,</span> <span class="n">identifier</span><span class="p">)</span>
+        <span class="n">el</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+        <span class="k">return</span> <span class="n">el</span>
+</code></pre></div>
+        </details>
 
 
 
@@ -1507,7 +1595,8 @@ AutoRefInlineProcessor        </code>
 
 <h2 id="mkdocs_autorefs.references.AutorefsExtension" class="doc doc-heading">
         <code>
-AutorefsExtension        </code>
+AutorefsExtension            (<span title="markdown.extensions.Extension">Extension</span>)
+        </code>
 
 
 
@@ -1517,6 +1606,26 @@ AutorefsExtension        </code>
 
       <p>Extension that inserts auto-references in Markdown.</p>
 
+        <details class="quote">
+          <summary>Source code in <code>mkdocs_autorefs/references.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">AutorefsExtension</span><span class="p">(</span><span class="n">Extension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Extension that inserts auto-references in Markdown.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: N802 (casing: parent method&#39;s name)</span>
+        <span class="sd">&quot;&quot;&quot;Register the extension.</span>
+
+<span class="sd">        Add an instance of our [`AutoRefInlineProcessor`][mkdocs_autorefs.references.AutoRefInlineProcessor] to the Markdown parser.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            md: A `markdown.Markdown` instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">md</span><span class="o">.</span><span class="n">inlinePatterns</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+            <span class="n">AutoRefInlineProcessor</span><span class="p">(</span><span class="n">md</span><span class="p">),</span>
+            <span class="s2">&quot;mkdocs-autorefs&quot;</span><span class="p">,</span>
+            <span class="n">priority</span><span class="o">=</span><span class="mi">168</span><span class="p">,</span>  <span class="c1"># Right after markdown.inlinepatterns.ReferenceInlineProcessor</span>
+        <span class="p">)</span>
+</code></pre></div>
+        </details>
 
 
 
@@ -1652,8 +1761,8 @@ such as <a href="../plugin/#mkdocs_autorefs.plugin.AutorefsPlugin.get_item_url">
   </thead>
   <tbody>
     <tr>
-      <td><code>Callable</code></td>
-      <td><p>The actual function accepting a <a href="https://docs.python.org/3/library/re.html#match-objects"><code>Match</code> object</a>
+      <td><code>The actual function accepting a [`Match` object](https</code></td>
+      <td><p>//docs.python.org/3/library/re.html#match-objects)
 and returning the replacement strings.</p></td>
     </tr>
   </tbody>
@@ -1983,10 +2092,10 @@ such as <a href="../plugin/#mkdocs_autorefs.plugin.AutorefsPlugin.get_item_url">
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.1e84347e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.b1047164.min.js"></script>
       
     
   </body>

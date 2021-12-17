@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://mkdocstrings.github.io/reference/handlers/rendering/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.4">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.db9e7362.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.a57b2b03.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -704,6 +704,8 @@
       </a>
       
         
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -1065,6 +1067,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -1233,7 +1237,8 @@
 
 <h2 id="mkdocstrings.handlers.rendering.HeadingShiftingTreeprocessor" class="doc doc-heading">
         <code>
-HeadingShiftingTreeprocessor        </code>
+HeadingShiftingTreeprocessor            (<span title="markdown.treeprocessors.Treeprocessor">Treeprocessor</span>)
+        </code>
 
 
 
@@ -1243,6 +1248,38 @@ HeadingShiftingTreeprocessor        </code>
 
       <p>Shift levels of all Markdown headings according to the configured base level.</p>
 
+        <details class="quote">
+          <summary>Source code in <code>handlers/rendering.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">HeadingShiftingTreeprocessor</span><span class="p">(</span><span class="n">Treeprocessor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Shift levels of all Markdown headings according to the configured base level.&quot;&quot;&quot;</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;mkdocstrings_headings&quot;</span>
+    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;([Hh])([1-6])&quot;</span><span class="p">)</span>
+
+    <span class="n">shift_by</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="sd">&quot;&quot;&quot;The number of heading &quot;levels&quot; to add to every heading. `&lt;h2&gt;` with `shift_by = 3` becomes `&lt;h5&gt;`.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">shift_by</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            md: A `markdown.Markdown` instance.</span>
+<span class="sd">            shift_by: The number of heading &quot;levels&quot; to add to every heading.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">md</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shift_by</span> <span class="o">=</span> <span class="n">shift_by</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">Element</span><span class="p">):</span>  <span class="c1"># noqa: D102 (ignore missing docstring)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_by</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">iter</span><span class="p">():</span>
+            <span class="n">match</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">el</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+                <span class="n">level</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_by</span>
+                <span class="n">level</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+                <span class="n">el</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}{</span><span class="n">level</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+        </details>
 
 
 
@@ -1371,7 +1408,8 @@ modify the current tree and return None.</p>
 
 <h2 id="mkdocstrings.handlers.rendering.Highlighter" class="doc doc-heading">
         <code>
-Highlighter        </code>
+Highlighter            (<span title="pymdownx.highlight.Highlight">Highlight</span>)
+        </code>
 
 
 
@@ -1399,6 +1437,109 @@ Highlighter        </code>
 </ul>
 <p>The underlying implementation is <code>pymdownx.highlight</code> regardless.</p>
 
+        <details class="quote">
+          <summary>Source code in <code>handlers/rendering.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Highlighter</span><span class="p">(</span><span class="n">Highlight</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Code highlighter that tries to match the Markdown configuration.</span>
+
+<span class="sd">    Picking up the global config and defaults works only if you use the `codehilite` or</span>
+<span class="sd">    `pymdownx.highlight` (recommended) Markdown extension.</span>
+
+<span class="sd">    -   If you use `pymdownx.highlight`, highlighting settings are picked up from it, and the</span>
+<span class="sd">        default CSS class is `.highlight`. This also means the default of `guess_lang: false`.</span>
+
+<span class="sd">    -   Otherwise, if you use the `codehilite` extension, settings are picked up from it, and the</span>
+<span class="sd">        default CSS class is `.codehilite`. Also consider setting `guess_lang: false`.</span>
+
+<span class="sd">    -   If neither are added to `markdown_extensions`, highlighting is enabled anyway. This is for</span>
+<span class="sd">        backwards compatibility. If you really want to disable highlighting even in *mkdocstrings*,</span>
+<span class="sd">        add one of these extensions anyway and set `use_pygments: false`.</span>
+
+<span class="sd">    The underlying implementation is `pymdownx.highlight` regardless.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># https://raw.githubusercontent.com/facelessuser/pymdown-extensions/main/docs/src/markdown/extensions/highlight.md</span>
+    <span class="n">_highlight_config_keys</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="s2">&quot;css_class&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;guess_lang&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;pygments_style&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;noclasses&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;use_pygments&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;linenums&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;linenums_special&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;linenums_style&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;linenums_class&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;extend_pygments_lang&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;language_prefix&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;code_attr_on_pre&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;auto_title&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;auto_title_map&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;line_spans&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;anchor_linenums&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;line_anchors&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Configure to match a `markdown.Markdown` instance.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            md: The Markdown instance to read configs from.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">md</span><span class="o">.</span><span class="n">registeredExtensions</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">HighlightExtension</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ext</span><span class="o">.</span><span class="n">enabled</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">config</span><span class="p">):</span>
+                <span class="n">config</span> <span class="o">=</span> <span class="n">ext</span><span class="o">.</span><span class="n">getConfigs</span><span class="p">()</span>
+                <span class="k">break</span>  <span class="c1"># This one takes priority, no need to continue looking</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">CodeHiliteExtension</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">config</span><span class="p">:</span>
+                <span class="n">config</span> <span class="o">=</span> <span class="n">ext</span><span class="o">.</span><span class="n">getConfigs</span><span class="p">()</span>
+                <span class="n">config</span><span class="p">[</span><span class="s2">&quot;language_prefix&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;lang_prefix&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_css_class</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;css_class&quot;</span><span class="p">,</span> <span class="s2">&quot;highlight&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">opt</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">opt</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_config_keys</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">highlight</span><span class="p">(</span>  <span class="c1"># noqa: W0221 (intentionally different params, we&#39;re extending the functionality)</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">language</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">inline</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">dedent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">linenums</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Highlight a code-snippet.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            src: The code to highlight.</span>
+<span class="sd">            language: Explicitly tell what language to use for highlighting.</span>
+<span class="sd">            inline: Whether to highlight as inline.</span>
+<span class="sd">            dedent: Whether to dedent the code before highlighting it or not.</span>
+<span class="sd">            linenums: Whether to add line numbers in the result.</span>
+<span class="sd">            **kwargs: Pass on to `pymdownx.highlight.Highlight.highlight`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The highlighted code as HTML text, marked safe (not escaped for HTML).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">Markup</span><span class="p">):</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">unescape</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">dedent</span><span class="p">:</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;css_class&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_css_class</span><span class="p">)</span>
+        <span class="n">old_linenums</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linenums</span>  <span class="c1"># type: ignore</span>
+        <span class="k">if</span> <span class="n">linenums</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">linenums</span> <span class="o">=</span> <span class="n">linenums</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">highlight</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">inline</span><span class="o">=</span><span class="n">inline</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">linenums</span> <span class="o">=</span> <span class="n">old_linenums</span>
+
+        <span class="k">if</span> <span class="n">inline</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&lt;code class=&quot;</span><span class="si">{</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;css_class&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> language-</span><span class="si">{</span><span class="n">language</span><span class="si">}</span><span class="s1">&quot;&gt;</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s1">&lt;/code&gt;&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div>
+        </details>
 
 
 
@@ -1457,7 +1598,7 @@ Highlighter        </code>
 <span class="sd">        md: The Markdown instance to read configs from.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">md</span><span class="o">.</span><span class="n">registeredExtensions</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
+    <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">md</span><span class="o">.</span><span class="n">registeredExtensions</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">HighlightExtension</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">ext</span><span class="o">.</span><span class="n">enabled</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">config</span><span class="p">):</span>
             <span class="n">config</span> <span class="o">=</span> <span class="n">ext</span><span class="o">.</span><span class="n">getConfigs</span><span class="p">()</span>
             <span class="k">break</span>  <span class="c1"># This one takes priority, no need to continue looking</span>
@@ -1618,7 +1759,8 @@ Highlighter        </code>
 
 <h2 id="mkdocstrings.handlers.rendering.IdPrependingTreeprocessor" class="doc doc-heading">
         <code>
-IdPrependingTreeprocessor        </code>
+IdPrependingTreeprocessor            (<span title="markdown.treeprocessors.Treeprocessor">Treeprocessor</span>)
+        </code>
 
 
 
@@ -1628,6 +1770,48 @@ IdPrependingTreeprocessor        </code>
 
       <p>Prepend the configured prefix to IDs of all HTML elements.</p>
 
+        <details class="quote">
+          <summary>Source code in <code>handlers/rendering.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">IdPrependingTreeprocessor</span><span class="p">(</span><span class="n">Treeprocessor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Prepend the configured prefix to IDs of all HTML elements.&quot;&quot;&quot;</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;mkdocstrings_ids&quot;</span>
+
+    <span class="n">id_prefix</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="sd">&quot;&quot;&quot;The prefix to add to every ID. It is prepended without any separator; specify your own separator if needed.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">id_prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            md: A `markdown.Markdown` instance.</span>
+<span class="sd">            id_prefix: The prefix to add to every ID. It is prepended without any separator.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">md</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id_prefix</span> <span class="o">=</span> <span class="n">id_prefix</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">Element</span><span class="p">):</span>  <span class="c1"># noqa: D102 (ignore missing docstring)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_prefix</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">iter</span><span class="p">():</span>
+            <span class="n">id_attr</span> <span class="o">=</span> <span class="n">el</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">id_attr</span><span class="p">:</span>
+                <span class="n">el</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_prefix</span> <span class="o">+</span> <span class="n">id_attr</span><span class="p">)</span>
+
+            <span class="n">href_attr</span> <span class="o">=</span> <span class="n">el</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">href_attr</span> <span class="ow">and</span> <span class="n">href_attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
+                <span class="n">el</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">,</span> <span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_prefix</span> <span class="o">+</span> <span class="n">href_attr</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+
+            <span class="n">name_attr</span> <span class="o">=</span> <span class="n">el</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">name_attr</span><span class="p">:</span>
+                <span class="n">el</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_prefix</span> <span class="o">+</span> <span class="n">name_attr</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">el</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span>
+                <span class="n">for_attr</span> <span class="o">=</span> <span class="n">el</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;for&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">for_attr</span><span class="p">:</span>
+                    <span class="n">el</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;for&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_prefix</span> <span class="o">+</span> <span class="n">for_attr</span><span class="p">)</span>
+</code></pre></div>
+        </details>
 
 
 
@@ -1766,7 +1950,8 @@ modify the current tree and return None.</p>
 
 <h2 id="mkdocstrings.handlers.rendering.MkdocstringsInnerExtension" class="doc doc-heading">
         <code>
-MkdocstringsInnerExtension        </code>
+MkdocstringsInnerExtension            (<span title="markdown.extensions.Extension">Extension</span>)
+        </code>
 
 
 
@@ -1776,6 +1961,44 @@ MkdocstringsInnerExtension        </code>
 
       <p>Extension that should always be added to Markdown sub-documents that handlers request (and <em>only</em> them).</p>
 
+        <details class="quote">
+          <summary>Source code in <code>handlers/rendering.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MkdocstringsInnerExtension</span><span class="p">(</span><span class="n">Extension</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Extension that should always be added to Markdown sub-documents that handlers request (and *only* them).&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">headings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Element</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            headings: A list that will be populated with all HTML heading elements encountered in the document.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headings</span> <span class="o">=</span> <span class="n">headings</span>
+
+    <span class="k">def</span> <span class="nf">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: N802 (casing: parent method&#39;s name)</span>
+        <span class="sd">&quot;&quot;&quot;Register the extension.</span>
+
+<span class="sd">        Arguments:</span>
+<span class="sd">            md: A `markdown.Markdown` instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">md</span><span class="o">.</span><span class="n">registerExtension</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+            <span class="n">HeadingShiftingTreeprocessor</span><span class="p">(</span><span class="n">md</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">HeadingShiftingTreeprocessor</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">priority</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+            <span class="n">IdPrependingTreeprocessor</span><span class="p">(</span><span class="n">md</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="n">IdPrependingTreeprocessor</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">priority</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>  <span class="c1"># Right after &#39;toc&#39; (needed because that extension adds ids to headers).</span>
+        <span class="p">)</span>
+        <span class="n">md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+            <span class="n">_HeadingReportingTreeprocessor</span><span class="p">(</span><span class="n">md</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">headings</span><span class="p">),</span>
+            <span class="n">_HeadingReportingTreeprocessor</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Close to the end.</span>
+        <span class="p">)</span>
+</code></pre></div>
+        </details>
 
 
 
@@ -2026,10 +2249,10 @@ MkdocstringsInnerExtension        </code>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.1e84347e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.b1047164.min.js"></script>
       
     
   </body>
