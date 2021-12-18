@@ -4,27 +4,40 @@ build-backend = "pdm.pep517.api"
 
 [project]
 name = "mkdocstrings"
-version = {use_scm = true}
 description = "Automatic documentation from sources, for MkDocs."
 authors = [{name = "Timothée Mazzucotelli", email = "pawamoy@pm.me"}]
 license = {file = "LICENSE"}
 readme = "README.md"
-requires-python = ">=3.6.1"
+requires-python = ">=3.6.2"
 keywords = ["mkdocs", "mkdocs-plugin", "docstrings", "autodoc", "documentation"]
-dynamic = ["version", "classifiers"]
+dynamic = ["version"]
 classifiers = [
     "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
     "License :: OSI Approved :: ISC License (ISCL)",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Documentation",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Utilities",
     "Typing :: Typed",
 ]
 dependencies = [
-    "Jinja2>=2.11.1,<4.0",
-    "Markdown~=3.3",
-    "MarkupSafe>=1.1,<3.0",
-    "mkdocs~=1.2",
-    "mkdocs-autorefs>=0.1,<0.4",
-    "pymdown-extensions>=6.3,<10.0",
-    "pytkdocs~=0.14.0",
+    "Jinja2>=2.11.1",
+    "Markdown>=3.3",
+    "MarkupSafe>=1.1",
+    "mkdocs>=1.2",
+    "mkdocs-autorefs>=0.1",
+    "pymdown-extensions>=6.3",
+    "pytkdocs>=0.14.0",
 ]
 
 [project.urls]
@@ -40,56 +53,64 @@ Funding = "https://github.com/sponsors/mkdocstrings"
 [project.entry-points."mkdocs.plugins"]
 mkdocstrings = "mkdocstrings.plugin:MkdocstringsPlugin"
 
-
-[project.optional-dependencies]
 [tool.pdm]
 package-dir = "src"
 includes = ["src/mkdocstrings"]
+version = {use_scm = true}
 
 [tool.pdm.dev-dependencies]
-duty = ["duty~=0.6"]
+duty = ["duty>=0.7"]
 docs = [
-    "mkdocs-coverage~=0.2; python_version >= '3.7'",
-    "mkdocs-gen-files~=0.3; python_version >= '3.7'",
-    "mkdocs-literate-nav~=0.4; python_version >= '3.7'",
-    "mkdocs-material~=7.1; python_version >= '3.7'",
-    "mkdocs-section-index~=0.3; python_version >= '3.7'",
-    "toml~=0.10; python_version >= '3.7'",
+    "mkdocs-coverage>=0.2; python_version >= '3.7'",
+    "mkdocs-gen-files>=0.3; python_version >= '3.7'",
+    "mkdocs-literate-nav>=0.4; python_version >= '3.7'",
+    "mkdocs-material>=7.3; python_version >= '3.7'",
+    "mkdocs-section-index>=0.3; python_version >= '3.7'",
+    "toml>=0.10; python_version >= '3.7'",
 ]
 format = [
-    "autoflake~=1.4",
-    "black~=20.8b1",
-    "isort~=5.8",
+    "autoflake>=1.4",
+    "black>=21.10b0",
+    "isort>=5.10",
 ]
 maintain = [
     # TODO: remove this section when git-changelog is more powerful
-    "git-changelog~=0.4",
+    "git-changelog>=0.4",
 ]
 quality = [
-    "darglint~=1.7",
-    "flake8-bandit~=2.1",
-    "flake8-black~=0.2",
-    "flake8-bugbear~=21.3",
-    "flake8-builtins~=1.5",
-    "flake8-comprehensions~=3.4",
-    "flake8-docstrings~=1.6",
-    "flake8-pytest-style~=1.4",
-    "flake8-string-format~=0.3",
-    "flake8-tidy-imports~=4.2",
-    "flake8-variables-names~=0.0",
-    "pep8-naming~=0.11",
-    "wps-light~=0.15",
-    "curlylint~=0.13",
+    "darglint>=1.8",
+    "flake8-bandit>=2.1",
+    "flake8-black>=0.2",
+    "flake8-bugbear>=21.9",
+    "flake8-builtins>=1.5",
+    "flake8-comprehensions>=3.7",
+    "flake8-docstrings>=1.6",
+    "flake8-pytest-style>=1.5",
+    "flake8-string-format>=0.3",
+    "flake8-tidy-imports>=4.5",
+    "flake8-variables-names>=0.0",
+    "pep8-naming>=0.12",
+    "wps-light>=0.15",
+    "curlylint>=0.13",
 ]
 tests = [
-    "pygments~=2.10",  # python 3.6
-    "pytest~=6.2",
-    "pytest-cov~=2.11",
-    "pytest-randomly~=3.6",
-    "pytest-sugar~=0.9",
-    "pytest-xdist~=2.2",
+    "docutils",
+    "pygments>=2.10",  # python 3.6
+    "pytest>=6.2",
+    "pytest-cov>=3.0",
+    "pytest-randomly>=3.10",
+    "pytest-sugar>=0.9",
+    "pytest-xdist>=2.4",
+    "sphinx",
 ]
-typing = ["mypy~=0.812"]
+typing = [
+    "mypy>=0.910",
+    "types-docutils",
+    "types-markdown>=3.3",
+    "types-pyyaml",
+    "types-toml>=0.10",
+]
+security = ["safety>=1.10"]
 
 [tool.black]
 line-length = 120

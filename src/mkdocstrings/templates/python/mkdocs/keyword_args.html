@@ -1,0 +1,7 @@
+{{ log.debug() }}
+<dl>
+  <dt>Keyword arguments:</dt>
+  {% for kwarg in kwargs %}
+    <dd>{{ ("**" + kwarg.name + ":** " + ("`" + kwarg.annotation + "` – " if kwarg.annotation else "") + kwarg.description)|convert_markdown(heading_level, html_id) }}</dd>
+  {% endfor %}
+</dl>

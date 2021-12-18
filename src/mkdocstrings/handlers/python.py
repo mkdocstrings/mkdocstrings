@@ -10,7 +10,7 @@ import sys
 import traceback
 from collections import ChainMap
 from subprocess import PIPE, Popen  # noqa: S404 (what other option, more secure that PIPE do we have? sockets?)
-from typing import Any, BinaryIO, Callable, Iterator, List, Optional, Tuple
+from typing import Any, BinaryIO, Callable, Iterator, List, Optional, Sequence, Tuple
 
 from markdown import Markdown
 from markupsafe import Markup
@@ -97,8 +97,11 @@ class PythonRenderer(BaseRenderer):
             **{"config": final_config, data["category"]: data, "heading_level": heading_level, "root": True},
         )
 
-    def get_anchor(self, data: CollectorItem) -> str:  # noqa: D102 (ignore missing docstring)
-        return data.get("path")
+    def get_anchors(self, data: CollectorItem) -> Sequence[str]:  # noqa: D102 (ignore missing docstring)
+        try:
+            return (data["path"],)
+        except KeyError:
+            return ()
 
     def update_env(self, md: Markdown, config: dict) -> None:  # noqa: D102 (ignore missing docstring)
         super().update_env(md, config)
@@ -146,7 +149,7 @@ class PythonCollector(BaseCollector):
     fallback_config = {"docstring_style": "markdown", "filters": ["!.*"]}
     """The configuration used when falling back to re-collecting an object to get its anchor.
 
-    This configuration is used in [`Handlers.get_anchor`][mkdocstrings.handlers.base.Handlers.get_anchor].
+    This configuration is used in [`Handlers.get_anchors`][mkdocstrings.handlers.base.Handlers.get_anchors].
 
     When trying to fix (optional) cross-references, the autorefs plugin will try to collect
     an object with every configured handler until one succeeds. It will then try to get

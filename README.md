@@ -4,6 +4,7 @@
 [![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://mkdocstrings.github.io/)
 [![pypi version](https://img.shields.io/pypi/v/mkdocstrings.svg)](https://pypi.org/project/mkdocstrings/)
 [![conda version](https://img.shields.io/conda/vn/conda-forge/mkdocstrings)](https://anaconda.org/conda-forge/mkdocstrings)
+[![gitpod](https://img.shields.io/badge/gitpod-workspace-blue.svg?style=flat)](https://gitpod.io/#https://github.com/mkdocstrings/mkdocstrings)
 [![gitter](https://badges.gitter.im/join%20chat.svg)](https://gitter.im/mkdocstrings/community)
 
 Automatic documentation from sources, for [MkDocs](https://mkdocs.org/).
@@ -80,7 +81,7 @@ Automatic documentation from sources, for [MkDocs](https://mkdocs.org/).
   Numpy-style requires an extra dependency from `pytkdocs`: `pytkdocs[numpy-style]`.*
 
 - **Admonition support in docstrings:** blocks like `Note:` or `Warning:` will be transformed
-  to their [admonition](https://squidfunk.github.io/mkdocs-material/extensions/admonition/) equivalent.
+  to their [admonition](https://squidfunk.github.io/mkdocs-material/reference/admonitions/) equivalent.
   *We do not support nested admonitions in docstrings!*
 
 - **Every object has a TOC entry:** we render a heading for each object, meaning *MkDocs* picks them into the Table
