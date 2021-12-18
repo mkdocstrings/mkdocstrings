@@ -8,7 +8,7 @@ description = "Automatic documentation from sources, for MkDocs."
 authors = [{name = "Timothée Mazzucotelli", email = "pawamoy@pm.me"}]
 license = {file = "LICENSE"}
 readme = "README.md"
-requires-python = ">=3.6.2"
+requires-python = ">=3.7"
 keywords = ["mkdocs", "mkdocs-plugin", "docstrings", "autodoc", "documentation"]
 dynamic = ["version"]
 classifiers = [
@@ -18,7 +18,6 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
@@ -61,12 +60,12 @@ version = {use_scm = true}
 [tool.pdm.dev-dependencies]
 duty = ["duty>=0.7"]
 docs = [
-    "mkdocs-coverage>=0.2; python_version >= '3.7'",
-    "mkdocs-gen-files>=0.3; python_version >= '3.7'",
-    "mkdocs-literate-nav>=0.4; python_version >= '3.7'",
-    "mkdocs-material>=7.3; python_version >= '3.7'",
-    "mkdocs-section-index>=0.3; python_version >= '3.7'",
-    "toml>=0.10; python_version >= '3.7'",
+    "mkdocs-coverage>=0.2",
+    "mkdocs-gen-files>=0.3",
+    "mkdocs-literate-nav>=0.4",
+    "mkdocs-material>=7.3",
+    "mkdocs-section-index>=0.3",
+    "toml>=0.10",
 ]
 format = [
     "autoflake>=1.4",
