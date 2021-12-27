@@ -459,7 +459,7 @@
     <p class="run"><span class="n"><a id="t398" href="#t398">398</a></span><span class="t">            <span class="key">if</span> <span class="nam">handler_config</span> <span class="key">is</span> <span class="key">None</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t399" href="#t399">399</a></span><span class="t">                <span class="nam">handler_config</span> <span class="op">=</span> <span class="nam">self</span><span class="op">.</span><span class="nam">get_handler_config</span><span class="op">(</span><span class="nam">name</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t400" href="#t400">400</a></span><span class="t">            <span class="nam">module</span> <span class="op">=</span> <span class="nam">importlib</span><span class="op">.</span><span class="nam">import_module</span><span class="op">(</span><span class="str">f"mkdocstrings.handlers.{name}"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t401" href="#t401">401</a></span><span class="t">            <span class="nam">self</span><span class="op">.</span><span class="nam">_handlers</span><span class="op">[</span><span class="nam">name</span><span class="op">]</span> <span class="op">=</span> <span class="nam">module</span><span class="op">.</span><span class="nam">get_handler</span><span class="op">(</span>  <span class="com"># type: ignore</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t401" href="#t401">401</a></span><span class="t">            <span class="nam">self</span><span class="op">.</span><span class="nam">_handlers</span><span class="op">[</span><span class="nam">name</span><span class="op">]</span> <span class="op">=</span> <span class="nam">module</span><span class="op">.</span><span class="nam">get_handler</span><span class="op">(</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t402" href="#t402">402</a></span><span class="t">                <span class="nam">self</span><span class="op">.</span><span class="nam">_config</span><span class="op">[</span><span class="str">"theme_name"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t403" href="#t403">403</a></span><span class="t">                <span class="nam">self</span><span class="op">.</span><span class="nam">_config</span><span class="op">[</span><span class="str">"mkdocstrings"</span><span class="op">]</span><span class="op">[</span><span class="str">"custom_templates"</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t404" href="#t404">404</a></span><span class="t">                <span class="op">**</span><span class="nam">handler_config</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -486,7 +486,7 @@
     <div class="content">
         <p>
             <a class="nav" href="covindex.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.2</a>,
-            created at 2021-12-18 00:48 +0100
+            created at 2021-12-27 18:53 +0100
         </p>
     </div>
 </footer>

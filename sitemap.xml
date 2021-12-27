@@ -2,112 +2,112 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://mkdocstrings.github.io/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/changelog/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/code_of_conduct/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/contributing/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/credits/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/license/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/theming/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/troubleshooting/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/usage/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/handlers/overview/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/handlers/python/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>None</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/reference/extension/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/reference/inventory/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/reference/loggers/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/reference/plugin/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/reference/autorefs/plugin/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/reference/autorefs/references/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/reference/handlers/base/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/reference/handlers/python/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/reference/handlers/rendering/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://mkdocstrings.github.io/coverage/</loc>
-         <lastmod>2021-12-18</lastmod>
+         <lastmod>2021-12-27</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
