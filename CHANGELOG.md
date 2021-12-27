@@ -5,6 +5,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.17.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.17.0) - 2021-12-27
+
+<small>[Compare with 0.16.2](https://github.com/mkdocstrings/mkdocstrings/compare/0.16.2...0.17.0)</small>
+
+### Features
+- Add `show_signature` rendering option ([024ee82](https://github.com/mkdocstrings/mkdocstrings/commit/024ee826bb6f0aa297ba857bc18075d6f4162cad) by Will Da Silva). [Issue #341](https://github.com/mkdocstrings/mkdocstrings/issues/341), [PR #342](https://github.com/mkdocstrings/mkdocstrings/pull/342)
+- Support Keyword Args and Yields sections ([1286427](https://github.com/mkdocstrings/mkdocstrings/commit/12864271b7f997af7b421a834919b1e686793905) by Timothée Mazzucotelli). [Issue #205](https://github.com/mkdocstrings/mkdocstrings/issues/205) and [#324](https://github.com/mkdocstrings/mkdocstrings/issues/324), [PR #331](https://github.com/mkdocstrings/mkdocstrings/pull/331)
+
+### Bug Fixes
+- Do minimum work when falling back to re-collecting an object to get its anchor ([f6cf570](https://github.com/mkdocstrings/mkdocstrings/commit/f6cf570255df17db1088b6e6cd94bcc823b3b17f) by Timothée Mazzucotelli). [Issue #329](https://github.com/mkdocstrings/mkdocstrings/issues/329), [PR #330](https://github.com/mkdocstrings/mkdocstrings/pull/330)
+
+### Code Refactoring
+- Return multiple identifiers from fallback method ([78c498c](https://github.com/mkdocstrings/mkdocstrings/commit/78c498c4a6cfc33cc6ceab9829426bd64e518d44) by Timothée Mazzucotelli). [Issue mkdocstrings/autorefs#11](https://github.com/mkdocstrings/autorefs/issues/11), [PR #350](https://github.com/mkdocstrings/mkdocstrings/pull/350)
+
+
 ## [0.16.2](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.16.2) - 2021-10-04
 
 <small>[Compare with 0.16.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.16.1...0.16.2)</small>
