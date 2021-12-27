@@ -23,7 +23,7 @@ instruction:
 """
 import re
 from collections import ChainMap
-from typing import Mapping, MutableSequence, Tuple
+from typing import Mapping, MutableMapping, MutableSequence, Tuple
 from xml.etree.ElementTree import Element
 
 import yaml
@@ -207,7 +207,7 @@ class AutoDocProcessor(BlockProcessor):
         return rendered, handler, data
 
 
-def get_item_configs(handler_config: dict, config: dict) -> Tuple[Mapping, Mapping]:
+def get_item_configs(handler_config: dict, config: dict) -> Tuple[Mapping, MutableMapping]:
     """Get the selection and rendering configuration merged into the global configuration of the given handler.
 
     Arguments:

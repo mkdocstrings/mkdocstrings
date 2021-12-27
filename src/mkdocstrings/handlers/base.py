@@ -398,7 +398,7 @@ class Handlers:
             if handler_config is None:
                 handler_config = self.get_handler_config(name)
             module = importlib.import_module(f"mkdocstrings.handlers.{name}")
-            self._handlers[name] = module.get_handler(  # type: ignore
+            self._handlers[name] = module.get_handler(
                 self._config["theme_name"],
                 self._config["mkdocstrings"]["custom_templates"],
                 **handler_config,
