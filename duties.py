@@ -6,7 +6,6 @@ import re
 import sys
 import tempfile
 from contextlib import suppress
-from functools import wraps
 from io import StringIO
 from pathlib import Path
 from typing import List, Optional, Pattern
@@ -43,7 +42,6 @@ def update_changelog(
     marker: str,
     version_regex: str,
     template_url: str,
-    commit_style: str,
 ) -> None:
     """Update the given changelog file in place.
 
@@ -52,15 +50,16 @@ def update_changelog(
         marker: The line after which to insert new contents.
         version_regex: A regular expression to find currently documented versions in the file.
         template_url: The URL to the Jinja template used to render contents.
-        commit_style: The style of commit messages to parse.
     """
     from git_changelog.build import Changelog
+    from git_changelog.commit import AngularStyle
     from jinja2.sandbox import SandboxedEnvironment
 
+    AngularStyle.DEFAULT_RENDER.insert(0, AngularStyle.TYPES["build"])
     env = SandboxedEnvironment(autoescape=False)
     template_text = urlopen(template_url).read().decode("utf8")  # noqa: S310
     template = env.from_string(template_text)
-    changelog = Changelog(".", style=commit_style)
+    changelog = Changelog(".", style="angular")
 
     if len(changelog.versions_list) == 1:
         last_version = changelog.versions_list[0]
@@ -99,7 +98,6 @@ def changelog(ctx):
             "marker": "<!-- insertion marker -->",
             "version_regex": r"^## \[v?(?P<version>[^\]]+)",
             "template_url": template_url,
-            "commit_style": "angular",
         },
         title="Updating changelog",
         pty=PTY,
@@ -165,31 +163,7 @@ def check_dependencies(ctx):
     ctx.run(safety, title="Checking dependencies")
 
 
-def no_docs_py36(nofail=True):
-    """Decorate a duty that builds docs to warn that it's not possible on Python 3.6.
-
-    Arguments:
-        nofail: Whether to fail or not.
-
-    Returns:
-        The decorated function.
-    """
-
-    def decorator(func):
-        @wraps(func)
-        def wrapper(ctx):
-            if sys.version_info <= (3, 7, 0):
-                ctx.run(["false"], title="Docs can't be built on Python 3.6", nofail=nofail, quiet=True)
-            else:
-                func(ctx)
-
-        return wrapper
-
-    return decorator
-
-
 @duty
-@no_docs_py36()
 def check_docs(ctx):
     """Check if the documentation builds correctly.
 
@@ -274,7 +248,6 @@ def clean(ctx):
 
 
 @duty
-@no_docs_py36(nofail=False)
 def docs(ctx):
     """Build the documentation locally.
 
@@ -285,7 +258,6 @@ def docs(ctx):
 
 
 @duty
-@no_docs_py36(nofail=False)
 def docs_serve(ctx, host="127.0.0.1", port=8000):
     """Serve the documentation (localhost:8000).
 
@@ -298,7 +270,6 @@ def docs_serve(ctx, host="127.0.0.1", port=8000):
 
 
 @duty
-@no_docs_py36(nofail=False)
 def docs_deploy(ctx):
     """Deploy the documentation on GitHub pages.
 
