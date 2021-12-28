@@ -34,7 +34,7 @@ dependencies = [
     "Markdown>=3.3",
     "MarkupSafe>=1.1",
     "mkdocs>=1.2",
-    "mkdocs-autorefs>=0.1",
+    "mkdocs-autorefs>=0.3.1",
     "pymdown-extensions>=6.3",
     "pytkdocs>=0.14.0",
 ]
