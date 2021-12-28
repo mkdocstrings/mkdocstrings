@@ -341,4 +341,5 @@ def test(ctx, match: str = ""):
         ["pytest", "-c", "config/pytest.ini", "-n", "auto", "-k", match, "tests"],
         title="Running tests",
         pty=PTY,
+        nofail=py_version == "311",
     )
