@@ -9,6 +9,7 @@ It also provides two methods:
 """
 
 import importlib
+import sys
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence
@@ -28,8 +29,6 @@ from mkdocstrings.inventory import Inventory
 from mkdocstrings.loggers import get_template_logger
 
 CollectorItem = Any
-
-TEMPLATES_DIR = Path(__file__).parent.parent / "templates"
 
 
 class CollectionError(Exception):
@@ -86,11 +85,10 @@ class BaseRenderer(ABC):
         """
         paths = []
 
-        themes_dir = TEMPLATES_DIR / directory
-
+        themes_dir = self.get_templates_dir() / directory
         paths.append(themes_dir / theme)
 
-        if self.fallback_theme:
+        if self.fallback_theme and self.fallback_theme != theme:
             paths.append(themes_dir / self.fallback_theme)
 
         for path in paths:
@@ -124,6 +122,30 @@ class BaseRenderer(ABC):
         Returns:
             The rendered template as HTML.
         """  # noqa: DAR202 (excess return section)
+
+    def get_templates_dir(self) -> Path:
+        """Return the path to the handler's templates directory.
+
+        Override this method if your handler is for example compiled from C
+        and does not expose a module directly on the file system from
+        which we can infer the templates directory path.
+
+        Returns:
+            The templates directory path.
+        """
+        # Namespace packages can span multiple locations.
+        # This class can be derived, so we must find the templates path
+        # based on the file path the derived class was defined in.
+        # To do this, we first get the module of this derived class:
+        module = sys.modules[self.__class__.__module__]  # noqa: WPS609
+        # Then we can get the module path:
+        module_path = Path(module.__file__)  # type: ignore[arg-type]  # noqa: WPS609
+        # Now we can go up to the "mkdocstrings" folder,
+        # and one down to the "templates" folder:
+        templates_dir = module_path.parent.resolve()
+        while templates_dir.name != "mkdocstrings":
+            templates_dir = templates_dir.parent
+        return templates_dir / "templates"
 
     def get_anchors(self, data: CollectorItem) -> Sequence[str]:
         """Return the possible identifiers (HTML anchors) for a collected item.
