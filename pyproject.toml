@@ -35,9 +35,13 @@ dependencies = [
     "MarkupSafe>=1.1",
     "mkdocs>=1.2",
     "mkdocs-autorefs>=0.3.1",
+    "mkdocstrings-python-legacy>=0.1",
     "pymdown-extensions>=6.3",
-    "pytkdocs>=0.14.0",
 ]
+
+[project.optional-dependencies]
+python-legacy = ["mkdocstrings-python-legacy"]
+python = ["mkdocstrings-python"]
 
 [project.urls]
 Homepage = "https://mkdocstrings.github.io"
@@ -90,10 +94,11 @@ quality = [
     "flake8-variables-names>=0.0",
     "pep8-naming>=0.12",
     "wps-light>=0.15",
-    "curlylint>=0.13",
 ]
 tests = [
     "docutils",
+    # TODO: uncomment once the legacy handler is optional
+    # "mkdocstrings-python-legacy>=0.1",
     "pygments>=2.10",  # python 3.6
     "pytest>=6.2",
     "pytest-cov>=3.0",

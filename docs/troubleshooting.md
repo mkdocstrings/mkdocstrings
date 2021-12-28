@@ -51,7 +51,7 @@ when it should be `[Section][pytkdocs.parsers.docstrings.Section]`.
 - Make sure the configuration options of the handler for both selection and rendering are correct.
   Check the documentation for [Handlers](handlers/overview.md) to see the available options for each handler.
 - Also make sure your documentation in your source code is formatted correctly.
-  For Python code, check the [supported docstring styles](handlers/python.md#supported-docstrings-styles) page.
+For Python code, check the [supported docstring styles](https://mkdocstrings.github.io/python/usage/#supported-docstrings-styles) page.
 - Re-run the Mkdocs command with `-v`, and carefully read any traceback.
 
 ## Tabs in docstrings (from `pymdownx.tabbed`) are not working properly
@@ -143,7 +143,7 @@ For false-positives, you can wrap the text in backticks (\`) to prevent `mkdocst
 
 Is your package available in the Python path?
 
-See [Python handler: Finding modules](handlers/python.md#finding-modules).
+See [Python handler: Finding modules](https://mkdocstrings.github.io/python/usage/#finding-modules).
 
 ### LaTeX in docstrings is not rendered correctly
 
