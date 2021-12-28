@@ -98,7 +98,6 @@ tests = [
     "pytest>=6.2",
     "pytest-cov>=3.0",
     "pytest-randomly>=3.10",
-    "pytest-sugar>=0.9",
     "pytest-xdist>=2.4",
     "sphinx",
 ]
