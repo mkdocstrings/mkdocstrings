@@ -10,6 +10,7 @@ It also provides two methods:
 
 import importlib
 import sys
+import warnings
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence
@@ -423,7 +424,16 @@ class Handlers:
         if name not in self._handlers:
             if handler_config is None:
                 handler_config = self.get_handler_config(name)
-            module = importlib.import_module(f"mkdocstrings.handlers.{name}")
+            try:
+                module = importlib.import_module(f"mkdocstrings_handlers.{name}")
+            except ModuleNotFoundError:
+                module = importlib.import_module(f"mkdocstrings.handlers.{name}")
+                warnings.warn(
+                    DeprecationWarning(
+                        "Using the mkdocstrings.handlers namespace is deprecated. "
+                        "Handlers must now use the mkdocstrings_handlers namespace."
+                    )
+                )
             self._handlers[name] = module.get_handler(
                 self._config["theme_name"],
                 self._config["mkdocstrings"]["custom_templates"],
