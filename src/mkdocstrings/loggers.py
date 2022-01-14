@@ -4,9 +4,13 @@ import logging
 from pathlib import Path
 from typing import Any, Callable, Optional, Tuple
 
-from jinja2 import contextfunction
 from jinja2.runtime import Context
 from mkdocs.utils import warning_filter
+
+try:
+    from jinja2 import pass_context
+except ImportError:  # TODO: remove once Jinja2 < 3.1 is dropped
+    from jinja2 import contextfunction as pass_context  # noqa: WPS440
 
 TEMPLATES_DIR = Path(__file__).parent / "templates"
 
@@ -71,7 +75,7 @@ def get_template_logger_function(logger_func: Callable) -> Callable:
         A function.
     """
 
-    @contextfunction
+    @pass_context
     def wrapper(context: Context, msg: Optional[str] = None) -> str:
         """Log a message.
 
