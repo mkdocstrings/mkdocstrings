@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://mkdocstrings.github.io/">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.6">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.edf004c2.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.cd566b2a.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.e6a45f82.min.css">
@@ -66,7 +66,7 @@
   
     
     
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -525,9 +525,98 @@
         <ul class="md-nav__list" data-md-scrollfix>
           
             
-          
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="theming/" class="md-nav__link">
+        Theming
+      </a>
+    </li>
+  
+
             
           
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="handlers/overview/">Handlers</a>
+          
+            <label for="__nav_2_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Handlers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Handlers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="handlers/python/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
+        Crystal
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="troubleshooting/" class="md-nav__link">
+        Troubleshooting
+      </a>
+    </li>
+  
+
             
           
         </ul>
@@ -1075,9 +1164,9 @@
 </li>
 </ul>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">¤</a></h2>
-<p><em>mkdocstrings</em> requires Python 3.6 or above.</p>
+<p>mkdocstrings requires Python 3.7 or above.</p>
 <details>
-<summary>To install Python 3.6, I recommend using <a href="https://github.com/pyenv/pyenv"><code>pyenv</code></a>.</summary>
+<summary>To install Python 3.7, I recommend using <a href="https://github.com/pyenv/pyenv"><code>pyenv</code></a>.</summary>
 
 <div class="highlight"><pre><span></span><code><span class="c1"># install pyenv</span>
 git clone https://github.com/pyenv/pyenv ~/.pyenv
@@ -1087,11 +1176,11 @@ git clone https://github.com/pyenv/pyenv ~/.pyenv
 <span class="nb">export</span> <span class="nv">PYENV_ROOT</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span><span class="s2">/.pyenv&quot;</span>
 <span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>pyenv init -<span class="k">)</span><span class="s2">&quot;</span>
 
-<span class="c1"># install Python 3.6</span>
-pyenv install <span class="m">3</span>.6.12
+<span class="c1"># install Python 3.7</span>
+pyenv install <span class="m">3</span>.7.12
 
 <span class="c1"># make it available globally</span>
-pyenv global system <span class="m">3</span>.6.12
+pyenv global system <span class="m">3</span>.7.12
 </code></pre></div>
 </details>
 
@@ -1106,13 +1195,13 @@ pyenv global system <span class="m">3</span>.6.12
 <div class="highlight"><pre><span></span><code>pip install pytkdocs[numpy-style]
 </code></pre></div>
 <h2 id="quick-usage">Quick usage<a class="headerlink" href="#quick-usage" title="Permanent link">¤</a></h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span>
-<span class="nt">theme</span><span class="p">:</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;material&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span><span class="w"></span>
+<span class="nt">theme</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;material&quot;</span><span class="w"></span>
 
-<span class="nt">plugins</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">search</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">mkdocstrings</span>
+<span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mkdocstrings</span><span class="w"></span>
 </code></pre></div>
 <p>In one of your markdown files:</p>
 <div class="highlight"><pre><span></span><code><span class="gh"># Reference</span>
@@ -1197,10 +1286,10 @@ pyenv global system <span class="m">3</span>.6.12
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="assets/javascripts/bundle.e1a181d9.min.js"></script>
+      <script src="assets/javascripts/bundle.1514a9a0.min.js"></script>
       
     
   </body>

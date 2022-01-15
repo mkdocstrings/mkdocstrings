@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://mkdocstrings.github.io/reference/plugin/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.6">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.edf004c2.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cd566b2a.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -66,7 +66,7 @@
   
     
     
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -448,9 +448,98 @@
         <ul class="md-nav__list" data-md-scrollfix>
           
             
-          
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theming/" class="md-nav__link">
+        Theming
+      </a>
+    </li>
+  
+
             
           
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../handlers/overview/">Handlers</a>
+          
+            <label for="__nav_2_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Handlers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Handlers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../handlers/python/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
+        Crystal
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/" class="md-nav__link">
+        Troubleshooting
+      </a>
+    </li>
+  
+
             
           
         </ul>
@@ -1460,22 +1549,22 @@ for more information about its plugin system.</p>
 <li><strong><code>handlers</code></strong>: Global configuration of handlers. You can set global configuration per handler, applied everywhere,
   but overridable in each "autodoc" instruction. Example:</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
-      <span class="nt">handlers</span><span class="p">:</span>
-        <span class="nt">python</span><span class="p">:</span>
-          <span class="nt">selection</span><span class="p">:</span>
-            <span class="nt">selection_opt</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-          <span class="nt">rendering</span><span class="p">:</span>
-            <span class="nt">rendering_opt</span><span class="p">:</span> <span class="s">&quot;value&quot;</span>
-          <span class="nt">setup_commands</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="s">&quot;import</span><span class="nv"> </span><span class="s">os&quot;</span>
-            <span class="p p-Indicator">-</span> <span class="s">&quot;import</span><span class="nv"> </span><span class="s">django&quot;</span>
-            <span class="p p-Indicator">-</span> <span class="s">&quot;os.environ.setdefault(&#39;DJANGO_SETTINGS_MODULE&#39;,</span><span class="nv"> </span><span class="s">&#39;my_djang_app.settings&#39;)&quot;</span>
-            <span class="p p-Indicator">-</span> <span class="s">&quot;django.setup()&quot;</span>
-        <span class="nt">rust</span><span class="p">:</span>
-          <span class="nt">selection</span><span class="p">:</span>
-            <span class="nt">selection_opt</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">selection</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">selection_opt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">          </span><span class="nt">rendering</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">rendering_opt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="w"></span>
+<span class="w">          </span><span class="nt">setup_commands</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;import</span><span class="nv"> </span><span class="s">os&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;import</span><span class="nv"> </span><span class="s">django&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;os.environ.setdefault(&#39;DJANGO_SETTINGS_MODULE&#39;,</span><span class="nv"> </span><span class="s">&#39;my_djang_app.settings&#39;)&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;django.setup()&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="nt">rust</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">selection</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">selection_opt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
 </code></pre></div>
     </div>
 
@@ -2132,10 +2221,10 @@ and the site reloaded.</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e1a181d9.min.js"></script>
+      <script src="../../assets/javascripts/bundle.1514a9a0.min.js"></script>
       
     
   </body>

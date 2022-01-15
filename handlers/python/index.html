@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://mkdocstrings.github.io/handlers/python/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.6">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.edf004c2.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cd566b2a.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -66,7 +66,7 @@
   
     
     
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -450,9 +450,283 @@
         <ul class="md-nav__list" data-md-scrollfix>
           
             
-          
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../theming/" class="md-nav__link">
+        Theming
+      </a>
+    </li>
+  
+
             
           
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" checked>
+      
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../overview/">Handlers</a>
+          
+            <label for="__nav_2_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Handlers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Handlers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Python
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#handler-options" class="md-nav__link">
+    Handler options
+  </a>
+  
+    <nav class="md-nav" aria-label="Handler options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selection" class="md-nav__link">
+    Selection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rendering" class="md-nav__link">
+    Rendering
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collector-pytkdocs" class="md-nav__link">
+    Collector: pytkdocs
+  </a>
+  
+    <nav class="md-nav" aria-label="Collector: pytkdocs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-docstrings-styles" class="md-nav__link">
+    Supported docstrings styles
+  </a>
+  
+    <nav class="md-nav" aria-label="Supported docstrings styles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#google-style" class="md-nav__link">
+    Google-style
+  </a>
+  
+    <nav class="md-nav" aria-label="Google-style">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sections" class="md-nav__link">
+    Sections
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admonitions" class="md-nav__link">
+    Admonitions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#annotations" class="md-nav__link">
+    Annotations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numpy-style" class="md-nav__link">
+    Numpy-style
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restructuredtext-style" class="md-nav__link">
+    reStructuredText-style
+  </a>
+  
+    <nav class="md-nav" aria-label="reStructuredText-style">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sections_1" class="md-nav__link">
+    Sections
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#annotations_1" class="md-nav__link">
+    Annotations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finding-modules" class="md-nav__link">
+    Finding modules
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mocking-libraries" class="md-nav__link">
+    Mocking libraries
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-style-material" class="md-nav__link">
+    Recommended style (Material)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-style-readthedocs" class="md-nav__link">
+    Recommended style (ReadTheDocs)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
+        Crystal
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/" class="md-nav__link">
+        Troubleshooting
+      </a>
+    </li>
+  
+
             
           
         </ul>
@@ -1031,16 +1305,16 @@ while the <code>rendering</code> options lets you change how the documentation i
 </table>
 <div class="admonition example">
 <p class="admonition-title">Example: setup Django before collecting documentation</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span>
-<span class="nt">plugins</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
-      <span class="nt">handlers</span><span class="p">:</span>
-        <span class="nt">python</span><span class="p">:</span>
-          <span class="nt">setup_commands</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">import os</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">import django</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;, &quot;my_django_app.settings&quot;)</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">django.setup()</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span><span class="w"></span>
+<span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">setup_commands</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">import os</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">import django</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">os.environ.setdefault(&quot;DJANGO_SETTINGS_MODULE&quot;, &quot;my_django_app.settings&quot;)</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">django.setup()</span><span class="w"></span>
 </code></pre></div>
 </div>
 <div class="admonition important">
@@ -1104,21 +1378,21 @@ See <a href="#collector-pytkdocs">Collector: pytkdocs</a> to learn more about <c
 <div class="admonition example">
 <p class="admonition-title">Configuration example</p>
 <div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Global</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span>
-<span class="nt">plugins</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
-      <span class="nt">handlers</span><span class="p">:</span>
-        <span class="nt">python</span><span class="p">:</span>
-          <span class="nt">selection</span><span class="p">:</span>
-            <span class="nt">filters</span><span class="p">:</span>
-              <span class="p p-Indicator">-</span> <span class="s">&quot;!^_&quot;</span>  <span class="c1"># exlude all members starting with _</span>
-              <span class="p p-Indicator">-</span> <span class="s">&quot;^__init__$&quot;</span>  <span class="c1"># but always include __init__ modules and methods</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span><span class="w"></span>
+<span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">selection</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">filters</span><span class="p">:</span><span class="w"></span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;!^_&quot;</span><span class="w">  </span><span class="c1"># exlude all members starting with _</span><span class="w"></span>
+<span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;^__init__$&quot;</span><span class="w">  </span><span class="c1"># but always include __init__ modules and methods</span><span class="w"></span>
 </code></pre></div>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Local</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">::</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">my_package</span>
-    <span class="l l-Scalar l-Scalar-Plain">selection</span><span class="p p-Indicator">:</span>
-      <span class="nt">filters</span><span class="p">:</span> <span class="p p-Indicator">[]</span>  <span class="c1"># pick up everything</span>
+<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">::</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_package</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">selection</span><span class="p p-Indicator">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">filters</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w">  </span><span class="c1"># pick up everything</span><span class="w"></span>
 </code></pre></div>
 </div>
 </div>
@@ -1236,13 +1510,13 @@ See <a href="#collector-pytkdocs">Collector: pytkdocs</a> to learn more about <c
 <div class="admonition example">
 <p class="admonition-title">Configuration example</p>
 <div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Global</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span>
-<span class="nt">plugins</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
-      <span class="nt">handlers</span><span class="p">:</span>
-        <span class="nt">python</span><span class="p">:</span>
-          <span class="nt">rendering</span><span class="p">:</span>
-            <span class="nt">show_root_heading</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">yes</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span><span class="w"></span>
+<span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">rendering</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">show_root_heading</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yes</span><span class="w"></span>
 </code></pre></div>
 </div>
 <input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Local</label><div class="tabbed-content">
@@ -1335,11 +1609,11 @@ use the <code>replace_admonitions</code> parser option:</p>
 </div>
 <p>As shown in the above example, this can be disabled
 with the <code>replace_admonitions</code> option of the Google-style parser:</p>
-<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">::</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">my_package.my_module</span>
-    <span class="l l-Scalar l-Scalar-Plain">selection</span><span class="p p-Indicator">:</span>
-      <span class="nt">docstring_style</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">google</span>  <span class="c1"># this is the default</span>
-      <span class="nt">docstring_options</span><span class="p">:</span>
-        <span class="nt">replace_admonitions</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">no</span> 
+<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">::</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_package.my_module</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">selection</span><span class="p p-Indicator">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">docstring_style</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">google</span><span class="w">  </span><span class="c1"># this is the default</span><span class="w"></span>
+<span class="w">      </span><span class="nt">docstring_options</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">replace_admonitions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">no</span><span class="w"> </span>
 </code></pre></div>
 <h5 id="annotations">Annotations<a class="headerlink" href="#annotations" title="Permanent link">¤</a></h5>
 <p>Type annotations are read both in the code and in the docstrings.</p>
@@ -1535,15 +1809,15 @@ but this is <strong>not recommended</strong> as it could affect other Python pro
 setx PYTHONPATH src  <span class="c1"># Windows, USE AT YOUR OWN RISKS</span>
 </code></pre></div>
 <p>You can also use the Python handler <code>setup_commands</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span>
-<span class="nt">plugins</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
-      <span class="nt">handlers</span><span class="p">:</span>
-        <span class="nt">python</span><span class="p">:</span>
-          <span class="nt">setup_commands</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">import sys</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.path.append(&quot;src&quot;)</span>
-            <span class="c1"># or sys.path.insert(0, &quot;src&quot;)</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span><span class="w"></span>
+<span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">setup_commands</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">import sys</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sys.path.append(&quot;src&quot;)</span><span class="w"></span>
+<span class="w">            </span><span class="c1"># or sys.path.insert(0, &quot;src&quot;)</span><span class="w"></span>
 </code></pre></div>
 <h2 id="mocking-libraries">Mocking libraries<a class="headerlink" href="#mocking-libraries" title="Permanent link">¤</a></h2>
 <p>You may want to to generate documentation for a package while its dependencies are not available.
@@ -1551,38 +1825,38 @@ The Python handler provides itself no builtin way to mock libraries,
 but you can use the <code>setup_commands</code> to mock them manually:</p>
 <div class="admonition example">
 <p class="admonition-title">mkdocs.yml</p>
-<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
-      <span class="nt">handlers</span><span class="p">:</span>
-        <span class="nt">python</span><span class="p">:</span>
-          <span class="nt">setup_commands</span><span class="p">:</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">import sys</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">from unittest.mock import MagicMock as mock</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.modules[&quot;lib1&quot;] = mock()</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.modules[&quot;lib2&quot;] = mock()</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.modules[&quot;lib2.module1&quot;] = mock()</span>
-            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sys.modules[&quot;lib2.module1.moduleB&quot;] = mock()</span>
-            <span class="c1"># etc</span>
+<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">setup_commands</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">import sys</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">from unittest.mock import MagicMock as mock</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sys.modules[&quot;lib1&quot;] = mock()</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sys.modules[&quot;lib2&quot;] = mock()</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sys.modules[&quot;lib2.module1&quot;] = mock()</span><span class="w"></span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sys.modules[&quot;lib2.module1.moduleB&quot;] = mock()</span><span class="w"></span>
+<span class="w">            </span><span class="c1"># etc</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h2 id="recommended-style-material">Recommended style (Material)<a class="headerlink" href="#recommended-style-material" title="Permanent link">¤</a></h2>
 <p>Here are some CSS rules for the
 <a href="https://squidfunk.github.io/mkdocs-material/"><em>Material for MkDocs</em></a> theme:</p>
-<div class="highlight"><pre><span></span><code><span class="c">/* Indentation. */</span>
-<span class="nt">div</span><span class="p">.</span><span class="nc">doc-contents</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">.</span><span class="nc">first</span><span class="o">)</span> <span class="p">{</span>
-  <span class="k">padding-left</span><span class="p">:</span> <span class="mi">25</span><span class="kt">px</span><span class="p">;</span>
-  <span class="k">border-left</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span> <span class="kc">solid</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">);</span>
-  <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">80</span><span class="kt">px</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="c">/* Indentation. */</span><span class="w"></span>
+<span class="nt">div</span><span class="p">.</span><span class="nc">doc-contents</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">.</span><span class="nc">first</span><span class="o">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">padding-left</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">border-left</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="nb">rgba</span><span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="w"> </span><span class="mi">230</span><span class="p">,</span><span class="w"> </span><span class="mi">230</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">margin-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 <h2 id="recommended-style-readthedocs">Recommended style (ReadTheDocs)<a class="headerlink" href="#recommended-style-readthedocs" title="Permanent link">¤</a></h2>
 <p>Here are some CSS rules for the built-in <em>ReadTheDocs</em> theme:</p>
-<div class="highlight"><pre><span></span><code><span class="c">/* Indentation. */</span>
-<span class="nt">div</span><span class="p">.</span><span class="nc">doc-contents</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">.</span><span class="nc">first</span><span class="o">)</span> <span class="p">{</span>
-  <span class="k">padding-left</span><span class="p">:</span> <span class="mi">25</span><span class="kt">px</span><span class="p">;</span>
-  <span class="k">border-left</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span> <span class="kc">solid</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">,</span> <span class="mi">230</span><span class="p">);</span>
-  <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="c">/* Indentation. */</span><span class="w"></span>
+<span class="nt">div</span><span class="p">.</span><span class="nc">doc-contents</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">.</span><span class="nc">first</span><span class="o">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">padding-left</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">border-left</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="nb">rgba</span><span class="p">(</span><span class="mi">230</span><span class="p">,</span><span class="w"> </span><span class="mi">230</span><span class="p">,</span><span class="w"> </span><span class="mi">230</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">margin-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="kt">px</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
               
@@ -1676,10 +1950,10 @@ but you can use the <code>setup_commands</code> to mock them manually:</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e1a181d9.min.js"></script>
+      <script src="../../assets/javascripts/bundle.1514a9a0.min.js"></script>
       
     
   </body>

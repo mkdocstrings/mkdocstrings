@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://mkdocstrings.github.io/usage/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.6">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.edf004c2.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.cd566b2a.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
@@ -66,7 +66,7 @@
   
     
     
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -450,9 +450,98 @@
         <ul class="md-nav__list" data-md-scrollfix>
           
             
-          
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../theming/" class="md-nav__link">
+        Theming
+      </a>
+    </li>
+  
+
             
           
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../handlers/overview/">Handlers</a>
+          
+            <label for="__nav_2_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Handlers" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Handlers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../handlers/python/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
+        Crystal
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        Troubleshooting
+      </a>
+    </li>
+  
+
             
           
         </ul>
@@ -959,8 +1048,8 @@ Check the documentation for your handler of interest in <a href="../handlers/ove
 </code></pre></div>
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">mkdocs.yml</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="nt">nav</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="s">&quot;My</span><span class="nv"> </span><span class="s">page&quot;</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">my_page.md</span>
+<div class="highlight"><pre><span></span><code><span class="nt">nav</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;My</span><span class="nv"> </span><span class="s">page&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_page.md</span><span class="w"></span>
 </code></pre></div>
 </div>
 <input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">src/my_package/my_module.py</label><div class="tabbed-content">
@@ -1021,22 +1110,22 @@ method_b<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 <p>Example:</p>
 <div class="admonition example">
 <p class="admonition-title">mkdocs.yml</p>
-<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
-    <span class="nt">default_handler</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">python</span>
-    <span class="nt">handlers</span><span class="p">:</span>
-      <span class="nt">python</span><span class="p">:</span>
-        <span class="nt">rendering</span><span class="p">:</span>
-          <span class="nt">show_source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-    <span class="nt">custom_templates</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">templates</span>
-    <span class="nt">watch</span><span class="p">:</span>
-      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">src/my_package</span>
+<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">default_handler</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python</span><span class="w"></span>
+<span class="w">    </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">rendering</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">show_source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">    </span><span class="nt">custom_templates</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">templates</span><span class="w"></span>
+<span class="w">    </span><span class="nt">watch</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src/my_package</span><span class="w"></span>
 </code></pre></div>
 </div>
 <p>The handlers global configuration can then be overridden by local configurations:</p>
-<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">::</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">my_package.my_module.MyClass</span>
-    <span class="l l-Scalar l-Scalar-Plain">rendering</span><span class="p p-Indicator">:</span>
-      <span class="nt">show_source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">::</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_package.my_module.MyClass</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">rendering</span><span class="p p-Indicator">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">show_source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
 <h2 id="cross-references">Cross-references<a class="headerlink" href="#cross-references" title="Permanent link">¤</a></h2>
 <p>Cross-references are written as Markdown <em>reference-style</em> links:</p>
@@ -1075,12 +1164,12 @@ enable the <a href="https://github.com/mkdocstrings/autorefs"><em>autorefs</em> 
 <code>autorefs</code> to <code>plugins</code>:</p>
 <div class="admonition example">
 <p class="admonition-title">mkdocs.yml</p>
-<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">admonition</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">search</span>
-<span class="hll">  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">autorefs</span>
-</span>  <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
-      <span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admonition</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search</span><span class="w"></span>
+<span class="hll"><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">autorefs</span><span class="w"></span>
+</span><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span><span class="w"></span>
 </code></pre></div>
 </div>
 <p>Note that you don't need to (<code>pip</code>) install anything more; this plugin is guaranteed to be pulled in with <em>mkdocstrings</em>.</p>
@@ -1150,12 +1239,12 @@ to load the inventory it provides. Each handler will be responsible of loading
 inventories specific to its language. For example, the Python handler
 can load Sphinx-generated inventories (<code>objects.inv</code>).</p>
 <p>In the following snippet, we load the inventory provided by <code>requests</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
-    <span class="nt">handlers</span><span class="p">:</span>
-      <span class="nt">python</span><span class="p">:</span>
-        <span class="nt">import</span><span class="p">:</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://docs.python-requests.org/en/master/objects.inv</span>
+<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">import</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://docs.python-requests.org/en/master/objects.inv</span><span class="w"></span>
 </code></pre></div>
 <p>Now it is possible to cross-reference <code>requests</code>' items! For example:</p>
 <div class="tabbed-set" data-tabs="5:3"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><label for="__tabbed_5_1">Markdown</label><div class="tabbed-content">
@@ -1172,22 +1261,22 @@ to know what parameters you can pass.<span class="p">&lt;/</span><span class="nt
 </div>
 </div>
 <p>You can of course select another version of the inventory, for example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
-    <span class="nt">handlers</span><span class="p">:</span>
-      <span class="nt">python</span><span class="p">:</span>
-        <span class="nt">import</span><span class="p">:</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://docs.python-requests.org/en/v3.0.0/objects.inv</span>
+<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">import</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://docs.python-requests.org/en/v3.0.0/objects.inv</span><span class="w"></span>
 </code></pre></div>
 <p>In case the inventory file is not served under the base documentation URL,
 you can explicitly specify both URLs:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
-    <span class="nt">handlers</span><span class="p">:</span>
-      <span class="nt">python</span><span class="p">:</span>
-        <span class="nt">import</span><span class="p">:</span>
-        <span class="p p-Indicator">-</span> <span class="nt">url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://cdn.example.com/version/objects.inv</span>
-          <span class="nt">base_url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://docs.example.com/version</span>
+<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">import</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://cdn.example.com/version/objects.inv</span><span class="w"></span>
+<span class="w">          </span><span class="nt">base_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://docs.example.com/version</span><span class="w"></span>
 </code></pre></div>
 <p>Absolute URLs to cross-referenced items will then be based
 on <code>https://docs.example.com/version/</code> instead of <code>https://cdn.example.com/version/</code>.</p>
@@ -1196,20 +1285,20 @@ It will be enabled by default if the Python handler is used, and generated as <c
 Other projects will be able to cross-reference items from your project!</p>
 <p>To explicitely enable or disable the generation of the inventory file, use the global
 <code>enable_inventory</code> option:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
-    <span class="nt">enable_inventory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">enable_inventory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
 </code></pre></div>
 <h2 id="watch-directories">Watch directories<a class="headerlink" href="#watch-directories" title="Permanent link">¤</a></h2>
 <p>You can add directories to watch with the <code>watch</code> key.
 It accepts a list of paths.</p>
 <div class="admonition example">
 <p class="admonition-title">mkdocs.yml</p>
-<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">mkdocstrings</span><span class="p">:</span>
-      <span class="nt">watch</span><span class="p">:</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">src/my_package_1</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">src/my_package_2</span>
+<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">watch</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src/my_package_1</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src/my_package_2</span><span class="w"></span>
 </code></pre></div>
 </div>
 <p>When serving your documentation
@@ -1315,10 +1404,10 @@ see <a href="../handlers/python/#finding-modules">Python Handler: Finding module
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../assets/javascripts/bundle.e1a181d9.min.js"></script>
+      <script src="../assets/javascripts/bundle.1514a9a0.min.js"></script>
       
     
   </body>
