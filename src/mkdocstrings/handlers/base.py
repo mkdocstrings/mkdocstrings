@@ -56,6 +56,24 @@ def do_any(seq: Sequence, attribute: str = None) -> bool:
     return any(_[attribute] for _ in seq)
 
 
+def do_strip_p(html: str) -> str:
+    """Strip `<p>` and `</p>` from the beginning and end of the given HTML text.
+
+    This is only useful for Markdown text that was rendered as a single paragraph.
+
+    Parameters:
+        html: The HTML text to strip from.
+
+    Returns:
+        The stripped HTML text.
+    """
+    if html.startswith("<p>"):
+        html = html[3:]
+    if html.endswith("</p>"):
+        html = html[:-4]
+    return html
+
+
 class BaseRenderer(ABC):
     """The base renderer class.
 
@@ -106,6 +124,7 @@ class BaseRenderer(ABC):
             auto_reload=False,  # Editing a template in the middle of a build is not useful.
         )
         self.env.filters["any"] = do_any
+        self.env.filters["strip_p"] = do_strip_p
         self.env.globals["log"] = get_template_logger()
 
         self._headings: List[Element] = []
