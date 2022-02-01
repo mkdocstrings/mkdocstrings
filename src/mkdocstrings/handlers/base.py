@@ -9,9 +9,9 @@ It also provides two methods:
 """
 
 import importlib
-import sys
 import warnings
 from abc import ABC, abstractmethod
+from contextlib import suppress
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence
 from xml.etree.ElementTree import Element, tostring
@@ -74,20 +74,30 @@ class BaseRenderer(ABC):
     fallback_theme: str = ""
     extra_css = ""
 
-    def __init__(self, directory: str, theme: str, custom_templates: Optional[str] = None) -> None:
+    def __init__(self, handler: str, theme: str, custom_templates: Optional[str] = None, directory: str = None) -> None:
         """Initialize the object.
 
         If the given theme is not supported (it does not exist), it will look for a `fallback_theme` attribute
         in `self` to use as a fallback theme.
 
         Arguments:
-            directory: The name of the directory containing the themes for this renderer.
+            handler: The name of the handler.
             theme: The name of theme to use.
             custom_templates: Directory containing custom templates.
+            directory: Deprecated and renamed as `handler`.
         """
+        # TODO: remove at some point
+        if directory:
+            warnings.warn(
+                "The 'directory' keyword parameter is deprecated and renamed 'handler'. ",
+                DeprecationWarning,
+            )
+            if not handler:
+                handler = directory
+
         paths = []
 
-        themes_dir = self.get_templates_dir() / directory
+        themes_dir = self.get_templates_dir(handler)
         paths.append(themes_dir / theme)
 
         if self.fallback_theme and self.fallback_theme != theme:
@@ -100,7 +110,7 @@ class BaseRenderer(ABC):
                 break
 
         if custom_templates is not None:
-            paths.insert(0, Path(custom_templates) / directory / theme)
+            paths.insert(0, Path(custom_templates) / handler / theme)
 
         self.env = Environment(
             autoescape=True,
@@ -125,29 +135,52 @@ class BaseRenderer(ABC):
             The rendered template as HTML.
         """  # noqa: DAR202 (excess return section)
 
-    def get_templates_dir(self) -> Path:
+    def get_templates_dir(self, handler: str) -> Path:
         """Return the path to the handler's templates directory.
 
-        Override this method if your handler is for example compiled from C
-        and does not expose a module directly on the file system from
-        which we can infer the templates directory path.
+        Override to customize how the templates directory is found.
+
+        Arguments:
+            handler: The name of the handler to get the templates directory of.
+
+        Raises:
+            FileNotFoundError: When the templates directory cannot be found.
 
         Returns:
             The templates directory path.
         """
-        # Namespace packages can span multiple locations.
-        # This class can be derived, so we must find the templates path
-        # based on the file path the derived class was defined in.
-        # To do this, we first get the module of this derived class:
-        module = sys.modules[self.__class__.__module__]  # noqa: WPS609
-        # Then we can get the module path:
-        module_path = Path(module.__file__)  # type: ignore[arg-type]  # noqa: WPS609
-        # Now we can go up to the "mkdocstrings" folder,
-        # and one down to the "templates" folder:
-        templates_dir = module_path.parent.resolve()
-        while templates_dir.name != "mkdocstrings":
-            templates_dir = templates_dir.parent
-        return templates_dir / "templates"
+        # Templates can be found in 2 different logical locations:
+        # - in mkdocstrings_handlers/HANDLER/templates: our new migration target
+        # - in mkdocstrings/templates/HANDLER: current situation, this should be avoided
+        # These two other locations are forbidden:
+        # - in mkdocstrings_handlers/templates/HANDLER: sub-namespace packages are too annoying to deal with
+        # - in mkdocstrings/handlers/HANDLER/templates: not currently supported,
+        #   and mkdocstrings will stop being a namespace
+
+        with suppress(ModuleNotFoundError):  # TODO: catch at some point to warn about missing handlers
+            import mkdocstrings_handlers
+
+            for path in mkdocstrings_handlers.__path__:  # noqa: WPS609
+                theme_path = Path(path, handler, "templates")
+                if theme_path.exists():
+                    return theme_path
+
+        # TODO: remove import and loop at some point,
+        # as mkdocstrings will stop being a namespace package
+        import mkdocstrings
+
+        for path in mkdocstrings.__path__:  # noqa: WPS609,WPS440
+            theme_path = Path(path, "templates", handler)
+            if theme_path.exists():
+                if handler != "python":
+                    warnings.warn(
+                        "Exposing templates in the mkdocstrings.templates namespace is deprecated. "
+                        "Put them in a templates folder inside your handler package instead.",
+                        DeprecationWarning,
+                    )
+                return theme_path
+
+        raise FileNotFoundError(f"Can't find 'templates' folder for handler '{handler}'")
 
     def get_anchors(self, data: CollectorItem) -> Sequence[str]:
         """Return the possible identifiers (HTML anchors) for a collected item.
@@ -428,12 +461,13 @@ class Handlers:
                 module = importlib.import_module(f"mkdocstrings_handlers.{name}")
             except ModuleNotFoundError:
                 module = importlib.import_module(f"mkdocstrings.handlers.{name}")
-                warnings.warn(
-                    DeprecationWarning(
-                        "Using the mkdocstrings.handlers namespace is deprecated. "
-                        "Handlers must now use the mkdocstrings_handlers namespace."
+                if name != "python":
+                    warnings.warn(
+                        DeprecationWarning(
+                            "Using the mkdocstrings.handlers namespace is deprecated. "
+                            "Handlers must now use the mkdocstrings_handlers namespace."
+                        )
                     )
-                )
             self._handlers[name] = module.get_handler(
                 self._config["theme_name"],
                 self._config["mkdocstrings"]["custom_templates"],
