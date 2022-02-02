@@ -209,6 +209,19 @@ class _HeadingReportingTreeprocessor(Treeprocessor):
                 self.headings.append(el)
 
 
+class ParagraphStrippingTreeprocessor(Treeprocessor):
+    """Unwraps the <p> element around the whole output."""
+
+    name = "mkdocstrings_strip_paragraph"
+    strip = False
+
+    def run(self, root: Element):  # noqa: D102 (ignore missing docstring)
+        if self.strip and len(root) == 1 and root[0].tag == "p":
+            # Turn the single <p> element into the root element and inherit its tag name (it's significant!)
+            root[0].tag = root.tag
+            return root[0]
+
+
 class MkdocstringsInnerExtension(Extension):
     """Extension that should always be added to Markdown sub-documents that handlers request (and *only* them)."""
 
@@ -242,4 +255,9 @@ class MkdocstringsInnerExtension(Extension):
             _HeadingReportingTreeprocessor(md, self.headings),
             _HeadingReportingTreeprocessor.name,
             priority=1,  # Close to the end.
+        )
+        md.treeprocessors.register(
+            ParagraphStrippingTreeprocessor(md),
+            ParagraphStrippingTreeprocessor.name,
+            priority=0.99,  # Close to the end.
         )
