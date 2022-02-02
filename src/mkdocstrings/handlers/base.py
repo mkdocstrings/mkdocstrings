@@ -24,6 +24,7 @@ from mkdocstrings.handlers.rendering import (
     Highlighter,
     IdPrependingTreeprocessor,
     MkdocstringsInnerExtension,
+    ParagraphStrippingTreeprocessor,
 )
 from mkdocstrings.inventory import Inventory
 from mkdocstrings.loggers import get_template_logger
@@ -162,13 +163,14 @@ class BaseRenderer(ABC):
         except AttributeError:
             return ()
 
-    def do_convert_markdown(self, text: str, heading_level: int, html_id: str = "") -> Markup:
+    def do_convert_markdown(self, text: str, heading_level: int, html_id: str = "", *, strip_paragraph=False) -> Markup:
         """Render Markdown text; for use inside templates.
 
         Arguments:
             text: The text to convert.
             heading_level: The base heading level to start all Markdown headings from.
             html_id: The HTML id of the element that's considered the parent of this element.
+            strip_paragraph: Whether to exclude the <p> tag from around the whole output.
 
         Returns:
             An HTML string.
@@ -176,11 +178,13 @@ class BaseRenderer(ABC):
         treeprocessors = self._md.treeprocessors
         treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = heading_level
         treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"
+        treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph
         try:
             return Markup(self._md.convert(text))
         finally:
             treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0
             treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""
+            treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False
             self._md.reset()
 
     def do_heading(
