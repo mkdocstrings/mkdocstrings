@@ -36,27 +36,16 @@ dependencies = [
 The legacy handler will continue to "work" for many releases,
 as long as the new handler does not cover all previous use-cases.
 
-Using the legacy handler will emit Python warnings:
-
-- a `DeprecationWarning` from *mkdocstrings* because the legacy
-  handler is loaded from a deprecated namespace package, `mkdocstrings.handlers`.
-  The warning will disappear once we migrate it to the new namespace, `mkdocstrings_handlers`.
-- another `DeprecationWarning` from *mkdocstrings* because the legacy
-  handler templates are loaded from a deprecated namespace as well, `mkdocstrings.templates`.
-  The warning will disappear once we migrate the templates inside the handler's package.
-- a `UserWarning` from the legacy handler itself, stating that users
-  should specify the `python-legacy` extra when depending on *mkdocstrings*.
-  The warning will be emitted even if you do specify the extra, as we have
-  no way to detect it.
+Using the legacy handler will emit a `UserWarning` stating that users
+should specify the `python-legacy` extra when depending on *mkdocstrings*.
+The warning will be emitted even if you do specify the extra, as we have
+no way to detect it.
 
 Warnings can be globally ignored by setting the
 [`PYTHONWARNINGS` environment variable](https://docs.python.org/3/library/warnings.html#describing-warning-filters):
 
 ```bash
-PYTHONWARNINGS=\
-ignore::DeprecationWarning:mkdocstrings.handlers.base,\
-ignore::DeprecationWarning:mkdocstrings.handlers.base,\
-ignore::UserWarning:mkdocstrings.handlers.python
+PYTHONWARNINGS=ignore::UserWarning:mkdocstrings.handlers.python
 ```
 
 ### Migrate to the experimental Python handler
