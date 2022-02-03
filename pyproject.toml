@@ -35,13 +35,13 @@ dependencies = [
     "MarkupSafe>=1.1",
     "mkdocs>=1.2",
     "mkdocs-autorefs>=0.3.1",
-    "mkdocstrings-python-legacy>=0.1",
+    "mkdocstrings-python-legacy>=0.2",
     "pymdown-extensions>=6.3",
 ]
 
 [project.optional-dependencies]
-python-legacy = ["mkdocstrings-python-legacy"]
-python = ["mkdocstrings-python"]
+python-legacy = ["mkdocstrings-python-legacy>=0.2"]
+python = ["mkdocstrings-python>=0.5.1"]
 
 [project.urls]
 Homepage = "https://mkdocstrings.github.io"
@@ -69,6 +69,7 @@ docs = [
     "mkdocs-literate-nav>=0.4",
     "mkdocs-material>=7.3",
     "mkdocs-section-index>=0.3",
+    "mkdocstrings-python>=0.5.1",
     "toml>=0.10",
 ]
 format = [
