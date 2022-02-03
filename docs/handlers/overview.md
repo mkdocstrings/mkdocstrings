@@ -33,7 +33,7 @@ dependencies = [
 ]
 ```
 
-The legacy handler will keep "working" for many releases,
+The legacy handler will continue to "work" for many releases,
 as long as the new handler does not cover all previous use-cases.
 
 Using the legacy handler will emit Python warnings:
