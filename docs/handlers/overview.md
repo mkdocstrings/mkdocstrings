@@ -87,6 +87,8 @@ dependencies = [
 - `inherited_members` is not yet implemented.
 - `docstring_style` is implemented, and used as before,
   except for the `restructured-text` style which is renamed `sphinx`.
+  Numpy-style is now built-in, so you can stop depending on `pytkdocs[numpy-style]`
+  or `docstring_parser`.
 - `docstring_options` is implemented, and used as before, however none
   of the provided parsers accept any option yet.
 - `new_path_syntax` is irrelevant now. If you were setting it to True,
