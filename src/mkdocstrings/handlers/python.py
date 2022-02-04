@@ -252,19 +252,23 @@ class PythonCollector(BaseCollector):
             raise CollectionError(error) from exception
 
         error = result.get("error")
-        if error:
+        if error is not None:
             if "traceback" in result:
                 error += f"\n{result['traceback']}"
             raise CollectionError(error)
 
-        for loading_error in result["loading_errors"]:
-            log.warning(loading_error)
+        if "loading_errors" in result:
+            for loading_error in result["loading_errors"]:
+                log.warning(loading_error)
 
-        for errors in result["parsing_errors"].values():
-            for parsing_error in errors:
-                log.warning(parsing_error)
+        if "parsing_errors" in result:
+            for errors in result["parsing_errors"].values():
+                for parsing_error in errors:
+                    log.warning(parsing_error)
 
         # We always collect only one object at a time
+        if "objects" not in result:
+            raise CollectionError(f"No objects returned in {result} for python object: {identifier}")
         result = result["objects"][0]
 
         log.debug("Rebuilding categories and children lists")
