@@ -2,7 +2,7 @@
 
 import logging
 from pathlib import Path
-from typing import Any, Callable, Dict, Optional, Tuple
+from typing import Any, Callable, MutableMapping, Optional, Tuple
 
 from jinja2.runtime import Context
 from mkdocs.utils import warning_filter
@@ -28,7 +28,7 @@ class LoggerAdapter(logging.LoggerAdapter):
         super().__init__(logger, {})
         self.prefix = prefix
 
-    def process(self, msg: str, kwargs: Dict[Any, Any]) -> Tuple[str, Any]:
+    def process(self, msg: str, kwargs: MutableMapping[str, Any]) -> Tuple[str, Any]:
         """Process the message.
 
         Arguments:
