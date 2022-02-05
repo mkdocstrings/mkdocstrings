@@ -80,7 +80,7 @@ class Inventory(dict):
         self.project = project
         self.version = version
 
-    def register(self, *args, **kwargs):
+    def register(self, *args: str, **kwargs: str):
         """Create and register an item.
 
         Arguments:

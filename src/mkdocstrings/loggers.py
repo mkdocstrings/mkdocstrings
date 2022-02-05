@@ -2,7 +2,7 @@
 
 import logging
 from pathlib import Path
-from typing import Any, Callable, Optional, Tuple
+from typing import Any, Callable, Dict, Optional, Tuple
 
 from jinja2.runtime import Context
 from mkdocs.utils import warning_filter
@@ -18,7 +18,7 @@ TEMPLATES_DIR = Path(__file__).parent / "templates"
 class LoggerAdapter(logging.LoggerAdapter):
     """A logger adapter to prefix messages."""
 
-    def __init__(self, prefix: str, logger):
+    def __init__(self, prefix: str, logger: logging.Logger):
         """Initialize the object.
 
         Arguments:
@@ -28,7 +28,7 @@ class LoggerAdapter(logging.LoggerAdapter):
         super().__init__(logger, {})
         self.prefix = prefix
 
-    def process(self, msg: str, kwargs) -> Tuple[str, Any]:
+    def process(self, msg: str, kwargs: Dict[Any, Any]) -> Tuple[str, Any]:
         """Process the message.
 
         Arguments:

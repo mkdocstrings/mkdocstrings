@@ -22,6 +22,7 @@ from urllib import request
 
 from mkdocs.config import Config
 from mkdocs.config.config_options import Type as MkType
+from mkdocs.livereload import LiveReloadServer
 from mkdocs.plugins import BasePlugin
 from mkdocs.utils import write_file
 from mkdocs_autorefs.plugin import AutorefsPlugin
@@ -114,7 +115,7 @@ class MkdocstringsPlugin(BasePlugin):
             raise RuntimeError("The plugin hasn't been initialized with a config yet")
         return self._handlers
 
-    def on_serve(self, server, builder: Callable, **kwargs):  # noqa: W0613 (unused arguments)
+    def on_serve(self, server: LiveReloadServer, builder: Callable, **kwargs: Any):  # noqa: W0613 (unused arguments)
         """Watch directories.
 
         Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).
@@ -125,13 +126,13 @@ class MkdocstringsPlugin(BasePlugin):
         Arguments:
             server: The `livereload` server instance.
             builder: The function to build the site.
-            kwargs: Additional arguments passed by MkDocs.
+            **kwargs: Additional arguments passed by MkDocs.
         """
         for element in self.config["watch"]:
             log.debug(f"Adding directory '{element}' to watcher")
             server.watch(element, builder)
 
-    def on_config(self, config: Config, **kwargs) -> Config:  # noqa: W0613 (unused arguments)
+    def on_config(self, config: Config, **kwargs: Any) -> Config:  # noqa: W0613 (unused arguments)
         """Instantiate our Markdown extension.
 
         Hook for the [`on_config` event](https://www.mkdocs.org/user-guide/plugins/#on_config).
@@ -143,7 +144,7 @@ class MkdocstringsPlugin(BasePlugin):
 
         Arguments:
             config: The MkDocs config object.
-            kwargs: Additional arguments passed by MkDocs.
+            **kwargs: Additional arguments passed by MkDocs.
 
         Returns:
             The modified config.
@@ -238,7 +239,9 @@ class MkdocstringsPlugin(BasePlugin):
                 config["plugins"]["autorefs"].register_url(page, identifier)
             self._inv_futures = []
 
-    def on_post_build(self, config: Config, **kwargs) -> None:  # noqa: W0613,R0201 (unused arguments, cannot be static)
+    def on_post_build(
+        self, config: Config, **kwargs: Any
+    ) -> None:  # noqa: W0613,R0201 (unused arguments, cannot be static)
         """Teardown the handlers.
 
         Hook for the [`on_post_build` event](https://www.mkdocs.org/user-guide/plugins/#on_post_build).
@@ -250,7 +253,7 @@ class MkdocstringsPlugin(BasePlugin):
 
         Arguments:
             config: The MkDocs config object.
-            kwargs: Additional arguments passed by MkDocs.
+            **kwargs: Additional arguments passed by MkDocs.
         """
         for future in self._inv_futures:
             future.cancel()
@@ -272,13 +275,13 @@ class MkdocstringsPlugin(BasePlugin):
 
     @classmethod
     @functools.lru_cache(maxsize=None)
-    def _load_inventory(cls, loader: InventoryLoaderType, url: str, **kwargs) -> Mapping[str, str]:
+    def _load_inventory(cls, loader: InventoryLoaderType, url: str, **kwargs: Any) -> Mapping[str, str]:
         """Download and process inventory files using a handler.
 
         Arguments:
             loader: A function returning a sequence of pairs (identifier, url).
             url: The URL to download and process.
-            kwargs: Extra arguments to pass to the loader.
+            **kwargs: Extra arguments to pass to the loader.
 
         Returns:
             A mapping from identifier to absolute URL.

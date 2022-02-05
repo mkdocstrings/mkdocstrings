@@ -23,7 +23,7 @@ instruction:
 """
 import re
 from collections import ChainMap
-from typing import Mapping, MutableMapping, MutableSequence, Tuple
+from typing import Any, Mapping, MutableMapping, MutableSequence, Tuple
 from xml.etree.ElementTree import Element
 
 import yaml
@@ -69,8 +69,8 @@ class AutoDocProcessor(BlockProcessor):
             md: A `markdown.Markdown` instance.
             config: The [configuration][mkdocstrings.plugin.MkdocstringsPlugin.config_scheme]
                 of the `mkdocstrings` plugin.
-            handlers: A [mkdocstrings.handlers.base.Handlers][] instance.
-            autorefs: A [mkdocs_autorefs.plugin.AutorefsPlugin][] instance.
+            handlers: The handlers container.
+            autorefs: The autorefs plugin instance.
         """
         super().__init__(parser=parser)
         self.md = md
@@ -243,15 +243,15 @@ class MkdocstringsExtension(Extension):
     It cannot work outside of `mkdocstrings`.
     """
 
-    def __init__(self, config: dict, handlers: Handlers, autorefs: AutorefsPlugin, **kwargs) -> None:
+    def __init__(self, config: dict, handlers: Handlers, autorefs: AutorefsPlugin, **kwargs: Any) -> None:
         """Initialize the object.
 
         Arguments:
             config: The configuration items from `mkdocs` and `mkdocstrings` that must be passed to the block processor
                 when instantiated in [`extendMarkdown`][mkdocstrings.extension.MkdocstringsExtension.extendMarkdown].
-            handlers: A [mkdocstrings.handlers.base.Handlers][] instance.
-            autorefs: A [mkdocs_autorefs.plugin.AutorefsPlugin][] instance.
-            kwargs: Keyword arguments used by `markdown.extensions.Extension`.
+            handlers: The handlers container.
+            autorefs: The autorefs plugin instance.
+            **kwargs: Keyword arguments used by `markdown.extensions.Extension`.
         """
         super().__init__(**kwargs)
         self._config = config

@@ -81,7 +81,7 @@ class Highlighter(Highlight):
         inline: bool = False,
         dedent: bool = True,
         linenums: Optional[bool] = None,
-        **kwargs,
+        **kwargs: Any,
     ) -> str:
         """Highlight a code-snippet.
 

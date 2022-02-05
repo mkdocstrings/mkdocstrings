@@ -197,7 +197,9 @@ class BaseRenderer(ABC):
         except AttributeError:
             return ()
 
-    def do_convert_markdown(self, text: str, heading_level: int, html_id: str = "", *, strip_paragraph=False) -> Markup:
+    def do_convert_markdown(
+        self, text: str, heading_level: int, html_id: str = "", *, strip_paragraph: bool = False
+    ) -> Markup:
         """Render Markdown text; for use inside templates.
 
         Arguments:
@@ -239,7 +241,7 @@ class BaseRenderer(ABC):
             role: An optional role for the object bound to this heading.
             hidden: If True, only register it for the table of contents, don't render anything.
             toc_label: The title to use in the table of contents ('data-toc-label' attribute).
-            attributes: Any extra HTML attributes of the heading.
+            **attributes: Any extra HTML attributes of the heading.
 
         Returns:
             An HTML string.
