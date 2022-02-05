@@ -11,6 +11,14 @@ The syntax is as follows:
     YAML block
 ```
 
+!!! note "Resources on YAML"
+    YAML can sometimes be a bit tricky, particularly on indentation.
+    Here are some resources that other users found useful to better
+    understand YAML's peculiarities.
+
+    - [YAML idiosyncrasies](https://docs.saltproject.io/en/3000/topics/troubleshooting/yaml_idiosyncrasies.html)
+    - [YAML multiline](https://yaml-multiline.info/)
+
 The `identifier` is a string identifying the object you want to document.
 The format of an identifier can vary from one handler to another.
 For example, the Python handler expects the full dotted-path to a Python object:
