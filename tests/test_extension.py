@@ -6,11 +6,6 @@ from textwrap import dedent
 import pytest
 
 
-def test_render_html_escaped_sequences(ext_markdown):
-    """Assert HTML-escaped sequences are correctly parsed as XML."""
-    ext_markdown.convert("::: tests.fixtures.html_escaped_sequences")
-
-
 @pytest.mark.parametrize("ext_markdown", [{"markdown_extensions": [{"footnotes": {}}]}], indirect=["ext_markdown"])
 def test_multiple_footnotes(ext_markdown):
     """Assert footnotes don't get added to subsequent docstrings."""

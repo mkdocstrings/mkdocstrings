@@ -173,18 +173,16 @@ For *mkdocstrings*, a custom handler package would have the following structure:
 
 ```
 📁 your_repository
-└─╴📁 mkdocstrings
-   └─╴📁 handlers
-      └─╴📄 custom_handler.py
+└─╴📁 mkdocstrings_handlers
+   └─╴📁 custom_handler
+      ├─╴📁 templates
+      │  ├─╴📁 material
+      │  ├─╴📁 mkdocs
+      │  └─╴📁 readthedocs
+      └─╴📄 __init__.py
 ```
 
-**Note the absence of `__init__.py` modules!**
-
-If you name you handler after an existing handler,
-it will overwrite it!
-For example, it means you can overwrite the Python handler
-to change how it works or to add functionality,
-by naming your handler module `python.py`.
+**Note the absence of `__init__.py` module in `mkdocstrings_handlers`!**
 
 ### Code
 
@@ -196,7 +194,7 @@ See the documentation for
 [`BaseRenderer`][mkdocstrings.handlers.base.BaseRenderer].
 
 Check out how the
-[Python handler](https://github.com/pawamoy/mkdocstrings/blob/master/src/mkdocstrings/handlers/python.py)
+[Python handler](https://github.com/mkdocstrings/python/blob/master/src/mkdocstrings_handlers/python)
 is written for inspiration.
 
 You must implement a `get_handler` method at the module level.
@@ -208,8 +206,8 @@ will be passed to this function when getting your handler.
 
 ### Templates
 
-You renderer's implementation should normally be backed by templates, which go
-to the directory `mkdocstrings/handlers/custom_handler/some_theme`.
+Your renderer's implementation should normally be backed by templates, which go
+to the directory `mkdocstrings_handlers/custom_handler/templates/some_theme`.
 (`custom_handler` here should be replaced with the actual name of your handler,
 and `some_theme` should be the name of an actual MkDocs theme that you support,
 e.g. `material`).
@@ -227,10 +225,26 @@ one of the other theme directories in case they're exactly the same as in the
 fallback theme.
 
 If your theme's HTML requires CSS to go along with it, put it into a file named
-`mkdocstrings/handlers/custom_handler/some_theme/style.css`, then this will be
+`mkdocstrings_handlers/custom_handler/templates/some_theme/style.css`, then this will be
 included into the final site automatically if this handler is ever used.
 Alternatively, you can put the CSS as a string into the `extra_css` variable of
 your renderer.
+
+Finally, it's possible to entirely omit templates, and tell *mkdocstrings*
+to use the templates of another handler. In you renderer, override the
+`get_templates_dir()` method to return the other handlers templates path:
+
+```python
+from pathlib import Path
+from mkdocstrings.handlers.base import BaseRenderer
+
+
+class CobraRenderer(BaseRenderer):
+    def get_templates_dir(self, handler: str) -> Path:
+        # use the python handler templates
+        # (it assumes the python handler is installed)
+        return super().get_templates_dir("python")
+```
 
 ### Usage
 
