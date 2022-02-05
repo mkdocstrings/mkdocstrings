@@ -22,7 +22,8 @@ like classes built with a call to `type(...)`.
 For most other cases, the experimental handler will work just fine.
 
 If you want to keep using the legacy handler as long as possible,
-you can already specify the `python-legacy` extra when depending on *mkdocstrings*:
+you can depend on `mkdocstrings-python-legacy` directly,
+or specify the `python-legacy` extra when depending on *mkdocstrings*:
 
 ```toml
 # PEP 621 dependencies declaration
