@@ -76,6 +76,7 @@ plugins:
     scripts:
     - docs/gen_credits.py
     - docs/gen_ref_nav.py
+    - docs/gen_redirects.py
 - literate-nav:
     nav_file: SUMMARY.md
 - section-index

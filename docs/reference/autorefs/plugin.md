@@ -1,1 +1,0 @@
-::: mkdocs_autorefs.plugin
