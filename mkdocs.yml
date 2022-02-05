@@ -84,13 +84,10 @@ plugins:
 - mkdocstrings:
     handlers:
       python:
-        setup_commands:
-        - import sys
-        - sys.path.append("docs")
-        selection:
-          new_path_syntax: yes
-        import:  # demonstration purpose in the docs
-        - https://docs.python-requests.org/en/master/objects.inv
+        import:
+        - https://docs.python.org/3/objects.inv
+        - https://docs.python-requests.org/en/master/objects.inv  # demonstration purpose in the docs
+        - https://mkdocstrings.github.io/autorefs/objects.inv
     watch:
     - src/mkdocstrings
 
