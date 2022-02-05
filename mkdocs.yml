@@ -17,7 +17,7 @@ nav:
   - Theming: theming.md
   - Handlers:
     - handlers/overview.md
-    - Python: handlers/python.md
+    - Python: https://mkdocstrings.github.io/python/
     - Crystal: https://mkdocstrings.github.io/crystal/
   - Troubleshooting: troubleshooting.md
 # defer to gen-files + literate-nav

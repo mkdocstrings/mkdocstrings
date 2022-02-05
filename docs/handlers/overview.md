@@ -4,7 +4,7 @@ A handler is what makes it possible to collect and render documentation for a pa
 
 ## Available handlers
 
-- [Python](python.md)
+- <a class="external" href="https://mkdocstrings.github.io/python/">Python</a>
 - <a class="external" href="https://mkdocstrings.github.io/crystal/">Crystal</a>
 
 ## Custom handlers

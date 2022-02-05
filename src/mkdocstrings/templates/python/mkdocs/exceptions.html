@@ -1,7 +1,0 @@
-{{ log.debug() }}
-<dl>
-  <dt>Exceptions:</dt>
-  {% for exception in exceptions %}
-    <dd>{{ ("`" + exception.annotation + "`: " + exception.description)|convert_markdown(heading_level, html_id) }}</dd>
-  {% endfor %}
-</dl>

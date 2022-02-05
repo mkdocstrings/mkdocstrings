@@ -244,11 +244,9 @@ class MkdocstringsPlugin(BasePlugin):
         Hook for the [`on_post_build` event](https://www.mkdocs.org/user-guide/plugins/#on_post_build).
         This hook is used to teardown all the handlers that were instantiated and cached during documentation buildup.
 
-        For example, the [Python handler's collector][mkdocstrings.handlers.python.PythonCollector] opens a subprocess
-        in the background and keeps it open to feed it the "autodoc" instructions and get back JSON data. Therefore,
-        it must close it at some point, and it does it in its
-        [`teardown()` method][mkdocstrings.handlers.python.PythonCollector.teardown] which is indirectly called by
-        this hook.
+        For example, a handler could open a subprocess in the background and keep it open
+        to feed it "autodoc" instructions and get back JSON data. If so, it should then close the subprocess at some point:
+        the proper place to do this is in the collector's `teardown` method, which is indirectly called by this hook.
 
         Arguments:
             config: The MkDocs config object.

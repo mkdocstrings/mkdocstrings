@@ -363,4 +363,4 @@ MkDocs will rebuild the site and reload the current page.
     For example, it will not tell the Python handler to look for packages in these paths
     (the paths are not added to the `PYTHONPATH` variable).
     If you want to tell Python where to look for packages and modules,
-    see [Python Handler: Finding modules](handlers/python.md#finding-modules).
+    see [Python Handler: Finding modules](https://mkdocstrings.github.io/python/usage/#finding-modules).

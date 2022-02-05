@@ -1,9 +1,0 @@
-{{ log.debug() }}
-<p><strong>Examples:</strong></p>
-{% for section_type, sub_section in examples %}
-  {% if section_type == "markdown" %}
-    {{ sub_section|convert_markdown(heading_level, html_id) }}
-  {% elif section_type == "examples" %}
-    {{ sub_section|highlight(language="python", linenums=False) }}
-  {% endif %}
-{% endfor %}
