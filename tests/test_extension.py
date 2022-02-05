@@ -61,8 +61,8 @@ def test_quote_inside_annotation(ext_markdown):
 
 def test_html_inside_heading(ext_markdown):
     """Assert that headings don't double-escape HTML."""
-    output = ext_markdown.convert("::: tests.fixtures.builtin")
-    assert "=&lt;" in output
+    output = ext_markdown.convert("::: tests.fixtures.html_tokens")
+    assert "&#39;&lt;" in output
     assert "&amp;" not in output
 
 
