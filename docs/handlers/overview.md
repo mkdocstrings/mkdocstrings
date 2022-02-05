@@ -51,7 +51,8 @@ PYTHONWARNINGS=ignore::UserWarning:mkdocstrings.handlers.python
 ### Migrate to the experimental Python handler
 
 To use the new, experimental Python handler,
-you must specify the `python` extra when depending on *mkdocstrings*:
+you can depend on `mkdocstrings-python` directly,
+or specify the `python` extra when depending on *mkdocstrings*:
 
 ```toml
 # PEP 621 dependencies declaration
