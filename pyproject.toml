@@ -40,8 +40,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-python-legacy = ["mkdocstrings-python-legacy>=0.2"]
-python = ["mkdocstrings-python>=0.5.1"]
+crystal = ["mkdocstrings-crystal>=0.3.4"]
+python-legacy = ["mkdocstrings-python-legacy>=0.2.1"]
+python = ["mkdocstrings-python>=0.5.2"]
 
 [project.urls]
 Homepage = "https://mkdocstrings.github.io"
