@@ -5,6 +5,36 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.18.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.18.0) - 2022-02-06
+
+<small>[Compare with 0.17.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.17.0...0.18.0)</small>
+
+### Highlights
+- Python 3.6 support is dropped.
+- We provide a new, experimental Python handler based on [Griffe](https://github.com/mkdocstrings/griffe).
+  This new handler brings automatic cross-references for every annotation in your code,
+  including references to third-party libraries' APIs if they provide objects inventories
+  and you explicitely [load them](https://mkdocstrings.github.io/usage/#cross-references-to-other-projects-inventories) in `mkdocs.yml`.
+  [See migration notes in the documentation](https://mkdocstrings.github.io/handlers/overview/#about-the-python-handlers).
+- The "legacy" Python handler now lives in its own repository at https://github.com/mkdocstrings/python-legacy.
+
+### Packaging / Dependencies
+- Add Crystal extra, update Python extras versions ([b8222b0](https://github.com/mkdocstrings/mkdocstrings/commit/b8222b0150d4743be857bcbf40f014265095885b) by Timothée Mazzucotelli). [PR #374](https://github.com/mkdocstrings/mkdocstrings/pull/374)
+- Update autorefs to actually required version ([fc6c7f6](https://github.com/mkdocstrings/mkdocstrings/commit/fc6c7f652a420ac29cf16cbb99b11a55aa9b38ea) by Timothée Mazzucotelli).
+- Drop Python 3.6 support ([7205ac6](https://github.com/mkdocstrings/mkdocstrings/commit/7205ac6cf2861db61c2a5b8bf07d0e6b1a7f49fb) by Timothée Mazzucotelli).
+
+### Features
+- Allow unwrapping the `<p>` tag in `convert_markdown` filter ([5351fc8](https://github.com/mkdocstrings/mkdocstrings/commit/5351fc8b417fb20f0681a22f49fcc902579eacdb) by Oleh Prypin). [PR #369](https://github.com/mkdocstrings/mkdocstrings/pull/369)
+- Support handlers spanning multiple locations ([f42dfc6](https://github.com/mkdocstrings/mkdocstrings/commit/f42dfc61ce4f9f317c4bd17f568e504ed9764d35) by Timothée Mazzucotelli). [PR #355](https://github.com/mkdocstrings/mkdocstrings/pull/355)
+
+### Code Refactoring
+- Prefix logs with the package name only ([6c2b734](https://github.com/mkdocstrings/mkdocstrings/commit/6c2b7348ae40989e4adccc087feae599fcea949d) by Timothée Mazzucotelli). [PR #375](https://github.com/mkdocstrings/mkdocstrings/pull/375)
+- Extract the Python handler into its own repository ([74371e4](https://github.com/mkdocstrings/mkdocstrings/commit/74371e49c32059fefd34c7cc7f7b8f085b383237) by Timothée Mazzucotelli). [PR #356](https://github.com/mkdocstrings/mkdocstrings/pull/356)
+- Support Jinja2 3.1 ([b377227](https://github.com/mkdocstrings/mkdocstrings/commit/b37722716b1e0ed6393ec71308dfb0f85e142f3b) by Timothée Mazzucotelli). [Issue #360](https://github.com/mkdocstrings/mkdocstrings/issues/360), [PR #361](https://github.com/mkdocstrings/mkdocstrings/pull/361)
+- Find templates in new and deprecated namespaces ([d5d5f18](https://github.com/mkdocstrings/mkdocstrings/commit/d5d5f1844dbac3affacc95f2f3eab57a61d2068c) by Timothée Mazzucotelli). [PR #367](https://github.com/mkdocstrings/mkdocstrings/pull/367)
+- Support loading handlers from the `mkdocstrings_handlers` namespace ([5c22c6c](https://github.com/mkdocstrings/mkdocstrings/commit/5c22c6ce4e056ac2334e2dfcd47c1f1a7884d352) by Timothée Mazzucotelli). [PR #367](https://github.com/mkdocstrings/mkdocstrings/pull/367)
+
+
 ## [0.17.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.17.0) - 2021-12-27
 
 <small>[Compare with 0.16.2](https://github.com/mkdocstrings/mkdocstrings/compare/0.16.2...0.17.0)</small>
