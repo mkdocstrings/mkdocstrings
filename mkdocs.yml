@@ -65,7 +65,8 @@ markdown_extensions:
 - pymdownx.snippets:
     check_paths: true
 - pymdownx.superfences
-- pymdownx.tabbed
+- pymdownx.tabbed:
+    alternate_style: true
 - pymdownx.tasklist
 - toc:
     permalink: "¤"
