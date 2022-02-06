@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://mkdocstrings.github.io/troubleshooting/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.6">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.9">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.cd566b2a.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.2b4465f4.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
@@ -501,8 +501,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../handlers/python/" class="md-nav__link">
-        Python
+      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
+        Crystal
       </a>
     </li>
   
@@ -515,8 +515,22 @@
   
   
     <li class="md-nav__item">
-      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
-        Crystal
+      <a href="https://mkdocstrings.github.io/python-legacy/" class="md-nav__link">
+        Python (Legacy)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mkdocstrings.github.io/python/" class="md-nav__link">
+        Python (Experimental)
       </a>
     </li>
   
@@ -788,20 +802,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/handlers/python/" class="md-nav__link">
-        python.py
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../reference/handlers/rendering/" class="md-nav__link">
         rendering.py
       </a>
@@ -852,67 +852,6 @@
   
     <li class="md-nav__item">
       <a href="../reference/plugin/" class="md-nav__link">
-        plugin.py
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2">
-          mkdocs_autorefs
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_2">
-          <span class="md-nav__icon md-icon"></span>
-          mkdocs_autorefs
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../reference/autorefs/references/" class="md-nav__link">
-        references.py
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../reference/autorefs/plugin/" class="md-nav__link">
         plugin.py
       </a>
     </li>
@@ -1199,7 +1138,7 @@ when it should be <code>[Section][pytkdocs.parsers.docstrings.Section]</code>.</
 <li>Make sure the configuration options of the handler for both selection and rendering are correct.
   Check the documentation for <a href="../handlers/overview/">Handlers</a> to see the available options for each handler.</li>
 <li>Also make sure your documentation in your source code is formatted correctly.
-  For Python code, check the <a href="../handlers/python/#supported-docstrings-styles">supported docstring styles</a> page.</li>
+For Python code, check the <a href="https://mkdocstrings.github.io/python/usage/#supported-docstrings-styles">supported docstring styles</a> page.</li>
 <li>Re-run the Mkdocs command with <code>-v</code>, and carefully read any traceback.</li>
 </ul>
 <h2 id="tabs-in-docstrings-from-pymdownxtabbed-are-not-working-properly">Tabs in docstrings (from <code>pymdownx.tabbed</code>) are not working properly<a class="headerlink" href="#tabs-in-docstrings-from-pymdownxtabbed-are-not-working-properly" title="Permanent link">¤</a></h2>
@@ -1277,7 +1216,7 @@ See <a href="../usage/#cross-references-to-any-markdown-heading">Cross-reference
 <h2 id="python-specifics">Python specifics<a class="headerlink" href="#python-specifics" title="Permanent link">¤</a></h2>
 <h3 id="nothing-is-rendered-at-all">Nothing is rendered at all<a class="headerlink" href="#nothing-is-rendered-at-all" title="Permanent link">¤</a></h3>
 <p>Is your package available in the Python path?</p>
-<p>See <a href="../handlers/python/#finding-modules">Python handler: Finding modules</a>.</p>
+<p>See <a href="https://mkdocstrings.github.io/python/usage/#finding-modules">Python handler: Finding modules</a>.</p>
 <h3 id="latex-in-docstrings-is-not-rendered-correctly">LaTeX in docstrings is not rendered correctly<a class="headerlink" href="#latex-in-docstrings-is-not-rendered-correctly" title="Permanent link">¤</a></h3>
 <p>If you are using a Markdown extension like
 <a href="https://squidfunk.github.io/mkdocs-material/extensions/pymdown/#arithmatex-mathjax">Arithmatex Mathjax</a>
@@ -1369,7 +1308,7 @@ searching for pairs of nodes like <code>assignment</code>-<code>string</code>, a
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../handlers/python/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Python" rel="prev">
+        <a href="../handlers/overview/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Handlers" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1378,7 +1317,7 @@ searching for pairs of nodes like <code>assignment</code>-<code>string</code>, a
               <span class="md-footer__direction">
                 Previous
               </span>
-              Python
+              Handlers
             </div>
           </div>
         </a>
@@ -1446,7 +1385,7 @@ searching for pairs of nodes like <code>assignment</code>-<code>string</code>, a
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../assets/javascripts/bundle.1514a9a0.min.js"></script>
+      <script src="../assets/javascripts/bundle.960e086b.min.js"></script>
       
     
   </body>

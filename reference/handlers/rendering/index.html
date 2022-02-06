@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://mkdocstrings.github.io/reference/handlers/rendering/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.6">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.9">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.cd566b2a.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.2b4465f4.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -499,8 +499,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../handlers/python/" class="md-nav__link">
-        Python
+      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
+        Crystal
       </a>
     </li>
   
@@ -513,8 +513,22 @@
   
   
     <li class="md-nav__item">
-      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
-        Crystal
+      <a href="https://mkdocstrings.github.io/python-legacy/" class="md-nav__link">
+        Python (Legacy)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mkdocstrings.github.io/python/" class="md-nav__link">
+        Python (Experimental)
       </a>
     </li>
   
@@ -666,20 +680,6 @@
               
   
   
-  
-    <li class="md-nav__item">
-      <a href="../python/" class="md-nav__link">
-        python.py
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
     
   
   
@@ -733,13 +733,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.rendering.HeadingShiftingTreeprocessor.run" class="md-nav__link">
-    run()
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -787,13 +780,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.rendering.IdPrependingTreeprocessor.run" class="md-nav__link">
-    run()
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -823,6 +809,20 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.rendering.ParagraphStrippingTreeprocessor" class="md-nav__link">
+    ParagraphStrippingTreeprocessor
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.rendering._HeadingReportingTreeprocessor" class="md-nav__link">
+    _HeadingReportingTreeprocessor
+  </a>
   
 </li>
       
@@ -877,67 +877,6 @@
   
     <li class="md-nav__item">
       <a href="../../plugin/" class="md-nav__link">
-        plugin.py
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2">
-          mkdocs_autorefs
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_2">
-          <span class="md-nav__icon md-icon"></span>
-          mkdocs_autorefs
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../autorefs/references/" class="md-nav__link">
-        references.py
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../autorefs/plugin/" class="md-nav__link">
         plugin.py
       </a>
     </li>
@@ -1095,13 +1034,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.rendering.HeadingShiftingTreeprocessor.run" class="md-nav__link">
-    run()
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1149,13 +1081,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.rendering.IdPrependingTreeprocessor.run" class="md-nav__link">
-    run()
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1185,6 +1110,20 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.rendering.ParagraphStrippingTreeprocessor" class="md-nav__link">
+    ParagraphStrippingTreeprocessor
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.rendering._HeadingReportingTreeprocessor" class="md-nav__link">
+    _HeadingReportingTreeprocessor
+  </a>
   
 </li>
       
@@ -1230,7 +1169,7 @@
 
 <h2 id="mkdocstrings.handlers.rendering.HeadingShiftingTreeprocessor" class="doc doc-heading">
         <code>
-HeadingShiftingTreeprocessor            (<span title="markdown.treeprocessors.Treeprocessor">Treeprocessor</span>)
+HeadingShiftingTreeprocessor            (Treeprocessor)
         </code>
 
 
@@ -1242,8 +1181,35 @@ HeadingShiftingTreeprocessor            (<span title="markdown.treeprocessors.Tr
       <p>Shift levels of all Markdown headings according to the configured base level.</p>
 
         <details class="quote">
-          <summary>Source code in <code>handlers/rendering.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">HeadingShiftingTreeprocessor</span><span class="p">(</span><span class="n">Treeprocessor</span><span class="p">):</span>
+          <summary>Source code in <code>mkdocstrings/handlers/rendering.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">HeadingShiftingTreeprocessor</span><span class="p">(</span><span class="n">Treeprocessor</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Shift levels of all Markdown headings according to the configured base level.&quot;&quot;&quot;</span>
 
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;mkdocstrings_headings&quot;</span>
@@ -1272,6 +1238,7 @@ HeadingShiftingTreeprocessor            (<span title="markdown.treeprocessors.Tr
                 <span class="n">level</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
                 <span class="n">el</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}{</span><span class="n">level</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div>
+</td></tr></table>
         </details>
 
 
@@ -1288,51 +1255,66 @@ HeadingShiftingTreeprocessor            (<span title="markdown.treeprocessors.Tr
 
 
 
-  <div class="doc doc-object doc-method">
+  <div class="doc doc-object doc-function">
 
 
 
 <h3 id="mkdocstrings.handlers.rendering.HeadingShiftingTreeprocessor.__init__" class="doc doc-heading">
 <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">shift_by</span><span class="p">)</span></code>
 
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-special"><code>special</code></small>
-  </span>
 
 <a href="#mkdocstrings.handlers.rendering.HeadingShiftingTreeprocessor.__init__" class="headerlink" title="Permanent link">¤</a></h3>
+
 
     <div class="doc doc-contents ">
 
       <p>Initialize the object.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>md</code></td>
-        <td><code>Markdown</code></td>
-        <td><p>A <code>markdown.Markdown</code> instance.</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
-      <tr>
-        <td><code>shift_by</code></td>
-        <td><code>int</code></td>
-        <td><p>The number of heading "levels" to add to every heading.</p></td>
-        <td><em>required</em></td>
-      </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>md</code></td>
+          <td>
+                <code>Markdown</code>
+          </td>
+          <td><p>A <code>markdown.Markdown</code> instance.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>shift_by</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td><p>The number of heading "levels" to add to every heading.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
-          <summary>Source code in <code>handlers/rendering.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">shift_by</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+          <summary>Source code in <code>mkdocstrings/handlers/rendering.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">shift_by</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1342,46 +1324,12 @@ HeadingShiftingTreeprocessor            (<span title="markdown.treeprocessors.Tr
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">md</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">shift_by</span> <span class="o">=</span> <span class="n">shift_by</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
   </div>
 
-
-
-  <div class="doc doc-object doc-method">
-
-
-
-<h3 id="mkdocstrings.handlers.rendering.HeadingShiftingTreeprocessor.run" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span></code>
-
-
-<a href="#mkdocstrings.handlers.rendering.HeadingShiftingTreeprocessor.run" class="headerlink" title="Permanent link">¤</a></h3>
-
-    <div class="doc doc-contents ">
-
-      <p>Subclasses of Treeprocessor should implement a <code>run</code> method, which
-takes a root ElementTree. This method can return another ElementTree
-object, and the existing root ElementTree will be replaced, or it can
-modify the current tree and return None.</p>
-
-        <details class="quote">
-          <summary>Source code in <code>handlers/rendering.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">Element</span><span class="p">):</span>  <span class="c1"># noqa: D102 (ignore missing docstring)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_by</span><span class="p">:</span>
-        <span class="k">return</span>
-    <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">iter</span><span class="p">():</span>
-        <span class="n">match</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">el</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
-            <span class="n">level</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">shift_by</span>
-            <span class="n">level</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-            <span class="n">el</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}{</span><span class="n">level</span><span class="si">}</span><span class="s2">&quot;</span>
-</code></pre></div>
-        </details>
-    </div>
-
-  </div>
 
 
 
@@ -1401,7 +1349,7 @@ modify the current tree and return None.</p>
 
 <h2 id="mkdocstrings.handlers.rendering.Highlighter" class="doc doc-heading">
         <code>
-Highlighter            (<span title="pymdownx.highlight.Highlight">Highlight</span>)
+Highlighter            (Highlight)
         </code>
 
 
@@ -1431,8 +1379,106 @@ Highlighter            (<span title="pymdownx.highlight.Highlight">Highlight</sp
 <p>The underlying implementation is <code>pymdownx.highlight</code> regardless.</p>
 
         <details class="quote">
-          <summary>Source code in <code>handlers/rendering.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Highlighter</span><span class="p">(</span><span class="n">Highlight</span><span class="p">):</span>
+          <summary>Source code in <code>mkdocstrings/handlers/rendering.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Highlighter</span><span class="p">(</span><span class="n">Highlight</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Code highlighter that tries to match the Markdown configuration.</span>
 
 <span class="sd">    Picking up the global config and defaults works only if you use the `codehilite` or</span>
@@ -1499,7 +1545,7 @@ Highlighter            (<span title="pymdownx.highlight.Highlight">Highlight</sp
         <span class="n">inline</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">dedent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">linenums</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Highlight a code-snippet.</span>
 
@@ -1532,6 +1578,7 @@ Highlighter            (<span title="pymdownx.highlight.Highlight">Highlight</sp
             <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&lt;code class=&quot;</span><span class="si">{</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;css_class&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> language-</span><span class="si">{</span><span class="n">language</span><span class="si">}</span><span class="s1">&quot;&gt;</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s1">&lt;/code&gt;&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
         </details>
 
 
@@ -1546,45 +1593,64 @@ Highlighter            (<span title="pymdownx.highlight.Highlight">Highlight</sp
 
 
 
-  <div class="doc doc-object doc-method">
+
+  <div class="doc doc-object doc-function">
 
 
 
 <h3 id="mkdocstrings.handlers.rendering.Highlighter.__init__" class="doc doc-heading">
 <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">)</span></code>
 
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-special"><code>special</code></small>
-  </span>
 
 <a href="#mkdocstrings.handlers.rendering.Highlighter.__init__" class="headerlink" title="Permanent link">¤</a></h3>
+
 
     <div class="doc doc-contents ">
 
       <p>Configure to match a <code>markdown.Markdown</code> instance.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>md</code></td>
-        <td><code>Markdown</code></td>
-        <td><p>The Markdown instance to read configs from.</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>md</code></td>
+          <td>
+                <code>Markdown</code>
+          </td>
+          <td><p>The Markdown instance to read configs from.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
-          <summary>Source code in <code>handlers/rendering.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">):</span>
+          <summary>Source code in <code>mkdocstrings/handlers/rendering.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Configure to match a `markdown.Markdown` instance.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1601,6 +1667,7 @@ Highlighter            (<span title="pymdownx.highlight.Highlight">Highlight</sp
     <span class="bp">self</span><span class="o">.</span><span class="n">_css_class</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;css_class&quot;</span><span class="p">,</span> <span class="s2">&quot;highlight&quot;</span><span class="p">)</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">opt</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">opt</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_highlight_config_keys</span><span class="p">})</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -1608,7 +1675,7 @@ Highlighter            (<span title="pymdownx.highlight.Highlight">Highlight</sp
 
 
 
-  <div class="doc doc-object doc-method">
+  <div class="doc doc-object doc-function">
 
 
 
@@ -1618,77 +1685,145 @@ Highlighter            (<span title="pymdownx.highlight.Highlight">Highlight</sp
 
 <a href="#mkdocstrings.handlers.rendering.Highlighter.highlight" class="headerlink" title="Permanent link">¤</a></h3>
 
+
     <div class="doc doc-contents ">
 
       <p>Highlight a code-snippet.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>src</code></td>
-        <td><code>str</code></td>
-        <td><p>The code to highlight.</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>src</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The code to highlight.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>language</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
+          </td>
+          <td><p>Explicitly tell what language to use for highlighting.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>inline</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether to highlight as inline.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>dedent</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether to dedent the code before highlighting it or not.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>linenums</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/functions.html#bool">bool</a>]</code>
+          </td>
+          <td><p>Whether to add line numbers in the result.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>**kwargs</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>
+          </td>
+          <td><p>Pass on to <code>pymdownx.highlight.Highlight.highlight</code>.</p></td>
+          <td>
+                <code>{}</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>language</code></td>
-        <td><code>Optional[str]</code></td>
-        <td><p>Explicitly tell what language to use for highlighting.</p></td>
-        <td><code>None</code></td>
+        <th>Type</th>
+        <th>Description</th>
       </tr>
-      <tr>
-        <td><code>inline</code></td>
-        <td><code>bool</code></td>
-        <td><p>Whether to highlight as inline.</p></td>
-        <td><code>False</code></td>
-      </tr>
-      <tr>
-        <td><code>dedent</code></td>
-        <td><code>bool</code></td>
-        <td><p>Whether to dedent the code before highlighting it or not.</p></td>
-        <td><code>True</code></td>
-      </tr>
-      <tr>
-        <td><code>linenums</code></td>
-        <td><code>Optional[bool]</code></td>
-        <td><p>Whether to add line numbers in the result.</p></td>
-        <td><code>None</code></td>
-      </tr>
-      <tr>
-        <td><code>**kwargs</code></td>
-        <td></td>
-        <td><p>Pass on to <code>pymdownx.highlight.Highlight.highlight</code>.</p></td>
-        <td><code>{}</code></td>
-      </tr>
-  </tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>str</code></td>
-      <td><p>The highlighted code as HTML text, marked safe (not escaped for HTML).</p></td>
-    </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The highlighted code as HTML text, marked safe (not escaped for HTML).</p></td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
-          <summary>Source code in <code>handlers/rendering.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">highlight</span><span class="p">(</span>  <span class="c1"># noqa: W0221 (intentionally different params, we&#39;re extending the functionality)</span>
+          <summary>Source code in <code>mkdocstrings/handlers/rendering.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">highlight</span><span class="p">(</span>  <span class="c1"># noqa: W0221 (intentionally different params, we&#39;re extending the functionality)</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">src</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">language</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1696,7 +1831,7 @@ Highlighter            (<span title="pymdownx.highlight.Highlight">Highlight</sp
     <span class="n">inline</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">dedent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">linenums</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Highlight a code-snippet.</span>
 
@@ -1729,6 +1864,7 @@ Highlighter            (<span title="pymdownx.highlight.Highlight">Highlight</sp
         <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&lt;code class=&quot;</span><span class="si">{</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;css_class&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1"> language-</span><span class="si">{</span><span class="n">language</span><span class="si">}</span><span class="s1">&quot;&gt;</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s1">&lt;/code&gt;&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">Markup</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -1752,7 +1888,7 @@ Highlighter            (<span title="pymdownx.highlight.Highlight">Highlight</sp
 
 <h2 id="mkdocstrings.handlers.rendering.IdPrependingTreeprocessor" class="doc doc-heading">
         <code>
-IdPrependingTreeprocessor            (<span title="markdown.treeprocessors.Treeprocessor">Treeprocessor</span>)
+IdPrependingTreeprocessor            (Treeprocessor)
         </code>
 
 
@@ -1764,8 +1900,45 @@ IdPrependingTreeprocessor            (<span title="markdown.treeprocessors.Treep
       <p>Prepend the configured prefix to IDs of all HTML elements.</p>
 
         <details class="quote">
-          <summary>Source code in <code>handlers/rendering.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">IdPrependingTreeprocessor</span><span class="p">(</span><span class="n">Treeprocessor</span><span class="p">):</span>
+          <summary>Source code in <code>mkdocstrings/handlers/rendering.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">IdPrependingTreeprocessor</span><span class="p">(</span><span class="n">Treeprocessor</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Prepend the configured prefix to IDs of all HTML elements.&quot;&quot;&quot;</span>
 
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;mkdocstrings_ids&quot;</span>
@@ -1804,6 +1977,7 @@ IdPrependingTreeprocessor            (<span title="markdown.treeprocessors.Treep
                 <span class="k">if</span> <span class="n">for_attr</span><span class="p">:</span>
                     <span class="n">el</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;for&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_prefix</span> <span class="o">+</span> <span class="n">for_attr</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
         </details>
 
 
@@ -1819,51 +1993,66 @@ IdPrependingTreeprocessor            (<span title="markdown.treeprocessors.Treep
 
 
 
-  <div class="doc doc-object doc-method">
+  <div class="doc doc-object doc-function">
 
 
 
 <h3 id="mkdocstrings.handlers.rendering.IdPrependingTreeprocessor.__init__" class="doc doc-heading">
 <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">id_prefix</span><span class="p">)</span></code>
 
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-special"><code>special</code></small>
-  </span>
 
 <a href="#mkdocstrings.handlers.rendering.IdPrependingTreeprocessor.__init__" class="headerlink" title="Permanent link">¤</a></h3>
+
 
     <div class="doc doc-contents ">
 
       <p>Initialize the object.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>md</code></td>
-        <td><code>Markdown</code></td>
-        <td><p>A <code>markdown.Markdown</code> instance.</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
-      <tr>
-        <td><code>id_prefix</code></td>
-        <td><code>str</code></td>
-        <td><p>The prefix to add to every ID. It is prepended without any separator.</p></td>
-        <td><em>required</em></td>
-      </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>md</code></td>
+          <td>
+                <code>Markdown</code>
+          </td>
+          <td><p>A <code>markdown.Markdown</code> instance.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>id_prefix</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The prefix to add to every ID. It is prepended without any separator.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
-          <summary>Source code in <code>handlers/rendering.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">id_prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+          <summary>Source code in <code>mkdocstrings/handlers/rendering.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">id_prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1873,57 +2062,12 @@ IdPrependingTreeprocessor            (<span title="markdown.treeprocessors.Treep
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">md</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">id_prefix</span> <span class="o">=</span> <span class="n">id_prefix</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
   </div>
 
-
-
-  <div class="doc doc-object doc-method">
-
-
-
-<h3 id="mkdocstrings.handlers.rendering.IdPrependingTreeprocessor.run" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span></code>
-
-
-<a href="#mkdocstrings.handlers.rendering.IdPrependingTreeprocessor.run" class="headerlink" title="Permanent link">¤</a></h3>
-
-    <div class="doc doc-contents ">
-
-      <p>Subclasses of Treeprocessor should implement a <code>run</code> method, which
-takes a root ElementTree. This method can return another ElementTree
-object, and the existing root ElementTree will be replaced, or it can
-modify the current tree and return None.</p>
-
-        <details class="quote">
-          <summary>Source code in <code>handlers/rendering.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">Element</span><span class="p">):</span>  <span class="c1"># noqa: D102 (ignore missing docstring)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_prefix</span><span class="p">:</span>
-        <span class="k">return</span>
-    <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">iter</span><span class="p">():</span>
-        <span class="n">id_attr</span> <span class="o">=</span> <span class="n">el</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">id_attr</span><span class="p">:</span>
-            <span class="n">el</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_prefix</span> <span class="o">+</span> <span class="n">id_attr</span><span class="p">)</span>
-
-        <span class="n">href_attr</span> <span class="o">=</span> <span class="n">el</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">href_attr</span> <span class="ow">and</span> <span class="n">href_attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
-            <span class="n">el</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">,</span> <span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_prefix</span> <span class="o">+</span> <span class="n">href_attr</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-
-        <span class="n">name_attr</span> <span class="o">=</span> <span class="n">el</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">name_attr</span><span class="p">:</span>
-            <span class="n">el</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_prefix</span> <span class="o">+</span> <span class="n">name_attr</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">el</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span>
-            <span class="n">for_attr</span> <span class="o">=</span> <span class="n">el</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;for&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">for_attr</span><span class="p">:</span>
-                <span class="n">el</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;for&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_prefix</span> <span class="o">+</span> <span class="n">for_attr</span><span class="p">)</span>
-</code></pre></div>
-        </details>
-    </div>
-
-  </div>
 
 
 
@@ -1943,7 +2087,7 @@ modify the current tree and return None.</p>
 
 <h2 id="mkdocstrings.handlers.rendering.MkdocstringsInnerExtension" class="doc doc-heading">
         <code>
-MkdocstringsInnerExtension            (<span title="markdown.extensions.Extension">Extension</span>)
+MkdocstringsInnerExtension            (Extension)
         </code>
 
 
@@ -1955,8 +2099,46 @@ MkdocstringsInnerExtension            (<span title="markdown.extensions.Extensio
       <p>Extension that should always be added to Markdown sub-documents that handlers request (and <em>only</em> them).</p>
 
         <details class="quote">
-          <summary>Source code in <code>handlers/rendering.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MkdocstringsInnerExtension</span><span class="p">(</span><span class="n">Extension</span><span class="p">):</span>
+          <summary>Source code in <code>mkdocstrings/handlers/rendering.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MkdocstringsInnerExtension</span><span class="p">(</span><span class="n">Extension</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Extension that should always be added to Markdown sub-documents that handlers request (and *only* them).&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">headings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Element</span><span class="p">]):</span>
@@ -1990,7 +2172,13 @@ MkdocstringsInnerExtension            (<span title="markdown.extensions.Extensio
             <span class="n">_HeadingReportingTreeprocessor</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
             <span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Close to the end.</span>
         <span class="p">)</span>
+        <span class="n">md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+            <span class="n">ParagraphStrippingTreeprocessor</span><span class="p">(</span><span class="n">md</span><span class="p">),</span>
+            <span class="n">ParagraphStrippingTreeprocessor</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">priority</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span>  <span class="c1"># Close to the end.</span>
+        <span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
         </details>
 
 
@@ -2005,45 +2193,55 @@ MkdocstringsInnerExtension            (<span title="markdown.extensions.Extensio
 
 
 
-  <div class="doc doc-object doc-method">
+  <div class="doc doc-object doc-function">
 
 
 
 <h3 id="mkdocstrings.handlers.rendering.MkdocstringsInnerExtension.__init__" class="doc doc-heading">
 <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">headings</span><span class="p">)</span></code>
 
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-special"><code>special</code></small>
-  </span>
 
 <a href="#mkdocstrings.handlers.rendering.MkdocstringsInnerExtension.__init__" class="headerlink" title="Permanent link">¤</a></h3>
+
 
     <div class="doc doc-contents ">
 
       <p>Initialize the object.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>headings</code></td>
-        <td><code>List[xml.etree.ElementTree.Element]</code></td>
-        <td><p>A list that will be populated with all HTML heading elements encountered in the document.</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>headings</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a href="https://docs.python.org/3/library/xml.etree.elementtree.html#xml.etree.ElementTree.Element">Element</a>]</code>
+          </td>
+          <td><p>A list that will be populated with all HTML heading elements encountered in the document.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
-          <summary>Source code in <code>handlers/rendering.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">headings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Element</span><span class="p">]):</span>
+          <summary>Source code in <code>mkdocstrings/handlers/rendering.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">headings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Element</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
 
 <span class="sd">    Arguments:</span>
@@ -2052,6 +2250,7 @@ MkdocstringsInnerExtension            (<span title="markdown.extensions.Extensio
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">headings</span> <span class="o">=</span> <span class="n">headings</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -2059,7 +2258,7 @@ MkdocstringsInnerExtension            (<span title="markdown.extensions.Extensio
 
 
 
-  <div class="doc doc-object doc-method">
+  <div class="doc doc-object doc-function">
 
 
 
@@ -2069,32 +2268,64 @@ MkdocstringsInnerExtension            (<span title="markdown.extensions.Extensio
 
 <a href="#mkdocstrings.handlers.rendering.MkdocstringsInnerExtension.extendMarkdown" class="headerlink" title="Permanent link">¤</a></h3>
 
+
     <div class="doc doc-contents ">
 
       <p>Register the extension.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>md</code></td>
-        <td><code>Markdown</code></td>
-        <td><p>A <code>markdown.Markdown</code> instance.</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>md</code></td>
+          <td>
+                <code>Markdown</code>
+          </td>
+          <td><p>A <code>markdown.Markdown</code> instance.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
-          <summary>Source code in <code>handlers/rendering.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: N802 (casing: parent method&#39;s name)</span>
+          <summary>Source code in <code>mkdocstrings/handlers/rendering.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: N802 (casing: parent method&#39;s name)</span>
     <span class="sd">&quot;&quot;&quot;Register the extension.</span>
 
 <span class="sd">    Arguments:</span>
@@ -2116,7 +2347,13 @@ MkdocstringsInnerExtension            (<span title="markdown.extensions.Extensio
         <span class="n">_HeadingReportingTreeprocessor</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
         <span class="n">priority</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Close to the end.</span>
     <span class="p">)</span>
+    <span class="n">md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+        <span class="n">ParagraphStrippingTreeprocessor</span><span class="p">(</span><span class="n">md</span><span class="p">),</span>
+        <span class="n">ParagraphStrippingTreeprocessor</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="n">priority</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span>  <span class="c1"># Close to the end.</span>
+    <span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -2132,6 +2369,165 @@ MkdocstringsInnerExtension            (<span title="markdown.extensions.Extensio
 
   </div>
 
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="mkdocstrings.handlers.rendering.ParagraphStrippingTreeprocessor" class="doc doc-heading">
+        <code>
+ParagraphStrippingTreeprocessor            (Treeprocessor)
+        </code>
+
+
+
+<a href="#mkdocstrings.handlers.rendering.ParagraphStrippingTreeprocessor" class="headerlink" title="Permanent link">¤</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Unwraps the <p> element around the whole output.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>mkdocstrings/handlers/rendering.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ParagraphStrippingTreeprocessor</span><span class="p">(</span><span class="n">Treeprocessor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Unwraps the &lt;p&gt; element around the whole output.&quot;&quot;&quot;</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;mkdocstrings_strip_paragraph&quot;</span>
+    <span class="n">strip</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">Element</span><span class="p">):</span>  <span class="c1"># noqa: D102 (ignore missing docstring)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">strip</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">root</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">root</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;p&quot;</span><span class="p">:</span>
+            <span class="c1"># Turn the single &lt;p&gt; element into the root element and inherit its tag name (it&#39;s significant!)</span>
+            <span class="n">root</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">tag</span>
+            <span class="k">return</span> <span class="n">root</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+</td></tr></table>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="mkdocstrings.handlers.rendering._HeadingReportingTreeprocessor" class="doc doc-heading">
+        <code>
+_HeadingReportingTreeprocessor            (Treeprocessor)
+        </code>
+
+
+
+<a href="#mkdocstrings.handlers.rendering._HeadingReportingTreeprocessor" class="headerlink" title="Permanent link">¤</a></h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Records the heading elements encountered in the document.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>mkdocstrings/handlers/rendering.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">_HeadingReportingTreeprocessor</span><span class="p">(</span><span class="n">Treeprocessor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Records the heading elements encountered in the document.&quot;&quot;&quot;</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;mkdocstrings_headings_list&quot;</span>
+    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[Hh][1-6]&quot;</span><span class="p">)</span>
+
+    <span class="n">headings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Element</span><span class="p">]</span>
+    <span class="sd">&quot;&quot;&quot;The list (the one passed in the initializer) that is used to record the heading elements (by appending to it).&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">headings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Element</span><span class="p">]):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">md</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">headings</span> <span class="o">=</span> <span class="n">headings</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">:</span> <span class="n">Element</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">iter</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">regex</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">el</span><span class="o">.</span><span class="n">tag</span><span class="p">):</span>
+                <span class="n">el</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+                <span class="c1"># &#39;toc&#39; extension&#39;s first pass (which we require to build heading stubs/ids) also edits the HTML.</span>
+                <span class="c1"># Undo the permalink edit so we can pass this heading to the outer pass of the &#39;toc&#39; extension.</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">el</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">el</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">treeprocessors</span><span class="p">[</span><span class="s2">&quot;toc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">permalink_class</span><span class="p">:</span>  <span class="c1"># noqa: WPS507</span>
+                    <span class="k">del</span> <span class="n">el</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">headings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
 
 
 
@@ -2161,7 +2557,7 @@ MkdocstringsInnerExtension            (<span title="markdown.extensions.Extensio
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../python/" class="md-footer__link md-footer__link--prev" aria-label="Previous: python.py" rel="prev">
+        <a href="../base/" class="md-footer__link md-footer__link--prev" aria-label="Previous: base.py" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -2170,7 +2566,7 @@ MkdocstringsInnerExtension            (<span title="markdown.extensions.Extensio
               <span class="md-footer__direction">
                 Previous
               </span>
-              python.py
+              base.py
             </div>
           </div>
         </a>
@@ -2238,7 +2634,7 @@ MkdocstringsInnerExtension            (<span title="markdown.extensions.Extensio
     <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.1514a9a0.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.960e086b.min.js"></script>
       
     
   </body>

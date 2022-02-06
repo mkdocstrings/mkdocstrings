@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://mkdocstrings.github.io/reference/inventory/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.6">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.9">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.cd566b2a.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2b4465f4.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -499,8 +499,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../handlers/python/" class="md-nav__link">
-        Python
+      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
+        Crystal
       </a>
     </li>
   
@@ -513,8 +513,22 @@
   
   
     <li class="md-nav__item">
-      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
-        Crystal
+      <a href="https://mkdocstrings.github.io/python-legacy/" class="md-nav__link">
+        Python (Legacy)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mkdocstrings.github.io/python/" class="md-nav__link">
+        Python (Experimental)
       </a>
     </li>
   
@@ -654,20 +668,6 @@
     <li class="md-nav__item">
       <a href="../handlers/base/" class="md-nav__link">
         base.py
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../handlers/python/" class="md-nav__link">
-        python.py
       </a>
     </li>
   
@@ -842,67 +842,6 @@
   
     <li class="md-nav__item">
       <a href="../plugin/" class="md-nav__link">
-        plugin.py
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2">
-          mkdocs_autorefs
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_2">
-          <span class="md-nav__icon md-icon"></span>
-          mkdocs_autorefs
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../autorefs/references/" class="md-nav__link">
-        references.py
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../autorefs/plugin/" class="md-nav__link">
         plugin.py
       </a>
     </li>
@@ -1162,7 +1101,7 @@
 
 <h2 id="mkdocstrings.inventory.Inventory" class="doc doc-heading">
         <code>
-Inventory            (<span title="dict">dict</span>)
+Inventory            (<a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>)
         </code>
 
 
@@ -1175,7 +1114,74 @@ Inventory            (<span title="dict">dict</span>)
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/inventory.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Inventory</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Inventory</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Inventory of collected and rendered objects.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">InventoryItem</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">project</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;project&quot;</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;0.0.0&quot;</span><span class="p">):</span>
@@ -1193,7 +1199,7 @@ Inventory            (<span title="dict">dict</span>)
         <span class="bp">self</span><span class="o">.</span><span class="n">project</span> <span class="o">=</span> <span class="n">project</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
 
-    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Create and register an item.</span>
 
 <span class="sd">        Arguments:</span>
@@ -1244,6 +1250,7 @@ Inventory            (<span title="dict">dict</span>)
             <span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span> <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">domain</span> <span class="ow">in</span> <span class="n">domain_filter</span><span class="p">]</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
         </details>
 
 
@@ -1258,57 +1265,82 @@ Inventory            (<span title="dict">dict</span>)
 
 
 
-  <div class="doc doc-object doc-method">
+
+  <div class="doc doc-object doc-function">
 
 
 
 <h3 id="mkdocstrings.inventory.Inventory.__init__" class="doc doc-heading">
 <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="s1">&#39;project&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.0.0&#39;</span><span class="p">)</span></code>
 
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-special"><code>special</code></small>
-  </span>
 
 <a href="#mkdocstrings.inventory.Inventory.__init__" class="headerlink" title="Permanent link">¤</a></h3>
+
 
     <div class="doc doc-contents ">
 
       <p>Initialize the object.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>items</code></td>
-        <td><code>Optional[List[mkdocstrings.inventory.InventoryItem]]</code></td>
-        <td><p>A list of items.</p></td>
-        <td><code>None</code></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
-      <tr>
-        <td><code>project</code></td>
-        <td><code>str</code></td>
-        <td><p>The project name.</p></td>
-        <td><code>&#39;project&#39;</code></td>
-      </tr>
-      <tr>
-        <td><code>version</code></td>
-        <td><code>str</code></td>
-        <td><p>The project version.</p></td>
-        <td><code>&#39;0.0.0&#39;</code></td>
-      </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>items</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a href="#mkdocstrings.inventory.InventoryItem">InventoryItem</a>]]</code>
+          </td>
+          <td><p>A list of items.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>project</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The project name.</p></td>
+          <td>
+                <code>&#39;project&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>version</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The project version.</p></td>
+          <td>
+                <code>&#39;0.0.0&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/inventory.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">InventoryItem</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">project</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;project&quot;</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;0.0.0&quot;</span><span class="p">):</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">InventoryItem</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">project</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;project&quot;</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;0.0.0&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1323,6 +1355,7 @@ Inventory            (<span title="dict">dict</span>)
     <span class="bp">self</span><span class="o">.</span><span class="n">project</span> <span class="o">=</span> <span class="n">project</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -1330,7 +1363,7 @@ Inventory            (<span title="dict">dict</span>)
 
 
 
-  <div class="doc doc-object doc-method">
+  <div class="doc doc-object doc-function">
 
 
 
@@ -1340,28 +1373,52 @@ Inventory            (<span title="dict">dict</span>)
 
 <a href="#mkdocstrings.inventory.Inventory.format_sphinx" class="headerlink" title="Permanent link">¤</a></h3>
 
+
     <div class="doc doc-contents ">
 
       <p>Format this inventory as a Sphinx <code>objects.inv</code> file.</p>
 
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>bytes</code></td>
-      <td><p>The inventory as bytes.</p></td>
-    </tr>
-  </tbody>
-</table>
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#bytes">bytes</a></code>
+          </td>
+          <td><p>The inventory as bytes.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/inventory.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">format_sphinx</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">format_sphinx</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Format this inventory as a Sphinx `objects.inv` file.</span>
 
 <span class="sd">    Returns:</span>
@@ -1383,6 +1440,7 @@ Inventory            (<span title="dict">dict</span>)
     <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">format_sphinx</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
     <span class="k">return</span> <span class="n">header</span> <span class="o">+</span> <span class="n">zlib</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">+</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -1390,66 +1448,93 @@ Inventory            (<span title="dict">dict</span>)
 
 
 
-  <div class="doc doc-object doc-method">
+  <div class="doc doc-object doc-function">
 
 
 
 <h3 id="mkdocstrings.inventory.Inventory.parse_sphinx" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">parse_sphinx</span><span class="p">(</span><span class="n">in_file</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">domain_filter</span><span class="o">=</span><span class="p">())</span></code>
+<code class="highlight language-python"><span class="n">parse_sphinx</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">in_file</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">domain_filter</span><span class="o">=</span><span class="p">())</span></code>
 
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
-  </span>
 
 <a href="#mkdocstrings.inventory.Inventory.parse_sphinx" class="headerlink" title="Permanent link">¤</a></h3>
+
 
     <div class="doc doc-contents ">
 
       <p>Parse a Sphinx v2 inventory file and return an <code>Inventory</code> from it.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>in_file</code></td>
-        <td><code>BinaryIO</code></td>
-        <td><p>The binary file-like object to read from.</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>in_file</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/typing.html#typing.BinaryIO">BinaryIO</a></code>
+          </td>
+          <td><p>The binary file-like object to read from.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>domain_filter</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
+          </td>
+          <td><p>A collection of domain values to allow (and filter out all other ones).</p></td>
+          <td>
+                <code>()</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>domain_filter</code></td>
-        <td><code>Collection[str]</code></td>
-        <td><p>A collection of domain values to allow (and filter out all other ones).</p></td>
-        <td><code>()</code></td>
+        <th>Type</th>
+        <th>Description</th>
       </tr>
-  </tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>Inventory</code></td>
-      <td><p>An <code>Inventory</code> containing the collected <code>InventoryItem</code>s.</p></td>
-    </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>&#39;Inventory&#39;</code>
+          </td>
+          <td><p>An <code>Inventory</code> containing the collected <code>InventoryItem</code>s.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/inventory.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="nd">@classmethod</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nd">@classmethod</span>
 <span class="k">def</span> <span class="nf">parse_sphinx</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">in_file</span><span class="p">:</span> <span class="n">BinaryIO</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">domain_filter</span><span class="p">:</span> <span class="n">Collection</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">())</span> <span class="o">-&gt;</span> <span class="s2">&quot;Inventory&quot;</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Parse a Sphinx v2 inventory file and return an `Inventory` from it.</span>
 
@@ -1468,6 +1553,7 @@ Inventory            (<span title="dict">dict</span>)
         <span class="n">items</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span> <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">domain</span> <span class="ow">in</span> <span class="n">domain_filter</span><span class="p">]</span>
     <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -1475,7 +1561,7 @@ Inventory            (<span title="dict">dict</span>)
 
 
 
-  <div class="doc doc-object doc-method">
+  <div class="doc doc-object doc-function">
 
 
 
@@ -1485,38 +1571,56 @@ Inventory            (<span title="dict">dict</span>)
 
 <a href="#mkdocstrings.inventory.Inventory.register" class="headerlink" title="Permanent link">¤</a></h3>
 
+
     <div class="doc doc-contents ">
 
       <p>Create and register an item.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>*args</code></td>
-        <td></td>
-        <td><p>Arguments passed to <a href="#mkdocstrings.inventory.InventoryItem">InventoryItem</a>.</p></td>
-        <td><code>()</code></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
-      <tr>
-        <td><code>**kwargs</code></td>
-        <td></td>
-        <td><p>Keyword arguments passed to <a href="#mkdocstrings.inventory.InventoryItem">InventoryItem</a>.</p></td>
-        <td><code>{}</code></td>
-      </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>*args</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>Arguments passed to <a href="#mkdocstrings.inventory.InventoryItem">InventoryItem</a>.</p></td>
+          <td>
+                <code>()</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>**kwargs</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>Keyword arguments passed to <a href="#mkdocstrings.inventory.InventoryItem">InventoryItem</a>.</p></td>
+          <td>
+                <code>{}</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/inventory.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create and register an item.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1526,6 +1630,7 @@ Inventory            (<span title="dict">dict</span>)
     <span class="n">item</span> <span class="o">=</span> <span class="n">InventoryItem</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="bp">self</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -1561,7 +1666,57 @@ InventoryItem        </code>
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/inventory.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">InventoryItem</span><span class="p">:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">InventoryItem</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Inventory item.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -1613,6 +1768,7 @@ InventoryItem        </code>
             <span class="n">dispname</span> <span class="o">=</span> <span class="n">name</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">role</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="n">dispname</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
         </details>
 
 
@@ -1628,75 +1784,121 @@ InventoryItem        </code>
 
 
 
-  <div class="doc doc-object doc-method">
+
+
+
+
+
+  <div class="doc doc-object doc-function">
 
 
 
 <h3 id="mkdocstrings.inventory.InventoryItem.__init__" class="doc doc-heading">
 <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">role</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">dispname</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-special"><code>special</code></small>
-  </span>
 
 <a href="#mkdocstrings.inventory.InventoryItem.__init__" class="headerlink" title="Permanent link">¤</a></h3>
+
 
     <div class="doc doc-contents ">
 
       <p>Initialize the object.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>name</code></td>
-        <td><code>str</code></td>
-        <td><p>The item name.</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
-      <tr>
-        <td><code>domain</code></td>
-        <td><code>str</code></td>
-        <td><p>The item domain, like 'python' or 'crystal'.</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>role</code></td>
-        <td><code>str</code></td>
-        <td><p>The item role, like 'class' or 'method'.</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>uri</code></td>
-        <td><code>str</code></td>
-        <td><p>The item URI.</p></td>
-        <td><em>required</em></td>
-      </tr>
-      <tr>
-        <td><code>priority</code></td>
-        <td><code>str</code></td>
-        <td><p>The item priority. It can help for inventory suggestions.</p></td>
-        <td><code>&#39;1&#39;</code></td>
-      </tr>
-      <tr>
-        <td><code>dispname</code></td>
-        <td><code>Optional[str]</code></td>
-        <td><p>The item display name.</p></td>
-        <td><code>None</code></td>
-      </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>name</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The item name.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>domain</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The item domain, like 'python' or 'crystal'.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>role</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The item role, like 'class' or 'method'.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>uri</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The item URI.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>priority</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The item priority. It can help for inventory suggestions.</p></td>
+          <td>
+                <code>&#39;1&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>dispname</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
+          </td>
+          <td><p>The item display name.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/inventory.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">domain</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">priority</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">dispname</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
@@ -1716,6 +1918,7 @@ InventoryItem        </code>
     <span class="bp">self</span><span class="o">.</span><span class="n">priority</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">priority</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">dispname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">dispname</span> <span class="ow">or</span> <span class="n">name</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -1723,7 +1926,7 @@ InventoryItem        </code>
 
 
 
-  <div class="doc doc-object doc-method">
+  <div class="doc doc-object doc-function">
 
 
 
@@ -1733,28 +1936,44 @@ InventoryItem        </code>
 
 <a href="#mkdocstrings.inventory.InventoryItem.format_sphinx" class="headerlink" title="Permanent link">¤</a></h3>
 
+
     <div class="doc doc-contents ">
 
       <p>Format this item as a Sphinx inventory line.</p>
 
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>str</code></td>
-      <td><p>A line formatted for an <code>objects.inv</code> file.</p></td>
-    </tr>
-  </tbody>
-</table>
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>A line formatted for an <code>objects.inv</code> file.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/inventory.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">format_sphinx</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">format_sphinx</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Format this item as a Sphinx inventory line.</span>
 
 <span class="sd">    Returns:</span>
@@ -1768,6 +1987,7 @@ InventoryItem        </code>
         <span class="n">uri</span> <span class="o">=</span> <span class="n">uri</span><span class="p">[:</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)]</span> <span class="o">+</span> <span class="s2">&quot;$&quot;</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">domain</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">role</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">priority</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">uri</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">dispname</span><span class="si">}</span><span class="s2">&quot;</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -1775,18 +1995,16 @@ InventoryItem        </code>
 
 
 
-  <div class="doc doc-object doc-method">
+  <div class="doc doc-object doc-function">
 
 
 
 <h3 id="mkdocstrings.inventory.InventoryItem.parse_sphinx" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">parse_sphinx</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">parse_sphinx</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span></code>
 
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-classmethod"><code>classmethod</code></small>
-  </span>
 
 <a href="#mkdocstrings.inventory.InventoryItem.parse_sphinx" class="headerlink" title="Permanent link">¤</a></h3>
+
 
     <div class="doc doc-contents ">
 
@@ -1794,7 +2012,18 @@ InventoryItem        </code>
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/inventory.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="nd">@classmethod</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nd">@classmethod</span>
 <span class="k">def</span> <span class="nf">parse_sphinx</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;InventoryItem&quot;</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Parse a line from a Sphinx v2 inventory file and return an `InventoryItem` from it.&quot;&quot;&quot;</span>
     <span class="n">match</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">sphinx_item_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
@@ -1807,6 +2036,7 @@ InventoryItem        </code>
         <span class="n">dispname</span> <span class="o">=</span> <span class="n">name</span>
     <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">role</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">priority</span><span class="p">,</span> <span class="n">dispname</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -1821,7 +2051,6 @@ InventoryItem        </code>
     </div>
 
   </div>
-
 
 
 
@@ -1928,7 +2157,7 @@ InventoryItem        </code>
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.1514a9a0.min.js"></script>
+      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
       
     
   </body>

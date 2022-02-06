@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://mkdocstrings.github.io/usage/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.6">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.9">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.cd566b2a.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.2b4465f4.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
@@ -501,8 +501,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../handlers/python/" class="md-nav__link">
-        Python
+      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
+        Crystal
       </a>
     </li>
   
@@ -515,8 +515,22 @@
   
   
     <li class="md-nav__item">
-      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
-        Crystal
+      <a href="https://mkdocstrings.github.io/python-legacy/" class="md-nav__link">
+        Python (Legacy)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mkdocstrings.github.io/python/" class="md-nav__link">
+        Python (Experimental)
       </a>
     </li>
   
@@ -664,20 +678,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/handlers/python/" class="md-nav__link">
-        python.py
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../reference/handlers/rendering/" class="md-nav__link">
         rendering.py
       </a>
@@ -728,67 +728,6 @@
   
     <li class="md-nav__item">
       <a href="../reference/plugin/" class="md-nav__link">
-        plugin.py
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2">
-          mkdocs_autorefs
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_2">
-          <span class="md-nav__icon md-icon"></span>
-          mkdocs_autorefs
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../reference/autorefs/references/" class="md-nav__link">
-        references.py
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../reference/autorefs/plugin/" class="md-nav__link">
         plugin.py
       </a>
     </li>
@@ -1012,6 +951,16 @@
 <div class="highlight"><pre><span></span><code>::: identifier
     YAML block
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Resources on YAML</p>
+<p>YAML can sometimes be a bit tricky, particularly on indentation.
+Here are some resources that other users found useful to better
+understand YAML's peculiarities.</p>
+<ul>
+<li><a href="https://docs.saltproject.io/en/3000/topics/troubleshooting/yaml_idiosyncrasies.html">YAML idiosyncrasies</a></li>
+<li><a href="https://yaml-multiline.info/">YAML multiline</a></li>
+</ul>
+</div>
 <p>The <code>identifier</code> is a string identifying the object you want to document.
 The format of an identifier can vary from one handler to another.
 For example, the Python handler expects the full dotted-path to a Python object:
@@ -1033,7 +982,9 @@ and some handlers accept additional keys.
 Check the documentation for your handler of interest in <a href="../handlers/overview/">Handlers</a>.</p>
 <div class="admonition example">
 <p class="admonition-title">Example with the Python handler</p>
-<div class="tabbed-set" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">docs/my_page.md</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">docs/my_page.md</label><label for="__tabbed_1_2">mkdocs.yml</label><label for="__tabbed_1_3">src/my_package/my_module.py</label><label for="__tabbed_1_4">Result</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="gh"># Documentation for `MyClass`</span>
 
 ::: my_package.my_module.MyClass
@@ -1047,12 +998,12 @@ Check the documentation for your handler of interest in <a href="../handlers/ove
       show_source: false
 </code></pre></div>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">mkdocs.yml</label><div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="nt">nav</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;My</span><span class="nv"> </span><span class="s">page&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_page.md</span><span class="w"></span>
 </code></pre></div>
 </div>
-<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">src/my_package/my_module.py</label><div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Print print print!&quot;&quot;&quot;</span>
 
@@ -1069,7 +1020,7 @@ Check the documentation for your handler of interest in <a href="../handlers/ove
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;C!&quot;</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">Result</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p><h3 id="documentation-for-myclass" style="margin: 0;">Documentation for <code>MyClass</code></h3>
 <div><div><p>Print print print!</p><div><div>
 <h4 id="mkdocstrings.my_module.MyClass.method_a">
@@ -1080,6 +1031,7 @@ method_a<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 <code class="highlight language-python">
 method_b<span class="p">(</span><span class="bp">self</span><span class="p">)</span> </code>
 </h4><div><p>Print B!</p></div></div></div></div></div></p>
+</div>
 </div>
 </div>
 </div>
@@ -1129,7 +1081,9 @@ method_b<span class="p">(</span><span class="bp">self</span><span class="p">)</s
 </code></pre></div>
 <h2 id="cross-references">Cross-references<a class="headerlink" href="#cross-references" title="Permanent link">¤</a></h2>
 <p>Cross-references are written as Markdown <em>reference-style</em> links:</p>
-<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Markdown</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Markdown</label><label for="__tabbed_2_2">HTML Result</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>With a custom title:
 [<span class="sb">`Object 1`</span>][full.path.object1]
 
@@ -1137,12 +1091,13 @@ With the identifier as title:
 [<span class="nt">full.path.object2</span>][]
 </code></pre></div>
 </div>
-<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">HTML Result</label><div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>With a custom title:
 <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://example.com/page1#full.path.object1&quot;</span><span class="p">&gt;&lt;</span><span class="nt">code</span><span class="p">&gt;</span>Object 1<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>With the identifier as title:
 <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://example.com/page2#full.path.object2&quot;</span><span class="p">&gt;</span>full.path.object2<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </code></pre></div>
+</div>
 </div>
 </div>
 <p>Any item that was inserted using the <a href="#autodoc-syntax">autodoc syntax</a>
@@ -1175,21 +1130,24 @@ enable the <a href="https://github.com/mkdocstrings/autorefs"><em>autorefs</em> 
 <p>Note that you don't need to (<code>pip</code>) install anything more; this plugin is guaranteed to be pulled in with <em>mkdocstrings</em>.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="tabbed-set" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">doc1.md</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">doc1.md</label><label for="__tabbed_3_2">doc2.md</label><label for="__tabbed_3_3">Result HTML for doc2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="gu">## Hello, world!</span>
 
 Testing
 </code></pre></div>
 </div>
-<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">doc2.md</label><div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="gu">## Something else</span>
 
 Please see the [<span class="nt">Hello, World!</span>][<span class="nl">hello-world</span>] section.
 </code></pre></div>
 </div>
-<input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><label for="__tabbed_3_3">Result HTML for doc2</label><div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Please see the <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;doc1.html#hello-world&quot;</span><span class="p">&gt;</span>Hello, World!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span> section.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </code></pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -1201,7 +1159,9 @@ Please see the [<span class="nt">Hello, World!</span>][<span class="nl">hello-wo
 In the example below you see the identifier to be linked is <code>foo.bar--tips</code>, because it's the "Tips" heading that's part of the <code>foo.bar</code> object, joined with "<code>--</code>".</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="tabbed-set" data-tabs="4:4"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">foo.py</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="4:4"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><input id="__tabbed_4_4" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">foo.py</label><label for="__tabbed_4_2">doc1.md</label><label for="__tabbed_4_3">doc2.md</label><label for="__tabbed_4_4">Result HTML for doc2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">bar</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Hello, world!</span>
 
@@ -1211,17 +1171,18 @@ In the example below you see the identifier to be linked is <code>foo.bar--tips<
 <span class="sd">    &quot;&quot;&quot;</span>
 </code></pre></div>
 </div>
-<input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><label for="__tabbed_4_2">doc1.md</label><div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>::: foo.bar
 </code></pre></div>
 </div>
-<input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><label for="__tabbed_4_3">doc2.md</label><div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>Check out the [<span class="nt">tips</span>][<span class="nl">foo.bar--tips</span>]
 </code></pre></div>
 </div>
-<input id="__tabbed_4_4" name="__tabbed_4" type="radio" /><label for="__tabbed_4_4">Result HTML for doc2</label><div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Check out the <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;doc1.html#foo.bar--tips&quot;</span><span class="p">&gt;</span>tips<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </code></pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -1247,17 +1208,20 @@ can load Sphinx-generated inventories (<code>objects.inv</code>).</p>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://docs.python-requests.org/en/master/objects.inv</span><span class="w"></span>
 </code></pre></div>
 <p>Now it is possible to cross-reference <code>requests</code>' items! For example:</p>
-<div class="tabbed-set" data-tabs="5:3"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><label for="__tabbed_5_1">Markdown</label><div class="tabbed-content">
+<div class="tabbed-set tabbed-alternate" data-tabs="5:3"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Markdown</label><label for="__tabbed_5_2">Result (HTML)</label><label for="__tabbed_5_3">Result (displayed)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code>See [<span class="nt">requests.request</span>][] to know what parameters you can pass.
 </code></pre></div>
 </div>
-<input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><label for="__tabbed_5_2">Result (HTML)</label><div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>See <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;https://docs.python-requests.org/en/latest/api/#requests.request&quot;</span><span class="p">&gt;</span>requests.request<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
 to know what parameters you can pass.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 </code></pre></div>
 </div>
-<input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><label for="__tabbed_5_3">Result (displayed)</label><div class="tabbed-content">
+<div class="tabbed-block">
 <p>See <a href="https://docs.python-requests.org/en/master/api/#requests.request">requests.request</a> to know what parameters you can pass.</p>
+</div>
 </div>
 </div>
 <p>You can of course select another version of the inventory, for example:</p>
@@ -1310,7 +1274,7 @@ MkDocs will rebuild the site and reload the current page.</p>
 For example, it will not tell the Python handler to look for packages in these paths
 (the paths are not added to the <code>PYTHONPATH</code> variable).
 If you want to tell Python where to look for packages and modules,
-see <a href="../handlers/python/#finding-modules">Python Handler: Finding modules</a>.</p>
+see <a href="https://mkdocstrings.github.io/python/usage/#finding-modules">Python Handler: Finding modules</a>.</p>
 </div>
 
               
@@ -1407,7 +1371,7 @@ see <a href="../handlers/python/#finding-modules">Python Handler: Finding module
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../assets/javascripts/bundle.1514a9a0.min.js"></script>
+      <script src="../assets/javascripts/bundle.960e086b.min.js"></script>
       
     
   </body>

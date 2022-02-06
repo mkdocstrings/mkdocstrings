@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://mkdocstrings.github.io/reference/loggers/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.6">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.9">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.cd566b2a.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2b4465f4.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -499,8 +499,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../handlers/python/" class="md-nav__link">
-        Python
+      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
+        Crystal
       </a>
     </li>
   
@@ -513,8 +513,22 @@
   
   
     <li class="md-nav__item">
-      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
-        Crystal
+      <a href="https://mkdocstrings.github.io/python-legacy/" class="md-nav__link">
+        Python (Legacy)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mkdocstrings.github.io/python/" class="md-nav__link">
+        Python (Experimental)
       </a>
     </li>
   
@@ -654,20 +668,6 @@
     <li class="md-nav__item">
       <a href="../handlers/base/" class="md-nav__link">
         base.py
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../handlers/python/" class="md-nav__link">
-        python.py
       </a>
     </li>
   
@@ -842,67 +842,6 @@
   
     <li class="md-nav__item">
       <a href="../plugin/" class="md-nav__link">
-        plugin.py
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2">
-          mkdocs_autorefs
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_2">
-          <span class="md-nav__icon md-icon"></span>
-          mkdocs_autorefs
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../autorefs/references/" class="md-nav__link">
-        references.py
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../autorefs/plugin/" class="md-nav__link">
         plugin.py
       </a>
     </li>
@@ -1163,7 +1102,7 @@
 
 <h2 id="mkdocstrings.loggers.LoggerAdapter" class="doc doc-heading">
         <code>
-LoggerAdapter            (<span title="logging.LoggerAdapter">LoggerAdapter</span>)
+LoggerAdapter            (<a href="https://docs.python.org/3/library/logging.html#module-logging">logging</a>.<a href="https://docs.python.org/3/library/logging.html#logging.LoggerAdapter">LoggerAdapter</a>)
         </code>
 
 
@@ -1176,10 +1115,33 @@ LoggerAdapter            (<span title="logging.LoggerAdapter">LoggerAdapter</spa
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/loggers.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">LoggerAdapter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">LoggerAdapter</span><span class="p">):</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">LoggerAdapter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">LoggerAdapter</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A logger adapter to prefix messages.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logger</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
 
 <span class="sd">        Arguments:</span>
@@ -1189,7 +1151,7 @@ LoggerAdapter            (<span title="logging.LoggerAdapter">LoggerAdapter</spa
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="p">{})</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">=</span> <span class="n">prefix</span>
 
-    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;Process the message.</span>
 
 <span class="sd">        Arguments:</span>
@@ -1201,6 +1163,7 @@ LoggerAdapter            (<span title="logging.LoggerAdapter">LoggerAdapter</spa
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">kwargs</span>
 </code></pre></div>
+</td></tr></table>
         </details>
 
 
@@ -1215,51 +1178,66 @@ LoggerAdapter            (<span title="logging.LoggerAdapter">LoggerAdapter</spa
 
 
 
-  <div class="doc doc-object doc-method">
+  <div class="doc doc-object doc-function">
 
 
 
 <h3 id="mkdocstrings.loggers.LoggerAdapter.__init__" class="doc doc-heading">
 <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">logger</span><span class="p">)</span></code>
 
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-special"><code>special</code></small>
-  </span>
 
 <a href="#mkdocstrings.loggers.LoggerAdapter.__init__" class="headerlink" title="Permanent link">¤</a></h3>
+
 
     <div class="doc doc-contents ">
 
       <p>Initialize the object.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>prefix</code></td>
-        <td><code>str</code></td>
-        <td><p>The string to insert in front of every message.</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
-      <tr>
-        <td><code>logger</code></td>
-        <td></td>
-        <td><p>The logger instance.</p></td>
-        <td><em>required</em></td>
-      </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>prefix</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The string to insert in front of every message.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>logger</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/logging.html#module-logging">logging</a>.<a href="https://docs.python.org/3/library/logging.html#logging.Logger">Logger</a></code>
+          </td>
+          <td><p>The logger instance.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/loggers.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logger</span><span class="p">):</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1269,6 +1247,7 @@ LoggerAdapter            (<span title="logging.LoggerAdapter">LoggerAdapter</spa
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">logger</span><span class="p">,</span> <span class="p">{})</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">=</span> <span class="n">prefix</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -1276,7 +1255,7 @@ LoggerAdapter            (<span title="logging.LoggerAdapter">LoggerAdapter</spa
 
 
 
-  <div class="doc doc-object doc-method">
+  <div class="doc doc-object doc-function">
 
 
 
@@ -1286,53 +1265,76 @@ LoggerAdapter            (<span title="logging.LoggerAdapter">LoggerAdapter</spa
 
 <a href="#mkdocstrings.loggers.LoggerAdapter.process" class="headerlink" title="Permanent link">¤</a></h3>
 
+
     <div class="doc doc-contents ">
 
       <p>Process the message.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>msg</code></td>
-        <td><code>str</code></td>
-        <td><p>The message:</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>msg</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The message:</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>kwargs</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/typing.html#typing.MutableMapping">MutableMapping</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
+          </td>
+          <td><p>Remaining arguments.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>kwargs</code></td>
-        <td></td>
-        <td><p>Remaining arguments.</p></td>
-        <td><em>required</em></td>
+        <th>Type</th>
+        <th>Description</th>
       </tr>
-  </tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>Tuple[str, Any]</code></td>
-      <td><p>The processed message.</p></td>
-    </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a href="https://docs.python.org/3/library/typing.html#typing.Tuple">Tuple</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
+          </td>
+          <td><p>The processed message.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/loggers.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Process the message.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1344,6 +1346,7 @@ LoggerAdapter            (<span title="logging.LoggerAdapter">LoggerAdapter</spa
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">prefix</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">kwargs</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -1377,46 +1380,73 @@ TemplateLogger        </code>
 
       <p>A wrapper class to allow logging in templates.</p>
 
-<p><strong>Attributes:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>debug</code></td>
-        <td></td>
-        <td><p>Function to log a DEBUG message.</p></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
       </tr>
-      <tr>
-        <td><code>info</code></td>
-        <td></td>
-        <td><p>Function to log an INFO message.</p></td>
-      </tr>
-      <tr>
-        <td><code>warning</code></td>
-        <td></td>
-        <td><p>Function to log a WARNING message.</p></td>
-      </tr>
-      <tr>
-        <td><code>error</code></td>
-        <td></td>
-        <td><p>Function to log an ERROR message.</p></td>
-      </tr>
-      <tr>
-        <td><code>critical</code></td>
-        <td></td>
-        <td><p>Function to log a CRITICAL message.</p></td>
-      </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>debug</code></td>
+          <td>
+          </td>
+          <td><p>Function to log a DEBUG message.</p></td>
+        </tr>
+        <tr>
+          <td><code>info</code></td>
+          <td>
+          </td>
+          <td><p>Function to log an INFO message.</p></td>
+        </tr>
+        <tr>
+          <td><code>warning</code></td>
+          <td>
+          </td>
+          <td><p>Function to log a WARNING message.</p></td>
+        </tr>
+        <tr>
+          <td><code>error</code></td>
+          <td>
+          </td>
+          <td><p>Function to log an ERROR message.</p></td>
+        </tr>
+        <tr>
+          <td><code>critical</code></td>
+          <td>
+          </td>
+          <td><p>Function to log a CRITICAL message.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/loggers.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">TemplateLogger</span><span class="p">:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">TemplateLogger</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A wrapper class to allow logging in templates.</span>
 
 <span class="sd">    Attributes:</span>
@@ -1439,6 +1469,7 @@ TemplateLogger        </code>
         <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="n">get_template_logger_function</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">critical</span> <span class="o">=</span> <span class="n">get_template_logger_function</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
         </details>
 
 
@@ -1453,45 +1484,62 @@ TemplateLogger        </code>
 
 
 
-  <div class="doc doc-object doc-method">
+
+
+
+
+  <div class="doc doc-object doc-function">
 
 
 
 <h3 id="mkdocstrings.loggers.TemplateLogger.__init__" class="doc doc-heading">
 <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">)</span></code>
 
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-special"><code>special</code></small>
-  </span>
 
 <a href="#mkdocstrings.loggers.TemplateLogger.__init__" class="headerlink" title="Permanent link">¤</a></h3>
+
 
     <div class="doc doc-contents ">
 
       <p>Initialize the object.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>logger</code></td>
-        <td><code>LoggerAdapter</code></td>
-        <td><p>A logger adapter.</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>logger</code></td>
+          <td>
+                <code><a href="#mkdocstrings.loggers.LoggerAdapter">LoggerAdapter</a></code>
+          </td>
+          <td><p>A logger adapter.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/loggers.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">LoggerAdapter</span><span class="p">):</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">LoggerAdapter</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1503,6 +1551,7 @@ TemplateLogger        </code>
     <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="n">get_template_logger_function</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">critical</span> <span class="o">=</span> <span class="n">get_template_logger_function</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -1531,47 +1580,67 @@ TemplateLogger        </code>
 
 <a href="#mkdocstrings.loggers.get_logger" class="headerlink" title="Permanent link">¤</a></h2>
 
+
     <div class="doc doc-contents ">
 
       <p>Return a pre-configured logger.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>name</code></td>
-        <td><code>str</code></td>
-        <td><p>The name to use with <code>logging.getLogger</code>.</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
-  </tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>LoggerAdapter</code></td>
-      <td><p>A logger configured to work well in MkDocs.</p></td>
-    </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>name</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The name to use with <code>logging.getLogger</code>.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a href="#mkdocstrings.loggers.LoggerAdapter">LoggerAdapter</a></code>
+          </td>
+          <td><p>A logger configured to work well in MkDocs.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/loggers.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_logger</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LoggerAdapter</span><span class="p">:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_logger</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LoggerAdapter</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return a pre-configured logger.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1582,8 +1651,9 @@ TemplateLogger        </code>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mkdocs.plugins.</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">addFilter</span><span class="p">(</span><span class="n">warning_filter</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">LoggerAdapter</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">logger</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">LoggerAdapter</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">logger</span><span class="p">)</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -1601,28 +1671,38 @@ TemplateLogger        </code>
 
 <a href="#mkdocstrings.loggers.get_template_logger" class="headerlink" title="Permanent link">¤</a></h2>
 
+
     <div class="doc doc-contents ">
 
       <p>Return a logger usable in templates.</p>
 
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>TemplateLogger</code></td>
-      <td><p>A template logger.</p></td>
-    </tr>
-  </tbody>
-</table>
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a href="#mkdocstrings.loggers.TemplateLogger">TemplateLogger</a></code>
+          </td>
+          <td><p>A template logger.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/loggers.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_template_logger</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">TemplateLogger</span><span class="p">:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_template_logger</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">TemplateLogger</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return a logger usable in templates.</span>
 
 <span class="sd">    Returns:</span>
@@ -1630,6 +1710,7 @@ TemplateLogger        </code>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">TemplateLogger</span><span class="p">(</span><span class="n">get_logger</span><span class="p">(</span><span class="s2">&quot;mkdocstrings.templates&quot;</span><span class="p">))</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -1647,47 +1728,81 @@ TemplateLogger        </code>
 
 <a href="#mkdocstrings.loggers.get_template_logger_function" class="headerlink" title="Permanent link">¤</a></h2>
 
+
     <div class="doc doc-contents ">
 
       <p>Create a wrapper function that automatically receives the Jinja template context.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>logger_func</code></td>
-        <td><code>Callable</code></td>
-        <td><p>The logger function to use within the wrapper.</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
-  </tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>Callable</code></td>
-      <td><p>A function.</p></td>
-    </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>logger_func</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">Callable</a></code>
+          </td>
+          <td><p>The logger function to use within the wrapper.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a href="https://docs.python.org/3/library/typing.html#typing.Callable">Callable</a></code>
+          </td>
+          <td><p>A function.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/loggers.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_template_logger_function</span><span class="p">(</span><span class="n">logger_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_template_logger_function</span><span class="p">(</span><span class="n">logger_func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Create a wrapper function that automatically receives the Jinja template context.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1697,7 +1812,7 @@ TemplateLogger        </code>
 <span class="sd">        A function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="nd">@contextfunction</span>
+    <span class="nd">@pass_context</span>
     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">Context</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Log a message.</span>
 
@@ -1714,6 +1829,7 @@ TemplateLogger        </code>
 
     <span class="k">return</span> <span class="n">wrapper</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
@@ -1731,47 +1847,71 @@ TemplateLogger        </code>
 
 <a href="#mkdocstrings.loggers.get_template_path" class="headerlink" title="Permanent link">¤</a></h2>
 
+
     <div class="doc doc-contents ">
 
       <p>Return the path to the template currently using the given context.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>context</code></td>
-        <td><code>Context</code></td>
-        <td><p>The template context.</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
-  </tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>str</code></td>
-      <td><p>The relative path to the template.</p></td>
-    </tr>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>context</code></td>
+          <td>
+                <code>Context</code>
+          </td>
+          <td><p>The template context.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+          </td>
+          <td><p>The relative path to the template.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/loggers.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_template_path</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_template_path</span><span class="p">(</span><span class="n">context</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return the path to the template currently using the given context.</span>
 
 <span class="sd">    Arguments:</span>
@@ -1788,11 +1928,11 @@ TemplateLogger        </code>
             <span class="k">return</span> <span class="n">filename</span>
     <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">name</span>
 </code></pre></div>
+</td></tr></table>
         </details>
     </div>
 
   </div>
-
 
 
 
@@ -1898,7 +2038,7 @@ TemplateLogger        </code>
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.1514a9a0.min.js"></script>
+      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
       
     
   </body>

@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://mkdocstrings.github.io/handlers/overview/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.6">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.9">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.cd566b2a.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2b4465f4.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -503,8 +503,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../python/" class="md-nav__link">
-        Python
+      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
+        Crystal
       </a>
     </li>
   
@@ -517,8 +517,22 @@
   
   
     <li class="md-nav__item">
-      <a href="https://mkdocstrings.github.io/crystal/" class="md-nav__link">
-        Crystal
+      <a href="https://mkdocstrings.github.io/python-legacy/" class="md-nav__link">
+        Python (Legacy)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://mkdocstrings.github.io/python/" class="md-nav__link">
+        Python (Experimental)
       </a>
     </li>
   
@@ -666,20 +680,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/handlers/python/" class="md-nav__link">
-        python.py
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../reference/handlers/rendering/" class="md-nav__link">
         rendering.py
       </a>
@@ -730,67 +730,6 @@
   
     <li class="md-nav__item">
       <a href="../../reference/plugin/" class="md-nav__link">
-        plugin.py
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2">
-          mkdocs_autorefs
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="mkdocs_autorefs" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_2">
-          <span class="md-nav__icon md-icon"></span>
-          mkdocs_autorefs
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../reference/autorefs/references/" class="md-nav__link">
-        references.py
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../reference/autorefs/plugin/" class="md-nav__link">
         plugin.py
       </a>
     </li>
@@ -936,6 +875,60 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#about-the-python-handlers" class="md-nav__link">
+    About the Python handlers
+  </a>
+  
+    <nav class="md-nav" aria-label="About the Python handlers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#migrate-to-the-experimental-python-handler" class="md-nav__link">
+    Migrate to the experimental Python handler
+  </a>
+  
+    <nav class="md-nav" aria-label="Migrate to the experimental Python handler">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handler-options" class="md-nav__link">
+    Handler options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selection-options" class="md-nav__link">
+    Selection options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rendering-options" class="md-nav__link">
+    Rendering options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#templates" class="md-nav__link">
+    Templates
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#custom-handlers" class="md-nav__link">
     Custom handlers
   </a>
@@ -958,7 +951,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#templates" class="md-nav__link">
+  <a href="#templates_1" class="md-nav__link">
     Templates
   </a>
   
@@ -997,9 +990,133 @@
 <p>A handler is what makes it possible to collect and render documentation for a particular language.</p>
 <h2 id="available-handlers">Available handlers<a class="headerlink" href="#available-handlers" title="Permanent link">¤</a></h2>
 <ul>
-<li><a href="../python/">Python</a></li>
 <li><a class="external" href="https://mkdocstrings.github.io/crystal/">Crystal</a></li>
+<li><a class="external" href="https://mkdocstrings.github.io/python-legacy/">Python (Legacy)</a></li>
+<li><a class="external" href="https://mkdocstrings.github.io/python/">Python (Experimental)</a></li>
 </ul>
+<h2 id="about-the-python-handlers">About the Python handlers<a class="headerlink" href="#about-the-python-handlers" title="Permanent link">¤</a></h2>
+<p>Since version 0.18, a new, experimental Python handler is available.
+It is based on <a href="https://github.com/mkdocstrings/griffe">Griffe</a>,
+which is an improved version of <a href="https://github.com/mkdocstrings/pytkdocs">pytkdocs</a>.</p>
+<p>Note that the experimental handler does not yet offer the same features as the legacy one.
+If you are making extensive use of the current (legacy) Python handler selection and rendering options,
+you might want to wait a bit before trying the experimental handler.
+It is also not completely ready to handle dynamically built objects,
+like classes built with a call to <code>type(...)</code>.
+For most other cases, the experimental handler will work just fine.</p>
+<p>If you want to keep using the legacy handler as long as possible,
+you can depend on <code>mkdocstrings-python-legacy</code> directly,
+or specify the <code>python-legacy</code> extra when depending on <em>mkdocstrings</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># PEP 621 dependencies declaration</span><span class="w"></span>
+<span class="c1"># adapt to your dependencies manager</span><span class="w"></span>
+<span class="k">[project]</span><span class="w"></span>
+<span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;mkdocstrings[python-legacy]&gt;=0.18&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="p">]</span><span class="w"></span>
+</code></pre></div>
+<p>The legacy handler will continue to "work" for many releases,
+as long as the new handler does not cover all previous use-cases.</p>
+<p>Using the legacy handler will emit a <code>UserWarning</code> stating that users
+should specify the <code>python-legacy</code> extra when depending on <em>mkdocstrings</em>.
+The warning will be emitted even if you do specify the extra, as we have
+no way to detect it.</p>
+<p>Warnings can be globally ignored by setting the
+<a href="https://docs.python.org/3/library/warnings.html#describing-warning-filters"><code>PYTHONWARNINGS</code> environment variable</a>:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">PYTHONWARNINGS</span><span class="o">=</span>ignore::UserWarning:mkdocstrings.handlers.python
+</code></pre></div>
+<h3 id="migrate-to-the-experimental-python-handler">Migrate to the experimental Python handler<a class="headerlink" href="#migrate-to-the-experimental-python-handler" title="Permanent link">¤</a></h3>
+<p>To use the new, experimental Python handler,
+you can depend on <code>mkdocstrings-python</code> directly,
+or specify the <code>python</code> extra when depending on <em>mkdocstrings</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># PEP 621 dependencies declaration</span><span class="w"></span>
+<span class="c1"># adapt to your dependencies manager</span><span class="w"></span>
+<span class="k">[project]</span><span class="w"></span>
+<span class="n">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;mkdocstrings[python]&gt;=0.18&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="p">]</span><span class="w"></span>
+</code></pre></div>
+<h4 id="handler-options">Handler options<a class="headerlink" href="#handler-options" title="Permanent link">¤</a></h4>
+<ul>
+<li><code>setup_commands</code> is not yet implemented. But in most cases, you won't need it,
+  since by default the new handler does not execute the code.</li>
+</ul>
+<h4 id="selection-options">Selection options<a class="headerlink" href="#selection-options" title="Permanent link">¤</a></h4>
+<ul>
+<li><code>filters</code> is not yet implemented. <em>Every</em> declared object is picked up by default,
+  but only rendered if it has a docstring. Since code is not executed,
+  inherited attributes (like special methods and private members) are not picked up.</li>
+<li><code>members</code> is not yet implemented.</li>
+<li><code>inherited_members</code> is not yet implemented.</li>
+<li><code>docstring_style</code> is implemented, and used as before,
+  except for the <code>restructured-text</code> style which is renamed <code>sphinx</code>.
+  Numpy-style is now built-in, so you can stop depending on <code>pytkdocs[numpy-style]</code>
+  or <code>docstring_parser</code>.</li>
+<li><code>docstring_options</code> is implemented, and used as before, however none
+  of the provided parsers accept any option yet.</li>
+<li><code>new_path_syntax</code> is irrelevant now. If you were setting it to True,
+  remove the option and replace every colon (<code>:</code>) in your autodoc identifiers
+  by dots (<code>.</code>).</li>
+</ul>
+<h4 id="rendering-options">Rendering options<a class="headerlink" href="#rendering-options" title="Permanent link">¤</a></h4>
+<p>Every previous option is supported.
+Additional options are available:</p>
+<ul>
+<li><code>separate_signature</code>: Render the signature in a code block below the heading,
+  instead as inline code. Useful for long signatures. If Black is installed,
+  the signature is formatted. Default: false.</li>
+<li><code>line_length</code>: The maximum line length to use when formatting signatures. Default: 60.</li>
+<li><code>show_submodules</code>: Whether to render submodules of a module when iterating on children.
+  Default: true.</li>
+<li><code>docstring_section_style</code>: The style to use to render docstring sections such as attributes,
+  parameters, etc. Available styles: <code>table</code> (default), <code>list</code> and <code>spacy</code>. The SpaCy style
+  is a poor implementation of their <a href="https://spacy.io/api/doc/#init">table style</a>.
+  We are open to improvements through PRs!</li>
+</ul>
+<h4 id="templates">Templates<a class="headerlink" href="#templates" title="Permanent link">¤</a></h4>
+<p>Templates are mostly the same as before, but the file layout has changed,
+as well as some file names. Here is the new tree:</p>
+<div class="highlight"><pre><span></span><code>theme
+├── attribute.html
+├── children.html
+├── class.html
+├── docstring
+│   ├── admonition.html
+│   ├── attributes.html
+│   ├── examples.html
+│   ├── other_parameters.html
+│   ├── parameters.html
+│   ├── raises.html
+│   ├── receives.html
+│   ├── returns.html
+│   ├── warns.html
+│   └── yields.html
+├── docstring.html
+├── expression.html
+├── function.html
+├── labels.html
+├── module.html
+└── signature.html
+</code></pre></div>
+<p>See them <a href="https://github.com/mkdocstrings/python/tree/8fc8ea5b112627958968823ef500cfa46b63613e/src/mkdocstrings_handlers/python/templates/material">in the handler repository</a>.</p>
+<p>In preparation for Jinja2 blocks, which will improve customization,
+each one of these templates extends in fact a base version in <code>theme/_base</code>. Example:</p>
+<div class="highlight"><span class="filename">theme/docstring/admonition.html</span><pre><span></span><code><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;_base/docstring/admonition.html&quot;</span> <span class="cp">%}</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">theme/_base/docstring/admonition.html</span><pre><span></span><code><span class="cp">{{</span> <span class="nv">log.debug</span><span class="o">()</span> <span class="cp">}}</span>
+<span class="p">&lt;</span><span class="nt">details</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">section.value.kind</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">summary</span><span class="p">&gt;</span><span class="cp">{{</span> <span class="nv">section.title</span><span class="o">|</span><span class="nf">convert_markdown</span><span class="o">(</span><span class="nv">heading_level</span><span class="o">,</span> <span class="nv">html_id</span><span class="o">,</span> <span class="nv">strip_paragraph</span><span class="o">=</span><span class="kp">True</span><span class="o">)</span> <span class="cp">}}</span><span class="p">&lt;/</span><span class="nt">summary</span><span class="p">&gt;</span>
+  <span class="cp">{{</span> <span class="nv">section.value.contents</span><span class="o">|</span><span class="nf">convert_markdown</span><span class="o">(</span><span class="nv">heading_level</span><span class="o">,</span> <span class="nv">html_id</span><span class="o">)</span> <span class="cp">}}</span>
+<span class="p">&lt;/</span><span class="nt">details</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>It means you will be able to customize only <em>parts</em> of a template
+without having to fully copy-paste it in your project:</p>
+<div class="highlight"><span class="filename">templates/theme/docstring.html</span><pre><span></span><code><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;_base/docstring.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">contents</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">  </span><span class="cp">{{</span> <span class="nb">block</span><span class="nv">.super</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">  Additional contents</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="nv">contents</span> <span class="cp">%}</span><span class="x"></span>
+</code></pre></div>
+<p><strong>Block-level customization is not ready yet.</strong></p>
 <h2 id="custom-handlers">Custom handlers<a class="headerlink" href="#custom-handlers" title="Permanent link">¤</a></h2>
 <p>Since version 0.14, you can create and use custom handlers
 thanks to namespace packages. For more information about namespace packages,
@@ -1007,16 +1124,15 @@ thanks to namespace packages. For more information about namespace packages,
 <h3 id="packaging">Packaging<a class="headerlink" href="#packaging" title="Permanent link">¤</a></h3>
 <p>For <em>mkdocstrings</em>, a custom handler package would have the following structure:</p>
 <div class="highlight"><pre><span></span><code>📁 your_repository
-└─╴📁 mkdocstrings
-   └─╴📁 handlers
-      └─╴📄 custom_handler.py
+└─╴📁 mkdocstrings_handlers
+   └─╴📁 custom_handler
+      ├─╴📁 templates
+      │  ├─╴📁 material
+      │  ├─╴📁 mkdocs
+      │  └─╴📁 readthedocs
+      └─╴📄 __init__.py
 </code></pre></div>
-<p><strong>Note the absence of <code>__init__.py</code> modules!</strong></p>
-<p>If you name you handler after an existing handler,
-it will overwrite it!
-For example, it means you can overwrite the Python handler
-to change how it works or to add functionality,
-by naming your handler module <code>python.py</code>.</p>
+<p><strong>Note the absence of <code>__init__.py</code> module in <code>mkdocstrings_handlers</code>!</strong></p>
 <h3 id="code">Code<a class="headerlink" href="#code" title="Permanent link">¤</a></h3>
 <p>A handler is composed of a Collector and a Renderer.</p>
 <p>See the documentation for
@@ -1024,7 +1140,7 @@ by naming your handler module <code>python.py</code>.</p>
 <a href="../../reference/handlers/base/#mkdocstrings.handlers.base.BaseCollector"><code>BaseCollector</code></a> and
 <a href="../../reference/handlers/base/#mkdocstrings.handlers.base.BaseRenderer"><code>BaseRenderer</code></a>.</p>
 <p>Check out how the
-<a href="https://github.com/pawamoy/mkdocstrings/blob/master/src/mkdocstrings/handlers/python.py">Python handler</a>
+<a href="https://github.com/mkdocstrings/python/blob/master/src/mkdocstrings_handlers/python">Python handler</a>
 is written for inspiration.</p>
 <p>You must implement a <code>get_handler</code> method at the module level.
 This function takes the <code>theme</code> (string, theme name) and
@@ -1032,9 +1148,9 @@ This function takes the <code>theme</code> (string, theme name) and
 arguments, and you can add any other keyword argument you'd like.
 The global configuration items (other than <code>selection</code> and <code>rendering</code>)
 will be passed to this function when getting your handler.</p>
-<h3 id="templates">Templates<a class="headerlink" href="#templates" title="Permanent link">¤</a></h3>
-<p>You renderer's implementation should normally be backed by templates, which go
-to the directory <code>mkdocstrings/handlers/custom_handler/some_theme</code>.
+<h3 id="templates_1">Templates<a class="headerlink" href="#templates_1" title="Permanent link">¤</a></h3>
+<p>Your renderer's implementation should normally be backed by templates, which go
+to the directory <code>mkdocstrings_handlers/custom_handler/templates/some_theme</code>.
 (<code>custom_handler</code> here should be replaced with the actual name of your handler,
 and <code>some_theme</code> should be the name of an actual MkDocs theme that you support,
 e.g. <code>material</code>).</p>
@@ -1049,10 +1165,23 @@ be used even for themes you explicitly support: you can omit some template from
 one of the other theme directories in case they're exactly the same as in the
 fallback theme.</p>
 <p>If your theme's HTML requires CSS to go along with it, put it into a file named
-<code>mkdocstrings/handlers/custom_handler/some_theme/style.css</code>, then this will be
+<code>mkdocstrings_handlers/custom_handler/templates/some_theme/style.css</code>, then this will be
 included into the final site automatically if this handler is ever used.
 Alternatively, you can put the CSS as a string into the <code>extra_css</code> variable of
 your renderer.</p>
+<p>Finally, it's possible to entirely omit templates, and tell <em>mkdocstrings</em>
+to use the templates of another handler. In you renderer, override the
+<code>get_templates_dir()</code> method to return the other handlers templates path:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">mkdocstrings.handlers.base</span> <span class="kn">import</span> <span class="n">BaseRenderer</span>
+
+
+<span class="k">class</span> <span class="nc">CobraRenderer</span><span class="p">(</span><span class="n">BaseRenderer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_templates_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+        <span class="c1"># use the python handler templates</span>
+        <span class="c1"># (it assumes the python handler is installed)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_templates_dir</span><span class="p">(</span><span class="s2">&quot;python&quot;</span><span class="p">)</span>
+</code></pre></div>
 <h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">¤</a></h3>
 <p>When a custom handler is installed, it is then available to <em>mkdocstrings</em>.
 You can configure it as usual:</p>
@@ -1113,13 +1242,13 @@ You can configure it as usual:</p>
       
       
         
-        <a href="../python/" class="md-footer__link md-footer__link--next" aria-label="Next: Python" rel="next">
+        <a href="../../troubleshooting/" class="md-footer__link md-footer__link--next" aria-label="Next: Troubleshooting" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Python
+              Troubleshooting
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -1174,7 +1303,7 @@ You can configure it as usual:</p>
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.1514a9a0.min.js"></script>
+      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
       
     
   </body>
