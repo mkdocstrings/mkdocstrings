@@ -21,16 +21,16 @@ Automatic documentation from sources, for [MkDocs](https://mkdocs.org/).
   just like *MkDocs*, *mkdocstrings* is written in Python but is language-agnostic.
   It means you can use it with any programming language, as long as there is a
   [**handler**](https://mkdocstrings.github.io/reference/handlers/base/) for it.
-  The [Python handler](https://mkdocstrings.github.io/handlers/python/) is built-in.
-  [Others](https://mkdocstrings.github.io/handlers/overview/) are external.
+  We currently have [handlers](https://mkdocstrings.github.io/handlers/overview/)
+  for the [Crystal](https://mkdocstrings.github.io/crystal/) and [Python](https://mkdocstrings.github.io/python/) languages.
   Maybe you'd like to add another one to the list? :wink:
 
 - [**Multiple themes support:**](https://mkdocstrings.github.io/theming/)
   each handler can offer multiple themes. Currently, we offer the
   :star: [Material theme](https://squidfunk.github.io/mkdocs-material/) :star:
-  as well as basic support for the ReadTheDocs theme for the Python handler.
+  as well as basic support for the ReadTheDocs and MkDocs themes for the Python handler.
 
-- [**Cross-links across pages:**](https://mkdocstrings.github.io/usage/#cross-references)
+- [**Cross-references across pages:**](https://mkdocstrings.github.io/usage/#cross-references)
   *mkdocstrings* makes it possible to reference headings in other Markdown files with the classic Markdown linking
   syntax: `[identifier][]` or `[title][identifier]` -- and you don't need to remember which exact page this object was
   on. This works for any heading that's produced by a *mkdocstrings* language handler, and you can opt to include
@@ -38,6 +38,11 @@ Automatic documentation from sources, for [MkDocs](https://mkdocs.org/).
 
     **Note**: in versions prior to 0.15 *all* Markdown headers were included, but now you need to
     [opt in](https://mkdocstrings.github.io/usage/#cross-references-to-any-markdown-heading).
+
+- [**Cross-references across sites:**](https://mkdocstrings.github.io/usage/#cross-references-to-other-projects-inventories)
+  similarly to [Sphinx's intersphinx extension](https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html),
+  *mkdocstrings* can reference API items from other libraries, given they provide an inventory and you load
+  that inventory in your MkDocs configuration.
 
 - [**Inline injection in Markdown:**](https://mkdocstrings.github.io/usage/)
   instead of generating Markdown files, *mkdocstrings* allows you to inject
@@ -55,42 +60,6 @@ Automatic documentation from sources, for [MkDocs](https://mkdocs.org/).
 
 - **Reasonable defaults:**
   you should be able to just drop the plugin in your configuration and enjoy your auto-generated docs.
-
-### Python handler
-
-![mkdocstrings_gif2](https://user-images.githubusercontent.com/3999221/77157838-7184db80-6aa2-11ea-9f9a-fe77405202de.gif)
-
-- **Data collection from source code**: collection of the object-tree and the docstrings is done by
-  [`pytkdocs`](https://github.com/pawamoy/pytkdocs).
-
-- **Support for type annotations:** `pytkdocs` collects your type annotations and *mkdocstrings* uses them
-  to display parameters types or return types.
-
-- **Recursive documentation of Python objects:** just use the module dotted-path as identifier, and you get the full
-  module docs. You don't need to inject documentation for each class, function, etc.
-
-- **Support for documented attributes:** attributes (variables) followed by a docstring (triple-quoted string) will
-  be recognized by `pytkdocs` in modules, classes and even in `__init__` methods.
-
-- **Support for objects properties:** `pytkdocs` detects if a method is a `staticmethod`, a `classmethod`, etc.,
-  it also detects if a property is read-only or writable, and more! These properties will be displayed
-  next to the object signature by *mkdocstrings*.
-
-- **Multiple docstring-styles support:** almost complete support for Google-style, Numpy-style,
-  and reStructuredText-style docstrings. *Notes: only RST **style** is supported, not the whole markup.
-  Numpy-style requires an extra dependency from `pytkdocs`: `pytkdocs[numpy-style]`.*
-
-- **Admonition support in docstrings:** blocks like `Note:` or `Warning:` will be transformed
-  to their [admonition](https://squidfunk.github.io/mkdocs-material/reference/admonitions/) equivalent.
-  *We do not support nested admonitions in docstrings!*
-
-- **Every object has a TOC entry:** we render a heading for each object, meaning *MkDocs* picks them into the Table
-  of Contents, which is nicely display by the Material theme. Thanks to *mkdocstrings* cross-reference ability,
-  you can reference other objects within your docstrings, with the classic Markdown syntax:
-  `[this object][package.module.object]` or directly with `[package.module.object][]`
-
-- **Source code display:** *mkdocstrings* can add a collapsible div containing the highlighted source code
-  of the Python object.
 
 ## Requirements
 
