@@ -20,6 +20,7 @@ nav:
     - Crystal: https://mkdocstrings.github.io/crystal/
     - Python (Legacy): https://mkdocstrings.github.io/python-legacy/
     - Python (Experimental): https://mkdocstrings.github.io/python/
+  - Recipes: recipes.md
   - Troubleshooting: troubleshooting.md
 # defer to gen-files + literate-nav
 - Code Reference: reference/
