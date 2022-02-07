@@ -397,19 +397,6 @@
     Features
   </a>
   
-    <nav class="md-nav" aria-label="Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#python-handler" class="md-nav__link">
-    Python handler
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -945,19 +932,6 @@
     Features
   </a>
   
-    <nav class="md-nav" aria-label="Features">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#python-handler" class="md-nav__link">
-    Python handler
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1005,7 +979,8 @@
 <a href="https://anaconda.org/conda-forge/mkdocstrings"><img alt="conda version" src="https://img.shields.io/conda/vn/conda-forge/mkdocstrings" /></a>
 <a href="https://gitpod.io/#https://github.com/mkdocstrings/mkdocstrings"><img alt="gitpod" src="https://img.shields.io/badge/gitpod-workspace-blue.svg?style=flat" /></a>
 <a href="https://gitter.im/mkdocstrings/community"><img alt="gitter" src="https://badges.gitter.im/join%20chat.svg" /></a></p>
-<p>Automatic documentation from sources, for <a href="https://mkdocs.org/">MkDocs</a>.</p>
+<p>Automatic documentation from sources, for <a href="https://mkdocs.org/">MkDocs</a>.
+Come have a chat or ask questions on our <a href="https://gitter.im/mkdocstrings/community">Gitter channel</a>.</p>
 <hr />
 <p><strong><a href="#features">Features</a></strong> - <strong><a href="#python-handler">Python handler</a></strong> - <strong><a href="#requirements">Requirements</a></strong> - <strong><a href="#installation">Installation</a></strong> - <strong><a href="#quick-usage">Quick usage</a></strong></p>
 <p><img alt="mkdocstrings_gif1" src="https://user-images.githubusercontent.com/3999221/77157604-fb807480-6aa1-11ea-99e0-d092371d4de0.gif" /></p>
@@ -1016,24 +991,30 @@
   just like <em>MkDocs</em>, <em>mkdocstrings</em> is written in Python but is language-agnostic.
   It means you can use it with any programming language, as long as there is a
   <a href="https://mkdocstrings.github.io/reference/handlers/base/"><strong>handler</strong></a> for it.
-  The <a href="https://mkdocstrings.github.io/handlers/python/">Python handler</a> is built-in.
-  <a href="https://mkdocstrings.github.io/handlers/overview/">Others</a> are external.
+  We currently have <a href="https://mkdocstrings.github.io/handlers/overview/">handlers</a>
+  for the <a href="https://mkdocstrings.github.io/crystal/">Crystal</a> and <a href="https://mkdocstrings.github.io/python/">Python</a> languages.
   Maybe you'd like to add another one to the list? <img alt="😉" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f609.png" title=":wink:" /></p>
 </li>
 <li>
 <p><a href="https://mkdocstrings.github.io/theming/"><strong>Multiple themes support:</strong></a>
   each handler can offer multiple themes. Currently, we offer the
   <img alt="⭐️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2b50.png" title=":star:" /> <a href="https://squidfunk.github.io/mkdocs-material/">Material theme</a> <img alt="⭐️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/2b50.png" title=":star:" />
-  as well as basic support for the ReadTheDocs theme for the Python handler.</p>
+  as well as basic support for the ReadTheDocs and MkDocs themes for the Python handler.</p>
 </li>
 <li>
-<p><a href="https://mkdocstrings.github.io/usage/#cross-references"><strong>Cross-links across pages:</strong></a>
+<p><a href="https://mkdocstrings.github.io/usage/#cross-references"><strong>Cross-references across pages:</strong></a>
   <em>mkdocstrings</em> makes it possible to reference headings in other Markdown files with the classic Markdown linking
   syntax: <code>[identifier][]</code> or <code>[title][identifier]</code> -- and you don't need to remember which exact page this object was
   on. This works for any heading that's produced by a <em>mkdocstrings</em> language handler, and you can opt to include
   <em>any</em> Markdown heading into the global referencing scheme.</p>
 <p><strong>Note</strong>: in versions prior to 0.15 <em>all</em> Markdown headers were included, but now you need to
 <a href="https://mkdocstrings.github.io/usage/#cross-references-to-any-markdown-heading">opt in</a>.</p>
+</li>
+<li>
+<p><a href="https://mkdocstrings.github.io/usage/#cross-references-to-other-projects-inventories"><strong>Cross-references across sites:</strong></a>
+  similarly to <a href="https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html">Sphinx's intersphinx extension</a>,
+  <em>mkdocstrings</em> can reference API items from other libraries, given they provide an inventory and you load
+  that inventory in your MkDocs configuration.</p>
 </li>
 <li>
 <p><a href="https://mkdocstrings.github.io/usage/"><strong>Inline injection in Markdown:</strong></a>
@@ -1055,51 +1036,6 @@
 <li>
 <p><strong>Reasonable defaults:</strong>
   you should be able to just drop the plugin in your configuration and enjoy your auto-generated docs.</p>
-</li>
-</ul>
-<h3 id="python-handler">Python handler<a class="headerlink" href="#python-handler" title="Permanent link">¤</a></h3>
-<p><img alt="mkdocstrings_gif2" src="https://user-images.githubusercontent.com/3999221/77157838-7184db80-6aa2-11ea-9f9a-fe77405202de.gif" /></p>
-<ul>
-<li>
-<p><strong>Data collection from source code</strong>: collection of the object-tree and the docstrings is done by
-  <a href="https://github.com/pawamoy/pytkdocs"><code>pytkdocs</code></a>.</p>
-</li>
-<li>
-<p><strong>Support for type annotations:</strong> <code>pytkdocs</code> collects your type annotations and <em>mkdocstrings</em> uses them
-  to display parameters types or return types.</p>
-</li>
-<li>
-<p><strong>Recursive documentation of Python objects:</strong> just use the module dotted-path as identifier, and you get the full
-  module docs. You don't need to inject documentation for each class, function, etc.</p>
-</li>
-<li>
-<p><strong>Support for documented attributes:</strong> attributes (variables) followed by a docstring (triple-quoted string) will
-  be recognized by <code>pytkdocs</code> in modules, classes and even in <code>__init__</code> methods.</p>
-</li>
-<li>
-<p><strong>Support for objects properties:</strong> <code>pytkdocs</code> detects if a method is a <code>staticmethod</code>, a <code>classmethod</code>, etc.,
-  it also detects if a property is read-only or writable, and more! These properties will be displayed
-  next to the object signature by <em>mkdocstrings</em>.</p>
-</li>
-<li>
-<p><strong>Multiple docstring-styles support:</strong> almost complete support for Google-style, Numpy-style,
-  and reStructuredText-style docstrings. <em>Notes: only RST </em><em>style</em><em> is supported, not the whole markup.
-  Numpy-style requires an extra dependency from <code>pytkdocs</code>: <code>pytkdocs[numpy-style]</code>.</em></p>
-</li>
-<li>
-<p><strong>Admonition support in docstrings:</strong> blocks like <code>Note:</code> or <code>Warning:</code> will be transformed
-  to their <a href="https://squidfunk.github.io/mkdocs-material/reference/admonitions/">admonition</a> equivalent.
-  <em>We do not support nested admonitions in docstrings!</em></p>
-</li>
-<li>
-<p><strong>Every object has a TOC entry:</strong> we render a heading for each object, meaning <em>MkDocs</em> picks them into the Table
-  of Contents, which is nicely display by the Material theme. Thanks to <em>mkdocstrings</em> cross-reference ability,
-  you can reference other objects within your docstrings, with the classic Markdown syntax:
-  <code>[this object][package.module.object]</code> or directly with <code>[package.module.object][]</code></p>
-</li>
-<li>
-<p><strong>Source code display:</strong> <em>mkdocstrings</em> can add a collapsible div containing the highlighted source code
-  of the Python object.</p>
 </li>
 </ul>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">¤</a></h2>
