@@ -8,6 +8,7 @@
 [![gitter](https://badges.gitter.im/join%20chat.svg)](https://gitter.im/mkdocstrings/community)
 
 Automatic documentation from sources, for [MkDocs](https://mkdocs.org/).
+Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdocstrings/community).
 
 ---
 
