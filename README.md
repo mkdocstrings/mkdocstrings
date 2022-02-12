@@ -89,20 +89,24 @@ pyenv global system 3.7.12
 ## Installation
 
 With `pip`:
+
 ```bash
 pip install mkdocstrings
 ```
 
 With `conda`:
+
 ```bash
 conda install -c conda-forge mkdocstrings
 ```
 
 Note for Python: you'll need an extra dependency to parse Numpy-style docstrings:
 
-```
+```bash
 pip install pytkdocs[numpy-style]
 ```
+
+> Note: As Numpy-style is partially supported by the underlying parser, you may experience problems in the building process if your docstring has a `Method` section in the class docstring (see [#366](https://github.com/mkdocstrings/mkdocstrings/issues/366))
 
 ## Quick usage
 
