@@ -35,6 +35,7 @@ theme:
   icon:
     logo: material/currency-sign
   features:
+  - content.code.annotate
   - navigation.tabs
   - navigation.top
   palette:
