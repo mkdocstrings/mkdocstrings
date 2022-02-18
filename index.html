@@ -612,6 +612,20 @@
   
   
     <li class="md-nav__item">
+      <a href="recipes/" class="md-nav__link">
+        Recipes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="troubleshooting/" class="md-nav__link">
         Troubleshooting
       </a>
@@ -982,7 +996,7 @@
 <p>Automatic documentation from sources, for <a href="https://mkdocs.org/">MkDocs</a>.
 Come have a chat or ask questions on our <a href="https://gitter.im/mkdocstrings/community">Gitter channel</a>.</p>
 <hr />
-<p><strong><a href="#features">Features</a></strong> - <strong><a href="#python-handler">Python handler</a></strong> - <strong><a href="#requirements">Requirements</a></strong> - <strong><a href="#installation">Installation</a></strong> - <strong><a href="#quick-usage">Quick usage</a></strong></p>
+<p><strong><a href="#features">Features</a></strong> - <strong><a href="#requirements">Requirements</a></strong> - <strong><a href="#installation">Installation</a></strong> - <strong><a href="#quick-usage">Quick usage</a></strong></p>
 <p><img alt="mkdocstrings_gif1" src="https://user-images.githubusercontent.com/3999221/77157604-fb807480-6aa1-11ea-99e0-d092371d4de0.gif" /></p>
 <h2 id="features">Features<a class="headerlink" href="#features" title="Permanent link">¤</a></h2>
 <ul>
@@ -1063,12 +1077,13 @@ pyenv global system <span class="m">3</span>.7.12
 <p>With <code>pip</code>:
 <div class="highlight"><pre><span></span><code>pip install mkdocstrings
 </code></pre></div></p>
+<p>You can install support for specific languages using extras, for example:</p>
+<div class="highlight"><pre><span></span><code>pip install mkdocstrings<span class="o">[</span>crystal,python<span class="o">]</span>
+</code></pre></div>
+<p>See the <a href="https://mkdocstrings.github.io/handlers/overview/">available language handlers</a>.</p>
 <p>With <code>conda</code>:
 <div class="highlight"><pre><span></span><code>conda install -c conda-forge mkdocstrings
 </code></pre></div></p>
-<p>Note for Python: you'll need an extra dependency to parse Numpy-style docstrings:</p>
-<div class="highlight"><pre><span></span><code>pip install pytkdocs[numpy-style]
-</code></pre></div>
 <h2 id="quick-usage">Quick usage<a class="headerlink" href="#quick-usage" title="Permanent link">¤</a></h2>
 <div class="highlight"><pre><span></span><code><span class="c1"># mkdocs.yml</span><span class="w"></span>
 <span class="nt">theme</span><span class="p">:</span><span class="w"></span>
@@ -1161,7 +1176,7 @@ pyenv global system <span class="m">3</span>.7.12
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.22074ed6.min.js"}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["content.code.annotate", "navigation.tabs", "navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
       <script src="assets/javascripts/bundle.960e086b.min.js"></script>

@@ -10,14 +10,14 @@
       
       
       
-        <link rel="canonical" href="https://mkdocstrings.github.io/coverage/">
+        <link rel="canonical" href="https://mkdocstrings.github.io/recipes/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.9">
     
     
       
-        <title>Coverage report - mkdocstrings</title>
+        <title>Recipes - mkdocstrings</title>
       
     
     
@@ -73,6 +73,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#automatic-code-reference-pages" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -102,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Coverage report
+              Recipes
             
           </span>
         </div>
@@ -212,10 +217,12 @@
         
   
   
+    
+  
 
 
   <li class="md-tabs__item">
-    <a href="../usage/" class="md-tabs__link">
+    <a href="../usage/" class="md-tabs__link md-tabs__link--active">
       Usage
     </a>
   </li>
@@ -247,15 +254,13 @@
         
   
   
-    
-  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../contributing/" class="md-tabs__link md-tabs__link--active">
+      <a href="../contributing/" class="md-tabs__link">
         Development
       </a>
     </li>
@@ -414,12 +419,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       
       
@@ -541,11 +548,75 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../recipes/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Recipes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Recipes
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#automatic-code-reference-pages" class="md-nav__link">
+    Automatic code reference pages
+  </a>
+  
+    <nav class="md-nav" aria-label="Automatic code reference pages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate-pages-on-the-fly" class="md-nav__link">
+    Generate pages on-the-fly
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-a-literate-navigation-file" class="md-nav__link">
+    Generate a literate navigation file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prevent-selection-of-in-python-code-blocks" class="md-nav__link">
+    Prevent selection of &gt;&gt;&gt; in Python code blocks
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -761,14 +832,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       
       
@@ -817,19 +886,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../coverage/" class="md-nav__link">
         Coverage report
       </a>
-      
     </li>
   
 
@@ -863,47 +924,266 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#automatic-code-reference-pages" class="md-nav__link">
+    Automatic code reference pages
+  </a>
+  
+    <nav class="md-nav" aria-label="Automatic code reference pages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate-pages-on-the-fly" class="md-nav__link">
+    Generate pages on-the-fly
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-a-literate-navigation-file" class="md-nav__link">
+    Generate a literate navigation file
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prevent-selection-of-in-python-code-blocks" class="md-nav__link">
+    Prevent selection of &gt;&gt;&gt; in Python code blocks
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
                 
-<a href="https://github.com/mkdocstrings/mkdocstrings/blob/master/docs/coverage.md" title="Edit this page" class="md-content__button md-icon">
+<a href="https://github.com/mkdocstrings/mkdocstrings/blob/master/docs/recipes.md" title="Edit this page" class="md-content__button md-icon">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
 </a>
 
 
-  <h1>Coverage report</h1>
+  <h1>Recipes</h1>
 
+<p>On this page you will find various recipes, tips and tricks
+for <em>mkdocstrings</em> and more generally Markdown documentation.</p>
+<h2 id="automatic-code-reference-pages">Automatic code reference pages<a class="headerlink" href="#automatic-code-reference-pages" title="Permanent link">¤</a></h2>
+<p><em>mkdocstrings</em> allows to inject documentation for any object
+into Markdown pages. But as the project grows, it quickly becomes
+quite tedious to keep the autodoc instructions, or even the dedicated
+Markdown files in sync with all your source files and objects.</p>
+<p>In this recipe, we will iteratively automate the process
+of generating these pages at each build of the documentation.</p>
+<hr />
+<p>Let say you have a project called <code>project</code>.
+This project has a lot of source files, or modules,
+which live in the <code>src</code> folder:</p>
+<div class="highlight"><pre><span></span><code>📁 repo
+└─╴📁 src
+    └─╴📁 project
+        ├─╴📄 lorem
+        ├─╴📄 ipsum
+        ├─╴📄 dolor
+        ├─╴📄 sit
+        └─╴📄 amet
+</code></pre></div>
+<p>Without an automatic process, you will have to manually
+create a Markdown page for each one of these modules,
+with the corresponding autodoc instruction, for example <code>::: project.lorem</code>,
+and also add entry in MkDocs' navigation option (<code>nav</code> in <code>mkdocs.yml</code>).
+With a lot of modules, this is quickly getting cumbersome.</p>
+<p>Lets fix that.</p>
+<h3 id="generate-pages-on-the-fly">Generate pages on-the-fly<a class="headerlink" href="#generate-pages-on-the-fly" title="Permanent link">¤</a></h3>
+<p>In this recipe, we suggest to use the <a href="https://github.com/oprypin/mkdocs-gen-files">mkdocs-gen-files plugin</a>.
+This plugin exposes utilities to generate files at build time.
+These files won't be written to the docs directory: you don't have
+to track and version them. They are transparently generated each
+time you build your docs. This is perfect for our use-case!</p>
+<p>Add <code>mkdocs-gen-files</code> to your project's docs dependencies,
+and configure it like so:</p>
+<div class="highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search</span><span class="w">  </span><span class="c1"># (1)</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">gen-files</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">scripts</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docs/gen_ref_pages.py</span><span class="w">  </span><span class="c1"># (2)</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">watch</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src/project</span><span class="w">  </span><span class="c1"># (3)</span><span class="w"></span>
+</code></pre></div>
+<ol>
+<li>Don't forget to load the <code>search</code> plugin when redefining the <code>plugins</code> item.</li>
+<li>The magic happens here, see below how it works.</li>
+<li>Useful for the live-reload feature of <code>mkdocs serve</code>.</li>
+</ol>
+<p>mkdocs-gen-files is able to run Python scripts at build time.
+The Python script that we will execute lives in the docs folder,
+and is named <code>gen_ref_pages.py</code>, like "generate code reference pages".</p>
+<div class="highlight"><span class="filename">docs/gen_ref_pages.py</span><pre><span></span><code><span class="sd">&quot;&quot;&quot;Generate the code reference pages.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">mkdocs_gen_files</span>
+
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">&quot;*.py&quot;</span><span class="p">)):</span>  <span class="c1"># (1)</span>
+    <span class="n">module_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>  <span class="c1"># (2)</span>
+    <span class="n">doc_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.md&quot;</span><span class="p">)</span>  <span class="c1"># (3)</span>
+    <span class="n">full_doc_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">doc_path</span><span class="p">)</span>  <span class="c1"># (4)</span>
+
+    <span class="k">with</span> <span class="n">mkdocs_gen_files</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">full_doc_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>  <span class="c1"># (5)</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">module_path</span><span class="o">.</span><span class="n">parts</span><span class="p">)</span>  <span class="c1"># (6)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;::: &quot;</span> <span class="o">+</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">fd</span><span class="p">)</span>  <span class="c1"># (7)</span>
+
+    <span class="n">mkdocs_gen_files</span><span class="o">.</span><span class="n">set_edit_path</span><span class="p">(</span><span class="n">full_doc_path</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>  <span class="c1"># (8)</span>
+</code></pre></div>
+<ol>
+<li>Here we recursively list all <code>.py</code> files, but you can adapt the code to list
+   files with other extensions of course, supporting other languages than Python.</li>
+<li>The module path will look like <code>project/lorem</code>.
+   It will be used to build the <em>mkdocstrings</em> autodoc identifier.</li>
+<li>This is the relative path to the Markdown page.</li>
+<li>This is the absolute path to the Markdown page. Here we put all reference pages
+   into a <code>reference</code> folder.</li>
+<li>Magic! Add the file to MkDocs pages, without actually writing it in the docs folder.</li>
+<li>Build the autodoc identifier. Here we document Python modules, so the identifier
+   is a dot-separated path, like <code>project.lorem</code>.</li>
+<li>Actually write to the magic file.</li>
+<li>We can even set the <code>edit_uri</code> on the pages.</li>
+</ol>
+<p>With this script, a <code>reference</code> folder is automatically created
+each time we build our docs. This folder contains a Markdown page
+for each of our source modules, and each of these pages
+contains a single line of the form <code>::: project.module</code>
+(module being <code>lorem</code>, <code>ipsum</code>, etc.). Great!
+But, we still have to actually add those pages into our MkDocs
+navigation:</p>
+<div class="highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span class="nt">nav</span><span class="p">:</span><span class="w"></span>
+<span class="c1"># rest of the navigation...</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Code Reference</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">project</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">lorem</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reference/project/lorem.md</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">ipsum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reference/project/ipsum.md</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">dolor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reference/project/dolor.md</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">sit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reference/project/sit.md</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">amet</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reference/project/amet.md</span><span class="w"></span>
+<span class="c1"># rest of the navigation...</span><span class="w"></span>
+</code></pre></div>
+<p>Err... so this process is only semi-automatic?
+Yes, but don't worry, we can fully automate it.</p>
+<h3 id="generate-a-literate-navigation-file">Generate a literate navigation file<a class="headerlink" href="#generate-a-literate-navigation-file" title="Permanent link">¤</a></h3>
+<p>mkdocs-gen-files is able to generate a literate navigation file.
+But to make use of it, we will need an additional plugin:
+<a href="https://pypi.org/project/mkdocs-literate-nav/">mkdocs-literate-nav</a>.
+This plugin allows to specify the whole navigation, or parts of it,
+into Markdown pages, as plain Markdown lists.
+We use it here to specify the navigation for the code reference pages.</p>
+<p>First, add <code>mkdocs-literate-nav</code> to your project's docs dependencies,
+and configure the plugin in your MkDocs configuration:</p>
+<div class="highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">gen-files</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">scripts</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docs/gen_ref_pages.py</span><span class="w"></span>
+<span class="hll"><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">literate-nav</span><span class="p">:</span><span class="w"></span>
+</span><span class="hll"><span class="w">    </span><span class="nt">nav_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SUMMARY.md</span><span class="w"></span>
+</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">watch</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src/project</span><span class="w"></span>
+</code></pre></div>
+<p>Then, the previous script is updated like so:</p>
+<div class="highlight"><span class="filename">docs/gen_ref_pages.py</span><pre><span></span><code><span class="sd">&quot;&quot;&quot;Generate the code reference pages and navigation.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">mkdocs_gen_files</span>
+
+<span class="hll"><span class="n">nav</span> <span class="o">=</span> <span class="n">mkdocs_gen_files</span><span class="o">.</span><span class="n">Nav</span><span class="p">()</span>
+</span>
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">&quot;*.py&quot;</span><span class="p">)):</span>
+    <span class="n">module_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">doc_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.md&quot;</span><span class="p">)</span>
+    <span class="n">full_doc_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">doc_path</span><span class="p">)</span>
+
+<span class="hll">    <span class="n">nav</span><span class="p">[</span><span class="n">module_path</span><span class="o">.</span><span class="n">parts</span><span class="p">]</span> <span class="o">=</span> <span class="n">doc_path</span>  <span class="c1"># (1)</span>
+</span>
+    <span class="k">with</span> <span class="n">mkdocs_gen_files</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">full_doc_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+        <span class="n">ident</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">module_path</span><span class="o">.</span><span class="n">parts</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;::: &quot;</span> <span class="o">+</span> <span class="n">ident</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">fd</span><span class="p">)</span>
+
+    <span class="n">mkdocs_gen_files</span><span class="o">.</span><span class="n">set_edit_path</span><span class="p">(</span><span class="n">full_doc_path</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+<span class="hll"><span class="k">with</span> <span class="n">mkdocs_gen_files</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;reference/SUMMARY.md&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">nav_file</span><span class="p">:</span>  <span class="c1"># (2)</span>
+</span><span class="hll">    <span class="n">nav_file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">nav</span><span class="o">.</span><span class="n">build_literate_nav</span><span class="p">())</span>  <span class="c1"># (3)</span>
+</span></code></pre></div>
+<ol>
+<li>Progressively build the navigation object.</li>
+<li>At the end, create a magic, literate navigation file called <code>SUMMARY.md</code> in the <code>reference</code> folder.</li>
+<li>Write the navigation as a Markdown list in the literate navigation file.</li>
+</ol>
+<p>Now we are able to remove our hard-coded navigation in <code>mkdocs.yml</code>,
+and replace it with a single line!</p>
+<div class="highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span class="nt">nav</span><span class="p">:</span><span class="w"></span>
+<span class="c1"># rest of the navigation...</span><span class="w"></span>
+<span class="c1"># defer to gen-files + literate-nav</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Code Reference</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reference/</span><span class="w">  </span><span class="c1"># (1)</span><span class="w"></span>
+<span class="c1"># rest of the navigation...</span><span class="w"></span>
+</code></pre></div>
+<ol>
+<li>Note the trailing slash! It is needed so that <code>mkdocs-literate-nav</code> knows
+   it has to look for a <code>SUMMARY.md</code> file in that folder.</li>
+</ol>
+<h2 id="prevent-selection-of-in-python-code-blocks">Prevent selection of <code>&gt;&gt;&gt;</code> in Python code blocks<a class="headerlink" href="#prevent-selection-of-in-python-code-blocks" title="Permanent link">¤</a></h2>
+<p>To prevent the selection of <code>&gt;&gt;&gt;</code> in Python code blocks,
+you can use the <code>pycon</code> syntax highlighting on your code block,
+and add some CSS rules to your site using MkDocs <code>extra_css</code> option:</p>
+<div class="highlight"><pre><span></span><code><span class="sb">```pycon</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello mkdocstrings!&quot;</span><span class="p">)</span>
+<span class="sb">```</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">docs/css/code_select.css</span><pre><span></span><code><span class="p">.</span><span class="nc">highlight</span><span class="w"> </span><span class="p">.</span><span class="nc">gp</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">highlight</span><span class="w"> </span><span class="p">.</span><span class="nc">go</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c">/* Generic.Prompt, Generic.Output */</span><span class="w"></span>
+<span class="w">    </span><span class="k">user-select</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span class="nt">extra_css</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">css/code_select.css</span><span class="w"></span>
+</code></pre></div>
+<p>Try to select the following code block's text:</p>
 <style>
-.md-content {
-    max-width: none !important;
-}
-article h1, article > a {
-    display: none;
+.highlight .gp, .highlight .go { /* Generic.Prompt, Generic.Output */
+    user-select: none;
 }
 </style>
 
-<p><iframe
-    id="coviframe"
-    src="covindex.html"
-    frameborder="0"
-    scrolling="no"
-    onload="resizeIframe();"
-    width="100%">
-</iframe>
-</p>
-<script>
-var coviframe = document.getElementById("coviframe");
-
-function resizeIframe() {
-    coviframe.style.height = coviframe.contentWindow.document.documentElement.offsetHeight + 'px';
-}
-
-coviframe.contentWindow.document.body.onclick = function() {
-    coviframe.contentWindow.location.reload();
-}
-</script>
+<div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello mkdocstrings!&quot;</span><span class="p">)</span>
+</code></pre></div>
 
               
             </article>
@@ -922,7 +1202,7 @@ coviframe.contentWindow.document.body.onclick = function() {
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../code_of_conduct/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Code of Conduct" rel="prev">
+        <a href="../handlers/overview/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Handlers" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -931,11 +1211,26 @@ coviframe.contentWindow.document.body.onclick = function() {
               <span class="md-footer__direction">
                 Previous
               </span>
-              Code of Conduct
+              Handlers
             </div>
           </div>
         </a>
       
+      
+        
+        <a href="../troubleshooting/" class="md-footer__link md-footer__link--next" aria-label="Next: Troubleshooting" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Troubleshooting
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
       
     </nav>
   
