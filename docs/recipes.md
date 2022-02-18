@@ -110,12 +110,12 @@ navigation:
 nav:
 # rest of the navigation...
 - Code Reference:
-- project:
-  - lorem: reference/project/lorem.md
-  - ipsum: reference/project/ipsum.md
-  - dolor: reference/project/dolor.md
-  - sit: reference/project/sit.md
-  - amet: reference/project/amet.md
+  - project:
+    - lorem: reference/project/lorem.md
+    - ipsum: reference/project/ipsum.md
+    - dolor: reference/project/dolor.md
+    - sit: reference/project/sit.md
+    - amet: reference/project/amet.md
 # rest of the navigation...
 ```
 
