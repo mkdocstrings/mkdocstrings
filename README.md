@@ -12,7 +12,7 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
 
 ---
 
-**[Features](#features)** - **[Python handler](#python-handler)** - **[Requirements](#requirements)** - **[Installation](#installation)** - **[Quick usage](#quick-usage)**
+**[Features](#features)** - **[Requirements](#requirements)** - **[Installation](#installation)** - **[Quick usage](#quick-usage)**
 
 ![mkdocstrings_gif1](https://user-images.githubusercontent.com/3999221/77157604-fb807480-6aa1-11ea-99e0-d092371d4de0.gif)
 
@@ -93,15 +93,17 @@ With `pip`:
 pip install mkdocstrings
 ```
 
+You can install support for specific languages using extras, for example:
+
+```bash
+pip install mkdocstrings[crystal,python]
+```
+
+See the [available language handlers](https://mkdocstrings.github.io/handlers/overview/).
+
 With `conda`:
 ```bash
 conda install -c conda-forge mkdocstrings
-```
-
-Note for Python: you'll need an extra dependency to parse Numpy-style docstrings:
-
-```
-pip install "pytkdocs[numpy-style]"
 ```
 
 ## Quick usage
