@@ -101,7 +101,7 @@ conda install -c conda-forge mkdocstrings
 Note for Python: you'll need an extra dependency to parse Numpy-style docstrings:
 
 ```
-pip install pytkdocs[numpy-style]
+pip install "pytkdocs[numpy-style]"
 ```
 
 ## Quick usage
