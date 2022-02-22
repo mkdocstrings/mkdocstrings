@@ -78,11 +78,18 @@ for path in sorted(Path("src").rglob("*.py")):  # (1)
     doc_path = path.relative_to("src").with_suffix(".md")  # (3)
     full_doc_path = Path("reference", doc_path)  # (4)
 
-    with mkdocs_gen_files.open(full_doc_path, "w") as fd:  # (5)
-        identifier = ".".join(module_path.parts)  # (6)
-        print("::: " + identifier, file=fd)  # (7)
+    parts = list(module_path.parts)
 
-    mkdocs_gen_files.set_edit_path(full_doc_path, path)  # (8)
+    if parts[-1] == "__init__":  # (5)
+        parts = parts[:-1]
+    elif parts[-1] == "__main__":
+        continue
+
+    with mkdocs_gen_files.open(full_doc_path, "w") as fd:  # (6)
+        identifier = ".".join(parts)  # (7)
+        print("::: " + identifier, file=fd)  # (8)
+
+    mkdocs_gen_files.set_edit_path(full_doc_path, path)  # (9)
 ```
 
 1. Here we recursively list all `.py` files, but you can adapt the code to list
@@ -92,11 +99,13 @@ for path in sorted(Path("src").rglob("*.py")):  # (1)
 3. This is the relative path to the Markdown page.
 4. This is the absolute path to the Markdown page. Here we put all reference pages
    into a `reference` folder.
-5. Magic! Add the file to MkDocs pages, without actually writing it in the docs folder.
-6. Build the autodoc identifier. Here we document Python modules, so the identifier
+5. This part is only relevant for Python modules. We skip `__main__` modules and
+   remove `__init__` from the module parts as it's implicit during imports.
+6. Magic! Add the file to MkDocs pages, without actually writing it in the docs folder.
+7. Build the autodoc identifier. Here we document Python modules, so the identifier
    is a dot-separated path, like `project.lorem`.
-7. Actually write to the magic file.
-8. We can even set the `edit_uri` on the pages.
+8. Actually write to the magic file.
+9. We can even set the `edit_uri` on the pages.
 
 With this script, a `reference` folder is automatically created
 each time we build our docs. This folder contains a Markdown page
@@ -126,7 +135,7 @@ Yes, but don't worry, we can fully automate it.
 
 mkdocs-gen-files is able to generate a literate navigation file.
 But to make use of it, we will need an additional plugin:
-[mkdocs-literate-nav](https://pypi.org/project/mkdocs-literate-nav/).
+[mkdocs-literate-nav](https://github.com/oprypin/mkdocs-literate-nav).
 This plugin allows to specify the whole navigation, or parts of it,
 into Markdown pages, as plain Markdown lists.
 We use it here to specify the navigation for the code reference pages.
@@ -149,7 +158,7 @@ plugins:
 
 Then, the previous script is updated like so:
 
-```python title="docs/gen_ref_pages.py" hl_lines="7 14 22 23"
+```python title="docs/gen_ref_pages.py" hl_lines="7 21 29 30"
 """Generate the code reference pages and navigation."""
 
 from pathlib import Path
@@ -163,10 +172,17 @@ for path in sorted(Path("src").rglob("*.py")):
     doc_path = path.relative_to("src").with_suffix(".md")
     full_doc_path = Path("reference", doc_path)
 
-    nav[module_path.parts] = doc_path  # (1)
+    parts = list(module_path.parts)
+
+    if parts[-1] == "__init__":
+        parts = parts[:-1]
+    elif parts[-1] == "__main__":
+        continue
+
+    nav[parts] = doc_path  # (1)
 
     with mkdocs_gen_files.open(full_doc_path, "w") as fd:
-        ident = ".".join(module_path.parts)
+        ident = ".".join(parts)
         print("::: " + ident, file=fd)
 
     mkdocs_gen_files.set_edit_path(full_doc_path, path)
@@ -192,6 +208,93 @@ nav:
 
 1. Note the trailing slash! It is needed so that `mkdocs-literate-nav` knows
    it has to look for a `SUMMARY.md` file in that folder.
+
+At this point, we should be able to see the tree of our modules
+in the navigation.
+
+### Bind pages to sections themselves
+
+There's a last improvement we can do.
+With the current script, sections, corresponding to folders,
+will expand or collapse when you click on them,
+revealing `__init__` modules under them
+(or equivalent modules in other languages, if relevant).
+Since we are documenting a public API, and given users
+never explicitely import `__init__` modules, it would be nice
+if we could get rid of them and instead render their documentation
+inside the section itself.
+
+Well, this is possible thanks to a third plugin:
+[mkdocs-section-index](https://github.com/oprypin/mkdocs-section-index).
+
+Update the script like this:
+
+```python title="docs/gen_ref_pages.py" hl_lines="18 19"
+"""Generate the code reference pages and navigation."""
+
+from pathlib import Path
+
+import mkdocs_gen_files
+
+nav = mkdocs_gen_files.Nav()
+
+for path in sorted(Path("src").rglob("*.py")):
+    module_path = path.relative_to("src").with_suffix("")
+    doc_path = path.relative_to("src").with_suffix(".md")
+    full_doc_path = Path("reference", doc_path)
+
+    parts = list(module_path.parts)
+
+    if parts[-1] == "__init__":
+        parts = parts[:-1]
+        doc_path = doc_path.with_name("index.md")
+        full_doc_path = full_doc_path.with_name("index.md")
+    elif parts[-1] == "__main__":
+        continue
+
+    nav[parts] = doc_path
+
+    with mkdocs_gen_files.open(full_doc_path, "w") as fd:
+        ident = ".".join(parts)
+        print("::: " + ident, file=fd)
+
+    mkdocs_gen_files.set_edit_path(full_doc_path, path)
+
+with mkdocs_gen_files.open("reference/SUMMARY.md", "w") as nav_file:  # (2)
+    nav_file.writelines(nav.build_literate_nav())  # (3)
+```
+
+And update your MkDocs configuration to list the plugin:
+
+```yaml title="mkdocs.yml" hl_lines="8"
+plugins:
+- search
+- gen-files:
+    scripts:
+    - docs/gen_ref_pages.py
+- literate-nav:
+    nav_file: SUMMARY.md
+- section-index
+- mkdocstrings:
+    watch:
+    - src/project
+```
+
+With this, `__init__` modules will be documented and bound to the sections
+themselves, better reflecting our public API.
+
+!!! important
+    With the new Python handler, don't forget to hide submodules
+    when documenting a module, otherwise they will show up in sections:
+
+    ```yaml title="mkdocs.yml" hl_lines="8"
+    plugins:
+    - mkdocstrings:
+        handlers:
+          python:
+            rendering:
+              show_submodules: no
+    ```
 
 ## Prevent selection of `>>>` in Python code blocks
 
