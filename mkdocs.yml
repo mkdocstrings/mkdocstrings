@@ -82,8 +82,8 @@ plugins:
     - docs/gen_redirects.py
 - literate-nav:
     nav_file: SUMMARY.md
-- section-index
 - coverage
+- section-index
 - mkdocstrings:
     handlers:
       python:

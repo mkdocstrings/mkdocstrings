@@ -14,7 +14,16 @@ install_with_pipx() {
 
 install_with_pipx pdm
 
+restore_previous_python_version() {
+    if pdm use -f "$1" &>/dev/null; then
+        echo "> Restored previous Python version: ${1##*/}"
+    fi
+}
+
 if [ -n "${PYTHON_VERSIONS}" ]; then
+    old_python_version="$(pdm config python.path)"
+    echo "> Currently selected Python version: ${old_python_version##*/}"
+    trap "restore_previous_python_version ${old_python_version}" EXIT
     for python_version in ${PYTHON_VERSIONS}; do
         if pdm use -f "python${python_version}" &>/dev/null; then
             echo "> Using Python ${python_version} interpreter"

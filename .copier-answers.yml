@@ -1,11 +1,11 @@
 # Changes here will be overwritten by Copier
-_commit: 0.8.0
+_commit: 0.9.4
 _src_path: gh:pawamoy/copier-pdm.git
 author_email: pawamoy@pm.me
-author_fullname: "Timoth\xE9e Mazzucotelli"
+author_fullname: Timothée Mazzucotelli
 author_username: pawamoy
 copyright_date: '2019'
-copyright_holder: "Timoth\xE9e Mazzucotelli"
+copyright_holder: Timothée Mazzucotelli
 copyright_holder_email: pawamoy@pm.me
 copyright_license: ISC License
 project_description: Automatic documentation from sources, for MkDocs.
@@ -17,3 +17,4 @@ repository_name: mkdocstrings
 repository_namespace: mkdocstrings
 repository_provider: github.com
 use_precommit: false
+
