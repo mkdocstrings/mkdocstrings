@@ -601,6 +601,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#bind-pages-to-sections-themselves" class="md-nav__link">
+    Bind pages to sections themselves
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -963,6 +970,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#bind-pages-to-sections-themselves" class="md-nav__link">
+    Bind pages to sections themselves
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1058,11 +1072,18 @@ and is named <code>gen_ref_pages.py</code>, like "generate code reference pages"
     <span class="n">doc_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.md&quot;</span><span class="p">)</span>  <span class="c1"># (3)</span>
     <span class="n">full_doc_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">doc_path</span><span class="p">)</span>  <span class="c1"># (4)</span>
 
-    <span class="k">with</span> <span class="n">mkdocs_gen_files</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">full_doc_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>  <span class="c1"># (5)</span>
-        <span class="n">identifier</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">module_path</span><span class="o">.</span><span class="n">parts</span><span class="p">)</span>  <span class="c1"># (6)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;::: &quot;</span> <span class="o">+</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">fd</span><span class="p">)</span>  <span class="c1"># (7)</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">module_path</span><span class="o">.</span><span class="n">parts</span><span class="p">)</span>
 
-    <span class="n">mkdocs_gen_files</span><span class="o">.</span><span class="n">set_edit_path</span><span class="p">(</span><span class="n">full_doc_path</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>  <span class="c1"># (8)</span>
+    <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;__init__&quot;</span><span class="p">:</span>  <span class="c1"># (5)</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+        <span class="k">continue</span>
+
+    <span class="k">with</span> <span class="n">mkdocs_gen_files</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">full_doc_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>  <span class="c1"># (6)</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>  <span class="c1"># (7)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;::: &quot;</span> <span class="o">+</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">fd</span><span class="p">)</span>  <span class="c1"># (8)</span>
+
+    <span class="n">mkdocs_gen_files</span><span class="o">.</span><span class="n">set_edit_path</span><span class="p">(</span><span class="n">full_doc_path</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>  <span class="c1"># (9)</span>
 </code></pre></div>
 <ol>
 <li>Here we recursively list all <code>.py</code> files, but you can adapt the code to list
@@ -1072,6 +1093,8 @@ and is named <code>gen_ref_pages.py</code>, like "generate code reference pages"
 <li>This is the relative path to the Markdown page.</li>
 <li>This is the absolute path to the Markdown page. Here we put all reference pages
    into a <code>reference</code> folder.</li>
+<li>This part is only relevant for Python modules. We skip <code>__main__</code> modules and
+   remove <code>__init__</code> from the module parts as it's implicit during imports.</li>
 <li>Magic! Add the file to MkDocs pages, without actually writing it in the docs folder.</li>
 <li>Build the autodoc identifier. Here we document Python modules, so the identifier
    is a dot-separated path, like <code>project.lorem</code>.</li>
@@ -1101,7 +1124,7 @@ Yes, but don't worry, we can fully automate it.</p>
 <h3 id="generate-a-literate-navigation-file">Generate a literate navigation file<a class="headerlink" href="#generate-a-literate-navigation-file" title="Permanent link">¤</a></h3>
 <p>mkdocs-gen-files is able to generate a literate navigation file.
 But to make use of it, we will need an additional plugin:
-<a href="https://pypi.org/project/mkdocs-literate-nav/">mkdocs-literate-nav</a>.
+<a href="https://github.com/oprypin/mkdocs-literate-nav">mkdocs-literate-nav</a>.
 This plugin allows to specify the whole navigation, or parts of it,
 into Markdown pages, as plain Markdown lists.
 We use it here to specify the navigation for the code reference pages.</p>
@@ -1132,10 +1155,17 @@ and configure the plugin in your MkDocs configuration:</p>
     <span class="n">doc_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.md&quot;</span><span class="p">)</span>
     <span class="n">full_doc_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">doc_path</span><span class="p">)</span>
 
-<span class="hll">    <span class="n">nav</span><span class="p">[</span><span class="n">module_path</span><span class="o">.</span><span class="n">parts</span><span class="p">]</span> <span class="o">=</span> <span class="n">doc_path</span>  <span class="c1"># (1)</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">module_path</span><span class="o">.</span><span class="n">parts</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;__init__&quot;</span><span class="p">:</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+        <span class="k">continue</span>
+
+<span class="hll">    <span class="n">nav</span><span class="p">[</span><span class="n">parts</span><span class="p">]</span> <span class="o">=</span> <span class="n">doc_path</span>  <span class="c1"># (1)</span>
 </span>
     <span class="k">with</span> <span class="n">mkdocs_gen_files</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">full_doc_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
-        <span class="n">ident</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">module_path</span><span class="o">.</span><span class="n">parts</span><span class="p">)</span>
+        <span class="n">ident</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;::: &quot;</span> <span class="o">+</span> <span class="n">ident</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">fd</span><span class="p">)</span>
 
     <span class="n">mkdocs_gen_files</span><span class="o">.</span><span class="n">set_edit_path</span><span class="p">(</span><span class="n">full_doc_path</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
@@ -1160,6 +1190,81 @@ and replace it with a single line!</p>
 <li>Note the trailing slash! It is needed so that <code>mkdocs-literate-nav</code> knows
    it has to look for a <code>SUMMARY.md</code> file in that folder.</li>
 </ol>
+<p>At this point, we should be able to see the tree of our modules
+in the navigation.</p>
+<h3 id="bind-pages-to-sections-themselves">Bind pages to sections themselves<a class="headerlink" href="#bind-pages-to-sections-themselves" title="Permanent link">¤</a></h3>
+<p>There's a last improvement we can do.
+With the current script, sections, corresponding to folders,
+will expand or collapse when you click on them,
+revealing <code>__init__</code> modules under them
+(or equivalent modules in other languages, if relevant).
+Since we are documenting a public API, and given users
+never explicitely import <code>__init__</code> modules, it would be nice
+if we could get rid of them and instead render their documentation
+inside the section itself.</p>
+<p>Well, this is possible thanks to a third plugin:
+<a href="https://github.com/oprypin/mkdocs-section-index">mkdocs-section-index</a>.</p>
+<p>Update the script like this:</p>
+<div class="highlight"><span class="filename">docs/gen_ref_pages.py</span><pre><span></span><code><span class="sd">&quot;&quot;&quot;Generate the code reference pages and navigation.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">mkdocs_gen_files</span>
+
+<span class="n">nav</span> <span class="o">=</span> <span class="n">mkdocs_gen_files</span><span class="o">.</span><span class="n">Nav</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">&quot;*.py&quot;</span><span class="p">)):</span>
+    <span class="n">module_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">doc_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.md&quot;</span><span class="p">)</span>
+    <span class="n">full_doc_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">doc_path</span><span class="p">)</span>
+
+    <span class="n">parts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">module_path</span><span class="o">.</span><span class="n">parts</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;__init__&quot;</span><span class="p">:</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="hll">        <span class="n">doc_path</span> <span class="o">=</span> <span class="n">doc_path</span><span class="o">.</span><span class="n">with_name</span><span class="p">(</span><span class="s2">&quot;index.md&quot;</span><span class="p">)</span>
+</span><span class="hll">        <span class="n">full_doc_path</span> <span class="o">=</span> <span class="n">full_doc_path</span><span class="o">.</span><span class="n">with_name</span><span class="p">(</span><span class="s2">&quot;index.md&quot;</span><span class="p">)</span>
+</span>    <span class="k">elif</span> <span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+        <span class="k">continue</span>
+
+    <span class="n">nav</span><span class="p">[</span><span class="n">parts</span><span class="p">]</span> <span class="o">=</span> <span class="n">doc_path</span>
+
+    <span class="k">with</span> <span class="n">mkdocs_gen_files</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">full_doc_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
+        <span class="n">ident</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;::: &quot;</span> <span class="o">+</span> <span class="n">ident</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">fd</span><span class="p">)</span>
+
+    <span class="n">mkdocs_gen_files</span><span class="o">.</span><span class="n">set_edit_path</span><span class="p">(</span><span class="n">full_doc_path</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">mkdocs_gen_files</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;reference/SUMMARY.md&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">nav_file</span><span class="p">:</span>  <span class="c1"># (2)</span>
+    <span class="n">nav_file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">nav</span><span class="o">.</span><span class="n">build_literate_nav</span><span class="p">())</span>  <span class="c1"># (3)</span>
+</code></pre></div>
+<p>And update your MkDocs configuration to list the plugin:</p>
+<div class="highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">gen-files</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">scripts</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docs/gen_ref_pages.py</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">literate-nav</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">nav_file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SUMMARY.md</span><span class="w"></span>
+<span class="hll"><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">section-index</span><span class="w"></span>
+</span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">watch</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src/project</span><span class="w"></span>
+</code></pre></div>
+<p>With this, <code>__init__</code> modules will be documented and bound to the sections
+themselves, better reflecting our public API.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>With the new Python handler, don't forget to hide submodules
+when documenting a module, otherwise they will show up in sections:</p>
+<div class="highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">rendering</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">show_submodules</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">no</span><span class="w"></span>
+</code></pre></div>
+</div>
 <h2 id="prevent-selection-of-in-python-code-blocks">Prevent selection of <code>&gt;&gt;&gt;</code> in Python code blocks<a class="headerlink" href="#prevent-selection-of-in-python-code-blocks" title="Permanent link">¤</a></h2>
 <p>To prevent the selection of <code>&gt;&gt;&gt;</code> in Python code blocks,
 you can use the <code>pycon</code> syntax highlighting on your code block,
