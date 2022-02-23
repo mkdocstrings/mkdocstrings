@@ -172,18 +172,18 @@ for path in sorted(Path("src").rglob("*.py")):
     doc_path = path.relative_to("src").with_suffix(".md")
     full_doc_path = Path("reference", doc_path)
 
-    parts = list(module_path.parts)
+    parts = tuple(module_path.parts)
 
     if parts[-1] == "__init__":
         parts = parts[:-1]
     elif parts[-1] == "__main__":
         continue
 
-    nav[parts] = doc_path  # (1)
+    nav[parts] = str(doc_path)  # (1)
 
     with mkdocs_gen_files.open(full_doc_path, "w") as fd:
         ident = ".".join(parts)
-        print("::: " + ident, file=fd)
+        fd.write(f":::{ident}")
 
     mkdocs_gen_files.set_edit_path(full_doc_path, path)
 
@@ -243,7 +243,7 @@ for path in sorted(Path("src").rglob("*.py")):
     doc_path = path.relative_to("src").with_suffix(".md")
     full_doc_path = Path("reference", doc_path)
 
-    parts = list(module_path.parts)
+    parts = tuple(module_path.parts)
 
     if parts[-1] == "__init__":
         parts = parts[:-1]
@@ -252,11 +252,11 @@ for path in sorted(Path("src").rglob("*.py")):
     elif parts[-1] == "__main__":
         continue
 
-    nav[parts] = doc_path
+    nav[parts] = str(doc_path)
 
     with mkdocs_gen_files.open(full_doc_path, "w") as fd:
         ident = ".".join(parts)
-        print("::: " + ident, file=fd)
+        fd.write(f":::{ident}")
 
     mkdocs_gen_files.set_edit_path(full_doc_path, path)
 
