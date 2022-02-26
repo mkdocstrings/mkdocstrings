@@ -80,8 +80,8 @@ dependencies = [
   except for the `restructured-text` style which is renamed `sphinx`.
   Numpy-style is now built-in, so you can stop depending on `pytkdocs[numpy-style]`
   or `docstring_parser`.
-- `docstring_options` is implemented, and used as before, however none
-  of the provided parsers accept any option yet.
+- `docstring_options` is implemented, and used as before.
+  Refer to the [`griffe` documentation](https://mkdocstrings.github.io/griffe/docstrings/#parsing-options) for the updated list of supported docstring options.
 - `new_path_syntax` is irrelevant now. If you were setting it to True,
   remove the option and replace every colon (`:`) in your autodoc identifiers
   by dots (`.`).
