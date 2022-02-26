@@ -126,9 +126,6 @@ class AutoDocProcessor(BlockProcessor):
             el.extend(headings)
 
             page = self._autorefs.current_page
-            for anchor in handler.renderer.get_anchors(data):
-                self._autorefs.register_anchor(page, anchor)
-
             for heading in headings:
                 anchor = heading.attrib["id"]  # noqa: WPS440
                 self._autorefs.register_anchor(page, anchor)  # noqa: WPS441
