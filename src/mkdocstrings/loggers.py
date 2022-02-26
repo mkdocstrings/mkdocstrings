@@ -102,13 +102,14 @@ def get_template_path(context: Context) -> str:
     Returns:
         The relative path to the template.
     """
-    filename = context.environment.get_template(context.name).filename
+    context_name: str = str(context.name)
+    filename = context.environment.get_template(context_name).filename
     if filename:
         try:
             return str(Path(filename).relative_to(TEMPLATES_DIR))
         except ValueError:
             return filename
-    return context.name
+    return context_name
 
 
 def get_logger(name: str) -> LoggerAdapter:
