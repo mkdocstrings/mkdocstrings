@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for tests/test_extension.py: 100.00%</title>
+    <title>Coverage for tests/test_extension.py: 98.15%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="coverage_html.js" defer></script>
@@ -13,7 +13,7 @@
     <div class="content">
         <h1>
             <span class="text">Coverage for </span><b>tests/test_extension.py</b>:
-            <span class="pc_cov">100.00%</span>
+            <span class="pc_cov">98.15%</span>
         </h1>
         <div id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
@@ -44,11 +44,11 @@
             </div>
         </div>
         <h2>
-            <span class="text">41 statements &nbsp;</span>
-            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">41<span class="text"> run</span></button>
+            <span class="text">50 statements &nbsp;</span>
+            <button type="button" class="run button_toggle_run" value="run" data-shortcut="r" title="Toggle lines run">50<span class="text"> run</span></button>
             <button type="button" class="mis show_mis button_toggle_mis" value="mis" data-shortcut="m" title="Toggle lines missing">0<span class="text"> missing</span></button>
             <button type="button" class="exc show_exc button_toggle_exc" value="exc" data-shortcut="x" title="Toggle lines excluded">0<span class="text"> excluded</span></button>
-            <button type="button" class="par run show_par button_toggle_par" value="par" data-shortcut="p" title="Toggle lines partially run">0<span class="text"> partial</span></button>
+            <button type="button" class="par run show_par button_toggle_par" value="par" data-shortcut="p" title="Toggle lines partially run">1<span class="text"> partial</span></button>
         </h2>
         <div style="display: none;">
             <button type="button" class="button_next_chunk" data-shortcut="j">Next highlighted chunk</button>
@@ -184,12 +184,24 @@
     <p class="pln"><span class="n"><a id="t123" href="#t123">123</a></span><span class="t">    <span class="str">"""Assert that we use the custom handler declared in an individual autodoc instruction."""</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t124" href="#t124">124</a></span><span class="t">    <span class="key">with</span> <span class="nam">pytest</span><span class="op">.</span><span class="nam">raises</span><span class="op">(</span><span class="nam">ModuleNotFoundError</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t125" href="#t125">125</a></span><span class="t">        <span class="nam">ext_markdown</span><span class="op">.</span><span class="nam">convert</span><span class="op">(</span><span class="str">"::: tests.fixtures.headings\n    handler: not_here"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t126" href="#t126">126</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t127" href="#t127">127</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t128" href="#t128">128</a></span><span class="t"><span class="key">def</span> <span class="nam">test_dont_register_every_identifier_as_anchor</span><span class="op">(</span><span class="nam">plugin</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="pln"><span class="n"><a id="t129" href="#t129">129</a></span><span class="t">    <span class="str">"""Assert that we don't preemptively register all identifiers of a rendered object."""</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t130" href="#t130">130</a></span><span class="t">    <span class="nam">renderer</span> <span class="op">=</span> <span class="nam">plugin</span><span class="op">.</span><span class="nam">_handlers</span><span class="op">.</span><span class="nam">get_handler</span><span class="op">(</span><span class="str">"python"</span><span class="op">)</span><span class="op">.</span><span class="nam">renderer</span>  <span class="com"># noqa: WPS437</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t131" href="#t131">131</a></span><span class="t">    <span class="nam">ids</span> <span class="op">=</span> <span class="op">{</span><span class="str">"id1"</span><span class="op">,</span> <span class="str">"id2"</span><span class="op">,</span> <span class="str">"id3"</span><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
+    <p class="par run show_par"><span class="n"><a id="t132" href="#t132">132</a></span><span class="t">    <span class="nam">renderer</span><span class="op">.</span><span class="nam">get_anchors</span> <span class="op">=</span> <span class="key">lambda</span> <span class="nam">_</span><span class="op">:</span> <span class="nam">ids</span>&nbsp;</span><span class="r"><span class="annotate short">132&#x202F;&#x219B;&#x202F;exit</span><span class="annotate long">line 132 didn't run the lambda on line 132</span></span></p>
+    <p class="run"><span class="n"><a id="t133" href="#t133">133</a></span><span class="t">    <span class="nam">plugin</span><span class="op">.</span><span class="nam">md</span><span class="op">.</span><span class="nam">convert</span><span class="op">(</span><span class="str">"::: tests.fixtures.headings"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t134" href="#t134">134</a></span><span class="t">    <span class="nam">autorefs</span> <span class="op">=</span> <span class="nam">plugin</span><span class="op">.</span><span class="nam">md</span><span class="op">.</span><span class="nam">parser</span><span class="op">.</span><span class="nam">blockprocessors</span><span class="op">[</span><span class="str">"mkdocstrings"</span><span class="op">]</span><span class="op">.</span><span class="nam">_autorefs</span>  <span class="com"># noqa: WPS219,WPS437</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t135" href="#t135">135</a></span><span class="t">    <span class="key">for</span> <span class="nam">identifier</span> <span class="key">in</span> <span class="nam">ids</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t136" href="#t136">136</a></span><span class="t">        <span class="key">assert</span> <span class="nam">identifier</span> <span class="key">not</span> <span class="key">in</span> <span class="nam">autorefs</span><span class="op">.</span><span class="nam">_url_map</span>  <span class="com"># noqa: WPS437</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t137" href="#t137">137</a></span><span class="t">        <span class="key">assert</span> <span class="nam">identifier</span> <span class="key">not</span> <span class="key">in</span> <span class="nam">autorefs</span><span class="op">.</span><span class="nam">_abs_url_map</span>  <span class="com"># noqa: WPS437</span>&nbsp;</span><span class="r"></span></p>
 </main>
 <footer>
     <div class="content">
         <p>
             <a class="nav" href="covindex.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.3.2</a>,
-            created at 2022-02-22 23:38 +0100
+            created at 2022-02-26 13:42 +0100
         </p>
     </div>
 </footer>
