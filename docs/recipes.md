@@ -296,15 +296,17 @@ themselves, better reflecting our public API.
               show_submodules: no
     ```
 
-## Prevent selection of `>>>` in Python code blocks
+## Prevent selection of prompts and output in Python code blocks
 
-To prevent the selection of `>>>` in Python code blocks,
-you can use the `pycon` syntax highlighting on your code block,
-and add some CSS rules to your site using MkDocs `extra_css` option:
+To prevent the selection of `>>>`, `...` and output in Python "Console" code blocks,
+you can use the `pycon` syntax highlighting on your code blocks,
+and add global CSS rules to your site using MkDocs `extra_css` option:
 
 ````md
 ```pycon
->>> print("Hello mkdocstrings!")
+>>> for word in ("Hello", "mkdocstrings!"):
+...     print(word, end=" ")
+Hello mkdocstrings!
 ```
 ````
 
@@ -319,6 +321,39 @@ extra_css:
 - css/code_select.css
 ```
 
+!!! warning
+    The `.highlight .gp, .highlight .go` CSS selector can have unintended side-effects.
+    To target `pycon` code blocks more specifically, you can configure the
+    `pymdownx.highlight` extension to use Pygments and set language classes
+    on code blocks:
+
+    ```yaml title="mkdocs.yml"
+    markdown_extensions:
+    - pymdownx.highlight:
+        use_pygments: true
+        pygments_lang_class: true
+    ```
+
+    Then you can update the CSS selector like this:
+
+    ```css title="docs/css/code_select.css"
+    .language-pycon .gp, .language-pycon .go { /* Generic.Prompt, Generic.Output */
+        user-select: none;
+    }
+    ```
+
+If you don't want to enable this globally,
+you can still use `style` tags in the relevant pages,
+with more accurate CSS selectors:
+
+```html
+<style>
+#my-div .highlight .gp, #my-div .highlight .go { /* Generic.Prompt, Generic.Output */
+    user-select: none;
+}
+</style>
+```
+
 Try to select the following code block's text:
 
 <style>
@@ -328,5 +363,7 @@ Try to select the following code block's text:
 </style>
 
 ```pycon
->>> print("Hello mkdocstrings!")
+>>> for word in ("Hello", "mkdocstrings!"):
+...     print(word, end=" ")
+Hello mkdocstrings!
 ```
