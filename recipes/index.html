@@ -614,8 +614,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prevent-selection-of-in-python-code-blocks" class="md-nav__link">
-    Prevent selection of &gt;&gt;&gt; in Python code blocks
+  <a href="#prevent-selection-of-prompts-and-output-in-python-code-blocks" class="md-nav__link">
+    Prevent selection of prompts and output in Python code blocks
   </a>
   
 </li>
@@ -983,8 +983,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#prevent-selection-of-in-python-code-blocks" class="md-nav__link">
-    Prevent selection of &gt;&gt;&gt; in Python code blocks
+  <a href="#prevent-selection-of-prompts-and-output-in-python-code-blocks" class="md-nav__link">
+    Prevent selection of prompts and output in Python code blocks
   </a>
   
 </li>
@@ -1266,12 +1266,14 @@ when documenting a module, otherwise they will show up in sections:</p>
 <span class="w">          </span><span class="nt">show_submodules</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">no</span><span class="w"></span>
 </code></pre></div>
 </div>
-<h2 id="prevent-selection-of-in-python-code-blocks">Prevent selection of <code>&gt;&gt;&gt;</code> in Python code blocks<a class="headerlink" href="#prevent-selection-of-in-python-code-blocks" title="Permanent link">¤</a></h2>
-<p>To prevent the selection of <code>&gt;&gt;&gt;</code> in Python code blocks,
-you can use the <code>pycon</code> syntax highlighting on your code block,
-and add some CSS rules to your site using MkDocs <code>extra_css</code> option:</p>
+<h2 id="prevent-selection-of-prompts-and-output-in-python-code-blocks">Prevent selection of prompts and output in Python code blocks<a class="headerlink" href="#prevent-selection-of-prompts-and-output-in-python-code-blocks" title="Permanent link">¤</a></h2>
+<p>To prevent the selection of <code>&gt;&gt;&gt;</code>, <code>...</code> and output in Python "Console" code blocks,
+you can use the <code>pycon</code> syntax highlighting on your code blocks,
+and add global CSS rules to your site using MkDocs <code>extra_css</code> option:</p>
 <div class="highlight"><pre><span></span><code><span class="sb">```pycon</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello mkdocstrings!&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;mkdocstrings!&quot;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+<span class="go">Hello mkdocstrings!</span>
 <span class="sb">```</span>
 </code></pre></div>
 <div class="highlight"><span class="filename">docs/css/code_select.css</span><pre><span></span><code><span class="p">.</span><span class="nc">highlight</span><span class="w"> </span><span class="p">.</span><span class="nc">gp</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">highlight</span><span class="w"> </span><span class="p">.</span><span class="nc">go</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c">/* Generic.Prompt, Generic.Output */</span><span class="w"></span>
@@ -1281,6 +1283,32 @@ and add some CSS rules to your site using MkDocs <code>extra_css</code> option:<
 <div class="highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span class="nt">extra_css</span><span class="p">:</span><span class="w"></span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">css/code_select.css</span><span class="w"></span>
 </code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code>.highlight .gp, .highlight .go</code> CSS selector can have unintended side-effects.
+To target <code>pycon</code> code blocks more specifically, you can configure the
+<code>pymdownx.highlight</code> extension to use Pygments and set language classes
+on code blocks:</p>
+<div class="highlight"><span class="filename">mkdocs.yml</span><pre><span></span><code><span class="nt">markdown_extensions</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pymdownx.highlight</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">use_pygments</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<span class="w">    </span><span class="nt">pygments_lang_class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+</code></pre></div>
+<p>Then you can update the CSS selector like this:</p>
+<div class="highlight"><span class="filename">docs/css/code_select.css</span><pre><span></span><code><span class="p">.</span><span class="nc">language-pycon</span><span class="w"> </span><span class="p">.</span><span class="nc">gp</span><span class="o">,</span><span class="w"> </span><span class="p">.</span><span class="nc">language-pycon</span><span class="w"> </span><span class="p">.</span><span class="nc">go</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c">/* Generic.Prompt, Generic.Output */</span><span class="w"></span>
+<span class="w">    </span><span class="k">user-select</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</div>
+<p>If you don't want to enable this globally,
+you can still use <code>style</code> tags in the relevant pages,
+with more accurate CSS selectors:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span><span class="w"></span>
+<span class="p">#</span><span class="nn">my-div</span><span class="w"> </span><span class="p">.</span><span class="nc">highlight</span><span class="w"> </span><span class="p">.</span><span class="nc">gp</span><span class="o">,</span><span class="w"> </span><span class="p">#</span><span class="nn">my-div</span><span class="w"> </span><span class="p">.</span><span class="nc">highlight</span><span class="w"> </span><span class="p">.</span><span class="nc">go</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c">/* Generic.Prompt, Generic.Output */</span><span class="w"></span>
+<span class="w">    </span><span class="k">user-select</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+</code></pre></div>
 <p>Try to select the following code block's text:</p>
 <style>
 .highlight .gp, .highlight .go { /* Generic.Prompt, Generic.Output */
@@ -1288,7 +1316,9 @@ and add some CSS rules to your site using MkDocs <code>extra_css</code> option:<
 }
 </style>
 
-<div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello mkdocstrings!&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;mkdocstrings!&quot;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+<span class="go">Hello mkdocstrings!</span>
 </code></pre></div>
 
               
