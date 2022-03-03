@@ -216,7 +216,10 @@ class BaseRenderer(ABC):
         treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"
         treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph
         try:
-            return Markup(self._md.convert(text))
+            if text:
+                return Markup(self._md.convert(text))
+            else:
+                return Markup()
         finally:
             treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0
             treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""
