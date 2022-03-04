@@ -28,10 +28,11 @@ from mkdocstrings.handlers.rendering import (
     ParagraphStrippingTreeprocessor,
 )
 from mkdocstrings.inventory import Inventory
+from mkdocstrings.loggers import get_logger
 from mkdocstrings.loggers import get_template_logger
 
 CollectorItem = Any
-
+log = get_logger(__name__)
 
 class CollectionError(Exception):
     """An exception raised when some collection of data failed."""
