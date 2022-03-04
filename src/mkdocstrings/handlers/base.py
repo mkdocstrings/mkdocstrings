@@ -220,7 +220,7 @@ class BaseRenderer(ABC):
         if text:
             html_str = Markup(self._md.convert(text))
         else:
-            log.warning(f"Mising expected text in {html_id}")
+            log.warning(f"Mising something in {html_id}")
            
         treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0
         treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""
