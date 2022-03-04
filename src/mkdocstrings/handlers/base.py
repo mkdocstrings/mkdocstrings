@@ -215,16 +215,19 @@ class BaseRenderer(ABC):
         treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = heading_level
         treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"
         treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph
-        try:
-            if text:
-                return Markup(self._md.convert(text))
-            else:
-                return Markup()
-        finally:
-            treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0
-            treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""
-            treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False
-            self._md.reset()
+        
+        html_str = Markup()
+        if text:
+            html_str = Markup(self._md.convert(text))
+        else:
+            log.warning(f"Mising expected text in {html_id}")
+           
+        treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0
+        treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""
+        treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False
+        self._md.reset()
+        
+        return html_str
 
     def do_heading(
         self,
