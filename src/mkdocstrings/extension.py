@@ -122,7 +122,7 @@ class AutoDocProcessor(BlockProcessor):
             # The final HTML is inserted as opaque to subsequent processing, and only revealed at the end.
             el.text = self.md.htmlStash.store(html)
             # So we need to duplicate the headings directly (and delete later), just so 'toc' can pick them up.
-            headings = handler.renderer.get_headings()
+            headings = handler.get_headings()
             el.extend(headings)
 
             page = self._autorefs.current_page
@@ -179,7 +179,7 @@ class AutoDocProcessor(BlockProcessor):
 
         log.debug("Collecting data")
         try:
-            data: CollectorItem = handler.collector.collect(identifier, selection)
+            data: CollectorItem = handler.collect(identifier, selection)
         except CollectionError as exception:
             log.error(str(exception))
             if PluginError is SystemExit:  # When MkDocs 1.2 is sufficiently common, this can be dropped.
@@ -188,12 +188,12 @@ class AutoDocProcessor(BlockProcessor):
 
         if not self._updated_env:
             log.debug("Updating renderer's env")
-            handler.renderer._update_env(self.md, self._config)  # noqa: WPS437 (protected member OK)
+            handler._update_env(self.md, self._config)  # noqa: WPS437 (protected member OK)
             self._updated_env = True
 
         log.debug("Rendering templates")
         try:
-            rendered = handler.renderer.render(data, rendering)
+            rendered = handler.render(data, rendering)
         except TemplateNotFound as exc:
             theme_name = self._config["theme_name"]
             log.error(

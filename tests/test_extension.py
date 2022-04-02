@@ -127,9 +127,9 @@ def test_use_custom_handler(ext_markdown):
 
 def test_dont_register_every_identifier_as_anchor(plugin):
     """Assert that we don't preemptively register all identifiers of a rendered object."""
-    renderer = plugin._handlers.get_handler("python").renderer  # noqa: WPS437
+    handler = plugin._handlers.get_handler("python")  # noqa: WPS437
     ids = {"id1", "id2", "id3"}
-    renderer.get_anchors = lambda _: ids
+    handler.get_anchors = lambda _: ids
     plugin.md.convert("::: tests.fixtures.headings")
     autorefs = plugin.md.parser.blockprocessors["mkdocstrings"]._autorefs  # noqa: WPS219,WPS437
     for identifier in ids:

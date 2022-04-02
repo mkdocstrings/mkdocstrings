@@ -224,7 +224,7 @@ class MkdocstringsPlugin(BasePlugin):
         - Gather results from background inventory download tasks.
         """
         if self._handlers:
-            css_content = "\n".join(handler.renderer.extra_css for handler in self.handlers.seen_handlers)
+            css_content = "\n".join(handler.extra_css for handler in self.handlers.seen_handlers)
             write_file(css_content.encode("utf-8"), os.path.join(config["site_dir"], self.css_filename))
 
             if self.inventory_enabled:
