@@ -8,9 +8,10 @@ It also provides two methods:
 - `teardown`, that will teardown all the cached handlers, and then clear the cache.
 """
 
+from __future__ import annotations
+
 import importlib
 import warnings
-from abc import ABC, abstractmethod
 from contextlib import suppress
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence
@@ -58,7 +59,7 @@ def do_any(seq: Sequence, attribute: str = None) -> bool:
     return any(_[attribute] for _ in seq)
 
 
-class BaseRenderer(ABC):
+class BaseRenderer:
     """The base renderer class.
 
     Inherit from this class to implement a renderer.
@@ -74,7 +75,7 @@ class BaseRenderer(ABC):
     fallback_theme: str = ""
     extra_css = ""
 
-    def __init__(self, handler: str, theme: str, custom_templates: Optional[str] = None, directory: str = None) -> None:
+    def __init__(self, handler: str, theme: str, custom_templates: Optional[str] = None) -> None:
         """Initialize the object.
 
         If the given theme is not supported (it does not exist), it will look for a `fallback_theme` attribute
@@ -84,18 +85,13 @@ class BaseRenderer(ABC):
             handler: The name of the handler.
             theme: The name of theme to use.
             custom_templates: Directory containing custom templates.
-            directory: Deprecated and renamed as `handler`.
         """
-        # TODO: remove at some point
-        if directory:
-            warnings.warn(
-                "The 'directory' keyword parameter is deprecated and renamed 'handler'. ",
-                DeprecationWarning,
-            )
-            if not handler:
-                handler = directory
-
         paths = []
+
+        # TODO: remove once BaseRenderer is merged into BaseHandler
+        self._handler = handler
+        self._theme = theme
+        self._custom_templates = custom_templates
 
         themes_dir = self.get_templates_dir(handler)
         paths.append(themes_dir / theme)
@@ -123,7 +119,6 @@ class BaseRenderer(ABC):
         self._headings: List[Element] = []
         self._md: Markdown = None  # type: ignore  # To be populated in `update_env`.
 
-    @abstractmethod
     def render(self, data: CollectorItem, config: dict) -> str:
         """Render a template using provided data and configuration options.
 
@@ -313,7 +308,7 @@ class BaseRenderer(ABC):
         self.update_env(new_md, config)
 
 
-class BaseCollector(ABC):
+class BaseCollector:
     """The base collector class.
 
     Inherit from this class to implement a collector.
@@ -322,7 +317,6 @@ class BaseCollector(ABC):
     You can also implement the `teardown` method.
     """
 
-    @abstractmethod
     def collect(self, identifier: str, config: dict) -> CollectorItem:
         """Collect data given an identifier and selection configuration.
 
@@ -348,7 +342,7 @@ class BaseCollector(ABC):
         """
 
 
-class BaseHandler:
+class BaseHandler(BaseCollector, BaseRenderer):
     """The base handler class.
 
     Inherit from this class to implement a handler.
@@ -359,20 +353,126 @@ class BaseHandler:
         domain: The cross-documentation domain/language for this handler.
         enable_inventory: Whether this handler is interested in enabling the creation
             of the `objects.inv` Sphinx inventory file.
+        fallback_config: The configuration used to collect item during autorefs fallback.
     """
 
     domain: str = "default"
     enable_inventory: bool = False
+    fallback_config: dict = {}
 
-    def __init__(self, collector: BaseCollector, renderer: BaseRenderer) -> None:
+    # TODO: once the BaseCollector and BaseRenderer classes are removed,
+    # stop accepting the 'handler' parameter, and instead set a 'name' attribute on the Handler class.
+    # Then make the 'handler' parameter in 'get_templates_dir' optional, and use the class 'name' by default.
+    def __init__(self, *args: str | BaseCollector | BaseRenderer, **kwargs: str | BaseCollector | BaseRenderer) -> None:
         """Initialize the object.
 
         Arguments:
-            collector: A collector instance.
-            renderer: A renderer instance.
+            *args: Collector and renderer, or handler name, theme and custom_templates.
+            **kwargs: Same thing, but with keyword arguments.
+
+        Raises:
+            ValueError: When the givin parameters are invalid.
         """
-        self.collector = collector
-        self.renderer = renderer
+        # The method accepts *args and **kwargs temporarily,
+        # to support the transition period where the BaseCollector
+        # and BaseRenderer are deprecated, and the BaseHandler
+        # can be instantiated with both instances of collector/renderer,
+        # or renderer parameters, as positional parameters.
+        # Supported:
+        #   handler = Handler(collector, renderer)
+        #   handler = Handler(collector=collector, renderer=renderer)
+        #   handler = Handler("python", "material")
+        #   handler = Handler("python", "material", "templates")
+        #   handler = Handler(handler="python", theme="material")
+        #   handler = Handler(handler="python", theme="material", custom_templates="templates")
+        # Invalid:
+        #   handler = Handler("python", "material", collector, renderer)
+        #   handler = Handler("python", theme="material", collector=collector)
+        #   handler = Handler(collector, renderer, "material")
+        #   handler = Handler(collector, renderer, theme="material")
+        #   handler = Handler(collector)
+        #   handler = Handler(renderer)
+        #   etc.
+
+        collector = None
+        renderer = None
+
+        # parsing positional arguments
+        str_args = []
+        for arg in args:
+            if isinstance(arg, BaseCollector):
+                collector = arg
+            elif isinstance(arg, BaseRenderer):
+                renderer = arg
+            elif isinstance(arg, str):
+                str_args.append(arg)
+
+        while len(str_args) != 3:
+            str_args.append(None)  # type: ignore[arg-type]
+
+        handler, theme, custom_templates = str_args
+
+        # fetching values from keyword arguments
+        if "collector" in kwargs:
+            collector = kwargs.pop("collector")  # type: ignore[assignment]
+        if "renderer" in kwargs:
+            renderer = kwargs.pop("renderer")  # type: ignore[assignment]
+        if "handler" in kwargs:
+            handler = kwargs.pop("handler")  # type: ignore[assignment]
+        if "theme" in kwargs:
+            theme = kwargs.pop("theme")  # type: ignore[assignment]
+        if "custom_templates" in kwargs:
+            custom_templates = kwargs.pop("custom_templates")  # type: ignore[assignment]
+
+        if collector is None and renderer is not None or collector is not None and renderer is None:
+            raise ValueError("both 'collector' and 'renderer' must be provided")
+
+        if collector is not None:
+            warnings.warn(
+                DeprecationWarning(
+                    "The BaseCollector class is deprecated, and passing an instance of it "
+                    "to your handler is deprecated as well. Instead, define the `collect` and `teardown` "
+                    "methods directly on your handler class."
+                )
+            )
+            self.collector = collector
+            self.collect = collector.collect  # type: ignore[assignment]
+            self.teardown = collector.teardown  # type: ignore[assignment]
+
+        if renderer is not None:
+            if {handler, theme, custom_templates} != {None}:
+                raise ValueError(
+                    "'handler', 'theme' and 'custom_templates' must all be None when providing a renderer instance"
+                )
+            warnings.warn(
+                DeprecationWarning(
+                    "The BaseRenderer class is deprecated, and passing an instance of it "
+                    "to your handler is deprecated as well. Instead, define the `render` method"
+                    "directly on your handler class (as well as other methods and attributes like "
+                    "`get_templates_dir`, `get_anchors`, `update_env` and `fallback_theme`, `extra_css`)."
+                )
+            )
+            self.renderer = renderer
+            self.render = renderer.render  # type: ignore[assignment]
+            self.get_templates_dir = renderer.get_templates_dir  # type: ignore[assignment]
+            self.get_anchors = renderer.get_anchors  # type: ignore[assignment]
+            self.do_convert_markdown = renderer.do_convert_markdown  # type: ignore[assignment]
+            self.do_heading = renderer.do_heading  # type: ignore[assignment]
+            self.get_headings = renderer.get_headings  # type: ignore[assignment]
+            self.update_env = renderer.update_env  # type: ignore[assignment]
+            self._update_env = renderer._update_env  # type: ignore[assignment]  # noqa: WPS437
+            self.fallback_theme = renderer.fallback_theme
+            self.extra_css = renderer.extra_css
+            renderer.__class__.__init__(  # noqa: WPS609
+                self,
+                renderer._handler,  # noqa: WPS437
+                renderer._theme,  # noqa: WPS437
+                renderer._custom_templates,  # noqa: WPS437
+            )
+        else:
+            if handler is None or theme is None:
+                raise ValueError("'handler' and 'theme' cannot be None")
+            BaseRenderer.__init__(self, handler, theme, custom_templates)  # noqa: WPS609
 
 
 class Handlers:
@@ -403,9 +503,9 @@ class Handlers:
             A tuple of strings - anchors without '#', or an empty tuple if there isn't any identifier familiar with it.
         """
         for handler in self._handlers.values():
-            fallback_config = getattr(handler.collector, "fallback_config", {})
+            fallback_config = getattr(handler, "fallback_config", {})
             try:
-                anchors = handler.renderer.get_anchors(handler.collector.collect(identifier, fallback_config))
+                anchors = handler.get_anchors(handler.collect(identifier, fallback_config))
             except CollectionError:
                 continue
             if anchors:
@@ -490,5 +590,5 @@ class Handlers:
     def teardown(self) -> None:
         """Teardown all cached handlers and clear the cache."""
         for handler in self.seen_handlers:
-            handler.collector.teardown()
+            handler.teardown()
         self._handlers.clear()
