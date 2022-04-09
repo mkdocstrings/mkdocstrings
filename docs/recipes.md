@@ -161,7 +161,7 @@ Then, the previous script is updated like so:
 ```python title="docs/gen_ref_pages.py" hl_lines="7 21 29 30"
 """Generate the code reference pages and navigation."""
 
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 import mkdocs_gen_files
 
@@ -179,7 +179,7 @@ for path in sorted(Path("src").rglob("*.py")):
     elif parts[-1] == "__main__":
         continue
 
-    nav[parts] = str(doc_path)  # (1)
+    nav[parts] = str(PurePosixPath(doc_path))  # (1)
 
     with mkdocs_gen_files.open(full_doc_path, "w") as fd:
         ident = ".".join(parts)
@@ -232,7 +232,7 @@ Update the script like this:
 ```python title="docs/gen_ref_pages.py" hl_lines="18 19"
 """Generate the code reference pages and navigation."""
 
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 import mkdocs_gen_files
 
@@ -252,7 +252,7 @@ for path in sorted(Path("src").rglob("*.py")):
     elif parts[-1] == "__main__":
         continue
 
-    nav[parts] = str(doc_path)
+    nav[parts] = str(PurePosixPath(doc_path))
 
     with mkdocs_gen_files.open(full_doc_path, "w") as fd:
         ident = ".".join(parts)
@@ -260,8 +260,8 @@ for path in sorted(Path("src").rglob("*.py")):
 
     mkdocs_gen_files.set_edit_path(full_doc_path, path)
 
-with mkdocs_gen_files.open("reference/SUMMARY.md", "w") as nav_file:  # (2)
-    nav_file.writelines(nav.build_literate_nav())  # (3)
+with mkdocs_gen_files.open("reference/SUMMARY.md", "w") as nav_file:
+    nav_file.writelines(nav.build_literate_nav())
 ```
 
 And update your MkDocs configuration to list the plugin:
