@@ -161,7 +161,7 @@ Then, the previous script is updated like so:
 ```python title="docs/gen_ref_pages.py" hl_lines="7 21 29 30"
 """Generate the code reference pages and navigation."""
 
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 
 import mkdocs_gen_files
 
@@ -232,7 +232,7 @@ Update the script like this:
 ```python title="docs/gen_ref_pages.py" hl_lines="18 19"
 """Generate the code reference pages and navigation."""
 
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 
 import mkdocs_gen_files
 
@@ -252,7 +252,7 @@ for path in sorted(Path("src").rglob("*.py")):
     elif parts[-1] == "__main__":
         continue
 
-    nav[parts] = str(PurePosixPath(doc_path))
+    nav[parts] = doc_path.as_posix()
 
     with mkdocs_gen_files.open(full_doc_path, "w") as fd:
         ident = ".".join(parts)
