@@ -179,7 +179,7 @@ for path in sorted(Path("src").rglob("*.py")):
     elif parts[-1] == "__main__":
         continue
 
-    nav[parts] = str(PurePosixPath(doc_path))  # (1)
+    nav[parts] = doc_path.as_posix()  # (1)
 
     with mkdocs_gen_files.open(full_doc_path, "w") as fd:
         ident = ".".join(parts)
