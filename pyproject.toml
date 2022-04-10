@@ -35,7 +35,6 @@ dependencies = [
     "MarkupSafe>=1.1",
     "mkdocs>=1.2",
     "mkdocs-autorefs>=0.3.1",
-    "mkdocstrings-python-legacy>=0.2",
     "pymdown-extensions>=6.3",
 ]
 
@@ -99,8 +98,6 @@ quality = [
 ]
 tests = [
     "docutils",
-    # TODO: uncomment once the legacy handler is optional
-    # "mkdocstrings-python-legacy>=0.1",
     "pygments>=2.10",  # python 3.6
     "pytest>=6.2",
     "pytest-cov>=3.0",
