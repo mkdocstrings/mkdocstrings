@@ -139,8 +139,8 @@ def test_dont_register_every_identifier_as_anchor(plugin):
 
 def test_use_deprecated_yaml_keys(ext_markdown):
     """Check that using the deprecated 'selection' and 'rendering' YAML keys emits a deprecation warning."""
-    with pytest.warns(DeprecationWarning):
-        ext_markdown.convert("::: tests.fixtures.headings\n    rendering:\n      heading_level: 2")
+    with pytest.warns(DeprecationWarning, match="single 'options' YAML key"):
+        assert "h1" not in ext_markdown.convert("::: tests.fixtures.headings\n    rendering:\n      heading_level: 2")
 
 
 def test_use_new_options_yaml_key(ext_markdown):
