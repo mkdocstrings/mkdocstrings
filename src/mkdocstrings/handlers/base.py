@@ -447,7 +447,7 @@ class BaseHandler(BaseCollector, BaseRenderer):
             warnings.warn(
                 DeprecationWarning(
                     "The BaseRenderer class is deprecated, and passing an instance of it "
-                    "to your handler is deprecated as well. Instead, define the `render` method"
+                    "to your handler is deprecated as well. Instead, define the `render` method "
                     "directly on your handler class (as well as other methods and attributes like "
                     "`get_templates_dir`, `get_anchors`, `update_env` and `fallback_theme`, `extra_css`)."
                 )
