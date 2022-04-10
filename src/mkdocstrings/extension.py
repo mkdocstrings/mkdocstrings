@@ -24,6 +24,7 @@ instruction:
 import re
 from collections import ChainMap
 from typing import Any, Mapping, MutableMapping, MutableSequence, Tuple
+from warnings import warn
 from xml.etree.ElementTree import Element
 
 import yaml
@@ -173,13 +174,21 @@ class AutoDocProcessor(BlockProcessor):
         handler_config = self._handlers.get_handler_config(handler_name)
         handler = self._handlers.get_handler(handler_name, handler_config)
 
-        selection, rendering = get_item_configs(handler_config, config)
+        options = ChainMap(config.get("options", {}), handler_config.get("options", {}))
+        if not options:
+            selection, rendering = get_item_configs(handler_config, config)
+            if selection or rendering:
+                warn(
+                    "'selection' and 'rendering' are deprecated and merged into a single 'options' YAML key",
+                    DeprecationWarning,
+                )
+                options = ChainMap(*selection.maps, *rendering.maps)  # type: ignore[attr-defined]
         if heading_level:
-            rendering = ChainMap(rendering, {"heading_level": heading_level})  # like setdefault
+            options = ChainMap(options, {"heading_level": heading_level})  # like setdefault
 
         log.debug("Collecting data")
         try:
-            data: CollectorItem = handler.collect(identifier, selection)
+            data: CollectorItem = handler.collect(identifier, options)
         except CollectionError as exception:
             log.error(str(exception))
             if PluginError is SystemExit:  # When MkDocs 1.2 is sufficiently common, this can be dropped.
@@ -193,7 +202,7 @@ class AutoDocProcessor(BlockProcessor):
 
         log.debug("Rendering templates")
         try:
-            rendered = handler.render(data, rendering)
+            rendered = handler.render(data, options)
         except TemplateNotFound as exc:
             theme_name = self._config["theme_name"]
             log.error(
