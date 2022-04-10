@@ -1103,11 +1103,11 @@ instruction:</p>
 
 
 
-<h2 id="mkdocstrings.extension.AutoDocProcessor" class="doc doc-heading">
+<h2 class="doc doc-heading" id="mkdocstrings.extension.AutoDocProcessor">
 <code class="highlight language-python"><span class="n">AutoDocProcessor</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">handlers</span><span class="p">,</span> <span class="n">autorefs</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.extension.AutoDocProcessor" class="headerlink" title="Permanent link">¤</a></h2>
+<a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor" title="Permanent link">¤</a></h2>
 
 
     <div class="doc doc-contents ">
@@ -1252,11 +1252,11 @@ of the <code>mkdocstrings</code> plugin.</p></td>
 
 
 
-<h3 id="mkdocstrings.extension.AutoDocProcessor._process_block" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">_process_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">yaml_block</span><span class="p">,</span> <span class="n">heading_level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+<h3 class="doc doc-heading" id="mkdocstrings.extension.AutoDocProcessor._process_block">
+<code class="highlight language-python"><span class="n">_process_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">yaml_block</span><span class="p">,</span> <span class="n">heading_level</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.extension.AutoDocProcessor._process_block" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor._process_block" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -1301,7 +1301,7 @@ of the <code>mkdocstrings</code> plugin.</p></td>
           </td>
           <td><p>Suggested level of the the heading to insert (0 to ignore).</p></td>
           <td>
-                <code>0</code>
+              <em>required</em>
           </td>
         </tr>
     </tbody>
@@ -1439,7 +1439,7 @@ of the <code>mkdocstrings</code> plugin.</p></td>
 
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Collecting data&quot;</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">data</span><span class="p">:</span> <span class="n">CollectorItem</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">collector</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">selection</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">CollectorItem</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">selection</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">CollectionError</span> <span class="k">as</span> <span class="n">exception</span><span class="p">:</span>
         <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">exception</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">PluginError</span> <span class="ow">is</span> <span class="ne">SystemExit</span><span class="p">:</span>  <span class="c1"># When MkDocs 1.2 is sufficiently common, this can be dropped.</span>
@@ -1448,12 +1448,12 @@ of the <code>mkdocstrings</code> plugin.</p></td>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updated_env</span><span class="p">:</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Updating renderer&#39;s env&quot;</span><span class="p">)</span>
-        <span class="n">handler</span><span class="o">.</span><span class="n">renderer</span><span class="o">.</span><span class="n">_update_env</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">md</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">)</span>  <span class="c1"># noqa: WPS437 (protected member OK)</span>
+        <span class="n">handler</span><span class="o">.</span><span class="n">_update_env</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">md</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">)</span>  <span class="c1"># noqa: WPS437 (protected member OK)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_updated_env</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Rendering templates&quot;</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">rendered</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">renderer</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rendering</span><span class="p">)</span>
+        <span class="n">rendered</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rendering</span><span class="p">)</span>
     <span class="k">except</span> <span class="n">TemplateNotFound</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
         <span class="n">theme_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s2">&quot;theme_name&quot;</span><span class="p">]</span>
         <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
@@ -1475,11 +1475,11 @@ of the <code>mkdocstrings</code> plugin.</p></td>
 
 
 
-<h3 id="mkdocstrings.extension.AutoDocProcessor.run" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.extension.AutoDocProcessor.run">
 <code class="highlight language-python"><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">blocks</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.extension.AutoDocProcessor.run" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor.run" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -1608,7 +1608,7 @@ and used to collect and render an object.</p>
         <span class="c1"># The final HTML is inserted as opaque to subsequent processing, and only revealed at the end.</span>
         <span class="n">el</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">htmlStash</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
         <span class="c1"># So we need to duplicate the headings directly (and delete later), just so &#39;toc&#39; can pick them up.</span>
-        <span class="n">headings</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">renderer</span><span class="o">.</span><span class="n">get_headings</span><span class="p">()</span>
+        <span class="n">headings</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">get_headings</span><span class="p">()</span>
         <span class="n">el</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">headings</span><span class="p">)</span>
 
         <span class="n">page</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_autorefs</span><span class="o">.</span><span class="n">current_page</span>
@@ -1644,11 +1644,11 @@ and used to collect and render an object.</p>
 
 
 
-<h3 id="mkdocstrings.extension.AutoDocProcessor.test" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.extension.AutoDocProcessor.test">
 <code class="highlight language-python"><span class="n">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">block</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.extension.AutoDocProcessor.test" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.extension.AutoDocProcessor.test" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -1753,11 +1753,11 @@ and used to collect and render an object.</p>
 
 
 
-<h2 id="mkdocstrings.extension.MkdocstringsExtension" class="doc doc-heading">
+<h2 class="doc doc-heading" id="mkdocstrings.extension.MkdocstringsExtension">
 <code class="highlight language-python"><span class="n">MkdocstringsExtension</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">handlers</span><span class="p">,</span> <span class="n">autorefs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.extension.MkdocstringsExtension" class="headerlink" title="Permanent link">¤</a></h2>
+<a class="headerlink" href="#mkdocstrings.extension.MkdocstringsExtension" title="Permanent link">¤</a></h2>
 
 
     <div class="doc doc-contents ">
@@ -1876,11 +1876,11 @@ when instantiated in <a href="#mkdocstrings.extension.MkdocstringsExtension.exte
 
 
 
-<h3 id="mkdocstrings.extension.MkdocstringsExtension.extendMarkdown" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.extension.MkdocstringsExtension.extendMarkdown">
 <code class="highlight language-python"><span class="n">extendMarkdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.extension.MkdocstringsExtension.extendMarkdown" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.extension.MkdocstringsExtension.extendMarkdown" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -1974,11 +1974,11 @@ when instantiated in <a href="#mkdocstrings.extension.MkdocstringsExtension.exte
 
 
 
-<h2 id="mkdocstrings.extension.get_item_configs" class="doc doc-heading">
+<h2 class="doc doc-heading" id="mkdocstrings.extension.get_item_configs">
 <code class="highlight language-python"><span class="n">get_item_configs</span><span class="p">(</span><span class="n">handler_config</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.extension.get_item_configs" class="headerlink" title="Permanent link">¤</a></h2>
+<a class="headerlink" href="#mkdocstrings.extension.get_item_configs" title="Permanent link">¤</a></h2>
 
 
     <div class="doc doc-contents ">

@@ -1086,11 +1086,11 @@
 
 
 
-<h2 id="mkdocstrings.inventory.Inventory" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">Inventory</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="s1">&#39;project&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.0.0&#39;</span><span class="p">)</span></code>
+<h2 class="doc doc-heading" id="mkdocstrings.inventory.Inventory">
+<code class="highlight language-python"><span class="n">Inventory</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="s1">&#39;project&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.0.0&#39;</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.inventory.Inventory" class="headerlink" title="Permanent link">¤</a></h2>
+<a class="headerlink" href="#mkdocstrings.inventory.Inventory" title="Permanent link">¤</a></h2>
 
 
     <div class="doc doc-contents ">
@@ -1120,7 +1120,7 @@
           </td>
           <td><p>A list of items.</p></td>
           <td>
-                <code>None</code>
+              <em>required</em>
           </td>
         </tr>
         <tr>
@@ -1196,11 +1196,11 @@
 
 
 
-<h3 id="mkdocstrings.inventory.Inventory.format_sphinx" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.inventory.Inventory.format_sphinx">
 <code class="highlight language-python"><span class="n">format_sphinx</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.inventory.Inventory.format_sphinx" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.inventory.Inventory.format_sphinx" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -1281,11 +1281,11 @@
 
 
 
-<h3 id="mkdocstrings.inventory.Inventory.parse_sphinx" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">parse_sphinx</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">in_file</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">domain_filter</span><span class="o">=</span><span class="p">())</span></code>
+<h3 class="doc doc-heading" id="mkdocstrings.inventory.Inventory.parse_sphinx">
+<code class="highlight language-python"><span class="n">parse_sphinx</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">in_file</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">domain_filter</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.inventory.Inventory.parse_sphinx" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.inventory.Inventory.parse_sphinx" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -1320,7 +1320,7 @@
           </td>
           <td><p>A collection of domain values to allow (and filter out all other ones).</p></td>
           <td>
-                <code>()</code>
+              <em>required</em>
           </td>
         </tr>
     </tbody>
@@ -1337,7 +1337,7 @@
     <tbody>
         <tr>
           <td>
-                <code>&#39;Inventory&#39;</code>
+                <code>Inventory</code>
           </td>
           <td><p>An <code>Inventory</code> containing the collected <code>InventoryItem</code>s.</p></td>
         </tr>
@@ -1394,11 +1394,11 @@
 
 
 
-<h3 id="mkdocstrings.inventory.Inventory.register" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.inventory.Inventory.register">
 <code class="highlight language-python"><span class="n">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.inventory.Inventory.register" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.inventory.Inventory.register" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -1481,11 +1481,11 @@
 
 
 
-<h2 id="mkdocstrings.inventory.InventoryItem" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">InventoryItem</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">role</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">dispname</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<h2 class="doc doc-heading" id="mkdocstrings.inventory.InventoryItem">
+<code class="highlight language-python"><span class="n">InventoryItem</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">role</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">dispname</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.inventory.InventoryItem" class="headerlink" title="Permanent link">¤</a></h2>
+<a class="headerlink" href="#mkdocstrings.inventory.InventoryItem" title="Permanent link">¤</a></h2>
 
 
     <div class="doc doc-contents ">
@@ -1563,7 +1563,7 @@
           </td>
           <td><p>The item display name.</p></td>
           <td>
-                <code>None</code>
+              <em>required</em>
           </td>
         </tr>
     </tbody>
@@ -1634,11 +1634,11 @@
 
 
 
-<h3 id="mkdocstrings.inventory.InventoryItem.format_sphinx" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.inventory.InventoryItem.format_sphinx">
 <code class="highlight language-python"><span class="n">format_sphinx</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.inventory.InventoryItem.format_sphinx" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.inventory.InventoryItem.format_sphinx" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -1703,11 +1703,11 @@
 
 
 
-<h3 id="mkdocstrings.inventory.InventoryItem.parse_sphinx" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.inventory.InventoryItem.parse_sphinx">
 <code class="highlight language-python"><span class="n">parse_sphinx</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.inventory.InventoryItem.parse_sphinx" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.inventory.InventoryItem.parse_sphinx" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">

@@ -1317,17 +1317,15 @@
 
 
 
-<h2 id="mkdocstrings.handlers.base.BaseCollector" class="doc doc-heading">
+<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseCollector">
           <code>BaseCollector</code>
 
 
 
-<a href="#mkdocstrings.handlers.base.BaseCollector" class="headerlink" title="Permanent link">¤</a></h2>
+<a class="headerlink" href="#mkdocstrings.handlers.base.BaseCollector" title="Permanent link">¤</a></h2>
 
 
     <div class="doc doc-contents ">
-        <p class="doc doc-class-bases">
-          Bases: <code><a title="abc.ABC" href="https://docs.python.org/3/library/abc.html#abc.ABC">ABC</a></code></p>
 
 
       <p>The base collector class.</p>
@@ -1352,11 +1350,11 @@ You can also implement the <code>teardown</code> method.</p>
 
 
 
-<h3 id="mkdocstrings.handlers.base.BaseCollector.collect" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseCollector.collect">
 <code class="highlight language-python"><span class="n">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.BaseCollector.collect" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.base.BaseCollector.collect" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -1422,7 +1420,12 @@ these options modify how the objects or documentation are "selected" in the sour
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">325</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
 <span class="normal">326</span>
 <span class="normal">327</span>
 <span class="normal">328</span>
@@ -1432,14 +1435,7 @@ these options modify how the objects or documentation are "selected" in the sour
 <span class="normal">332</span>
 <span class="normal">333</span>
 <span class="normal">334</span>
-<span class="normal">335</span>
-<span class="normal">336</span>
-<span class="normal">337</span>
-<span class="normal">338</span>
-<span class="normal">339</span>
-<span class="normal">340</span>
-<span class="normal">341</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nd">@abstractmethod</span>
-<span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CollectorItem</span><span class="p">:</span>
+<span class="normal">335</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CollectorItem</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Collect data given an identifier and selection configuration.</span>
 
 <span class="sd">    In the implementation, you typically call a subprocess that returns JSON, and load that JSON again into</span>
@@ -1468,11 +1464,11 @@ these options modify how the objects or documentation are "selected" in the sour
 
 
 
-<h3 id="mkdocstrings.handlers.base.BaseCollector.teardown" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseCollector.teardown">
 <code class="highlight language-python"><span class="n">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.BaseCollector.teardown" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.base.BaseCollector.teardown" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -1483,12 +1479,12 @@ that was started when creating the collector instance.</p>
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">343</span>
-<span class="normal">344</span>
-<span class="normal">345</span>
-<span class="normal">346</span>
-<span class="normal">347</span>
-<span class="normal">348</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Teardown the collector.</span>
 
 <span class="sd">    This method should be implemented to, for example, terminate a subprocess</span>
@@ -1517,14 +1513,16 @@ that was started when creating the collector instance.</p>
 
 
 
-<h2 id="mkdocstrings.handlers.base.BaseHandler" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">BaseHandler</span><span class="p">(</span><span class="n">collector</span><span class="p">,</span> <span class="n">renderer</span><span class="p">)</span></code>
+<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseHandler">
+<code class="highlight language-python"><span class="n">BaseHandler</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.BaseHandler" class="headerlink" title="Permanent link">¤</a></h2>
+<a class="headerlink" href="#mkdocstrings.handlers.base.BaseHandler" title="Permanent link">¤</a></h2>
 
 
     <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><a title="mkdocstrings.handlers.base.BaseCollector" href="#mkdocstrings.handlers.base.BaseCollector">BaseCollector</a></code>, <code><a title="mkdocstrings.handlers.base.BaseRenderer" href="#mkdocstrings.handlers.base.BaseRenderer">BaseRenderer</a></code></p>
 
 
       <p>The base handler class.</p>
@@ -1556,6 +1554,13 @@ that was started when creating the collector instance.</p>
           <td><p>Whether this handler is interested in enabling the creation
 of the <code>objects.inv</code> Sphinx inventory file.</p></td>
         </tr>
+        <tr>
+          <td><code>fallback_config</code></td>
+          <td>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>
+          </td>
+          <td><p>The configuration used to collect item during autorefs fallback.</p></td>
+        </tr>
     </tbody>
   </table>
 
@@ -1573,31 +1578,50 @@ of the <code>objects.inv</code> Sphinx inventory file.</p></td>
     </thead>
     <tbody>
         <tr>
-          <td><code>collector</code></td>
+          <td><code>*args</code></td>
           <td>
-                <code><a title="mkdocstrings.handlers.base.BaseCollector" href="#mkdocstrings.handlers.base.BaseCollector">BaseCollector</a></code>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a title="mkdocstrings.handlers.base.BaseCollector" href="#mkdocstrings.handlers.base.BaseCollector">BaseCollector</a> | <a title="mkdocstrings.handlers.base.BaseRenderer" href="#mkdocstrings.handlers.base.BaseRenderer">BaseRenderer</a></code>
           </td>
-          <td><p>A collector instance.</p></td>
+          <td><p>Collector and renderer, or handler name, theme and custom_templates.</p></td>
           <td>
-              <em>required</em>
+                <code>()</code>
           </td>
         </tr>
         <tr>
-          <td><code>renderer</code></td>
+          <td><code>**kwargs</code></td>
           <td>
-                <code><a title="mkdocstrings.handlers.base.BaseRenderer" href="#mkdocstrings.handlers.base.BaseRenderer">BaseRenderer</a></code>
+                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a title="mkdocstrings.handlers.base.BaseCollector" href="#mkdocstrings.handlers.base.BaseCollector">BaseCollector</a> | <a title="mkdocstrings.handlers.base.BaseRenderer" href="#mkdocstrings.handlers.base.BaseRenderer">BaseRenderer</a></code>
           </td>
-          <td><p>A renderer instance.</p></td>
+          <td><p>Same thing, but with keyword arguments.</p></td>
           <td>
-              <em>required</em>
+                <code>{}</code>
           </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></code>
+          </td>
+          <td><p>When the givin parameters are invalid.</p></td>
         </tr>
     </tbody>
   </table>
 
             <details class="quote">
               <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-              <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">367</span>
+              <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">366</span>
+<span class="normal">367</span>
 <span class="normal">368</span>
 <span class="normal">369</span>
 <span class="normal">370</span>
@@ -1605,15 +1629,216 @@ of the <code>objects.inv</code> Sphinx inventory file.</p></td>
 <span class="normal">372</span>
 <span class="normal">373</span>
 <span class="normal">374</span>
-<span class="normal">375</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collector</span><span class="p">:</span> <span class="n">BaseCollector</span><span class="p">,</span> <span class="n">renderer</span><span class="p">:</span> <span class="n">BaseRenderer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span>
+<span class="normal">380</span>
+<span class="normal">381</span>
+<span class="normal">382</span>
+<span class="normal">383</span>
+<span class="normal">384</span>
+<span class="normal">385</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span>
+<span class="normal">401</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span>
+<span class="normal">419</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span>
+<span class="normal">428</span>
+<span class="normal">429</span>
+<span class="normal">430</span>
+<span class="normal">431</span>
+<span class="normal">432</span>
+<span class="normal">433</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span>
+<span class="normal">442</span>
+<span class="normal">443</span>
+<span class="normal">444</span>
+<span class="normal">445</span>
+<span class="normal">446</span>
+<span class="normal">447</span>
+<span class="normal">448</span>
+<span class="normal">449</span>
+<span class="normal">450</span>
+<span class="normal">451</span>
+<span class="normal">452</span>
+<span class="normal">453</span>
+<span class="normal">454</span>
+<span class="normal">455</span>
+<span class="normal">456</span>
+<span class="normal">457</span>
+<span class="normal">458</span>
+<span class="normal">459</span>
+<span class="normal">460</span>
+<span class="normal">461</span>
+<span class="normal">462</span>
+<span class="normal">463</span>
+<span class="normal">464</span>
+<span class="normal">465</span>
+<span class="normal">466</span>
+<span class="normal">467</span>
+<span class="normal">468</span>
+<span class="normal">469</span>
+<span class="normal">470</span>
+<span class="normal">471</span>
+<span class="normal">472</span>
+<span class="normal">473</span>
+<span class="normal">474</span>
+<span class="normal">475</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">BaseCollector</span> <span class="o">|</span> <span class="n">BaseRenderer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">BaseCollector</span> <span class="o">|</span> <span class="n">BaseRenderer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
 
 <span class="sd">    Arguments:</span>
-<span class="sd">        collector: A collector instance.</span>
-<span class="sd">        renderer: A renderer instance.</span>
+<span class="sd">        *args: Collector and renderer, or handler name, theme and custom_templates.</span>
+<span class="sd">        **kwargs: Same thing, but with keyword arguments.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: When the givin parameters are invalid.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">collector</span> <span class="o">=</span> <span class="n">collector</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">renderer</span> <span class="o">=</span> <span class="n">renderer</span>
+    <span class="c1"># The method accepts *args and **kwargs temporarily,</span>
+    <span class="c1"># to support the transition period where the BaseCollector</span>
+    <span class="c1"># and BaseRenderer are deprecated, and the BaseHandler</span>
+    <span class="c1"># can be instantiated with both instances of collector/renderer,</span>
+    <span class="c1"># or renderer parameters, as positional parameters.</span>
+    <span class="c1"># Supported:</span>
+    <span class="c1">#   handler = Handler(collector, renderer)</span>
+    <span class="c1">#   handler = Handler(collector=collector, renderer=renderer)</span>
+    <span class="c1">#   handler = Handler(&quot;python&quot;, &quot;material&quot;)</span>
+    <span class="c1">#   handler = Handler(&quot;python&quot;, &quot;material&quot;, &quot;templates&quot;)</span>
+    <span class="c1">#   handler = Handler(handler=&quot;python&quot;, theme=&quot;material&quot;)</span>
+    <span class="c1">#   handler = Handler(handler=&quot;python&quot;, theme=&quot;material&quot;, custom_templates=&quot;templates&quot;)</span>
+    <span class="c1"># Invalid:</span>
+    <span class="c1">#   handler = Handler(&quot;python&quot;, &quot;material&quot;, collector, renderer)</span>
+    <span class="c1">#   handler = Handler(&quot;python&quot;, theme=&quot;material&quot;, collector=collector)</span>
+    <span class="c1">#   handler = Handler(collector, renderer, &quot;material&quot;)</span>
+    <span class="c1">#   handler = Handler(collector, renderer, theme=&quot;material&quot;)</span>
+    <span class="c1">#   handler = Handler(collector)</span>
+    <span class="c1">#   handler = Handler(renderer)</span>
+    <span class="c1">#   etc.</span>
+
+    <span class="n">collector</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">renderer</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># parsing positional arguments</span>
+    <span class="n">str_args</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">BaseCollector</span><span class="p">):</span>
+            <span class="n">collector</span> <span class="o">=</span> <span class="n">arg</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">BaseRenderer</span><span class="p">):</span>
+            <span class="n">renderer</span> <span class="o">=</span> <span class="n">arg</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">str_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">str_args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">str_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># type: ignore[arg-type]</span>
+
+    <span class="n">handler</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span> <span class="o">=</span> <span class="n">str_args</span>
+
+    <span class="c1"># fetching values from keyword arguments</span>
+    <span class="k">if</span> <span class="s2">&quot;collector&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">collector</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;collector&quot;</span><span class="p">)</span>  <span class="c1"># type: ignore[assignment]</span>
+    <span class="k">if</span> <span class="s2">&quot;renderer&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">renderer</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;renderer&quot;</span><span class="p">)</span>  <span class="c1"># type: ignore[assignment]</span>
+    <span class="k">if</span> <span class="s2">&quot;handler&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">handler</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;handler&quot;</span><span class="p">)</span>  <span class="c1"># type: ignore[assignment]</span>
+    <span class="k">if</span> <span class="s2">&quot;theme&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">theme</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;theme&quot;</span><span class="p">)</span>  <span class="c1"># type: ignore[assignment]</span>
+    <span class="k">if</span> <span class="s2">&quot;custom_templates&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">custom_templates</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;custom_templates&quot;</span><span class="p">)</span>  <span class="c1"># type: ignore[assignment]</span>
+
+    <span class="k">if</span> <span class="n">collector</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">renderer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">collector</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">renderer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;both &#39;collector&#39; and &#39;renderer&#39; must be provided&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">collector</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="ne">DeprecationWarning</span><span class="p">(</span>
+                <span class="s2">&quot;The BaseCollector class is deprecated, and passing an instance of it &quot;</span>
+                <span class="s2">&quot;to your handler is deprecated as well. Instead, define the `collect` and `teardown` &quot;</span>
+                <span class="s2">&quot;methods directly on your handler class.&quot;</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collector</span> <span class="o">=</span> <span class="n">collector</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">collect</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">collect</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">teardown</span> <span class="o">=</span> <span class="n">collector</span><span class="o">.</span><span class="n">teardown</span>  <span class="c1"># type: ignore[assignment]</span>
+
+    <span class="k">if</span> <span class="n">renderer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">{</span><span class="n">handler</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="p">}</span> <span class="o">!=</span> <span class="p">{</span><span class="kc">None</span><span class="p">}:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;&#39;handler&#39;, &#39;theme&#39; and &#39;custom_templates&#39; must all be None when providing a renderer instance&quot;</span>
+            <span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="ne">DeprecationWarning</span><span class="p">(</span>
+                <span class="s2">&quot;The BaseRenderer class is deprecated, and passing an instance of it &quot;</span>
+                <span class="s2">&quot;to your handler is deprecated as well. Instead, define the `render` method &quot;</span>
+                <span class="s2">&quot;directly on your handler class (as well as other methods and attributes like &quot;</span>
+                <span class="s2">&quot;`get_templates_dir`, `get_anchors`, `update_env` and `fallback_theme`, `extra_css`).&quot;</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">renderer</span> <span class="o">=</span> <span class="n">renderer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">render</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">.</span><span class="n">render</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_templates_dir</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">.</span><span class="n">get_templates_dir</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_anchors</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">.</span><span class="n">get_anchors</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_convert_markdown</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">.</span><span class="n">do_convert_markdown</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_heading</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">.</span><span class="n">do_heading</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_headings</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">.</span><span class="n">get_headings</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_env</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">.</span><span class="n">update_env</span>  <span class="c1"># type: ignore[assignment]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_env</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">.</span><span class="n">_update_env</span>  <span class="c1"># type: ignore[assignment]  # noqa: WPS437</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fallback_theme</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">.</span><span class="n">fallback_theme</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extra_css</span> <span class="o">=</span> <span class="n">renderer</span><span class="o">.</span><span class="n">extra_css</span>
+        <span class="n">renderer</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>  <span class="c1"># noqa: WPS609</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">renderer</span><span class="o">.</span><span class="n">_handler</span><span class="p">,</span>  <span class="c1"># noqa: WPS437</span>
+            <span class="n">renderer</span><span class="o">.</span><span class="n">_theme</span><span class="p">,</span>  <span class="c1"># noqa: WPS437</span>
+            <span class="n">renderer</span><span class="o">.</span><span class="n">_custom_templates</span><span class="p">,</span>  <span class="c1"># noqa: WPS437</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">handler</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">theme</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;handler&#39; and &#39;theme&#39; cannot be None&quot;</span><span class="p">)</span>
+        <span class="n">BaseRenderer</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="p">)</span>  <span class="c1"># noqa: WPS609</span>
 </code></pre></div>
 </td></tr></table>
             </details>
@@ -1621,6 +1846,19 @@ of the <code>objects.inv</code> Sphinx inventory file.</p></td>
 
 
   <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1647,16 +1885,14 @@ of the <code>objects.inv</code> Sphinx inventory file.</p></td>
 
 
 
-<h2 id="mkdocstrings.handlers.base.BaseRenderer" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">BaseRenderer</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseRenderer">
+<code class="highlight language-python"><span class="n">BaseRenderer</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">custom_templates</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.BaseRenderer" class="headerlink" title="Permanent link">¤</a></h2>
+<a class="headerlink" href="#mkdocstrings.handlers.base.BaseRenderer" title="Permanent link">¤</a></h2>
 
 
     <div class="doc doc-contents ">
-        <p class="doc doc-class-bases">
-          Bases: <code><a title="abc.ABC" href="https://docs.python.org/3/library/abc.html#abc.ABC">ABC</a></code></p>
 
 
       <p>The base renderer class.</p>
@@ -1709,17 +1945,7 @@ in <code>self</code> to use as a fallback theme.</p>
           </td>
           <td><p>Directory containing custom templates.</p></td>
           <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>directory</code></td>
-          <td>
-                <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-          </td>
-          <td><p>Deprecated and renamed as <code>handler</code>.</p></td>
-          <td>
-                <code>None</code>
+              <em>required</em>
           </td>
         </tr>
     </tbody>
@@ -1727,8 +1953,7 @@ in <code>self</code> to use as a fallback theme.</p>
 
             <details class="quote">
               <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-              <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 77</span>
-<span class="normal"> 78</span>
+              <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 78</span>
 <span class="normal"> 79</span>
 <span class="normal"> 80</span>
 <span class="normal"> 81</span>
@@ -1770,11 +1995,7 @@ in <code>self</code> to use as a fallback theme.</p>
 <span class="normal">117</span>
 <span class="normal">118</span>
 <span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">custom_templates</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">120</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">custom_templates</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
 
 <span class="sd">    If the given theme is not supported (it does not exist), it will look for a `fallback_theme` attribute</span>
@@ -1784,18 +2005,13 @@ in <code>self</code> to use as a fallback theme.</p>
 <span class="sd">        handler: The name of the handler.</span>
 <span class="sd">        theme: The name of theme to use.</span>
 <span class="sd">        custom_templates: Directory containing custom templates.</span>
-<span class="sd">        directory: Deprecated and renamed as `handler`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># TODO: remove at some point</span>
-    <span class="k">if</span> <span class="n">directory</span><span class="p">:</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="s2">&quot;The &#39;directory&#39; keyword parameter is deprecated and renamed &#39;handler&#39;. &quot;</span><span class="p">,</span>
-            <span class="ne">DeprecationWarning</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">handler</span><span class="p">:</span>
-            <span class="n">handler</span> <span class="o">=</span> <span class="n">directory</span>
-
     <span class="n">paths</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># TODO: remove once BaseRenderer is merged into BaseHandler</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_handler</span> <span class="o">=</span> <span class="n">handler</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">=</span> <span class="n">theme</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_custom_templates</span> <span class="o">=</span> <span class="n">custom_templates</span>
 
     <span class="n">themes_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_templates_dir</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
     <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">themes_dir</span> <span class="o">/</span> <span class="n">theme</span><span class="p">)</span>
@@ -1843,15 +2059,18 @@ in <code>self</code> to use as a fallback theme.</p>
 
 
 
+
+
+
   <div class="doc doc-object doc-function">
 
 
 
-<h3 id="mkdocstrings.handlers.base.BaseRenderer.do_convert_markdown" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">do_convert_markdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">heading_level</span><span class="p">,</span> <span class="n">html_id</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">strip_paragraph</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseRenderer.do_convert_markdown">
+<code class="highlight language-python"><span class="n">do_convert_markdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">heading_level</span><span class="p">,</span> <span class="n">html_id</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">strip_paragraph</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.BaseRenderer.do_convert_markdown" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.base.BaseRenderer.do_convert_markdown" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -1906,7 +2125,7 @@ in <code>self</code> to use as a fallback theme.</p>
           </td>
           <td><p>Whether to exclude the <p> tag from around the whole output.</p></td>
           <td>
-                <code>False</code>
+              <em>required</em>
           </td>
         </tr>
     </tbody>
@@ -1932,7 +2151,12 @@ in <code>self</code> to use as a fallback theme.</p>
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">200</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
 <span class="normal">201</span>
 <span class="normal">202</span>
 <span class="normal">203</span>
@@ -1951,12 +2175,7 @@ in <code>self</code> to use as a fallback theme.</p>
 <span class="normal">216</span>
 <span class="normal">217</span>
 <span class="normal">218</span>
-<span class="normal">219</span>
-<span class="normal">220</span>
-<span class="normal">221</span>
-<span class="normal">222</span>
-<span class="normal">223</span>
-<span class="normal">224</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_convert_markdown</span><span class="p">(</span>
+<span class="normal">219</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_convert_markdown</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">heading_level</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">html_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">strip_paragraph</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Markup</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Render Markdown text; for use inside templates.</span>
@@ -1994,11 +2213,11 @@ in <code>self</code> to use as a fallback theme.</p>
 
 
 
-<h3 id="mkdocstrings.handlers.base.BaseRenderer.do_heading" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">do_heading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">heading_level</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">role</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hidden</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">toc_label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">attributes</span><span class="p">)</span></code>
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseRenderer.do_heading">
+<code class="highlight language-python"><span class="n">do_heading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">heading_level</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">role</span><span class="p">,</span> <span class="n">hidden</span><span class="p">,</span> <span class="n">toc_label</span><span class="p">,</span> <span class="o">**</span><span class="n">attributes</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.BaseRenderer.do_heading" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.base.BaseRenderer.do_heading" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -2043,7 +2262,7 @@ in <code>self</code> to use as a fallback theme.</p>
           </td>
           <td><p>An optional role for the object bound to this heading.</p></td>
           <td>
-                <code>None</code>
+              <em>required</em>
           </td>
         </tr>
         <tr>
@@ -2053,7 +2272,7 @@ in <code>self</code> to use as a fallback theme.</p>
           </td>
           <td><p>If True, only register it for the table of contents, don't render anything.</p></td>
           <td>
-                <code>False</code>
+              <em>required</em>
           </td>
         </tr>
         <tr>
@@ -2063,7 +2282,7 @@ in <code>self</code> to use as a fallback theme.</p>
           </td>
           <td><p>The title to use in the table of contents ('data-toc-label' attribute).</p></td>
           <td>
-                <code>None</code>
+              <em>required</em>
           </td>
         </tr>
         <tr>
@@ -2099,7 +2318,12 @@ in <code>self</code> to use as a fallback theme.</p>
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">226</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
 <span class="normal">227</span>
 <span class="normal">228</span>
 <span class="normal">229</span>
@@ -2148,12 +2372,7 @@ in <code>self</code> to use as a fallback theme.</p>
 <span class="normal">272</span>
 <span class="normal">273</span>
 <span class="normal">274</span>
-<span class="normal">275</span>
-<span class="normal">276</span>
-<span class="normal">277</span>
-<span class="normal">278</span>
-<span class="normal">279</span>
-<span class="normal">280</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_heading</span><span class="p">(</span>
+<span class="normal">275</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_heading</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">content</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">heading_level</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -2221,11 +2440,11 @@ in <code>self</code> to use as a fallback theme.</p>
 
 
 
-<h3 id="mkdocstrings.handlers.base.BaseRenderer.get_anchors" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseRenderer.get_anchors">
 <code class="highlight language-python"><span class="n">get_anchors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.BaseRenderer.get_anchors" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.base.BaseRenderer.get_anchors" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -2276,7 +2495,12 @@ in <code>self</code> to use as a fallback theme.</p>
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">185</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
 <span class="normal">186</span>
 <span class="normal">187</span>
 <span class="normal">188</span>
@@ -2284,12 +2508,7 @@ in <code>self</code> to use as a fallback theme.</p>
 <span class="normal">190</span>
 <span class="normal">191</span>
 <span class="normal">192</span>
-<span class="normal">193</span>
-<span class="normal">194</span>
-<span class="normal">195</span>
-<span class="normal">196</span>
-<span class="normal">197</span>
-<span class="normal">198</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_anchors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">CollectorItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="normal">193</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_anchors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">CollectorItem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Return the possible identifiers (HTML anchors) for a collected item.</span>
 
 <span class="sd">    Arguments:</span>
@@ -2316,11 +2535,11 @@ in <code>self</code> to use as a fallback theme.</p>
 
 
 
-<h3 id="mkdocstrings.handlers.base.BaseRenderer.get_headings" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseRenderer.get_headings">
 <code class="highlight language-python"><span class="n">get_headings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.BaseRenderer.get_headings" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.base.BaseRenderer.get_headings" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -2347,15 +2566,15 @@ in <code>self</code> to use as a fallback theme.</p>
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">282</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
 <span class="normal">283</span>
 <span class="normal">284</span>
-<span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
-<span class="normal">288</span>
-<span class="normal">289</span>
-<span class="normal">290</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_headings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
+<span class="normal">285</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_headings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Element</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Return and clear the headings gathered so far.</span>
 
 <span class="sd">    Returns:</span>
@@ -2377,11 +2596,11 @@ in <code>self</code> to use as a fallback theme.</p>
 
 
 
-<h3 id="mkdocstrings.handlers.base.BaseRenderer.get_templates_dir" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseRenderer.get_templates_dir">
 <code class="highlight language-python"><span class="n">get_templates_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.BaseRenderer.get_templates_dir" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.base.BaseRenderer.get_templates_dir" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -2451,7 +2670,12 @@ in <code>self</code> to use as a fallback theme.</p>
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">138</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
 <span class="normal">139</span>
 <span class="normal">140</span>
 <span class="normal">141</span>
@@ -2491,12 +2715,7 @@ in <code>self</code> to use as a fallback theme.</p>
 <span class="normal">175</span>
 <span class="normal">176</span>
 <span class="normal">177</span>
-<span class="normal">178</span>
-<span class="normal">179</span>
-<span class="normal">180</span>
-<span class="normal">181</span>
-<span class="normal">182</span>
-<span class="normal">183</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_templates_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+<span class="normal">178</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_templates_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return the path to the handler&#39;s templates directory.</span>
 
 <span class="sd">    Override to customize how the templates directory is found.</span>
@@ -2555,11 +2774,11 @@ in <code>self</code> to use as a fallback theme.</p>
 
 
 
-<h3 id="mkdocstrings.handlers.base.BaseRenderer.render" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseRenderer.render">
 <code class="highlight language-python"><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.BaseRenderer.render" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.base.BaseRenderer.render" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -2620,18 +2839,16 @@ in <code>self</code> to use as a fallback theme.</p>
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">126</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
 <span class="normal">127</span>
 <span class="normal">128</span>
 <span class="normal">129</span>
 <span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nd">@abstractmethod</span>
-<span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">CollectorItem</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="normal">131</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">CollectorItem</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Render a template using provided data and configuration options.</span>
 
 <span class="sd">    Arguments:</span>
@@ -2654,11 +2871,11 @@ in <code>self</code> to use as a fallback theme.</p>
 
 
 
-<h3 id="mkdocstrings.handlers.base.BaseRenderer.update_env" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.BaseRenderer.update_env">
 <code class="highlight language-python"><span class="n">update_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.BaseRenderer.update_env" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.base.BaseRenderer.update_env" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -2702,18 +2919,18 @@ of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdo
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">292</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
 <span class="normal">293</span>
 <span class="normal">294</span>
 <span class="normal">295</span>
 <span class="normal">296</span>
 <span class="normal">297</span>
-<span class="normal">298</span>
-<span class="normal">299</span>
-<span class="normal">300</span>
-<span class="normal">301</span>
-<span class="normal">302</span>
-<span class="normal">303</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">update_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: W0613 (unused argument &#39;config&#39;)</span>
+<span class="normal">298</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">update_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">md</span><span class="p">:</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: W0613 (unused argument &#39;config&#39;)</span>
     <span class="sd">&quot;&quot;&quot;Update the Jinja environment.</span>
 
 <span class="sd">    Arguments:</span>
@@ -2748,12 +2965,12 @@ of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdo
 
 
 
-<h2 id="mkdocstrings.handlers.base.CollectionError" class="doc doc-heading">
+<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.CollectionError">
           <code>CollectionError</code>
 
 
 
-<a href="#mkdocstrings.handlers.base.CollectionError" class="headerlink" title="Permanent link">¤</a></h2>
+<a class="headerlink" href="#mkdocstrings.handlers.base.CollectionError" title="Permanent link">¤</a></h2>
 
 
     <div class="doc doc-contents ">
@@ -2776,11 +2993,11 @@ of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdo
 
 
 
-<h2 id="mkdocstrings.handlers.base.Handlers" class="doc doc-heading">
+<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.Handlers">
 <code class="highlight language-python"><span class="n">Handlers</span><span class="p">(</span><span class="n">config</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.Handlers" class="headerlink" title="Permanent link">¤</a></h2>
+<a class="headerlink" href="#mkdocstrings.handlers.base.Handlers" title="Permanent link">¤</a></h2>
 
 
     <div class="doc doc-contents ">
@@ -2819,16 +3036,16 @@ of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdo
 
             <details class="quote">
               <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-              <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">385</span>
-<span class="normal">386</span>
-<span class="normal">387</span>
-<span class="normal">388</span>
-<span class="normal">389</span>
-<span class="normal">390</span>
-<span class="normal">391</span>
-<span class="normal">392</span>
-<span class="normal">393</span>
-<span class="normal">394</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">485</span>
+<span class="normal">486</span>
+<span class="normal">487</span>
+<span class="normal">488</span>
+<span class="normal">489</span>
+<span class="normal">490</span>
+<span class="normal">491</span>
+<span class="normal">492</span>
+<span class="normal">493</span>
+<span class="normal">494</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Initialize the object.</span>
 
 <span class="sd">    Arguments:</span>
@@ -2860,11 +3077,11 @@ of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdo
 
 
 
-<h3 id="mkdocstrings.handlers.base.Handlers.get_anchors" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.Handlers.get_anchors">
 <code class="highlight language-python"><span class="n">get_anchors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.Handlers.get_anchors" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.get_anchors" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -2915,24 +3132,24 @@ of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdo
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">396</span>
-<span class="normal">397</span>
-<span class="normal">398</span>
-<span class="normal">399</span>
-<span class="normal">400</span>
-<span class="normal">401</span>
-<span class="normal">402</span>
-<span class="normal">403</span>
-<span class="normal">404</span>
-<span class="normal">405</span>
-<span class="normal">406</span>
-<span class="normal">407</span>
-<span class="normal">408</span>
-<span class="normal">409</span>
-<span class="normal">410</span>
-<span class="normal">411</span>
-<span class="normal">412</span>
-<span class="normal">413</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_anchors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">496</span>
+<span class="normal">497</span>
+<span class="normal">498</span>
+<span class="normal">499</span>
+<span class="normal">500</span>
+<span class="normal">501</span>
+<span class="normal">502</span>
+<span class="normal">503</span>
+<span class="normal">504</span>
+<span class="normal">505</span>
+<span class="normal">506</span>
+<span class="normal">507</span>
+<span class="normal">508</span>
+<span class="normal">509</span>
+<span class="normal">510</span>
+<span class="normal">511</span>
+<span class="normal">512</span>
+<span class="normal">513</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_anchors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Return the canonical HTML anchor for the identifier, if any of the seen handlers can collect it.</span>
 
 <span class="sd">    Arguments:</span>
@@ -2942,9 +3159,9 @@ of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdo
 <span class="sd">        A tuple of strings - anchors without &#39;#&#39;, or an empty tuple if there isn&#39;t any identifier familiar with it.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-        <span class="n">fallback_config</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">collector</span><span class="p">,</span> <span class="s2">&quot;fallback_config&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="n">fallback_config</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="s2">&quot;fallback_config&quot;</span><span class="p">,</span> <span class="p">{})</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">anchors</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">renderer</span><span class="o">.</span><span class="n">get_anchors</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">collector</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">fallback_config</span><span class="p">))</span>
+            <span class="n">anchors</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">get_anchors</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">fallback_config</span><span class="p">))</span>
         <span class="k">except</span> <span class="n">CollectionError</span><span class="p">:</span>
             <span class="k">continue</span>
         <span class="k">if</span> <span class="n">anchors</span><span class="p">:</span>
@@ -2963,11 +3180,11 @@ of <a href="../../plugin/#mkdocstrings.plugin.MkdocstringsPlugin.on_config">mkdo
 
 
 
-<h3 id="mkdocstrings.handlers.base.Handlers.get_handler" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">handler_config</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.Handlers.get_handler">
+<code class="highlight language-python"><span class="n">get_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">handler_config</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.Handlers.get_handler" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.get_handler" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -3006,7 +3223,7 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
           </td>
           <td><p>Configuration passed to the handler.</p></td>
           <td>
-                <code>None</code>
+              <em>required</em>
           </td>
         </tr>
     </tbody>
@@ -3038,42 +3255,42 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">443</span>
-<span class="normal">444</span>
-<span class="normal">445</span>
-<span class="normal">446</span>
-<span class="normal">447</span>
-<span class="normal">448</span>
-<span class="normal">449</span>
-<span class="normal">450</span>
-<span class="normal">451</span>
-<span class="normal">452</span>
-<span class="normal">453</span>
-<span class="normal">454</span>
-<span class="normal">455</span>
-<span class="normal">456</span>
-<span class="normal">457</span>
-<span class="normal">458</span>
-<span class="normal">459</span>
-<span class="normal">460</span>
-<span class="normal">461</span>
-<span class="normal">462</span>
-<span class="normal">463</span>
-<span class="normal">464</span>
-<span class="normal">465</span>
-<span class="normal">466</span>
-<span class="normal">467</span>
-<span class="normal">468</span>
-<span class="normal">469</span>
-<span class="normal">470</span>
-<span class="normal">471</span>
-<span class="normal">472</span>
-<span class="normal">473</span>
-<span class="normal">474</span>
-<span class="normal">475</span>
-<span class="normal">476</span>
-<span class="normal">477</span>
-<span class="normal">478</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">handler_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseHandler</span><span class="p">:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">543</span>
+<span class="normal">544</span>
+<span class="normal">545</span>
+<span class="normal">546</span>
+<span class="normal">547</span>
+<span class="normal">548</span>
+<span class="normal">549</span>
+<span class="normal">550</span>
+<span class="normal">551</span>
+<span class="normal">552</span>
+<span class="normal">553</span>
+<span class="normal">554</span>
+<span class="normal">555</span>
+<span class="normal">556</span>
+<span class="normal">557</span>
+<span class="normal">558</span>
+<span class="normal">559</span>
+<span class="normal">560</span>
+<span class="normal">561</span>
+<span class="normal">562</span>
+<span class="normal">563</span>
+<span class="normal">564</span>
+<span class="normal">565</span>
+<span class="normal">566</span>
+<span class="normal">567</span>
+<span class="normal">568</span>
+<span class="normal">569</span>
+<span class="normal">570</span>
+<span class="normal">571</span>
+<span class="normal">572</span>
+<span class="normal">573</span>
+<span class="normal">574</span>
+<span class="normal">575</span>
+<span class="normal">576</span>
+<span class="normal">577</span>
+<span class="normal">578</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">handler_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseHandler</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Get a handler thanks to its name.</span>
 
 <span class="sd">    This function dynamically imports a module named &quot;mkdocstrings.handlers.NAME&quot;, calls its</span>
@@ -3122,11 +3339,11 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
 
 
 
-<h3 id="mkdocstrings.handlers.base.Handlers.get_handler_config" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.Handlers.get_handler_config">
 <code class="highlight language-python"><span class="n">get_handler_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.Handlers.get_handler_config" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.get_handler_config" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -3177,19 +3394,19 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">429</span>
-<span class="normal">430</span>
-<span class="normal">431</span>
-<span class="normal">432</span>
-<span class="normal">433</span>
-<span class="normal">434</span>
-<span class="normal">435</span>
-<span class="normal">436</span>
-<span class="normal">437</span>
-<span class="normal">438</span>
-<span class="normal">439</span>
-<span class="normal">440</span>
-<span class="normal">441</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_handler_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">529</span>
+<span class="normal">530</span>
+<span class="normal">531</span>
+<span class="normal">532</span>
+<span class="normal">533</span>
+<span class="normal">534</span>
+<span class="normal">535</span>
+<span class="normal">536</span>
+<span class="normal">537</span>
+<span class="normal">538</span>
+<span class="normal">539</span>
+<span class="normal">540</span>
+<span class="normal">541</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_handler_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return the global configuration of the given handler.</span>
 
 <span class="sd">    Arguments:</span>
@@ -3215,11 +3432,11 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
 
 
 
-<h3 id="mkdocstrings.handlers.base.Handlers.get_handler_name" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.Handlers.get_handler_name">
 <code class="highlight language-python"><span class="n">get_handler_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.Handlers.get_handler_name" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.get_handler_name" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -3270,19 +3487,19 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">415</span>
-<span class="normal">416</span>
-<span class="normal">417</span>
-<span class="normal">418</span>
-<span class="normal">419</span>
-<span class="normal">420</span>
-<span class="normal">421</span>
-<span class="normal">422</span>
-<span class="normal">423</span>
-<span class="normal">424</span>
-<span class="normal">425</span>
-<span class="normal">426</span>
-<span class="normal">427</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_handler_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">515</span>
+<span class="normal">516</span>
+<span class="normal">517</span>
+<span class="normal">518</span>
+<span class="normal">519</span>
+<span class="normal">520</span>
+<span class="normal">521</span>
+<span class="normal">522</span>
+<span class="normal">523</span>
+<span class="normal">524</span>
+<span class="normal">525</span>
+<span class="normal">526</span>
+<span class="normal">527</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_handler_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return the handler name defined in an &quot;autodoc&quot; instruction YAML configuration, or the global default handler.</span>
 
 <span class="sd">    Arguments:</span>
@@ -3308,11 +3525,11 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
 
 
 
-<h3 id="mkdocstrings.handlers.base.Handlers.seen_handlers" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.Handlers.seen_handlers">
 <code class="highlight language-python"><span class="n">seen_handlers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.Handlers.seen_handlers" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.seen_handlers" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -3345,15 +3562,15 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">480</span>
-<span class="normal">481</span>
-<span class="normal">482</span>
-<span class="normal">483</span>
-<span class="normal">484</span>
-<span class="normal">485</span>
-<span class="normal">486</span>
-<span class="normal">487</span>
-<span class="normal">488</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nd">@property</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">580</span>
+<span class="normal">581</span>
+<span class="normal">582</span>
+<span class="normal">583</span>
+<span class="normal">584</span>
+<span class="normal">585</span>
+<span class="normal">586</span>
+<span class="normal">587</span>
+<span class="normal">588</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="nd">@property</span>
 <span class="k">def</span> <span class="nf">seen_handlers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">BaseHandler</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;Get the handlers that were encountered so far throughout the build.</span>
 
@@ -3375,11 +3592,11 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
 
 
 
-<h3 id="mkdocstrings.handlers.base.Handlers.teardown" class="doc doc-heading">
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.Handlers.teardown">
 <code class="highlight language-python"><span class="n">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.Handlers.teardown" class="headerlink" title="Permanent link">¤</a></h3>
+<a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.teardown" title="Permanent link">¤</a></h3>
 
 
     <div class="doc doc-contents ">
@@ -3388,14 +3605,14 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">490</span>
-<span class="normal">491</span>
-<span class="normal">492</span>
-<span class="normal">493</span>
-<span class="normal">494</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">590</span>
+<span class="normal">591</span>
+<span class="normal">592</span>
+<span class="normal">593</span>
+<span class="normal">594</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Teardown all cached handlers and clear the cache.&quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">seen_handlers</span><span class="p">:</span>
-        <span class="n">handler</span><span class="o">.</span><span class="n">collector</span><span class="o">.</span><span class="n">teardown</span><span class="p">()</span>
+        <span class="n">handler</span><span class="o">.</span><span class="n">teardown</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 </code></pre></div>
 </td></tr></table>
@@ -3420,12 +3637,12 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
 
 
 
-<h2 id="mkdocstrings.handlers.base.ThemeNotSupported" class="doc doc-heading">
+<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.ThemeNotSupported">
           <code>ThemeNotSupported</code>
 
 
 
-<a href="#mkdocstrings.handlers.base.ThemeNotSupported" class="headerlink" title="Permanent link">¤</a></h2>
+<a class="headerlink" href="#mkdocstrings.handlers.base.ThemeNotSupported" title="Permanent link">¤</a></h2>
 
 
     <div class="doc doc-contents ">
@@ -3449,11 +3666,11 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
 
 
 
-<h2 id="mkdocstrings.handlers.base.do_any" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">do_any</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+<h2 class="doc doc-heading" id="mkdocstrings.handlers.base.do_any">
+<code class="highlight language-python"><span class="n">do_any</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span></code>
 
 
-<a href="#mkdocstrings.handlers.base.do_any" class="headerlink" title="Permanent link">¤</a></h2>
+<a class="headerlink" href="#mkdocstrings.handlers.base.do_any" title="Permanent link">¤</a></h2>
 
 
     <div class="doc doc-contents ">
@@ -3489,7 +3706,7 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
           </td>
           <td><p>The attribute name to use on each object of the iterable.</p></td>
           <td>
-                <code>None</code>
+              <em>required</em>
           </td>
         </tr>
     </tbody>
@@ -3515,8 +3732,7 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
 
         <details class="quote">
           <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">44</span>
-<span class="normal">45</span>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">45</span>
 <span class="normal">46</span>
 <span class="normal">47</span>
 <span class="normal">48</span>
@@ -3529,7 +3745,8 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
 <span class="normal">55</span>
 <span class="normal">56</span>
 <span class="normal">57</span>
-<span class="normal">58</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_any</span><span class="p">(</span><span class="n">seq</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="normal">58</span>
+<span class="normal">59</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">do_any</span><span class="p">(</span><span class="n">seq</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Check if at least one of the item in the sequence evaluates to true.</span>
 
 <span class="sd">    The `any` builtin as a filter for Jinja templates.</span>
