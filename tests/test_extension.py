@@ -135,3 +135,15 @@ def test_dont_register_every_identifier_as_anchor(plugin):
     for identifier in ids:
         assert identifier not in autorefs._url_map  # noqa: WPS437
         assert identifier not in autorefs._abs_url_map  # noqa: WPS437
+
+
+def test_use_deprecated_yaml_keys(ext_markdown):
+    """Check that using the deprecated 'selection' and 'rendering' YAML keys emits a deprecation warning."""
+    with pytest.warns(DeprecationWarning, match="single 'options' YAML key"):
+        assert "h1" not in ext_markdown.convert("::: tests.fixtures.headings\n    rendering:\n      heading_level: 2")
+
+
+def test_use_new_options_yaml_key(ext_markdown):
+    """Check that using the new 'options' YAML key works as expected."""
+    assert "h1" in ext_markdown.convert("::: tests.fixtures.headings\n    options:\n      heading_level: 1")
+    assert "h1" not in ext_markdown.convert("::: tests.fixtures.headings\n    options:\n      heading_level: 2")
