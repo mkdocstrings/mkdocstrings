@@ -166,6 +166,7 @@ class MkdocstringsPlugin(BasePlugin):
 
         extension_config = {
             "site_name": config["site_name"],
+            "config_file_path": config["config_file_path"],
             "theme_name": theme_name,
             "mdx": config["markdown_extensions"],
             "mdx_configs": config["mdx_configs"],
