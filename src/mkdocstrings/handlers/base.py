@@ -571,8 +571,9 @@ class Handlers:
                         )
                     )
             self._handlers[name] = module.get_handler(
-                self._config["theme_name"],
-                self._config["mkdocstrings"]["custom_templates"],
+                theme=self._config["theme_name"],
+                custom_templates=self._config["mkdocstrings"]["custom_templates"],
+                config_file_path=self._config["config_file_path"],
                 **handler_config,
             )
         return self._handlers[name]
