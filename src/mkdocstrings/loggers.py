@@ -1,8 +1,9 @@
 """Logging functions."""
 
 import logging
+from contextlib import suppress
 from pathlib import Path
-from typing import Any, Callable, MutableMapping, Optional, Tuple
+from typing import Any, Callable, MutableMapping, Optional, Sequence, Tuple
 
 from jinja2.runtime import Context
 from mkdocs.utils import warning_filter
@@ -12,7 +13,12 @@ try:
 except ImportError:  # TODO: remove once Jinja2 < 3.1 is dropped
     from jinja2 import contextfunction as pass_context  # noqa: WPS440
 
-TEMPLATES_DIR = Path(__file__).parent / "templates"
+try:
+    import mkdocstrings_handlers
+except ImportError:
+    TEMPLATES_DIRS: Sequence[Path] = ()
+else:
+    TEMPLATES_DIRS = tuple(mkdocstrings_handlers.__path__)  # noqa: WPS609
 
 
 class LoggerAdapter(logging.LoggerAdapter):
@@ -105,10 +111,12 @@ def get_template_path(context: Context) -> str:
     context_name: str = str(context.name)
     filename = context.environment.get_template(context_name).filename
     if filename:
-        try:
-            return str(Path(filename).relative_to(TEMPLATES_DIR))
-        except ValueError:
-            return filename
+        for template_dir in TEMPLATES_DIRS:
+            with suppress(ValueError):
+                return str(Path(filename).relative_to(template_dir))
+        with suppress(ValueError):
+            return str(Path(filename).relative_to(Path.cwd()))
+        return filename
     return context_name
 
 
