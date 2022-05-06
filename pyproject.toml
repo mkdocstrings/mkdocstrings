@@ -57,9 +57,10 @@ Funding = "https://github.com/sponsors/mkdocstrings"
 mkdocstrings = "mkdocstrings.plugin:MkdocstringsPlugin"
 
 [tool.pdm]
+version = {use_scm = true}
 package-dir = "src"
 includes = ["src/mkdocstrings"]
-version = {use_scm = true}
+editable-backend = "editables"
 
 [tool.pdm.dev-dependencies]
 duty = ["duty>=0.7"]
@@ -78,7 +79,6 @@ format = [
     "isort>=5.10",
 ]
 maintain = [
-    # TODO: remove this section when git-changelog is more powerful
     "git-changelog>=0.4",
 ]
 quality = [
