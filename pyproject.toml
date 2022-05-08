@@ -65,6 +65,7 @@ editable-backend = "editables"
 [tool.pdm.dev-dependencies]
 duty = ["duty>=0.7"]
 docs = [
+    "markdown-callouts>=0.2.0",
     "mkdocs-coverage>=0.2",
     "mkdocs-gen-files>=0.3",
     "mkdocs-literate-nav>=0.4",

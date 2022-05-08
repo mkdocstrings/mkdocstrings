@@ -81,17 +81,11 @@ class MkdocstringsPlugin(BasePlugin):
       - mkdocstrings:
           handlers:
             python:
-              selection:
+              options:
                 selection_opt: true
-              rendering:
                 rendering_opt: "value"
-              setup_commands:
-                - "import os"
-                - "import django"
-                - "os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'my_djang_app.settings')"
-                - "django.setup()"
             rust:
-              selection:
+              options:
                 selection_opt: 2
     ```
     """

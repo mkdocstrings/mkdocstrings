@@ -14,9 +14,8 @@ Since version 0.18, a new, experimental Python handler is available.
 It is based on [Griffe](https://github.com/mkdocstrings/griffe),
 which is an improved version of [pytkdocs](https://github.com/mkdocstrings/pytkdocs).
 
-Note that the experimental handler does not yet offer the same features as the legacy one.
-If you are making extensive use of the current (legacy) Python handler selection and rendering options,
-you might want to wait a bit before trying the experimental handler.
+Note that the experimental handler does not yet support third-party libraries
+like Django, Marshmallow, Pydantic, etc.
 It is also not completely ready to handle dynamically built objects,
 like classes built with a call to `type(...)`.
 For most other cases, the experimental handler will work just fine.
@@ -25,7 +24,7 @@ If you want to keep using the legacy handler as long as possible,
 you can depend on `mkdocstrings-python-legacy` directly,
 or specify the `python-legacy` extra when depending on *mkdocstrings*:
 
-```toml
+```toml title="pyproject.toml"
 # PEP 621 dependencies declaration
 # adapt to your dependencies manager
 [project]
@@ -37,25 +36,13 @@ dependencies = [
 The legacy handler will continue to "work" for many releases,
 as long as the new handler does not cover all previous use-cases.
 
-Using the legacy handler will emit a `UserWarning` stating that users
-should specify the `python-legacy` extra when depending on *mkdocstrings*.
-The warning will be emitted even if you do specify the extra, as we have
-no way to detect it.
-
-Warnings can be globally ignored by setting the
-[`PYTHONWARNINGS` environment variable](https://docs.python.org/3/library/warnings.html#describing-warning-filters):
-
-```bash
-PYTHONWARNINGS=ignore::UserWarning:mkdocstrings.handlers.python
-```
-
 ### Migrate to the experimental Python handler
 
 To use the new, experimental Python handler,
 you can depend on `mkdocstrings-python` directly,
 or specify the `python` extra when depending on *mkdocstrings*:
 
-```toml
+```toml title="pyproject.toml"
 # PEP 621 dependencies declaration
 # adapt to your dependencies manager
 [project]
@@ -66,41 +53,48 @@ dependencies = [
 
 #### Handler options
 
-- `setup_commands` is not yet implemented. But in most cases, you won't need it,
+- `setup_commands` is not yet implemented. In most cases, you won't need it,
   since by default the new handler does not execute the code.
 
 #### Selection options
 
-- `filters` is not yet implemented. *Every* declared object is picked up by default,
-  but only rendered if it has a docstring. Since code is not executed,
-  inherited attributes (like special methods and private members) are not picked up.
-- `members` is not yet implemented.
-- `inherited_members` is not yet implemented.
-- `docstring_style` is implemented, and used as before,
+WARNING: Since *mkdocstrings* 0.19, the YAML `selection` key is merged into the `options` key.
+
+- [x] `filters` is implemented, and used as before.
+- [x] `members` is implemented, and used as before.
+- [ ] `inherited_members` is not yet implemented.
+- [x] `docstring_style` is implemented, and used as before,
   except for the `restructured-text` style which is renamed `sphinx`.
   Numpy-style is now built-in, so you can stop depending on `pytkdocs[numpy-style]`
   or `docstring_parser`.
-- `docstring_options` is implemented, and used as before.
-  Refer to the [`griffe` documentation](https://mkdocstrings.github.io/griffe/docstrings/#parsing-options) for the updated list of supported docstring options.
-- `new_path_syntax` is irrelevant now. If you were setting it to True,
+- [x] `docstring_options` is implemented, and used as before.
+  Refer to the [`griffe` documentation](https://mkdocstrings.github.io/griffe/docstrings/#parsing-options)
+  for the updated list of supported docstring options.
+- [x] `new_path_syntax` is irrelevant now. If you were setting it to True,
   remove the option and replace every colon (`:`) in your autodoc identifiers
   by dots (`.`).
 
+See [all the handler's options](https://mkdocstrings.github.io/python/usage/).
+
 #### Rendering options
+
+WARNING: Since *mkdocstrings* 0.19, the YAML `rendering` key is merged into the `options` key.
 
 Every previous option is supported.
 Additional options are available:
 
-- `separate_signature`: Render the signature in a code block below the heading,
+- `separate_signature`: Render the signature (or attribute value) in a code block below the heading,
   instead as inline code. Useful for long signatures. If Black is installed,
-  the signature is formatted. Default: false.
-- `line_length`: The maximum line length to use when formatting signatures. Default: 60.
+  the signature is formatted. Default: `False`.
+- `line_length`: The maximum line length to use when formatting signatures. Default: `60`.
 - `show_submodules`: Whether to render submodules of a module when iterating on children.
-  Default: true.
+  Default: `False`.
 - `docstring_section_style`: The style to use to render docstring sections such as attributes,
   parameters, etc. Available styles: `table` (default), `list` and `spacy`. The SpaCy style
   is a poor implementation of their [table style](https://spacy.io/api/doc/#init).
   We are open to improvements through PRs!
+
+See [all the handler's options](https://mkdocstrings.github.io/python/usage/).
 
 #### Templates
 
@@ -108,64 +102,44 @@ Templates are mostly the same as before, but the file layout has changed,
 as well as some file names. Here is the new tree:
 
 ```
-theme
-├── attribute.html
-├── children.html
-├── class.html
-├── docstring
-│   ├── admonition.html
-│   ├── attributes.html
-│   ├── examples.html
-│   ├── other_parameters.html
-│   ├── parameters.html
-│   ├── raises.html
-│   ├── receives.html
-│   ├── returns.html
-│   ├── warns.html
-│   └── yields.html
-├── docstring.html
-├── expression.html
-├── function.html
-├── labels.html
-├── module.html
-└── signature.html
+📁 theme/
+├── 📄 attribute.html
+├── 📄 children.html
+├── 📄 class.html
+├── 📁 docstring/
+│   ├── 📄 admonition.html
+│   ├── 📄 attributes.html
+│   ├── 📄 examples.html
+│   ├── 📄 other_parameters.html
+│   ├── 📄 parameters.html
+│   ├── 📄 raises.html
+│   ├── 📄 receives.html
+│   ├── 📄 returns.html
+│   ├── 📄 warns.html
+│   └── 📄 yields.html
+├── 📄 docstring.html
+├── 📄 expression.html
+├── 📄 function.html
+├── 📄 labels.html
+├── 📄 module.html
+└── 📄 signature.html
 ```
 
-See them [in the handler repository](https://github.com/mkdocstrings/python/tree/8fc8ea5b112627958968823ef500cfa46b63613e/src/mkdocstrings_handlers/python/templates/material).
-
-In preparation for Jinja2 blocks, which will improve customization,
-each one of these templates extends in fact a base version in `theme/_base`. Example:
-
-```html+jinja title="theme/docstring/admonition.html"
-{% extends "_base/docstring/admonition.html" %}
-```
-
-```html+jinja title="theme/_base/docstring/admonition.html"
-{{ log.debug() }}
-<details class="{{ section.value.kind }}">
-  <summary>{{ section.title|convert_markdown(heading_level, html_id, strip_paragraph=True) }}</summary>
-  {{ section.value.contents|convert_markdown(heading_level, html_id) }}
-</details>
-```
-
-It means you will be able to customize only *parts* of a template
-without having to fully copy-paste it in your project:
-
-```jinja title="templates/theme/docstring.html"
-{% extends "_base/docstring.html" %}
-{% block contents %}
-  {{ block.super }}
-  Additional contents
-{% endblock contents %}
-```
-
-**Block-level customization is not ready yet.**
+See them [in the handler repository](https://github.com/mkdocstrings/python/tree/8fc8ea5b112627958968823ef500cfa46b63613e/src/mkdocstrings_handlers/python/templates/material). See the documentation about the Python handler templates:
+https://mkdocstrings.github.io/python/customization/#templates.
 
 ## Custom handlers
 
 Since version 0.14, you can create and use custom handlers
 thanks to namespace packages. For more information about namespace packages,
 [see their documentation](https://packaging.python.org/guides/packaging-namespace-packages/).
+
+TIP: **TL;DR - Project template for handlers.**  
+*mkdocstrings* provides a [Copier](https://github.com/copier-org/copier) template to kickstart
+new handlers: https://github.com/mkdocstrings/handler-template. To use it, install Copier
+(`pipx install copier`), then run `copier gh:mkdocstrings/handler-template my_handler`
+to generate a new project. See [its upstream documentation](https://pawamoy.github.io/copier-pdm/)
+to learn how to work on the generated project.
 
 ### Packaging
 
@@ -182,44 +156,51 @@ For *mkdocstrings*, a custom handler package would have the following structure:
       └─╴📄 __init__.py
 ```
 
-**Note the absence of `__init__.py` module in `mkdocstrings_handlers`!**
+NOTE: **Note the absence of `__init__.py` module in `mkdocstrings_handlers`!**
 
 ### Code
 
-A handler is composed of a Collector and a Renderer.
+A handler is a subclass of the base handler provided by *mkdocstrings*.
 
-See the documentation for
-[`BaseHandler`][mkdocstrings.handlers.base.BaseHandler],
-[`BaseCollector`][mkdocstrings.handlers.base.BaseCollector] and
-[`BaseRenderer`][mkdocstrings.handlers.base.BaseRenderer].
+See the documentation for the [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler].
+Subclasses of the base handler must implement the `collect` and `render` methods at least.
+The `collect` method is responsible for collecting and returning data (extracting
+documentation from source code, loading introspecting objects in memory, other sources? etc.)
+while the `render` method is responsible for actually rendering the data to HTML,
+using the Jinja templates provided by your package.
+
+You must implement a `get_handler` method at the module level.
+This function takes the following parameters:
+
+-  `theme` (string, theme name),
+- `custom_templates` (optional string, path to custom templates directory)
+- `config_file_path` (optional string, path to the config file)
+
+These arguments are all passed as keyword arguments, so you can ignore them
+by adding `**kwargs` or similar to your signature. You can also accept
+additional parameters: the handler's global-only options will be passed
+to this function when instantiating your handler.
 
 Check out how the
 [Python handler](https://github.com/mkdocstrings/python/blob/master/src/mkdocstrings_handlers/python)
 is written for inspiration.
 
-You must implement a `get_handler` method at the module level.
-This function takes the `theme` (string, theme name) and
-`custom_templates` (optional string, path to custom templates directory)
-arguments, and you can add any other keyword argument you'd like.
-The global configuration items (other than `selection` and `rendering`)
-will be passed to this function when getting your handler.
-
 ### Templates
 
-Your renderer's implementation should normally be backed by templates, which go
+Your handler's implementation should normally be backed by templates, which go
 to the directory `mkdocstrings_handlers/custom_handler/templates/some_theme`.
 (`custom_handler` here should be replaced with the actual name of your handler,
 and `some_theme` should be the name of an actual MkDocs theme that you support,
 e.g. `material`).
 
 With that structure, you can use `self.env.get_template("foo.html")` inside
-your `render` implementation. This already chooses the subdirectory based on
+your `render` method. This already chooses the subdirectory based on
 the current MkDocs theme.
 
 If you wish to support *any* MkDocs theme, rather than a few specifically
 selected ones, you can pick one theme's subdirectory to be the fallback for
 when an unknown theme is encountered. Then you just need to set the
-`fallback_theme` variable on your renderer subclass. The fallback directory can
+`fallback_theme` variable on your handler subclass. The fallback directory can
 be used even for themes you explicitly support: you can omit some template from
 one of the other theme directories in case they're exactly the same as in the
 fallback theme.
@@ -231,15 +212,15 @@ Alternatively, you can put the CSS as a string into the `extra_css` variable of
 your renderer.
 
 Finally, it's possible to entirely omit templates, and tell *mkdocstrings*
-to use the templates of another handler. In you renderer, override the
+to use the templates of another handler. In you handler, override the
 `get_templates_dir()` method to return the other handlers templates path:
 
 ```python
 from pathlib import Path
-from mkdocstrings.handlers.base import BaseRenderer
+from mkdocstrings.handlers.base import BaseHandler
 
 
-class CobraRenderer(BaseRenderer):
+class CobraHandler(BaseHandler):
     def get_templates_dir(self, handler: str) -> Path:
         # use the python handler templates
         # (it assumes the python handler is installed)
@@ -251,28 +232,25 @@ class CobraRenderer(BaseRenderer):
 When a custom handler is installed, it is then available to *mkdocstrings*.
 You can configure it as usual:
 
-!!! example "mkdocs.yml"
-    ```yaml
-    plugins:
-    - mkdocstrings:
-        handlers:
-          custom_handler:
-            selection:
-              some_config_option: "a"
-            rendering:
-              other_config_option: 0
-            handler_config_option: yes
-    ```
+```yaml title="mkdocs.yml"
+plugins:
+- mkdocstrings:
+    handlers:
+      custom_handler:
+        handler_config_option: yes
+        options:
+          some_config_option: "a"
+          other_config_option: 0
+```
 
 ...and use it in your autodoc instructions:
 
-```markdown
+```md title="docs/some_page.md"
 # Documentation for an object
 
 ::: some.objects.path
     handler: custom_handler
-    selection:
+    options:
       some_config_option: "b"
-    rendering:
       other_config_option: 1
 ```
