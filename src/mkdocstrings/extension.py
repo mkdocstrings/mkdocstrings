@@ -23,7 +23,7 @@ instruction:
 """
 import re
 from collections import ChainMap
-from typing import Any, Mapping, MutableMapping, MutableSequence, Tuple
+from typing import Any, MutableSequence, Tuple
 from warnings import warn
 from xml.etree.ElementTree import Element
 
@@ -174,15 +174,19 @@ class AutoDocProcessor(BlockProcessor):
         handler_config = self._handlers.get_handler_config(handler_name)
         handler = self._handlers.get_handler(handler_name, handler_config)
 
-        options = ChainMap(config.get("options", {}), handler_config.get("options", {}))
-        if not options:
-            selection, rendering = get_item_configs(handler_config, config)
-            if selection or rendering:
-                warn(
-                    "'selection' and 'rendering' are deprecated and merged into a single 'options' YAML key",
-                    DeprecationWarning,
-                )
-                options = ChainMap(*selection.maps, *rendering.maps)  # type: ignore[attr-defined]
+        global_options = handler_config.get("options", {})
+        local_options = config.get("options", {})
+        deprecated_global_options = ChainMap(handler_config.get("selection", {}), handler_config.get("rendering", {}))
+        deprecated_local_options = ChainMap(config.get("selection", {}), config.get("rendering", {}))
+
+        options = ChainMap(local_options, deprecated_local_options, global_options, deprecated_global_options)
+
+        if deprecated_global_options or deprecated_local_options:
+            warn(
+                "'selection' and 'rendering' are deprecated and merged into a single 'options' YAML key",
+                DeprecationWarning,
+            )
+
         if heading_level:
             options = ChainMap(options, {"heading_level": heading_level})  # like setdefault
 
@@ -211,21 +215,6 @@ class AutoDocProcessor(BlockProcessor):
             raise
 
         return rendered, handler, data
-
-
-def get_item_configs(handler_config: dict, config: dict) -> Tuple[Mapping, MutableMapping]:
-    """Get the selection and rendering configuration merged into the global configuration of the given handler.
-
-    Arguments:
-        handler_config: The global configuration of a handler. It can be an empty dictionary.
-        config: The configuration to merge into the global handler configuration.
-
-    Returns:
-        Two dictionaries: selection and rendering. The local configurations are merged into the global ones.
-    """
-    item_selection_config = ChainMap(config.get("selection", {}), handler_config.get("selection", {}))
-    item_rendering_config = ChainMap(config.get("rendering", {}), handler_config.get("rendering", {}))
-    return item_selection_config, item_rendering_config
 
 
 class _PostProcessor(Treeprocessor):
