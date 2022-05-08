@@ -19,6 +19,7 @@ import os
 from concurrent import futures
 from typing import Any, BinaryIO, Callable, Iterable, List, Mapping, Optional, Tuple
 from urllib import request
+from warnings import warn
 
 from mkdocs.config import Config
 from mkdocs.config.config_options import Type as MkType
@@ -68,10 +69,11 @@ class MkdocstringsPlugin(BasePlugin):
 
     Available options are:
 
-    - __`watch`__: A list of directories to watch. Only used when serving the documentation with mkdocs.
+    - **`watch` (deprecated)**: A list of directories to watch. Only used when serving the documentation with mkdocs.
        Whenever a file changes in one of directories, the whole documentation is built again, and the browser refreshed.
-    - __`default_handler`__: The default handler to use. The value is the name of the handler module. Default is "python".
-    - __`handlers`__: Global configuration of handlers. You can set global configuration per handler, applied everywhere,
+       Deprecated in favor of the now built-in `watch` feature of MkDocs.
+    - **`default_handler`**: The default handler to use. The value is the name of the handler module. Default is "python".
+    - **`handlers`**: Global configuration of handlers. You can set global configuration per handler, applied everywhere,
       but overridable in each "autodoc" instruction. Example:
 
     ```yaml
@@ -115,6 +117,7 @@ class MkdocstringsPlugin(BasePlugin):
             raise RuntimeError("The plugin hasn't been initialized with a config yet")
         return self._handlers
 
+    # TODO: remove once watch feature is removed
     def on_serve(self, server: LiveReloadServer, builder: Callable, **kwargs: Any):  # noqa: W0613 (unused arguments)
         """Watch directories.
 
@@ -128,9 +131,15 @@ class MkdocstringsPlugin(BasePlugin):
             builder: The function to build the site.
             **kwargs: Additional arguments passed by MkDocs.
         """
-        for element in self.config["watch"]:
-            log.debug(f"Adding directory '{element}' to watcher")
-            server.watch(element, builder)
+        if self.config["watch"]:
+            warn(
+                "mkdocstrings' watch feature is deprecated in favor of MkDocs' watch feature, "
+                "see https://www.mkdocs.org/user-guide/configuration/#watch.",
+                DeprecationWarning,
+            )
+            for element in self.config["watch"]:
+                log.debug(f"Adding directory '{element}' to watcher")
+                server.watch(element, builder)
 
     def on_config(self, config: Config, **kwargs: Any) -> Config:  # noqa: W0613 (unused arguments)
         """Instantiate our Markdown extension.
