@@ -172,7 +172,7 @@ using the Jinja templates provided by your package.
 You must implement a `get_handler` method at the module level.
 This function takes the following parameters:
 
--  `theme` (string, theme name),
+- `theme` (string, theme name)
 - `custom_templates` (optional string, path to custom templates directory)
 - `config_file_path` (optional string, path to the config file)
 
