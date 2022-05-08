@@ -32,8 +32,7 @@ nav:
 
 theme:
   name: material
-  icon:
-    logo: material/currency-sign
+  logo: logo.svg
   features:
   - content.code.annotate
   - navigation.tabs
