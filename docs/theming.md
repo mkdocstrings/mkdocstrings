@@ -61,6 +61,7 @@ to modify small part of the templates without copy-pasting the whole files.
 
 See the documentation about templates for:
 
+- the Crystal handler: https://mkdocstrings.github.io/crystal/styling.html
 - the Python handler: https://mkdocstrings.github.io/python/customization/#templates
 
 #### Debugging
@@ -80,6 +81,7 @@ Every template has access to a `log` function, allowing to log messages as usual
 Since each handler provides its own set of templates, with their own CSS classes,
 we cannot list them all here. See the documentation about CSS classes for:
 
+- the Crystal handler: https://mkdocstrings.github.io/crystal/styling.html#custom-styles
 - the Python handler: https://mkdocstrings.github.io/python/customization/#css-classes
 
 ### Syntax highlighting
