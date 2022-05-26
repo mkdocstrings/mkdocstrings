@@ -14,12 +14,11 @@ Markdown extensions in `mkdocs.yml`. For example:
     ```
 ```
 
-```yaml
-# mkdocs.yml
+```yaml title="mkdocs.yml"
 markdown_extensions:
-  - admonition
-  - codehilite
-  - pymdownx.superfences
+- admonition
+- codehilite
+- pymdownx.superfences
 ```
 
 ## Footnotes are duplicated or overridden
@@ -48,10 +47,10 @@ when it should be `[Section][pytkdocs.parsers.docstrings.Section]`.
 
 ## Some objects are not rendered (they do not appear in the generated docs)
 
-- Make sure the configuration options of the handler for both selection and rendering are correct.
+- Make sure the configuration options of the handler are correct.
   Check the documentation for [Handlers](handlers/overview.md) to see the available options for each handler.
 - Also make sure your documentation in your source code is formatted correctly.
-For Python code, check the [supported docstring styles](https://mkdocstrings.github.io/python/usage/#supported-docstrings-styles) page.
+  For Python code, check the [supported docstring styles](https://mkdocstrings.github.io/python/usage/#supported-docstrings-styles) page.
 - Re-run the Mkdocs command with `-v`, and carefully read any traceback.
 
 ## Tabs in docstrings (from `pymdownx.tabbed`) are not working properly
@@ -115,23 +114,17 @@ use this workaround.
 
 ## The generated documentation does not look good
 
-Are you using the Material theme?
-
-- "No": We do not support any other theme yet.
-  Check the [bugtracker][bugtracker] to see if there is a feature request
-  asking to support your theme. If you find one, vote with a thumbs up. If not, you can open a ticket.
-- "Yes": Please open an ticket on the [bugtracker][bugtracker] with a detailed
-  explanation and screenshots of the bad-looking parts.
-
+Please open an ticket on the [bugtracker][bugtracker] with a detailed
+explanation and screenshots of the bad-looking parts.
 Note that you can always [customize the look](theming.md) of *mkdocstrings* blocks -- through both HTML and CSS.
 
 ## Warning: could not find cross-reference target
 
-!!! important "New in version 0.15"
-    Cross-linking used to include any Markdown heading, but now it's only for *mkdocstrings* identifiers by default.
-    See [Cross-references to any Markdown heading](usage.md#cross-references-to-any-markdown-heading) to opt back in.
+TIP: **New in version 0.15.**  
+Cross-linking used to include any Markdown heading, but now it's only for *mkdocstrings* identifiers by default.
+See [Cross-references to any Markdown heading](usage.md#cross-references-to-any-markdown-heading) to opt back in.
 
-Make sure the referenced object was both collected and rendered: verify your selection and rendering options.
+Make sure the referenced object is properly rendered: verify your configuration options.
 
 For false-positives, you can wrap the text in backticks (\`) to prevent `mkdocstrings` from trying to process it.
 
@@ -170,10 +163,7 @@ def math_function(x, y):
 
 ### My docstrings in comments (`#:`) are not picked up
 
-It's because [`pytkdocs`][pytkdocs] does not pick up documentation in comments.
-To load documentation for modules, classes, methods and functions, it uses [`inspect`][inspect].
-To load documentation for attributes, it uses [`ast`][ast] to parse the source code,
-searching for pairs of nodes like `assignment`-`string`, and [`ast`][ast] does not parse comments.
+It's because we do not support type annotations in comments.
 
 So instead of:
 
@@ -239,7 +229,4 @@ def my_function(*args, **kwargs):
 ```
 
 [bugtracker]: https://github.com/mkdocstrings/mkdocstrings
-[pytkdocs]: https://github.com/pawamoy/pytkdocs
-[inspect]: https://docs.python.org/3/library/inspect.html
-[ast]: https://docs.python.org/3/library/ast.html
 [markdown-katex]: https://gitlab.com/mbarkhau/markdown-katex

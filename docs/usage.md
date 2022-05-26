@@ -11,13 +11,13 @@ The syntax is as follows:
     YAML block
 ```
 
-!!! note "Resources on YAML"
-    YAML can sometimes be a bit tricky, particularly on indentation.
-    Here are some resources that other users found useful to better
-    understand YAML's peculiarities.
-
-    - [YAML idiosyncrasies](https://docs.saltproject.io/en/3000/topics/troubleshooting/yaml_idiosyncrasies.html)
-    - [YAML multiline](https://yaml-multiline.info/)
+> NOTE: **Resources on YAML.**
+> YAML can sometimes be a bit tricky, particularly on indentation.
+> Here are some resources that other users found useful to better
+> understand YAML's peculiarities.
+>
+> - [YAML idiosyncrasies](https://docs.saltproject.io/en/3000/topics/troubleshooting/yaml_idiosyncrasies.html)
+> - [YAML multiline](https://yaml-multiline.info/)
 
 The `identifier` is a string identifying the object you want to document.
 The format of an identifier can vary from one handler to another.
@@ -29,16 +29,10 @@ The YAML block is optional, and contains some configuration options:
 - `handler`: the name of the handler to use to collect and render this object.
   By default, it will use the value defined in the [Global options](#global-options)'s
   `default_handler` key, or `"python"`.
-- `selection`: a dictionary of options passed to the handler's collector.
-  The collector is responsible for collecting the documentation from the source code.
-  Therefore, selection options change how the documentation is collected from the source code.
-- `rendering`: a dictionary of options passed to the handler's renderer.
-  The renderer is responsible for rendering the documentation with Jinja2 templates.
-  Therefore, rendering options affect how the selected object's documentation is rendered.
-
-Every handler accepts at least these two keys, `selection` and `rendering`,
-and some handlers accept additional keys.
-Check the documentation for your handler of interest in [Handlers](handlers/overview.md).
+- `options`: a dictionary of options passed to the handler's methods responsible both
+  for collecting and rendering the documentation. These options can be defined
+  globally (in `mkdocs.yml`, see [Global options](#global-options)), 
+  locally (as described here), or both. 
 
 !!! example "Example with the Python handler"
     === "docs/my_page.md"
@@ -47,11 +41,10 @@ Check the documentation for your handler of interest in [Handlers](handlers/over
 
         ::: my_package.my_module.MyClass
             handler: python
-            selection:
+            options:
               members:
                 - method_a
                 - method_b
-            rendering:
               show_root_heading: false
               show_source: false
         ```
@@ -96,7 +89,7 @@ It is also possible to integrate a mkdocstrings identifier into a Markdown heade
 
 ```md
 ## ::: my_package.my_module.MyClass
-    rendering:
+    options:
       show_source: false
 ```
 
@@ -104,7 +97,7 @@ The above is equivalent to:
 
 ```md
 ::: my_package.my_module.MyClass
-    rendering:
+    options:
       show_source: false
       heading_level: 2
 ```
@@ -113,8 +106,6 @@ The above is equivalent to:
 
 *mkdocstrings* accepts a few top-level configuration options in `mkdocs.yml`:
 
-- `watch`: a list of directories to watch while serving the documentation.
-  See [Watch directories](#watch-directories).
 - `default_handler`: the handler that is used by default when no handler is specified.
 - `custom_templates`: the path to a directory containing custom templates.
   The path is relative to the docs directory.
@@ -122,30 +113,32 @@ The above is equivalent to:
 - `handlers`: the handlers global configuration.
 - `enable_inventory`: whether to enable inventory file generation.
   See [Cross-references to other projects / inventories](#cross-references-to-other-projects-inventories)
+- `watch` **(deprecated)**: a list of directories to watch while serving the documentation.
+  See [Watch directories](#watch-directories). **Deprecated in favor of the now built-in
+  [`watch` feature of MkDocs](https://www.mkdocs.org/user-guide/configuration/#watch).
 
-Example:
-
-!!! example "mkdocs.yml"
-    ```yaml
+!!! example
+    ```yaml title="mkdocs.yml"
     plugins:
     - mkdocstrings:
+        custom_templates: templates
         default_handler: python
         handlers:
           python:
-            rendering:
+            options:
               show_source: false
-        custom_templates: templates
-        watch:
-          - src/my_package
     ```
 
-The handlers global configuration can then be overridden by local configurations:
+    The handlers global configuration can then be overridden by local configurations:
 
-```yaml
-::: my_package.my_module.MyClass
-    rendering:
-      show_source: true
-```
+    ```yaml title="docs/some_page.md"
+    ::: my_package.my_module.MyClass
+        options:
+          show_source: true
+    ```
+
+Some handlers accept additional global configuration.
+Check the documentation for your handler of interest in [Handlers](handlers/overview.md).
 
 ## Cross-references
 
@@ -182,25 +175,22 @@ is possible to link to with `[example][full.path.object1]`, regardless of the cu
 
 ### Cross-references to any Markdown heading
 
-!!! important "Changed in version 0.15"
-    Linking to any Markdown heading used to be the default, but now opt-in is required.
+TIP: **Changed in version 0.15.**  
+Linking to any Markdown heading used to be the default, but now opt-in is required.
 
 If you want to link to *any* Markdown heading, not just *mkdocstrings*-inserted items, please
 enable the [*autorefs* plugin for *MkDocs*](https://github.com/mkdocstrings/autorefs) by adding
 `autorefs` to `plugins`:
 
-!!! example "mkdocs.yml"
-    ```yaml hl_lines="4"
-    plugins:
-      - admonition
-      - search
-      - autorefs
-      - mkdocstrings:
-          [...]
-    ```
+```yaml title="mkdocs.yml" hl_lines="3"
+plugins:
+- search
+- autorefs
+- mkdocstrings:
+    [...]
+```
 
 Note that you don't need to (`pip`) install anything more; this plugin is guaranteed to be pulled in with *mkdocstrings*.
-
 
 !!! example
     === "doc1.md"
@@ -224,7 +214,7 @@ Note that you don't need to (`pip`) install anything more; this plugin is guaran
 
 ### Cross-references to a sub-heading in a docstring
 
-!!! important "New in version 0.14"
+TIP: **New in version 0.14.**
 
 If you have a Markdown heading *inside* your docstring, you can also link directly to it.
 In the example below you see the identifier to be linked is `foo.bar--tips`, because it's the "Tips" heading that's part of the `foo.bar` object, joined with "`--`".
@@ -251,7 +241,7 @@ In the example below you see the identifier to be linked is `foo.bar--tips`, bec
         Check out the [tips][foo.bar--tips]
         ```
 
-    === "Result HTML for doc2"
+    === "HTML result for doc2"
         ```html
         <p>Check out the <a href="doc1.html#foo.bar--tips">tips</a></p>
         ```
@@ -262,7 +252,7 @@ You may also notice that such a heading does not get rendered as a `<h1>` elemen
 
 ### Cross-references to other projects / inventories
 
-!!! tip "New in version 0.16."
+TIP: **New in version 0.16.**
 
 Python developers coming from Sphinx might know about its `intersphinx` extension,
 that allows to cross-reference items between several projects.
@@ -275,7 +265,7 @@ can load Sphinx-generated inventories (`objects.inv`).
 
 In the following snippet, we load the inventory provided by `requests`:
 
-```yaml
+```yaml title="mkdocs.yml"
 plugins:
 - mkdocstrings:
     handlers:
@@ -342,25 +332,27 @@ plugins:
 
 ## Watch directories
 
+DANGER: **Deprecated since version 0.19.**  
+Instead, use the built-in [`watch` feature of MkDocs](https://www.mkdocs.org/user-guide/configuration/#watch).
+
 You can add directories to watch with the `watch` key.
 It accepts a list of paths.
 
-!!! example "mkdocs.yml"
-    ```yaml
-    plugins:
-      - mkdocstrings:
-          watch:
-            - src/my_package_1
-            - src/my_package_2
-    ```
+```yaml title="mkdocs.yml"
+plugins:
+  - mkdocstrings:
+      watch:
+        - src/my_package_1
+        - src/my_package_2
+```
 
 When serving your documentation
 and a change occur in one of the listed path,
 MkDocs will rebuild the site and reload the current page.
 
-!!! note "The `watch` feature doesn't have special effects."
-    Adding directories to the `watch` list doesn't have any other effect than watching for changes.
-    For example, it will not tell the Python handler to look for packages in these paths
-    (the paths are not added to the `PYTHONPATH` variable).
-    If you want to tell Python where to look for packages and modules,
-    see [Python Handler: Finding modules](https://mkdocstrings.github.io/python/usage/#finding-modules).
+NOTE: **The `watch` feature doesn't have special effects.**  
+Adding directories to the `watch` list doesn't have any other effect than watching for changes.
+For example, it will not tell the Python handler to look for packages in these paths
+(the paths are not added to the `PYTHONPATH` variable).
+If you want to tell Python where to look for packages and modules,
+see [Python Handler: Finding modules](https://mkdocstrings.github.io/python/usage/#finding-modules).

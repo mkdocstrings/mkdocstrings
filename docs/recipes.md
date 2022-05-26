@@ -283,19 +283,6 @@ plugins:
 With this, `__init__` modules will be documented and bound to the sections
 themselves, better reflecting our public API.
 
-!!! important
-    With the new Python handler, don't forget to hide submodules
-    when documenting a module, otherwise they will show up in sections:
-
-    ```yaml title="mkdocs.yml" hl_lines="8"
-    plugins:
-    - mkdocstrings:
-        handlers:
-          python:
-            rendering:
-              show_submodules: no
-    ```
-
 ## Prevent selection of prompts and output in Python code blocks
 
 To prevent the selection of `>>>`, `...` and output in Python "Console" code blocks,
@@ -321,26 +308,26 @@ extra_css:
 - css/code_select.css
 ```
 
-!!! warning
-    The `.highlight .gp, .highlight .go` CSS selector can have unintended side-effects.
-    To target `pycon` code blocks more specifically, you can configure the
-    `pymdownx.highlight` extension to use Pygments and set language classes
-    on code blocks:
-
-    ```yaml title="mkdocs.yml"
-    markdown_extensions:
-    - pymdownx.highlight:
-        use_pygments: true
-        pygments_lang_class: true
-    ```
-
-    Then you can update the CSS selector like this:
-
-    ```css title="docs/css/code_select.css"
-    .language-pycon .gp, .language-pycon .go { /* Generic.Prompt, Generic.Output */
-        user-select: none;
-    }
-    ```
+> WARNING:
+> The `.highlight .gp, .highlight .go` CSS selector can have unintended side-effects.
+> To target `pycon` code blocks more specifically, you can configure the
+> `pymdownx.highlight` extension to use Pygments and set language classes
+> on code blocks:
+> 
+> ```yaml title="mkdocs.yml"
+> markdown_extensions:
+> - pymdownx.highlight:
+>     use_pygments: true
+>     pygments_lang_class: true
+> ```
+> 
+> Then you can update the CSS selector like this:
+> 
+> ```css title="docs/css/code_select.css"
+> .language-pycon .gp, .language-pycon .go { /* Generic.Prompt, Generic.Output */
+>     user-select: none;
+> }
+> ```
 
 If you don't want to enable this globally,
 you can still use `style` tags in the relevant pages,

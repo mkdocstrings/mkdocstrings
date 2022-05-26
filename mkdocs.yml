@@ -5,6 +5,7 @@ repo_url: "https://github.com/mkdocstrings/mkdocstrings"
 edit_uri: "blob/master/docs/"
 repo_name: "mkdocstrings/mkdocstrings"
 site_dir: "site"
+watch: [src/mkdocstrings]
 
 nav:
 - Home:
@@ -60,6 +61,7 @@ extra_css:
 
 markdown_extensions:
 - admonition
+- callouts
 - pymdownx.details
 - pymdownx.emoji
 - pymdownx.magiclink
@@ -96,8 +98,6 @@ plugins:
             ignore_init_summary: yes
           merge_init_into_class: yes
           show_submodules: no
-    watch:
-    - src/mkdocstrings
 
 extra:
   social:
