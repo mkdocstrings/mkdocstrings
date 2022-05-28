@@ -263,7 +263,7 @@ to load the inventory it provides. Each handler will be responsible of loading
 inventories specific to its language. For example, the Python handler
 can load Sphinx-generated inventories (`objects.inv`).
 
-In the following snippet, we load the inventory provided by `requests`:
+In the following snippet, we load the inventory provided by `installer`:
 
 ```yaml title="mkdocs.yml"
 plugins:
@@ -271,24 +271,24 @@ plugins:
     handlers:
       python:
         import:
-        - https://docs.python-requests.org/en/master/objects.inv
+        - https://installer.readthedocs.io/en/stable/objects.inv
 ```
 
-Now it is possible to cross-reference `requests`' items! For example:
+Now it is possible to cross-reference `installer`'s items. For example:
 
 === "Markdown"
     ```md
-    See [requests.request][] to know what parameters you can pass.
+    See [installer.records][] to learn about records.
     ```
 
 === "Result (HTML)"
     ```html
-    <p>See <a href="https://docs.python-requests.org/en/latest/api/#requests.request">requests.request</a>
-    to know what parameters you can pass.</p>
+    <p>See <a href="https://installer.readthedocs.io/en/stable/api/records/#module-installer.records">installer.records</a>
+    to learn about records.</p>
     ```
 
 === "Result (displayed)"
-    See [requests.request][] to know what parameters you can pass.
+    See [installer.records][] to learn about records.
 
 You can of course select another version of the inventory, for example:
 
@@ -298,7 +298,8 @@ plugins:
     handlers:
       python:
         import:
-        - https://docs.python-requests.org/en/v3.0.0/objects.inv
+        # latest instead of stable
+        - https://installer.readthedocs.io/en/latest/objects.inv
 ```
 
 In case the inventory file is not served under the base documentation URL,
@@ -319,7 +320,7 @@ on `https://docs.example.com/version/` instead of `https://cdn.example.com/versi
 
 Reciprocally, *mkdocstrings* also allows to *generate* an inventory file in the Sphinx format.
 It will be enabled by default if the Python handler is used, and generated as `objects.inv` in the final site directory.
-Other projects will be able to cross-reference items from your project!
+Other projects will be able to cross-reference items from your project.
 
 To explicitely enable or disable the generation of the inventory file, use the global
 `enable_inventory` option:

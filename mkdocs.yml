@@ -90,7 +90,7 @@ plugins:
       python:
         import:
         - https://docs.python.org/3/objects.inv
-        - https://docs.python-requests.org/en/master/objects.inv  # demonstration purpose in the docs
+        - https://installer.readthedocs.io/en/stable/objects.inv  # demonstration purpose in the docs
         - https://mkdocstrings.github.io/autorefs/objects.inv
         options:
           docstring_style: google
