@@ -5,6 +5,46 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.19.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.19.0) - 2022-05-28
+
+<small>[Compare with 0.18.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.18.1...0.19.0)</small>
+
+### Highlights
+We decided to deprecate a few things to pave the way towards a more
+stable code base, bringing us closer to a v1.
+
+- Selection and rendering options are now combined into a single
+  `options` key. Using the old keys will emit a deprecation warning.
+- The `BaseCollector` and `BaseRenderer` classes are deprecated in favor
+  of `BaseHandler`, which merges their functionality. Using the old
+  classes will emit a deprecation warning.
+
+New versions of the Python handler and the legacy Python handler
+were also released in coordination with *mkdocstrings* 0.19.
+See their respective changelogs:
+[python](https://mkdocstrings.github.io/python/changelog/#070-2022-05-28),
+[python-legacy](https://mkdocstrings.github.io/python-legacy/changelog/#023-2022-05-28).
+Most notably, the Python handler gained the `members` and `filters` options
+that prevented many users to switch to it.
+
+*mkdocstrings* stopped depending directly on the legacy Python handler.
+It means you now have to explicitely depend on it, directly or through
+the extra provided by *mkdocstrings*, if you want to continue using it.
+
+### Packaging / Dependencies
+- Stop depending directly on mkdocstrings-python-legacy ([9055d58](https://github.com/mkdocstrings/mkdocstrings/commit/9055d582a6244a45a1af1aeccd8bf3436889a1a5) by Timothée Mazzucotelli). [Issue #376](https://github.com/mkdocstrings/mkdocstrings/issues/376)
+
+### Features
+- Pass config file path to handlers ([cccebc4](https://github.com/mkdocstrings/mkdocstrings/commit/cccebc40c0d51c23381d53432d9355fba9a290ae) by Timothée Mazzucotelli). [Issue #311](https://github.com/mkdocstrings/mkdocstrings/issues/311), [PR #425](https://github.com/mkdocstrings/mkdocstrings/issues/425)
+
+### Code Refactoring
+- Support options / deprecated options mix-up ([7c71f26](https://github.com/mkdocstrings/mkdocstrings/commit/7c71f2623b667d43c5e9eb8aea881df2c9984a0e) by Timothée Mazzucotelli).
+- Deprecate watch feature in favor of MkDocs' built-in one ([c20022e](https://github.com/mkdocstrings/mkdocstrings/commit/c20022e6adfd3a18fd698f50355dfce534b9feb9) by Timothée Mazzucotelli).
+- Log relative template paths if possible, instead of absolute ([91f5f83](https://github.com/mkdocstrings/mkdocstrings/commit/91f5f83408c7aab9124cc19fa47c940541d6f5ec) by Timothée Mazzucotelli).
+- Deprecate `selection` and `rendering` YAML keys ([3335310](https://github.com/mkdocstrings/mkdocstrings/commit/3335310b985401642fea8322aba503cafa1c50b1) by Timothée Mazzucotelli). [PR #420](https://github.com/mkdocstrings/mkdocstrings/issues/420)
+- Deprecate `BaseCollector` and `BaseRenderer` ([eb822cb](https://github.com/mkdocstrings/mkdocstrings/commit/eb822cb11ec065da0b1277299aae4ffeeffadc6f) by Timothée Mazzucotelli). [PR #413](https://github.com/mkdocstrings/mkdocstrings/issues/413)
+
+
 ## [0.18.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.18.1) - 2022-03-01
 
 <small>[Compare with 0.18.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.18.0...0.18.1)</small>
