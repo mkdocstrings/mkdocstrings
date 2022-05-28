@@ -200,8 +200,8 @@
     <p class="pln"><span class="n"><a id="t139" href="#t139">139</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t140" href="#t140">140</a></span><span class="t"><span class="key">def</span> <span class="nam">test_use_deprecated_yaml_keys</span><span class="op">(</span><span class="nam">ext_markdown</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t141" href="#t141">141</a></span><span class="t">    <span class="str">"""Check that using the deprecated 'selection' and 'rendering' YAML keys emits a deprecation warning."""</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t142" href="#t142">142</a></span><span class="t">    <span class="key">with</span> <span class="nam">pytest</span><span class="op">.</span><span class="nam">warns</span><span class="op">(</span><span class="nam">DeprecationWarning</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p class="run"><span class="n"><a id="t143" href="#t143">143</a></span><span class="t">        <span class="nam">ext_markdown</span><span class="op">.</span><span class="nam">convert</span><span class="op">(</span><span class="str">"::: tests.fixtures.headings\n    rendering:\n      heading_level: 2"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t142" href="#t142">142</a></span><span class="t">    <span class="key">with</span> <span class="nam">pytest</span><span class="op">.</span><span class="nam">warns</span><span class="op">(</span><span class="nam">DeprecationWarning</span><span class="op">,</span> <span class="nam">match</span><span class="op">=</span><span class="str">"single 'options' YAML key"</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p class="run"><span class="n"><a id="t143" href="#t143">143</a></span><span class="t">        <span class="key">assert</span> <span class="str">"h1"</span> <span class="key">not</span> <span class="key">in</span> <span class="nam">ext_markdown</span><span class="op">.</span><span class="nam">convert</span><span class="op">(</span><span class="str">"::: tests.fixtures.headings\n    rendering:\n      heading_level: 2"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t144" href="#t144">144</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="pln"><span class="n"><a id="t145" href="#t145">145</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p class="run"><span class="n"><a id="t146" href="#t146">146</a></span><span class="t"><span class="key">def</span> <span class="nam">test_use_new_options_yaml_key</span><span class="op">(</span><span class="nam">ext_markdown</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
@@ -213,7 +213,7 @@
     <div class="content">
         <p>
             <a class="nav" href="covindex.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.3.2</a>,
-            created at 2022-04-10 14:07 +0200
+            created at 2022-04-30 12:45 +0200
         </p>
     </div>
 </footer>
