@@ -1,7 +1,7 @@
 site_name: "mkdocstrings"
 site_description: "Automatic documentation from sources, for MkDocs."
 site_url: "https://mkdocstrings.github.io/"
-repo_url: "https://github.com/mkdocstrings/mkdocstrings/"
+repo_url: "https://github.com/mkdocstrings/mkdocstrings"
 edit_uri: "blob/master/docs/"
 repo_name: "mkdocstrings/mkdocstrings"
 site_dir: "site"

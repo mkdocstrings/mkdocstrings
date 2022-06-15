@@ -107,6 +107,37 @@ for path in sorted(Path("src").rglob("*.py")):  # (1)
 8. Actually write to the magic file.
 9. We can even set the `edit_uri` on the pages.
 
+> NOTE:
+> If your `edit_uri` is the default value or you have overwritten, you might
+> have to traverse the tree until you find the correct file from your `edit_uri`.
+>
+> For example, if we have `edit_uri` set to `blob/master/docs/` and the following
+> file structure:
+>
+> ```
+> 📁 repo
+> ├─ 📁 docs
+> │   ├─╴index.md
+> │   └─╴📄 gen_ref_pages.py
+> │
+> └─╴📁 src
+>    └─╴📁 project
+>        ├─╴📄 lorem
+>        ├─╴📄 ipsum
+>        ├─╴📄 dolor
+>        ├─╴📄 sit
+>        └─╴📄 amet
+> ```
+>
+> Then we will have to change our `set_edit_path` call to:
+>
+> ```python
+> mkdocs_gen_files.set_edit_path(full_doc_path, Path("../") / path) # (1)
+> ```
+>
+> 1. Path can be used to traverse the structure in any way you may need, but
+>    remember to use relative paths!
+
 With this script, a `reference` folder is automatically created
 each time we build our docs. This folder contains a Markdown page
 for each of our source modules, and each of these pages
