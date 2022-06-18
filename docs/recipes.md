@@ -117,7 +117,7 @@ for path in sorted(Path("src").rglob("*.py")):  # (1)
 > ├─ 📄 mkdocs.yml
 > │
 > ├─ 📁 docs
-> │   ├─╴index.md
+> │   ├─╴📄 index.md
 > │   └─╴📄 gen_ref_pages.py
 > │
 > └─╴📁 src
