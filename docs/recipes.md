@@ -21,11 +21,11 @@ which live in the `src` folder:
 📁 repo
 └─╴📁 src
     └─╴📁 project
-        ├─╴📄 lorem
-        ├─╴📄 ipsum
-        ├─╴📄 dolor
-        ├─╴📄 sit
-        └─╴📄 amet
+        ├─╴📄 lorem.py
+        ├─╴📄 ipsum.py
+        ├─╴📄 dolor.py
+        ├─╴📄 sit.py
+        └─╴📄 amet.py
 ```
 
 Without an automatic process, you will have to manually
@@ -108,25 +108,29 @@ for path in sorted(Path("src").rglob("*.py")):  # (1)
 9. We can even set the `edit_uri` on the pages.
 
 > NOTE:
-> If your `edit_uri` is the default value or you have overwritten, you might
-> have to traverse the tree until you find the correct file from your `edit_uri`.
+> It is important to look out for correct edit page behaviour when using generated pages,
+> as `full_path` will be relative to the location of your `mkdocs.yml` path. You can fix
+> incorrect linking by traversing tree and adding it to the path before passing
+> it to `set_edit_path`.
 >
 > For example, if we have `edit_uri` set to `blob/master/docs/` and the following
 > file structure:
 >
 > ```
 > 📁 repo
+> ├─ 📄 mkdocs.yml
+> │
 > ├─ 📁 docs
 > │   ├─╴index.md
 > │   └─╴📄 gen_ref_pages.py
 > │
 > └─╴📁 src
 >    └─╴📁 project
->        ├─╴📄 lorem
->        ├─╴📄 ipsum
->        ├─╴📄 dolor
->        ├─╴📄 sit
->        └─╴📄 amet
+>        ├─╴📄 lorem.py
+>        ├─╴📄 ipsum.py
+>        ├─╴📄 dolor.py
+>        ├─╴📄 sit.py
+>        └─╴📄 amet.py
 > ```
 >
 > Then we will have to change our `set_edit_path` call to:
@@ -134,9 +138,12 @@ for path in sorted(Path("src").rglob("*.py")):  # (1)
 > ```python
 > mkdocs_gen_files.set_edit_path(full_doc_path, Path("../") / path) # (1)
 > ```
->
 > 1. Path can be used to traverse the structure in any way you may need, but
 >    remember to use relative paths!
+>
+> so that it correctly sets the edit path of (for example) `lorem.py` to
+> `<repo_url>/blob/master/src/project/lorem.py` instead of
+> `<repo_url>/blob/master/docs/src/project/lorem.py`.
 
 With this script, a `reference` folder is automatically created
 each time we build our docs. This folder contains a Markdown page
