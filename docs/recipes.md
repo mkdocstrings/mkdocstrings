@@ -21,11 +21,11 @@ which live in the `src` folder:
 📁 repo
 └─╴📁 src
     └─╴📁 project
-        ├─╴📄 lorem.py
-        ├─╴📄 ipsum.py
-        ├─╴📄 dolor.py
-        ├─╴📄 sit.py
-        └─╴📄 amet.py
+        ├─╴📄 lorem
+        ├─╴📄 ipsum
+        ├─╴📄 dolor
+        ├─╴📄 sit
+        └─╴📄 amet
 ```
 
 Without an automatic process, you will have to manually
@@ -108,11 +108,7 @@ for path in sorted(Path("src").rglob("*.py")):  # (1)
 9. We can even set the `edit_uri` on the pages.
 
 > NOTE:
-> It is important to look out for correct edit page behaviour when using generated pages,
-> as `full_path` will be relative to the location of your `mkdocs.yml` path. You can fix
-> incorrect linking by traversing tree and adding it to the path before passing
-> it to `set_edit_path`.
->
+> It is important to look out for correct edit page behaviour when using generated pages.
 > For example, if we have `edit_uri` set to `blob/master/docs/` and the following
 > file structure:
 >
