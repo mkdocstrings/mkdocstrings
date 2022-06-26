@@ -24,7 +24,7 @@ for path in sorted(Path("src").glob("**/*.py")):
         ident = ".".join(parts)
         print("::: " + ident, file=fd)
 
-    mkdocs_gen_files.set_edit_path(full_doc_path, path)
+    mkdocs_gen_files.set_edit_path(full_doc_path, Path("../") / path)
 
 with mkdocs_gen_files.open("reference/SUMMARY.md", "w") as nav_file:
     nav_file.writelines(nav.build_literate_nav())
