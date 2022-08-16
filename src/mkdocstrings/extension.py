@@ -21,10 +21,10 @@ instruction:
       option_x: etc
 ```
 """
+import functools
 import re
 from collections import ChainMap
 from typing import Any, MutableSequence, Tuple
-from warnings import warn
 from xml.etree.ElementTree import Element
 
 import yaml
@@ -182,10 +182,7 @@ class AutoDocProcessor(BlockProcessor):
         options = ChainMap(local_options, deprecated_local_options, global_options, deprecated_global_options)
 
         if deprecated_global_options or deprecated_local_options:
-            warn(
-                "'selection' and 'rendering' are deprecated and merged into a single 'options' YAML key",
-                DeprecationWarning,
-            )
+            self._warn_about_options_key()
 
         if heading_level:
             options = ChainMap(options, {"heading_level": heading_level})  # like setdefault
@@ -215,6 +212,11 @@ class AutoDocProcessor(BlockProcessor):
             raise
 
         return rendered, handler, data
+
+    @classmethod
+    @functools.lru_cache(maxsize=None)  # Warn only once
+    def _warn_about_options_key(cls):
+        log.info("'selection' and 'rendering' are deprecated and merged into a single 'options' YAML key")
 
 
 class _PostProcessor(Treeprocessor):

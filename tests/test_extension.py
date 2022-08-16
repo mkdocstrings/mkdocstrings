@@ -1,4 +1,5 @@
 """Tests for the extension module."""
+import logging
 import re
 import sys
 from textwrap import dedent
@@ -31,7 +32,7 @@ def test_multiple_footnotes(ext_markdown):
 
 def test_markdown_heading_level(ext_markdown):
     """Assert that Markdown headings' level doesn't exceed heading_level."""
-    output = ext_markdown.convert("::: tests.fixtures.headings\n    rendering:\n      show_root_heading: true")
+    output = ext_markdown.convert("::: tests.fixtures.headings\n    options:\n      show_root_heading: true")
     assert ">Foo</h3>" in output
     assert ">Bar</h5>" in output
     assert ">Baz</h6>" in output
@@ -83,7 +84,7 @@ def test_no_double_toc(ext_markdown, expect_permalink):
             # aa
 
             ::: tests.fixtures.headings
-                rendering:
+                options:
                     show_root_toc_entry: false
 
             # bb
@@ -137,10 +138,11 @@ def test_dont_register_every_identifier_as_anchor(plugin):
         assert identifier not in autorefs._abs_url_map  # noqa: WPS437
 
 
-def test_use_deprecated_yaml_keys(ext_markdown):
+def test_use_deprecated_yaml_keys(ext_markdown, caplog):
     """Check that using the deprecated 'selection' and 'rendering' YAML keys emits a deprecation warning."""
-    with pytest.warns(DeprecationWarning, match="single 'options' YAML key"):
-        assert "h1" not in ext_markdown.convert("::: tests.fixtures.headings\n    rendering:\n      heading_level: 2")
+    caplog.set_level(logging.INFO)
+    assert "h1" not in ext_markdown.convert("::: tests.fixtures.headings\n    rendering:\n      heading_level: 2")
+    assert "single 'options' YAML key" in caplog.text
 
 
 def test_use_new_options_yaml_key(ext_markdown):
