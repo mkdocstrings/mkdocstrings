@@ -200,12 +200,17 @@ class MkdocstringsPlugin(BasePlugin):
             inv_loader.shutdown(wait=False)
 
         if self.config["watch"]:
-            log.info(
-                "mkdocstrings' watch feature is deprecated in favor of MkDocs' watch feature, "
-                "see https://www.mkdocs.org/user-guide/configuration/#watch",
-            )
+            self._warn_about_watch_option()
 
         return config
+
+    @classmethod
+    @functools.lru_cache(maxsize=None)  # Warn only once
+    def _warn_about_watch_option(cls):
+        log.info(
+            "mkdocstrings' watch feature is deprecated in favor of MkDocs' watch feature, "
+            "see https://www.mkdocs.org/user-guide/configuration/#watch",
+        )
 
     @property
     def inventory_enabled(self) -> bool:
