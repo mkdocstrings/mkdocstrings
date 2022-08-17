@@ -7,7 +7,8 @@ assignees: ''
 
 ---
 
-**Please open an issue on [pytkdocs](https://github.com/pawamoy/pytkdocs/issues) instead
+**Please open an issue on [Griffe](https://github.com/mkdocstrings/griffe/issues) (new Python handler)
+or [pytkdocs](https://github.com/mkdocstrings/pytkdocs/issues) (legacy Python handler) instead
 if this is related to Python docstrings parsing or the collection of Python objects!**
 
 **Describe the bug**
