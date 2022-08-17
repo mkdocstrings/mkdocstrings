@@ -25,7 +25,7 @@ import re
 from collections import ChainMap
 from typing import Any, MutableSequence, Tuple
 from warnings import warn
-from xml.etree.ElementTree import Element
+from xml.etree.ElementTree import Element, SubElement
 
 import yaml
 from jinja2.exceptions import TemplateNotFound
@@ -124,7 +124,7 @@ class AutoDocProcessor(BlockProcessor):
             el.text = self.md.htmlStash.store(html)
             # So we need to duplicate the headings directly (and delete later), just so 'toc' can pick them up.
             headings = handler.get_headings()
-            el.extend(headings)
+            SubElement(el, "div", {"hidden": "1"}).extend(headings)
 
             page = self._autorefs.current_page
             for heading in headings:
@@ -219,17 +219,26 @@ class AutoDocProcessor(BlockProcessor):
 
 class _PostProcessor(Treeprocessor):
     def run(self, root: Element):
-        carry_text = ""
-        for el in reversed(root):  # Reversed mainly for the ability to mutate during iteration.
+        for i in reversed(range(len(root))):
+            el = root[i]
             if el.tag == "div" and el.get("class") == "mkdocstrings":
                 # Delete the duplicated headings along with their container, but keep the text (i.e. the actual HTML).
-                carry_text = (el.text or "") + carry_text
-                root.remove(el)
-            elif carry_text:
-                el.tail = (el.tail or "") + carry_text
-                carry_text = ""
-        if carry_text:
-            root.text = (root.text or "") + carry_text
+                del el[0]
+                _replace_element_with_its_children(root, i)
+
+
+def _replace_element_with_its_children(parent, i):
+    def append_at(i, s):
+        if s:
+            if i == 0:
+                parent.text = (parent.text or "") + s
+            else:
+                parent[i - 1].tail = (parent[i - 1].tail or "") + s
+
+    el = parent[i]
+    append_at(i, el.text)
+    parent[i : i + 1] = el
+    append_at(i + len(el), el.tail)
 
 
 class MkdocstringsExtension(Extension):

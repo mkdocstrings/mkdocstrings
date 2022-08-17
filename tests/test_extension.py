@@ -2,8 +2,11 @@
 import re
 import sys
 from textwrap import dedent
+from xml.etree import ElementTree as etree
 
 import pytest
+
+import mkdocstrings.extension
 
 
 @pytest.mark.parametrize("ext_markdown", [{"markdown_extensions": [{"footnotes": {}}]}], indirect=["ext_markdown"])
@@ -147,3 +150,39 @@ def test_use_new_options_yaml_key(ext_markdown):
     """Check that using the new 'options' YAML key works as expected."""
     assert "h1" in ext_markdown.convert("::: tests.fixtures.headings\n    options:\n      heading_level: 1")
     assert "h1" not in ext_markdown.convert("::: tests.fixtures.headings\n    options:\n      heading_level: 2")
+
+
+@pytest.mark.parametrize(
+    "sub_content",
+    [
+        "",
+        "text",
+        "<zz></zz>",
+        "<aa>foo</aa>test<bb>bar</bb>",
+        "foo<zz></zz><xx>bar</xx>",
+        "<zz></zz><xx>bar</xx>foo",
+    ],
+)
+@pytest.mark.parametrize(
+    ("remove_index", "base_content"),
+    [
+        (0, "{}"),
+        (0, "{}<aa></aa>"),
+        (1, "<aa></aa>{}"),
+        (1, "<aa></aa>{}<bb></bb>"),
+        (1, "<aa></aa>xyz{}<bb></bb>"),
+        (1, "<aa></aa>{}xyz<bb></bb>"),
+        (1, "<aa>AA</aa>BB{}CC<bb>DD</bb>"),
+        (3, "<aa>AA</aa><bb>BB</bb><cc>CC</cc>{}"),
+    ],
+)
+def test_replace_element_with_its_children(remove_index, base_content, sub_content):
+    source = "<parent>{}</parent>".format(base_content.format("<drop>{}</drop>".format(sub_content)))
+    expected = "<parent>{}</parent>".format(base_content.format(sub_content))
+
+    def replace_in_xml_string(s):
+        root = etree.fromstring(source)
+        mkdocstrings.extension._replace_element_with_its_children(root, remove_index)
+        return etree.tostring(root, "unicode", short_empty_elements=False)
+
+    assert replace_in_xml_string(source) == expected, source
