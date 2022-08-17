@@ -204,14 +204,6 @@ class MkdocstringsPlugin(BasePlugin):
 
         return config
 
-    @classmethod
-    @functools.lru_cache(maxsize=None)  # Warn only once
-    def _warn_about_watch_option(cls):
-        log.info(
-            "mkdocstrings' watch feature is deprecated in favor of MkDocs' watch feature, "
-            "see https://www.mkdocs.org/user-guide/configuration/#watch",
-        )
-
     @property
     def inventory_enabled(self) -> bool:
         """Tell if the inventory is enabled or not.
@@ -304,3 +296,11 @@ class MkdocstringsPlugin(BasePlugin):
             result = dict(loader(content, url=url, **kwargs))
         log.debug(f"Loaded inventory from {url!r}: {len(result)} items")
         return result
+
+    @classmethod
+    @functools.lru_cache(maxsize=None)  # Warn only once
+    def _warn_about_watch_option(cls):
+        log.info(
+            "mkdocstrings' watch feature is deprecated in favor of MkDocs' watch feature, "
+            "see https://www.mkdocs.org/user-guide/configuration/#watch",
+        )
