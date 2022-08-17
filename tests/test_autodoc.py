@@ -75,3 +75,192 @@ def test_options_and_text_around():
     ).strip()
 
     assert md.convert(source).replace("\n", "") == re.sub("\n *", "", expected)
+
+
+def test_simple_nested_autodoc():
+    sources = [
+        dedent(
+            """
+            ::: foo.Bar ---
+
+            It contains the following attributes:
+
+            ::: foo.Bar.x
+                options:
+                    heading_level: 4
+
+            ::: foo.Bar.y
+                options:
+                    heading_level: 4
+
+            Test paragraph
+
+            Another test paragraph
+
+            ---
+            After
+            """
+        ),
+        dedent(
+            """
+            ## ::: foo.Bar * * * *
+
+            It contains the following attributes:
+
+            #### ::: foo.Bar.x
+
+            #### ::: foo.Bar.y
+
+            Test paragraph
+
+            Another test paragraph
+
+             * * * *
+            After
+            """
+        ),
+    ]
+    md = fake_ext_markdown(FakeHandler(with_heading=True))
+    expected = dedent(
+        """
+        <div class="doc-object">
+            <h2 id="foo.Bar">foo.Bar</h2>
+            <p>Documentation for foo.Bar</p>
+            <p>It contains the following attributes:</p>
+            <div class="doc-object">
+                <h4 id="foo.Bar.x">foo.Bar.x</h4>
+                <p>Documentation for foo.Bar.x</p>
+            </div>
+            <div class="doc-object">
+                <h4 id="foo.Bar.y">foo.Bar.y</h4>
+                <p>Documentation for foo.Bar.y</p>
+            </div>
+            <p>Test paragraph</p>
+            <p>Another test paragraph</p>
+        </div>
+        <p>After</p>
+        """
+    ).strip()
+
+    for source in sources:
+        assert md.convert(source).replace("\n", "") == re.sub("\n *", "", expected)
+
+
+def test_tightly_nested_autodoc():
+    sources = [
+        dedent(
+            """
+            ::: foo *****
+            ::: foo.bar ***
+            ::: foo.bar.baz ****
+            hi
+
+            ****
+            ***
+
+            also
+
+            *****
+            """
+        ),
+        dedent(
+            """
+            ::: foo ---
+
+            ::: foo.bar ---
+
+            ::: foo.bar.baz ---
+            hi
+
+            ---
+             ---
+            also
+
+            ---
+            """
+        ),
+    ]
+    md = fake_ext_markdown(FakeHandler())
+    expected = dedent(
+        """
+        <div class="doc-object">
+            <p>Documentation for foo</p>
+            <div class="doc-object">
+                <p>Documentation for foo.bar</p>
+                <div class="doc-object">
+                    <p>Documentation for foo.bar.baz</p>
+                    <p>hi</p>
+                </div>
+            </div>
+            <p>also</p>
+        </div>
+        """
+    ).strip()
+
+    for source in sources:
+        assert md.convert(source).replace("\n", "") == re.sub("\n *", "", expected)
+
+
+def test_wrongly_nested_autodoc(caplog):
+    source = dedent(
+        """
+        ::: foo *****
+        ::: foo.bar ***
+        ::: foo.bar.baz ****
+        hi
+
+        *****
+        ***
+        """
+    )
+    md = fake_ext_markdown(FakeHandler())
+    expected = dedent(
+        """
+        <div class="doc-object">
+            <p>Documentation for foo</p>
+            <div class="doc-object">
+                <p>Documentation for foo.bar</p>
+                <div class="doc-object">
+                    <p>Documentation for foo.bar.baz</p>
+                    <p>hi</p>
+                    <hr />
+                    <hr />
+                </div>
+            </div>
+        </div>
+        """
+    )
+    assert md.convert(source).replace("\n", "") == re.sub("\n *", "", expected)
+    assert caplog.messages == [
+        "mkdocstrings: For the fence '::: foo.bar.baz ****', didn't find a matching closing line '****'",
+        "mkdocstrings: For the fence '::: foo.bar ***', didn't find a matching closing line '***'",
+        "mkdocstrings: For the fence '::: foo *****', didn't find a matching closing line '*****'",
+    ]
+
+
+def test_autodoc_with_hr_and_heading():
+    source = dedent(
+        """
+        ::: foo ---
+
+        ----
+
+        hii
+        ---
+
+        ---
+        ---
+        """
+    )
+    md = fake_ext_markdown(FakeHandler())
+    expected = dedent(
+        """
+        <div class="doc-object">
+            <p>Documentation for foo</p>
+            <hr />
+            <h2 id="hii">hii</h2>
+        </div>
+        <hr />
+        """
+    )
+    assert md.convert(source).replace("\n", "") == re.sub("\n *", "", expected)

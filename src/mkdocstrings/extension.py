@@ -31,7 +31,7 @@ import yaml
 from jinja2.exceptions import TemplateNotFound
 from markdown import Markdown
 from markdown.blockparser import BlockParser
-from markdown.blockprocessors import BlockProcessor
+from markdown.blockprocessors import BlockProcessor, HRProcessor
 from markdown.extensions import Extension
 from markdown.treeprocessors import Treeprocessor
 from mkdocs_autorefs.plugin import AutorefsPlugin
@@ -58,7 +58,10 @@ class AutoDocProcessor(BlockProcessor):
     a matched block.
     """
 
-    regex = re.compile(r"^(?P<heading>#{1,6} *|)::: ?(?P<name>.+?) *$", flags=re.MULTILINE)
+    regex = re.compile(
+        r"^(?P<heading>#{1,6} *|)::: ?(?P<name>.+?) *?(?P<fence> " + HRProcessor.RE.strip("^$") + r")?$",
+        flags=re.MULTILINE,
+    )
 
     def __init__(
         self, parser: BlockParser, md: Markdown, config: dict, handlers: Handlers, autorefs: AutorefsPlugin
@@ -122,9 +125,15 @@ class AutoDocProcessor(BlockProcessor):
 
         identifier = match["name"]
         heading_level = match["heading"].count("#")
+        fence = match["fence"] and match["fence"].strip()
         log.debug(f"Matched '::: {identifier}'")
 
         html, handler, data = self._process_block(identifier, block, heading_level)
+        if fence:
+            split_pos = html.rindex("</")  # Nested content to be inserted right before the last closing element.
+            # TODO: consider letting themes choose the appropriate insertion point, perhaps with a special marker.
+            html, html_rest = html[:split_pos], html[split_pos:]
+
         el = Element("div", {"class": "mkdocstrings"})
         # The final HTML is inserted as opaque to subsequent processing, and only revealed at the end.
         el.text = self.md.htmlStash.store(html)
@@ -146,6 +155,29 @@ class AutoDocProcessor(BlockProcessor):
                 )
 
         parent.append(el)
+
+        if fence:
+            fence_re = re.compile("^ {0,3}" + re.escape(fence) + " *$", flags=re.MULTILINE)
+
+            subel = SubElement(el, "div")
+            subel.tail = self.md.htmlStash.store(html_rest)
+
+            while blocks:
+                # Check the start of each block, effectively this code is a blockprocessor at the highest priority.
+                submatch = fence_re.match(blocks[0])
+                if submatch:
+                    blocks[0] = blocks[0][submatch.end() + 1 :]  # Exclude the actual end delimiter <hr>
+                    if not blocks[0]:
+                        blocks.pop(0)
+                    break  # Found an end fence
+
+                # Then let others run - exactly like `BlockParser.parseBlocks` but run only one iteration.
+                for processor in self.parser.blockprocessors:
+                    if processor.test(subel, blocks[0]):
+                        if processor.run(subel, blocks) is not False:
+                            break
+            else:
+                log.warning(f"For the fence '{match.group()}', didn't find a matching closing line '{fence}'")
 
     def _process_block(
         self,
@@ -224,6 +256,9 @@ class _PostProcessor(Treeprocessor):
             if el.tag == "div" and el.get("class") == "mkdocstrings":
                 # Delete the duplicated headings along with their container, but keep the text (i.e. the actual HTML).
                 del el[0]
+                if len(el) == 1:  # Still has the nested <div> used for nested fence content.
+                    self.run(el[0])
+                    _replace_element_with_its_children(el, 0)
                 _replace_element_with_its_children(root, i)
 
 
