@@ -102,50 +102,50 @@ class AutoDocProcessor(BlockProcessor):
             parent: The parent element in the XML tree.
             blocks: The rest of the blocks to be processed.
         """
-        block = blocks.pop(0)
-        match = self.regex.search(block)
+        match = self.regex.search(blocks[0])
+        if not match:
+            return
 
-        if match:
-            if match.start() > 0:
-                self.parser.parseBlocks(parent, [block[: match.start()]])
-            # removes the first line
-            block = block[match.end() :]
+        block = blocks.pop(0)
+
+        if match.start() > 0:
+            self.parser.parseBlocks(parent, [block[: match.start()]])
+        # removes the first line
+        block = block[match.end() :]
 
         block, the_rest = self.detab(block)
-
-        if match:
-            identifier = match["name"]
-            heading_level = match["heading"].count("#")
-            log.debug(f"Matched '::: {identifier}'")
-
-            html, handler, data = self._process_block(identifier, block, heading_level)
-            el = Element("div", {"class": "mkdocstrings"})
-            # The final HTML is inserted as opaque to subsequent processing, and only revealed at the end.
-            el.text = self.md.htmlStash.store(html)
-            # So we need to duplicate the headings directly (and delete later), just so 'toc' can pick them up.
-            headings = handler.get_headings()
-            SubElement(el, "div", {"hidden": "1"}).extend(headings)
-
-            page = self._autorefs.current_page
-            for heading in headings:
-                anchor = heading.attrib["id"]  # noqa: WPS440
-                self._autorefs.register_anchor(page, anchor)  # noqa: WPS441
-
-                if "data-role" in heading.attrib:
-                    self._handlers.inventory.register(
-                        name=anchor,  # noqa: WPS441
-                        domain=handler.domain,
-                        role=heading.attrib["data-role"],
-                        uri=f"{page}#{anchor}",  # noqa: WPS441
-                    )
-
-            parent.append(el)
-
         if the_rest:
             # This block contained unindented line(s) after the first indented
             # line. Insert these lines as the first block of the master blocks
             # list for future processing.
             blocks.insert(0, the_rest)
+
+        identifier = match["name"]
+        heading_level = match["heading"].count("#")
+        log.debug(f"Matched '::: {identifier}'")
+
+        html, handler, data = self._process_block(identifier, block, heading_level)
+        el = Element("div", {"class": "mkdocstrings"})
+        # The final HTML is inserted as opaque to subsequent processing, and only revealed at the end.
+        el.text = self.md.htmlStash.store(html)
+        # So we need to duplicate the headings directly (and delete later), just so 'toc' can pick them up.
+        headings = handler.get_headings()
+        SubElement(el, "div", {"hidden": "1"}).extend(headings)
+
+        page = self._autorefs.current_page
+        for heading in headings:
+            anchor = heading.attrib["id"]  # noqa: WPS440
+            self._autorefs.register_anchor(page, anchor)  # noqa: WPS441
+
+            if "data-role" in heading.attrib:
+                self._handlers.inventory.register(
+                    name=anchor,  # noqa: WPS441
+                    domain=handler.domain,
+                    role=heading.attrib["data-role"],
+                    uri=f"{page}#{anchor}",  # noqa: WPS441
+                )
+
+        parent.append(el)
 
     def _process_block(
         self,
