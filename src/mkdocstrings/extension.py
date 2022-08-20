@@ -216,7 +216,7 @@ class AutoDocProcessor(BlockProcessor):
     @classmethod
     @functools.lru_cache(maxsize=None)  # Warn only once
     def _warn_about_options_key(cls):
-        log.info("'selection' and 'rendering' are deprecated and merged into a single 'options' YAML key")
+        log.info("DEPRECATION: 'selection' and 'rendering' are deprecated and merged into a single 'options' YAML key")
 
 
 class _PostProcessor(Treeprocessor):

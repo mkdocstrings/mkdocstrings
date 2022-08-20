@@ -301,6 +301,6 @@ class MkdocstringsPlugin(BasePlugin):
     @functools.lru_cache(maxsize=None)  # Warn only once
     def _warn_about_watch_option(cls):
         log.info(
-            "mkdocstrings' watch feature is deprecated in favor of MkDocs' watch feature, "
+            "DEPRECATION: mkdocstrings' watch feature is deprecated in favor of MkDocs' watch feature, "
             "see https://www.mkdocs.org/user-guide/configuration/#watch",
         )
