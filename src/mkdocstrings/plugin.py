@@ -111,7 +111,9 @@ class MkdocstringsPlugin(BasePlugin):
         return self._handlers
 
     # TODO: remove once watch feature is removed
-    def on_serve(self, server: LiveReloadServer, builder: Callable, **kwargs: Any):  # noqa: W0613 (unused arguments)
+    def on_serve(
+        self, server: LiveReloadServer, config: Config, builder: Callable, *args: Any, **kwargs: Any
+    ) -> None:  # noqa: W0613 (unused arguments)
         """Watch directories.
 
         Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).
@@ -121,7 +123,9 @@ class MkdocstringsPlugin(BasePlugin):
 
         Arguments:
             server: The `livereload` server instance.
+            config: The MkDocs config object (unused).
             builder: The function to build the site.
+            *args: Additional arguments passed by MkDocs.
             **kwargs: Additional arguments passed by MkDocs.
         """
         if self.config["watch"]:
@@ -216,7 +220,7 @@ class MkdocstringsPlugin(BasePlugin):
             inventory_enabled = any(handler.enable_inventory for handler in self.handlers.seen_handlers)
         return inventory_enabled
 
-    def on_env(self, env, config: Config, **kwargs):
+    def on_env(self, env, config: Config, *args, **kwargs) -> None:
         """Extra actions that need to happen after all Markdown rendering and before HTML rendering.
 
         Hook for the [`on_env` event](https://www.mkdocs.org/user-guide/plugins/#on_env).
