@@ -19,7 +19,6 @@ import os
 from concurrent import futures
 from typing import Any, BinaryIO, Callable, Iterable, List, Mapping, Optional, Tuple
 from urllib import request
-from warnings import warn
 
 from mkdocs.config import Config
 from mkdocs.config.config_options import Type as MkType
@@ -126,11 +125,6 @@ class MkdocstringsPlugin(BasePlugin):
             **kwargs: Additional arguments passed by MkDocs.
         """
         if self.config["watch"]:
-            warn(
-                "mkdocstrings' watch feature is deprecated in favor of MkDocs' watch feature, "
-                "see https://www.mkdocs.org/user-guide/configuration/#watch.",
-                DeprecationWarning,
-            )
             for element in self.config["watch"]:
                 log.debug(f"Adding directory '{element}' to watcher")
                 server.watch(element, builder)
@@ -204,6 +198,9 @@ class MkdocstringsPlugin(BasePlugin):
                 )
                 self._inv_futures.append(future)
             inv_loader.shutdown(wait=False)
+
+        if self.config["watch"]:
+            self._warn_about_watch_option()
 
         return config
 
@@ -299,3 +296,11 @@ class MkdocstringsPlugin(BasePlugin):
             result = dict(loader(content, url=url, **kwargs))
         log.debug(f"Loaded inventory from {url!r}: {len(result)} items")
         return result
+
+    @classmethod
+    @functools.lru_cache(maxsize=None)  # Warn only once
+    def _warn_about_watch_option(cls):
+        log.info(
+            "DEPRECATION: mkdocstrings' watch feature is deprecated in favor of MkDocs' watch feature, "
+            "see https://www.mkdocs.org/user-guide/configuration/#watch",
+        )
