@@ -127,17 +127,18 @@ class AutoDocProcessor(BlockProcessor):
             el.extend(headings)
 
             page = self._autorefs.current_page
-            for heading in headings:
-                anchor = heading.attrib["id"]  # noqa: WPS440
-                self._autorefs.register_anchor(page, anchor)  # noqa: WPS441
+            if page:
+                for heading in headings:
+                    anchor = heading.attrib["id"]  # noqa: WPS440
+                    self._autorefs.register_anchor(page, anchor)  # noqa: WPS441
 
-                if "data-role" in heading.attrib:
-                    self._handlers.inventory.register(
-                        name=anchor,  # noqa: WPS441
-                        domain=handler.domain,
-                        role=heading.attrib["data-role"],
-                        uri=f"{page}#{anchor}",  # noqa: WPS441
-                    )
+                    if "data-role" in heading.attrib:
+                        self._handlers.inventory.register(
+                            name=anchor,  # noqa: WPS441
+                            domain=handler.domain,
+                            role=heading.attrib["data-role"],
+                            uri=f"{page}#{anchor}",  # noqa: WPS441
+                        )
 
             parent.append(el)
 
