@@ -11,31 +11,44 @@
 <header>
     <div class="content">
         <h1>Coverage report:
-            <span class="pc_cov">84.71%</span>
+            <span class="pc_cov">83.69%</span>
         </h1>
-        <div id="help_panel_wrapper">
+        <aside id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
             <label for="help_panel_state">
                 <img id="keyboard_icon" src="keybd_closed.png" alt="Show/hide keyboard shortcuts" />
             </label>
             <div id="help_panel">
                 <p class="legend">Shortcuts on this page</p>
-                <div>
-                    <p class="keyhelp">
+                <div class="keyhelp">
+                    <p>
                         <kbd>n</kbd>
                         <kbd>s</kbd>
                         <kbd>m</kbd>
                         <kbd>x</kbd>
                         <kbd>b</kbd>
                         <kbd>p</kbd>
-                        <kbd>c</kbd> &nbsp; change column sorting
+                        <kbd>c</kbd>
+                        &nbsp; change column sorting
+                    </p>
+                    <p>
+                        <kbd>[</kbd>
+                        <kbd>]</kbd>
+                        &nbsp; prev/next file
+                    </p>
+                    <p>
+                        <kbd>?</kbd> &nbsp; show/hide this help
                     </p>
                 </div>
             </div>
-        </div>
+        </aside>
         <form id="filter_container">
             <input id="filter" type="text" value="" placeholder="filter..." />
         </form>
+        <p class="text">
+            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.4.4</a>,
+            created at 2022-09-12 18:57 +0200
+        </p>
     </div>
 </header>
 <main id="index">
@@ -54,21 +67,21 @@
         <tbody>
             <tr class="file">
                 <td class="name left"><a href="d_7c5e48b88f50e873_extension_py.html">src/mkdocstrings/extension.py</a></td>
-                <td>113</td>
+                <td>117</td>
                 <td>13</td>
                 <td>0</td>
-                <td>34</td>
-                <td>4</td>
-                <td class="right" data-ratio="128 147">87.07%</td>
+                <td>36</td>
+                <td>5</td>
+                <td class="right" data-ratio="133 153">86.93%</td>
             </tr>
             <tr class="file">
                 <td class="name left"><a href="d_fca87304f13ef3fa_base_py.html">src/mkdocstrings/handlers/base.py</a></td>
                 <td>212</td>
-                <td>35</td>
+                <td>47</td>
                 <td>0</td>
                 <td>92</td>
-                <td>21</td>
-                <td class="right" data-ratio="230 304">75.66%</td>
+                <td>20</td>
+                <td class="right" data-ratio="219 304">72.04%</td>
             </tr>
             <tr class="file">
                 <td class="name left"><a href="d_fca87304f13ef3fa_rendering_py.html">src/mkdocstrings/handlers/rendering.py</a></td>
@@ -91,20 +104,20 @@
             <tr class="file">
                 <td class="name left"><a href="d_7c5e48b88f50e873_loggers_py.html">src/mkdocstrings/loggers.py</a></td>
                 <td>52</td>
-                <td>9</td>
+                <td>8</td>
                 <td>0</td>
                 <td>8</td>
                 <td>2</td>
-                <td class="right" data-ratio="49 60">81.67%</td>
+                <td class="right" data-ratio="50 60">83.33%</td>
             </tr>
             <tr class="file">
                 <td class="name left"><a href="d_7c5e48b88f50e873_plugin_py.html">src/mkdocstrings/plugin.py</a></td>
-                <td>113</td>
-                <td>10</td>
-                <td>0</td>
-                <td>41</td>
+                <td>116</td>
                 <td>11</td>
-                <td class="right" data-ratio="129 154">83.77%</td>
+                <td>0</td>
+                <td>43</td>
+                <td>12</td>
+                <td class="right" data-ratio="132 159">83.02%</td>
             </tr>
             <tr class="file">
                 <td class="name left"><a href="d_a44f0ac069e85531_conftest_py.html">tests/conftest.py</a></td>
@@ -180,12 +193,12 @@
             </tr>
             <tr class="file">
                 <td class="name left"><a href="d_a44f0ac069e85531_test_extension_py.html">tests/test_extension.py</a></td>
-                <td>53</td>
+                <td>55</td>
                 <td>0</td>
                 <td>0</td>
                 <td>4</td>
                 <td>1</td>
-                <td class="right" data-ratio="56 57">98.25%</td>
+                <td class="right" data-ratio="58 59">98.31%</td>
             </tr>
             <tr class="file">
                 <td class="name left"><a href="d_a44f0ac069e85531_test_handlers_py.html">tests/test_handlers.py</a></td>
@@ -209,12 +222,12 @@
         <tfoot>
             <tr class="total">
                 <td class="name left">Total</td>
-                <td>791</td>
-                <td>88</td>
+                <td>800</td>
+                <td>100</td>
                 <td>0</td>
-                <td>275</td>
-                <td>47</td>
-                <td class="right" data-ratio="903 1066">84.71%</td>
+                <td>279</td>
+                <td>48</td>
+                <td class="right" data-ratio="903 1079">83.69%</td>
             </tr>
         </tfoot>
     </table>
@@ -225,10 +238,17 @@
 <footer>
     <div class="content">
         <p>
-            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.3.2</a>,
-            created at 2022-05-28 17:55 +0200
+            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.4.4</a>,
+            created at 2022-09-12 18:57 +0200
         </p>
     </div>
+    <aside class="hidden">
+        <a id="prevFileLink" class="nav" href="d_a44f0ac069e85531_test_inventory_py.html"/>
+        <a id="nextFileLink" class="nav" href="d_7c5e48b88f50e873_extension_py.html"/>
+        <button type="button" class="button_prev_file" data-shortcut="["/>
+        <button type="button" class="button_next_file" data-shortcut="]"/>
+        <button type="button" class="button_show_hide_help" data-shortcut="?"/>
+    </aside>
 </footer>
 </body>
 </html>

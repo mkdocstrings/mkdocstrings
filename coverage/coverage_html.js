@@ -25,6 +25,13 @@ function checkVisible(element) {
     return !(rect.bottom < viewTop || rect.top >= viewBottom);
 }
 
+function on_click(sel, fn) {
+    const elt = document.querySelector(sel);
+    if (elt) {
+        elt.addEventListener("click", fn);
+    }
+}
+
 // Helpers for table sorting
 function getCellValue(row, column = 0) {
     const cell = row.cells[column]
@@ -159,7 +166,7 @@ coverage.wire_up_filter = function () {
 
     // Trigger change event on setup, to force filter on page refresh
     // (filter value may still be present).
-    document.getElementById("filter").dispatchEvent(new Event("change"));
+    document.getElementById("filter").dispatchEvent(new Event("input"));
 };
 
 coverage.INDEX_SORT_STORAGE = "COVERAGE_INDEX_SORT_2";
@@ -193,6 +200,11 @@ coverage.index_ready = function () {
             direction: th.getAttribute("aria-sort"),
         }));
     });
+
+    on_click(".button_prev_file", coverage.to_prev_file);
+    on_click(".button_next_file", coverage.to_next_file);
+
+    on_click(".button_show_hide_help", coverage.show_hide_help);
 };
 
 // -- pyfile stuff --
@@ -209,12 +221,6 @@ coverage.pyfile_ready = function () {
         coverage.set_sel(0);
     }
 
-    const on_click = function(sel, fn) {
-        const elt = document.querySelector(sel);
-        if (elt) {
-            elt.addEventListener("click", fn);
-        }
-    }
     on_click(".button_toggle_run", coverage.toggle_lines);
     on_click(".button_toggle_mis", coverage.toggle_lines);
     on_click(".button_toggle_exc", coverage.toggle_lines);
@@ -224,6 +230,12 @@ coverage.pyfile_ready = function () {
     on_click(".button_prev_chunk", coverage.to_prev_chunk_nicely);
     on_click(".button_top_of_page", coverage.to_top);
     on_click(".button_first_chunk", coverage.to_first_chunk);
+
+    on_click(".button_prev_file", coverage.to_prev_file);
+    on_click(".button_next_file", coverage.to_next_file);
+    on_click(".button_to_index", coverage.to_index);
+
+    on_click(".button_show_hide_help", coverage.show_hide_help);
 
     coverage.filters = undefined;
     try {
@@ -298,6 +310,23 @@ coverage.to_first_chunk = function () {
     coverage.set_sel(0, 1);
     coverage.to_next_chunk();
 };
+
+coverage.to_prev_file = function () {
+    window.location = document.getElementById("prevFileLink").href;
+}
+
+coverage.to_next_file = function () {
+    window.location = document.getElementById("nextFileLink").href;
+}
+
+coverage.to_index = function () {
+    location.href = document.getElementById("indexLink").href;
+}
+
+coverage.show_hide_help = function () {
+    const helpCheck = document.getElementById("help_panel_state")
+    helpCheck.checked = !helpCheck.checked;
+}
 
 // Return a string indicating what kind of chunk this line belongs to,
 // or null if not a chunk.
@@ -524,7 +553,7 @@ coverage.build_scroll_markers = function () {
         'p.show_run, p.show_mis, p.show_exc, p.show_exc, p.show_par'
     ).forEach(element => {
         const line_top = Math.floor(element.offsetTop * marker_scale);
-        const line_number = parseInt(element.id.substr(1));
+        const line_number = parseInt(element.querySelector(".n a").id.substr(1));
 
         if (line_number === previous_line + 1) {
             // If this solid missed block just make previous mark higher.
