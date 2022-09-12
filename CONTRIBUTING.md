@@ -14,7 +14,8 @@ cd mkdocstrings
 make setup
 ```
 
-> NOTE: If it fails for some reason,
+> NOTE:
+> If it fails for some reason,
 > you'll need to install
 > [PDM](https://github.com/pdm-project/pdm)
 > manually.

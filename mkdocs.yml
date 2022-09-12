@@ -5,7 +5,7 @@ repo_url: "https://github.com/mkdocstrings/mkdocstrings"
 edit_uri: "blob/master/docs/"
 repo_name: "mkdocstrings/mkdocstrings"
 site_dir: "site"
-watch: [src/mkdocstrings]
+watch: [README.md, CONTRIBUTING.md, CHANGELOG.md, src/mkdocstrings]
 
 nav:
 - Home:
@@ -37,6 +37,7 @@ theme:
   features:
   - content.code.annotate
   - navigation.tabs
+  - navigation.tabs.sticky
   - navigation.top
   palette:
   - media: "(prefers-color-scheme: light)"
@@ -76,9 +77,9 @@ markdown_extensions:
 
 plugins:
 - search
+- markdown-exec
 - gen-files:
     scripts:
-    - docs/gen_credits.py
     - docs/gen_ref_nav.py
     - docs/gen_redirects.py
 - literate-nav:
