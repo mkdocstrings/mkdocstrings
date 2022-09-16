@@ -108,8 +108,7 @@ The above is equivalent to:
 
 - `default_handler`: the handler that is used by default when no handler is specified.
 - `custom_templates`: the path to a directory containing custom templates.
-  The path is relative to the location of the docs directory.
-  If your templates folder is insde your docs directory, you do: `docs/...`.
+  The path is relative to the current working directory.
   See [Theming](theming.md).
 - `handlers`: the handlers global configuration.
 - `enable_inventory`: whether to enable inventory file generation.
