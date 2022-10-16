@@ -7,8 +7,6 @@ from contextlib import suppress
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Callable, MutableMapping, Sequence
 
-from mkdocs.utils import warning_filter
-
 try:
     from jinja2 import pass_context
 except ImportError:  # TODO: remove once Jinja2 < 3.1 is dropped
@@ -135,7 +133,6 @@ def get_logger(name: str) -> LoggerAdapter:
         A logger configured to work well in MkDocs.
     """
     logger = logging.getLogger(f"mkdocs.plugins.{name}")
-    logger.addFilter(warning_filter)
     return LoggerAdapter(name.split(".", 1)[0], logger)
 
 
