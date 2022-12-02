@@ -129,12 +129,13 @@ for path in sorted(Path("src").rglob("*.py")):  # (1)
 > Then we will have to change our `set_edit_path` call to:
 >
 > ```python
-> mkdocs_gen_files.set_edit_path(full_doc_path, Path("../") / path) # (1)
+> mkdocs_gen_files.set_edit_path(full_doc_path, Path("../") / path)  # (1)
 > ```
+>
 > 1. Path can be used to traverse the structure in any way you may need, but
 >    remember to use relative paths!
 >
-> so that it correctly sets the edit path of (for example) `lorem.py` to
+> ...so that it correctly sets the edit path of (for example) `lorem.py` to
 > `<repo_url>/blob/master/src/project/lorem.py` instead of
 > `<repo_url>/blob/master/docs/src/project/lorem.py`.
 
