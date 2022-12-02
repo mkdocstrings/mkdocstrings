@@ -53,14 +53,11 @@ plugins:
 - gen-files:
     scripts:
     - docs/gen_ref_pages.py  # (2)
-- mkdocstrings:
-    watch:
-    - src/project  # (3)
+- mkdocstrings
 ```
 
 1. Don't forget to load the `search` plugin when redefining the `plugins` item.
 2. The magic happens here, see below how it works.
-3. Useful for the live-reload feature of `mkdocs serve`.
 
 mkdocs-gen-files is able to run Python scripts at build time.
 The Python script that we will execute lives in the docs folder,
@@ -185,9 +182,7 @@ plugins:
     - docs/gen_ref_pages.py
 - literate-nav:
     nav_file: SUMMARY.md
-- mkdocstrings:
-    watch:
-    - src/project
+- mkdocstrings
 ```
 
 Then, the previous script is updated like so:
@@ -309,9 +304,7 @@ plugins:
 - literate-nav:
     nav_file: SUMMARY.md
 - section-index
-- mkdocstrings:
-    watch:
-    - src/project
+- mkdocstrings
 ```
 
 With this, `__init__` modules will be documented and bound to the sections
