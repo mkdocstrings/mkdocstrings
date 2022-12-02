@@ -58,7 +58,7 @@ def get_deps(base_deps):
                     if dep_name not in deps:
                         deps[dep_name] = {"license": get_license(dep_name), **parsed, **lock_pkgs[dep_name]}
                         again = True
-        
+
     return deps
 
 dev_dependencies = get_deps(chain(*pdm.get("dev-dependencies", {}).values()))
