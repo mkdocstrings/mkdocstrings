@@ -55,7 +55,7 @@ def get_deps(base_deps):
                 for pkg_dependency in lock_pkgs[pkg_name].get("dependencies", []):
                     parsed = regex.match(pkg_dependency).groupdict()
                     dep_name = parsed["dist"].lower()
-                    if dep_name not in deps:
+                    if dep_name not in deps and dep_name != project["name"]:
                         deps[dep_name] = {"license": get_license(dep_name), **parsed, **lock_pkgs[dep_name]}
                         again = True
 
