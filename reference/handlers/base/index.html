@@ -836,6 +836,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.base.Handlers.seen_handlers" class="md-nav__link">
+    seen_handlers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mkdocstrings.handlers.base.Handlers.get_anchors" class="md-nav__link">
     get_anchors()
   </a>
@@ -859,13 +866,6 @@
           <li class="md-nav__item">
   <a href="#mkdocstrings.handlers.base.Handlers.get_handler_name" class="md-nav__link">
     get_handler_name()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.base.Handlers.seen_handlers" class="md-nav__link">
-    seen_handlers()
   </a>
   
 </li>
@@ -1215,6 +1215,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#mkdocstrings.handlers.base.Handlers.seen_handlers" class="md-nav__link">
+    seen_handlers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mkdocstrings.handlers.base.Handlers.get_anchors" class="md-nav__link">
     get_anchors()
   </a>
@@ -1238,13 +1245,6 @@
           <li class="md-nav__item">
   <a href="#mkdocstrings.handlers.base.Handlers.get_handler_name" class="md-nav__link">
     get_handler_name()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mkdocstrings.handlers.base.Handlers.seen_handlers" class="md-nav__link">
-    seen_handlers()
   </a>
   
 </li>
@@ -3002,6 +3002,51 @@ of <a class="autorefs autorefs-internal" href="../../plugin/#mkdocstrings.plugin
 
 
 
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.Handlers.seen_handlers">
+<code class="highlight language-python"><span class="n">seen_handlers</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">BaseHandler</span><span class="p">]</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.seen_handlers" title="Permanent link">¤</a></h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get the handlers that were encountered so far throughout the build.</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Iterable" href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<a class="autorefs autorefs-internal" title="mkdocstrings.handlers.base.BaseHandler" href="#mkdocstrings.handlers.base.BaseHandler">BaseHandler</a>]</code>
+          </td>
+          <td><p>An iterable of instances of <a class="autorefs autorefs-internal" href="#mkdocstrings.handlers.base.BaseHandler"><code>BaseHandler</code></a></p></td>
+        </tr>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" title="typing.Iterable" href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<a class="autorefs autorefs-internal" title="mkdocstrings.handlers.base.BaseHandler" href="#mkdocstrings.handlers.base.BaseHandler">BaseHandler</a>]</code>
+          </td>
+          <td><p>(usable only to loop through it).</p></td>
+        </tr>
+    </tbody>
+  </table>
+  </div>
+
+</div>
+
 
 
 <div class="doc doc-object doc-function">
@@ -3432,73 +3477,6 @@ a handler is instantiated only once, and reused for each "autodoc" instruction a
     <span class="k">if</span> <span class="s2">&quot;handler&quot;</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;handler&quot;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">global_config</span><span class="p">[</span><span class="s2">&quot;default_handler&quot;</span><span class="p">]</span>
-</code></pre></div></td></tr></table></div>
-      </details>
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-
-<h3 class="doc doc-heading" id="mkdocstrings.handlers.base.Handlers.seen_handlers">
-<code class="highlight language-python"><span class="n">seen_handlers</span><span class="p">()</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a class="headerlink" href="#mkdocstrings.handlers.base.Handlers.seen_handlers" title="Permanent link">¤</a></h3>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Get the handlers that were encountered so far throughout the build.</p>
-
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Iterable" href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<a class="autorefs autorefs-internal" title="mkdocstrings.handlers.base.BaseHandler" href="#mkdocstrings.handlers.base.BaseHandler">BaseHandler</a>]</code>
-          </td>
-          <td><p>An iterable of instances of <a class="autorefs autorefs-internal" href="#mkdocstrings.handlers.base.BaseHandler"><code>BaseHandler</code></a></p></td>
-        </tr>
-        <tr>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Iterable" href="https://docs.python.org/3/library/typing.html#typing.Iterable">Iterable</a>[<a class="autorefs autorefs-internal" title="mkdocstrings.handlers.base.BaseHandler" href="#mkdocstrings.handlers.base.BaseHandler">BaseHandler</a>]</code>
-          </td>
-          <td><p>(usable only to loop through it).</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-      <details class="quote">
-        <summary>Source code in <code>mkdocstrings/handlers/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">581</span>
-<span class="normal">582</span>
-<span class="normal">583</span>
-<span class="normal">584</span>
-<span class="normal">585</span>
-<span class="normal">586</span>
-<span class="normal">587</span>
-<span class="normal">588</span>
-<span class="normal">589</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@property</span>
-<span class="k">def</span> <span class="nf">seen_handlers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">BaseHandler</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Get the handlers that were encountered so far throughout the build.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        An iterable of instances of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler]</span>
-<span class="sd">        (usable only to loop through it).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
       </details>
   </div>

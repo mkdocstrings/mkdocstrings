@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "title": "Automatic documentation from sources, for MkDocs.",
+  "oneOf": [
+    {
+      "markdownDescription": "https://mkdocstrings.github.io/",
+      "enum": [
+        "mkdocstrings"
+      ]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "mkdocstrings": {
+          "markdownDescription": "https://mkdocstrings.github.io/",
+          "type": "object",
+          "properties": {
+            "custom_templates": {
+              "title": "The path to a directory containing custom templates. The path is relative to the current working directory.",
+              "markdownDescription": "https://mkdocstrings.github.io/theming/",
+              "type": "string",
+              "default": null,
+              "format": "path"
+            },
+            "default_handler": {
+              "title": "The handler used by default when no handler is specified in autodoc instructions.",
+              "markdownDescription": "https://mkdocstrings.github.io/usage/#global-options",
+              "type": "string",
+              "default": "python"
+            },
+            "enable_inventory": {
+              "title": "Whether to enable inventory file generation.",
+              "markdownDescription": "https://mkdocstrings.github.io/usage/#cross-references-to-other-projects-inventories",
+              "type": "boolean",
+              "default": null
+            },
+            "handlers": {
+              "title": "The handlers global configuration.",
+              "markdownDescription": "https://mkdocstrings.github.io/handlers/overview/",
+              "type": "object",
+              "default": null,
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "https://raw.githubusercontent.com/mkdocstrings/python/master/docs/schema.json"
+                  }
+                ]
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  ]
+}
