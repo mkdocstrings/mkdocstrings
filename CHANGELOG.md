@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.19.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.19.1) - 2022-12-13
+
+<small>[Compare with 0.19.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.19.0...0.19.1)</small>
+
+### Bug Fixes
+- Fix regular expression for Sphinx inventory parsing ([348bdd5](https://github.com/mkdocstrings/mkdocstrings/commit/348bdd5e930f3cf7a8e27835189794ec940ae1b7) by Luis Michaelis). [Issue #496](https://github.com/mkdocstrings/mkdocstrings/issues/496), [PR #497](https://github.com/mkdocstrings/mkdocstrings/issues/497)
+
+### Code Refactoring
+- Small fixes to type annotations ([9214b74](https://github.com/mkdocstrings/mkdocstrings/commit/9214b74367da1f9c808eacc8ceecc4134d5c9d3c) by Oleh Prypin). [PR #470](https://github.com/mkdocstrings/mkdocstrings/issues/470)
+- Report usage-based warnings as user-facing messages ([03dd7a6](https://github.com/mkdocstrings/mkdocstrings/commit/03dd7a6e4fefa44889bda9899d9b698bcfd07990) by Oleh Prypin). [PR #464](https://github.com/mkdocstrings/mkdocstrings/issues/464)
+
+
 ## [0.19.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.19.0) - 2022-05-28
 
 <small>[Compare with 0.18.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.18.1...0.19.0)</small>
