@@ -6,7 +6,7 @@ build-backend = "pdm.pep517.api"
 name = "mkdocstrings"
 description = "Automatic documentation from sources, for MkDocs."
 authors = [{name = "Timothée Mazzucotelli", email = "pawamoy@pm.me"}]
-license = "ISC"
+license = {text = "ISC"}
 readme = "README.md"
 requires-python = ">=3.7"
 keywords = ["mkdocs", "mkdocs-plugin", "docstrings", "autodoc", "documentation"]
