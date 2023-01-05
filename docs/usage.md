@@ -113,6 +113,9 @@ The above is equivalent to:
 - `handlers`: the handlers global configuration.
 - `enable_inventory`: whether to enable inventory file generation.
   See [Cross-references to other projects / inventories](#cross-references-to-other-projects-inventories)
+- `enabled` **(New in version 0.20)**: Whether to enable the plugin. Defaults to `true`.
+  Can be used to reduce build times when doing local development.
+  Especially useful when used with environment variables (see example below).
 - `watch` **(deprecated)**: a list of directories to watch while serving the documentation.
   See [Watch directories](#watch-directories). **Deprecated in favor of the now built-in
   [`watch` feature of MkDocs](https://www.mkdocs.org/user-guide/configuration/#watch).
@@ -121,6 +124,7 @@ The above is equivalent to:
     ```yaml title="mkdocs.yml"
     plugins:
     - mkdocstrings:
+        enabled: !ENV [ENABLE_MKDOCSTRINGS, true]
         custom_templates: templates
         default_handler: python
         handlers:
@@ -357,3 +361,4 @@ For example, it will not tell the Python handler to look for packages in these p
 (the paths are not added to the `PYTHONPATH` variable).
 If you want to tell Python where to look for packages and modules,
 see [Python Handler: Finding modules](https://mkdocstrings.github.io/python/usage/#finding-modules).
+

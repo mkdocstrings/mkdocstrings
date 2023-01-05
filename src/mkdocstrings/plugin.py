@@ -62,6 +62,7 @@ class MkdocstringsPlugin(BasePlugin):
         ("default_handler", MkType(str, default="python")),
         ("custom_templates", MkType(str, default=None)),
         ("enable_inventory", MkType(bool, default=None)),
+        ("enabled", MkType(bool, default=True)),
     )
     """
     The configuration options of `mkdocstrings`, written in `mkdocs.yml`.
@@ -72,6 +73,7 @@ class MkdocstringsPlugin(BasePlugin):
        Whenever a file changes in one of directories, the whole documentation is built again, and the browser refreshed.
        Deprecated in favor of the now built-in `watch` feature of MkDocs.
     - **`default_handler`**: The default handler to use. The value is the name of the handler module. Default is "python".
+    - **`enabled`**: Whether to enable the plugin. Default is true. If false, *mkdocstrings* will not collect or render anything.
     - **`handlers`**: Global configuration of handlers. You can set global configuration per handler, applied everywhere,
       but overridable in each "autodoc" instruction. Example:
 
@@ -128,6 +130,8 @@ class MkdocstringsPlugin(BasePlugin):
             *args: Additional arguments passed by MkDocs.
             **kwargs: Additional arguments passed by MkDocs.
         """
+        if not self.plugin_enabled:
+            return
         if self.config["watch"]:
             for element in self.config["watch"]:
                 log.debug(f"Adding directory '{element}' to watcher")
@@ -150,6 +154,9 @@ class MkdocstringsPlugin(BasePlugin):
         Returns:
             The modified config.
         """
+        if not self.plugin_enabled:
+            log.debug("Plugin is not enabled. Skipping.")
+            return config
         log.debug("Adding extension to the list")
 
         theme_name = None
@@ -220,6 +227,14 @@ class MkdocstringsPlugin(BasePlugin):
             inventory_enabled = any(handler.enable_inventory for handler in self.handlers.seen_handlers)
         return inventory_enabled
 
+    def plugin_enabled(self) -> bool:
+        """Tell if the plugin is enabled or not.
+
+        Returns:
+            Whether the plugin is enabled.
+        """
+        return self.config["enabled"]
+
     def on_env(self, env, config: Config, *args, **kwargs) -> None:
         """Extra actions that need to happen after all Markdown rendering and before HTML rendering.
 
@@ -228,6 +243,8 @@ class MkdocstringsPlugin(BasePlugin):
         - Write mkdocstrings' extra files into the site dir.
         - Gather results from background inventory download tasks.
         """
+        if not self.plugin_enabled:
+            return
         if self._handlers:
             css_content = "\n".join(handler.extra_css for handler in self.handlers.seen_handlers)
             write_file(css_content.encode("utf-8"), os.path.join(config["site_dir"], self.css_filename))
@@ -260,6 +277,9 @@ class MkdocstringsPlugin(BasePlugin):
             config: The MkDocs config object.
             **kwargs: Additional arguments passed by MkDocs.
         """
+        if not self.plugin_enabled:
+            return
+
         for future in self._inv_futures:
             future.cancel()
 
