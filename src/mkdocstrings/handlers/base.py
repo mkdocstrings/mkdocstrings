@@ -299,6 +299,7 @@ class BaseRenderer:
         self.env.filters["heading"] = self.do_heading
 
     def _update_env(self, md: Markdown, config: dict):
+        """Update our handler to point to our configured Markdown instance, grabbing some of the config from `md`."""
         extensions = config["mdx"] + [MkdocstringsInnerExtension(self._headings)]
 
         new_md = Markdown(extensions=extensions, extension_configs=config["mdx_configs"])
