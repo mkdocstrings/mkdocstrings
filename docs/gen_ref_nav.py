@@ -28,5 +28,5 @@ for path in sorted(Path("src").rglob("*.py")):
 
     mkdocs_gen_files.set_edit_path(full_doc_path, Path("../") / path)
 
-with mkdocs_gen_files.open("reference/SUMMARY.md", "w") as nav_file:
+with mkdocs_gen_files.open("reference/SUMMARY.txt", "w") as nav_file:
     nav_file.writelines(nav.build_literate_nav())
