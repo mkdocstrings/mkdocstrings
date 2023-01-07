@@ -38,7 +38,11 @@ def test_sphinx_load_inventory_file(our_inv):
 def test_sphinx_load_mkdocstrings_inventory_file():
     """Perform the 'live' inventory load test on mkdocstrings own inventory."""
     mkdocs_config = load_config()
-    build(mkdocs_config)
+    mkdocs_config["plugins"].run_event("startup", command="build", dirty=False)
+    try:
+        build(mkdocs_config)
+    finally:
+        mkdocs_config["plugins"].run_event("shutdown")
     own_inv = mkdocs_config["plugins"]["mkdocstrings"].handlers.inventory
 
     with open("site/objects.inv", "rb") as fp:
