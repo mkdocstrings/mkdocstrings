@@ -227,6 +227,7 @@ class MkdocstringsPlugin(BasePlugin):
             inventory_enabled = any(handler.enable_inventory for handler in self.handlers.seen_handlers)
         return inventory_enabled
 
+    @property
     def plugin_enabled(self) -> bool:
         """Tell if the plugin is enabled or not.
 
