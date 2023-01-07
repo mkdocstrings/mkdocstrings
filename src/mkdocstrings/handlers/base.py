@@ -14,7 +14,7 @@ import importlib
 import warnings
 from contextlib import suppress
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Sequence
+from typing import Any, BinaryIO, Dict, Iterable, Iterator, List, Mapping, Optional, Sequence
 from xml.etree.ElementTree import Element, tostring
 
 from jinja2 import Environment, FileSystemLoader
@@ -42,7 +42,7 @@ class ThemeNotSupported(Exception):
     """An exception raised to tell a theme is not supported."""
 
 
-def do_any(seq: Sequence, attribute: str = None) -> bool:
+def do_any(seq: Sequence, attribute: str | None = None) -> bool:
     """Check if at least one of the item in the sequence evaluates to true.
 
     The `any` builtin as a filter for Jinja templates.
@@ -119,16 +119,17 @@ class BaseRenderer:
         self._headings: List[Element] = []
         self._md: Markdown = None  # type: ignore  # To be populated in `update_env`.
 
-    def render(self, data: CollectorItem, config: dict) -> str:
+    def render(self, data: CollectorItem, config: Mapping[str, Any]) -> str:
         """Render a template using provided data and configuration options.
 
         Arguments:
             data: The collected data to render.
-            config: The rendering options.
+            config: The handler's configuraton options.
 
         Returns:
             The rendered template as HTML.
-        """  # noqa: DAR202 (excess return section)
+        """  # noqa: DAR202,DAR401
+        raise NotImplementedError
 
     def get_templates_dir(self, handler: str) -> Path:
         """Return the path to the handler's templates directory.
@@ -317,7 +318,7 @@ class BaseCollector:
     You can also implement the `teardown` method.
     """
 
-    def collect(self, identifier: str, config: dict) -> CollectorItem:
+    def collect(self, identifier: str, config: Mapping[str, Any]) -> CollectorItem:
         """Collect data given an identifier and selection configuration.
 
         In the implementation, you typically call a subprocess that returns JSON, and load that JSON again into
@@ -327,12 +328,12 @@ class BaseCollector:
             identifier: An identifier for which to collect data. For example, in Python,
                 it would be 'mkdocstrings.handlers' to collect documentation about the handlers module.
                 It can be anything that you can feed to the tool of your choice.
-            config: Configuration options for the tool you use to collect data. Typically called "selection" because
-                these options modify how the objects or documentation are "selected" in the source code.
+            config: The handler's configuraton options.
 
         Returns:
             Anything you want, as long as you can feed it to the renderer's `render` method.
-        """  # noqa: DAR202 (excess return section)
+        """  # noqa: DAR202,DAR401
+        raise NotImplementedError
 
     def teardown(self) -> None:
         """Teardown the collector.
@@ -473,6 +474,27 @@ class BaseHandler(BaseCollector, BaseRenderer):
             if handler is None or theme is None:
                 raise ValueError("'handler' and 'theme' cannot be None")
             BaseRenderer.__init__(self, handler, theme, custom_templates)  # noqa: WPS609
+
+    @classmethod
+    def load_inventory(
+        cls,
+        in_file: BinaryIO,
+        url: str,
+        base_url: Optional[str] = None,
+        **kwargs: Any,
+    ) -> Iterator[tuple[str, str]]:
+        """Yield items and their URLs from an inventory file streamed from `in_file`.
+
+        Arguments:
+            in_file: The binary file-like object to read the inventory from.
+            url: The URL that this file is being streamed from (used to guess `base_url`).
+            base_url: The URL that this inventory's sub-paths are relative to.
+            **kwargs: Ignore additional arguments passed from the config.
+
+        Yields:
+            Tuples of (item identifier, item URL).
+        """
+        yield from ()
 
 
 class Handlers:

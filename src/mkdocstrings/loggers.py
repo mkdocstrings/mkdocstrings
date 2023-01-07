@@ -18,7 +18,7 @@ try:
 except ImportError:
     TEMPLATES_DIRS: Sequence[Path] = ()
 else:
-    TEMPLATES_DIRS = tuple(mkdocstrings_handlers.__path__)  # noqa: WPS609
+    TEMPLATES_DIRS = tuple(mkdocstrings_handlers.__path__)  # type: ignore[arg-type]  # noqa: WPS609
 
 
 class LoggerAdapter(logging.LoggerAdapter):

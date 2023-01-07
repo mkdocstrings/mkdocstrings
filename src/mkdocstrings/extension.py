@@ -265,7 +265,7 @@ class MkdocstringsExtension(Extension):
             priority=75,  # Right before markdown.blockprocessors.HashHeaderProcessor
         )
         md.treeprocessors.register(
-            _PostProcessor(md.parser),
+            _PostProcessor(md),
             "mkdocstrings_post",
             priority=4,  # Right after 'toc'.
         )
