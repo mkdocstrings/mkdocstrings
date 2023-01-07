@@ -5,14 +5,7 @@ from collections import ChainMap
 import pytest
 from markdown.core import Markdown
 from mkdocs import config
-
-try:
-    from mkdocs.config.defaults import get_schema
-except ImportError:
-
-    def get_schema():  # noqa: WPS440
-        """Fallback for old versions of MkDocs."""
-        return config.DEFAULT_SCHEMA
+from mkdocs.config.defaults import get_schema
 
 
 @pytest.fixture(name="mkdocs_conf")

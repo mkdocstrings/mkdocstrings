@@ -34,16 +34,11 @@ from markdown.blockparser import BlockParser
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.treeprocessors import Treeprocessor
+from mkdocs.exceptions import PluginError
 from mkdocs_autorefs.plugin import AutorefsPlugin
 
 from mkdocstrings.handlers.base import BaseHandler, CollectionError, CollectorItem, Handlers
 from mkdocstrings.loggers import get_logger
-
-try:
-    from mkdocs.exceptions import PluginError  # New in MkDocs 1.2
-except ImportError:
-    PluginError = SystemExit  # noqa: WPS440
-
 
 log = get_logger(__name__)
 
