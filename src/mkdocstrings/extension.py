@@ -73,7 +73,7 @@ class AutoDocProcessor(BlockProcessor):
         self._config = config
         self._handlers = handlers
         self._autorefs = autorefs
-        self._updated_env = False
+        self._updated_envs: set = set()
 
     def test(self, parent: Element, block: str) -> bool:
         """Match our autodoc instructions.
@@ -192,10 +192,10 @@ class AutoDocProcessor(BlockProcessor):
                 log.error(f"Error reading page '{self._autorefs.current_page}':")
             raise PluginError(f"Could not collect '{identifier}'") from exception
 
-        if not self._updated_env:
+        if handler_name not in self._updated_envs:  # We haven't seen this handler before on this document.
             log.debug("Updating renderer's env")
             handler._update_env(self.md, self._config)  # noqa: WPS437 (protected member OK)
-            self._updated_env = True
+            self._updated_envs.add(handler_name)
 
         log.debug("Rendering templates")
         try:
