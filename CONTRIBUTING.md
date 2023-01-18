@@ -19,14 +19,14 @@ make setup
 > you'll need to install
 > [PDM](https://github.com/pdm-project/pdm)
 > manually.
-> 
+>
 > You can install it with:
-> 
+>
 > ```bash
 > python3 -m pip install --user pipx
 > pipx install pdm
 > ```
-> 
+>
 > Now you can try running `make setup` again,
 > or simply `pdm install`.
 
@@ -67,7 +67,7 @@ As usual:
 
 If you are unsure about how to fix or ignore a warning,
 just let the continuous integration fail,
-and we will help you during review.
+and we will help you during the review.
 
 Don't bother updating the changelog, we will take care of this.
 
@@ -91,7 +91,7 @@ Scope and body are optional. Type can be:
 - `feat`: New feature.
 - `fix`: Bug fix.
 - `perf`: About performance.
-- `refactor`: Changes which are not features nor bug fixes.
+- `refactor`: Changes that are not features or bug fixes.
 - `style`: A change in code style/format.
 - `tests`: About tests.
 
@@ -109,7 +109,7 @@ Fixes #15.
 
 Link to any related issue in the Pull Request message.
 
-During review, we recommend using fixups:
+During the review, we recommend using fixups:
 
 ```bash
 # SHA is the SHA of the commit you want to fix
