@@ -42,6 +42,18 @@ InventoryImportType = List[Tuple[str, Mapping[str, Any]]]
 InventoryLoaderType = Callable[..., Iterable[Tuple[str, str]]]
 
 
+def list_to_tuple(function: Callable[..., Any]) -> Callable[..., Any]:
+    """Decorater to convert lists to tuples in the arguments."""
+
+    def wrapper(*args: Any, **kwargs: Any):
+        safe_args = [tuple(item) if isinstance(item, list) else item for item in args]
+        if kwargs:
+            kwargs = {key: tuple(value) if isinstance(value, list) else value for key, value in kwargs.items()}
+        return function(*safe_args, **kwargs)
+
+    return wrapper
+
+
 class MkdocstringsPlugin(BasePlugin):
     """An `mkdocs` plugin.
 
@@ -300,6 +312,8 @@ class MkdocstringsPlugin(BasePlugin):
         return self.handlers.get_handler(handler_name)
 
     @classmethod
+    # lru_cache does not allow mutable arguments such lists, but that is what we load from YAML config.
+    @list_to_tuple
     @functools.lru_cache(maxsize=None)
     def _load_inventory(cls, loader: InventoryLoaderType, url: str, **kwargs: Any) -> Mapping[str, str]:
         """Download and process inventory files using a handler.
