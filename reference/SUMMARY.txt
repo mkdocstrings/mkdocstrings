@@ -1,0 +1,8 @@
+* mkdocstrings
+    * [extension](extension.md)
+    * handlers
+        * [base](handlers/base.md)
+        * [rendering](handlers/rendering.md)
+    * [inventory](inventory.md)
+    * [loggers](loggers.md)
+    * [plugin](plugin.md)

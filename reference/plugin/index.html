@@ -12,8 +12,14 @@
       
         <link rel="canonical" href="https://mkdocstrings.github.io/reference/plugin/">
       
+      
+        <link rel="prev" href="../loggers/">
+      
+      
+        <link rel="next" href="../../contributing/">
+      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.5">
     
     
       
@@ -21,11 +27,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.975780f9.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.558e4712.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
-        
       
       
 
@@ -122,8 +127,6 @@
       <form class="md-header__option" data-md-component="palette">
         
           
-          
-          
           <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
           
             <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
@@ -131,8 +134,6 @@
             </label>
           
         
-          
-          
           
           <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
           
@@ -171,7 +172,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -340,12 +341,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_1">
+        <label class="md-nav__link" for="__nav_1" tabindex="0" aria-expanded="false">
           Home
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -430,8 +432,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
       
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
       
       
       
@@ -476,8 +479,9 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
       
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
       
       
       
@@ -595,12 +599,13 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_3" tabindex="0" aria-expanded="true">
           Code Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -623,12 +628,13 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3_1">
+        <label class="md-nav__link" for="__nav_3_1" tabindex="0" aria-expanded="true">
           mkdocstrings
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -663,12 +669,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1_2" type="checkbox" id="__nav_3_1_2" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_1_2" type="checkbox" id="__nav_3_1_2" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3_1_2">
+        <label class="md-nav__link" for="__nav_3_1_2" tabindex="0" aria-expanded="false">
           handlers
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -829,6 +836,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#mkdocstrings.plugin.MkdocstringsPlugin.plugin_enabled" class="md-nav__link">
+    plugin_enabled
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mkdocstrings.plugin.MkdocstringsPlugin.get_handler" class="md-nav__link">
     get_handler()
   </a>
@@ -868,6 +882,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#mkdocstrings.plugin.list_to_tuple" class="md-nav__link">
+    list_to_tuple()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -901,12 +922,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_4">
+        <label class="md-nav__link" for="__nav_4" tabindex="0" aria-expanded="false">
           Development
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -1056,6 +1078,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#mkdocstrings.plugin.MkdocstringsPlugin.plugin_enabled" class="md-nav__link">
+    plugin_enabled
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mkdocstrings.plugin.MkdocstringsPlugin.get_handler" class="md-nav__link">
     get_handler()
   </a>
@@ -1095,6 +1124,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#mkdocstrings.plugin.list_to_tuple" class="md-nav__link">
+    list_to_tuple()
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1109,10 +1145,9 @@
                 
                   
 
-  <a href="https://github.com/mkdocstrings/mkdocstrings/blob/master/src/mkdocstrings/plugin.py" title="Edit this page" class="md-content__button md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
-  </a>
+  
+  
+
 
 
   <h1>plugin</h1>
@@ -1147,14 +1182,14 @@ during the <a href="https://www.mkdocs.org/user-guide/plugins/#on_serve"><code>o
 
 
 
-<h2 class="doc doc-heading" id="mkdocstrings.plugin.RENDERING_OPTS_KEY">
+<h2 id="mkdocstrings.plugin.RENDERING_OPTS_KEY" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">RENDERING_OPTS_KEY</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;rendering&#39;</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
   </span>
 
-<a class="headerlink" href="#mkdocstrings.plugin.RENDERING_OPTS_KEY" title="Permanent link">¤</a></h2>
+<a href="#mkdocstrings.plugin.RENDERING_OPTS_KEY" class="headerlink" title="Permanent link">¤</a></h2>
 
 
   <div class="doc doc-contents ">
@@ -1168,14 +1203,14 @@ during the <a href="https://www.mkdocs.org/user-guide/plugins/#on_serve"><code>o
 
 
 
-<h2 class="doc doc-heading" id="mkdocstrings.plugin.SELECTION_OPTS_KEY">
+<h2 id="mkdocstrings.plugin.SELECTION_OPTS_KEY" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">SELECTION_OPTS_KEY</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;selection&#39;</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
   </span>
 
-<a class="headerlink" href="#mkdocstrings.plugin.SELECTION_OPTS_KEY" title="Permanent link">¤</a></h2>
+<a href="#mkdocstrings.plugin.SELECTION_OPTS_KEY" class="headerlink" title="Permanent link">¤</a></h2>
 
 
   <div class="doc doc-contents ">
@@ -1190,10 +1225,10 @@ during the <a href="https://www.mkdocs.org/user-guide/plugins/#on_serve"><code>o
 
 
 
-<h2 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin">
+<h2 id="mkdocstrings.plugin.MkdocstringsPlugin" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">MkdocstringsPlugin</span><span class="p">()</span></code>
 
-<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin" title="Permanent link">¤</a></h2>
+<a href="#mkdocstrings.plugin.MkdocstringsPlugin" class="headerlink" title="Permanent link">¤</a></h2>
 
 
   <div class="doc doc-contents ">
@@ -1215,11 +1250,11 @@ for more information about its plugin system.</p>
 
           <details class="quote">
             <summary>Source code in <code>mkdocstrings/plugin.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">94</span>
-<span class="normal">95</span>
-<span class="normal">96</span>
-<span class="normal">97</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Initialize the object.&quot;&quot;&quot;</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the object.&quot;&quot;&quot;</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Handlers</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div></td></tr></table></div>
@@ -1239,14 +1274,14 @@ for more information about its plugin system.</p>
 
 
 
-<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.config_scheme">
-<code class="highlight language-python"><span class="n">config_scheme</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">MkType</span><span class="p">]]</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;watch&#39;</span><span class="p">,</span> <span class="n">MkType</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[])),</span> <span class="p">(</span><span class="s1">&#39;handlers&#39;</span><span class="p">,</span> <span class="n">MkType</span><span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">{})),</span> <span class="p">(</span><span class="s1">&#39;default_handler&#39;</span><span class="p">,</span> <span class="n">MkType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;python&#39;</span><span class="p">)),</span> <span class="p">(</span><span class="s1">&#39;custom_templates&#39;</span><span class="p">,</span> <span class="n">MkType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)),</span> <span class="p">(</span><span class="s1">&#39;enable_inventory&#39;</span><span class="p">,</span> <span class="n">MkType</span><span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)))</span></code>
+<h3 id="mkdocstrings.plugin.MkdocstringsPlugin.config_scheme" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">config_scheme</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">MkType</span><span class="p">]]</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;watch&#39;</span><span class="p">,</span> <span class="n">MkType</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[])),</span> <span class="p">(</span><span class="s1">&#39;handlers&#39;</span><span class="p">,</span> <span class="n">MkType</span><span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">{})),</span> <span class="p">(</span><span class="s1">&#39;default_handler&#39;</span><span class="p">,</span> <span class="n">MkType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;python&#39;</span><span class="p">)),</span> <span class="p">(</span><span class="s1">&#39;custom_templates&#39;</span><span class="p">,</span> <span class="n">MkType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)),</span> <span class="p">(</span><span class="s1">&#39;enable_inventory&#39;</span><span class="p">,</span> <span class="n">MkType</span><span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)),</span> <span class="p">(</span><span class="s1">&#39;enabled&#39;</span><span class="p">,</span> <span class="n">MkType</span><span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)))</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
   </span>
 
-<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.config_scheme" title="Permanent link">¤</a></h3>
+<a href="#mkdocstrings.plugin.MkdocstringsPlugin.config_scheme" class="headerlink" title="Permanent link">¤</a></h3>
 
 
   <div class="doc doc-contents ">
@@ -1258,19 +1293,20 @@ for more information about its plugin system.</p>
    Whenever a file changes in one of directories, the whole documentation is built again, and the browser refreshed.
    Deprecated in favor of the now built-in <code>watch</code> feature of MkDocs.</li>
 <li><strong><code>default_handler</code></strong>: The default handler to use. The value is the name of the handler module. Default is "python".</li>
+<li><strong><code>enabled</code></strong>: Whether to enable the plugin. Default is true. If false, <em>mkdocstrings</em> will not collect or render anything.</li>
 <li><strong><code>handlers</code></strong>: Global configuration of handlers. You can set global configuration per handler, applied everywhere,
   but overridable in each "autodoc" instruction. Example:</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">handlers</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">python</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="nt">options</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">selection_opt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">            </span><span class="nt">rendering_opt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="nt">rust</span><span class="p">:</span><span class="w"></span>
-<span class="w">          </span><span class="nt">options</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">selection_opt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mkdocstrings</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">handlers</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">python</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">selection_opt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">            </span><span class="nt">rendering_opt</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span>
+<span class="w">        </span><span class="nt">rust</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">selection_opt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
 </code></pre></div>
   </div>
 
@@ -1280,14 +1316,14 @@ for more information about its plugin system.</p>
 
 
 
-<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.handlers">
+<h3 id="mkdocstrings.plugin.MkdocstringsPlugin.handlers" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">handlers</span><span class="p">:</span> <span class="n">Handlers</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
-<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.handlers" title="Permanent link">¤</a></h3>
+<a href="#mkdocstrings.plugin.MkdocstringsPlugin.handlers" class="headerlink" title="Permanent link">¤</a></h3>
 
 
   <div class="doc doc-contents ">
@@ -1337,14 +1373,14 @@ for more information about its plugin system.</p>
 
 
 
-<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.inventory_enabled">
+<h3 id="mkdocstrings.plugin.MkdocstringsPlugin.inventory_enabled" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">inventory_enabled</span><span class="p">:</span> <span class="nb">bool</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
-<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.inventory_enabled" title="Permanent link">¤</a></h3>
+<a href="#mkdocstrings.plugin.MkdocstringsPlugin.inventory_enabled" class="headerlink" title="Permanent link">¤</a></h3>
 
 
   <div class="doc doc-contents ">
@@ -1372,16 +1408,55 @@ for more information about its plugin system.</p>
 
 </div>
 
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="mkdocstrings.plugin.MkdocstringsPlugin.plugin_enabled" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">plugin_enabled</span><span class="p">:</span> <span class="nb">bool</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#mkdocstrings.plugin.MkdocstringsPlugin.plugin_enabled" class="headerlink" title="Permanent link">¤</a></h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Tell if the plugin is enabled or not.</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+          </td>
+          <td><p>Whether the plugin is enabled.</p></td>
+        </tr>
+    </tbody>
+  </table>
+  </div>
+
+</div>
+
 
 
 <div class="doc doc-object doc-function">
 
 
 
-<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.get_handler">
+<h3 id="mkdocstrings.plugin.MkdocstringsPlugin.get_handler" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">get_handler</span><span class="p">(</span><span class="n">handler_name</span><span class="p">)</span></code>
 
-<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.get_handler" title="Permanent link">¤</a></h3>
+<a href="#mkdocstrings.plugin.MkdocstringsPlugin.get_handler" class="headerlink" title="Permanent link">¤</a></h3>
 
 
   <div class="doc doc-contents ">
@@ -1432,17 +1507,17 @@ for more information about its plugin system.</p>
 
       <details class="quote">
         <summary>Source code in <code>mkdocstrings/plugin.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">270</span>
-<span class="normal">271</span>
-<span class="normal">272</span>
-<span class="normal">273</span>
-<span class="normal">274</span>
-<span class="normal">275</span>
-<span class="normal">276</span>
-<span class="normal">277</span>
-<span class="normal">278</span>
-<span class="normal">279</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseHandler</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Get a handler by its name. See [mkdocstrings.handlers.base.Handlers.get_handler][].</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseHandler</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get a handler by its name. See [mkdocstrings.handlers.base.Handlers.get_handler][].</span>
 
 <span class="sd">    Arguments:</span>
 <span class="sd">        handler_name: The name of the handler.</span>
@@ -1461,10 +1536,10 @@ for more information about its plugin system.</p>
 
 
 
-<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.on_config">
+<h3 id="mkdocstrings.plugin.MkdocstringsPlugin.on_config" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">on_config</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
-<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_config" title="Permanent link">¤</a></h3>
+<a href="#mkdocstrings.plugin.MkdocstringsPlugin.on_config" class="headerlink" title="Permanent link">¤</a></h3>
 
 
   <div class="doc doc-contents ">
@@ -1530,23 +1605,7 @@ later when processing markdown to get handlers and their global configurations).
 
       <details class="quote">
         <summary>Source code in <code>mkdocstrings/plugin.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">152</span>
 <span class="normal">153</span>
 <span class="normal">154</span>
 <span class="normal">155</span>
@@ -1603,8 +1662,27 @@ later when processing markdown to get handlers and their global configurations).
 <span class="normal">206</span>
 <span class="normal">207</span>
 <span class="normal">208</span>
-<span class="normal">209</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Config</span><span class="p">:</span>  <span class="c1"># noqa: W0613 (unused arguments)</span>
-    <span class="sd">&quot;&quot;&quot;Instantiate our Markdown extension.</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Config</span><span class="p">:</span>  <span class="c1"># noqa: W0613 (unused arguments)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Instantiate our Markdown extension.</span>
 
 <span class="sd">    Hook for the [`on_config` event](https://www.mkdocs.org/user-guide/plugins/#on_config).</span>
 <span class="sd">    In this hook, we instantiate our [`MkdocstringsExtension`][mkdocstrings.extension.MkdocstringsExtension]</span>
@@ -1620,6 +1698,9 @@ later when processing markdown to get handlers and their global configurations).
 <span class="sd">    Returns:</span>
 <span class="sd">        The modified config.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin_enabled</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plugin is not enabled. Skipping.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">config</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Adding extension to the list&quot;</span><span class="p">)</span>
 
     <span class="n">theme_name</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1687,10 +1768,10 @@ later when processing markdown to get handlers and their global configurations).
 
 
 
-<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.on_env">
+<h3 id="mkdocstrings.plugin.MkdocstringsPlugin.on_env" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">on_env</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
-<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_env" title="Permanent link">¤</a></h3>
+<a href="#mkdocstrings.plugin.MkdocstringsPlugin.on_env" class="headerlink" title="Permanent link">¤</a></h3>
 
 
   <div class="doc doc-contents ">
@@ -1704,36 +1785,40 @@ later when processing markdown to get handlers and their global configurations).
 
       <details class="quote">
         <summary>Source code in <code>mkdocstrings/plugin.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">223</span>
-<span class="normal">224</span>
-<span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span>
-<span class="normal">239</span>
-<span class="normal">240</span>
-<span class="normal">241</span>
-<span class="normal">242</span>
-<span class="normal">243</span>
-<span class="normal">244</span>
-<span class="normal">245</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Extra actions that need to happen after all Markdown rendering and before HTML rendering.</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_env</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extra actions that need to happen after all Markdown rendering and before HTML rendering.</span>
 
 <span class="sd">    Hook for the [`on_env` event](https://www.mkdocs.org/user-guide/plugins/#on_env).</span>
 
 <span class="sd">    - Write mkdocstrings&#39; extra files into the site dir.</span>
 <span class="sd">    - Gather results from background inventory download tasks.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin_enabled</span><span class="p">:</span>
+        <span class="k">return</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">:</span>
         <span class="n">css_content</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">extra_css</span> <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="o">.</span><span class="n">seen_handlers</span><span class="p">)</span>
         <span class="n">write_file</span><span class="p">(</span><span class="n">css_content</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;site_dir&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">css_filename</span><span class="p">))</span>
@@ -1759,10 +1844,10 @@ later when processing markdown to get handlers and their global configurations).
 
 
 
-<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.on_post_build">
+<h3 id="mkdocstrings.plugin.MkdocstringsPlugin.on_post_build" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">on_post_build</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
-<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_post_build" title="Permanent link">¤</a></h3>
+<a href="#mkdocstrings.plugin.MkdocstringsPlugin.on_post_build" class="headerlink" title="Permanent link">¤</a></h3>
 
 
   <div class="doc doc-contents ">
@@ -1810,31 +1895,34 @@ the proper place to do this is in the collector's <code>teardown</code> method, 
 
       <details class="quote">
         <summary>Source code in <code>mkdocstrings/plugin.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">247</span>
-<span class="normal">248</span>
-<span class="normal">249</span>
-<span class="normal">250</span>
-<span class="normal">251</span>
-<span class="normal">252</span>
-<span class="normal">253</span>
-<span class="normal">254</span>
-<span class="normal">255</span>
-<span class="normal">256</span>
-<span class="normal">257</span>
-<span class="normal">258</span>
-<span class="normal">259</span>
-<span class="normal">260</span>
-<span class="normal">261</span>
-<span class="normal">262</span>
-<span class="normal">263</span>
-<span class="normal">264</span>
-<span class="normal">265</span>
-<span class="normal">266</span>
-<span class="normal">267</span>
-<span class="normal">268</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_post_build</span><span class="p">(</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_post_build</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: W0613,R0201 (unused arguments, cannot be static)</span>
-    <span class="sd">&quot;&quot;&quot;Teardown the handlers.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Teardown the handlers.</span>
 
 <span class="sd">    Hook for the [`on_post_build` event](https://www.mkdocs.org/user-guide/plugins/#on_post_build).</span>
 <span class="sd">    This hook is used to teardown all the handlers that were instantiated and cached during documentation buildup.</span>
@@ -1847,6 +1935,9 @@ the proper place to do this is in the collector's <code>teardown</code> method, 
 <span class="sd">        config: The MkDocs config object.</span>
 <span class="sd">        **kwargs: Additional arguments passed by MkDocs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin_enabled</span><span class="p">:</span>
+        <span class="k">return</span>
+
     <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inv_futures</span><span class="p">:</span>
         <span class="n">future</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
 
@@ -1863,10 +1954,10 @@ the proper place to do this is in the collector's <code>teardown</code> method, 
 
 
 
-<h3 class="doc doc-heading" id="mkdocstrings.plugin.MkdocstringsPlugin.on_serve">
+<h3 id="mkdocstrings.plugin.MkdocstringsPlugin.on_serve" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">on_serve</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">builder</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
-<a class="headerlink" href="#mkdocstrings.plugin.MkdocstringsPlugin.on_serve" title="Permanent link">¤</a></h3>
+<a href="#mkdocstrings.plugin.MkdocstringsPlugin.on_serve" class="headerlink" title="Permanent link">¤</a></h3>
 
 
   <div class="doc doc-contents ">
@@ -1943,30 +2034,32 @@ and the site reloaded.</p>
 
       <details class="quote">
         <summary>Source code in <code>mkdocstrings/plugin.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">128</span>
 <span class="normal">129</span>
 <span class="normal">130</span>
 <span class="normal">131</span>
 <span class="normal">132</span>
 <span class="normal">133</span>
-<span class="normal">134</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_serve</span><span class="p">(</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">on_serve</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">:</span> <span class="n">LiveReloadServer</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">builder</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: W0613 (unused arguments)</span>
-    <span class="sd">&quot;&quot;&quot;Watch directories.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Watch directories.</span>
 
 <span class="sd">    Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).</span>
 <span class="sd">    In this hook, we add the directories specified in the plugin&#39;s configuration to the list of directories</span>
@@ -1980,6 +2073,8 @@ and the site reloaded.</p>
 <span class="sd">        *args: Additional arguments passed by MkDocs.</span>
 <span class="sd">        **kwargs: Additional arguments passed by MkDocs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin_enabled</span><span class="p">:</span>
+        <span class="k">return</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;watch&quot;</span><span class="p">]:</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;watch&quot;</span><span class="p">]:</span>
             <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding directory &#39;</span><span class="si">{</span><span class="n">element</span><span class="si">}</span><span class="s2">&#39; to watcher&quot;</span><span class="p">)</span>
@@ -1998,6 +2093,47 @@ and the site reloaded.</p>
 
 </div>
 
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="mkdocstrings.plugin.list_to_tuple" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">list_to_tuple</span><span class="p">(</span><span class="n">function</span><span class="p">)</span></code>
+
+<a href="#mkdocstrings.plugin.list_to_tuple" class="headerlink" title="Permanent link">¤</a></h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Decorater to convert lists to tuples in the arguments.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>mkdocstrings/plugin.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">list_to_tuple</span><span class="p">(</span><span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decorater to convert lists to tuples in the arguments.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+        <span class="n">safe_args</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">return</span> <span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">safe_args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
 
 
 
@@ -2026,42 +2162,6 @@ and the site reloaded.</p>
       </main>
       
         <footer class="md-footer">
-  
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="../loggers/" class="md-footer__link md-footer__link--prev" aria-label="Previous: loggers" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              loggers
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../../contributing/" class="md-footer__link md-footer__link--next" aria-label="Next: Contributing" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Contributing
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -2106,12 +2206,11 @@ and the site reloaded.</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "navigation.tabs", "navigation.tabs.sticky", "navigation.top"], "search": "../../assets/javascripts/workers/search.e5c33ebb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.51d95adb.min.js"></script>
       
-    
     
   </body>
 </html>
