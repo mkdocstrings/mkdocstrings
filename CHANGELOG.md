@@ -5,6 +5,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.20.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.20.0) - 2023-01-19
+
+<small>[Compare with 0.19.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.19.1...0.20.0)</small>
+
+### Features
+- Add `enabled` configuration option ([8cf117d](https://github.com/mkdocstrings/mkdocstrings/commit/8cf117daeefb4fc522145cc567b40eb4256c0a94) by StefanBRas). [Issue #478](https://github.com/mkdocstrings/mkdocstrings/issues/478), [PR #504](https://github.com/mkdocstrings/mkdocstrings/pull/504)
+
+### Bug Fixes
+- Handle updating Jinja environment of multiple handlers ([a6ea80c](https://github.com/mkdocstrings/mkdocstrings/commit/a6ea80c992f2a200d8cee3c9ff3b651ddd049a3d) by David Patterson). [Related PR #201](https://github.com/mkdocstrings/mkdocstrings/pull/201), [Issue #502](https://github.com/mkdocstrings/mkdocstrings/issues/502), [PR #507](https://github.com/mkdocstrings/mkdocstrings/pull/507)
+
+### Code Refactoring
+- Make `_load_inventory` accept lists as arguments ([105ed82](https://github.com/mkdocstrings/mkdocstrings/commit/105ed8210d4665f6b52f2cc04d56df2d35cd3caf) by Sorin Sbarnea). [Needed by PR mkdocstrings/python#49](https://github.com/mkdocstrings/python/issues/49), [PR #511](https://github.com/mkdocstrings/mkdocstrings/pull/511)
+- Remove support for MkDocs < 1.2 (we already depended on MkDocs >= 1.2) ([ac963c8](https://github.com/mkdocstrings/mkdocstrings/commit/ac963c88c793e640d2a7a31392aff1fc2d15ba52) by Timothée Mazzucotelli).
+
 ## [0.19.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.19.1) - 2022-12-13
 
 <small>[Compare with 0.19.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.19.0...0.19.1)</small>
