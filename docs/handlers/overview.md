@@ -134,7 +134,7 @@ Since version 0.14, you can create and use custom handlers
 thanks to namespace packages. For more information about namespace packages,
 [see their documentation](https://packaging.python.org/guides/packaging-namespace-packages/).
 
-TIP: **TL;DR - Project template for handlers.**  
+TIP: **TL;DR - Project template for handlers.**
 *mkdocstrings* provides a [Copier](https://github.com/copier-org/copier) template to kickstart
 new handlers: https://github.com/mkdocstrings/handler-template. To use it, install Copier
 (`pipx install copier`), then run `copier gh:mkdocstrings/handler-template my_handler`
@@ -178,8 +178,12 @@ This function takes the following parameters:
 
 These arguments are all passed as keyword arguments, so you can ignore them
 by adding `**kwargs` or similar to your signature. You can also accept
-additional parameters: the handler's global-only options will be passed
-to this function when instantiating your handler.
+additional parameters: the handler's global-only options and/or the root
+config options. This gives flexibility and access to the mkdocs config, mkdocstring
+config and etc.. You should never modify the root config but can be used to get
+information about the mkdocs instance such as where the current `site_dir` lives.
+See the [Mkdocs Configuration](https://www.mkdocs.org/user-guide/configuration/) for
+more info about what is accessible from it.
 
 Check out how the
 [Python handler](https://github.com/mkdocstrings/python/blob/master/src/mkdocstrings_handlers/python)
