@@ -124,7 +124,7 @@ class BaseRenderer:
 
         Arguments:
             data: The collected data to render.
-            config: The handler's configuraton options.
+            config: The handler's configuration options.
 
         Returns:
             The rendered template as HTML.
@@ -577,7 +577,7 @@ class Handlers:
 
         Returns:
             An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler],
-            as instantiated by the `get_handler` method of the handler's module.
+                as instantiated by the `get_handler` method of the handler's module.
         """
         if name not in self._handlers:
             if handler_config is None:
