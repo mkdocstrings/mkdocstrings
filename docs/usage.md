@@ -326,7 +326,7 @@ Reciprocally, *mkdocstrings* also allows to *generate* an inventory file in the 
 It will be enabled by default if the Python handler is used, and generated as `objects.inv` in the final site directory.
 Other projects will be able to cross-reference items from your project.
 
-To explicitely enable or disable the generation of the inventory file, use the global
+To explicitly enable or disable the generation of the inventory file, use the global
 `enable_inventory` option:
 
 ```yaml

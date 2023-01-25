@@ -329,7 +329,7 @@ class BaseCollector:
             identifier: An identifier for which to collect data. For example, in Python,
                 it would be 'mkdocstrings.handlers' to collect documentation about the handlers module.
                 It can be anything that you can feed to the tool of your choice.
-            config: The handler's configuraton options.
+            config: The handler's configuration options.
 
         Returns:
             Anything you want, as long as you can feed it to the renderer's `render` method.
@@ -373,7 +373,7 @@ class BaseHandler(BaseCollector, BaseRenderer):
             **kwargs: Same thing, but with keyword arguments.
 
         Raises:
-            ValueError: When the givin parameters are invalid.
+            ValueError: When the given parameters are invalid.
         """
         # The method accepts *args and **kwargs temporarily,
         # to support the transition period where the BaseCollector
