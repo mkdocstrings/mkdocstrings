@@ -18,7 +18,7 @@ so you can tweak the look and feel with extra CSS rules.
 ### Templates
 
 To use custom templates and override the theme ones,
-specify the relative path to your templates directory
+specify the relative path from `mkdocs.yml` to your templates directory
 with the `custom_templates` global configuration option:
 
 ```yaml title="mkdocs.yml"
