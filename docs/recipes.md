@@ -250,7 +250,7 @@ will expand or collapse when you click on them,
 revealing `__init__` modules under them
 (or equivalent modules in other languages, if relevant).
 Since we are documenting a public API, and given users
-never explicitely import `__init__` modules, it would be nice
+never explicitly import `__init__` modules, it would be nice
 if we could get rid of them and instead render their documentation
 inside the section itself.
 

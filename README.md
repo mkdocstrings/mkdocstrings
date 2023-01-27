@@ -84,8 +84,11 @@ conda install -c conda-forge mkdocstrings
 
 ## Quick usage
 
+In `mkdocs.yml`:
+
 ```yaml
-# mkdocs.yml
+site_name: "My Library"
+
 theme:
   name: "material"
 

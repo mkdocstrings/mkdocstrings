@@ -106,18 +106,18 @@ The above is equivalent to:
 
 *mkdocstrings* accepts a few top-level configuration options in `mkdocs.yml`:
 
-- `default_handler`: the handler that is used by default when no handler is specified.
-- `custom_templates`: the path to a directory containing custom templates.
+- `default_handler`: The handler that is used by default when no handler is specified.
+- `custom_templates`: The path to a directory containing custom templates.
   The path is relative to the current working directory.
   See [Theming](theming.md).
-- `handlers`: the handlers global configuration.
-- `enable_inventory`: whether to enable inventory file generation.
+- `handlers`: The handlers' global configuration.
+- `enable_inventory`: Whether to enable inventory file generation.
   See [Cross-references to other projects / inventories](#cross-references-to-other-projects-inventories)
 - `enabled` **(New in version 0.20)**: Whether to enable the plugin. Defaults to `true`.
   Can be used to reduce build times when doing local development.
   Especially useful when used with environment variables (see example below).
-- `watch` **(deprecated)**: a list of directories to watch while serving the documentation.
-  See [Watch directories](#watch-directories). **Deprecated in favor of the now built-in
+- `watch` **(deprecated)**: A list of directories to watch while serving the documentation.
+  See [Watch directories](#watch-directories). Deprecated in favor of the now built-in
   [`watch` feature of MkDocs](https://www.mkdocs.org/user-guide/configuration/#watch).
 
 !!! example
@@ -326,7 +326,7 @@ Reciprocally, *mkdocstrings* also allows to *generate* an inventory file in the 
 It will be enabled by default if the Python handler is used, and generated as `objects.inv` in the final site directory.
 Other projects will be able to cross-reference items from your project.
 
-To explicitely enable or disable the generation of the inventory file, use the global
+To explicitly enable or disable the generation of the inventory file, use the global
 `enable_inventory` option:
 
 ```yaml
@@ -361,4 +361,3 @@ For example, it will not tell the Python handler to look for packages in these p
 (the paths are not added to the `PYTHONPATH` variable).
 If you want to tell Python where to look for packages and modules,
 see [Python Handler: Finding modules](https://mkdocstrings.github.io/python/usage/#finding-modules).
-

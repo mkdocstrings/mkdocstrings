@@ -154,7 +154,7 @@ class AutoDocProcessor(BlockProcessor):
         Arguments:
             identifier: The identifier of the object to collect and render.
             yaml_block: The YAML configuration.
-            heading_level: Suggested level of the the heading to insert (0 to ignore).
+            heading_level: Suggested level of the heading to insert (0 to ignore).
 
         Raises:
             PluginError: When something wrong happened during collection.
