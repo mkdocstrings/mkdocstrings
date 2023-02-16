@@ -72,7 +72,7 @@ pip install mkdocstrings
 You can install support for specific languages using extras, for example:
 
 ```bash
-pip install mkdocstrings[crystal,python]
+pip install 'mkdocstrings[crystal,python]'
 ```
 
 See the [available language handlers](https://mkdocstrings.github.io/handlers/overview/).
