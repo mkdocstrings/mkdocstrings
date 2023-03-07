@@ -14,7 +14,7 @@ import importlib
 import warnings
 from contextlib import suppress
 from pathlib import Path
-from typing import Any, BinaryIO, Dict, Iterable, Iterator, List, Mapping, Optional, Sequence
+from typing import Any, BinaryIO, Dict, Iterable, Iterator, List, Mapping, MutableMapping, Optional, Sequence
 from xml.etree.ElementTree import Element, tostring
 
 from jinja2 import Environment, FileSystemLoader
@@ -319,7 +319,7 @@ class BaseCollector:
     You can also implement the `teardown` method.
     """
 
-    def collect(self, identifier: str, config: Mapping[str, Any]) -> CollectorItem:
+    def collect(self, identifier: str, config: MutableMapping[str, Any]) -> CollectorItem:
         """Collect data given an identifier and selection configuration.
 
         In the implementation, you typically call a subprocess that returns JSON, and load that JSON again into

@@ -114,7 +114,7 @@ tests = [
     "sphinx",
 ]
 typing = [
-    "mypy>=0.910",
+    "mypy>=0.911",
     "types-docutils",
     "types-markdown>=3.3",
     "types-pyyaml",
