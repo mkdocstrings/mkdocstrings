@@ -134,7 +134,7 @@ Since version 0.14, you can create and use custom handlers
 thanks to namespace packages. For more information about namespace packages,
 [see their documentation](https://packaging.python.org/guides/packaging-namespace-packages/).
 
-TIP: **TL;DR - Project template for handlers.**
+TIP: **TL;DR - Project template for handlers.**  
 *mkdocstrings* provides a [Copier](https://github.com/copier-org/copier) template to kickstart
 new handlers: https://github.com/mkdocstrings/handler-template. To use it, install Copier
 (`pipx install copier`), then run `copier gh:mkdocstrings/handler-template my_handler`
