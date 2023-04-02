@@ -514,7 +514,7 @@ class Handlers:
         """
         self._config = config
         self._handlers: Dict[str, BaseHandler] = {}
-        self.inventory: Inventory = Inventory(project=self._config["site_name"])
+        self.inventory: Inventory = Inventory(project=self._config["mkdocs"]["site_name"])
 
     def get_anchors(self, identifier: str) -> Sequence[str]:
         """Return the canonical HTML anchor for the identifier, if any of the seen handlers can collect it.
@@ -582,6 +582,7 @@ class Handlers:
         if name not in self._handlers:
             if handler_config is None:
                 handler_config = self.get_handler_config(name)
+            handler_config.update(self._config)
             try:
                 module = importlib.import_module(f"mkdocstrings_handlers.{name}")
             except ModuleNotFoundError:
@@ -596,7 +597,7 @@ class Handlers:
             self._handlers[name] = module.get_handler(
                 theme=self._config["theme_name"],
                 custom_templates=self._config["mkdocstrings"]["custom_templates"],
-                config_file_path=self._config["config_file_path"],
+                config_file_path=self._config["mkdocs"]["config_file_path"],
                 **handler_config,
             )
         return self._handlers[name]

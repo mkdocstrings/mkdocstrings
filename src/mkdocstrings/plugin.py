@@ -185,12 +185,11 @@ class MkdocstringsPlugin(BasePlugin):
                 to_import.append((handler_name, import_item))
 
         extension_config = {
-            "site_name": config["site_name"],
-            "config_file_path": config["config_file_path"],
             "theme_name": theme_name,
             "mdx": config["markdown_extensions"],
             "mdx_configs": config["mdx_configs"],
             "mkdocstrings": self.config,
+            "mkdocs": config,
         }
         self._handlers = Handlers(extension_config)
 
