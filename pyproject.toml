@@ -64,8 +64,9 @@ includes = ["src/mkdocstrings"]
 editable-backend = "editables"
 
 [tool.pdm.dev-dependencies]
-duty = ["duty>=0.7"]
+duty = ["duty>=0.8"]
 docs = [
+    "black>=23.1",
     "mkdocs>=1.3",
     "mkdocs-coverage>=0.2",
     "mkdocs-gen-files>=0.3",
@@ -77,32 +78,13 @@ docs = [
     "markdown-exec>=0.5",
     "toml>=0.10",
 ]
-format = [
-    "autoflake>=1.4",
-    "black>=21.10b0",
-    "isort>=5.10",
-]
 maintain = [
-    "git-changelog>=0.4",
+    "black>=23.1",
+    "blacken-docs>=1.13",
+    "git-changelog>=1.0",
 ]
 quality = [
-    # TODO: remove once importlib-metadata version conflict is resolved
-    "importlib-metadata<5; python_version < '3.8'",
-    "flake8>=4; python_version >= '3.8'",
-
-    "darglint>=1.8",
-    "flake8-bandit>=2.1",
-    "flake8-black>=0.2",
-    "flake8-bugbear>=21.9",
-    "flake8-builtins>=1.5",
-    "flake8-comprehensions>=3.7",
-    "flake8-docstrings>=1.6",
-    "flake8-pytest-style>=1.5",
-    "flake8-string-format>=0.3",
-    "flake8-tidy-imports>=4.5",
-    "flake8-variables-names>=0.0",
-    "pep8-naming>=0.12",
-    "wps-light>=0.15",
+    "ruff>=0.0.246",
 ]
 tests = [
     "docutils",
@@ -121,17 +103,3 @@ typing = [
     "types-toml>=0.10",
 ]
 security = ["safety>=2"]
-
-[tool.black]
-line-length = 120
-exclude = "tests/fixtures"
-
-[tool.isort]
-line_length = 120
-not_skip = "__init__.py"
-multi_line_output = 3
-force_single_line = false
-balanced_wrapping = true
-default_section = "THIRDPARTY"
-known_first_party = "mkdocstrings"
-include_trailing_comma = true

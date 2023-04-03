@@ -73,8 +73,9 @@ Don't bother updating the changelog, we will take care of this.
 
 ## Commit message convention
 
-Commits messages must follow the
-[Angular style](https://gist.github.com/stephenparish/9941e89d80e2bc58a153#format-of-the-commit-message):
+Commit messages must follow our convention based on the
+[Angular style](https://gist.github.com/stephenparish/9941e89d80e2bc58a153#format-of-the-commit-message)
+or the [Karma convention](https://karma-runner.github.io/4.0/dev/git-commit-msg.html):
 
 ```
 <type>[(scope)]: Subject
@@ -82,11 +83,17 @@ Commits messages must follow the
 [Body]
 ```
 
+**Subject and body must be valid Markdown.**
+Subject must have proper casing (uppercase for first letter
+if it makes sense), but no dot at the end, and no punctuation
+in general.
+
 Scope and body are optional. Type can be:
 
 - `build`: About packaging, building wheels, etc.
 - `chore`: About packaging or repo/files management.
 - `ci`: About Continuous Integration.
+- `deps`: Dependencies update.
 - `docs`: About documentation.
 - `feat`: New feature.
 - `fix`: Bug fix.
@@ -95,15 +102,27 @@ Scope and body are optional. Type can be:
 - `style`: A change in code style/format.
 - `tests`: About tests.
 
-**Subject (and body) must be valid Markdown.**
-If you write a body, please add issues references at the end:
+If you write a body, please add trailers at the end
+(for example issues and PR references, or co-authors),
+without relying on GitHub's flavored Markdown:
 
 ```
 Body.
 
-References: #10, #11.
-Fixes #15.
+Issue #10: https://github.com/namespace/project/issues/10
+Related to PR namespace/other-project#15: https://github.com/namespace/other-project/pull/15
 ```
+
+These "trailers" must appear at the end of the body,
+without any blank lines between them. The trailer title
+can contain any character except colons `:`.
+We expect a full URI for each trailer, not just GitHub autolinks
+(for example, full GitHub URLs for commits and issues,
+not the hash or the #issue-number).
+
+We do not enforce a line length on commit messages summary and body,
+but please avoid very long summaries, and very long lines in the body,
+unless they are part of code blocks that must not be wrapped.
 
 ## Pull requests guidelines
 
