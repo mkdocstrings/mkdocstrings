@@ -12,17 +12,18 @@ Finally, when serving the documentation, it can add directories to watch
 during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on_serve).
 """
 
+from __future__ import annotations
+
 import collections
 import functools
 import gzip
 import os
+import sys
 from concurrent import futures
-from typing import Any, BinaryIO, Callable, Iterable, List, Mapping, Optional, Tuple
+from typing import TYPE_CHECKING, Any, BinaryIO, Callable, Iterable, List, Mapping, Tuple, TypeVar
 from urllib import request
 
-from mkdocs.config import Config
 from mkdocs.config.config_options import Type as MkType
-from mkdocs.livereload import LiveReloadServer
 from mkdocs.plugins import BasePlugin
 from mkdocs.utils import write_file
 from mkdocs_autorefs.plugin import AutorefsPlugin
@@ -31,25 +32,38 @@ from mkdocstrings.extension import MkdocstringsExtension
 from mkdocstrings.handlers.base import BaseHandler, Handlers
 from mkdocstrings.loggers import get_logger
 
+if TYPE_CHECKING:
+    from jinja2.environment import Environment
+    from mkdocs.config import Config
+    from mkdocs.livereload import LiveReloadServer
+
+if sys.version_info < (3, 10):
+    from typing_extensions import ParamSpec
+else:
+    from typing import ParamSpec
+
 log = get_logger(__name__)
 
 SELECTION_OPTS_KEY: str = "selection"
-"""The name of the selection parameter in YAML configuration blocks."""
+"""Deprecated. The name of the selection parameter in YAML configuration blocks."""
 RENDERING_OPTS_KEY: str = "rendering"
-"""The name of the rendering parameter in YAML configuration blocks."""
+"""Deprecated. The name of the rendering parameter in YAML configuration blocks."""
 
 InventoryImportType = List[Tuple[str, Mapping[str, Any]]]
 InventoryLoaderType = Callable[..., Iterable[Tuple[str, str]]]
 
+P = ParamSpec("P")
+R = TypeVar("R")
 
-def list_to_tuple(function: Callable[..., Any]) -> Callable[..., Any]:
+
+def list_to_tuple(function: Callable[P, R]) -> Callable[P, R]:
     """Decorater to convert lists to tuples in the arguments."""
 
-    def wrapper(*args: Any, **kwargs: Any):
+    def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
         safe_args = [tuple(item) if isinstance(item, list) else item for item in args]
         if kwargs:
-            kwargs = {key: tuple(value) if isinstance(value, list) else value for key, value in kwargs.items()}
-        return function(*safe_args, **kwargs)
+            kwargs = {key: tuple(value) if isinstance(value, list) else value for key, value in kwargs.items()}  # type: ignore[assignment]
+        return function(*safe_args, **kwargs)  # type: ignore[arg-type]
 
     return wrapper
 
@@ -68,8 +82,8 @@ class MkdocstringsPlugin(BasePlugin):
     for more information about its plugin system.
     """
 
-    config_scheme: Tuple[Tuple[str, MkType]] = (
-        ("watch", MkType(list, default=[])),  # type: ignore
+    config_scheme: tuple[tuple[str, MkType]] = (
+        ("watch", MkType(list, default=[])),  # type: ignore[assignment]
         ("handlers", MkType(dict, default={})),
         ("default_handler", MkType(str, default="python")),
         ("custom_templates", MkType(str, default=None)),
@@ -108,7 +122,7 @@ class MkdocstringsPlugin(BasePlugin):
     def __init__(self) -> None:
         """Initialize the object."""
         super().__init__()
-        self._handlers: Optional[Handlers] = None
+        self._handlers: Handlers | None = None
 
     @property
     def handlers(self) -> Handlers:
@@ -126,8 +140,13 @@ class MkdocstringsPlugin(BasePlugin):
 
     # TODO: remove once watch feature is removed
     def on_serve(
-        self, server: LiveReloadServer, config: Config, builder: Callable, *args: Any, **kwargs: Any
-    ) -> None:  # noqa: W0613 (unused arguments)
+        self,
+        server: LiveReloadServer,
+        config: Config,  # noqa: ARG002
+        builder: Callable,
+        *args: Any,  # noqa: ARG002
+        **kwargs: Any,  # noqa: ARG002
+    ) -> None:
         """Watch directories.
 
         Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).
@@ -149,7 +168,7 @@ class MkdocstringsPlugin(BasePlugin):
                 log.debug(f"Adding directory '{element}' to watcher")
                 server.watch(element, builder)
 
-    def on_config(self, config: Config, **kwargs: Any) -> Config:  # noqa: W0613 (unused arguments)
+    def on_config(self, config: Config, **kwargs: Any) -> Config:  # noqa: ARG002
         """Instantiate our Markdown extension.
 
         Hook for the [`on_config` event](https://www.mkdocs.org/user-guide/plugins/#on_config).
@@ -171,17 +190,13 @@ class MkdocstringsPlugin(BasePlugin):
             return config
         log.debug("Adding extension to the list")
 
-        theme_name = None
-        if config["theme"].name is None:
-            theme_name = os.path.dirname(config["theme"].dirs[0])
-        else:
-            theme_name = config["theme"].name
+        theme_name = config["theme"].name or os.path.dirname(config["theme"].dirs[0])
 
         to_import: InventoryImportType = []
         for handler_name, conf in self.config["handlers"].items():
             for import_item in conf.pop("import", ()):
                 if isinstance(import_item, str):
-                    import_item = {"url": import_item}
+                    import_item = {"url": import_item}  # noqa: PLW2901
                 to_import.append((handler_name, import_item))
 
         extension_config = {
@@ -193,7 +208,7 @@ class MkdocstringsPlugin(BasePlugin):
         }
         self._handlers = Handlers(extension_config)
 
-        try:  # noqa: WPS229
+        try:
             # If autorefs plugin is explicitly enabled, just use it.
             autorefs = config["plugins"]["autorefs"]
             log.debug(f"Picked up existing autorefs instance {autorefs!r}")
@@ -214,9 +229,11 @@ class MkdocstringsPlugin(BasePlugin):
         self._inv_futures = []
         if to_import:
             inv_loader = futures.ThreadPoolExecutor(4)
-            for handler_name, import_item in to_import:  # noqa: WPS440
+            for handler_name, import_item in to_import:
                 future = inv_loader.submit(
-                    self._load_inventory, self.get_handler(handler_name).load_inventory, **import_item
+                    self._load_inventory,
+                    self.get_handler(handler_name).load_inventory,
+                    **import_item,
                 )
                 self._inv_futures.append(future)
             inv_loader.shutdown(wait=False)
@@ -247,7 +264,7 @@ class MkdocstringsPlugin(BasePlugin):
         """
         return self.config["enabled"]
 
-    def on_env(self, env, config: Config, *args, **kwargs) -> None:
+    def on_env(self, env: Environment, config: Config, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
         """Extra actions that need to happen after all Markdown rendering and before HTML rendering.
 
         Hook for the [`on_env` event](https://www.mkdocs.org/user-guide/plugins/#on_env).
@@ -274,8 +291,10 @@ class MkdocstringsPlugin(BasePlugin):
             self._inv_futures = []
 
     def on_post_build(
-        self, config: Config, **kwargs: Any
-    ) -> None:  # noqa: W0613,R0201 (unused arguments, cannot be static)
+        self,
+        config: Config,  # noqa: ARG002
+        **kwargs: Any,  # noqa: ARG002
+    ) -> None:
         """Teardown the handlers.
 
         Hook for the [`on_post_build` event](https://www.mkdocs.org/user-guide/plugins/#on_post_build).
@@ -311,9 +330,9 @@ class MkdocstringsPlugin(BasePlugin):
         return self.handlers.get_handler(handler_name)
 
     @classmethod
+    @functools.lru_cache(maxsize=None)
     # lru_cache does not allow mutable arguments such lists, but that is what we load from YAML config.
     @list_to_tuple
-    @functools.lru_cache(maxsize=None)
     def _load_inventory(cls, loader: InventoryLoaderType, url: str, **kwargs: Any) -> Mapping[str, str]:
         """Download and process inventory files using a handler.
 
@@ -337,7 +356,7 @@ class MkdocstringsPlugin(BasePlugin):
 
     @classmethod
     @functools.lru_cache(maxsize=None)  # Warn only once
-    def _warn_about_watch_option(cls):
+    def _warn_about_watch_option(cls) -> None:
         log.info(
             "DEPRECATION: mkdocstrings' watch feature is deprecated in favor of MkDocs' watch feature, "
             "see https://www.mkdocs.org/user-guide/configuration/#watch",

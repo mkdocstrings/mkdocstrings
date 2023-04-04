@@ -1,24 +1,29 @@
 """Logging functions."""
 
+from __future__ import annotations
+
 import logging
 from contextlib import suppress
 from pathlib import Path
-from typing import Any, Callable, MutableMapping, Optional, Sequence, Tuple
+from typing import TYPE_CHECKING, Any, Callable, MutableMapping, Sequence
 
-from jinja2.runtime import Context
 from mkdocs.utils import warning_filter
 
 try:
     from jinja2 import pass_context
 except ImportError:  # TODO: remove once Jinja2 < 3.1 is dropped
-    from jinja2 import contextfunction as pass_context  # type: ignore  # noqa: WPS440
+    from jinja2 import contextfunction as pass_context  # type: ignore[attr-defined,no-redef]
 
 try:
     import mkdocstrings_handlers
 except ImportError:
     TEMPLATES_DIRS: Sequence[Path] = ()
 else:
-    TEMPLATES_DIRS = tuple(mkdocstrings_handlers.__path__)  # type: ignore[arg-type]  # noqa: WPS609
+    TEMPLATES_DIRS = tuple(mkdocstrings_handlers.__path__)  # type: ignore[arg-type]
+
+
+if TYPE_CHECKING:
+    from jinja2.runtime import Context
 
 
 class LoggerAdapter(logging.LoggerAdapter):
@@ -34,7 +39,7 @@ class LoggerAdapter(logging.LoggerAdapter):
         super().__init__(logger, {})
         self.prefix = prefix
 
-    def process(self, msg: str, kwargs: MutableMapping[str, Any]) -> Tuple[str, Any]:
+    def process(self, msg: str, kwargs: MutableMapping[str, Any]) -> tuple[str, Any]:
         """Process the message.
 
         Arguments:
@@ -82,7 +87,7 @@ def get_template_logger_function(logger_func: Callable) -> Callable:
     """
 
     @pass_context
-    def wrapper(context: Context, msg: Optional[str] = None) -> str:
+    def wrapper(context: Context, msg: str | None = None) -> str:
         """Log a message.
 
         Arguments:

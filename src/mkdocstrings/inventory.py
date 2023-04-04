@@ -3,17 +3,25 @@
 # Credits to Brian Skinn and the sphobjinv project:
 # https://github.com/bskinn/sphobjinv
 
+from __future__ import annotations
+
 import re
 import zlib
 from textwrap import dedent
-from typing import BinaryIO, Collection, List, Optional
+from typing import BinaryIO, Collection
 
 
 class InventoryItem:
     """Inventory item."""
 
     def __init__(
-        self, name: str, domain: str, role: str, uri: str, priority: str = "1", dispname: Optional[str] = None
+        self,
+        name: str,
+        domain: str,
+        role: str,
+        uri: str,
+        priority: str = "1",
+        dispname: str | None = None,
     ):
         """Initialize the object.
 
@@ -49,7 +57,7 @@ class InventoryItem:
     sphinx_item_regex = re.compile(r"^(.+?)\s+(\S+):(\S+)\s+(-?\d+)\s+(\S+)\s*(.*)$")
 
     @classmethod
-    def parse_sphinx(cls, line: str) -> "InventoryItem":
+    def parse_sphinx(cls, line: str) -> InventoryItem:
         """Parse a line from a Sphinx v2 inventory file and return an `InventoryItem` from it."""
         match = cls.sphinx_item_regex.search(line)
         if not match:
@@ -65,7 +73,7 @@ class InventoryItem:
 class Inventory(dict):
     """Inventory of collected and rendered objects."""
 
-    def __init__(self, items: Optional[List[InventoryItem]] = None, project: str = "project", version: str = "0.0.0"):
+    def __init__(self, items: list[InventoryItem] | None = None, project: str = "project", version: str = "0.0.0"):
         """Initialize the object.
 
         Arguments:
@@ -80,7 +88,7 @@ class Inventory(dict):
         self.project = project
         self.version = version
 
-    def register(self, *args: str, **kwargs: str):
+    def register(self, *args: str, **kwargs: str) -> None:
         """Create and register an item.
 
         Arguments:
@@ -103,7 +111,7 @@ class Inventory(dict):
                 # Project: {self.project}
                 # Version: {self.version}
                 # The remainder of this file is compressed using zlib.
-                """
+                """,
             )
             .lstrip()
             .encode("utf8")
@@ -113,7 +121,7 @@ class Inventory(dict):
         return header + zlib.compress(b"\n".join(lines) + b"\n", 9)
 
     @classmethod
-    def parse_sphinx(cls, in_file: BinaryIO, *, domain_filter: Collection[str] = ()) -> "Inventory":
+    def parse_sphinx(cls, in_file: BinaryIO, *, domain_filter: Collection[str] = ()) -> Inventory:
         """Parse a Sphinx v2 inventory file and return an `Inventory` from it.
 
         Arguments:

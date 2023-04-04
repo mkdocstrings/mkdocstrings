@@ -1,11 +1,17 @@
 """Tests for the mkdocstrings plugin."""
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 from mkdocs.commands.build import build
 from mkdocs.config import load_config
 
+if TYPE_CHECKING:
+    from pathlib import Path
 
-def test_disabling_plugin(tmp_path):
+
+def test_disabling_plugin(tmp_path: Path) -> None:
     """Test disabling plugin."""
     docs_dir = tmp_path / "docs"
     site_dir = tmp_path / "site"

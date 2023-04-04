@@ -1,17 +1,22 @@
 """This module holds helpers responsible for augmentations to the Markdown sub-documents produced by handlers."""
 
+from __future__ import annotations
+
 import copy
 import re
 import textwrap
-from typing import Any, Dict, List, Optional
-from xml.etree.ElementTree import Element
+from typing import TYPE_CHECKING, Any
 
-from markdown import Markdown
 from markdown.extensions import Extension
 from markdown.extensions.codehilite import CodeHiliteExtension
 from markdown.treeprocessors import Treeprocessor
 from markupsafe import Markup
 from pymdownx.highlight import Highlight, HighlightExtension
+
+if TYPE_CHECKING:
+    from xml.etree.ElementTree import Element
+
+    from markdown import Markdown
 
 
 class Highlighter(Highlight):
@@ -53,7 +58,7 @@ class Highlighter(Highlight):
             "line_spans",
             "anchor_linenums",
             "line_anchors",
-        )
+        ),
     )
 
     def __init__(self, md: Markdown):
@@ -62,7 +67,7 @@ class Highlighter(Highlight):
         Arguments:
             md: The Markdown instance to read configs from.
         """
-        config: Dict[str, Any] = {}
+        config: dict[str, Any] = {}
         for ext in md.registeredExtensions:
             if isinstance(ext, HighlightExtension) and (ext.enabled or not config):
                 config = ext.getConfigs()
@@ -73,14 +78,14 @@ class Highlighter(Highlight):
         self._css_class = config.pop("css_class", "highlight")
         super().__init__(**{name: opt for name, opt in config.items() if name in self._highlight_config_keys})
 
-    def highlight(  # noqa: W0221 (intentionally different params, we're extending the functionality)
+    def highlight(
         self,
         src: str,
-        language: Optional[str] = None,
+        language: str | None = None,
         *,
         inline: bool = False,
         dedent: bool = True,
-        linenums: Optional[bool] = None,
+        linenums: bool | None = None,
         **kwargs: Any,
     ) -> str:
         """Highlight a code-snippet.
@@ -102,7 +107,7 @@ class Highlighter(Highlight):
             src = textwrap.dedent(src)
 
         kwargs.setdefault("css_class", self._css_class)
-        old_linenums = self.linenums  # type: ignore
+        old_linenums = self.linenums  # type: ignore[has-type]
         if linenums is not None:
             self.linenums = linenums
         try:
@@ -133,7 +138,7 @@ class IdPrependingTreeprocessor(Treeprocessor):
         super().__init__(md)
         self.id_prefix = id_prefix
 
-    def run(self, root: Element):  # noqa: D102 (ignore missing docstring)
+    def run(self, root: Element) -> None:  # noqa: D102 (ignore missing docstring)
         if not self.id_prefix:
             return
         for el in root.iter():
@@ -174,7 +179,7 @@ class HeadingShiftingTreeprocessor(Treeprocessor):
         super().__init__(md)
         self.shift_by = shift_by
 
-    def run(self, root: Element):  # noqa: D102 (ignore missing docstring)
+    def run(self, root: Element) -> None:  # noqa: D102 (ignore missing docstring)
         if not self.shift_by:
             return
         for el in root.iter():
@@ -191,20 +196,20 @@ class _HeadingReportingTreeprocessor(Treeprocessor):
     name = "mkdocstrings_headings_list"
     regex = re.compile(r"[Hh][1-6]")
 
-    headings: List[Element]
+    headings: list[Element]
     """The list (the one passed in the initializer) that is used to record the heading elements (by appending to it)."""
 
-    def __init__(self, md: Markdown, headings: List[Element]):
+    def __init__(self, md: Markdown, headings: list[Element]):
         super().__init__(md)
         self.headings = headings
 
-    def run(self, root: Element):
+    def run(self, root: Element) -> None:
         for el in root.iter():
             if self.regex.fullmatch(el.tag):
-                el = copy.copy(el)
+                el = copy.copy(el)  # noqa: PLW2901
                 # 'toc' extension's first pass (which we require to build heading stubs/ids) also edits the HTML.
                 # Undo the permalink edit so we can pass this heading to the outer pass of the 'toc' extension.
-                if len(el) > 0 and el[-1].get("class") == self.md.treeprocessors["toc"].permalink_class:  # noqa: WPS507
+                if len(el) > 0 and el[-1].get("class") == self.md.treeprocessors["toc"].permalink_class:
                     del el[-1]
                 self.headings.append(el)
 
@@ -215,17 +220,18 @@ class ParagraphStrippingTreeprocessor(Treeprocessor):
     name = "mkdocstrings_strip_paragraph"
     strip = False
 
-    def run(self, root: Element):  # noqa: D102 (ignore missing docstring)
+    def run(self, root: Element) -> Element | None:  # noqa: D102 (ignore missing docstring)
         if self.strip and len(root) == 1 and root[0].tag == "p":
             # Turn the single <p> element into the root element and inherit its tag name (it's significant!)
             root[0].tag = root.tag
             return root[0]
+        return None
 
 
 class MkdocstringsInnerExtension(Extension):
     """Extension that should always be added to Markdown sub-documents that handlers request (and *only* them)."""
 
-    def __init__(self, headings: List[Element]):
+    def __init__(self, headings: list[Element]):
         """Initialize the object.
 
         Arguments:
