@@ -53,7 +53,7 @@ class Highlighter(Highlight):
             "line_spans",
             "anchor_linenums",
             "line_anchors",
-        )
+        ),
     )
 
     def __init__(self, md: Markdown):
@@ -73,7 +73,7 @@ class Highlighter(Highlight):
         self._css_class = config.pop("css_class", "highlight")
         super().__init__(**{name: opt for name, opt in config.items() if name in self._highlight_config_keys})
 
-    def highlight(  # noqa: W0221 (intentionally different params, we're extending the functionality)
+    def highlight(  # (intentionally different params, we're extending the functionality)
         self,
         src: str,
         language: Optional[str] = None,
@@ -133,7 +133,7 @@ class IdPrependingTreeprocessor(Treeprocessor):
         super().__init__(md)
         self.id_prefix = id_prefix
 
-    def run(self, root: Element):  # noqa: D102 (ignore missing docstring)
+    def run(self, root: Element) -> None:  # noqa: D102 (ignore missing docstring)
         if not self.id_prefix:
             return
         for el in root.iter():
@@ -174,7 +174,7 @@ class HeadingShiftingTreeprocessor(Treeprocessor):
         super().__init__(md)
         self.shift_by = shift_by
 
-    def run(self, root: Element):  # noqa: D102 (ignore missing docstring)
+    def run(self, root: Element) -> None:  # noqa: D102 (ignore missing docstring)
         if not self.shift_by:
             return
         for el in root.iter():
@@ -198,13 +198,13 @@ class _HeadingReportingTreeprocessor(Treeprocessor):
         super().__init__(md)
         self.headings = headings
 
-    def run(self, root: Element):
+    def run(self, root: Element) -> None:
         for el in root.iter():
             if self.regex.fullmatch(el.tag):
-                el = copy.copy(el)
+                el = copy.copy(el)  # noqa: PLW2901
                 # 'toc' extension's first pass (which we require to build heading stubs/ids) also edits the HTML.
                 # Undo the permalink edit so we can pass this heading to the outer pass of the 'toc' extension.
-                if len(el) > 0 and el[-1].get("class") == self.md.treeprocessors["toc"].permalink_class:  # noqa: WPS507
+                if len(el) > 0 and el[-1].get("class") == self.md.treeprocessors["toc"].permalink_class:
                     del el[-1]
                 self.headings.append(el)
 
@@ -220,6 +220,7 @@ class ParagraphStrippingTreeprocessor(Treeprocessor):
             # Turn the single <p> element into the root element and inherit its tag name (it's significant!)
             root[0].tag = root.tag
             return root[0]
+        return None
 
 
 class MkdocstringsInnerExtension(Extension):

@@ -11,14 +11,14 @@ from mkdocs.utils import warning_filter
 try:
     from jinja2 import pass_context
 except ImportError:  # TODO: remove once Jinja2 < 3.1 is dropped
-    from jinja2 import contextfunction as pass_context  # type: ignore  # noqa: WPS440
+    from jinja2 import contextfunction as pass_context  # type: ignore
 
 try:
     import mkdocstrings_handlers
 except ImportError:
     TEMPLATES_DIRS: Sequence[Path] = ()
 else:
-    TEMPLATES_DIRS = tuple(mkdocstrings_handlers.__path__)  # type: ignore[arg-type]  # noqa: WPS609
+    TEMPLATES_DIRS = tuple(mkdocstrings_handlers.__path__)  # type: ignore[arg-type]
 
 
 class LoggerAdapter(logging.LoggerAdapter):

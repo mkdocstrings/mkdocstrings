@@ -1,5 +1,7 @@
 """Tests for the inventory module."""
 
+from __future__ import annotations
+
 import sys
 from io import BytesIO
 from os.path import join
@@ -22,7 +24,7 @@ sphinx = pytest.importorskip("sphinx.util.inventory", reason="Sphinx is not inst
         Inventory([InventoryItem(name="object_path", domain="py", role="obj", uri="page_url#other_anchor")]),
     ],
 )
-def test_sphinx_load_inventory_file(our_inv):
+def test_sphinx_load_inventory_file(our_inv: Inventory) -> None:
     """Perform the 'live' inventory load test."""
     buffer = BytesIO(our_inv.format_sphinx())
     sphinx_inv = sphinx.InventoryFile.load(buffer, "", join)
@@ -35,7 +37,7 @@ def test_sphinx_load_inventory_file(our_inv):
 
 
 @pytest.mark.skipif(sys.version_info < (3, 7), reason="using plugins that require Python 3.7")
-def test_sphinx_load_mkdocstrings_inventory_file():
+def test_sphinx_load_mkdocstrings_inventory_file() -> None:
     """Perform the 'live' inventory load test on mkdocstrings own inventory."""
     mkdocs_config = load_config()
     mkdocs_config["plugins"].run_event("startup", command="build", dirty=False)

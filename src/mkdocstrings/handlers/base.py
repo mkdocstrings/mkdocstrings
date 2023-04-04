@@ -14,7 +14,7 @@ import importlib
 import warnings
 from contextlib import suppress
 from pathlib import Path
-from typing import Any, BinaryIO, Dict, Iterable, Iterator, List, Mapping, MutableMapping, Optional, Sequence
+from typing import Any, BinaryIO, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from xml.etree.ElementTree import Element, tostring
 
 from jinja2 import Environment, FileSystemLoader
@@ -38,7 +38,7 @@ class CollectionError(Exception):
     """An exception raised when some collection of data failed."""
 
 
-class ThemeNotSupported(Exception):
+class ThemeNotSupported(Exception):  # noqa: N818
     """An exception raised to tell a theme is not supported."""
 
 
@@ -75,7 +75,7 @@ class BaseRenderer:
     fallback_theme: str = ""
     extra_css = ""
 
-    def __init__(self, handler: str, theme: str, custom_templates: Optional[str] = None) -> None:
+    def __init__(self, handler: str, theme: str, custom_templates: str | None = None) -> None:
         """Initialize the object.
 
         If the given theme is not supported (it does not exist), it will look for a `fallback_theme` attribute
@@ -102,7 +102,7 @@ class BaseRenderer:
         for path in paths:
             css_path = path / "style.css"
             if css_path.is_file():
-                self.extra_css += "\n" + css_path.read_text(encoding="utf-8")  # noqa: WPS601
+                self.extra_css += "\n" + css_path.read_text(encoding="utf-8")
                 break
 
         if custom_templates is not None:
@@ -116,7 +116,7 @@ class BaseRenderer:
         self.env.filters["any"] = do_any
         self.env.globals["log"] = get_template_logger()
 
-        self._headings: List[Element] = []
+        self._headings: list[Element] = []
         self._md: Markdown = None  # type: ignore  # To be populated in `update_env`.
 
     def render(self, data: CollectorItem, config: Mapping[str, Any]) -> str:
@@ -128,7 +128,7 @@ class BaseRenderer:
 
         Returns:
             The rendered template as HTML.
-        """  # noqa: DAR202,DAR401
+        """
         raise NotImplementedError
 
     def get_templates_dir(self, handler: str) -> Path:
@@ -156,7 +156,7 @@ class BaseRenderer:
         with suppress(ModuleNotFoundError):  # TODO: catch at some point to warn about missing handlers
             import mkdocstrings_handlers
 
-            for path in mkdocstrings_handlers.__path__:  # noqa: WPS609
+            for path in mkdocstrings_handlers.__path__:
                 theme_path = Path(path, handler, "templates")
                 if theme_path.exists():
                     return theme_path
@@ -165,7 +165,7 @@ class BaseRenderer:
         # as mkdocstrings will stop being a namespace package
         import mkdocstrings
 
-        for path in mkdocstrings.__path__:  # noqa: WPS609,WPS440
+        for path in mkdocstrings.__path__:
             theme_path = Path(path, "templates", handler)
             if theme_path.exists():
                 if handler != "python":
@@ -173,6 +173,7 @@ class BaseRenderer:
                         "Exposing templates in the mkdocstrings.templates namespace is deprecated. "
                         "Put them in a templates folder inside your handler package instead.",
                         DeprecationWarning,
+                        stacklevel=1,
                     )
                 return theme_path
 
@@ -194,7 +195,12 @@ class BaseRenderer:
             return ()
 
     def do_convert_markdown(
-        self, text: str, heading_level: int, html_id: str = "", *, strip_paragraph: bool = False
+        self,
+        text: str,
+        heading_level: int,
+        html_id: str = "",
+        *,
+        strip_paragraph: bool = False,
     ) -> Markup:
         """Render Markdown text; for use inside templates.
 
@@ -224,9 +230,9 @@ class BaseRenderer:
         content: str,
         heading_level: int,
         *,
-        role: Optional[str] = None,
+        role: str | None = None,
         hidden: bool = False,
-        toc_label: Optional[str] = None,
+        toc_label: str | None = None,
         **attributes: str,
     ) -> Markup:
         """Render an HTML heading and register it for the table of contents. For use inside templates.
@@ -269,7 +275,7 @@ class BaseRenderer:
         # of the heading with a placeholder that can never occur (text can't directly contain angle brackets).
         # Now this HTML wrapper can be "filled" by replacing the placeholder.
         html_with_placeholder = tostring(el, encoding="unicode")
-        assert (
+        assert (  # noqa: S101
             html_with_placeholder.count("<mkdocstrings-placeholder />") == 1
         ), f"Bug in mkdocstrings: failed to replace in {html_with_placeholder!r}"
         html = html_with_placeholder.replace("<mkdocstrings-placeholder />", content)
@@ -285,7 +291,7 @@ class BaseRenderer:
         self._headings.clear()
         return result
 
-    def update_env(self, md: Markdown, config: dict) -> None:  # noqa: W0613 (unused argument 'config')
+    def update_env(self, md: Markdown, config: dict) -> None:  # noqa: ARG002
         """Update the Jinja environment.
 
         Arguments:
@@ -298,7 +304,7 @@ class BaseRenderer:
         self.env.filters["convert_markdown"] = self.do_convert_markdown
         self.env.filters["heading"] = self.do_heading
 
-    def _update_env(self, md: Markdown, config: dict):
+    def _update_env(self, md: Markdown, config: dict) -> None:
         """Update our handler to point to our configured Markdown instance, grabbing some of the config from `md`."""
         extensions = config["mdx"] + [MkdocstringsInnerExtension(self._headings)]
 
@@ -333,7 +339,7 @@ class BaseCollector:
 
         Returns:
             Anything you want, as long as you can feed it to the renderer's `render` method.
-        """  # noqa: DAR202,DAR401
+        """
         raise NotImplementedError
 
     def teardown(self) -> None:
@@ -381,19 +387,7 @@ class BaseHandler(BaseCollector, BaseRenderer):
         # can be instantiated with both instances of collector/renderer,
         # or renderer parameters, as positional parameters.
         # Supported:
-        #   handler = Handler(collector, renderer)
-        #   handler = Handler(collector=collector, renderer=renderer)
-        #   handler = Handler("python", "material")
-        #   handler = Handler("python", "material", "templates")
-        #   handler = Handler(handler="python", theme="material")
-        #   handler = Handler(handler="python", theme="material", custom_templates="templates")
         # Invalid:
-        #   handler = Handler("python", "material", collector, renderer)
-        #   handler = Handler("python", theme="material", collector=collector)
-        #   handler = Handler(collector, renderer, "material")
-        #   handler = Handler(collector, renderer, theme="material")
-        #   handler = Handler(collector)
-        #   handler = Handler(renderer)
         #   etc.
 
         collector = None
@@ -409,7 +403,7 @@ class BaseHandler(BaseCollector, BaseRenderer):
             elif isinstance(arg, str):
                 str_args.append(arg)
 
-        while len(str_args) != 3:
+        while len(str_args) != 3:  # noqa: PLR2004
             str_args.append(None)  # type: ignore[arg-type]
 
         handler, theme, custom_templates = str_args
@@ -434,8 +428,9 @@ class BaseHandler(BaseCollector, BaseRenderer):
                 DeprecationWarning(
                     "The BaseCollector class is deprecated, and passing an instance of it "
                     "to your handler is deprecated as well. Instead, define the `collect` and `teardown` "
-                    "methods directly on your handler class."
-                )
+                    "methods directly on your handler class.",
+                ),
+                stacklevel=1,
             )
             self.collector = collector
             self.collect = collector.collect  # type: ignore[assignment]
@@ -444,15 +439,16 @@ class BaseHandler(BaseCollector, BaseRenderer):
         if renderer is not None:
             if {handler, theme, custom_templates} != {None}:
                 raise ValueError(
-                    "'handler', 'theme' and 'custom_templates' must all be None when providing a renderer instance"
+                    "'handler', 'theme' and 'custom_templates' must all be None when providing a renderer instance",
                 )
             warnings.warn(
                 DeprecationWarning(
                     "The BaseRenderer class is deprecated, and passing an instance of it "
                     "to your handler is deprecated as well. Instead, define the `render` method "
                     "directly on your handler class (as well as other methods and attributes like "
-                    "`get_templates_dir`, `get_anchors`, `update_env` and `fallback_theme`, `extra_css`)."
-                )
+                    "`get_templates_dir`, `get_anchors`, `update_env` and `fallback_theme`, `extra_css`).",
+                ),
+                stacklevel=1,
             )
             self.renderer = renderer
             self.render = renderer.render  # type: ignore[assignment]
@@ -462,27 +458,27 @@ class BaseHandler(BaseCollector, BaseRenderer):
             self.do_heading = renderer.do_heading  # type: ignore[assignment]
             self.get_headings = renderer.get_headings  # type: ignore[assignment]
             self.update_env = renderer.update_env  # type: ignore[assignment]
-            self._update_env = renderer._update_env  # type: ignore[assignment]  # noqa: WPS437
+            self._update_env = renderer._update_env  # type: ignore[assignment]
             self.fallback_theme = renderer.fallback_theme
             self.extra_css = renderer.extra_css
-            renderer.__class__.__init__(  # noqa: WPS609
+            renderer.__class__.__init__(
                 self,
-                renderer._handler,  # noqa: WPS437
-                renderer._theme,  # noqa: WPS437
-                renderer._custom_templates,  # noqa: WPS437
+                renderer._handler,
+                renderer._theme,
+                renderer._custom_templates,
             )
         else:
             if handler is None or theme is None:
                 raise ValueError("'handler' and 'theme' cannot be None")
-            BaseRenderer.__init__(self, handler, theme, custom_templates)  # noqa: WPS609
+            BaseRenderer.__init__(self, handler, theme, custom_templates)
 
     @classmethod
     def load_inventory(
         cls,
-        in_file: BinaryIO,
-        url: str,
-        base_url: Optional[str] = None,
-        **kwargs: Any,
+        in_file: BinaryIO,  # noqa: ARG003
+        url: str,  # noqa: ARG003
+        base_url: str | None = None,  # noqa: ARG003
+        **kwargs: Any,  # noqa: ARG003
     ) -> Iterator[tuple[str, str]]:
         """Yield items and their URLs from an inventory file streamed from `in_file`.
 
@@ -513,7 +509,7 @@ class Handlers:
                 of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.
         """
         self._config = config
-        self._handlers: Dict[str, BaseHandler] = {}
+        self._handlers: dict[str, BaseHandler] = {}
         self.inventory: Inventory = Inventory(project=self._config["mkdocs"]["site_name"])
 
     def get_anchors(self, identifier: str) -> Sequence[str]:
@@ -563,7 +559,7 @@ class Handlers:
             return handlers.get(name, {})
         return {}
 
-    def get_handler(self, name: str, handler_config: Optional[dict] = None) -> BaseHandler:
+    def get_handler(self, name: str, handler_config: dict | None = None) -> BaseHandler:
         """Get a handler thanks to its name.
 
         This function dynamically imports a module named "mkdocstrings.handlers.NAME", calls its
@@ -591,8 +587,9 @@ class Handlers:
                     warnings.warn(
                         DeprecationWarning(
                             "Using the mkdocstrings.handlers namespace is deprecated. "
-                            "Handlers must now use the mkdocstrings_handlers namespace."
-                        )
+                            "Handlers must now use the mkdocstrings_handlers namespace.",
+                        ),
+                        stacklevel=1,
                     )
             self._handlers[name] = module.get_handler(
                 theme=self._config["theme_name"],

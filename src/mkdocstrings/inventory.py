@@ -13,7 +13,13 @@ class InventoryItem:
     """Inventory item."""
 
     def __init__(
-        self, name: str, domain: str, role: str, uri: str, priority: str = "1", dispname: Optional[str] = None
+        self,
+        name: str,
+        domain: str,
+        role: str,
+        uri: str,
+        priority: str = "1",
+        dispname: Optional[str] = None,
     ):
         """Initialize the object.
 
@@ -80,7 +86,7 @@ class Inventory(dict):
         self.project = project
         self.version = version
 
-    def register(self, *args: str, **kwargs: str):
+    def register(self, *args: str, **kwargs: str) -> None:
         """Create and register an item.
 
         Arguments:
@@ -103,7 +109,7 @@ class Inventory(dict):
                 # Project: {self.project}
                 # Version: {self.version}
                 # The remainder of this file is compressed using zlib.
-                """
+                """,
             )
             .lstrip()
             .encode("utf8")

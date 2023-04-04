@@ -1,19 +1,27 @@
 """Configuration for the pytest test suite."""
 
+from __future__ import annotations
+
 from collections import ChainMap
+from typing import TYPE_CHECKING
 
 import pytest
 from markdown.core import Markdown
 from mkdocs import config
 from mkdocs.config.defaults import get_schema
 
+if TYPE_CHECKING:
+    from pathlib import Path
+
+    from mkdocstrings.plugin import MkdocstringsPlugin
+
 
 @pytest.fixture(name="mkdocs_conf")
-def fixture_mkdocs_conf(request, tmp_path):
+def fixture_mkdocs_conf(request: pytest.FixtureRequest, tmp_path: Path) -> config.Config:
     """Yield a MkDocs configuration object."""
     conf = config.Config(schema=get_schema())
-    while hasattr(request, "_parent_request") and hasattr(request._parent_request, "_parent_request"):  # noqa: WPS437
-        request = request._parent_request  # noqa: WPS437
+    while hasattr(request, "_parent_request") and hasattr(request._parent_request, "_parent_request"):
+        request = request._parent_request
 
     conf_dict = {
         "site_name": "foo",
@@ -38,14 +46,12 @@ def fixture_mkdocs_conf(request, tmp_path):
 
 
 @pytest.fixture(name="plugin")
-def fixture_plugin(mkdocs_conf):
+def fixture_plugin(mkdocs_conf: config.Config) -> MkdocstringsPlugin:
     """Return a plugin instance."""
-    plugin = mkdocs_conf["plugins"]["mkdocstrings"]
-    plugin.md = Markdown(extensions=mkdocs_conf["markdown_extensions"], extension_configs=mkdocs_conf["mdx_configs"])
-    return plugin
+    return mkdocs_conf["plugins"]["mkdocstrings"]
 
 
 @pytest.fixture(name="ext_markdown")
-def fixture_ext_markdown(plugin):
+def fixture_ext_markdown(mkdocs_conf: config.Config) -> Markdown:
     """Return a Markdown instance with MkdocstringsExtension."""
-    return plugin.md
+    return Markdown(extensions=mkdocs_conf["markdown_extensions"], extension_configs=mkdocs_conf["mdx_configs"])

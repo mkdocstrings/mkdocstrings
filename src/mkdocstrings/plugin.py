@@ -69,7 +69,7 @@ class MkdocstringsPlugin(BasePlugin):
     """
 
     config_scheme: Tuple[Tuple[str, MkType]] = (
-        ("watch", MkType(list, default=[])),  # type: ignore
+        ("watch", MkType(list, default=[])),
         ("handlers", MkType(dict, default={})),
         ("default_handler", MkType(str, default="python")),
         ("custom_templates", MkType(str, default=None)),
@@ -126,8 +126,13 @@ class MkdocstringsPlugin(BasePlugin):
 
     # TODO: remove once watch feature is removed
     def on_serve(
-        self, server: LiveReloadServer, config: Config, builder: Callable, *args: Any, **kwargs: Any
-    ) -> None:  # noqa: W0613 (unused arguments)
+        self,
+        server: LiveReloadServer,
+        config: Config,  # noqa: ARG002
+        builder: Callable,
+        *args: Any,  # noqa: ARG002
+        **kwargs: Any,  # noqa: ARG002
+    ) -> None:
         """Watch directories.
 
         Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).
@@ -149,7 +154,7 @@ class MkdocstringsPlugin(BasePlugin):
                 log.debug(f"Adding directory '{element}' to watcher")
                 server.watch(element, builder)
 
-    def on_config(self, config: Config, **kwargs: Any) -> Config:  # noqa: W0613 (unused arguments)
+    def on_config(self, config: Config, **kwargs: Any) -> Config:  # noqa: ARG002
         """Instantiate our Markdown extension.
 
         Hook for the [`on_config` event](https://www.mkdocs.org/user-guide/plugins/#on_config).
@@ -172,16 +177,13 @@ class MkdocstringsPlugin(BasePlugin):
         log.debug("Adding extension to the list")
 
         theme_name = None
-        if config["theme"].name is None:
-            theme_name = os.path.dirname(config["theme"].dirs[0])
-        else:
-            theme_name = config["theme"].name
+        theme_name = os.path.dirname(config["theme"].dirs[0]) if config["theme"].name is None else config["theme"].name
 
         to_import: InventoryImportType = []
         for handler_name, conf in self.config["handlers"].items():
             for import_item in conf.pop("import", ()):
                 if isinstance(import_item, str):
-                    import_item = {"url": import_item}
+                    import_item = {"url": import_item}  # noqa: PLW2901
                 to_import.append((handler_name, import_item))
 
         extension_config = {
@@ -193,7 +195,7 @@ class MkdocstringsPlugin(BasePlugin):
         }
         self._handlers = Handlers(extension_config)
 
-        try:  # noqa: WPS229
+        try:
             # If autorefs plugin is explicitly enabled, just use it.
             autorefs = config["plugins"]["autorefs"]
             log.debug(f"Picked up existing autorefs instance {autorefs!r}")
@@ -214,9 +216,11 @@ class MkdocstringsPlugin(BasePlugin):
         self._inv_futures = []
         if to_import:
             inv_loader = futures.ThreadPoolExecutor(4)
-            for handler_name, import_item in to_import:  # noqa: WPS440
+            for handler_name, import_item in to_import:
                 future = inv_loader.submit(
-                    self._load_inventory, self.get_handler(handler_name).load_inventory, **import_item
+                    self._load_inventory,
+                    self.get_handler(handler_name).load_inventory,
+                    **import_item,
                 )
                 self._inv_futures.append(future)
             inv_loader.shutdown(wait=False)
@@ -247,7 +251,7 @@ class MkdocstringsPlugin(BasePlugin):
         """
         return self.config["enabled"]
 
-    def on_env(self, env, config: Config, *args, **kwargs) -> None:
+    def on_env(self, env, config: Config, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
         """Extra actions that need to happen after all Markdown rendering and before HTML rendering.
 
         Hook for the [`on_env` event](https://www.mkdocs.org/user-guide/plugins/#on_env).
@@ -274,8 +278,10 @@ class MkdocstringsPlugin(BasePlugin):
             self._inv_futures = []
 
     def on_post_build(
-        self, config: Config, **kwargs: Any
-    ) -> None:  # noqa: W0613,R0201 (unused arguments, cannot be static)
+        self,
+        config: Config,  # noqa: ARG002
+        **kwargs: Any,  # noqa: ARG002
+    ) -> None:
         """Teardown the handlers.
 
         Hook for the [`on_post_build` event](https://www.mkdocs.org/user-guide/plugins/#on_post_build).
@@ -337,7 +343,7 @@ class MkdocstringsPlugin(BasePlugin):
 
     @classmethod
     @functools.lru_cache(maxsize=None)  # Warn only once
-    def _warn_about_watch_option(cls):
+    def _warn_about_watch_option(cls) -> None:
         log.info(
             "DEPRECATION: mkdocstrings' watch feature is deprecated in favor of MkDocs' watch feature, "
             "see https://www.mkdocs.org/user-guide/configuration/#watch",

@@ -321,6 +321,7 @@ and add global CSS rules to your site using MkDocs `extra_css` option:
 ```pycon
 >>> for word in ("Hello", "mkdocstrings!"):
 ...     print(word, end=" ")
+...
 Hello mkdocstrings!
 ```
 ````

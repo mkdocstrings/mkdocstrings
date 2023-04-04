@@ -1,5 +1,7 @@
 """Tests for the handlers.base module."""
 
+from __future__ import annotations
+
 import pytest
 from markdown import Markdown
 
@@ -7,7 +9,7 @@ from mkdocstrings.handlers.base import Highlighter
 
 
 @pytest.mark.parametrize("extension_name", ["codehilite", "pymdownx.highlight"])
-def test_highlighter_without_pygments(extension_name):
+def test_highlighter_without_pygments(extension_name: str) -> None:
     """Assert that it's possible to disable Pygments highlighting.
 
     Arguments:
@@ -28,7 +30,7 @@ def test_highlighter_without_pygments(extension_name):
 
 @pytest.mark.parametrize("extension_name", [None, "codehilite", "pymdownx.highlight"])
 @pytest.mark.parametrize("inline", [False, True])
-def test_highlighter_basic(extension_name, inline):
+def test_highlighter_basic(extension_name: str | None, inline: bool) -> None:
     """Assert that Pygments syntax highlighting works.
 
     Arguments:

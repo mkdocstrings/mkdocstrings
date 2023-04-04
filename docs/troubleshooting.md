@@ -151,7 +151,7 @@ Example:
 ```python
 def math_function(x, y):
     r"""
-    Look at these formulas:    
+    Look at these formulas:
 
     ```math
     f(x) = \int_{-\infty}^\infty
@@ -170,6 +170,7 @@ So instead of:
 ```python
 import enum
 
+
 class MyEnum(enum.Enum):
     v1 = 1  #: The first choice.
     v2 = 2  #: The second choice.
@@ -180,13 +181,15 @@ You can use:
 ```python
 import enum
 
+
 class MyEnum(enum.Enum):
     """My enum.
-    
+
     Attributes:
         v1: The first choice.
         v2: The second choice.
     """
+
     v1 = 1
     v2 = 2
 ```
@@ -195,6 +198,7 @@ Or:
 
 ```python
 import enum
+
 
 class MyEnum(enum.Enum):
     v1 = 1
@@ -211,8 +215,9 @@ Use [`functools.wraps()`](https://docs.python.org/3.6/library/functools.html#fun
 ```python
 from functools import wraps
 
+
 def my_decorator(function):
-    """The decorator docs."""    
+    """The decorator docs."""
 
     @wraps(function)
     def wrapped_function(*args, **kwargs):
@@ -221,6 +226,7 @@ def my_decorator(function):
         print("bye")
 
     return wrapped_function
+
 
 @my_decorator
 def my_function(*args, **kwargs):

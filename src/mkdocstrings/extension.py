@@ -56,7 +56,12 @@ class AutoDocProcessor(BlockProcessor):
     regex = re.compile(r"^(?P<heading>#{1,6} *|)::: ?(?P<name>.+?) *$", flags=re.MULTILINE)
 
     def __init__(
-        self, parser: BlockParser, md: Markdown, config: dict, handlers: Handlers, autorefs: AutorefsPlugin
+        self,
+        parser: BlockParser,
+        md: Markdown,
+        config: dict,
+        handlers: Handlers,
+        autorefs: AutorefsPlugin,
     ) -> None:
         """Initialize the object.
 
@@ -75,7 +80,7 @@ class AutoDocProcessor(BlockProcessor):
         self._autorefs = autorefs
         self._updated_envs: set = set()
 
-    def test(self, parent: Element, block: str) -> bool:
+    def test(self, parent: Element, block: str) -> bool:  # noqa: ARG002
         """Match our autodoc instructions.
 
         Arguments:
@@ -124,15 +129,15 @@ class AutoDocProcessor(BlockProcessor):
             page = self._autorefs.current_page
             if page:
                 for heading in headings:
-                    anchor = heading.attrib["id"]  # noqa: WPS440
-                    self._autorefs.register_anchor(page, anchor)  # noqa: WPS441
+                    anchor = heading.attrib["id"]
+                    self._autorefs.register_anchor(page, anchor)
 
                     if "data-role" in heading.attrib:
                         self._handlers.inventory.register(
-                            name=anchor,  # noqa: WPS441
+                            name=anchor,
                             domain=handler.domain,
                             role=heading.attrib["data-role"],
-                            uri=f"{page}#{anchor}",  # noqa: WPS441
+                            uri=f"{page}#{anchor}",
                         )
 
             parent.append(el)
@@ -187,14 +192,14 @@ class AutoDocProcessor(BlockProcessor):
         try:
             data: CollectorItem = handler.collect(identifier, options)
         except CollectionError as exception:
-            log.error(str(exception))
+            log.error(str(exception))  # noqa: TRY400
             if PluginError is SystemExit:  # When MkDocs 1.2 is sufficiently common, this can be dropped.
-                log.error(f"Error reading page '{self._autorefs.current_page}':")
+                log.error(f"Error reading page '{self._autorefs.current_page}':")  # noqa: TRY400
             raise PluginError(f"Could not collect '{identifier}'") from exception
 
         if handler_name not in self._updated_envs:  # We haven't seen this handler before on this document.
             log.debug("Updating renderer's env")
-            handler._update_env(self.md, self._config)  # noqa: WPS437 (protected member OK)
+            handler._update_env(self.md, self._config)  # (protected member OK)
             self._updated_envs.add(handler_name)
 
         log.debug("Rendering templates")
@@ -202,7 +207,7 @@ class AutoDocProcessor(BlockProcessor):
             rendered = handler.render(data, options)
         except TemplateNotFound as exc:
             theme_name = self._config["theme_name"]
-            log.error(
+            log.error(  # noqa: TRY400
                 f"Template '{exc.name}' not found for '{handler_name}' handler and theme '{theme_name}'.",
             )
             raise
@@ -211,12 +216,12 @@ class AutoDocProcessor(BlockProcessor):
 
     @classmethod
     @functools.lru_cache(maxsize=None)  # Warn only once
-    def _warn_about_options_key(cls):
+    def _warn_about_options_key(cls) -> None:
         log.info("DEPRECATION: 'selection' and 'rendering' are deprecated and merged into a single 'options' YAML key")
 
 
 class _PostProcessor(Treeprocessor):
-    def run(self, root: Element):
+    def run(self, root: Element) -> None:
         carry_text = ""
         for el in reversed(root):  # Reversed mainly for the ability to mutate during iteration.
             if el.tag == "div" and el.get("class") == "mkdocstrings":
