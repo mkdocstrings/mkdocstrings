@@ -175,7 +175,7 @@ def docs_deploy(ctx: Context) -> None:
         ctx: The context instance (passed automatically).
     """
     ctx.run("git remote add org-pages git@github.com:mkdocstrings/mkdocstrings.github.io", silent=True, nofail=True)
-    ctx.run(mkdocs.gh_deploy(remote_name="org-pages"), title="Deploying documentation")
+    ctx.run(mkdocs.gh_deploy(remote_name="org-pages", force=True), title="Deploying documentation")
 
 
 @duty
