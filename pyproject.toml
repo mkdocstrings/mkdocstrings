@@ -35,6 +35,7 @@ dependencies = [
     "mkdocs>=1.2",
     "mkdocs-autorefs>=0.3.1",
     "pymdown-extensions>=6.3",
+    "typing-extensions>=4.1; python_version < '3.10'",
 ]
 
 [project.optional-dependencies]
