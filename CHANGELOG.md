@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.21.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.21.0) - 2023-04-05
+
+<small>[Compare with 0.20.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.20.0...0.21.0)</small>
+
+### Features
+
+- Expose the full config to handlers ([15dacf6](https://github.com/mkdocstrings/mkdocstrings/commit/15dacf62f8479a05e9604383155ffa6fade0522d) by David Patterson). [Issue #501](https://github.com/mkdocstrings/mkdocstrings/issues/501), [PR #509](https://github.com/mkdocstrings/mkdocstrings/pull/509)
+
 ## [0.20.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.20.0) - 2023-01-19
 
 <small>[Compare with 0.19.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.19.1...0.20.0)</small>
