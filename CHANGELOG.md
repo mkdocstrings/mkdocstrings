@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.21.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.21.1) - 2023-04-05
+
+<small>[Compare with 0.21.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.21.0...0.21.1)</small>
+
+### Bug Fixes
+
+- Fix missing typing-extensions dependency on Python less than 3.10 ([bff760b](https://github.com/mkdocstrings/mkdocstrings/commit/bff760b77c1eedfa770e852aa994a69ff51b0a32) by Timothée Mazzucotelli). [Issue #548](https://github.com/mkdocstrings/mkdocstrings/issues/548)
+
 ## [0.21.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.21.0) - 2023-04-05
 
 <small>[Compare with 0.20.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.20.0...0.21.0)</small>
