@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.21.2](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.21.2) - 2023-04-06
+
+<small>[Compare with 0.21.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.21.1...0.21.2)</small>
+
+### Bug Fixes
+
+- Fix regression with LRU cached method ([85efbd2](https://github.com/mkdocstrings/mkdocstrings/commit/85efbd285d4c8977755bda1c36220b241a9e1502) by Timothée Mazzucotelli). [Issue #549](https://github.com/mkdocstrings/mkdocstrings/issues/549)
+
 ## [0.21.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.21.1) - 2023-04-05
 
 <small>[Compare with 0.21.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.21.0...0.21.1)</small>
