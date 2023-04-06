@@ -231,7 +231,7 @@ class MkdocstringsPlugin(BasePlugin):
             inv_loader = futures.ThreadPoolExecutor(4)
             for handler_name, import_item in to_import:
                 future = inv_loader.submit(
-                    self._load_inventory,
+                    self._load_inventory,  # type: ignore[misc]
                     self.get_handler(handler_name).load_inventory,
                     **import_item,
                 )
@@ -330,9 +330,9 @@ class MkdocstringsPlugin(BasePlugin):
         return self.handlers.get_handler(handler_name)
 
     @classmethod
-    @functools.lru_cache(maxsize=None)
     # lru_cache does not allow mutable arguments such lists, but that is what we load from YAML config.
     @list_to_tuple
+    @functools.lru_cache(maxsize=None)
     def _load_inventory(cls, loader: InventoryLoaderType, url: str, **kwargs: Any) -> Mapping[str, str]:
         """Download and process inventory files using a handler.
 

@@ -5,6 +5,7 @@ from __future__ import annotations
 import sys
 from io import BytesIO
 from os.path import join
+from typing import TYPE_CHECKING
 
 import pytest
 from mkdocs.commands.build import build
@@ -12,6 +13,8 @@ from mkdocs.config import load_config
 
 from mkdocstrings.inventory import Inventory, InventoryItem
 
+if TYPE_CHECKING:
+    from mkdocstrings.plugin import MkdocstringsPlugin
 sphinx = pytest.importorskip("sphinx.util.inventory", reason="Sphinx is not installed")
 
 
@@ -55,3 +58,12 @@ def test_sphinx_load_mkdocstrings_inventory_file() -> None:
 
     for item in own_inv.values():
         assert item.name in sphinx_inv[f"{item.domain}:{item.role}"]
+
+
+def test_load_inventory(plugin: MkdocstringsPlugin) -> None:
+    """Test the plugin inventory loading method.
+
+    Parameters:
+        plugin: A mkdocstrings plugin instance.
+    """
+    plugin._load_inventory(loader=lambda *args, **kwargs: (), url="https://example.com", domains=["a", "b"])  # type: ignore[misc,arg-type]
