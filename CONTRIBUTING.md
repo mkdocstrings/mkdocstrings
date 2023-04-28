@@ -61,7 +61,7 @@ As usual:
 1. run `make check` to check everything (fix any warning)
 1. run `make test` to run the tests (fix any issue)
 1. if you updated the documentation or the project dependencies:
-    1. run `make docs-serve`
+    1. run `make docs`
     1. go to http://localhost:8000 and check that everything looks good
 1. follow our [commit message convention](#commit-message-convention)
 

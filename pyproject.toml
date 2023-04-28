@@ -1,12 +1,12 @@
 [build-system]
-requires = ["pdm-pep517"]
-build-backend = "pdm.pep517.api"
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
 [project]
 name = "mkdocstrings"
 description = "Automatic documentation from sources, for MkDocs."
 authors = [{name = "Timothée Mazzucotelli", email = "pawamoy@pm.me"}]
-license = "ISC"
+license = {text = "ISC"}
 readme = "README.md"
 requires-python = ">=3.7"
 keywords = ["mkdocs", "mkdocs-plugin", "docstrings", "autodoc", "documentation"]
@@ -51,7 +51,7 @@ Repository = "https://github.com/mkdocstrings/mkdocstrings"
 Issues = "https://github.com/mkdocstrings/mkdocstrings/issues"
 Discussions = "https://github.com/mkdocstrings/mkdocstrings/discussions"
 Gitter = "https://gitter.im/mkdocstrings/community"
-Funding = "https://github.com/sponsors/mkdocstrings"
+Funding = "https://github.com/sponsors/pawamoy"
 
 [project.entry-points."mkdocs.plugins"]
 mkdocstrings = "mkdocstrings.plugin:MkdocstringsPlugin"
@@ -65,18 +65,19 @@ includes = ["src/mkdocstrings"]
 editable-backend = "editables"
 
 [tool.pdm.dev-dependencies]
-duty = ["duty>=0.8"]
+duty = ["duty>=0.10"]
 docs = [
     "black>=23.1",
+    "markdown-callouts>=0.2",
+    "markdown-exec>=0.5",
     "mkdocs>=1.3",
     "mkdocs-coverage>=0.2",
     "mkdocs-gen-files>=0.3",
+    "mkdocs-git-committers-plugin-2>=1.1",
     "mkdocs-literate-nav>=0.4",
     "mkdocs-material>=7.3",
-    "mkdocs-section-index>=0.3",
+    "mkdocs-minify-plugin>=0.6.4",
     "mkdocstrings-python>=0.5.1",
-    "markdown-callouts>=0.2",
-    "markdown-exec>=0.5",
     "toml>=0.10",
 ]
 maintain = [
@@ -100,7 +101,7 @@ typing = [
     "mypy>=0.911",
     "types-docutils",
     "types-markdown>=3.3",
-    "types-pyyaml",
+    "types-pyyaml>=6.0",
     "types-toml>=0.10",
 ]
 security = ["safety>=2"]

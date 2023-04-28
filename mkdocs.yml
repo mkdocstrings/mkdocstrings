@@ -5,7 +5,8 @@ repo_url: "https://github.com/mkdocstrings/mkdocstrings"
 edit_uri: "blob/master/docs/"
 repo_name: "mkdocstrings/mkdocstrings"
 site_dir: "site"
-watch: [README.md, CONTRIBUTING.md, CHANGELOG.md, src/mkdocstrings]
+watch: [mkdocs.yml, README.md, CONTRIBUTING.md, CHANGELOG.md, src/mkdocstrings]
+copyright: Copyright &copy; 2019 Timothée Mazzucotelli
 
 nav:
 - Home:
@@ -29,19 +30,38 @@ nav:
   - Contributing: contributing.md
   - Code of Conduct: code_of_conduct.md
   - Coverage report: coverage.md
+- Insiders:
+  - insiders/index.md
+  - Getting started:
+    - Installation: insiders/installation.md
+    - Changelog: insiders/changelog.md
 - Author's website: https://pawamoy.github.io/
 
 theme:
   name: material
   logo: logo.svg
+  custom_dir: docs/.overrides
   features:
+  - announce.dismiss
+  - content.action.edit
+  - content.action.view
   - content.code.annotate
+  - content.code.copy
+  - content.tooltips
+  - navigation.footer
+  - navigation.indexes
+  - navigation.sections
   - navigation.tabs
   - navigation.tabs.sticky
   - navigation.top
   - search.highlight
   - search.suggest
+  - toc.follow
   palette:
+  - media: "(prefers-color-scheme)"
+    toggle:
+      icon: material/brightness-auto
+      name: Switch to light mode
   - media: "(prefers-color-scheme: light)"
     scheme: default
     primary: teal
@@ -55,40 +75,46 @@ theme:
     accent: lime
     toggle:
       icon: material/weather-night
-      name: Switch to light mode
+      name: Switch to system preference
 
 extra_css:
 - css/style.css
 - css/material.css
 - css/mkdocstrings.css
+- css/insiders.css
 
 markdown_extensions:
+- attr_list
 - admonition
 - callouts
-- pymdownx.details
-- pymdownx.emoji
+- footnotes
+- pymdownx.emoji:
+    emoji_index: !!python/name:materialx.emoji.twemoji
+    emoji_generator: !!python/name:materialx.emoji.to_svg
 - pymdownx.magiclink
 - pymdownx.snippets:
     check_paths: true
 - pymdownx.superfences
 - pymdownx.tabbed:
     alternate_style: true
-- pymdownx.tasklist
+    slugify: !!python/object/apply:pymdownx.slugs.slugify
+      kwds:
+        case: lower
+- pymdownx.tasklist:
+    custom_checkbox: true
 - toc:
     permalink: "¤"
 
 plugins:
-- search
-- markdown-exec
-- gen-files:
+  search: {}
+  markdown-exec: {}
+  gen-files:
     scripts:
     - scripts/gen_ref_nav.py
-    - scripts/gen_redirects.py
-- literate-nav:
+  literate-nav:
     nav_file: SUMMARY.txt
-- coverage
-- section-index
-- mkdocstrings:
+  coverage: {}
+  mkdocstrings:
     handlers:
       python:
         import:
@@ -100,6 +126,11 @@ plugins:
           merge_init_into_class: true
           docstring_options:
             ignore_init_summary: true
+  git-committers:
+    enabled: !ENV [DEPLOY, false]
+    repository: mkdocstrings/mkdocstrings
+  minify:
+    minify_html: !ENV [DEPLOY, false]
 
 extra:
   social:
@@ -109,3 +140,7 @@ extra:
     link: https://fosstodon.org/@pawamoy
   - icon: fontawesome/brands/twitter
     link: https://twitter.com/pawamoy
+  - icon: fontawesome/brands/gitter
+    link: https://gitter.im/mkdocstrings/community
+  - icon: fontawesome/brands/python
+    link: https://pypi.org/project/mkdocstrings/

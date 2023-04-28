@@ -14,7 +14,7 @@ if ! pdm self list 2>/dev/null | grep -q pdm-multirun; then
 fi
 
 if [ -n "${PYTHON_VERSIONS}" ]; then
-    pdm multirun -vi ${PYTHON_VERSIONS// /,} pdm install
+    pdm multirun -vi ${PYTHON_VERSIONS// /,} pdm install -G:all
 else
-    pdm install
+    pdm install -G:all
 fi

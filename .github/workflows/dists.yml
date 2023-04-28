@@ -1,0 +1,29 @@
+name: dists
+
+on: push
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build dists
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v3
+      - name: Install build
+        run: python -m pip install build
+      - name: Build dists
+        run: python -m build
+      - name: Upload dists artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: mkdocstrings-insiders
+          path: ./dist/*
+      - name: Create release and upload assets
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: ./dist/*
