@@ -8,6 +8,7 @@ jobs:
   build:
     name: Build dists
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'pawamoy-insiders'
     steps:
       - name: Checkout
         uses: actions/checkout@v3
