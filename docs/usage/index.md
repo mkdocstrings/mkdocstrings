@@ -142,7 +142,7 @@ The above is equivalent to:
     ```
 
 Some handlers accept additional global configuration.
-Check the documentation for your handler of interest in [Handlers](handlers/overview.md).
+Check the documentation for your handler of interest in [Handlers](handlers.md).
 
 ## Cross-references
 

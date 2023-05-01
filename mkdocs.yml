@@ -15,15 +15,16 @@ nav:
   - Credits: credits.md
   - License: license.md
 - Usage:
-  - usage.md
-  - Theming: theming.md
-  - Handlers:
-    - handlers/overview.md
+  - usage/index.md
+  - Theming: usage/theming.md
+  - Handlers: usage/handlers.md
+  - All handlers:
     - Crystal: https://mkdocstrings.github.io/crystal/
+    - Python: https://mkdocstrings.github.io/python/
     - Python (Legacy): https://mkdocstrings.github.io/python-legacy/
-    - Python (Experimental): https://mkdocstrings.github.io/python/
-  - Recipes: recipes.md
-  - Troubleshooting: troubleshooting.md
+  - Guides:
+    - Recipes: recipes.md
+    - Troubleshooting: troubleshooting.md
 # defer to gen-files + literate-nav
 - Code Reference: reference/
 - Development:
@@ -91,6 +92,7 @@ markdown_extensions:
 - pymdownx.emoji:
     emoji_index: !!python/name:materialx.emoji.twemoji
     emoji_generator: !!python/name:materialx.emoji.to_svg
+- pymdownx.details
 - pymdownx.magiclink
 - pymdownx.snippets:
     check_paths: true
@@ -129,6 +131,10 @@ plugins:
   git-committers:
     enabled: !ENV [DEPLOY, false]
     repository: mkdocstrings/mkdocstrings
+  redirects:
+    redirect_maps:
+      theming.md: usage/theming.md
+      handlers/overview.md: usage/handlers.md
   minify:
     minify_html: !ENV [DEPLOY, false]
 

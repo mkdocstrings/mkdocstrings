@@ -48,7 +48,7 @@ when it should be `[Section][pytkdocs.parsers.docstrings.Section]`.
 ## Some objects are not rendered (they do not appear in the generated docs)
 
 - Make sure the configuration options of the handler are correct.
-  Check the documentation for [Handlers](handlers/overview.md) to see the available options for each handler.
+  Check the documentation for [Handlers](usage/handlers.md) to see the available options for each handler.
 - Also make sure your documentation in your source code is formatted correctly.
   For Python code, check the [supported docstring styles](https://mkdocstrings.github.io/python/usage/#supported-docstrings-styles) page.
 - Re-run the Mkdocs command with `-v`, and carefully read any traceback.
@@ -116,13 +116,13 @@ use this workaround.
 
 Please open an ticket on the [bugtracker][bugtracker] with a detailed
 explanation and screenshots of the bad-looking parts.
-Note that you can always [customize the look](theming.md) of *mkdocstrings* blocks -- through both HTML and CSS.
+Note that you can always [customize the look](usage/theming.md) of *mkdocstrings* blocks -- through both HTML and CSS.
 
 ## Warning: could not find cross-reference target
 
 TIP: **New in version 0.15.**  
 Cross-linking used to include any Markdown heading, but now it's only for *mkdocstrings* identifiers by default.
-See [Cross-references to any Markdown heading](usage.md#cross-references-to-any-markdown-heading) to opt back in.
+See [Cross-references to any Markdown heading](usage/index.md#cross-references-to-any-markdown-heading) to opt back in.
 
 Make sure the referenced object is properly rendered: verify your configuration options.
 
