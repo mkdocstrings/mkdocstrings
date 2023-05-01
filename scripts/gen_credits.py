@@ -53,6 +53,8 @@ def _get_deps(base_deps: Mapping[str, Mapping[str, str]]) -> dict[str, dict[str,
     for dep in base_deps:
         parsed = regex.match(dep).groupdict()  # type: ignore[union-attr]
         dep_name = parsed["dist"].lower()
+        if dep_name not in lock_pkgs:
+            continue
         deps[dep_name] = {"license": _get_license(dep_name), **parsed, **lock_pkgs[dep_name]}
 
     again = True
@@ -63,7 +65,7 @@ def _get_deps(base_deps: Mapping[str, Mapping[str, str]]) -> dict[str, dict[str,
                 for pkg_dependency in lock_pkgs[pkg_name].get("dependencies", []):
                     parsed = regex.match(pkg_dependency).groupdict()  # type: ignore[union-attr]
                     dep_name = parsed["dist"].lower()
-                    if dep_name not in deps and dep_name != project["name"] and dep_name in lock_pkgs:
+                    if dep_name in lock_pkgs and dep_name not in deps and dep_name != project["name"]:
                         deps[dep_name] = {"license": _get_license(dep_name), **parsed, **lock_pkgs[dep_name]}
                         again = True
 
