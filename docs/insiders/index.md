@@ -48,10 +48,10 @@ The biggest bottleneck in Open Source is time.[^3]
     you can be sure that bugs are fixed quickly and new features are added
     regularly.
 
-If you're unsure if you should sponsor this project, check out the list of
+<!-- If you're unsure if you should sponsor this project, check out the list of
 [completed funding goals][goals completed] to learn whether you're already using features that
 were developed with the help of sponsorships. You're most likely using at least
-a handful of them, [thanks to our awesome sponsors][sponsors]!
+a handful of them, [thanks to our awesome sponsors][sponsors]! -->
 
 ## What's in it for me?
 
@@ -61,14 +61,22 @@ data_source = "docs/insiders/goals.yml"
 
 ```python exec="1" session="insiders"
 --8<-- "scripts/insiders.py"
+```
 
+<!-- ```python exec="1" session="insiders"
 print(f"""The moment you <a href="#how-to-become-a-sponsor">become a sponsor</a>, you'll get **immediate
 access to {len(completed_features)} additional features** that you can start using right away, and
 which are currently exclusively available to sponsors:\n""")
 
 for feature in completed_features:
     feature.render(badge=True)
-```
+``` -->
+
+We currently don't have any features available to sponsors only.
+Right now we are putting our efforts into the documentation,
+then we will start again implementing features.
+You can get updates on *mkdocstrings Insiders* work
+by following **@pawamoy** on :material-mastodon:{ .mastodon } [Fosstodon](https://fosstodon.org/@pawamoy).
 
 ## How to become a sponsor
 
@@ -107,12 +115,9 @@ You can cancel your sponsorship anytime.[^5]
     regarding your payment, and GitHub doesn't offer refunds, sponsorships are
     non-refundable.
 
-
 ```python exec="1" session="insiders"
 print_join_sponsors_button()
 ```
-
-
 
 <br>
 
@@ -132,11 +137,16 @@ print_sponsors()
 
 ## Funding
 
-```python exec="1" session="insiders" idprefix=""
-print(f"Current funding is at **$ {human_readable_amount(current_funding)}  a month**.")
+```python exec="1" session="insiders"
+print(f"""
+Current funding is at **$ {human_readable_amount(current_funding)}  a month**.
+We do not have any funding goals yet.
+Stay updated by following **@pawamoy**
+on :material-mastodon:{{ .mastodon }} [Fosstodon](https://fosstodon.org/@pawamoy).
+""")
 ```
 
-### Goals
+<!-- ### Goals
 
 The following section lists all funding goals. Each goal contains a list of
 features prefixed with a checkmark symbol, denoting whether a feature is
@@ -161,7 +171,7 @@ can be used by all users.
 for goal in goals.values():
     if goal.complete:
         goal.render()
-```
+``` -->
 
 ## Frequently asked questions
 
@@ -176,8 +186,6 @@ and configuration options are either backward-compatible or implemented behind
 feature flags. Most Insiders features enhance the overall experience,
 though while these features add value for the users of your project, they
 shouldn't be necessary for previewing when making changes to content.
-
-
 
 ### Payment
 
