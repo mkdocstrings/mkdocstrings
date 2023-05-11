@@ -14,7 +14,6 @@ during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on
 
 from __future__ import annotations
 
-import collections
 import functools
 import gzip
 import os
@@ -226,8 +225,7 @@ class MkdocstringsPlugin(BasePlugin):
 
         config["extra_css"].insert(0, self.css_filename)  # So that it has lower priority than user files.
 
-        self._inv_futures = []
-        self._inv_futures_args = {}
+        self._inv_futures = {}
         if to_import:
             inv_loader = futures.ThreadPoolExecutor(4)
             for handler_name, import_item in to_import:
@@ -237,8 +235,7 @@ class MkdocstringsPlugin(BasePlugin):
                     loader,
                     **import_item,
                 )
-                self._inv_futures.append(future)
-                self._inv_futures_args[future] = (loader, import_item)
+                self._inv_futures[future] = (loader, import_item)
             inv_loader.shutdown(wait=False)
 
         if self.config["watch"]:
@@ -289,17 +286,18 @@ class MkdocstringsPlugin(BasePlugin):
         if self._inv_futures:
             log.debug(f"Waiting for {len(self._inv_futures)} inventory download(s)")
             futures.wait(self._inv_futures, timeout=30)
-            future_results = []
-            for fut in self._inv_futures:
+            results = {}
+            # Reversed order so that pages from first futures take precedence:
+            for fut in reversed(list(self._inv_futures)):
                 try:
-                    future_results.append(fut.result())
+                    results.update(fut.result())
                 except Exception as error:  # noqa: BLE001
-                    loader, import_item = self._inv_futures_args[fut]
+                    loader, import_item = self._inv_futures[fut]
                     loader_name = loader.__func__.__qualname__
                     log.error(f"Couldn't load inventory {import_item} through {loader_name}: {error}")  # noqa: TRY400
-            for page, identifier in collections.ChainMap(*future_results).items():
+            for page, identifier in results.items():
                 config["plugins"]["autorefs"].register_url(page, identifier)
-            self._inv_futures = []
+            self._inv_futures = {}
 
     def on_post_build(
         self,
