@@ -108,15 +108,15 @@ markdown_extensions:
     permalink: "¤"
 
 plugins:
-  search: {}
-  markdown-exec: {}
-  gen-files:
+- search
+- markdown-exec
+- gen-files:
     scripts:
     - scripts/gen_ref_nav.py
-  literate-nav:
+- literate-nav:
     nav_file: SUMMARY.txt
-  coverage: {}
-  mkdocstrings:
+- coverage
+- mkdocstrings:
     handlers:
       python:
         import:
@@ -128,14 +128,14 @@ plugins:
           merge_init_into_class: true
           docstring_options:
             ignore_init_summary: true
-  git-committers:
+- git-committers:
     enabled: !ENV [DEPLOY, false]
     repository: mkdocstrings/mkdocstrings
-  redirects:
+- redirects:
     redirect_maps:
       theming.md: usage/theming.md
       handlers/overview.md: usage/handlers.md
-  minify:
+- minify:
     minify_html: !ENV [DEPLOY, false]
 
 extra:

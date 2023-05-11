@@ -32,7 +32,7 @@ help:
 
 .PHONY: lock
 lock:
-	@pdm lock
+	@pdm lock --dev
 
 .PHONY: setup
 setup:

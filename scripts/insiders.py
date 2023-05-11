@@ -112,7 +112,32 @@ def load_goals(data: str, funding: int = 0, project: Project | None = None) -> d
     }
 
 
-def funding_goals(source: str | list[tuple[str, str, str]], funding: int = 0) -> dict:
+def _load_goals_from_disk(path: str, funding: int = 0) -> dict[int, Goal]:
+    try:
+        data = Path(path).read_text()
+    except OSError as error:
+        raise RuntimeError(f"Could not load data from disk: {path}") from error
+    return load_goals(data, funding)
+
+
+def _load_goals_from_url(source_data: tuple[str, str, str], funding: int = 0) -> dict[int, Goal]:
+    project_name, project_url, data_fragment = source_data
+    data_url = urljoin(project_url, data_fragment)
+    try:
+        with urlopen(data_url) as response:  # noqa: S310
+            data = response.read()
+    except HTTPError as error:
+        raise RuntimeError(f"Could not load data from network: {data_url}") from error
+    return load_goals(data, funding, project=Project(name=project_name, url=project_url))
+
+
+def _load_goals(source: str | tuple[str, str, str], funding: int = 0) -> dict[int, Goal]:
+    if isinstance(source, str):
+        return _load_goals_from_disk(source, funding)
+    return _load_goals_from_url(source, funding)
+
+
+def funding_goals(source: str | list[str | tuple[str, str, str]], funding: int = 0) -> dict[int, Goal]:
     """Load funding goals from a given data source.
 
     Parameters:
@@ -123,20 +148,10 @@ def funding_goals(source: str | list[tuple[str, str, str]], funding: int = 0) ->
         A dictionaries of goals, keys being their target monthly amount.
     """
     if isinstance(source, str):
-        try:
-            data = Path(source).read_text()
-        except OSError as error:
-            raise RuntimeError(f"Could not load data from disk: {source}") from error
-        return load_goals(data, funding)
+        return _load_goals_from_disk(source, funding)
     goals = {}
-    for project_name, project_url, data_fragment in source:
-        data_url = urljoin(project_url, data_fragment)
-        try:
-            with urlopen(data_url) as response:  # noqa: S310
-                data = response.read()
-        except HTTPError as error:
-            raise RuntimeError(f"Could not load data from network: {data_url}") from error
-        source_goals = load_goals(data, funding, project=Project(name=project_name, url=project_url))
+    for src in source:
+        source_goals = _load_goals(src)
         for amount, goal in source_goals.items():
             if amount not in goals:
                 goals[amount] = goal

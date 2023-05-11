@@ -12,6 +12,7 @@ pip-wheel-metadata/
 site/
 pdm.lock
 pdm.toml
+.pdm-plugins/
 .pdm-python
 __pypackages__/
 .mypy_cache/

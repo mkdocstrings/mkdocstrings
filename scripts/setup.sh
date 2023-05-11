@@ -10,11 +10,11 @@ if ! command -v pdm &>/dev/null; then
     pipx install pdm
 fi
 if ! pdm self list 2>/dev/null | grep -q pdm-multirun; then
-    pipx inject pdm pdm-multirun
+    pdm install --plugins
 fi
 
 if [ -n "${PYTHON_VERSIONS}" ]; then
-    pdm multirun -vi ${PYTHON_VERSIONS// /,} pdm install -G:all
+    pdm multirun -vi ${PYTHON_VERSIONS// /,} pdm install --dev
 else
-    pdm install -G:all
+    pdm install --dev
 fi

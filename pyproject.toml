@@ -58,6 +58,9 @@ mkdocstrings = "mkdocstrings.plugin:MkdocstringsPlugin"
 
 [tool.pdm]
 version = {source = "scm"}
+plugins = [
+    "pdm-multirun",
+]
 
 [tool.pdm.build]
 package-dir = "src"
@@ -66,6 +69,8 @@ editable-backend = "editables"
 
 [tool.pdm.dev-dependencies]
 duty = ["duty>=0.10"]
+ci-quality = ["mkdocstrings[duty,docs,quality,typing,security]"]
+ci-tests = ["mkdocstrings[duty,docs,tests]"]
 docs = [
     "black>=23.1",
     "markdown-callouts>=0.2",
@@ -105,4 +110,6 @@ typing = [
     "types-pyyaml>=6.0",
     "types-toml>=0.10",
 ]
-security = ["safety>=2"]
+security = [
+    "safety>=2",
+]

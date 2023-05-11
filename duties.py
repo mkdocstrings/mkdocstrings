@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 import sys
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from duty import duty
 from duty.callables import black, blacken_docs, coverage, lazy, mkdocs, mypy, pytest, ruff, safety
@@ -35,7 +35,29 @@ def pyprefix(title: str) -> str:  # noqa: D103
     return title
 
 
+def merge(d1: Any, d2: Any) -> Any:  # noqa: D103
+    basic_types = (int, float, str, bool, complex)
+    if isinstance(d1, dict) and isinstance(d2, dict):
+        for key, value in d2.items():
+            if key in d1:
+                if isinstance(d1[key], basic_types):
+                    d1[key] = value
+                else:
+                    d1[key] = merge(d1[key], value)
+            else:
+                d1[key] = value
+        return d1
+    if isinstance(d1, list) and isinstance(d2, list):
+        return d1 + d2
+    return d2
+
+
 def mkdocs_config() -> str:  # noqa: D103
+    from mkdocs import utils
+
+    # patch YAML loader to merge arrays
+    utils.merge = merge
+
     if "+insiders" in pkgversion("mkdocs-material"):
         return "mkdocs.insiders.yml"
     return "mkdocs.yml"
