@@ -56,21 +56,24 @@ a handful of them, [thanks to our awesome sponsors][sponsors]! -->
 ## What's in it for me?
 
 ```python exec="1" session="insiders"
-data_source = "docs/insiders/goals.yml"
+data_source = [
+    "docs/insiders/goals.yml",
+    ("mkdocstrings-python", "https://mkdocstrings.github.io/python/", "insiders/goals.yml"),
+]
 ```
 
 ```python exec="1" session="insiders"
 --8<-- "scripts/insiders.py"
 ```
 
-<!-- ```python exec="1" session="insiders"
+```python exec="1" session="insiders"
 print(f"""The moment you <a href="#how-to-become-a-sponsor">become a sponsor</a>, you'll get **immediate
 access to {len(completed_features)} additional features** that you can start using right away, and
 which are currently exclusively available to sponsors:\n""")
 
 for feature in completed_features:
     feature.render(badge=True)
-``` -->
+```
 
 We currently don't have any features available to sponsors only.
 Right now we are putting our efforts into the documentation,
@@ -146,7 +149,7 @@ on :material-mastodon:{{ .mastodon }} [Fosstodon](https://fosstodon.org/@pawamoy
 """)
 ```
 
-<!-- ### Goals
+### Goals
 
 The following section lists all funding goals. Each goal contains a list of
 features prefixed with a checkmark symbol, denoting whether a feature is
@@ -161,7 +164,7 @@ for goal in goals.values():
         goal.render()
 ```
 
-### Goals completed
+<!-- ### Goals completed
 
 This section lists all funding goals that were previously completed, which means
 that those features were part of Insiders, but are now generally available and
