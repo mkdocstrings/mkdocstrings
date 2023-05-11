@@ -75,12 +75,6 @@ for feature in completed_features:
     feature.render(badge=True)
 ```
 
-We currently don't have any features available to sponsors only.
-Right now we are putting our efforts into the documentation,
-then we will start again implementing features.
-You can get updates on *mkdocstrings Insiders* work
-by following **@pawamoy** on :material-mastodon:{ .mastodon } [Fosstodon](https://fosstodon.org/@pawamoy).
-
 ## How to become a sponsor
 
 Thanks for your interest in sponsoring! In order to become an eligible sponsor
@@ -141,12 +135,7 @@ print_sponsors()
 ## Funding
 
 ```python exec="1" session="insiders"
-print(f"""
-Current funding is at **$ {human_readable_amount(current_funding)}  a month**.
-We do not have any funding goals yet.
-Stay updated by following **@pawamoy**
-on :material-mastodon:{{ .mastodon }} [Fosstodon](https://fosstodon.org/@pawamoy).
-""")
+print(f"Current funding is at **$ {human_readable_amount(current_funding)}  a month**.")
 ```
 
 ### Goals
