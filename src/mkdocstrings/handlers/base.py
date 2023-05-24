@@ -11,6 +11,7 @@ It also provides two methods:
 from __future__ import annotations
 
 import importlib
+import sys
 import warnings
 from contextlib import suppress
 from pathlib import Path
@@ -30,6 +31,12 @@ from mkdocstrings.handlers.rendering import (
 )
 from mkdocstrings.inventory import Inventory
 from mkdocstrings.loggers import get_template_logger
+
+# TODO: remove once support for Python 3.9 is dropped
+if sys.version_info < (3, 10):
+    from importlib_metadata import entry_points
+else:
+    from importlib.metadata import entry_points
 
 CollectorItem = Any
 
@@ -93,11 +100,22 @@ class BaseRenderer:
         self._theme = theme
         self._custom_templates = custom_templates
 
+        # add selected theme templates
         themes_dir = self.get_templates_dir(handler)
         paths.append(themes_dir / theme)
 
+        # add extended theme templates
+        extended_templates_dirs = self.get_extended_templates_dirs(handler)
+        for templates_dir in extended_templates_dirs:
+            paths.append(templates_dir / theme)
+
+        # add fallback theme templates
         if self.fallback_theme and self.fallback_theme != theme:
             paths.append(themes_dir / self.fallback_theme)
+
+            # add fallback theme of extended templates
+            for templates_dir in extended_templates_dirs:
+                paths.append(templates_dir / self.fallback_theme)
 
         for path in paths:
             css_path = path / "style.css"
@@ -178,6 +196,18 @@ class BaseRenderer:
                 return theme_path
 
         raise FileNotFoundError(f"Can't find 'templates' folder for handler '{handler}'")
+
+    def get_extended_templates_dirs(self, handler: str) -> list[Path]:
+        """Load template extensions for the given handler, return their templates directories.
+
+        Arguments:
+            handler: The name of the handler to get the extended templates directory of.
+
+        Returns:
+            The extensions templates directories.
+        """
+        discovered_extensions = entry_points(group=f"mkdocstrings.{handler}.templates")
+        return [extension.load()() for extension in discovered_extensions]
 
     def get_anchors(self, data: CollectorItem) -> tuple[str, ...] | set[str]:
         """Return the possible identifiers (HTML anchors) for a collected item.

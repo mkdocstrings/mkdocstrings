@@ -192,7 +192,7 @@ is written for inspiration.
 ### Templates
 
 Your handler's implementation should normally be backed by templates, which go
-to the directory `mkdocstrings_handlers/custom_handler/templates/some_theme`.
+to the directory `mkdocstrings_handlers/custom_handler/templates/some_theme`
 (`custom_handler` here should be replaced with the actual name of your handler,
 and `some_theme` should be the name of an actual MkDocs theme that you support,
 e.g. `material`).
@@ -258,3 +258,79 @@ plugins:
       some_config_option: "b"
       other_config_option: 1
 ```
+
+## Handler extensions
+
+*mkdocstrings* provides a way for third-party packages
+to extend or alter the behavior of handlers.
+For example, an extension of the Python handler
+could add specific support for another Python library.
+
+NOTE: This feature is intended for developers.
+If you are a user and want to customize how objects are rendered,
+see [Theming / Customization](../theming/#customization).
+
+Such extensions can register additional template folders
+that will be used when rendering collected data.
+Extensions are responsible for synchronizing
+with the handler itself so that it uses the additional templates.
+
+An extension is a Python package
+that defines an entry-point for a specific handler:
+
+```toml title="pyproject.toml"
+[project.entry-points."mkdocstrings.python.templates"] # (1)!
+extension-name = "extension_package:get_templates_path" # (2)!
+```
+
+1. Replace `python` by the name of the handler you want to add templates to.
+1. Replace `extension-name` by any name you want,
+    and replace `extension_package:get_templates_path`
+    by the actual module path and function name in your package.
+
+This entry-point assumes that the extension provides
+a `get_templates_path` function directly under the `extension_package` package:
+
+```tree
+pyproject.toml
+extension_package/
+    __init__.py
+    templates/
+```
+
+```python title="extension_package/__init__.py"
+from pathlib import Path
+
+
+def get_templates_path() -> Path:
+    return Path(__file__).parent / "templates"
+```
+
+This function doesn't accept any argument
+and returns the path ([`pathlib.Path`][] or [`str`][])
+to a directory containing templates.
+The directory must contain one subfolder
+for each supported theme, even if empty
+(see "fallback theme" in [custom handlers templates](#templates_1)).
+For example:
+
+```tree
+pyproject.toml
+extension_package/
+    __init__.py
+    templates/
+        material/
+        readthedocs/
+        mkdocs/
+```
+
+*mkdocstrings* will add the folders corresponding to the user-selected theme,
+and to the handler's defined fallback theme, as usual.
+
+The names of the extension templates
+must not overlap with the handler's original templates.
+
+The extension is then responsible, in collaboration with its target handler,
+for mutating the collected data in order to instruct the handler
+to use one of the extension template when rendering particular objects.
+See each handler's docs to see if they support extensions, and how.
