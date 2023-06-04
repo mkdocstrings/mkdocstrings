@@ -85,19 +85,21 @@ def test_extended_templates(extended_templates: Path, plugin: MkdocstringsPlugin
     handler.env.cache = None
 
     extended_fallback_theme = extended_templates.joinpath(handler.fallback_theme)
-    extended_fallback_theme.mkdir()
+    extended_fallback_theme.mkdir(exist_ok=True)
     extended_fallback_theme.joinpath("new.html").write_text("extended fallback new")
     assert handler.env.get_template("new.html").render() == "extended fallback new"
 
     extended_theme = extended_templates.joinpath("mkdocs")
-    extended_theme.mkdir()
+    extended_theme.mkdir(exist_ok=True)
     extended_theme.joinpath("new.html").write_text("extended new")
     assert handler.env.get_template("new.html").render() == "extended new"
 
     base_fallback_theme = Path(search_paths[1])
+    base_fallback_theme.mkdir(exist_ok=True)
     base_fallback_theme.joinpath("new.html").write_text("base fallback new")
     assert handler.env.get_template("new.html").render() == "base fallback new"
 
     base_theme = Path(search_paths[0])
+    base_theme.mkdir(exist_ok=True)
     base_theme.joinpath("new.html").write_text("base new")
     assert handler.env.get_template("new.html").render() == "base new"
