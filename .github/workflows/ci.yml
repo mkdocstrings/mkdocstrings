@@ -52,8 +52,29 @@ jobs:
     - name: Check for breaking changes in the API
       run: pdm run duty check-api
 
+  exclude-test-jobs:
+    runs-on: ubuntu-latest
+    outputs:
+      jobs: ${{ steps.exclude-jobs.outputs.jobs }}
+    steps:
+    - id: exclude-jobs
+      run: |
+        if ${{ github.repository_owner == 'pawamoy-insiders' }}; then
+          echo 'jobs=[
+            {"os": "macos-latest"},
+            {"os": "windows-latest"},
+            {"python-version": "3.8"},
+            {"python-version": "3.9"},
+            {"python-version": "3.10"},
+            {"python-version": "3.11"}
+          ]' | tr -d '[:space:]' >> $GITHUB_OUTPUT
+        else
+          echo 'jobs=[]' >> $GITHUB_OUTPUT
+        fi
+
   tests:
 
+    needs: exclude-test-jobs
     strategy:
       max-parallel: 4
       matrix:
@@ -67,6 +88,7 @@ jobs:
         - "3.9"
         - "3.10"
         - "3.11"
+        exclude: ${{ fromJSON(needs.exclude-test-jobs.outputs.jobs) }}
 
     runs-on: ${{ matrix.os }}
 
