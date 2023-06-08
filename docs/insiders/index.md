@@ -116,13 +116,33 @@ You can cancel your sponsorship anytime.[^5]
 print_join_sponsors_button()
 ```
 
+<hr>
+<div class="premium-sponsors">
+
+<div class="bronze">
+  <b>Bronze sponsors</b>
+  <p>
+
+  <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" title="Material for MkDocs">
+    <img alt="Material for MkDocs" src="https://raw.githubusercontent.com/squidfunk/mkdocs-material/master/.github/assets/logo.svg" style="height: 240px;">
+  </a>
+  <a href="https://docs.pydantic.dev/latest/" target="_blank" title="Pydantic">
+    <img alt="Pydantic" src="https://github.com/pawamoy/website/assets/3999221/368ff871-8fae-40c4-9b66-781b66e12cbb" style="height: 100px;">
+  </a>
+
+  </p>
+</div>
+</div>
+
+<hr>
 <br>
 
 ```python exec="1" session="insiders"
 print_sponsors()
 ```
 
-<br><br>
+<br>
+<br>
 
 <small>
   If you sponsor publicly, you're automatically added here with a link to
