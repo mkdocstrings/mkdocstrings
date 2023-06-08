@@ -62,6 +62,18 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
 - **Reasonable defaults:**
   you should be able to just drop the plugin in your configuration and enjoy your auto-generated docs.
 
+## Used by
+
+*mkdocstrings* is used by well-known companies, projects and scientific teams:
+[Ansible](https://molecule.readthedocs.io/configuration/),
+[Apache](https://streampipes.apache.org/docs/docs/python/latest/reference/client/client/),
+[Google](https://docs.kidger.site/jaxtyping/api/runtime-type-checking/),
+[Jitsi](https://jitsi.github.io/jiwer/reference/alignment/),
+[Microsoft](https://microsoft.github.io/presidio/api/analyzer_python/),
+[Prefect](https://docs.prefect.io/2.10.12/api-ref/prefect/agent/),
+[Pydantic](https://docs.pydantic.dev/dev-v2/api/main/),
+[and more...](https://github.com/mkdocstrings/mkdocstrings/network/dependents)
+
 ## Installation
 
 With `pip`:
