@@ -59,7 +59,7 @@ class AutoDocProcessor(BlockProcessor):
     a matched block.
     """
 
-    regex = re.compile(r"^(?P<heading>#{1,6} *|)::: ?(?P<name>.+?) *$", flags=re.MULTILINE)
+    regex = re.compile(r"^ *(?P<heading>#{1,6} *|)::: ?(?P<name>.+?) *$", flags=re.MULTILINE)
 
     def __init__(
         self,
