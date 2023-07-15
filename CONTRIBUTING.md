@@ -39,20 +39,19 @@ Run `make help` to see all the available actions!
 This project uses [duty](https://github.com/pawamoy/duty) to run tasks.
 A Makefile is also provided. The Makefile will try to run certain tasks
 on multiple Python versions. If for some reason you don't want to run the task
-on multiple Python versions, you can do one of the following:
-
-1. `export PYTHON_VERSIONS= `: this will run the task
-   with only the current Python version
-2. run the task directly with `pdm run duty TASK`
+on multiple Python versions, you run the task directly with `pdm run duty TASK`.
 
 The Makefile detects if a virtual environment is activated,
 so `make` will work the same with the virtualenv activated or not.
+
+If you work in VSCode,
+[see examples of tasks and run configurations](https://pawamoy.github.io/copier-pdm/work/#vscode-setup).
 
 ## Development
 
 As usual:
 
-1. create a new branch: `git checkout -b feature-or-bugfix-name`
+1. create a new branch: `git switch -c feature-or-bugfix-name`
 1. edit the code and/or the documentation
 
 **Before committing:**
@@ -138,7 +137,7 @@ git commit --fixup=SHA
 Once all the changes are approved, you can squash your commits:
 
 ```bash
-git rebase -i --autosquash master
+git rebase -i --autosquash main
 ```
 
 And force-push:

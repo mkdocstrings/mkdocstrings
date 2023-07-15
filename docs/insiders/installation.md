@@ -13,6 +13,16 @@ you need to [become an eligible sponsor] of @pawamoy on GitHub.
 
 ## Installation
 
+### with PyPI Insiders
+
+[PyPI Insiders](https://pawamoy.github.io/pypi-insiders/)
+is a tool that helps you keep up-to-date versions
+of Insiders projects in the PyPI index of your choice
+(self-hosted, Google registry, Artifactory, etc.).
+
+See [how to install it](https://pawamoy.github.io/pypi-insiders/#installation)
+and [how to use it](https://pawamoy.github.io/pypi-insiders/#usage).
+
 ### with pip (ssh/https)
 
 *mkdocstrings Insiders* can be installed with `pip` [using SSH][using ssh]:

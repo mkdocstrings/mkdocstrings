@@ -9,7 +9,6 @@ from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from itertools import chain
 from pathlib import Path
-from textwrap import dedent
 from typing import Iterable, cast
 from urllib.error import HTTPError
 from urllib.parse import urljoin
@@ -101,7 +100,7 @@ def load_goals(data: str, funding: int = 0, project: Project | None = None) -> d
                 Feature(
                     name=feature_data["name"],
                     ref=feature_data["ref"],
-                    since=feature_data["since"]
+                    since=feature_data.get("since")
                     and datetime.strptime(feature_data["since"], "%Y/%m/%d").date(),  # noqa: DTZ007
                     project=project,
                 )
@@ -185,32 +184,9 @@ sponsors: list[dict] = load_json(f"{data_url}/sponsors.json")  # type: ignore[as
 current_funding = numbers["total"]
 sponsors_count = numbers["count"]
 goals = funding_goals(data_source, funding=current_funding)
-all_features = feature_list(goals.values())
-completed_features = sorted(
-    (ft for ft in all_features if ft.since),
+ongoing_goals = [goal for goal in goals.values() if not goal.complete]
+unreleased_features = sorted(
+    (ft for ft in feature_list(ongoing_goals) if ft.since),
     key=lambda ft: cast(date, ft.since),
     reverse=True,
 )
-
-
-def print_join_sponsors_button() -> None:  # noqa: D103
-    btn_classes = "{ .md-button .md-button--primary }"
-    print(
-        dedent(
-            f"""
-            [:octicons-heart-fill-24:{{ .pulse }}
-            &nbsp; Join our {sponsors_count} awesome sponsors]({sponsor_url}){btn_classes}
-            """,
-        ),
-    )
-
-
-def print_sponsors() -> None:  # noqa: D103
-    private_sponsors_count = sponsors_count - len(sponsors)
-    for sponsor in sponsors:
-        print(
-            f"""<a href="{sponsor['url']}" class="sponsorship-item" title="@{sponsor['name']}">"""
-            f"""<img src="{sponsor['image']}&size=72"></a>""",
-        )
-    if private_sponsors_count:
-        print(f"""<a href="{sponsor_url}" class="sponsorship-item private">+{private_sponsors_count}</a>""")

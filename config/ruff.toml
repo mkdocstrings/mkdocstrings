@@ -1,4 +1,4 @@
-target-version = "py37"
+target-version = "py38"
 line-length = 132
 exclude = [
     "fixtures",

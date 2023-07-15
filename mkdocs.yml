@@ -2,11 +2,11 @@ site_name: "mkdocstrings"
 site_description: "Automatic documentation from sources, for MkDocs."
 site_url: "https://mkdocstrings.github.io/"
 repo_url: "https://github.com/mkdocstrings/mkdocstrings"
-edit_uri: "blob/master/docs/"
 repo_name: "mkdocstrings/mkdocstrings"
 site_dir: "site"
 watch: [mkdocs.yml, README.md, CONTRIBUTING.md, CHANGELOG.md, src/mkdocstrings]
 copyright: Copyright &copy; 2019 Timothée Mazzucotelli
+edit_uri: edit/main/docs/
 
 nav:
 - Home:
@@ -26,7 +26,8 @@ nav:
     - Recipes: recipes.md
     - Troubleshooting: troubleshooting.md
 # defer to gen-files + literate-nav
-- Code Reference: reference/
+- API reference:
+  - mkdocstrings: reference/
 - Development:
   - Contributing: contributing.md
   - Code of Conduct: code_of_conduct.md
@@ -124,10 +125,18 @@ plugins:
         - https://installer.readthedocs.io/en/stable/objects.inv  # demonstration purpose in the docs
         - https://mkdocstrings.github.io/autorefs/objects.inv
         options:
-          separate_signature: true
-          merge_init_into_class: true
           docstring_options:
             ignore_init_summary: true
+          docstring_section_style: list
+          heading_level: 1
+          merge_init_into_class: true
+          separate_signature: true
+          show_root_heading: true
+          show_root_full_path: false
+          show_signature_annotations: true
+          show_symbol_type_heading: true
+          show_symbol_type_toc: true
+          signature_crossrefs: true
 - git-committers:
     enabled: !ENV [DEPLOY, false]
     repository: mkdocstrings/mkdocstrings
