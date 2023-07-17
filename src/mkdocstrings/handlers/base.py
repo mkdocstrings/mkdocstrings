@@ -15,7 +15,7 @@ import sys
 import warnings
 from contextlib import suppress
 from pathlib import Path
-from typing import Any, BinaryIO, Iterable, Iterator, Mapping, MutableMapping, Sequence
+from typing import Any, BinaryIO, ClassVar, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from xml.etree.ElementTree import Element, tostring
 
 from jinja2 import Environment, FileSystemLoader
@@ -396,7 +396,7 @@ class BaseHandler(BaseCollector, BaseRenderer):
 
     domain: str = "default"
     enable_inventory: bool = False
-    fallback_config: dict = {}
+    fallback_config: ClassVar[dict] = {}
 
     # TODO: once the BaseCollector and BaseRenderer classes are removed,
     # stop accepting the 'handler' parameter, and instead set a 'name' attribute on the Handler class.
