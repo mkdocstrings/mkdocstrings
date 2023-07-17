@@ -14,11 +14,8 @@ Since version 0.18, a new, experimental Python handler is available.
 It is based on [Griffe](https://github.com/mkdocstrings/griffe),
 which is an improved version of [pytkdocs](https://github.com/mkdocstrings/pytkdocs).
 
-Note that the experimental handler does not yet support third-party libraries
-like Django, Marshmallow, Pydantic, etc.
-It is also not completely ready to handle dynamically built objects,
-like classes built with a call to `type(...)`.
-For most other cases, the experimental handler will work just fine.
+Note that the experimental handler does not yet support all third-party libraries
+that the legacy handler supported.
 
 If you want to keep using the legacy handler as long as possible,
 you can depend on `mkdocstrings-python-legacy` directly,
@@ -51,18 +48,13 @@ dependencies = [
 ]
 ```
 
-#### Handler options
-
-- `setup_commands` is not yet implemented. In most cases, you won't need it,
-  since by default the new handler does not execute the code.
-
 #### Selection options
 
 WARNING: Since *mkdocstrings* 0.19, the YAML `selection` key is merged into the `options` key.
 
 - [x] `filters` is implemented, and used as before.
 - [x] `members` is implemented, and used as before.
-- [ ] `inherited_members` is not yet implemented.
+- [x] `inherited_members` is implemented.
 - [x] `docstring_style` is implemented, and used as before,
   except for the `restructured-text` style which is renamed `sphinx`.
   Numpy-style is now built-in, so you can stop depending on `pytkdocs[numpy-style]`
@@ -83,13 +75,13 @@ WARNING: Since *mkdocstrings* 0.19, the YAML `rendering` key is merged into the 
 Every previous option is supported.
 Additional options are available:
 
-- `separate_signature`: Render the signature (or attribute value) in a code block below the heading,
+- [x] `separate_signature`: Render the signature (or attribute value) in a code block below the heading,
   instead as inline code. Useful for long signatures. If Black is installed,
   the signature is formatted. Default: `False`.
-- `line_length`: The maximum line length to use when formatting signatures. Default: `60`.
-- `show_submodules`: Whether to render submodules of a module when iterating on children.
+- [x] `line_length`: The maximum line length to use when formatting signatures. Default: `60`.
+- [x] `show_submodules`: Whether to render submodules of a module when iterating on children.
   Default: `False`.
-- `docstring_section_style`: The style to use to render docstring sections such as attributes,
+- [x] `docstring_section_style`: The style to use to render docstring sections such as attributes,
   parameters, etc. Available styles: `table` (default), `list` and `spacy`. The SpaCy style
   is a poor implementation of their [table style](https://spacy.io/api/doc/#init).
   We are open to improvements through PRs!
@@ -99,34 +91,8 @@ See [all the handler's options](https://mkdocstrings.github.io/python/usage/).
 #### Templates
 
 Templates are mostly the same as before, but the file layout has changed,
-as well as some file names. Here is the new tree:
-
-```
-📁 theme/
-├── 📄 attribute.html
-├── 📄 children.html
-├── 📄 class.html
-├── 📁 docstring/
-│   ├── 📄 admonition.html
-│   ├── 📄 attributes.html
-│   ├── 📄 examples.html
-│   ├── 📄 other_parameters.html
-│   ├── 📄 parameters.html
-│   ├── 📄 raises.html
-│   ├── 📄 receives.html
-│   ├── 📄 returns.html
-│   ├── 📄 warns.html
-│   └── 📄 yields.html
-├── 📄 docstring.html
-├── 📄 expression.html
-├── 📄 function.html
-├── 📄 labels.html
-├── 📄 module.html
-└── 📄 signature.html
-```
-
-See them [in the handler repository](https://github.com/mkdocstrings/python/tree/8fc8ea5b112627958968823ef500cfa46b63613e/src/mkdocstrings_handlers/python/templates/material). See the documentation about the Python handler templates:
-https://mkdocstrings.github.io/python/customization/#templates.
+as well as some file names.
+See [the documentation about the Python handler templates](https://mkdocstrings.github.io/python/usage/customization/#templates).
 
 ## Custom handlers
 
@@ -213,7 +179,7 @@ If your theme's HTML requires CSS to go along with it, put it into a file named
 `mkdocstrings_handlers/custom_handler/templates/some_theme/style.css`, then this will be
 included into the final site automatically if this handler is ever used.
 Alternatively, you can put the CSS as a string into the `extra_css` variable of
-your renderer.
+your handler.
 
 Finally, it's possible to entirely omit templates, and tell *mkdocstrings*
 to use the templates of another handler. In you handler, override the
@@ -225,7 +191,7 @@ from mkdocstrings.handlers.base import BaseHandler
 
 
 class CobraHandler(BaseHandler):
-    def get_templates_dir(self, handler: str) -> Path:
+    def get_templates_dir(self, handler: str | None = None) -> Path:
         # use the python handler templates
         # (it assumes the python handler is installed)
         return super().get_templates_dir("python")

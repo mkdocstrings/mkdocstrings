@@ -35,7 +35,6 @@ if TYPE_CHECKING:
     from jinja2.environment import Environment
     from mkdocs.config import Config
     from mkdocs.config.defaults import MkDocsConfig
-    from mkdocs.livereload import LiveReloadServer
 
 if sys.version_info < (3, 10):
     from typing_extensions import ParamSpec
@@ -43,11 +42,6 @@ else:
     from typing import ParamSpec
 
 log = get_logger(__name__)
-
-SELECTION_OPTS_KEY: str = "selection"
-"""Deprecated. The name of the selection parameter in YAML configuration blocks."""
-RENDERING_OPTS_KEY: str = "rendering"
-"""Deprecated. The name of the rendering parameter in YAML configuration blocks."""
 
 InventoryImportType = List[Tuple[str, Mapping[str, Any]]]
 InventoryLoaderType = Callable[..., Iterable[Tuple[str, str]]]
@@ -76,14 +70,12 @@ class MkdocstringsPlugin(BasePlugin):
     - `on_config`
     - `on_env`
     - `on_post_build`
-    - `on_serve`
 
     Check the [Developing Plugins](https://www.mkdocs.org/user-guide/plugins/#developing-plugins) page of `mkdocs`
     for more information about its plugin system.
     """
 
-    config_scheme: tuple[tuple[str, MkType]] = (
-        ("watch", MkType(list, default=[])),  # type: ignore[assignment]
+    config_scheme: tuple[tuple[str, MkType]] = (  # type: ignore[assignment]
         ("handlers", MkType(dict, default={})),
         ("default_handler", MkType(str, default="python")),
         ("custom_templates", MkType(str, default=None)),
@@ -95,13 +87,12 @@ class MkdocstringsPlugin(BasePlugin):
 
     Available options are:
 
-    - **`watch` (deprecated)**: A list of directories to watch. Only used when serving the documentation with mkdocs.
-       Whenever a file changes in one of directories, the whole documentation is built again, and the browser refreshed.
-       Deprecated in favor of the now built-in `watch` feature of MkDocs.
-    - **`default_handler`**: The default handler to use. The value is the name of the handler module. Default is "python".
-    - **`enabled`**: Whether to enable the plugin. Default is true. If false, *mkdocstrings* will not collect or render anything.
     - **`handlers`**: Global configuration of handlers. You can set global configuration per handler, applied everywhere,
       but overridable in each "autodoc" instruction. Example:
+    - **`default_handler`**: The default handler to use. The value is the name of the handler module. Default is "python".
+    - **`custom_templates`**: Custom templates to use when rendering API objects.
+    - **`enable_inventory`**: Whether to enable object inventory creation.
+    - **`enabled`**: Whether to enable the plugin. Default is true. If false, *mkdocstrings* will not collect or render anything.
 
     ```yaml
     plugins:
@@ -109,11 +100,11 @@ class MkdocstringsPlugin(BasePlugin):
           handlers:
             python:
               options:
-                selection_opt: true
-                rendering_opt: "value"
+                option1: true
+                option2: "value"
             rust:
               options:
-                selection_opt: 2
+                option9: 2
     ```
     """
 
@@ -137,36 +128,6 @@ class MkdocstringsPlugin(BasePlugin):
         if not self._handlers:
             raise RuntimeError("The plugin hasn't been initialized with a config yet")
         return self._handlers
-
-    # TODO: remove once watch feature is removed
-    def on_serve(
-        self,
-        server: LiveReloadServer,
-        config: Config,  # noqa: ARG002
-        builder: Callable,
-        *args: Any,  # noqa: ARG002
-        **kwargs: Any,  # noqa: ARG002
-    ) -> None:
-        """Watch directories.
-
-        Hook for the [`on_serve` event](https://www.mkdocs.org/user-guide/plugins/#on_serve).
-        In this hook, we add the directories specified in the plugin's configuration to the list of directories
-        watched by `mkdocs`. Whenever a change occurs in one of these directories, the documentation is built again
-        and the site reloaded.
-
-        Arguments:
-            server: The `livereload` server instance.
-            config: The MkDocs config object (unused).
-            builder: The function to build the site.
-            *args: Additional arguments passed by MkDocs.
-            **kwargs: Additional arguments passed by MkDocs.
-        """
-        if not self.plugin_enabled:
-            return
-        if self.config["watch"]:
-            for element in self.config["watch"]:
-                log.debug(f"Adding directory '{element}' to watcher")
-                server.watch(element, builder)
 
     def on_config(self, config: MkDocsConfig) -> MkDocsConfig | None:
         """Instantiate our Markdown extension.
@@ -238,9 +199,6 @@ class MkdocstringsPlugin(BasePlugin):
                 self._inv_futures[future] = (loader, import_item)
             inv_loader.shutdown(wait=False)
 
-        if self.config["watch"]:
-            self._warn_about_watch_option()
-
         return config
 
     @property
@@ -311,7 +269,7 @@ class MkdocstringsPlugin(BasePlugin):
 
         For example, a handler could open a subprocess in the background and keep it open
         to feed it "autodoc" instructions and get back JSON data. If so, it should then close the subprocess at some point:
-        the proper place to do this is in the collector's `teardown` method, which is indirectly called by this hook.
+        the proper place to do this is in the handler's `teardown` method, which is indirectly called by this hook.
 
         Arguments:
             config: The MkDocs config object.
@@ -362,11 +320,3 @@ class MkdocstringsPlugin(BasePlugin):
             result = dict(loader(content, url=url, **kwargs))
         log.debug(f"Loaded inventory from {url!r}: {len(result)} items")
         return result
-
-    @classmethod
-    @functools.lru_cache(maxsize=None)  # Warn only once
-    def _warn_about_watch_option(cls) -> None:
-        log.info(
-            "DEPRECATION: mkdocstrings' watch feature is deprecated in favor of MkDocs' watch feature, "
-            "see https://www.mkdocs.org/user-guide/configuration/#watch",
-        )

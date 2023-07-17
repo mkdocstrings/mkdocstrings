@@ -65,7 +65,6 @@ plugins = [
 
 [tool.pdm.build]
 package-dir = "src"
-includes = ["src/mkdocstrings"]
 editable-backend = "editables"
 
 [tool.pdm.dev-dependencies]

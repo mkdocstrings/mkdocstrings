@@ -12,19 +12,17 @@ instruction:
 ```yaml
 ::: some.identifier
     handler: python
-    selection:
+    options:
       option1: value1
       option2:
-        - value2a
-        - value2b
-    rendering:
+      - value2a
+      - value2b
       option_x: etc
 ```
 """
 
 from __future__ import annotations
 
-import functools
 import re
 from collections import ChainMap
 from typing import TYPE_CHECKING, Any, MutableSequence
@@ -184,13 +182,7 @@ class AutoDocProcessor(BlockProcessor):
 
         global_options = handler_config.get("options", {})
         local_options = config.get("options", {})
-        deprecated_global_options = ChainMap(handler_config.get("selection", {}), handler_config.get("rendering", {}))
-        deprecated_local_options = ChainMap(config.get("selection", {}), config.get("rendering", {}))
-
-        options = ChainMap(local_options, deprecated_local_options, global_options, deprecated_global_options)
-
-        if deprecated_global_options or deprecated_local_options:
-            self._warn_about_options_key()
+        options = ChainMap(local_options, global_options)
 
         if heading_level:
             options = ChainMap(options, {"heading_level": heading_level})  # like setdefault
@@ -200,12 +192,12 @@ class AutoDocProcessor(BlockProcessor):
             data: CollectorItem = handler.collect(identifier, options)
         except CollectionError as exception:
             log.error(str(exception))  # noqa: TRY400
-            if PluginError is SystemExit:  # When MkDocs 1.2 is sufficiently common, this can be dropped.
+            if PluginError is SystemExit:  # TODO: when MkDocs 1.2 is sufficiently common, this can be dropped.
                 log.error(f"Error reading page '{self._autorefs.current_page}':")  # noqa: TRY400
             raise PluginError(f"Could not collect '{identifier}'") from exception
 
         if handler_name not in self._updated_envs:  # We haven't seen this handler before on this document.
-            log.debug("Updating renderer's env")
+            log.debug("Updating handler's rendering env")
             handler._update_env(self.md, self._config)
             self._updated_envs.add(handler_name)
 
@@ -220,11 +212,6 @@ class AutoDocProcessor(BlockProcessor):
             raise
 
         return rendered, handler, data
-
-    @classmethod
-    @functools.lru_cache(maxsize=None)  # Warn only once
-    def _warn_about_options_key(cls) -> None:
-        log.info("DEPRECATION: 'selection' and 'rendering' are deprecated and merged into a single 'options' YAML key")
 
 
 class _PostProcessor(Treeprocessor):
