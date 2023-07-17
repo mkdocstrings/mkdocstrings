@@ -135,16 +135,17 @@ class AutoDocProcessor(BlockProcessor):
             page = self._autorefs.current_page
             if page is not None:
                 for heading in headings:
-                    anchor = heading.attrib["id"]
-                    self._autorefs.register_anchor(page, anchor)
+                    rendered_anchor = heading.attrib["id"]
+                    self._autorefs.register_anchor(page, rendered_anchor)
 
                     if "data-role" in heading.attrib:
-                        self._handlers.inventory.register(
-                            name=anchor,
-                            domain=handler.domain,
-                            role=heading.attrib["data-role"],
-                            uri=f"{page}#{anchor}",
-                        )
+                        for anchor in sorted({rendered_anchor, *handler.get_anchors(data)}):
+                            self._handlers.inventory.register(
+                                name=anchor,
+                                domain=handler.domain,
+                                role=heading.attrib["data-role"],
+                                uri=f"{page}#{rendered_anchor}",
+                            )
 
             parent.append(el)
 
