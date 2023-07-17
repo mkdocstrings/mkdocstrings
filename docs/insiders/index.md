@@ -59,6 +59,8 @@ a handful of them, [thanks to our awesome sponsors][sponsors]! -->
 data_source = [
     "docs/insiders/goals.yml",
     ("mkdocstrings-python", "https://mkdocstrings.github.io/python/", "insiders/goals.yml"),
+    ("griffe-pydantic", "https://mkdocstrings.github.io/griffe-pydantic/", "insiders/goals.yml"),
+    ("griffe-typing-deprecated", "https://mkdocstrings.github.io/griffe-typing-deprecated/", "insiders/goals.yml"),
 ]
 ```
 
