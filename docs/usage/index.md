@@ -116,9 +116,6 @@ The above is equivalent to:
 - `enabled` **(New in version 0.20)**: Whether to enable the plugin. Defaults to `true`.
   Can be used to reduce build times when doing local development.
   Especially useful when used with environment variables (see example below).
-- `watch` **(deprecated)**: A list of directories to watch while serving the documentation.
-  See [Watch directories](#watch-directories). Deprecated in favor of the now built-in
-  [`watch` feature of MkDocs](https://www.mkdocs.org/user-guide/configuration/#watch).
 
 !!! example
     ```yaml title="mkdocs.yml"
@@ -334,30 +331,3 @@ plugins:
 - mkdocstrings:
     enable_inventory: false
 ```
-
-## Watch directories
-
-DANGER: **Deprecated since version 0.19.**  
-Instead, use the built-in [`watch` feature of MkDocs](https://www.mkdocs.org/user-guide/configuration/#watch).
-
-You can add directories to watch with the `watch` key.
-It accepts a list of paths.
-
-```yaml title="mkdocs.yml"
-plugins:
-  - mkdocstrings:
-      watch:
-        - src/my_package_1
-        - src/my_package_2
-```
-
-When serving your documentation
-and a change occur in one of the listed path,
-MkDocs will rebuild the site and reload the current page.
-
-NOTE: **The `watch` feature doesn't have special effects.**  
-Adding directories to the `watch` list doesn't have any other effect than watching for changes.
-For example, it will not tell the Python handler to look for packages in these paths
-(the paths are not added to the `PYTHONPATH` variable).
-If you want to tell Python where to look for packages and modules,
-see [Python Handler: Finding modules](https://mkdocstrings.github.io/python/usage/#finding-modules).

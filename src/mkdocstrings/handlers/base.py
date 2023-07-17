@@ -1,6 +1,6 @@
 """Base module for handlers.
 
-This module contains the base classes for implementing collectors, renderers, and the combination of the two: handlers.
+This module contains the base classes for implementing handlers.
 
 It also provides two methods:
 
@@ -12,8 +12,6 @@ from __future__ import annotations
 
 import importlib
 import sys
-import warnings
-from contextlib import suppress
 from pathlib import Path
 from typing import Any, BinaryIO, ClassVar, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from xml.etree.ElementTree import Element, tostring
@@ -66,21 +64,32 @@ def do_any(seq: Sequence, attribute: str | None = None) -> bool:
     return any(_[attribute] for _ in seq)
 
 
-class BaseRenderer:
-    """The base renderer class.
+class BaseHandler:
+    """The base handler class.
 
-    Inherit from this class to implement a renderer.
+    Inherit from this class to implement a handler.
 
-    You will have to implement the `render` method.
-    You can also override the `update_env` method, to add more filters to the Jinja environment,
+    You will have to implement the `collect` and `render` methods.
+    You can also implement the `teardown` method,
+    and  override the `update_env` method, to add more filters to the Jinja environment,
     making them available in your Jinja templates.
 
     To define a fallback theme, add a `fallback_theme` class-variable.
     To add custom CSS, add an `extra_css` variable or create an 'style.css' file beside the templates.
     """
 
+    name: str = ""
+    """The handler's name, for example "python"."""
+    domain: str = "default"
+    """The handler's domain, used to register objects in the inventory, for example "py"."""
+    enable_inventory: bool = False
+    """Whether the inventory creation is enabled."""
+    fallback_config: ClassVar[dict] = {}
+    """Fallback configuration when searching anchors for identifiers."""
     fallback_theme: str = ""
+    """Fallback theme to use when a template isn't found in the configured theme."""
     extra_css = ""
+    """Extra CSS."""
 
     def __init__(self, handler: str, theme: str, custom_templates: str | None = None) -> None:
         """Initialize the object.
@@ -94,11 +103,6 @@ class BaseRenderer:
             custom_templates: Directory containing custom templates.
         """
         paths = []
-
-        # TODO: remove once BaseRenderer is merged into BaseHandler
-        self._handler = handler
-        self._theme = theme
-        self._custom_templates = custom_templates
 
         # add selected theme templates
         themes_dir = self.get_templates_dir(handler)
@@ -137,6 +141,44 @@ class BaseRenderer:
         self._headings: list[Element] = []
         self._md: Markdown = None  # type: ignore[assignment]  # To be populated in `update_env`.
 
+    @classmethod
+    def load_inventory(
+        cls,
+        in_file: BinaryIO,  # noqa: ARG003
+        url: str,  # noqa: ARG003
+        base_url: str | None = None,  # noqa: ARG003
+        **kwargs: Any,  # noqa: ARG003
+    ) -> Iterator[tuple[str, str]]:
+        """Yield items and their URLs from an inventory file streamed from `in_file`.
+
+        Arguments:
+            in_file: The binary file-like object to read the inventory from.
+            url: The URL that this file is being streamed from (used to guess `base_url`).
+            base_url: The URL that this inventory's sub-paths are relative to.
+            **kwargs: Ignore additional arguments passed from the config.
+
+        Yields:
+            Tuples of (item identifier, item URL).
+        """
+        yield from ()
+
+    def collect(self, identifier: str, config: MutableMapping[str, Any]) -> CollectorItem:
+        """Collect data given an identifier and user configuration.
+
+        In the implementation, you typically call a subprocess that returns JSON, and load that JSON again into
+        a Python dictionary for example, though the implementation is completely free.
+
+        Arguments:
+            identifier: An identifier for which to collect data. For example, in Python,
+                it would be 'mkdocstrings.handlers' to collect documentation about the handlers module.
+                It can be anything that you can feed to the tool of your choice.
+            config: The handler's configuration options.
+
+        Returns:
+            Anything you want, as long as you can feed it to the handler's `render` method.
+        """
+        raise NotImplementedError
+
     def render(self, data: CollectorItem, config: Mapping[str, Any]) -> str:
         """Render a template using provided data and configuration options.
 
@@ -149,7 +191,14 @@ class BaseRenderer:
         """
         raise NotImplementedError
 
-    def get_templates_dir(self, handler: str) -> Path:
+    def teardown(self) -> None:
+        """Teardown the handler.
+
+        This method should be implemented to, for example, terminate a subprocess
+        that was started when creating the handler instance.
+        """
+
+    def get_templates_dir(self, handler: str | None = None) -> Path:
         """Return the path to the handler's templates directory.
 
         Override to customize how the templates directory is found.
@@ -158,41 +207,21 @@ class BaseRenderer:
             handler: The name of the handler to get the templates directory of.
 
         Raises:
+            ModuleNotFoundError: When no such handler is installed.
             FileNotFoundError: When the templates directory cannot be found.
 
         Returns:
             The templates directory path.
         """
-        # Templates can be found in 2 different logical locations:
-        # - in mkdocstrings_handlers/HANDLER/templates: our new migration target
-        # - in mkdocstrings/templates/HANDLER: current situation, this should be avoided
-        # These two other locations are forbidden:
-        # - in mkdocstrings_handlers/templates/HANDLER: sub-namespace packages are too annoying to deal with
-        # - in mkdocstrings/handlers/HANDLER/templates: not currently supported,
-        #   and mkdocstrings will stop being a namespace
-
-        with suppress(ModuleNotFoundError):  # TODO: catch at some point to warn about missing handlers
+        handler = handler or self.name
+        try:
             import mkdocstrings_handlers
+        except ModuleNotFoundError as error:
+            raise ModuleNotFoundError(f"Handler '{handler}' not found, is it installed?") from error
 
-            for path in mkdocstrings_handlers.__path__:
-                theme_path = Path(path, handler, "templates")
-                if theme_path.exists():
-                    return theme_path
-
-        # TODO: remove import and loop at some point,
-        # as mkdocstrings will stop being a namespace package
-        import mkdocstrings
-
-        for path in mkdocstrings.__path__:
-            theme_path = Path(path, "templates", handler)
+        for path in mkdocstrings_handlers.__path__:
+            theme_path = Path(path, handler, "templates")
             if theme_path.exists():
-                if handler != "python":
-                    warnings.warn(
-                        "Exposing templates in the mkdocstrings.templates namespace is deprecated. "
-                        "Put them in a templates folder inside your handler package instead.",
-                        DeprecationWarning,
-                        stacklevel=1,
-                    )
                 return theme_path
 
         raise FileNotFoundError(f"Can't find 'templates' folder for handler '{handler}'")
@@ -209,7 +238,7 @@ class BaseRenderer:
         discovered_extensions = entry_points(group=f"mkdocstrings.{handler}.templates")
         return [extension.load()() for extension in discovered_extensions]
 
-    def get_anchors(self, data: CollectorItem) -> tuple[str, ...] | set[str]:
+    def get_anchors(self, data: CollectorItem) -> tuple[str, ...] | set[str]:  # noqa: ARG002
         """Return the possible identifiers (HTML anchors) for a collected item.
 
         Arguments:
@@ -218,11 +247,7 @@ class BaseRenderer:
         Returns:
             The HTML anchors (without '#'), or an empty tuple if this item doesn't have an anchor.
         """
-        # TODO: remove this at some point
-        try:
-            return (self.get_anchor(data),)  # type: ignore[attr-defined]
-        except AttributeError:
-            return ()
+        return ()
 
     def do_convert_markdown(
         self,
@@ -346,181 +371,6 @@ class BaseRenderer:
         self.update_env(new_md, config)
 
 
-class BaseCollector:
-    """The base collector class.
-
-    Inherit from this class to implement a collector.
-
-    You will have to implement the `collect` method.
-    You can also implement the `teardown` method.
-    """
-
-    def collect(self, identifier: str, config: MutableMapping[str, Any]) -> CollectorItem:
-        """Collect data given an identifier and selection configuration.
-
-        In the implementation, you typically call a subprocess that returns JSON, and load that JSON again into
-        a Python dictionary for example, though the implementation is completely free.
-
-        Arguments:
-            identifier: An identifier for which to collect data. For example, in Python,
-                it would be 'mkdocstrings.handlers' to collect documentation about the handlers module.
-                It can be anything that you can feed to the tool of your choice.
-            config: The handler's configuration options.
-
-        Returns:
-            Anything you want, as long as you can feed it to the renderer's `render` method.
-        """
-        raise NotImplementedError
-
-    def teardown(self) -> None:
-        """Teardown the collector.
-
-        This method should be implemented to, for example, terminate a subprocess
-        that was started when creating the collector instance.
-        """
-
-
-class BaseHandler(BaseCollector, BaseRenderer):
-    """The base handler class.
-
-    Inherit from this class to implement a handler.
-
-    It's usually just a combination of a collector and a renderer, but you can make it as complex as you need.
-
-    Attributes:
-        domain: The cross-documentation domain/language for this handler.
-        enable_inventory: Whether this handler is interested in enabling the creation
-            of the `objects.inv` Sphinx inventory file.
-        fallback_config: The configuration used to collect item during autorefs fallback.
-    """
-
-    domain: str = "default"
-    enable_inventory: bool = False
-    fallback_config: ClassVar[dict] = {}
-
-    # TODO: once the BaseCollector and BaseRenderer classes are removed,
-    # stop accepting the 'handler' parameter, and instead set a 'name' attribute on the Handler class.
-    # Then make the 'handler' parameter in 'get_templates_dir' optional, and use the class 'name' by default.
-    def __init__(self, *args: str | BaseCollector | BaseRenderer, **kwargs: str | BaseCollector | BaseRenderer) -> None:
-        """Initialize the object.
-
-        Arguments:
-            *args: Collector and renderer, or handler name, theme and custom_templates.
-            **kwargs: Same thing, but with keyword arguments.
-
-        Raises:
-            ValueError: When the given parameters are invalid.
-        """
-        # The method accepts *args and **kwargs temporarily,
-        # to support the transition period where the BaseCollector
-        # and BaseRenderer are deprecated, and the BaseHandler
-        # can be instantiated with both instances of collector/renderer,
-        # or renderer parameters, as positional parameters.
-
-        collector = None
-        renderer = None
-
-        # parsing positional arguments
-        str_args = []
-        for arg in args:
-            if isinstance(arg, BaseCollector):
-                collector = arg
-            elif isinstance(arg, BaseRenderer):
-                renderer = arg
-            elif isinstance(arg, str):
-                str_args.append(arg)
-
-        while len(str_args) != 3:  # noqa: PLR2004
-            str_args.append(None)  # type: ignore[arg-type]
-
-        handler, theme, custom_templates = str_args
-
-        # fetching values from keyword arguments
-        if "collector" in kwargs:
-            collector = kwargs.pop("collector")  # type: ignore[assignment]
-        if "renderer" in kwargs:
-            renderer = kwargs.pop("renderer")  # type: ignore[assignment]
-        if "handler" in kwargs:
-            handler = kwargs.pop("handler")  # type: ignore[assignment]
-        if "theme" in kwargs:
-            theme = kwargs.pop("theme")  # type: ignore[assignment]
-        if "custom_templates" in kwargs:
-            custom_templates = kwargs.pop("custom_templates")  # type: ignore[assignment]
-
-        if collector is None and renderer is not None or collector is not None and renderer is None:
-            raise ValueError("both 'collector' and 'renderer' must be provided")
-
-        if collector is not None:
-            warnings.warn(
-                DeprecationWarning(
-                    "The BaseCollector class is deprecated, and passing an instance of it "
-                    "to your handler is deprecated as well. Instead, define the `collect` and `teardown` "
-                    "methods directly on your handler class.",
-                ),
-                stacklevel=1,
-            )
-            self.collector = collector
-            self.collect = collector.collect  # type: ignore[method-assign]
-            self.teardown = collector.teardown  # type: ignore[method-assign]
-
-        if renderer is not None:
-            if {handler, theme, custom_templates} != {None}:
-                raise ValueError(
-                    "'handler', 'theme' and 'custom_templates' must all be None when providing a renderer instance",
-                )
-            warnings.warn(
-                DeprecationWarning(
-                    "The BaseRenderer class is deprecated, and passing an instance of it "
-                    "to your handler is deprecated as well. Instead, define the `render` method "
-                    "directly on your handler class (as well as other methods and attributes like "
-                    "`get_templates_dir`, `get_anchors`, `update_env` and `fallback_theme`, `extra_css`).",
-                ),
-                stacklevel=1,
-            )
-            self.renderer = renderer
-            self.render = renderer.render  # type: ignore[method-assign]
-            self.get_templates_dir = renderer.get_templates_dir  # type: ignore[method-assign]
-            self.get_anchors = renderer.get_anchors  # type: ignore[method-assign]
-            self.do_convert_markdown = renderer.do_convert_markdown  # type: ignore[method-assign]
-            self.do_heading = renderer.do_heading  # type: ignore[method-assign]
-            self.get_headings = renderer.get_headings  # type: ignore[method-assign]
-            self.update_env = renderer.update_env  # type: ignore[method-assign]
-            self._update_env = renderer._update_env  # type: ignore[method-assign]
-            self.fallback_theme = renderer.fallback_theme
-            self.extra_css = renderer.extra_css
-            renderer.__class__.__init__(
-                self,
-                renderer._handler,
-                renderer._theme,
-                renderer._custom_templates,
-            )
-        else:
-            if handler is None or theme is None:
-                raise ValueError("'handler' and 'theme' cannot be None")
-            BaseRenderer.__init__(self, handler, theme, custom_templates)
-
-    @classmethod
-    def load_inventory(
-        cls,
-        in_file: BinaryIO,  # noqa: ARG003
-        url: str,  # noqa: ARG003
-        base_url: str | None = None,  # noqa: ARG003
-        **kwargs: Any,  # noqa: ARG003
-    ) -> Iterator[tuple[str, str]]:
-        """Yield items and their URLs from an inventory file streamed from `in_file`.
-
-        Arguments:
-            in_file: The binary file-like object to read the inventory from.
-            url: The URL that this file is being streamed from (used to guess `base_url`).
-            base_url: The URL that this inventory's sub-paths are relative to.
-            **kwargs: Ignore additional arguments passed from the config.
-
-        Yields:
-            Tuples of (item identifier, item URL).
-        """
-        yield from ()
-
-
 class Handlers:
     """A collection of handlers.
 
@@ -543,7 +393,7 @@ class Handlers:
         """Return the canonical HTML anchor for the identifier, if any of the seen handlers can collect it.
 
         Arguments:
-            identifier: The identifier (one that [collect][mkdocstrings.handlers.base.BaseCollector.collect] can accept).
+            identifier: The identifier (one that [collect][mkdocstrings.handlers.base.BaseHandler.collect] can accept).
 
         Returns:
             A tuple of strings - anchors without '#', or an empty tuple if there isn't any identifier familiar with it.
@@ -606,18 +456,7 @@ class Handlers:
             if handler_config is None:
                 handler_config = self.get_handler_config(name)
             handler_config.update(self._config)
-            try:
-                module = importlib.import_module(f"mkdocstrings_handlers.{name}")
-            except ModuleNotFoundError:
-                module = importlib.import_module(f"mkdocstrings.handlers.{name}")
-                if name != "python":
-                    warnings.warn(
-                        DeprecationWarning(
-                            "Using the mkdocstrings.handlers namespace is deprecated. "
-                            "Handlers must now use the mkdocstrings_handlers namespace.",
-                        ),
-                        stacklevel=1,
-                    )
+            module = importlib.import_module(f"mkdocstrings_handlers.{name}")
             self._handlers[name] = module.get_handler(
                 theme=self._config["theme_name"],
                 custom_templates=self._config["mkdocstrings"]["custom_templates"],

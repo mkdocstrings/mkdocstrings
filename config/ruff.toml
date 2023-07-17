@@ -65,7 +65,6 @@ ignore = [
     "E501",  # Line too long
     "ERA001",  # Commented out code
     "G004",  # Logging statement uses f-string
-    "INP001",  # File is part of an implicit namespace package
     "PLR0911",  # Too many return statements
     "PLR0912",  # Too many branches
     "PLR0913",  # Too many arguments to function call

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import logging
 import re
 import sys
 from textwrap import dedent
@@ -147,14 +146,7 @@ def test_dont_register_every_identifier_as_anchor(plugin: MkdocstringsPlugin, ex
         assert identifier not in autorefs._abs_url_map
 
 
-def test_use_deprecated_yaml_keys(ext_markdown: Markdown, caplog: pytest.LogCaptureFixture) -> None:
-    """Check that using the deprecated 'selection' and 'rendering' YAML keys emits a deprecation warning."""
-    caplog.set_level(logging.INFO)
-    assert "h1" not in ext_markdown.convert("::: tests.fixtures.headings\n    rendering:\n      heading_level: 2")
-    assert "single 'options' YAML key" in caplog.text
-
-
-def test_use_new_options_yaml_key(ext_markdown: Markdown) -> None:
-    """Check that using the new 'options' YAML key works as expected."""
+def test_use_options_yaml_key(ext_markdown: Markdown) -> None:
+    """Check that using the 'options' YAML key works as expected."""
     assert "h1" in ext_markdown.convert("::: tests.fixtures.headings\n    options:\n      heading_level: 1")
     assert "h1" not in ext_markdown.convert("::: tests.fixtures.headings\n    options:\n      heading_level: 2")
