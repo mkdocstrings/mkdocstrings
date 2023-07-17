@@ -133,7 +133,7 @@ class AutoDocProcessor(BlockProcessor):
             el.extend(headings)
 
             page = self._autorefs.current_page
-            if page:
+            if page is not None:
                 for heading in headings:
                     anchor = heading.attrib["id"]
                     self._autorefs.register_anchor(page, anchor)
