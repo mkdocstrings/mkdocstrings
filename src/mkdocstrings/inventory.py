@@ -88,15 +88,34 @@ class Inventory(dict):
         self.project = project
         self.version = version
 
-    def register(self, *args: str, **kwargs: str) -> None:
+    def register(
+        self,
+        name: str,
+        domain: str,
+        role: str,
+        uri: str,
+        priority: str = "1",
+        dispname: str | None = None,
+    ) -> None:
         """Create and register an item.
 
         Arguments:
-            *args: Arguments passed to [InventoryItem][mkdocstrings.inventory.InventoryItem].
-            **kwargs: Keyword arguments passed to [InventoryItem][mkdocstrings.inventory.InventoryItem].
+            name: The item name.
+            domain: The item domain, like 'python' or 'crystal'.
+            role: The item role, like 'class' or 'method'.
+            uri: The item URI.
+            priority: The item priority. It can help for inventory suggestions.
+            dispname: The item display name.
         """
-        item = InventoryItem(*args, **kwargs)
-        self[item.name] = item
+        if name not in self:
+            self[name] = InventoryItem(
+                name=name,
+                domain=domain,
+                role=role,
+                uri=uri,
+                priority=priority,
+                dispname=dispname,
+            )
 
     def format_sphinx(self) -> bytes:
         """Format this inventory as a Sphinx `objects.inv` file.
