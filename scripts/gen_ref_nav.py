@@ -9,7 +9,7 @@ mod_symbol = '<code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>'
 
 for path in sorted(Path("src").rglob("*.py")):
     module_path = path.relative_to("src").with_suffix("")
-    doc_path = path.relative_to("src", "mkdocstrings").with_suffix(".md")
+    doc_path = path.relative_to("src/mkdocstrings").with_suffix(".md")
     full_doc_path = Path("reference", doc_path)
 
     parts = tuple(module_path.parts)
