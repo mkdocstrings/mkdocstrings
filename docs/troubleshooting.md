@@ -21,6 +21,8 @@ markdown_extensions:
 - pymdownx.superfences
 ```
 
+Note: If a code-block has a newline, "\n", you must escape it with an additional "\\", eg ```msg = "This line has a newline char at the end \\n"```
+
 ## Footnotes are duplicated or overridden
 
 Before version 0.14, footnotes could be duplicated over a page.
