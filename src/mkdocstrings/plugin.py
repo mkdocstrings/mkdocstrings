@@ -34,6 +34,7 @@ from mkdocstrings.loggers import get_logger
 if TYPE_CHECKING:
     from jinja2.environment import Environment
     from mkdocs.config import Config
+    from mkdocs.config.defaults import MkDocsConfig
     from mkdocs.livereload import LiveReloadServer
 
 if sys.version_info < (3, 10):
@@ -167,7 +168,7 @@ class MkdocstringsPlugin(BasePlugin):
                 log.debug(f"Adding directory '{element}' to watcher")
                 server.watch(element, builder)
 
-    def on_config(self, config: Config, **kwargs: Any) -> Config:  # noqa: ARG002
+    def on_config(self, config: MkDocsConfig) -> MkDocsConfig | None:
         """Instantiate our Markdown extension.
 
         Hook for the [`on_config` event](https://www.mkdocs.org/user-guide/plugins/#on_config).
@@ -179,7 +180,6 @@ class MkdocstringsPlugin(BasePlugin):
 
         Arguments:
             config: The MkDocs config object.
-            **kwargs: Additional arguments passed by MkDocs.
 
         Returns:
             The modified config.
