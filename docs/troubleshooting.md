@@ -21,7 +21,9 @@ markdown_extensions:
 - pymdownx.superfences
 ```
 
-Note: If a code-block has a newline, "\n", you must escape it with an additional "\\", eg ```msg = "This line has a newline char at the end \\n"```
+For code blocks in docstrings, make sure to escape newlines: `\n` -> `\\n`, or prefix
+the entire docstring with 'r' to make it a raw-docstring: <code>r"""</code>.
+Indeed, docstrings are still strings and therefore subject to how Python parses strings.
 
 ## Footnotes are duplicated or overridden
 
