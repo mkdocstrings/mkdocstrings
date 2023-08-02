@@ -21,6 +21,10 @@ markdown_extensions:
 - pymdownx.superfences
 ```
 
+For code blocks in docstrings, make sure to escape newlines (`\n` -> `\\n`),
+or prefix the entire docstring with 'r' to make it a raw-docstring: `r"""`.
+Indeed, docstrings are still strings and therefore subject to how Python parses strings.
+
 ## Footnotes are duplicated or overridden
 
 Before version 0.14, footnotes could be duplicated over a page.
