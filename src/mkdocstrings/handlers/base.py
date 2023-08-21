@@ -238,7 +238,7 @@ class BaseHandler:
         discovered_extensions = entry_points(group=f"mkdocstrings.{handler}.templates")
         return [extension.load()() for extension in discovered_extensions]
 
-    def get_anchors(self, data: CollectorItem) -> tuple[str, ...] | set[str]:  # noqa: ARG002
+    def get_anchors(self, data: CollectorItem) -> tuple[str, ...]:  # noqa: ARG002
         """Return the possible identifiers (HTML anchors) for a collected item.
 
         Arguments:
