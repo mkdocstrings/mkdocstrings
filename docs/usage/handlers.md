@@ -234,7 +234,7 @@ could add specific support for another Python library.
 
 NOTE: This feature is intended for developers.
 If you are a user and want to customize how objects are rendered,
-see [Theming / Customization](../theming/#customization).
+see [Theming / Customization](theming.md#customization).
 
 Such extensions can register additional template folders
 that will be used when rendering collected data.
