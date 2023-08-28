@@ -219,7 +219,7 @@ by the [ISC License][license]. However, we kindly ask you to respect our
 [goals completed]: #goals-completed
 [github sponsor profile]: https://github.com/sponsors/pawamoy
 [billing cycle]: https://docs.github.com/en/github/setting-up-and-managing-billing-and-payments-on-github/changing-the-duration-of-your-billing-cycle
-[license]: ../license/
+[license]: ../license.md
 [private forks]: https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/removing-a-collaborator-from-a-personal-repository
 
 <script src="../js/insiders.js"></script>

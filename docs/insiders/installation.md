@@ -107,7 +107,7 @@ or installing a package (with pip), and depending on the registry you are using 
 Please check the documentation of your registry to learn how to configure your environment.
 
 **We kindly ask that you do not upload the distributions to public registries,
-as it is against our [Terms of use](../#terms).**
+as it is against our [Terms of use](index.md#terms).**
 
 >? TIP: **Full example with `pypiserver`**  
 > In this example we use [pypiserver] to serve a local PyPI index.

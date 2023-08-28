@@ -53,10 +53,10 @@ def merge(d1: Any, d2: Any) -> Any:  # noqa: D103
 
 
 def mkdocs_config() -> str:  # noqa: D103
-    from mkdocs import utils
+    import mergedeep
 
-    # patch YAML loader to merge arrays
-    utils.merge = merge
+    # force YAML loader to merge arrays
+    mergedeep.merge = merge
 
     if "+insiders" in pkgversion("mkdocs-material"):
         return "mkdocs.insiders.yml"
