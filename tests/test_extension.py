@@ -137,7 +137,7 @@ def test_use_custom_handler(ext_markdown: Markdown) -> None:
 def test_dont_register_every_identifier_as_anchor(plugin: MkdocstringsPlugin, ext_markdown: Markdown) -> None:
     """Assert that we don't preemptively register all identifiers of a rendered object."""
     handler = plugin._handlers.get_handler("python")  # type: ignore[union-attr]
-    ids = {"id1", "id2", "id3"}
+    ids = ("id1", "id2", "id3")
     handler.get_anchors = lambda _: ids  # type: ignore[method-assign]
     ext_markdown.convert("::: tests.fixtures.headings")
     autorefs = ext_markdown.parser.blockprocessors["mkdocstrings"]._autorefs
