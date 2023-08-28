@@ -1,11 +1,6 @@
 """Base module for handlers.
 
 This module contains the base classes for implementing handlers.
-
-It also provides two methods:
-
-- `get_handler`, that will cache handlers into the `HANDLERS_CACHE` dictionary.
-- `teardown`, that will teardown all the cached handlers, and then clear the cache.
 """
 
 from __future__ import annotations
