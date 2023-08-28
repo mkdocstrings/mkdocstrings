@@ -233,7 +233,7 @@ class BaseHandler:
         discovered_extensions = entry_points(group=f"mkdocstrings.{handler}.templates")
         return [extension.load()() for extension in discovered_extensions]
 
-    def get_anchors(self, data: CollectorItem) -> tuple[str, ...]:  # noqa: ARG002
+    def get_anchors(self, data: CollectorItem) -> tuple[str, ...]:
         """Return the possible identifiers (HTML anchors) for a collected item.
 
         Arguments:
@@ -242,7 +242,11 @@ class BaseHandler:
         Returns:
             The HTML anchors (without '#'), or an empty tuple if this item doesn't have an anchor.
         """
-        return ()
+        # TODO: remove this when https://github.com/mkdocstrings/crystal/pull/6 is merged and released
+        try:
+            return (self.get_anchor(data),)  # type: ignore[attr-defined]
+        except AttributeError:
+            return ()
 
     def do_convert_markdown(
         self,
