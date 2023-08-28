@@ -142,6 +142,7 @@ plugins:
           show_symbol_type_heading: true
           show_symbol_type_toc: true
           signature_crossrefs: true
+          summary: true
 - git-committers:
     enabled: !ENV [DEPLOY, false]
     repository: mkdocstrings/mkdocstrings
