@@ -20,7 +20,7 @@ class InventoryItem:
         domain: str,
         role: str,
         uri: str,
-        priority: str = "1",
+        priority: int = 1,
         dispname: str | None = None,
     ):
         """Initialize the object.
@@ -30,14 +30,14 @@ class InventoryItem:
             domain: The item domain, like 'python' or 'crystal'.
             role: The item role, like 'class' or 'method'.
             uri: The item URI.
-            priority: The item priority. It can help for inventory suggestions.
+            priority: The item priority. Only used internally by mkdocstrings and Sphinx.
             dispname: The item display name.
         """
         self.name: str = name
         self.domain: str = domain
         self.role: str = role
         self.uri: str = uri
-        self.priority: str = priority
+        self.priority: int = priority
         self.dispname: str = dispname or name
 
     def format_sphinx(self) -> str:
@@ -67,7 +67,7 @@ class InventoryItem:
             uri = uri[:-1] + name
         if dispname == "-":
             dispname = name
-        return cls(name, domain, role, uri, priority, dispname)
+        return cls(name, domain, role, uri, int(priority), dispname)
 
 
 class Inventory(dict):
@@ -94,7 +94,7 @@ class Inventory(dict):
         domain: str,
         role: str,
         uri: str,
-        priority: str = "1",
+        priority: int = 1,
         dispname: str | None = None,
     ) -> None:
         """Create and register an item.
@@ -104,18 +104,17 @@ class Inventory(dict):
             domain: The item domain, like 'python' or 'crystal'.
             role: The item role, like 'class' or 'method'.
             uri: The item URI.
-            priority: The item priority. It can help for inventory suggestions.
+            priority: The item priority. Only used internally by mkdocstrings and Sphinx.
             dispname: The item display name.
         """
-        if name not in self:
-            self[name] = InventoryItem(
-                name=name,
-                domain=domain,
-                role=role,
-                uri=uri,
-                priority=priority,
-                dispname=dispname,
-            )
+        self[name] = InventoryItem(
+            name=name,
+            domain=domain,
+            role=role,
+            uri=uri,
+            priority=priority,
+            dispname=dispname,
+        )
 
     def format_sphinx(self) -> bytes:
         """Format this inventory as a Sphinx `objects.inv` file.

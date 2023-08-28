@@ -137,13 +137,28 @@ class AutoDocProcessor(BlockProcessor):
                     self._autorefs.register_anchor(page, rendered_anchor)
 
                     if "data-role" in heading.attrib:
-                        for anchor in sorted({rendered_anchor, *handler.get_anchors(data)}):
-                            self._handlers.inventory.register(
-                                name=anchor,
-                                domain=handler.domain,
-                                role=heading.attrib["data-role"],
-                                uri=f"{page}#{rendered_anchor}",
-                            )
+                        self._handlers.inventory.register(
+                            name=rendered_anchor,
+                            domain=handler.domain,
+                            role=heading.attrib["data-role"],
+                            priority=1,  # register with standard priority
+                            uri=f"{page}#{rendered_anchor}",
+                        )
+
+                        # also register other anchors for this object in the inventory
+                        try:
+                            data_object = handler.collect(rendered_anchor, handler.fallback_config)
+                        except CollectionError:
+                            continue
+                        for anchor in handler.get_anchors(data_object):
+                            if anchor not in self._handlers.inventory:
+                                self._handlers.inventory.register(
+                                    name=anchor,
+                                    domain=handler.domain,
+                                    role=heading.attrib["data-role"],
+                                    priority=2,  # register with lower priority
+                                    uri=f"{page}#{rendered_anchor}",
+                                )
 
             parent.append(el)
 
