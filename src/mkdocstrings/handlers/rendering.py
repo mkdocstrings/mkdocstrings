@@ -68,11 +68,14 @@ class Highlighter(Highlight):
             md: The Markdown instance to read configs from.
         """
         config: dict[str, Any] = {}
+        self._highlighter: str | None = None
         for ext in md.registeredExtensions:
             if isinstance(ext, HighlightExtension) and (ext.enabled or not config):
+                self._highlighter = "highlight"
                 config = ext.getConfigs()
                 break  # This one takes priority, no need to continue looking
             if isinstance(ext, CodeHiliteExtension) and not config:
+                self._highlighter = "codehilite"
                 config = ext.getConfigs()
                 config["language_prefix"] = config["lang_prefix"]
         self._css_class = config.pop("css_class", "highlight")
@@ -116,7 +119,11 @@ class Highlighter(Highlight):
             self.linenums = old_linenums
 
         if inline:
-            return Markup(f'<code class="{kwargs["css_class"]} language-{language}">{result.text}</code>')
+            # From the maintainer of codehilite, the codehilite CSS class, as defined by the user,
+            # should never be added to inline code, because codehilite does not support inline code.
+            # See https://github.com/Python-Markdown/markdown/issues/1220#issuecomment-1692160297.
+            css_class = "" if self._highlighter == "codehilite" else kwargs["css_class"]
+            return Markup(f'<code class="{css_class} language-{language}">{result.text}</code>')
         return Markup(result)
 
 

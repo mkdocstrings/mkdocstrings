@@ -32,7 +32,7 @@ def test_highlighter_without_pygments(extension_name: str) -> None:
     )
     assert (
         hl.highlight("import foo", language="python", inline=True)
-        == '<code class="hiiii language-python">import foo</code>'
+        == f'<code class="{"" if extension_name == "codehilite" else "hiiii"} language-python">import foo</code>'
     )
 
 
