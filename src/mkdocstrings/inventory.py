@@ -135,7 +135,10 @@ class Inventory(dict):
             .encode("utf8")
         )
 
-        lines = [item.format_sphinx().encode("utf8") for item in self.values()]
+        lines = [
+            item.format_sphinx().encode("utf8")
+            for item in sorted(self.values(), key=lambda item: (item.domain, item.name))
+        ]
         return header + zlib.compress(b"\n".join(lines) + b"\n", 9)
 
     @classmethod
@@ -155,4 +158,4 @@ class Inventory(dict):
         items = [InventoryItem.parse_sphinx(line.decode("utf8")) for line in lines]
         if domain_filter:
             items = [item for item in items if item.domain in domain_filter]
-        return cls(items)
+        return cls(sorted(items, key=lambda item: (item.domain, item.name)))
