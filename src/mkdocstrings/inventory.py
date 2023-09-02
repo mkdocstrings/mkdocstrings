@@ -150,7 +150,7 @@ class Inventory(dict):
             domain_filter: A collection of domain values to allow (and filter out all other ones).
 
         Returns:
-            An `Inventory` containing the collected `InventoryItem`s.
+            An inventory containing the collected items.
         """
         for _ in range(4):
             in_file.readline()
@@ -158,4 +158,4 @@ class Inventory(dict):
         items = [InventoryItem.parse_sphinx(line.decode("utf8")) for line in lines]
         if domain_filter:
             items = [item for item in items if item.domain in domain_filter]
-        return cls(sorted(items, key=lambda item: (item.domain, item.name)))
+        return cls(items)
