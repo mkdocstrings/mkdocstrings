@@ -101,21 +101,25 @@ a.insiders {
   text-align: center;
 }
 
-.premium-sponsors .silver img {
+#silver-sponsors img {
   height: 140px;
 }
 
-.premium-sponsors .bronze img {
+#bronze-sponsors img {
   height: 140px;
 }
 
-.premium-sponsors .bronze p {
+#bronze-sponsors p {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.premium-sponsors .bronze a {
+#bronze-sponsors a {
   display: block;
   flex-shrink: 0;
+}
+
+.sponsors-total {
+  font-weight: bold;
 }

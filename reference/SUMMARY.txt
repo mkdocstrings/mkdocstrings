@@ -1,6 +1,6 @@
-* <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> mkdocstrings
+* [<code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> mkdocstrings](index.md)
     * [<code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> extension](extension.md)
-    * <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> handlers
+    * [<code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> handlers](handlers/index.md)
         * [<code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> base](handlers/base.md)
         * [<code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> rendering](handlers/rendering.md)
     * [<code class="doc-symbol doc-symbol-nav doc-symbol-module"></code> inventory](inventory.md)
