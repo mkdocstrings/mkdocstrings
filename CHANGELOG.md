@@ -5,6 +5,34 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.23.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.23.0) - 2023-08-28
+
+<small>[Compare with 0.22.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.22.0...0.23.0)</small>
+
+### Breaking Changes
+
+- Removed `BaseCollector` and `BaseRenderer` classes: they were merged into the `BaseHandler` class.
+- Removed the watch feature, as MkDocs now provides it natively.
+- Removed support for `selection` and `rendering` keys in YAML blocks: use `options` instead.
+- Removed support for loading handlers from the `mkdocstrings.handler` namespace.
+  Handlers must now be packaged under the `mkdocstrings_handlers` namespace.
+
+### Features
+
+- Register all anchors for each object in the inventory ([228fb73](https://github.com/mkdocstrings/mkdocstrings/commit/228fb737caca4e20e600053bf59cbfa3e9c73906) by Timothée Mazzucotelli).
+
+### Bug Fixes
+
+- Don't add `codehilite` CSS class to inline code ([7690d41](https://github.com/mkdocstrings/mkdocstrings/commit/7690d41e2871997464367e673023585c4fb05e26) by Timothée Mazzucotelli).
+- Support cross-references for API docs rendered in top-level index page ([b194452](https://github.com/mkdocstrings/mkdocstrings/commit/b194452be93aee33b3c28a468762b4d96c501f4f) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Sort inventories before writing them to disk ([9371e9f](https://github.com/mkdocstrings/mkdocstrings/commit/9371e9fc7dd68506b73aa1580a12c5f5cd779aba) by Timothée Mazzucotelli).
+- Stop accepting sets as return value of `get_anchors` (only tuples), to preserve order ([2e10374](https://github.com/mkdocstrings/mkdocstrings/commit/2e10374be258e9713b26f73dd06d0c2520ec07a5) by Timothée Mazzucotelli).
+- Remove deprecated parts ([0a90a47](https://github.com/mkdocstrings/mkdocstrings/commit/0a90a474c8dcbd95821700d7dab63f03e392c40f) by Timothée Mazzucotelli).
+- Use proper parameters in `Inventory.register` method ([433c6e0](https://github.com/mkdocstrings/mkdocstrings/commit/433c6e01aab9333589f755e483f124db0836f143) by Timothée Mazzucotelli).
+
 ## [0.22.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.22.0) - 2023-05-25
 
 <small>[Compare with 0.21.2](https://github.com/mkdocstrings/mkdocstrings/compare/0.21.2...0.22.0)</small>
