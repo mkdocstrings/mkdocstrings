@@ -23,7 +23,8 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
   It means you can use it with any programming language, as long as there is a
   [**handler**](https://mkdocstrings.github.io/reference/handlers/base/) for it.
   We currently have [handlers](https://mkdocstrings.github.io/handlers/overview/)
-  for the [Crystal](https://mkdocstrings.github.io/crystal/) and [Python](https://mkdocstrings.github.io/python/) languages.
+  for the [Crystal](https://mkdocstrings.github.io/crystal/) and [Python](https://mkdocstrings.github.io/python/) languages,
+  as well as for [shell scripts/libraries](https://mkdocstrings.github.io/shell/).
   Maybe you'd like to add another one to the list? :wink:
 
 - [**Multiple themes support:**](https://mkdocstrings.github.io/theming/)

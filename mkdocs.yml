@@ -27,6 +27,7 @@ nav:
     - Crystal: https://mkdocstrings.github.io/crystal/
     - Python: https://mkdocstrings.github.io/python/
     - Python (Legacy): https://mkdocstrings.github.io/python-legacy/
+    - Shell: https://mkdocstrings.github.io/shell/
   - Guides:
     - Recipes: recipes.md
     - Troubleshooting: troubleshooting.md
