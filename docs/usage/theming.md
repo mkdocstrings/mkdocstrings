@@ -82,7 +82,7 @@ Since each handler provides its own set of templates, with their own CSS classes
 we cannot list them all here. See the documentation about CSS classes for:
 
 - the Crystal handler: https://mkdocstrings.github.io/crystal/styling.html#custom-styles
-- the Python handler: https://mkdocstrings.github.io/python/customization/#css-classes
+- the Python handler: https://mkdocstrings.github.io/python/usage/customization/#css-classes
 
 ### Syntax highlighting
 
