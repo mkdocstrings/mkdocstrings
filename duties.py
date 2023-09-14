@@ -4,20 +4,16 @@ from __future__ import annotations
 
 import os
 import sys
+from importlib.metadata import version as pkgversion
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 from duty import duty
 from duty.callables import black, blacken_docs, coverage, lazy, mkdocs, mypy, pytest, ruff, safety
 
-if sys.version_info < (3, 8):
-    from importlib_metadata import version as pkgversion
-else:
-    from importlib.metadata import version as pkgversion
-
-
 if TYPE_CHECKING:
     from duty.context import Context
+
 
 PY_SRC_PATHS = (Path(_) for _ in ("src", "tests", "duties.py", "scripts"))
 PY_SRC_LIST = tuple(str(_) for _ in PY_SRC_PATHS)
