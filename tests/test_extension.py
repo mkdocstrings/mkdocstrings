@@ -153,13 +153,11 @@ def test_use_options_yaml_key(ext_markdown: Markdown) -> None:
 
 
 @pytest.mark.parametrize("ext_markdown", [{"markdown_extensions": [{"pymdownx.tabbed": {"alternate_style": True}}]}], indirect=["ext_markdown"])
-def test_tab_headings(ext_markdown: Markdown) -> None:
-    """Assert footnotes don't get added to subsequent docstrings."""
+def test_removing_duplicated_headings(ext_markdown: Markdown) -> None:
+    """Assert duplicated headings are removed from the output."""
     output = ext_markdown.convert(
         dedent(
             """
-            Top.[^aaa]
-
             === "Tab A"
 
                 ::: tests.fixtures.headings
