@@ -233,24 +233,21 @@ class _PostProcessor(Treeprocessor):
     def run(self, root: Element) -> None:
         self._remove_duplicated_headings(root)
 
-    def _remove_duplicated_headings(self, parent: Element) -> bool:
+    def _remove_duplicated_headings(self, parent: Element) -> None:
         carry_text = ""
-        found = False
         for el in reversed(parent):  # Reversed mainly for the ability to mutate during iteration.
             if el.tag == "div" and el.get("class") == "mkdocstrings":
                 # Delete the duplicated headings along with their container, but keep the text (i.e. the actual HTML).
                 carry_text = (el.text or "") + carry_text
                 parent.remove(el)
-                found = True
-            elif carry_text:
-                el.tail = (el.tail or "") + carry_text
-                carry_text = ""
-            elif self._remove_duplicated_headings(el):
-                found = True
-                break
+            else:
+                if carry_text:
+                    el.tail = (el.tail or "") + carry_text
+                    carry_text = ""
+                self._remove_duplicated_headings(el)
+
         if carry_text:
             parent.text = (parent.text or "") + carry_text
-        return found
 
 
 class MkdocstringsExtension(Extension):

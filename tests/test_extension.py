@@ -152,19 +152,23 @@ def test_use_options_yaml_key(ext_markdown: Markdown) -> None:
     assert "h1" not in ext_markdown.convert("::: tests.fixtures.headings\n    options:\n      heading_level: 2")
 
 
-@pytest.mark.parametrize("ext_markdown", [{"markdown_extensions": [{"pymdownx.tabbed": {"alternate_style": True}}]}], indirect=["ext_markdown"])
+@pytest.mark.parametrize("ext_markdown", [{"markdown_extensions": [{"admonition": {}}]}], indirect=["ext_markdown"])
 def test_removing_duplicated_headings(ext_markdown: Markdown) -> None:
     """Assert duplicated headings are removed from the output."""
     output = ext_markdown.convert(
         dedent(
             """
-            === "Tab A"
+            ::: tests.fixtures.headings_many.heading_1
 
-                ::: tests.fixtures.headings
+            !!! note
 
+                ::: tests.fixtures.headings_many.heading_2
+
+            ::: tests.fixtures.headings_many.heading_3
             """,
         ),
     )
-    assert output.count("Foo") == 1
-    assert output.count("Bar") == 1
-    assert output.count("Baz") == 1
+    assert output.count(">Heading one<") == 1
+    assert output.count(">Heading two<") == 1
+    assert output.count(">Heading three<") == 1
+    assert output.count('class="mkdocstrings') == 0
