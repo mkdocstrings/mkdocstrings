@@ -23,7 +23,7 @@ from typing import TYPE_CHECKING, Any, BinaryIO, Callable, Iterable, List, Mappi
 from urllib import request
 
 from mkdocs.config.config_options import Type as MkType
-from mkdocs.config.config_options import Dir
+from mkdocs.config.config_options import Dir, Optional
 from mkdocs.plugins import BasePlugin
 from mkdocs.utils import write_file
 from mkdocs_autorefs.plugin import AutorefsPlugin
@@ -79,7 +79,7 @@ class MkdocstringsPlugin(BasePlugin):
     config_scheme: tuple[tuple[str, MkType]] = (  # type: ignore[assignment]
         ("handlers", MkType(dict, default={})),
         ("default_handler", MkType(str, default="python")),
-        ("custom_templates", Dir(exists=True, required=False, default=None)),
+        ("custom_templates", Optional(Dir(exists=True))),
         ("enable_inventory", MkType(bool, default=None)),
         ("enabled", MkType(bool, default=True)),
     )
