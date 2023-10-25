@@ -92,7 +92,7 @@ class MkdocstringsPlugin(BasePlugin):
       but overridable in each "autodoc" instruction. Example:
     - **`default_handler`**: The default handler to use. The value is the name of the handler module. Default is "python".
     - **`custom_templates`**: Location of custom templates to use when rendering API objects. Value should be the path of 
-      a directory relative to the mkdocs configuration file.
+      a directory relative to the MkDocs configuration file.
     - **`enable_inventory`**: Whether to enable object inventory creation.
     - **`enabled`**: Whether to enable the plugin. Default is true. If false, *mkdocstrings* will not collect or render anything.
 
