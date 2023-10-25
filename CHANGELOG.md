@@ -4,7 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
 <!-- insertion marker -->
+
+### Bug Fixes
+
+- Make `custom_templates` relative to MkDocs configuration file.
+
 ## [0.23.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.23.0) - 2023-08-28
 
 <small>[Compare with 0.22.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.22.0...0.23.0)</small>
