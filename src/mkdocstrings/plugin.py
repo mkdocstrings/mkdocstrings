@@ -23,6 +23,7 @@ from typing import TYPE_CHECKING, Any, BinaryIO, Callable, Iterable, List, Mappi
 from urllib import request
 
 from mkdocs.config.config_options import Type as MkType
+from mkdocs.config.config_options import Dir, Optional
 from mkdocs.plugins import BasePlugin
 from mkdocs.utils import write_file
 from mkdocs_autorefs.plugin import AutorefsPlugin
@@ -78,7 +79,7 @@ class MkdocstringsPlugin(BasePlugin):
     config_scheme: tuple[tuple[str, MkType]] = (  # type: ignore[assignment]
         ("handlers", MkType(dict, default={})),
         ("default_handler", MkType(str, default="python")),
-        ("custom_templates", MkType(str, default=None)),
+        ("custom_templates", Optional(Dir(exists=True))),
         ("enable_inventory", MkType(bool, default=None)),
         ("enabled", MkType(bool, default=True)),
     )
@@ -90,7 +91,8 @@ class MkdocstringsPlugin(BasePlugin):
     - **`handlers`**: Global configuration of handlers. You can set global configuration per handler, applied everywhere,
       but overridable in each "autodoc" instruction. Example:
     - **`default_handler`**: The default handler to use. The value is the name of the handler module. Default is "python".
-    - **`custom_templates`**: Custom templates to use when rendering API objects.
+    - **`custom_templates`**: Location of custom templates to use when rendering API objects. Value should be the path of 
+      a directory relative to the MkDocs configuration file.
     - **`enable_inventory`**: Whether to enable object inventory creation.
     - **`enabled`**: Whether to enable the plugin. Default is true. If false, *mkdocstrings* will not collect or render anything.
 
