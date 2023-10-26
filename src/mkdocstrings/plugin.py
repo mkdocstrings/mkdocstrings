@@ -22,8 +22,8 @@ from concurrent import futures
 from typing import TYPE_CHECKING, Any, BinaryIO, Callable, Iterable, List, Mapping, Tuple, TypeVar
 from urllib import request
 
-from mkdocs.config.config_options import Type as MkType
-from mkdocs.config.config_options import Dir, Optional
+from mkdocs.config import Config
+from mkdocs.config import config_options as opt
 from mkdocs.plugins import BasePlugin
 from mkdocs.utils import write_file
 from mkdocs_autorefs.plugin import AutorefsPlugin
@@ -34,7 +34,6 @@ from mkdocstrings.loggers import get_logger
 
 if TYPE_CHECKING:
     from jinja2.environment import Environment
-    from mkdocs.config import Config
     from mkdocs.config.defaults import MkDocsConfig
 
 if sys.version_info < (3, 10):
@@ -63,38 +62,15 @@ def list_to_tuple(function: Callable[P, R]) -> Callable[P, R]:
     return wrapper
 
 
-class MkdocstringsPlugin(BasePlugin):
-    """An `mkdocs` plugin.
+class PluginConfig(Config):
+    """The configuration options of `mkdocstrings`, written in `mkdocs.yml`."""
 
-    This plugin defines the following event hooks:
-
-    - `on_config`
-    - `on_env`
-    - `on_post_build`
-
-    Check the [Developing Plugins](https://www.mkdocs.org/user-guide/plugins/#developing-plugins) page of `mkdocs`
-    for more information about its plugin system.
+    handlers = opt.Type(dict, default={})
     """
+    Global configuration of handlers.
 
-    config_scheme: tuple[tuple[str, MkType]] = (  # type: ignore[assignment]
-        ("handlers", MkType(dict, default={})),
-        ("default_handler", MkType(str, default="python")),
-        ("custom_templates", Optional(Dir(exists=True))),
-        ("enable_inventory", MkType(bool, default=None)),
-        ("enabled", MkType(bool, default=True)),
-    )
-    """
-    The configuration options of `mkdocstrings`, written in `mkdocs.yml`.
-
-    Available options are:
-
-    - **`handlers`**: Global configuration of handlers. You can set global configuration per handler, applied everywhere,
-      but overridable in each "autodoc" instruction. Example:
-    - **`default_handler`**: The default handler to use. The value is the name of the handler module. Default is "python".
-    - **`custom_templates`**: Location of custom templates to use when rendering API objects. Value should be the path of 
-      a directory relative to the MkDocs configuration file.
-    - **`enable_inventory`**: Whether to enable object inventory creation.
-    - **`enabled`**: Whether to enable the plugin. Default is true. If false, *mkdocstrings* will not collect or render anything.
+    You can set global configuration per handler, applied everywhere,
+    but overridable in each "autodoc" instruction. Example:
 
     ```yaml
     plugins:
@@ -108,6 +84,32 @@ class MkdocstringsPlugin(BasePlugin):
               options:
                 option9: 2
     ```
+    """
+
+    default_handler = opt.Type(str, default="python")
+    """The default handler to use. The value is the name of the handler module. Default is "python"."""
+    custom_templates = opt.Optional(opt.Dir(exists=True)),
+    """Location of custom templates to use when rendering API objects.
+    
+    Value should be the path of a directory relative to the MkDocs configuration file.
+    """
+    enable_inventory = opt.Optional(opt.Type(bool))
+    """Whether to enable object inventory creation."""
+    enabled = opt.Type(bool, default=True)
+    """Whether to enable the plugin. Default is true. If false, *mkdocstrings* will not collect or render anything."""
+
+
+class MkdocstringsPlugin(BasePlugin[PluginConfig]):
+    """An `mkdocs` plugin.
+
+    This plugin defines the following event hooks:
+
+    - `on_config`
+    - `on_env`
+    - `on_post_build`
+
+    Check the [Developing Plugins](https://www.mkdocs.org/user-guide/plugins/#developing-plugins) page of `mkdocs`
+    for more information about its plugin system.
     """
 
     css_filename = "assets/_mkdocstrings.css"
@@ -152,10 +154,10 @@ class MkdocstringsPlugin(BasePlugin):
             return config
         log.debug("Adding extension to the list")
 
-        theme_name = config["theme"].name or os.path.dirname(config["theme"].dirs[0])
+        theme_name = config.theme.name or os.path.dirname(config.theme.dirs[0])
 
         to_import: InventoryImportType = []
-        for handler_name, conf in self.config["handlers"].items():
+        for handler_name, conf in self.config.handlers.items():
             for import_item in conf.pop("import", ()):
                 if isinstance(import_item, str):
                     import_item = {"url": import_item}  # noqa: PLW2901
@@ -163,8 +165,8 @@ class MkdocstringsPlugin(BasePlugin):
 
         extension_config = {
             "theme_name": theme_name,
-            "mdx": config["markdown_extensions"],
-            "mdx_configs": config["mdx_configs"],
+            "mdx": config.markdown_extensions,
+            "mdx_configs": config.mdx_configs,
             "mkdocstrings": self.config,
             "mkdocs": config,
         }
@@ -172,21 +174,21 @@ class MkdocstringsPlugin(BasePlugin):
 
         try:
             # If autorefs plugin is explicitly enabled, just use it.
-            autorefs = config["plugins"]["autorefs"]
+            autorefs = config.plugins["autorefs"]
             log.debug(f"Picked up existing autorefs instance {autorefs!r}")
         except KeyError:
             # Otherwise, add a limited instance of it that acts only on what's added through `register_anchor`.
             autorefs = AutorefsPlugin()
             autorefs.scan_toc = False
-            config["plugins"]["autorefs"] = autorefs
+            config.plugins["autorefs"] = autorefs
             log.debug(f"Added a subdued autorefs instance {autorefs!r}")
         # Add collector-based fallback in either case.
         autorefs.get_fallback_anchor = self.handlers.get_anchors
 
         mkdocstrings_extension = MkdocstringsExtension(extension_config, self.handlers, autorefs)
-        config["markdown_extensions"].append(mkdocstrings_extension)
+        config.markdown_extensions.append(mkdocstrings_extension)
 
-        config["extra_css"].insert(0, self.css_filename)  # So that it has lower priority than user files.
+        config.extra_css.insert(0, self.css_filename)  # So that it has lower priority than user files.
 
         self._inv_futures = {}
         if to_import:
@@ -210,7 +212,7 @@ class MkdocstringsPlugin(BasePlugin):
         Returns:
             Whether the inventory is enabled.
         """
-        inventory_enabled = self.config["enable_inventory"]
+        inventory_enabled = self.config.enable_inventory
         if inventory_enabled is None:
             inventory_enabled = any(handler.enable_inventory for handler in self.handlers.seen_handlers)
         return inventory_enabled
@@ -222,9 +224,9 @@ class MkdocstringsPlugin(BasePlugin):
         Returns:
             Whether the plugin is enabled.
         """
-        return self.config["enabled"]
+        return self.config.enabled
 
-    def on_env(self, env: Environment, config: Config, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
+    def on_env(self, env: Environment, config: MkDocsConfig, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
         """Extra actions that need to happen after all Markdown rendering and before HTML rendering.
 
         Hook for the [`on_env` event](https://www.mkdocs.org/user-guide/plugins/#on_env).
@@ -236,12 +238,12 @@ class MkdocstringsPlugin(BasePlugin):
             return
         if self._handlers:
             css_content = "\n".join(handler.extra_css for handler in self.handlers.seen_handlers)
-            write_file(css_content.encode("utf-8"), os.path.join(config["site_dir"], self.css_filename))
+            write_file(css_content.encode("utf-8"), os.path.join(config.site_dir, self.css_filename))
 
             if self.inventory_enabled:
                 log.debug("Creating inventory file objects.inv")
                 inv_contents = self.handlers.inventory.format_sphinx()
-                write_file(inv_contents, os.path.join(config["site_dir"], "objects.inv"))
+                write_file(inv_contents, os.path.join(config.site_dir, "objects.inv"))
 
         if self._inv_futures:
             log.debug(f"Waiting for {len(self._inv_futures)} inventory download(s)")
@@ -256,12 +258,12 @@ class MkdocstringsPlugin(BasePlugin):
                     loader_name = loader.__func__.__qualname__
                     log.error(f"Couldn't load inventory {import_item} through {loader_name}: {error}")  # noqa: TRY400
             for page, identifier in results.items():
-                config["plugins"]["autorefs"].register_url(page, identifier)
+                config.plugins["autorefs"].register_url(page, identifier)
             self._inv_futures = {}
 
     def on_post_build(
         self,
-        config: Config,  # noqa: ARG002
+        config: MkDocsConfig,  # noqa: ARG002
         **kwargs: Any,  # noqa: ARG002
     ) -> None:
         """Teardown the handlers.

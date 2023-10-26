@@ -72,8 +72,7 @@ class AutoDocProcessor(BlockProcessor):
         Arguments:
             parser: A `markdown.blockparser.BlockParser` instance.
             md: A `markdown.Markdown` instance.
-            config: The [configuration][mkdocstrings.plugin.MkdocstringsPlugin.config_scheme]
-                of the `mkdocstrings` plugin.
+            config: The [configuration][mkdocstrings.plugin.PluginConfig] of the `mkdocstrings` plugin.
             handlers: The handlers container.
             autorefs: The autorefs plugin instance.
         """
