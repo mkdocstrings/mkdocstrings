@@ -88,9 +88,9 @@ class PluginConfig(Config):
 
     default_handler = opt.Type(str, default="python")
     """The default handler to use. The value is the name of the handler module. Default is "python"."""
-    custom_templates = opt.Optional(opt.Dir(exists=True)),
+    custom_templates = opt.Optional(opt.Dir(exists=True))
     """Location of custom templates to use when rendering API objects.
-    
+
     Value should be the path of a directory relative to the MkDocs configuration file.
     """
     enable_inventory = opt.Optional(opt.Type(bool))
