@@ -7,11 +7,12 @@ from typing import TYPE_CHECKING, Any, Iterator
 
 import pytest
 from markdown.core import Markdown
-from mkdocs import config
 from mkdocs.config.defaults import MkDocsConfig
 
 if TYPE_CHECKING:
     from pathlib import Path
+
+    from mkdocs import config
 
     from mkdocstrings.plugin import MkdocstringsPlugin
 
