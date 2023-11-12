@@ -140,7 +140,7 @@ def test_dont_register_every_identifier_as_anchor(plugin: MkdocstringsPlugin, ex
     ids = ("id1", "id2", "id3")
     handler.get_anchors = lambda _: ids  # type: ignore[method-assign]
     ext_markdown.convert("::: tests.fixtures.headings")
-    autorefs = ext_markdown.parser.blockprocessors["mkdocstrings"]._autorefs
+    autorefs = ext_markdown.parser.blockprocessors["mkdocstrings"]._autorefs  # type: ignore[attr-defined]
     for identifier in ids:
         assert identifier not in autorefs._url_map
         assert identifier not in autorefs._abs_url_map
