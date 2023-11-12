@@ -25,7 +25,6 @@ def fixture_mkdocs_conf(request: pytest.FixtureRequest, tmp_path: Path) -> Itera
         request = request._parent_request
 
     conf_dict = {
-        "config_file_path": "mkdocs_tests.yml",
         "site_name": "foo",
         "site_url": "https://example.org/",
         "site_dir": str(tmp_path),
