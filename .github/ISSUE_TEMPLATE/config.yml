@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+- name: I have a question / I need help
+  url: https://github.com/mkdocstrings/mkdocstrings/discussions/new?category=q-a
+  about: Ask and answer questions in the Discussions tab.

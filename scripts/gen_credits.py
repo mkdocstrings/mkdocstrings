@@ -2,27 +2,31 @@
 
 from __future__ import annotations
 
+import os
 import re
 import sys
+from importlib.metadata import PackageNotFoundError, metadata
 from itertools import chain
 from pathlib import Path
 from textwrap import dedent
 from typing import Mapping, cast
 
-import toml
 from jinja2 import StrictUndefined
 from jinja2.sandbox import SandboxedEnvironment
 
-if sys.version_info < (3, 8):
-    from importlib_metadata import PackageNotFoundError, metadata
+# TODO: Remove once support for Python 3.10 is dropped.
+if sys.version_info >= (3, 11):
+    import tomllib
 else:
-    from importlib.metadata import PackageNotFoundError, metadata
+    import tomli as tomllib
 
-project_dir = Path(".")
-pyproject = toml.load(project_dir / "pyproject.toml")
+project_dir = Path(os.getenv("MKDOCS_CONFIG_DIR", "."))
+with project_dir.joinpath("pyproject.toml").open("rb") as pyproject_file:
+    pyproject = tomllib.load(pyproject_file)
 project = pyproject["project"]
 pdm = pyproject["tool"]["pdm"]
-lock_data = toml.load(project_dir / "pdm.lock")
+with project_dir.joinpath("pdm.lock").open("rb") as lock_file:
+    lock_data = tomllib.load(lock_file)
 lock_pkgs = {pkg["name"].lower(): pkg for pkg in lock_data["package"]}
 project_name = project["name"]
 regex = re.compile(r"(?P<dist>[\w.-]+)(?P<spec>.*)$")
@@ -35,7 +39,7 @@ def _get_license(pkg_name: str) -> str:
         return "?"
     license_name = cast(dict, data).get("License", "").strip()
     multiple_lines = bool(license_name.count("\n"))
-    # TODO: remove author logic once all my packages licenses are fixed
+    # TODO: Remove author logic once all my packages licenses are fixed.
     author = ""
     if multiple_lines or not license_name or license_name == "UNKNOWN":
         for header, value in cast(dict, data).items():

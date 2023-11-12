@@ -108,7 +108,7 @@ The above is equivalent to:
 
 - `default_handler`: The handler that is used by default when no handler is specified.
 - `custom_templates`: The path to a directory containing custom templates.
-  The path is relative to the current working directory.
+  The path is relative to the MkDocs configuration file.
   See [Theming](theming.md).
 - `handlers`: The handlers' global configuration.
 - `enable_inventory`: Whether to enable inventory file generation.

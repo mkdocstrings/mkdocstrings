@@ -18,7 +18,8 @@ BASIC_DUTIES = \
 	docs \
 	docs-deploy \
 	format \
-	release
+	release \
+	vscode
 
 QUALITY_DUTIES = \
 	check-quality \

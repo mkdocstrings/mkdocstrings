@@ -1,0 +1,8 @@
+bump = "auto"
+convention = "angular"
+in-place = true
+output = "CHANGELOG.md"
+parse-refs = false
+parse-trailers = true
+sections = ["build", "deps", "feat", "fix", "refactor"]
+template = "keepachangelog"

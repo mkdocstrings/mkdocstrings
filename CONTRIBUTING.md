@@ -44,8 +44,9 @@ on multiple Python versions, you run the task directly with `pdm run duty TASK`.
 The Makefile detects if a virtual environment is activated,
 so `make` will work the same with the virtualenv activated or not.
 
-If you work in VSCode,
-[see examples of tasks and run configurations](https://pawamoy.github.io/copier-pdm/work/#vscode-setup).
+If you work in VSCode, we provide
+[an action to configure VSCode](https://pawamoy.github.io/copier-pdm/work/#vscode-setup)
+for the project.
 
 ## Development
 

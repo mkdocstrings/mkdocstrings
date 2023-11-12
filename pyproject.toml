@@ -32,7 +32,7 @@ dependencies = [
     "Jinja2>=2.11.1",
     "Markdown>=3.3",
     "MarkupSafe>=1.1",
-    "mkdocs>=1.2",
+    "mkdocs>=1.4",
     "mkdocs-autorefs>=0.3.1",
     "pymdown-extensions>=6.3",
     "importlib-metadata>=4.6; python_version < '3.10'",
@@ -72,44 +72,43 @@ duty = ["duty>=0.10"]
 ci-quality = ["mkdocstrings[duty,docs,quality,typing,security]"]
 ci-tests = ["mkdocstrings[duty,docs,tests]"]
 docs = [
-    "black>=23.1",
-    "markdown-callouts>=0.2",
-    "markdown-exec>=0.5",
+    "black>=23.9",
+    "markdown-callouts>=0.3",
+    "markdown-exec>=1.7",
     "mkdocs>=1.5",
-    "mkdocs-coverage>=0.2",
-    "mkdocs-gen-files>=0.3",
-    "mkdocs-git-committers-plugin-2>=1.1",
-    "mkdocs-literate-nav>=0.4",
-    "mkdocs-material>=7.3",
-    "mkdocs-minify-plugin>=0.6.4",
-    "mkdocs-redirects>=1.2.0",
-    "mkdocstrings-python>=0.5.1",
-    "toml>=0.10",
+    "mkdocs-coverage>=1.0",
+    "mkdocs-gen-files>=0.5",
+    "mkdocs-git-committers-plugin-2>=1.2",
+    "mkdocs-literate-nav>=0.6",
+    "mkdocs-material>=9.4",
+    "mkdocs-minify-plugin>=0.7",
+    "mkdocs-redirects>=1.2",
+    "mkdocstrings-python>=1.7",
+    "tomli>=2.0; python_version < '3.11'",
 ]
 maintain = [
-    "black>=23.1",
-    "blacken-docs>=1.13",
-    "git-changelog>=1.0",
+    "black>=23.9",
+    "blacken-docs>=1.16",
+    "git-changelog>=2.3",
 ]
 quality = [
-    "ruff>=0.0.246",
+    "ruff>=0.0",
 ]
 tests = [
     "docutils",
     "pygments>=2.10",  # python 3.6
-    "pytest>=6.2",
-    "pytest-cov>=3.0",
-    "pytest-randomly>=3.10",
-    "pytest-xdist>=2.4",
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "pytest-randomly>=3.15",
+    "pytest-xdist>=3.3",
     "sphinx",
 ]
 typing = [
-    "mypy>=0.911",
-    "types-docutils",
-    "types-markdown>=3.3",
+    "mypy>=1.5",
+    "types-docutils>=0.20,",
+    "types-markdown>=3.5",
     "types-pyyaml>=6.0",
-    "types-toml>=0.10",
 ]
 security = [
-    "safety>=2",
+    "safety>=2.3",
 ]
