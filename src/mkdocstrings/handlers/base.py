@@ -8,11 +8,12 @@ from __future__ import annotations
 import importlib
 import sys
 from pathlib import Path
-from typing import Any, BinaryIO, ClassVar, Iterable, Iterator, Mapping, MutableMapping, Sequence
+from typing import Any, BinaryIO, ClassVar, Iterable, Iterator, Mapping, MutableMapping, Sequence, cast
 from xml.etree.ElementTree import Element, tostring
 
 from jinja2 import Environment, FileSystemLoader
 from markdown import Markdown
+from markdown.extensions.toc import TocTreeprocessor
 from markupsafe import Markup
 
 from mkdocstrings.handlers.rendering import (
@@ -268,15 +269,15 @@ class BaseHandler:
             An HTML string.
         """
         treeprocessors = self._md.treeprocessors
-        treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = heading_level
-        treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"
-        treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph
+        treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = heading_level  # type: ignore[attr-defined]
+        treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"  # type: ignore[attr-defined]
+        treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph  # type: ignore[attr-defined]
         try:
             return Markup(self._md.convert(text))
         finally:
-            treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0
-            treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""
-            treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False
+            treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0  # type: ignore[attr-defined]
+            treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""  # type: ignore[attr-defined]
+            treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False  # type: ignore[attr-defined]
             self._md.reset()
 
     def do_heading(
@@ -319,7 +320,7 @@ class BaseHandler:
         el = Element(f"h{heading_level}", attributes)
         el.append(Element("mkdocstrings-placeholder"))
         # Tell the 'toc' extension to make its additions if configured so.
-        toc = self._md.treeprocessors["toc"]
+        toc = cast(TocTreeprocessor, self._md.treeprocessors["toc"])
         if toc.use_anchors:
             toc.add_anchor(el, attributes["id"])
         if toc.use_permalinks:
@@ -388,7 +389,7 @@ class Handlers:
         self._handlers: dict[str, BaseHandler] = {}
         self.inventory: Inventory = Inventory(project=self._config["mkdocs"]["site_name"])
 
-    def get_anchors(self, identifier: str) -> tuple[str, ...] | set[str]:
+    def get_anchors(self, identifier: str) -> tuple[str, ...]:
         """Return the canonical HTML anchor for the identifier, if any of the seen handlers can collect it.
 
         Arguments:

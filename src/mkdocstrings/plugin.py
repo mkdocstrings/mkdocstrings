@@ -172,9 +172,10 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
         }
         self._handlers = Handlers(extension_config)
 
+        autorefs: AutorefsPlugin
         try:
             # If autorefs plugin is explicitly enabled, just use it.
-            autorefs = config.plugins["autorefs"]
+            autorefs = config.plugins["autorefs"]  # type: ignore[assignment]
             log.debug(f"Picked up existing autorefs instance {autorefs!r}")
         except KeyError:
             # Otherwise, add a limited instance of it that acts only on what's added through `register_anchor`.
@@ -186,7 +187,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
         autorefs.get_fallback_anchor = self.handlers.get_anchors
 
         mkdocstrings_extension = MkdocstringsExtension(extension_config, self.handlers, autorefs)
-        config.markdown_extensions.append(mkdocstrings_extension)
+        config.markdown_extensions.append(mkdocstrings_extension)  # type: ignore[arg-type]
 
         config.extra_css.insert(0, self.css_filename)  # So that it has lower priority than user files.
 
@@ -258,7 +259,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
                     loader_name = loader.__func__.__qualname__
                     log.error(f"Couldn't load inventory {import_item} through {loader_name}: {error}")  # noqa: TRY400
             for page, identifier in results.items():
-                config.plugins["autorefs"].register_url(page, identifier)
+                config.plugins["autorefs"].register_url(page, identifier)  # type: ignore[attr-defined]
             self._inv_futures = {}
 
     def on_post_build(

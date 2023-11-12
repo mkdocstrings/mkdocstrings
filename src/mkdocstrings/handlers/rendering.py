@@ -211,12 +211,13 @@ class _HeadingReportingTreeprocessor(Treeprocessor):
         self.headings = headings
 
     def run(self, root: Element) -> None:
+        permalink_class = self.md.treeprocessors["toc"].permalink_class  # type: ignore[attr-defined]
         for el in root.iter():
             if self.regex.fullmatch(el.tag):
                 el = copy.copy(el)  # noqa: PLW2901
                 # 'toc' extension's first pass (which we require to build heading stubs/ids) also edits the HTML.
                 # Undo the permalink edit so we can pass this heading to the outer pass of the 'toc' extension.
-                if len(el) > 0 and el[-1].get("class") == self.md.treeprocessors["toc"].permalink_class:
+                if len(el) > 0 and el[-1].get("class") == permalink_class:
                     del el[-1]
                 self.headings.append(el)
 
