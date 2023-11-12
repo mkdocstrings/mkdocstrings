@@ -1,0 +1,52 @@
+{
+    "files.watcherExclude": {
+        "**/__pypackages__/**": true,
+        "**/.venv*/**": true,
+        "**/venv*/**": true
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.autoComplete.extraPaths": [
+        "__pypackages__/3.8/lib",
+        "__pypackages__/3.9/lib",
+        "__pypackages__/3.10/lib",
+        "__pypackages__/3.11/lib",
+        "__pypackages__/3.12/lib"
+    ],
+    "python.analysis.extraPaths": [
+        "__pypackages__/3.8/lib",
+        "__pypackages__/3.9/lib",
+        "__pypackages__/3.10/lib",
+        "__pypackages__/3.11/lib",
+        "__pypackages__/3.12/lib"
+    ],
+    "black-formatter.args": [
+        "--config=config/black.toml"
+    ],
+    "mypy-type-checker.args": [
+        "--config-file=config/mypy.ini"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestArgs": [
+        "--config-file=config/pytest.ini"
+    ],
+    "ruff.format.args": [
+        "--config=config/ruff.toml"
+    ],
+    "ruff.lint.args": [
+        "--config=config/ruff.toml"
+    ],
+    "yaml.schemas": {
+        "https://squidfunk.github.io/mkdocs-material/schema.json": "mkdocs.yml"
+    },
+    "yaml.customTags": [
+        "!ENV scalar",
+        "!ENV sequence",
+        "!relative scalar",
+        "tag:yaml.org,2002:python/name:materialx.emoji.to_svg",
+        "tag:yaml.org,2002:python/name:materialx.emoji.twemoji",
+        "tag:yaml.org,2002:python/name:pymdownx.superfences.fence_code_format"
+    ]
+}

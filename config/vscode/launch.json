@@ -1,0 +1,36 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "python (current file)",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "test",
+            "type": "python",
+            "request": "launch",
+            "module": "pytest",
+            "justMyCode": false,
+            "args": [
+                "-c=config/pytest.ini",
+                "-vvv",
+                "--no-cov",
+                "--dist=no",
+                "tests",
+                "-k=${input:tests_selection}"
+            ]
+        }
+    ],
+    "inputs": [
+        {
+            "id": "tests_selection",
+            "type": "promptString",
+            "description": "Tests selection",
+            "default": ""
+        }
+    ]
+}

@@ -5,7 +5,7 @@
 [![pypi version](https://img.shields.io/pypi/v/mkdocstrings.svg)](https://pypi.org/project/mkdocstrings/)
 [![conda version](https://img.shields.io/conda/vn/conda-forge/mkdocstrings)](https://anaconda.org/conda-forge/mkdocstrings)
 [![gitpod](https://img.shields.io/badge/gitpod-workspace-blue.svg?style=flat)](https://gitpod.io/#https://github.com/mkdocstrings/mkdocstrings)
-[![gitter](https://badges.gitter.im/join%20chat.svg)](https://gitter.im/mkdocstrings/community)
+[![gitter](https://badges.gitter.im/join%20chat.svg)](https://app.gitter.im/#/room/#mkdocstrings:gitter.im)
 
 Automatic documentation from sources, for [MkDocs](https://mkdocs.org/).
 Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdocstrings/community).
@@ -77,6 +77,7 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
 ## Installation
 
 With `pip`:
+
 ```bash
 pip install mkdocstrings
 ```
@@ -90,6 +91,7 @@ pip install 'mkdocstrings[crystal,python]'
 See the [available language handlers](https://mkdocstrings.github.io/handlers/overview/).
 
 With `conda`:
+
 ```bash
 conda install -c conda-forge mkdocstrings
 ```

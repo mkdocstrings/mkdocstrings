@@ -1,5 +1,0 @@
-INHERIT: mkdocs.yml
-
-# waiting for https://github.com/squidfunk/mkdocs-material/issues/5446
-# plugins:
-# - typeset

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import posixpath
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
@@ -115,8 +116,9 @@ def load_goals(data: str, funding: int = 0, project: Project | None = None) -> d
 
 
 def _load_goals_from_disk(path: str, funding: int = 0) -> dict[int, Goal]:
+    project_dir = os.getenv("MKDOCS_CONFIG_DIR", ".")
     try:
-        data = Path(path).read_text()
+        data = Path(project_dir, path).read_text()
     except OSError as error:
         raise RuntimeError(f"Could not load data from disk: {path}") from error
     return load_goals(data, funding)
@@ -159,7 +161,7 @@ def funding_goals(source: str | list[str | tuple[str, str, str]], funding: int =
                 goals[amount] = goal
             else:
                 goals[amount].features.extend(goal.features)
-    return goals
+    return {amount: goals[amount] for amount in sorted(goals)}
 
 
 def feature_list(goals: Iterable[Goal]) -> list[Feature]:

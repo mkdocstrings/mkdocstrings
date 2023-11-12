@@ -65,18 +65,21 @@ data_source = [
 ]
 ```
 
+<!-- blacken-docs:off -->
 ```python exec="1" session="insiders"
 --8<-- "scripts/insiders.py"
 ```
 
-```python exec="1" session="insiders"
-print(f"""The moment you <a href="#how-to-become-a-sponsor">become a sponsor</a>, you'll get **immediate
-access to {len(unreleased_features)} additional features** that you can start using right away, and
-which are currently exclusively available to sponsors:\n""")
+print(
+    f"""The moment you <a href="#how-to-become-a-sponsor">become a sponsor</a>, you'll get **immediate
+    access to {len(unreleased_features)} additional features** that you can start using right away, and
+    which are currently exclusively available to sponsors:\n"""
+)
 
 for feature in unreleased_features:
     feature.render(badge=True)
 ```
+<!-- blacken-docs:on -->
 
 ## How to become a sponsor
 
@@ -126,9 +129,6 @@ You can cancel your sponsorship anytime.[^5]
 <hr>
 
 <div id="sponsors"></div>
-
-<br>
-<br>
 
 <small>
   If you sponsor publicly, you're automatically added here with a link to

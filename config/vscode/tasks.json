@@ -1,0 +1,93 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "changelog",
+            "type": "shell",
+            "command": "pdm run duty changelog"
+        },
+        {
+            "label": "check",
+            "type": "shell",
+            "command": "pdm run duty check"
+        },
+        {
+            "label": "check-quality",
+            "type": "shell",
+            "command": "pdm run duty check-quality"
+        },
+        {
+            "label": "check-types",
+            "type": "shell",
+            "command": "pdm run duty check-types"
+        },
+        {
+            "label": "check-docs",
+            "type": "shell",
+            "command": "pdm run duty check-docs"
+        },
+        {
+            "label": "check-dependencies",
+            "type": "shell",
+            "command": "pdm run duty check-dependencies"
+        },
+        {
+            "label": "check-api",
+            "type": "shell",
+            "command": "pdm run duty check-api"
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "pdm run duty clean"
+        },
+        {
+            "label": "docs",
+            "type": "shell",
+            "command": "pdm run duty docs"
+        },
+        {
+            "label": "docs-deploy",
+            "type": "shell",
+            "command": "pdm run duty docs-deploy"
+        },
+        {
+            "label": "format",
+            "type": "shell",
+            "command": "pdm run duty format"
+        },
+        {
+            "label": "lock",
+            "type": "shell",
+            "command": "pdm lock -G:all"
+        },
+        {
+            "label": "release",
+            "type": "shell",
+            "command": "pdm run duty release ${input:version}"
+        },
+        {
+            "label": "setup",
+            "type": "shell",
+            "command": "bash scripts/setup.sh"
+        },
+        {
+            "label": "test",
+            "type": "shell",
+            "command": "pdm run duty test coverage",
+            "group": "test"
+        },
+        {
+            "label": "vscode",
+            "type": "shell",
+            "command": "pdm run duty vscode"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "version",
+            "type": "promptString",
+            "description": "Version"
+        }
+    ]
+}

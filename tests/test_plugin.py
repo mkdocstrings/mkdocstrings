@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 
 from mkdocs.commands.build import build
 from mkdocs.config import load_config
+
 from mkdocstrings.plugin import MkdocstringsPlugin
 
 if TYPE_CHECKING:
@@ -48,6 +49,7 @@ def test_plugin_default_config(tmp_path: Path) -> None:
         "enable_inventory": None,
         "enabled": True,
     }
+
 
 def test_plugin_config_custom_templates(tmp_path: Path) -> None:
     """Test custom_templates option is relative to config file."""
