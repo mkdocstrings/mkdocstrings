@@ -14,13 +14,13 @@ during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on
 
 from __future__ import annotations
 
+import datetime
 import functools
-import gzip
 import os
 import sys
 from concurrent import futures
-from typing import TYPE_CHECKING, Any, BinaryIO, Callable, Iterable, List, Mapping, Tuple, TypeVar
-from urllib import request
+from io import BytesIO
+from typing import TYPE_CHECKING, Any, Callable, Iterable, List, Mapping, Tuple, TypeVar
 
 from mkdocs.config import Config
 from mkdocs.config import config_options as opt
@@ -28,6 +28,7 @@ from mkdocs.plugins import BasePlugin
 from mkdocs.utils import write_file
 from mkdocs_autorefs.plugin import AutorefsPlugin
 
+from mkdocstrings._cache import download_and_cache_url, download_url_with_gz
 from mkdocstrings.extension import MkdocstringsExtension
 from mkdocstrings.handlers.base import BaseHandler, Handlers
 from mkdocstrings.loggers import get_logger
@@ -317,11 +318,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             A mapping from identifier to absolute URL.
         """
         log.debug(f"Downloading inventory from {url!r}")
-        req = request.Request(url, headers={"Accept-Encoding": "gzip", "User-Agent": "mkdocstrings/0.15.0"})
-        with request.urlopen(req) as resp:  # noqa: S310 (URL audit OK: comes from a checked-in config)
-            content: BinaryIO = resp
-            if "gzip" in resp.headers.get("content-encoding", ""):
-                content = gzip.GzipFile(fileobj=resp)  # type: ignore[assignment]
-            result = dict(loader(content, url=url, **kwargs))
+        content = download_and_cache_url(url, download_url_with_gz, datetime.timedelta(days=1))
+        result = dict(loader(BytesIO(content), url=url, **kwargs))
         log.debug(f"Loaded inventory from {url!r}: {len(result)} items")
         return result
