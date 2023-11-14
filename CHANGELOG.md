@@ -5,6 +5,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.24.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.24.0) - 2023-11-14
+
+<small>[Compare with 0.23.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.23.0...0.24.0)</small>
+
+### Features
+
+- Cache downloaded inventories as local file ([ce84dd5](https://github.com/mkdocstrings/mkdocstrings/commit/ce84dd57dc5cd3bf3f4be9623ddaa73e1c1868f0) by Oleh Prypin). [PR #632](https://github.com/mkdocstrings/mkdocstrings/pull/632)
+
+### Bug Fixes
+
+- Make `custom_templates` relative to the config file ([370a61d](https://github.com/mkdocstrings/mkdocstrings/commit/370a61d12b33f3fb61f6bddb3939eb8ff6018620) by Waylan Limberg). [Issue #477](https://github.com/mkdocstrings/mkdocstrings/issues/477), [PR #627](https://github.com/mkdocstrings/mkdocstrings/pull/627)
+- Remove duplicated headings for docstrings nested in tabs/admonitions ([e2123a9](https://github.com/mkdocstrings/mkdocstrings/commit/e2123a935edea0abdc1b439e2c2b76e002c76e2b) by Perceval Wajsburt, [f4a94f7](https://github.com/mkdocstrings/mkdocstrings/commit/f4a94f7d8b8eb1ac01d65bb7237f0077e320ddac) by Oleh Prypin). [Issue #609](https://github.com/mkdocstrings/mkdocstrings/issues/609), [PR #610](https://github.com/mkdocstrings/mkdocstrings/pull/610), [PR #613](https://github.com/mkdocstrings/mkdocstrings/pull/613)
+
+### Code Refactoring
+
+- Drop support for MkDocs < 1.4, modernize usages ([b61d4d1](https://github.com/mkdocstrings/mkdocstrings/commit/b61d4d15258c66b14266aa04b456f191f101b2c6) by Oleh Prypin). [PR #629](https://github.com/mkdocstrings/mkdocstrings/pull/629)
+
 ## [0.23.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.23.0) - 2023-08-28
 
 <small>[Compare with 0.22.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.22.0...0.23.0)</small>
