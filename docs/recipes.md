@@ -88,7 +88,7 @@ for path in sorted(src.rglob("*.py")):  # (2)!
     doc_path = path.relative_to(src).with_suffix(".md")  # (4)!
     full_doc_path = Path("reference", doc_path)  # (5)!
 
-    parts = list(module_path.parts)
+    parts = tuple(module_path.parts)
 
     if parts[-1] == "__init__":  # (6)!
         parts = parts[:-1]
