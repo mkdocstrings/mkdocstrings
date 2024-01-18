@@ -98,6 +98,8 @@ class PluginConfig(Config):
     """Whether to enable object inventory creation."""
     enabled = opt.Type(bool, default=True)
     """Whether to enable the plugin. Default is true. If false, *mkdocstrings* will not collect or render anything."""
+    language = opt.Optional(opt.Type(str))
+    """The display language to use for the documentation rendering."""
 
 
 class MkdocstringsPlugin(BasePlugin[PluginConfig]):
@@ -163,6 +165,9 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
                 if isinstance(import_item, str):
                     import_item = {"url": import_item}  # noqa: PLW2901
                 to_import.append((handler_name, import_item))
+
+        if self.config.language is None:
+            self.config.language = config.theme.get("language", str(config.theme.locale).replace("_", "-"))
 
         extension_config = {
             "theme_name": theme_name,

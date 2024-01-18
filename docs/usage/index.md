@@ -113,6 +113,8 @@ The above is equivalent to:
 - `handlers`: The handlers' global configuration.
 - `enable_inventory`: Whether to enable inventory file generation.
   See [Cross-references to other projects / inventories](#cross-references-to-other-projects-inventories)
+- `language`: The language to use for output.
+  See [Internationalization](#internationalization-i18n).
 - `enabled` **(New in version 0.20)**: Whether to enable the plugin. Defaults to `true`.
   Can be used to reduce build times when doing local development.
   Especially useful when used with environment variables (see example below).
@@ -124,6 +126,7 @@ The above is equivalent to:
         enabled: !ENV [ENABLE_MKDOCSTRINGS, true]
         custom_templates: templates
         default_handler: python
+        language: en
         handlers:
           python:
             options:
@@ -140,6 +143,20 @@ The above is equivalent to:
 
 Some handlers accept additional global configuration.
 Check the documentation for your handler of interest in [Handlers](handlers.md).
+
+## Internationalization (i18n)
+
+Some handlers support changing the language of the output.
+
+If the handler supports localization, the language it uses is determined by the following order of precedence:
+
+- `language` in [global options](#global-options)
+- `theme.language`: used by the [MkDocs Material theme](https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/)
+- `theme.locale` in [MkDocs configuration](https://www.mkdocs.org/user-guide/configuration/#theme)
+
+Currently, the following handlers support changing the language:
+
+- [Python](https://mkdocstrings.github.io/python/usage/#internationalization-i18n)
 
 ## Cross-references
 
