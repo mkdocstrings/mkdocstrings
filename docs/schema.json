@@ -28,6 +28,12 @@
               "type": "string",
               "default": "python"
             },
+            "language": {
+              "title": "The language to use for output.",
+              "markdownDescription": "https://mkdocstrings.github.io/usage/#global-options",
+              "type": "string",
+              "default": null
+            },
             "enable_inventory": {
               "title": "Whether to enable inventory file generation.",
               "markdownDescription": "https://mkdocstrings.github.io/usage/#cross-references-to-other-projects-inventories",
