@@ -7,7 +7,7 @@
 [![gitpod](https://img.shields.io/badge/gitpod-workspace-blue.svg?style=flat)](https://gitpod.io/#https://github.com/mkdocstrings/mkdocstrings)
 [![gitter](https://badges.gitter.im/join%20chat.svg)](https://app.gitter.im/#/room/#mkdocstrings:gitter.im)
 
-Automatic documentation from sources, for [MkDocs](https://mkdocs.org/).
+Automatic documentation from sources, for [MkDocs](https://www.mkdocs.org/).
 Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdocstrings/community).
 
 ---
