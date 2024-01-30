@@ -155,7 +155,7 @@ def funding_goals(source: str | list[str | tuple[str, str, str]], funding: int =
         return _load_goals_from_disk(source, funding)
     goals = {}
     for src in source:
-        source_goals = _load_goals(src)
+        source_goals = _load_goals(src, funding)
         for amount, goal in source_goals.items():
             if amount not in goals:
                 goals[amount] = goal
