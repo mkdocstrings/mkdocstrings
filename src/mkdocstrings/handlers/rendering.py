@@ -5,7 +5,7 @@ from __future__ import annotations
 import copy
 import re
 import textwrap
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Iterator
 
 from markdown.extensions import Extension
 from markdown.extensions.codehilite import CodeHiliteExtension
@@ -145,20 +145,30 @@ class IdPrependingTreeprocessor(Treeprocessor):
         super().__init__(md)
         self.id_prefix = id_prefix
 
+    @staticmethod
+    def _iter(parent: Element) -> Iterator[tuple[Element, int, Element]]:
+        for index, element in enumerate(parent._children):
+            yield parent, index, element
+            yield from IdPrependingTreeprocessor._iter(element)
+
     def run(self, root: Element) -> None:  # noqa: D102 (ignore missing docstring)
         if not self.id_prefix:
             return
-        for el in root.iter():
-            id_attr = el.get("id")
-            if id_attr:
-                el.set("id", self.id_prefix + id_attr)
-
+        for parent, index, el in self._iter(root):
             href_attr = el.get("href")
+
+            if id_attr := el.get("id"):
+                if el.tag == "a" and not href_attr:
+                    new_el = copy.copy(el)
+                    new_el.set("id", self.id_prefix + id_attr)
+                    parent.insert(index + 1, new_el)
+                else:
+                    el.set("id", self.id_prefix + id_attr)
+
             if href_attr and href_attr.startswith("#"):
                 el.set("href", "#" + self.id_prefix + href_attr[1:])
 
-            name_attr = el.get("name")
-            if name_attr:
+            if name_attr := el.get("name"):
                 el.set("name", self.id_prefix + name_attr)
 
             if el.tag == "label":
