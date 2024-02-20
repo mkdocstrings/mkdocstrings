@@ -147,7 +147,7 @@ class IdPrependingTreeprocessor(Treeprocessor):
 
     @staticmethod
     def _iter(parent: Element) -> Iterator[tuple[Element, int, Element]]:
-        for index, element in enumerate(parent._children):
+        for index, element in enumerate(parent):
             yield parent, index, element
             yield from IdPrependingTreeprocessor._iter(element)
 
