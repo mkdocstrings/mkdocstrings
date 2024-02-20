@@ -151,7 +151,7 @@ class IdPrependingTreeprocessor(Treeprocessor):
 
     def _prefix_ids(self, root: Element) -> None:
         index = -1
-        for el in reversed(root):
+        for el in reversed(root):  # Reversed mainly for the ability to mutate during iteration.
             index += 1
 
             self._prefix_ids(el)
@@ -159,12 +159,18 @@ class IdPrependingTreeprocessor(Treeprocessor):
 
             if id_attr := el.get("id"):
                 if el.tag == "a" and not href_attr:
+                    # An anchor with id and no href is used by autorefs:
+                    # leave it untouched and insert a copy with updated id after it.
                     new_el = copy.deepcopy(el)
                     new_el.set("id", self.id_prefix + id_attr)
                     root.insert(index + 1, new_el)
                 else:
+                    # Anchors with id and href are not used by autorefs:
+                    # update in place.
                     el.set("id", self.id_prefix + id_attr)
 
+            # Always update hrefs, names and labels-for:
+            # there will always be a corresponding id.
             if href_attr and href_attr.startswith("#"):
                 el.set("href", "#" + self.id_prefix + href_attr[1:])
 
