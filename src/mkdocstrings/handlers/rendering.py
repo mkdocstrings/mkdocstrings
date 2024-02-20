@@ -5,7 +5,7 @@ from __future__ import annotations
 import copy
 import re
 import textwrap
-from typing import TYPE_CHECKING, Any, Iterator
+from typing import TYPE_CHECKING, Any
 
 from markdown.extensions import Extension
 from markdown.extensions.codehilite import CodeHiliteExtension
@@ -145,23 +145,23 @@ class IdPrependingTreeprocessor(Treeprocessor):
         super().__init__(md)
         self.id_prefix = id_prefix
 
-    @staticmethod
-    def _iter(parent: Element) -> Iterator[tuple[Element, int, Element]]:
-        for index, element in enumerate(parent):
-            yield parent, index, element
-            yield from IdPrependingTreeprocessor._iter(element)
-
     def run(self, root: Element) -> None:  # noqa: D102 (ignore missing docstring)
-        if not self.id_prefix:
-            return
-        for parent, index, el in self._iter(root):
+        if self.id_prefix:
+            self._prefix_ids(root)
+
+    def _prefix_ids(self, root: Element) -> None:
+        index = -1
+        for el in reversed(root):
+            index += 1
+
+            self._prefix_ids(el)
             href_attr = el.get("href")
 
             if id_attr := el.get("id"):
                 if el.tag == "a" and not href_attr:
-                    new_el = copy.copy(el)
+                    new_el = copy.deepcopy(el)
                     new_el.set("id", self.id_prefix + id_attr)
-                    parent.insert(index + 1, new_el)
+                    root.insert(index + 1, new_el)
                 else:
                     el.set("id", self.id_prefix + id_attr)
 

@@ -172,3 +172,13 @@ def test_removing_duplicated_headings(ext_markdown: Markdown) -> None:
     assert output.count(">Heading two<") == 1
     assert output.count(">Heading three<") == 1
     assert output.count('class="mkdocstrings') == 0
+
+
+@pytest.mark.parametrize("ext_markdown", [{"markdown_extensions": [{"attr_list": {}}]}], indirect=["ext_markdown"])
+def test_backup_of_anchors(ext_markdown: Markdown) -> None:
+    """Anchors with empty `href` are backed up."""
+    output = ext_markdown.convert("::: tests.fixtures.markdown_anchors")
+    assert 'id="anchor"' in output
+    assert 'id="tests.fixtures.markdown_anchors--anchor"' in output
+    assert 'id="heading-anchor"' in output
+    assert 'id="tests.fixtures.markdown_anchors--heading-anchor"' in output
