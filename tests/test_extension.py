@@ -174,22 +174,48 @@ def test_removing_duplicated_headings(ext_markdown: Markdown) -> None:
     assert output.count('class="mkdocstrings') == 0
 
 
+def assert_contains_in_order(items: list[str], string: str):
+    index = 0
+    for item in items:
+        assert item in string[index:]
+        index = string.index(item, index) + len(item)
+
+
 @pytest.mark.parametrize("ext_markdown", [{"markdown_extensions": [{"attr_list": {}}]}], indirect=["ext_markdown"])
 def test_backup_of_anchors(ext_markdown: Markdown) -> None:
     """Anchors with empty `href` are backed up."""
     output = ext_markdown.convert("::: tests.fixtures.markdown_anchors")
 
     # Anchors with id and no href are been backed up and updated.
-    assert 'id="anchor"' in output
-    assert 'id="tests.fixtures.markdown_anchors--anchor"' in output
-    assert 'id="heading-anchor"' in output
-    assert 'id="tests.fixtures.markdown_anchors--heading-anchor"' in output
+    assert_contains_in_order(
+        [
+            'id="anchor"',
+            'id="tests.fixtures.markdown_anchors--anchor"',
+            'id="heading-anchor-1"',
+            'id="tests.fixtures.markdown_anchors--heading-anchor-1"',
+            'id="heading-anchor-2"',
+            'id="tests.fixtures.markdown_anchors--heading-anchor-2"',
+            'id="heading-anchor-3"',
+            'id="tests.fixtures.markdown_anchors--heading-anchor-3"',
+        ],
+        output,
+    )
 
     # Anchors with href and with or without id have been updated but not backed up.
-    assert 'id="tests.fixtures.markdown_anchors--with-id"' in output
+    assert_contains_in_order(
+        [
+            'id="tests.fixtures.markdown_anchors--with-id"',
+        ],
+        output,
+    )
     assert 'id="with-id"' not in output
 
-    assert 'href="#tests.fixtures.markdown_anchors--has-href1"' in output
-    assert 'href="#tests.fixtures.markdown_anchors--has-href2"' in output
+    assert_contains_in_order(
+        [
+            'href="#tests.fixtures.markdown_anchors--has-href1"',
+            'href="#tests.fixtures.markdown_anchors--has-href2"',
+        ],
+        output,
+    )
     assert 'href="#has-href1"' not in output
     assert 'href="#has-href2"' not in output

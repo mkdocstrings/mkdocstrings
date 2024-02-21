@@ -4,7 +4,9 @@
 
 Paragraph.
 
-[](){#heading-anchor}
+[](){#heading-anchor-1}
+[](){#heading-anchor-2}
+[](){#heading-anchor-3}
 ## Heading
 
 [](#has-href1)

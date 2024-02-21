@@ -150,9 +150,9 @@ class IdPrependingTreeprocessor(Treeprocessor):
             self._prefix_ids(root)
 
     def _prefix_ids(self, root: Element) -> None:
-        index = -1
+        index = len(root)
         for el in reversed(root):  # Reversed mainly for the ability to mutate during iteration.
-            index += 1
+            index -= 1
 
             self._prefix_ids(el)
             href_attr = el.get("href")
