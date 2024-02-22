@@ -186,7 +186,7 @@ def test_backup_of_anchors(ext_markdown: Markdown) -> None:
     """Anchors with empty `href` are backed up."""
     output = ext_markdown.convert("::: tests.fixtures.markdown_anchors")
 
-    # Anchors with id and no href are been backed up and updated.
+    # Anchors with id and no href have been backed up and updated.
     assert_contains_in_order(
         [
             'id="anchor"',
