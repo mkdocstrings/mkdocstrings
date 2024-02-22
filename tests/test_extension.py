@@ -174,7 +174,7 @@ def test_removing_duplicated_headings(ext_markdown: Markdown) -> None:
     assert output.count('class="mkdocstrings') == 0
 
 
-def assert_contains_in_order(items: list[str], string: str):
+def _assert_contains_in_order(items: list[str], string: str) -> None:
     index = 0
     for item in items:
         assert item in string[index:]
@@ -187,7 +187,7 @@ def test_backup_of_anchors(ext_markdown: Markdown) -> None:
     output = ext_markdown.convert("::: tests.fixtures.markdown_anchors")
 
     # Anchors with id and no href have been backed up and updated.
-    assert_contains_in_order(
+    _assert_contains_in_order(
         [
             'id="anchor"',
             'id="tests.fixtures.markdown_anchors--anchor"',
@@ -202,7 +202,7 @@ def test_backup_of_anchors(ext_markdown: Markdown) -> None:
     )
 
     # Anchors with href and with or without id have been updated but not backed up.
-    assert_contains_in_order(
+    _assert_contains_in_order(
         [
             'id="tests.fixtures.markdown_anchors--with-id"',
         ],
@@ -210,7 +210,7 @@ def test_backup_of_anchors(ext_markdown: Markdown) -> None:
     )
     assert 'id="with-id"' not in output
 
-    assert_contains_in_order(
+    _assert_contains_in_order(
         [
             'href="#tests.fixtures.markdown_anchors--has-href1"',
             'href="#tests.fixtures.markdown_anchors--has-href2"',
