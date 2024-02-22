@@ -146,19 +146,35 @@ class IdPrependingTreeprocessor(Treeprocessor):
         self.id_prefix = id_prefix
 
     def run(self, root: Element) -> None:  # noqa: D102 (ignore missing docstring)
-        if not self.id_prefix:
-            return
-        for el in root.iter():
-            id_attr = el.get("id")
-            if id_attr:
-                el.set("id", self.id_prefix + id_attr)
+        if self.id_prefix:
+            self._prefix_ids(root)
 
+    def _prefix_ids(self, root: Element) -> None:
+        index = len(root)
+        for el in reversed(root):  # Reversed mainly for the ability to mutate during iteration.
+            index -= 1
+
+            self._prefix_ids(el)
             href_attr = el.get("href")
+
+            if id_attr := el.get("id"):
+                if el.tag == "a" and not href_attr:
+                    # An anchor with id and no href is used by autorefs:
+                    # leave it untouched and insert a copy with updated id after it.
+                    new_el = copy.deepcopy(el)
+                    new_el.set("id", self.id_prefix + id_attr)
+                    root.insert(index + 1, new_el)
+                else:
+                    # Anchors with id and href are not used by autorefs:
+                    # update in place.
+                    el.set("id", self.id_prefix + id_attr)
+
+            # Always update hrefs, names and labels-for:
+            # there will always be a corresponding id.
             if href_attr and href_attr.startswith("#"):
                 el.set("href", "#" + self.id_prefix + href_attr[1:])
 
-            name_attr = el.get("name")
-            if name_attr:
+            if name_attr := el.get("name"):
                 el.set("name", self.id_prefix + name_attr)
 
             if el.tag == "label":
