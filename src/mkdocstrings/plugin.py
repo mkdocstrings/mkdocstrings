@@ -185,7 +185,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             config.plugins["autorefs"] = autorefs
             log.debug(f"Added a subdued autorefs instance {autorefs!r}")
         # Add collector-based fallback in either case.
-        autorefs.get_fallback_anchor = self.handlers.get_anchors
+        autorefs.get_fallback_anchor = self.handlers.get_anchors  # type: ignore[assignment]
 
         mkdocstrings_extension = MkdocstringsExtension(extension_config, self.handlers, autorefs)
         config.markdown_extensions.append(mkdocstrings_extension)  # type: ignore[arg-type]
