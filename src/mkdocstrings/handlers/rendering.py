@@ -43,6 +43,7 @@ class Highlighter(Highlight):
         (
             "css_class",
             "guess_lang",
+            "default_lang",
             "pygments_style",
             "noclasses",
             "use_pygments",
@@ -58,6 +59,8 @@ class Highlighter(Highlight):
             "line_spans",
             "anchor_linenums",
             "line_anchors",
+            "pygments_lang_class",
+            "stripnl",
         ),
     )
 
