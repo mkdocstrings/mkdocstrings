@@ -89,7 +89,7 @@ You can use your individual or organization GitHub account for sponsoring.
 
 **Important**: If you're sponsoring **[@pawamoy][github sponsor profile]**
 through a GitHub organization, please send a short email
-to pawamoy@pm.me with the name of your
+to insiders@pawamoy.fr with the name of your
 organization and the GitHub account of the individual
 that should be added as a collaborator.[^4]
 
@@ -98,7 +98,7 @@ You can cancel your sponsorship anytime.[^5]
   [^4]:
     It's currently not possible to grant access to each member of an
     organization, as GitHub only allows for adding users. Thus, after
-    sponsoring, please send an email to pawamoy@pm.me, stating which
+    sponsoring, please send an email to insiders@pawamoy.fr, stating which
     account should become a collaborator of the Insiders repository. We're
     working on a solution which will make access to organizations much simpler.
     To ensure that access is not tied to a particular individual GitHub account,
@@ -189,7 +189,7 @@ yearly billing cycle][billing cycle]. If for some reason you cannot do that, you
 could also create a dedicated GitHub account with a yearly billing cycle, which
 you only use for sponsoring (some sponsors already do that).
 
-If you have any problems or further questions, please reach out to pawamoy@pm.me.
+If you have any problems or further questions, please reach out to insiders@pawamoy.fr.
 
 ### Terms
 

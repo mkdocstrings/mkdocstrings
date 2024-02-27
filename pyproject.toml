@@ -5,7 +5,7 @@ build-backend = "pdm.backend"
 [project]
 name = "mkdocstrings"
 description = "Automatic documentation from sources, for MkDocs."
-authors = [{name = "Timothée Mazzucotelli", email = "pawamoy@pm.me"}]
+authors = [{name = "Timothée Mazzucotelli", email = "dev@pawamoy.fr"}]
 license = {text = "ISC"}
 readme = "README.md"
 requires-python = ">=3.8"
