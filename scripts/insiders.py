@@ -104,8 +104,7 @@ def load_goals(data: str, funding: int = 0, project: Project | None = None) -> d
                 Feature(
                     name=feature_data["name"],
                     ref=feature_data.get("ref"),
-                    since=feature_data.get("since")
-                    and datetime.strptime(feature_data["since"], "%Y/%m/%d").date(),  # noqa: DTZ007
+                    since=feature_data.get("since") and datetime.strptime(feature_data["since"], "%Y/%m/%d").date(),  # noqa: DTZ007
                     project=project,
                 )
                 for feature_data in goal_data["features"]
