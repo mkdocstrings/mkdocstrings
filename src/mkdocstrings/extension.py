@@ -1,7 +1,7 @@
 """This module holds the code of the Markdown extension responsible for matching "autodoc" instructions.
 
 The extension is composed of a Markdown [block processor](https://python-markdown.github.io/extensions/api/#blockparser)
-that matches indented blocks starting with a line like '::: identifier'.
+that matches indented blocks starting with a line like `::: identifier`.
 
 For each of these blocks, it uses a [handler][mkdocstrings.handlers.base.BaseHandler] to collect documentation about
 the given identifier and render it with Jinja templates.

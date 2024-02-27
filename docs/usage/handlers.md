@@ -83,7 +83,7 @@ Additional options are available:
 - [x] `show_submodules`: Whether to render submodules of a module when iterating on children.
   Default: `False`.
 - [x] `docstring_section_style`: The style to use to render docstring sections such as attributes,
-  parameters, etc. Available styles: `table` (default), `list` and `spacy`. The SpaCy style
+  parameters, etc. Available styles: `"table"` (default), `"list"` and `"spacy"`. The SpaCy style
   is a poor implementation of their [table style](https://spacy.io/api/doc/#init).
   We are open to improvements through PRs!
 
