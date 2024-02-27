@@ -56,9 +56,6 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
   each handler can be configured globally in `mkdocs.yml`, and locally for each
   "autodoc" instruction.
 
-- ~~**Watch source code directories:**~~
-  this feature was removed as it is now [built in MkDocs](https://www.mkdocs.org/user-guide/configuration/#watch). 
-
 - **Reasonable defaults:**
   you should be able to just drop the plugin in your configuration and enjoy your auto-generated docs.
 
