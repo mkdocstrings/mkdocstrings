@@ -68,7 +68,6 @@ data_source = [
 <!-- blacken-docs:off -->
 ```python exec="1" session="insiders"
 --8<-- "scripts/insiders.py"
-```
 
 print(
     f"""The moment you <a href="#how-to-become-a-sponsor">become a sponsor</a>, you'll get **immediate
