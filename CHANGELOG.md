@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.24.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.24.1) - 2024-02-27
+
+<small>[Compare with 0.24.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.24.0...0.24.1)</small>
+
+### Code Refactoring
+
+- Support new pymdownx-highlight options ([a7a2907](https://github.com/mkdocstrings/mkdocstrings/commit/a7a29079aebcd79be84ac38ce275797920e4c75e) by Timothée Mazzucotelli).
+- Backup anchors with id and no href, for compatibility with autorefs' Markdown anchors ([b5236b4](https://github.com/mkdocstrings/mkdocstrings/commit/b5236b4333ebde9648c84f6e4b0f4c2b10f3ecd4) by Timothée Mazzucotelli). [PR-#651](https://github.com/mkdocstrings/mkdocstrings/pull/651), [Related-to-mkdocs-autorefs#39](https://github.com/mkdocstrings/autorefs/pull/39), Co-authored-by: Oleh Prypin <oleh@pryp.in>
+
 ## [0.24.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.24.0) - 2023-11-14
 
 <small>[Compare with 0.23.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.23.0...0.24.0)</small>
