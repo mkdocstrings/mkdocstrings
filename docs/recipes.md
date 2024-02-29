@@ -81,7 +81,8 @@ from pathlib import Path
 
 import mkdocs_gen_files
 
-src = Path(__file__).parent.parent / "src"  # (1)!
+root = Path(__file__).parent.parent
+src = root / "src"  # (1)!
 
 for path in sorted(src.rglob("*.py")):  # (2)!
     module_path = path.relative_to(src).with_suffix("")  # (3)!
@@ -99,7 +100,7 @@ for path in sorted(src.rglob("*.py")):  # (2)!
         identifier = ".".join(parts)  # (8)!
         print("::: " + identifier, file=fd)  # (9)!
 
-    mkdocs_gen_files.set_edit_path(full_doc_path, path)  # (10)!
+    mkdocs_gen_files.set_edit_path(full_doc_path, path.relative_to(root))  # (10)!
 ```
 
 1. It's important to build a path relative to the script itself,
@@ -212,7 +213,8 @@ import mkdocs_gen_files
 
 nav = mkdocs_gen_files.Nav()
 
-src = Path(__file__).parent.parent / "src"
+root = Path(__file__).parent.parent
+src = root / "src"
 
 for path in sorted(src.rglob("*.py")):
     module_path = path.relative_to(src).with_suffix("")
@@ -232,7 +234,7 @@ for path in sorted(src.rglob("*.py")):
         ident = ".".join(parts)
         fd.write(f"::: {ident}")
 
-    mkdocs_gen_files.set_edit_path(full_doc_path, path)
+    mkdocs_gen_files.set_edit_path(full_doc_path, path.relative_to(root))
 
 with mkdocs_gen_files.open("reference/SUMMARY.md", "w") as nav_file:  # (2)!
     nav_file.writelines(nav.build_literate_nav())  # (3)!
@@ -285,7 +287,8 @@ import mkdocs_gen_files
 
 nav = mkdocs_gen_files.Nav()
 
-src = Path(__file__).parent.parent / "src"
+root = Path(__file__).parent.parent
+src = root / "src"
 
 for path in sorted(src.rglob("*.py")):
     module_path = path.relative_to(src).with_suffix("")
@@ -307,7 +310,7 @@ for path in sorted(src.rglob("*.py")):
         ident = ".".join(parts)
         fd.write(f"::: {ident}")
 
-    mkdocs_gen_files.set_edit_path(full_doc_path, path)
+    mkdocs_gen_files.set_edit_path(full_doc_path, path.relative_to(root))
 
 with mkdocs_gen_files.open("reference/SUMMARY.md", "w") as nav_file:
     nav_file.writelines(nav.build_literate_nav())
