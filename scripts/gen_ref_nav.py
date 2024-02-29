@@ -7,7 +7,8 @@ import mkdocs_gen_files
 nav = mkdocs_gen_files.Nav()
 mod_symbol = '<code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>'
 
-src = Path(__file__).parent.parent / "src"
+root = Path(__file__).parent.parent
+src = root / "src"
 
 for path in sorted(src.rglob("*.py")):
     module_path = path.relative_to(src).with_suffix("")
@@ -30,7 +31,7 @@ for path in sorted(src.rglob("*.py")):
         ident = ".".join(parts)
         fd.write(f"::: {ident}")
 
-    mkdocs_gen_files.set_edit_path(full_doc_path, ".." / path)
+    mkdocs_gen_files.set_edit_path(full_doc_path, ".." / path.relative_to(root))
 
 with mkdocs_gen_files.open("reference/SUMMARY.md", "w") as nav_file:
     nav_file.writelines(nav.build_literate_nav())
