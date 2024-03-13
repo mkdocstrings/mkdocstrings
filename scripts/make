@@ -1,0 +1,155 @@
+#!/usr/bin/env bash
+
+set -e
+export PYTHON_VERSIONS=${PYTHON_VERSIONS-3.8 3.9 3.10 3.11 3.12}
+
+exe=""
+prefix=""
+
+
+# Install runtime and development dependencies,
+# as well as current project in editable mode.
+uv_install() {
+    uv pip compile pyproject.toml devdeps.txt | uv pip install -r -
+    uv pip install -e .
+}
+
+
+# Setup the development environment by installing dependencies
+# in multiple Python virtual environments with uv:
+# one venv per Python version in `.venvs/$py`,
+# and an additional default venv in `.venv`.
+setup() {
+    if ! command -v uv &>/dev/null; then
+        echo "make: setup: uv must be installed, see https://github.com/astral-sh/uv" >&2
+        return 1
+    fi
+
+    if [ -n "${PYTHON_VERSIONS}" ]; then
+        for version in ${PYTHON_VERSIONS}; do
+            if [ ! -d ".venvs/${version}" ]; then
+                uv venv --seed --python "${version}" ".venvs/${version}"
+            fi
+            VIRTUAL_ENV="${PWD}/.venvs/${version}" uv_install
+        done
+    fi
+
+    if [ ! -d .venv ]; then uv venv --seed --python python; fi
+    uv_install
+}
+
+
+# Activate a Python virtual environments.
+# The annoying operating system also requires
+# that we set some global variables to help it find commands...
+activate() {
+    local path
+    if [ -f "$1/bin/activate" ]; then
+        source "$1/bin/activate"
+        return 0
+    fi
+    if [ -f "$1/Scripts/activate.bat" ]; then
+        "$1/Scripts/activate.bat"
+        exe=".exe"
+        prefix="$1/Scripts/"
+        return 0
+    fi
+    echo "run: Cannot activate venv $1" >&2
+    return 1
+}
+
+
+# Run a command in all configured Python virtual environments.
+# We handle the case when the `PYTHON_VERSIONS` environment variable
+# is unset or empty, for robustness.
+multirun() {
+    local cmd="$1"
+    shift
+
+    if [ -n "${PYTHON_VERSIONS}" ]; then
+        for version in ${PYTHON_VERSIONS}; do
+            (activate ".venvs/${version}" && MULTIRUN=1 "${prefix}${cmd}${exe}" "$@")
+        done
+    else
+        (activate .venv && "${prefix}${cmd}${exe}" "$@")
+    fi
+}
+
+
+# Run a command in the default Python virtual environment.
+# We rely on `multirun`'s handling of empty `PYTHON_VERSIONS`.
+singlerun() {
+    PYTHON_VERSIONS= multirun "$@"
+}
+
+
+# Record options following a command name,
+# until a non-option argument is met or there are no more arguments.
+# Output each option on a new line, so the parent caller can store them in an array.
+# Return the number of times the parent caller must shift arguments.
+options() {
+    local shift_count=0
+    for arg in "$@"; do
+        if [[ "${arg}" =~ ^- || "${arg}" =~ ^.+= ]]; then
+            echo "${arg}"
+            ((shift_count++))
+        else
+            break
+        fi
+    done
+    return ${shift_count}
+}
+
+
+# Main function.
+main() {
+    local cmd
+    while [ $# -ne 0 ]; do
+        cmd="$1"
+        shift
+
+        # Handle `run` early to simplify `case` below.
+        if [ "${cmd}" = "run" ]; then
+            singlerun "$@"
+            exit $?
+        fi
+
+        # Handle `multirun` early to simplify `case` below.
+        if [ "${cmd}" = "multirun" ]; then
+            multirun "$@"
+            exit $?
+        fi
+
+        # All commands except `run` and `multirun` can be chained on a single line.
+        # Some of them accept options in two formats: `-f`, `--flag` and `param=value`.
+        # Some of them don't, and will print warnings/errors if options were given.
+        opts=($(options "$@")) || shift $?
+
+        case "${cmd}" in
+            # The following commands require special handling.
+            help|"")
+                singlerun duty --list ;;
+            setup)
+                setup ;;
+            check)
+                multirun duty check-quality check-types check-docs
+                singlerun duty check-dependencies check-api
+            ;;
+
+            # The following commands run in all venvs.
+            check-quality|\
+            check-docs|\
+            check-types|\
+            test)
+                multirun duty "${cmd}" "${opts[@]}" ;;
+
+            # The following commands run in the default venv only.
+            *)
+                singlerun duty "${cmd}" "${opts[@]}" ;;
+        esac
+    done
+}
+
+
+# Execute the main function.
+main "$@"

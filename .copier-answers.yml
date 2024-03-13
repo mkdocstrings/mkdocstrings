@@ -1,6 +1,6 @@
 # Changes here will be overwritten by Copier
-_commit: 1.2.6
-_src_path: gh:pawamoy/copier-pdm.git
+_commit: 1.0.8
+_src_path: gh:pawamoy/copier-uv
 author_email: dev@pawamoy.fr
 author_fullname: Timothée Mazzucotelli
 author_username: pawamoy

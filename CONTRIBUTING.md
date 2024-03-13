@@ -17,18 +17,18 @@ make setup
 > NOTE:
 > If it fails for some reason,
 > you'll need to install
-> [PDM](https://github.com/pdm-project/pdm)
+> [uv](https://github.com/astral-sh/uv)
 > manually.
 >
 > You can install it with:
 >
 > ```bash
 > python3 -m pip install --user pipx
-> pipx install pdm
+> pipx install uv
 > ```
 >
 > Now you can try running `make setup` again,
-> or simply `pdm install`.
+> or simply `uv install`.
 
 You now have the dependencies installed.
 
@@ -39,13 +39,13 @@ Run `make help` to see all the available actions!
 This project uses [duty](https://github.com/pawamoy/duty) to run tasks.
 A Makefile is also provided. The Makefile will try to run certain tasks
 on multiple Python versions. If for some reason you don't want to run the task
-on multiple Python versions, you run the task directly with `pdm run duty TASK`.
+on multiple Python versions, you run the task directly with `make run duty TASK`.
 
 The Makefile detects if a virtual environment is activated,
 so `make` will work the same with the virtualenv activated or not.
 
 If you work in VSCode, we provide
-[an action to configure VSCode](https://pawamoy.github.io/copier-pdm/work/#vscode-setup)
+[an action to configure VSCode](https://pawamoy.github.io/copier-uv/work/#vscode-setup)
 for the project.
 
 ## Development

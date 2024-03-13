@@ -9,13 +9,9 @@ htmlcov/
 .coverage*
 pip-wheel-metadata/
 .pytest_cache/
-.python-version
-site/
-pdm.lock
-pdm.toml
-.pdm-plugins/
-.pdm-python
-__pypackages__/
 .mypy_cache/
+.ruff_cache/
+site/
 .venv/
+.venvs/
 .cache/

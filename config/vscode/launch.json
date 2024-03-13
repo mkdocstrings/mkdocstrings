@@ -10,6 +10,17 @@
             "justMyCode": false
         },
         {
+            "name": "docs",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "mkdocs",
+            "justMyCode": false,
+            "args": [
+                "serve",
+                "-v"
+            ]
+        },
+        {
             "name": "test",
             "type": "debugpy",
             "request": "launch",

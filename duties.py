@@ -22,7 +22,7 @@ PY_SRC = " ".join(PY_SRC_LIST)
 CI = os.environ.get("CI", "0") in {"1", "true", "yes", ""}
 WINDOWS = os.name == "nt"
 PTY = not WINDOWS and not CI
-MULTIRUN = os.environ.get("PDM_MULTIRUN", "0") == "1"
+MULTIRUN = os.environ.get("MULTIRUN", "0") == "1"
 
 
 def pyprefix(title: str) -> str:  # noqa: D103
@@ -88,15 +88,15 @@ def check_dependencies(ctx: Context) -> None:
     """
     # retrieve the list of dependencies
     requirements = ctx.run(
-        ["pdm", "export", "-f", "requirements", "--without-hashes"],
-        title="Exporting dependencies as requirements",
+        ["uv", "pip", "freeze"],
+        silent=True,
         allow_overrides=False,
     )
 
     ctx.run(
         safety.check(requirements),
         title="Checking dependencies",
-        command="pdm export -f requirements --without-hashes | safety check --stdin",
+        command="uv pip freeze | safety check --stdin",
     )
 
 
@@ -250,7 +250,7 @@ def release(ctx: Context, version: str) -> None:
     ctx.run(f"git tag {version}", title="Tagging commit", pty=PTY)
     ctx.run("git push", title="Pushing commits", pty=False)
     ctx.run("git push --tags", title="Pushing tags", pty=False)
-    ctx.run("pdm build", title="Building dist/wheel", pty=PTY)
+    ctx.run("pyproject-build", title="Building dist/wheel", pty=PTY)
     ctx.run("twine upload --skip-existing dist/*", title="Publishing version", pty=PTY)
 
 

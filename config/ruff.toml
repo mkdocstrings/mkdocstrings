@@ -1,53 +1,27 @@
 target-version = "py38"
 line-length = 120
+
+[lint]
 exclude = [
-    "fixtures",
+    "tests/fixtures/*.py",
     "site",
 ]
 select = [
-    "A",
-    "ANN",
-    "ARG",
-    "B",
-    "BLE",
-    "C",
-    "C4",
+    "A", "ANN", "ARG",
+    "B", "BLE",
+    "C", "C4",
     "COM",
-    "D",
-    "DTZ",
-    "E",
-    "ERA",
-    "EXE",
-    "F",
-    "FBT",
+    "D", "DTZ",
+    "E", "ERA", "EXE",
+    "F", "FBT",
     "G",
-    "I",
-    "ICN",
-    "INP",
-    "ISC",
+    "I", "ICN", "INP", "ISC",
     "N",
-    "PGH",
-    "PIE",
-    "PL",
-    "PLC",
-    "PLE",
-    "PLR",
-    "PLW",
-    "PT",
-    "PYI",
+    "PGH", "PIE", "PL", "PLC", "PLE", "PLR", "PLW", "PT", "PYI",
     "Q",
-    "RUF",
-    "RSE",
-    "RET",
-    "S",
-    "SIM",
-    "SLF",
-    "T",
-    "T10",
-    "T20",
-    "TCH",
-    "TID",
-    "TRY",
+    "RUF", "RSE", "RET",
+    "S", "SIM", "SLF",
+    "T", "T10", "T20", "TCH", "TID", "TRY",
     "UP",
     "W",
     "YTT",
@@ -73,7 +47,7 @@ ignore = [
     "TRY003",  # Avoid specifying long messages outside the exception class
 ]
 
-[per-file-ignores]
+[lint.per-file-ignores]
 "src/*/cli.py" = [
     "T201",  # Print statement
 ]
@@ -91,18 +65,21 @@ ignore = [
     "S101",  # Use of assert detected
 ]
 
-[flake8-quotes]
+[lint.flake8-quotes]
 docstring-quotes = "double"
 
-[flake8-tidy-imports]
+[lint.flake8-tidy-imports]
 ban-relative-imports = "all"
 
-[isort]
+[lint.isort]
 known-first-party = ["mkdocstrings"]
 
-[pydocstyle]
+[lint.pydocstyle]
 convention = "google"
 
 [format]
 docstring-code-format = true
 docstring-code-line-length = 80
+exclude = [
+    "tests/fixtures/*.py",
+]

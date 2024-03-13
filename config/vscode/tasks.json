@@ -3,84 +3,94 @@
     "tasks": [
         {
             "label": "changelog",
-            "type": "shell",
-            "command": "pdm run duty changelog"
+            "type": "process",
+            "command": "scripts/make",
+            "args": ["changelog"]
         },
         {
             "label": "check",
-            "type": "shell",
-            "command": "pdm run duty check"
+            "type": "process",
+            "command": "scripts/make",
+            "args": ["check"]
         },
         {
             "label": "check-quality",
-            "type": "shell",
-            "command": "pdm run duty check-quality"
+            "type": "process",
+            "command": "scripts/make",
+            "args": ["check-quality"]
         },
         {
             "label": "check-types",
-            "type": "shell",
-            "command": "pdm run duty check-types"
+            "type": "process",
+            "command": "scripts/make",
+            "args": ["check-types"]
         },
         {
             "label": "check-docs",
-            "type": "shell",
-            "command": "pdm run duty check-docs"
+            "type": "process",
+            "command": "scripts/make",
+            "args": ["check-docs"]
         },
         {
             "label": "check-dependencies",
-            "type": "shell",
-            "command": "pdm run duty check-dependencies"
+            "type": "process",
+            "command": "scripts/make",
+            "args": ["check-dependencies"]
         },
         {
             "label": "check-api",
-            "type": "shell",
-            "command": "pdm run duty check-api"
+            "type": "process",
+            "command": "scripts/make",
+            "args": ["check-api"]
         },
         {
             "label": "clean",
-            "type": "shell",
-            "command": "pdm run duty clean"
+            "type": "process",
+            "command": "scripts/make",
+            "args": ["clean"]
         },
         {
             "label": "docs",
-            "type": "shell",
-            "command": "pdm run duty docs"
+            "type": "process",
+            "command": "scripts/make",
+            "args": ["docs"]
         },
         {
             "label": "docs-deploy",
-            "type": "shell",
-            "command": "pdm run duty docs-deploy"
+            "type": "process",
+            "command": "scripts/make",
+            "args": ["docs-deploy"]
         },
         {
             "label": "format",
-            "type": "shell",
-            "command": "pdm run duty format"
-        },
-        {
-            "label": "lock",
-            "type": "shell",
-            "command": "pdm lock -G:all"
+            "type": "process",
+            "command": "scripts/make",
+            "args": ["format"]
         },
         {
             "label": "release",
-            "type": "shell",
-            "command": "pdm run duty release ${input:version}"
+            "type": "process",
+            "command": "scripts/make",
+            "args": ["release", "${input:version}"]
         },
         {
             "label": "setup",
-            "type": "shell",
-            "command": "bash scripts/setup.sh"
+            "type": "process",
+            "command": "scripts/make",
+            "args": ["setup"]
         },
         {
             "label": "test",
-            "type": "shell",
-            "command": "pdm run duty test coverage",
+            "type": "process",
+            "command": "scripts/make",
+            "args": ["test", "coverage"],
             "group": "test"
         },
         {
             "label": "vscode",
-            "type": "shell",
-            "command": "pdm run duty vscode"
+            "type": "process",
+            "command": "scripts/make",
+            "args": ["vscode"]
         }
     ],
     "inputs": [

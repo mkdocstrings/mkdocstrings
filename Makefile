@@ -1,54 +1,27 @@
-.DEFAULT_GOAL := help
-SHELL := bash
-DUTY := $(if $(VIRTUAL_ENV),,pdm run) duty
-export PDM_MULTIRUN_VERSIONS ?= 3.8 3.9 3.10 3.11 3.12
-export PDM_MULTIRUN_USE_VENVS ?= $(if $(shell pdm config python.use_venv | grep True),1,0)
+# If you have `direnv` loaded in your shell, and allow it in the repository,
+# the `make` command will point at the `scripts/make` shell script.
+# This Makefile is just here to allow auto-completion in the terminal.
 
-args = $(foreach a,$($(subst -,_,$1)_args),$(if $(value $a),$a="$($a)"))
-check_quality_args = files
-docs_args = host port
-release_args = version
-test_args = match
-
-BASIC_DUTIES = \
+actions = \
 	changelog \
+	check \
 	check-api \
 	check-dependencies \
+	check-docs \
+	check-quality \
+	check-types \
 	clean \
 	coverage \
 	docs \
 	docs-deploy \
 	format \
+	help \
 	release \
+	run \
+	setup \
+	test \
 	vscode
 
-QUALITY_DUTIES = \
-	check-quality \
-	check-docs \
-	check-types \
-	test
-
-.PHONY: help
-help:
-	@$(DUTY) --list
-
-.PHONY: lock
-lock:
-	@pdm lock --dev
-
-.PHONY: setup
-setup:
-	@bash scripts/setup.sh
-
-.PHONY: check
-check:
-	@pdm multirun duty check-quality check-types check-docs
-	@$(DUTY) check-dependencies check-api
-
-.PHONY: $(BASIC_DUTIES)
-$(BASIC_DUTIES):
-	@$(DUTY) $@ $(call args,$@)
-
-.PHONY: $(QUALITY_DUTIES)
-$(QUALITY_DUTIES):
-	@pdm multirun duty $@ $(call args,$@)
+.PHONY: $(actions)
+$(actions):
+	@bash scripts/make "$@"
