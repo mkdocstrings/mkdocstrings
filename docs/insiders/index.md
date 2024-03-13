@@ -66,17 +66,31 @@ data_source = [
 ```
 
 <!-- blacken-docs:off -->
-```python exec="1" session="insiders"
+```python exec="1" session="insiders" idprefix=""
 --8<-- "scripts/insiders.py"
 
-print(
-    f"""The moment you <a href="#how-to-become-a-sponsor">become a sponsor</a>, you'll get **immediate
-    access to {len(unreleased_features)} additional features** that you can start using right away, and
-    which are currently exclusively available to sponsors:\n"""
-)
+if unreleased_features:
+    print(
+        "The moment you [become a sponsor](#how-to-become-a-sponsor), you'll get **immediate "
+        f"access to {len(unreleased_features)} additional features** that you can start using right away, and "
+        "which are currently exclusively available to sponsors:\n"
+    )
 
-for feature in unreleased_features:
-    feature.render(badge=True)
+    for feature in unreleased_features:
+        feature.render(badge=True)
+
+    print(
+        "\n\nThese are just the features related to this project. "
+        "[See the complete feature list on the author's main Insiders page](https://pawamoy.github.io/insiders/#whats-in-it-for-me)."
+    )
+else:
+    print(
+        "The moment you [become a sponsor](#how-to-become-a-sponsor), you'll get immediate "
+        "access to all released features that you can start using right away, and "
+        "which are exclusively available to sponsors. At this moment, there are no "
+        "Insiders features for this project, but checkout the [next funding goals](#goals) "
+        "to see what's coming, as well as **[the feature list for all Insiders projects](https://pawamoy.github.io/insiders/#whats-in-it-for-me).**"
+    )
 ```
 <!-- blacken-docs:on -->
 
@@ -121,10 +135,10 @@ You can cancel your sponsorship anytime.[^5]
 
 <hr>
 <div class="premium-sponsors">
-
-<div id="bronze-sponsors"></div>
+  <div id="gold-sponsors"></div>
+  <div id="silver-sponsors"></div>
+  <div id="bronze-sponsors"></div>
 </div>
-
 <hr>
 
 <div id="sponsors"></div>
