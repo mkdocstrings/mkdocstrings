@@ -62,6 +62,7 @@ data_source = [
     ("griffe-typing-deprecated", "https://mkdocstrings.github.io/griffe-typing-deprecated/", "insiders/goals.yml"),
     ("mkdocstrings-python", "https://mkdocstrings.github.io/python/", "insiders/goals.yml"),
     ("mkdocstrings-shell", "https://mkdocstrings.github.io/shell/", "insiders/goals.yml"),
+    ("mkdocstrings-typescript", "https://mkdocstrings.github.io/typescript/", "insiders/goals.yml"),
 ]
 ```
 
