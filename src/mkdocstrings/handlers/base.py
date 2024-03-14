@@ -461,6 +461,7 @@ class Handlers:
                 theme=self._config["theme_name"],
                 custom_templates=self._config["mkdocstrings"]["custom_templates"],
                 config_file_path=self._config["mkdocs"]["config_file_path"],
+                language=self._config["mkdocstrings"]["language"],
                 **handler_config,
             )
         return self._handlers[name]
