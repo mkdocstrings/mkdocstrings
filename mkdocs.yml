@@ -28,6 +28,7 @@ nav:
     - Python: https://mkdocstrings.github.io/python/
     - Python (Legacy): https://mkdocstrings.github.io/python-legacy/
     - Shell: https://mkdocstrings.github.io/shell/
+    - VBA: https://pypi.org/project/mkdocstrings-vba
   - Guides:
     - Recipes: recipes.md
     - Troubleshooting: troubleshooting.md
