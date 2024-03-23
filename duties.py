@@ -157,17 +157,17 @@ def clean(ctx: Context) -> None:
     Parameters:
         ctx: The context instance (passed automatically).
     """
-    ctx.run("rm -rf .coverage*")
-    ctx.run("rm -rf .mypy_cache")
-    ctx.run("rm -rf .pytest_cache")
-    ctx.run("rm -rf tests/.pytest_cache")
-    ctx.run("rm -rf build")
-    ctx.run("rm -rf dist")
-    ctx.run("rm -rf htmlcov")
-    ctx.run("rm -rf pip-wheel-metadata")
-    ctx.run("rm -rf site")
-    ctx.run("find . -type d -name __pycache__ | xargs rm -rf")
-    ctx.run("find . -name '*.rej' -delete")
+
+    def _rm(*targets: str) -> None:
+        for target in targets:
+            ctx.run(f"rm -rf {target}")
+
+    def _find_rm(*targets: str) -> None:
+        for target in targets:
+            ctx.run(f"find . -type d -name '{target}' | xargs rm -rf")
+
+    _rm("build", "dist", ".coverage*", "htmlcov", "site", ".pdm-build")
+    _find_rm(".cache", ".pytest_cache", ".mypy_cache", ".ruff_cache", "__pycache__")
 
 
 @duty

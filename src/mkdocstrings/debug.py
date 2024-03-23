@@ -37,6 +37,8 @@ class Environment:
     """Python interpreter name."""
     interpreter_version: str
     """Python interpreter version."""
+    interpreter_path: str
+    """Path to Python executable."""
     platform: str
     """Operating System."""
     packages: list[Package]
@@ -83,6 +85,7 @@ def get_debug_info() -> Environment:
     return Environment(
         interpreter_name=py_name,
         interpreter_version=py_version,
+        interpreter_path=sys.executable,
         platform=platform.platform(),
         variables=[Variable(var, val) for var in variables if (val := os.getenv(var))],
         packages=[Package(pkg, get_version(pkg)) for pkg in packages],
@@ -93,7 +96,7 @@ def print_debug_info() -> None:
     """Print debug/environment information."""
     info = get_debug_info()
     print(f"- __System__: {info.platform}")
-    print(f"- __Python__: {info.interpreter_name} {info.interpreter_version}")
+    print(f"- __Python__: {info.interpreter_name} {info.interpreter_version} ({info.interpreter_path})")
     print("- __Environment variables__:")
     for var in info.variables:
         print(f"  - `{var.name}`: `{var.value}`")

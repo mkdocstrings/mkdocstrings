@@ -11,7 +11,11 @@ prefix=""
 # as well as current project in editable mode.
 uv_install() {
     uv pip compile pyproject.toml devdeps.txt | uv pip install -r -
-    uv pip install -e .
+    if [ -z "${CI}" ]; then
+        uv pip install -e .
+    else
+        uv pip install "mkdocstrings @ ."
+    fi
 }
 
 
@@ -28,13 +32,13 @@ setup() {
     if [ -n "${PYTHON_VERSIONS}" ]; then
         for version in ${PYTHON_VERSIONS}; do
             if [ ! -d ".venvs/${version}" ]; then
-                uv venv --seed --python "${version}" ".venvs/${version}"
+                uv venv --python "${version}" ".venvs/${version}"
             fi
             VIRTUAL_ENV="${PWD}/.venvs/${version}" uv_install
         done
     fi
 
-    if [ ! -d .venv ]; then uv venv --seed --python python; fi
+    if [ ! -d .venv ]; then uv venv --python python; fi
     uv_install
 }
 

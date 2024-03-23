@@ -17,7 +17,7 @@ try:
 except ImportError:
     TEMPLATES_DIRS: Sequence[Path] = ()
 else:
-    TEMPLATES_DIRS = tuple(mkdocstrings_handlers.__path__)  # type: ignore[arg-type]
+    TEMPLATES_DIRS = tuple(mkdocstrings_handlers.__path__)
 
 
 if TYPE_CHECKING:

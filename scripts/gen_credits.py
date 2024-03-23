@@ -26,7 +26,7 @@ with project_dir.joinpath("pyproject.toml").open("rb") as pyproject_file:
     pyproject = tomllib.load(pyproject_file)
 project = pyproject["project"]
 project_name = project["name"]
-with open("devdeps.txt") as devdeps_file:
+with project_dir.joinpath("devdeps.txt").open() as devdeps_file:
     devdeps = [line.strip() for line in devdeps_file if not line.startswith("-e")]
 
 PackageMetadata = Dict[str, Union[str, Iterable[str]]]
@@ -45,13 +45,6 @@ def _merge_fields(metadata: dict) -> PackageMetadata:
 
 def _norm_name(name: str) -> str:
     return name.replace("_", "-").replace(".", "-").lower()
-
-
-def _norm_spec(spec: str) -> set[str]:
-    clean_spec = spec.split("]", 1)[-1].split(";", 1)[0].replace("(", "").replace(")", "").replace(" ", "").strip()
-    if clean_spec:
-        return set(clean_spec.split(","))
-    return set()
 
 
 def _requirements(deps: list[str]) -> dict[str, Requirement]:
@@ -74,6 +67,7 @@ def _get_metadata() -> Metadata:
         metadata[name] = _merge_fields(pkg.metadata)  # type: ignore[arg-type]
         metadata[name]["spec"] = set()
         metadata[name]["extras"] = set()
+        metadata[name].setdefault("summary", "")
         _set_license(metadata[name])
     return metadata
 
@@ -147,12 +141,12 @@ def _render_credits() -> str:
 
         These projects were used to build *{{ project_name }}*. **Thank you!**
 
-        [`python`](https://www.python.org/) |
-        [`uv`](https://github.com/astral-sh/uv) |
-        [`copier-uv`](https://github.com/pawamoy/copier-uv)
+        [Python](https://www.python.org/) |
+        [uv](https://github.com/astral-sh/uv) |
+        [copier-uv](https://github.com/pawamoy/copier-uv)
 
         {% macro dep_line(dep) -%}
-        [`{{ dep.name }}`](https://pypi.org/project/{{ dep.name }}/) | {{ dep.summary }} | {{ ("`" ~ dep.spec|sort(reverse=True)|join(", ") ~ "`") if dep.spec else "" }} | `{{ dep.version }}` | {{ dep.license }}
+        [{{ dep.name }}](https://pypi.org/project/{{ dep.name }}/) | {{ dep.summary }} | {{ ("`" ~ dep.spec|sort(reverse=True)|join(", ") ~ "`") if dep.spec else "" }} | `{{ dep.version }}` | {{ dep.license }}
         {%- endmacro %}
 
         {% if prod_dependencies -%}

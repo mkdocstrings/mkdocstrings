@@ -1,17 +1,24 @@
+# editors
 .idea/
 .vscode/
-__pycache__/
-*.py[cod]
-dist/
+
+# python
 *.egg-info/
-build/
-htmlcov/
+*.py[cod]
+.venv/
+.venvs/
+/build/
+/dist/
+
+# tools
 .coverage*
-pip-wheel-metadata/
+/.pdm-build/
+/htmlcov/
+/site/
+
+# cache
+.cache/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-site/
-.venv/
-.venvs/
-.cache/
+__pycache__/
