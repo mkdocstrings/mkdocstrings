@@ -6,3 +6,4 @@ parse-refs = false
 parse-trailers = true
 sections = ["build", "deps", "feat", "fix", "refactor"]
 template = "keepachangelog"
+versioning = "pep440"
