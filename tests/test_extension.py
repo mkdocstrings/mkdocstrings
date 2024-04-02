@@ -105,26 +105,46 @@ def test_no_double_toc(ext_markdown: Markdown, expect_permalink: str) -> None:
         {
             "level": 1,
             "id": "aa",
+            "html": "aa",
             "name": "aa",
+            "data-toc-label": "",
             "children": [
                 {
                     "level": 2,
                     "id": "tests.fixtures.headings--foo",
+                    "html": "Foo",
                     "name": "Foo",
+                    "data-toc-label": "",
                     "children": [
                         {
                             "level": 4,
                             "id": "tests.fixtures.headings--bar",
+                            "html": "Bar",
                             "name": "Bar",
+                            "data-toc-label": "",
                             "children": [
-                                {"level": 6, "id": "tests.fixtures.headings--baz", "name": "Baz", "children": []},
+                                {
+                                    "level": 6,
+                                    "id": "tests.fixtures.headings--baz",
+                                    "html": "Baz",
+                                    "name": "Baz",
+                                    "data-toc-label": "",
+                                    "children": [],
+                                },
                             ],
                         },
                     ],
                 },
             ],
         },
-        {"level": 1, "id": "bb", "name": "bb", "children": []},
+        {
+            "level": 1,
+            "id": "bb",
+            "html": "bb",
+            "name": "bb",
+            "data-toc-label": "",
+            "children": [],
+        },
     ]
 
 

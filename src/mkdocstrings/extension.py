@@ -228,7 +228,7 @@ class AutoDocProcessor(BlockProcessor):
         return rendered, handler, data
 
 
-class _PostProcessor(Treeprocessor):
+class _HeadingsPostProcessor(Treeprocessor):
     def run(self, root: Element) -> None:
         self._remove_duplicated_headings(root)
 
@@ -247,6 +247,17 @@ class _PostProcessor(Treeprocessor):
 
         if carry_text:
             parent.text = (parent.text or "") + carry_text
+
+
+class _TocLabelsTreeProcessor(Treeprocessor):
+    def run(self, root: Element) -> None:  # noqa: ARG002
+        self._override_toc_labels(self.md.toc_tokens)  # type: ignore[attr-defined]
+
+    def _override_toc_labels(self, tokens: list[dict[str, Any]]) -> None:
+        for token in tokens:
+            if (label := token.get("data-toc-label")) and token["name"] != label:
+                token["name"] = label
+                self._override_toc_labels(token["children"])
 
 
 class MkdocstringsExtension(Extension):
@@ -284,7 +295,12 @@ class MkdocstringsExtension(Extension):
             priority=75,  # Right before markdown.blockprocessors.HashHeaderProcessor
         )
         md.treeprocessors.register(
-            _PostProcessor(md),
-            "mkdocstrings_post",
+            _HeadingsPostProcessor(md),
+            "mkdocstrings_post_headings",
             priority=4,  # Right after 'toc'.
         )
+        # md.treeprocessors.register(
+        #     _TocLabelsTreeProcessor(md),
+        #     "mkdocstrings_post_toc_labels",
+        #     priority=4,  # Right after 'toc'.
+        # )
