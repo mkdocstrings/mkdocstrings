@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.24.2](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.24.2) - 2024-04-02
+
+<small>[Compare with 0.24.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.24.1...0.24.2)</small>
+
+### Bug Fixes
+
+- Support HTML toc labels with Python-Markdown 3.6+ ([c0d0090](https://github.com/mkdocstrings/mkdocstrings/commit/c0d009000678a2ccbfb0c8adfeff3dc83845ee41) by Timothée Mazzucotelli). [Issue-mkdocstrings/python-143](https://github.com/mkdocstrings/python/issues/143)
+
 ## [0.24.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.24.1) - 2024-02-27
 
 <small>[Compare with 0.24.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.24.0...0.24.1)</small>
