@@ -299,8 +299,8 @@ class MkdocstringsExtension(Extension):
             "mkdocstrings_post_headings",
             priority=4,  # Right after 'toc'.
         )
-        # md.treeprocessors.register(
-        #     _TocLabelsTreeProcessor(md),
-        #     "mkdocstrings_post_toc_labels",
-        #     priority=4,  # Right after 'toc'.
-        # )
+        md.treeprocessors.register(
+            _TocLabelsTreeProcessor(md),
+            "mkdocstrings_post_toc_labels",
+            priority=4,  # Right after 'toc'.
+        )
