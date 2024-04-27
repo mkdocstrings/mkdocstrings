@@ -17,7 +17,7 @@ try:
 except ImportError:
     TEMPLATES_DIRS: Sequence[Path] = ()
 else:
-    TEMPLATES_DIRS = tuple(mkdocstrings_handlers.__path__)  # type: ignore[arg-type]
+    TEMPLATES_DIRS = tuple(mkdocstrings_handlers.__path__)
 
 
 if TYPE_CHECKING:
@@ -25,7 +25,25 @@ if TYPE_CHECKING:
 
 
 class LoggerAdapter(logging.LoggerAdapter):
-    """A logger adapter to prefix messages."""
+    """A logger adapter to prefix messages.
+
+    This adapter also adds an additional parameter to logging methods
+    called `once`: if `True`, the message will only be logged once.
+
+    Examples:
+        In Python code:
+
+        >>> logger = get_logger("myplugin")
+        >>> logger.debug("This is a debug message.")
+        >>> logger.info("This is an info message.", once=True)
+
+        In Jinja templates (logger available in context as `log`):
+
+        ```jinja
+        {{ log.debug("This is a debug message.") }}
+        {{ log.info("This is an info message.", once=True) }}
+        ```
+    """
 
     def __init__(self, prefix: str, logger: logging.Logger):
         """Initialize the object.
@@ -36,6 +54,7 @@ class LoggerAdapter(logging.LoggerAdapter):
         """
         super().__init__(logger, {})
         self.prefix = prefix
+        self._logged: set[tuple[LoggerAdapter, str]] = set()
 
     def process(self, msg: str, kwargs: MutableMapping[str, Any]) -> tuple[str, Any]:
         """Process the message.
@@ -49,11 +68,32 @@ class LoggerAdapter(logging.LoggerAdapter):
         """
         return f"{self.prefix}: {msg}", kwargs
 
+    def log(self, level: int, msg: object, *args: object, **kwargs: object) -> None:
+        """Log a message.
+
+        Arguments:
+            level: The logging level.
+            msg: The message.
+            *args: Additional arguments passed to parent method.
+            **kwargs: Additional keyword arguments passed to parent method.
+        """
+        if kwargs.pop("once", False):
+            if (key := (self, str(msg))) in self._logged:
+                return
+            self._logged.add(key)
+        super().log(level, msg, *args, **kwargs)  # type: ignore[arg-type]
+
 
 class TemplateLogger:
     """A wrapper class to allow logging in templates.
 
-    Attributes:
+    The logging methods provided by this class all accept
+    two parameters:
+
+    - `msg`: The message to log.
+    - `once`: If `True`, the message will only be logged once.
+
+    Methods:
         debug: Function to log a DEBUG message.
         info: Function to log an INFO message.
         warning: Function to log a WARNING message.
@@ -85,18 +125,19 @@ def get_template_logger_function(logger_func: Callable) -> Callable:
     """
 
     @pass_context
-    def wrapper(context: Context, msg: str | None = None) -> str:
+    def wrapper(context: Context, msg: str | None = None, **kwargs: Any) -> str:
         """Log a message.
 
         Arguments:
             context: The template context, automatically provided by Jinja.
             msg: The message to log.
+            **kwargs: Additional arguments passed to the logger function.
 
         Returns:
             An empty string.
         """
         template_path = get_template_path(context)
-        logger_func(f"{template_path}: {msg or 'Rendering'}")
+        logger_func(f"{template_path}: {msg or 'Rendering'}", **kwargs)
         return ""
 
     return wrapper
