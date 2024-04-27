@@ -5,6 +5,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.25.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.25.0) - 2024-04-27
+
+<small>[Compare with 0.24.3](https://github.com/mkdocstrings/mkdocstrings/compare/0.24.3...0.25.0)</small>
+
+### Features
+
+- Support `once` parameter in logging methods, allowing to log a message only once with a given logger ([1532b59](https://github.com/mkdocstrings/mkdocstrings/commit/1532b59a6efd99fed846cf7edfd0b26525700d3f) by Timothée Mazzucotelli).
+- Support blank line between `::: path` and YAML options ([d799d2f](https://github.com/mkdocstrings/mkdocstrings/commit/d799d2f3903bce44fb751f8cf3fb8078d25549da) by Timothée Mazzucotelli). [Issue-450](https://github.com/mkdocstrings/mkdocstrings/issues/450)
+
+### Code Refactoring
+
+- Allow specifying name of template loggers ([c5b5f69](https://github.com/mkdocstrings/mkdocstrings/commit/c5b5f697c83271d961c7ac795412d6b4964ba2b7) by Timothée Mazzucotelli).
+
 ## [0.24.3](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.24.3) - 2024-04-05
 
 <small>[Compare with 0.24.2](https://github.com/mkdocstrings/mkdocstrings/compare/0.24.2...0.24.3)</small>
