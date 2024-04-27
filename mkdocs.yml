@@ -137,6 +137,8 @@ plugins:
         - https://docs.python.org/3/objects.inv
         - https://installer.readthedocs.io/en/stable/objects.inv  # demonstration purpose in the docs
         - https://mkdocstrings.github.io/autorefs/objects.inv
+        - https://www.mkdocs.org/objects.inv
+        - https://python-markdown.github.io/objects.inv
         paths: [src]
         options:
           docstring_options:
