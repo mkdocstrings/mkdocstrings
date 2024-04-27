@@ -30,3 +30,13 @@ a.autorefs-external:hover::after {
 td code {
   word-break: normal !important;
 }
+
+[data-md-color-scheme="default"] {
+  --doc-symbol-parameter-fg-color: #d3a81b;
+  --doc-symbol-parameter-bg-color: #d3a81b1a;
+}
+
+[data-md-color-scheme="slate"] {
+  --doc-symbol-parameter-fg-color: #dfbe50;
+  --doc-symbol-parameter-bg-color: #dfbe501a;
+}
