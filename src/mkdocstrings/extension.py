@@ -116,6 +116,10 @@ class AutoDocProcessor(BlockProcessor):
 
         block, the_rest = self.detab(block)
 
+        if not block and blocks and blocks[0].startswith(("    handler:", "    options:")):
+            # YAML options were separated from the `:::` line by a blank line.
+            block = blocks.pop(0)
+
         if match:
             identifier = match["name"]
             heading_level = match["heading"].count("#")
