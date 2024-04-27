@@ -177,10 +177,14 @@ def get_logger(name: str) -> LoggerAdapter:
     return LoggerAdapter(name.split(".", 1)[0], logger)
 
 
-def get_template_logger() -> TemplateLogger:
+def get_template_logger(handler_name: str | None = None) -> TemplateLogger:
     """Return a logger usable in templates.
+
+    Parameters:
+        handler_name: The name of the handler.
 
     Returns:
         A template logger.
     """
-    return TemplateLogger(get_logger("mkdocstrings.templates"))
+    handler_name = handler_name or "base"
+    return TemplateLogger(get_logger(f"mkdocstrings_handlers.{handler_name}.templates"))

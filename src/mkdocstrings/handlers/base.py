@@ -74,6 +74,7 @@ class BaseHandler:
     To add custom CSS, add an `extra_css` variable or create an 'style.css' file beside the templates.
     """
 
+    # TODO: Make name mandatory?
     name: str = ""
     """The handler's name, for example "python"."""
     domain: str = "default"
@@ -132,7 +133,7 @@ class BaseHandler:
             auto_reload=False,  # Editing a template in the middle of a build is not useful.
         )
         self.env.filters["any"] = do_any
-        self.env.globals["log"] = get_template_logger()
+        self.env.globals["log"] = get_template_logger(self.name)
 
         self._headings: list[Element] = []
         self._md: Markdown = None  # type: ignore[assignment]  # To be populated in `update_env`.
