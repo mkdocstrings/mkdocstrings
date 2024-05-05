@@ -261,7 +261,7 @@ class _TocLabelsTreeProcessor(Treeprocessor):
         for token in tokens:
             if (label := token.get("data-toc-label")) and token["name"] != label:
                 token["name"] = label
-                self._override_toc_labels(token["children"])
+            self._override_toc_labels(token["children"])
 
 
 class MkdocstringsExtension(Extension):
