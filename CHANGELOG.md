@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.25.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.25.1) - 2024-05-05
+
+<small>[Compare with 0.25.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.25.0...0.25.1)</small>
+
+### Bug Fixes
+
+- Always descend into sub-headings when re-applying their label ([cb86e08](https://github.com/mkdocstrings/mkdocstrings/commit/cb86e08bbc5e8057393aa1cd7ca29bc2b40ab5eb) by Timothée Mazzucotelli). [Issue-mkdocstrings/python-158](https://github.com/mkdocstrings/python/issues/158)
+
 ## [0.25.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.25.0) - 2024-04-27
 
 <small>[Compare with 0.24.3](https://github.com/mkdocstrings/mkdocstrings/compare/0.24.3...0.25.0)</small>
