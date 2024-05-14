@@ -8,13 +8,14 @@ from __future__ import annotations
 import importlib
 import sys
 from pathlib import Path
-from typing import Any, BinaryIO, ClassVar, Iterable, Iterator, Mapping, MutableMapping, Sequence, cast
+from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar, Iterable, Iterator, Mapping, MutableMapping, Sequence, cast
 from xml.etree.ElementTree import Element, tostring
 
 from jinja2 import Environment, FileSystemLoader
 from markdown import Markdown
 from markdown.extensions.toc import TocTreeprocessor
 from markupsafe import Markup
+from mkdocs_autorefs.references import AutoRefInlineProcessor
 
 from mkdocstrings.handlers.rendering import (
     HeadingShiftingTreeprocessor,
@@ -31,6 +32,9 @@ if sys.version_info < (3, 10):
     from importlib_metadata import entry_points
 else:
     from importlib.metadata import entry_points
+
+if TYPE_CHECKING:
+    from mkdocs_autorefs.references import AutoRefHookInterface
 
 CollectorItem = Any
 
@@ -257,6 +261,7 @@ class BaseHandler:
         html_id: str = "",
         *,
         strip_paragraph: bool = False,
+        autoref_hook: AutoRefHookInterface | None = None,
     ) -> Markup:
         """Render Markdown text; for use inside templates.
 
@@ -273,12 +278,17 @@ class BaseHandler:
         treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = heading_level  # type: ignore[attr-defined]
         treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"  # type: ignore[attr-defined]
         treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph  # type: ignore[attr-defined]
+
+        if autoref_hook:
+            self._md.inlinePatterns[AutoRefInlineProcessor.name].hook = autoref_hook
+
         try:
             return Markup(self._md.convert(text))
         finally:
             treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0  # type: ignore[attr-defined]
             treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""  # type: ignore[attr-defined]
             treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False  # type: ignore[attr-defined]
+            self._md.inlinePatterns[AutoRefInlineProcessor.name].hook = None
             self._md.reset()
 
     def do_heading(
