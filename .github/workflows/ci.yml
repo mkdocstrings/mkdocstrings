@@ -50,9 +50,6 @@ jobs:
     - name: Check if the code is correctly typed
       run: make check-types
 
-    - name: Check for vulnerabilities in dependencies
-      run: make check-dependencies
-
     - name: Check for breaking changes in the API
       run: make check-api
 
@@ -70,10 +67,14 @@ jobs:
             {"python-version": "3.9"},
             {"python-version": "3.10"},
             {"python-version": "3.11"},
-            {"python-version": "3.12"}
+            {"python-version": "3.12"},
+            {"python-version": "3.13"}
           ]' | tr -d '[:space:]' >> $GITHUB_OUTPUT
         else
-          echo 'jobs=[]' >> $GITHUB_OUTPUT
+          echo 'jobs=[
+            {"os": "macos-latest", "resolution": "lowest-direct"},
+            {"os": "windows-latest", "resolution": "lowest-direct"}
+          ]' | tr -d '[:space:]' >> $GITHUB_OUTPUT
         fi
 
   tests:
@@ -91,9 +92,13 @@ jobs:
         - "3.10"
         - "3.11"
         - "3.12"
+        - "3.13"
+        resolution:
+        - highest
+        - lowest-direct
         exclude: ${{ fromJSON(needs.exclude-test-jobs.outputs.jobs) }}
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.python-version == '3.12' }}
+    continue-on-error: ${{ matrix.python-version == '3.13' }}
 
     steps:
     - name: Checkout
@@ -109,6 +114,8 @@ jobs:
       run: pip install uv
 
     - name: Install dependencies
+      env:
+        UV_RESOLUTION: ${{ matrix.resolution }}
       run: make setup
 
     - name: Run the test suite

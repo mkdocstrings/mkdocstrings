@@ -32,12 +32,6 @@
             "args": ["check-docs"]
         },
         {
-            "label": "check-dependencies",
-            "type": "process",
-            "command": "scripts/make",
-            "args": ["check-dependencies"]
-        },
-        {
             "label": "check-api",
             "type": "process",
             "command": "scripts/make",

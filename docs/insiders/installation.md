@@ -23,6 +23,9 @@ of Insiders projects in the PyPI index of your choice
 See [how to install it](https://pawamoy.github.io/pypi-insiders/#installation)
 and [how to use it](https://pawamoy.github.io/pypi-insiders/#usage).
 
+**We kindly ask that you do not upload the distributions to public registries,
+as it is against our [Terms of use](index.md#terms).**
+
 ### with pip (ssh/https)
 
 *mkdocstrings Insiders* can be installed with `pip` [using SSH][using ssh]:
@@ -58,130 +61,15 @@ pip install git+https://${GH_TOKEN}@github.com/pawamoy-insiders/mkdocstrings.git
 > token must be kept secret at all times, as it allows the owner to access your
 > private repositories.
 
-### with pip (self-hosted)
+### with Git
 
-Self-hosting the Insiders package makes it possible to depend on *mkdocstrings* normally,
-while transparently downloading and installing the Insiders version locally.
-It means that you can specify your dependencies normally, and your contributors without access
-to Insiders will get the public version, while you get the Insiders version on your machine.
-
-WARNING: **Limitation**  
-With this method, there is no way to force the installation of an Insiders version
-rather than a public version. If there is a public version that is more recent
-than your self-hosted Insiders version, the public version will take precedence.
-Remember to regularly update your self-hosted versions by uploading latest distributions.
-
-You can build the distributions for Insiders yourself, by cloning the repository
-and using [build] to build the distributions,
-or you can download them from our [GitHub Releases].
-You can upload these distributions to a private PyPI-like registry
-([Artifactory], [Google Cloud], [pypiserver], etc.)
-with [Twine]:
-
-  [build]: https://pypi.org/project/build/
-  [Artifactory]: https://jfrog.com/help/r/jfrog-artifactory-documentation/pypi-repositories
-  [Google Cloud]: https://cloud.google.com/artifact-registry/docs/python
-  [pypiserver]: https://pypi.org/project/pypiserver/
-  [Github Releases]: https://github.com/pawamoy-insiders/mkdocstrings/releases
-  [Twine]: https://pypi.org/project/twine/
-
-```bash
-# download distributions in ~/dists, then upload with:
-twine upload --repository-url https://your-private-index.com ~/dists/*
-```
-
-<small>You might also need to provide a username and password/token to authenticate against the registry.
-Please check [Twine's documentation][twine docs].</small>
-
-  [twine docs]: https://twine.readthedocs.io/en/stable/
-
-You can then configure pip (or other tools) to look for packages into your package index.
-For example, with pip:
-
-```bash
-pip config set global.extra-index-url https://your-private-index.com/simple
-```
-
-Note that the URL might differ depending on whether your are uploading a package (with Twine)
-or installing a package (with pip), and depending on the registry you are using (Artifactory, Google Cloud, etc.).
-Please check the documentation of your registry to learn how to configure your environment.
-
-**We kindly ask that you do not upload the distributions to public registries,
-as it is against our [Terms of use](index.md#terms).**
-
->? TIP: **Full example with `pypiserver`**  
-> In this example we use [pypiserver] to serve a local PyPI index.
->
-> ```bash
-> pip install --user pypiserver
-> # or pipx install pypiserver
->
-> # create a packages directory
-> mkdir -p ~/.local/pypiserver/packages
->
-> # run the pypi server without authentication
-> pypi-server run -p 8080 -a . -P . ~/.local/pypiserver/packages &
-> ```
->
-> We can configure the credentials to access the server in [`~/.pypirc`][pypirc]:
->
->   [pypirc]: https://packaging.python.org/en/latest/specifications/pypirc/
->
-> ```ini title=".pypirc"
-> [distutils]
-> index-servers =
->     local
->
-> [local]
-> repository: http://localhost:8080
-> username:
-> password:
-> ```
->
-> We then clone the Insiders repository, build distributions and upload them to our local server:
->
-> ```bash
-> # clone the repository
-> git clone git@github.com:pawamoy-insiders/mkdocstrings
-> cd mkdocstrings
->
-> # install build
-> pip install --user build
-> # or pipx install build
->
-> # checkout latest tag
-> git checkout $(git describe --tags --abbrev=0)
->
-> # build the distributions
-> pyproject-build
->
-> # upload them to our local server
-> twine upload -r local dist/* --skip-existing
-> ```
->
-> Finally, we configure pip, and for example [PDM][pdm], to use our local index to find packages:
->
-> ```bash
-> pip config set global.extra-index-url http://localhost:8080/simple
-> pdm config pypi.extra.url http://localhost:8080/simple
-> ```
->
->   [pdm]: https://pdm.fming.dev/latest/
->
-> Now when running `pip install mkdocstrings`,
-> or resolving dependencies with PDM,
-> both tools will look into our local index and find the Insiders version.
-> **Remember to update your local index regularly!**
-
-### with git
-
-Of course, you can use *mkdocstrings Insiders* directly from `git`:
+Of course, you can use *mkdocstrings Insiders* directly using Git:
 
 ```
 git clone git@github.com:pawamoy-insiders/mkdocstrings
 ```
 
-When cloning from `git`, the package must be installed:
+When cloning with Git, the package must be installed:
 
 ```
 pip install -e mkdocstrings

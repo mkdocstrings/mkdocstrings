@@ -102,6 +102,10 @@ with your GitHub account, visit [pawamoy's sponsor profile][github sponsor profi
 and complete a sponsorship of **$10 a month or more**.
 You can use your individual or organization GitHub account for sponsoring.
 
+Sponsorships lower than $10 a month are also very much appreciated, and useful.
+They won't grant you access to Insiders, but they will be counted towards reaching sponsorship goals.
+*Every* sponsorship helps us implementing new features and releasing them to the public.
+
 **Important**: If you're sponsoring **[@pawamoy][github sponsor profile]**
 through a GitHub organization, please send a short email
 to insiders@pawamoy.fr with the name of your
