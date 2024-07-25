@@ -208,7 +208,8 @@ class AutoDocProcessor(BlockProcessor):
         options = ChainMap(local_options, global_options)
 
         if heading_level:
-            options = ChainMap(options, {"heading_level": heading_level})  # like setdefault
+            # Heading level obtained from Markdown (`##`) takes precedence.
+            options = ChainMap({"heading_level": heading_level}, options)
 
         log.debug("Collecting data")
         try:
