@@ -244,11 +244,7 @@ class BaseHandler:
         Returns:
             The HTML anchors (without '#'), or an empty tuple if this item doesn't have an anchor.
         """
-        # TODO: remove this when https://github.com/mkdocstrings/crystal/pull/6 is merged and released
-        try:
-            return (self.get_anchor(data),)  # type: ignore[attr-defined]
-        except AttributeError:
-            return ()
+        return ()
 
     def do_convert_markdown(
         self,
