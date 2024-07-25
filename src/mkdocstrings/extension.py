@@ -210,8 +210,6 @@ class AutoDocProcessor(BlockProcessor):
             data: CollectorItem = handler.collect(identifier, options)
         except CollectionError as exception:
             log.error(str(exception))  # noqa: TRY400
-            if PluginError is SystemExit:  # TODO: when MkDocs 1.2 is sufficiently common, this can be dropped.
-                log.error(f"Error reading page '{self._autorefs.current_page}':")  # noqa: TRY400
             raise PluginError(f"Could not collect '{identifier}'") from exception
 
         if handler_name not in self._updated_envs:  # We haven't seen this handler before on this document.
