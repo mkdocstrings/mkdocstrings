@@ -68,6 +68,7 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
 *mkdocstrings* is used by well-known companies, projects and scientific teams:
 [Ansible](https://molecule.readthedocs.io/configuration/),
 [Apache](https://streampipes.apache.org/docs/docs/python/latest/reference/client/client/),
+[FastAPI](https://fastapi.tiangolo.com/reference/fastapi/),
 [Google](https://docs.kidger.site/jaxtyping/api/runtime-type-checking/),
 [Jitsi](https://jitsi.github.io/jiwer/reference/alignment/),
 [Microsoft](https://microsoft.github.io/presidio/api/analyzer_python/),
