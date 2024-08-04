@@ -106,8 +106,6 @@ markdown_extensions:
     emoji_generator: !!python/name:material.extensions.emoji.to_svg
 - pymdownx.highlight:
     pygments_lang_class: true
-- pymdownx.inlinehilite:
-    style_plain_text: python
 - pymdownx.magiclink
 - pymdownx.snippets:
     base_path: [!relative $config_dir]
