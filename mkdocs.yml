@@ -24,10 +24,12 @@ nav:
   - Theming: usage/theming.md
   - Handlers: usage/handlers.md
   - All handlers:
+    - C: https://mkdocstrings.github.io/c/
     - Crystal: https://mkdocstrings.github.io/crystal/
     - Python: https://mkdocstrings.github.io/python/
     - Python (Legacy): https://mkdocstrings.github.io/python-legacy/
     - Shell: https://mkdocstrings.github.io/shell/
+    - TypeScript: https://mkdocstrings.github.io/typescript/
     - VBA: https://pypi.org/project/mkdocstrings-vba
   - Guides:
     - Recipes: recipes.md

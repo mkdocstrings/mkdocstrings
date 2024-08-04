@@ -22,9 +22,12 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
   just like *MkDocs*, *mkdocstrings* is written in Python but is language-agnostic.
   It means you can use it with any programming language, as long as there is a
   [**handler**](https://mkdocstrings.github.io/reference/handlers/base/) for it.
-  We currently have [handlers](https://mkdocstrings.github.io/handlers/overview/)
-  for the [Crystal](https://mkdocstrings.github.io/crystal/), [Python](https://mkdocstrings.github.io/python/),
-  and [VBA](https://pypi.org/project/mkdocstrings-vba/) languages,
+  We currently have [handlers](https://mkdocstrings.github.io/handlers/overview/) for the
+  [C](https://mkdocstrings.github.io/c/),
+  [Crystal](https://mkdocstrings.github.io/crystal/),
+  [Python](https://mkdocstrings.github.io/python/),
+  [TypeScript](https://mkdocstrings.github.io/typescript/), and
+  [VBA](https://pypi.org/project/mkdocstrings-vba/) languages,
   as well as for [shell scripts/libraries](https://mkdocstrings.github.io/shell/).
   Maybe you'd like to add another one to the list? :wink:
 
