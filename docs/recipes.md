@@ -204,7 +204,7 @@ plugins:
 
 Then, the previous script is updated like so:
 
-```python title="scripts/gen_ref_pages.py" hl_lines="7 23 31 32"
+```python title="scripts/gen_ref_pages.py" hl_lines="7 24 32 33"
 """Generate the code reference pages and navigation."""
 
 from pathlib import Path
