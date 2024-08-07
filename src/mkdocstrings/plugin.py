@@ -176,7 +176,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
         autorefs: AutorefsPlugin
         try:
             # If autorefs plugin is explicitly enabled, just use it.
-            autorefs = config.plugins["autorefs"]  # type: ignore[assignment]
+            autorefs = config.plugins["autorefs"]
             log.debug(f"Picked up existing autorefs instance {autorefs!r}")
         except KeyError:
             # Otherwise, add a limited instance of it that acts only on what's added through `register_anchor`.
