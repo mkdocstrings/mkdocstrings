@@ -24,10 +24,12 @@ nav:
   - Theming: usage/theming.md
   - Handlers: usage/handlers.md
   - All handlers:
+    - C: https://mkdocstrings.github.io/c/
     - Crystal: https://mkdocstrings.github.io/crystal/
     - Python: https://mkdocstrings.github.io/python/
     - Python (Legacy): https://mkdocstrings.github.io/python-legacy/
     - Shell: https://mkdocstrings.github.io/shell/
+    - TypeScript: https://mkdocstrings.github.io/typescript/
     - VBA: https://pypi.org/project/mkdocstrings-vba
   - Guides:
     - Recipes: recipes.md
@@ -92,6 +94,9 @@ extra_css:
 - css/mkdocstrings.css
 - css/insiders.css
 
+extra_javascript:
+- js/feedback.js
+
 markdown_extensions:
 - attr_list
 - admonition
@@ -103,8 +108,6 @@ markdown_extensions:
     emoji_generator: !!python/name:material.extensions.emoji.to_svg
 - pymdownx.highlight:
     pygments_lang_class: true
-- pymdownx.inlinehilite:
-    style_plain_text: python
 - pymdownx.magiclink
 - pymdownx.snippets:
     base_path: [!relative $config_dir]
@@ -183,3 +186,15 @@ extra:
     link: https://gitter.im/mkdocstrings/community
   - icon: fontawesome/brands/python
     link: https://pypi.org/project/mkdocstrings/
+  analytics:
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: Let us know how we can improve this page.

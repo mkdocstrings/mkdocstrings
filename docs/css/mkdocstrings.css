@@ -18,7 +18,7 @@ a.autorefs-external::after {
 
   height: 1em;
   width: 1em;
-  background-color: var(--md-typeset-a-color);
+  background-color: currentColor;
 }
 
 a.external:hover::after,

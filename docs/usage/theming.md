@@ -62,7 +62,7 @@ to modify small part of the templates without copy-pasting the whole files.
 See the documentation about templates for:
 
 - the Crystal handler: https://mkdocstrings.github.io/crystal/styling.html
-- the Python handler: https://mkdocstrings.github.io/python/customization/#templates
+- the Python handler: https://mkdocstrings.github.io/python/usage/customization/#templates
 
 #### Debugging
 

@@ -1,10 +1,10 @@
 # mkdocstrings
 
 [![ci](https://github.com/mkdocstrings/mkdocstrings/workflows/ci/badge.svg)](https://github.com/mkdocstrings/mkdocstrings/actions?query=workflow%3Aci)
-[![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://mkdocstrings.github.io/)
+[![documentation](https://img.shields.io/badge/docs-mkdocs-708FCC.svg?style=flat)](https://mkdocstrings.github.io/)
 [![pypi version](https://img.shields.io/pypi/v/mkdocstrings.svg)](https://pypi.org/project/mkdocstrings/)
 [![conda version](https://img.shields.io/conda/vn/conda-forge/mkdocstrings)](https://anaconda.org/conda-forge/mkdocstrings)
-[![gitpod](https://img.shields.io/badge/gitpod-workspace-blue.svg?style=flat)](https://gitpod.io/#https://github.com/mkdocstrings/mkdocstrings)
+[![gitpod](https://img.shields.io/badge/gitpod-workspace-708FCC.svg?style=flat)](https://gitpod.io/#https://github.com/mkdocstrings/mkdocstrings)
 [![gitter](https://badges.gitter.im/join%20chat.svg)](https://app.gitter.im/#/room/#mkdocstrings:gitter.im)
 
 Automatic documentation from sources, for [MkDocs](https://www.mkdocs.org/).
@@ -22,9 +22,12 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
   just like *MkDocs*, *mkdocstrings* is written in Python but is language-agnostic.
   It means you can use it with any programming language, as long as there is a
   [**handler**](https://mkdocstrings.github.io/reference/handlers/base/) for it.
-  We currently have [handlers](https://mkdocstrings.github.io/handlers/overview/)
-  for the [Crystal](https://mkdocstrings.github.io/crystal/), [Python](https://mkdocstrings.github.io/python/),
-  and [VBA](https://pypi.org/project/mkdocstrings-vba/) languages,
+  We currently have [handlers](https://mkdocstrings.github.io/handlers/overview/) for the
+  [C](https://mkdocstrings.github.io/c/),
+  [Crystal](https://mkdocstrings.github.io/crystal/),
+  [Python](https://mkdocstrings.github.io/python/),
+  [TypeScript](https://mkdocstrings.github.io/typescript/), and
+  [VBA](https://pypi.org/project/mkdocstrings-vba/) languages,
   as well as for [shell scripts/libraries](https://mkdocstrings.github.io/shell/).
   Maybe you'd like to add another one to the list? :wink:
 
@@ -65,6 +68,7 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
 *mkdocstrings* is used by well-known companies, projects and scientific teams:
 [Ansible](https://molecule.readthedocs.io/configuration/),
 [Apache](https://streampipes.apache.org/docs/docs/python/latest/reference/client/client/),
+[FastAPI](https://fastapi.tiangolo.com/reference/fastapi/),
 [Google](https://docs.kidger.site/jaxtyping/api/runtime-type-checking/),
 [Jitsi](https://jitsi.github.io/jiwer/reference/alignment/),
 [Microsoft](https://microsoft.github.io/presidio/api/analyzer_python/),

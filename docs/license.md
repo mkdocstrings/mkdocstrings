@@ -1,3 +1,8 @@
+---
+hide:
+- feedback
+---
+
 # License
 
 ```

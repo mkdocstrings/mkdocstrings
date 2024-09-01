@@ -239,7 +239,7 @@ class BaseHandler:
         discovered_extensions = entry_points(group=f"mkdocstrings.{handler}.templates")
         return [extension.load()() for extension in discovered_extensions]
 
-    def get_anchors(self, data: CollectorItem) -> tuple[str, ...]:
+    def get_anchors(self, data: CollectorItem) -> tuple[str, ...]:  # noqa: ARG002
         """Return the possible identifiers (HTML anchors) for a collected item.
 
         Arguments:
@@ -248,11 +248,7 @@ class BaseHandler:
         Returns:
             The HTML anchors (without '#'), or an empty tuple if this item doesn't have an anchor.
         """
-        # TODO: remove this when https://github.com/mkdocstrings/crystal/pull/6 is merged and released
-        try:
-            return (self.get_anchor(data),)  # type: ignore[attr-defined]
-        except AttributeError:
-            return ()
+        return ()
 
     def do_convert_markdown(
         self,
@@ -314,7 +310,16 @@ class BaseHandler:
         Returns:
             An HTML string.
         """
-        # First, produce the "fake" heading, for ToC only.
+        # Produce a heading element that will be used later, in `AutoDocProcessor.run`, to:
+        # - register it in the ToC: right now we're in the inner Markdown conversion layer,
+        #   so we have to bubble up the information to the outer Markdown conversion layer,
+        #   for the ToC extension to pick it up.
+        # - register it in autorefs: right now we don't know what page is being rendered,
+        #   so we bubble up the information again to where autorefs knows the page,
+        #   and can correctly register the heading anchor (id) to its full URL.
+        # - register it in the objects inventory: same as for autorefs,
+        #   we don't know the page here, or the handler (and its domain),
+        #   so we bubble up the information to where the mkdocstrings extension knows that.
         el = Element(f"h{heading_level}", attributes)
         if toc_label is None:
             toc_label = content.unescape() if isinstance(content, Markup) else content
@@ -330,7 +335,7 @@ class BaseHandler:
         # Start with a heading that has just attributes (no text), and add a placeholder into it.
         el = Element(f"h{heading_level}", attributes)
         el.append(Element("mkdocstrings-placeholder"))
-        # Tell the 'toc' extension to make its additions if configured so.
+        # Tell the inner 'toc' extension to make its additions if configured so.
         toc = cast(TocTreeprocessor, self._md.treeprocessors["toc"])
         if toc.use_anchors:
             toc.add_anchor(el, attributes["id"])

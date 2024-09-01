@@ -3,10 +3,10 @@
 # This Makefile is just here to allow auto-completion in the terminal.
 
 actions = \
+	allrun \
 	changelog \
 	check \
 	check-api \
-	check-dependencies \
 	check-docs \
 	check-quality \
 	check-types \
@@ -16,6 +16,7 @@ actions = \
 	docs-deploy \
 	format \
 	help \
+	multirun \
 	release \
 	run \
 	setup \
@@ -24,4 +25,4 @@ actions = \
 
 .PHONY: $(actions)
 $(actions):
-	@bash scripts/make "$@"
+	@python scripts/make "$@"

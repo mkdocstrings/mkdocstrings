@@ -59,7 +59,9 @@ a handful of them, [thanks to our awesome sponsors][sponsors]! -->
 data_source = [
     "docs/insiders/goals.yml",
     ("griffe-pydantic", "https://mkdocstrings.github.io/griffe-pydantic/", "insiders/goals.yml"),
+    ("griffe-typedoc", "https://mkdocstrings.github.io/griffe-typedoc/", "insiders/goals.yml"),
     ("griffe-warnings-deprecated", "https://mkdocstrings.github.io/griffe-warnings-deprecated/", "insiders/goals.yml"),
+    ("mkdocstrings-c", "https://mkdocstrings.github.io/c/", "insiders/goals.yml"),
     ("mkdocstrings-python", "https://mkdocstrings.github.io/python/", "insiders/goals.yml"),
     ("mkdocstrings-shell", "https://mkdocstrings.github.io/shell/", "insiders/goals.yml"),
     ("mkdocstrings-typescript", "https://mkdocstrings.github.io/typescript/", "insiders/goals.yml"),
@@ -101,6 +103,10 @@ Thanks for your interest in sponsoring! In order to become an eligible sponsor
 with your GitHub account, visit [pawamoy's sponsor profile][github sponsor profile],
 and complete a sponsorship of **$10 a month or more**.
 You can use your individual or organization GitHub account for sponsoring.
+
+Sponsorships lower than $10 a month are also very much appreciated, and useful.
+They won't grant you access to Insiders, but they will be counted towards reaching sponsorship goals.
+*Every* sponsorship helps us implementing new features and releasing them to the public.
 
 **Important**: If you're sponsoring **[@pawamoy][github sponsor profile]**
 through a GitHub organization, please send a short email

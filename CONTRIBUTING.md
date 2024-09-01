@@ -36,13 +36,11 @@ Run `make help` to see all the available actions!
 
 ## Tasks
 
-This project uses [duty](https://github.com/pawamoy/duty) to run tasks.
-A Makefile is also provided. The Makefile will try to run certain tasks
-on multiple Python versions. If for some reason you don't want to run the task
-on multiple Python versions, you run the task directly with `make run duty TASK`.
-
-The Makefile detects if a virtual environment is activated,
-so `make` will work the same with the virtualenv activated or not.
+The entry-point to run commands and tasks is the `make` Python script,
+located in the `scripts` directory. Try running `make` to show the available commands and tasks.
+The *commands* do not need the Python dependencies to be installed,
+while the *tasks* do.
+The cross-platform tasks are written in Python, thanks to [duty](https://github.com/pawamoy/duty).
 
 If you work in VSCode, we provide
 [an action to configure VSCode](https://pawamoy.github.io/copier-uv/work/#vscode-setup)

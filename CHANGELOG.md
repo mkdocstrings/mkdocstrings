@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.25.2](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.25.2) - 2024-07-25
+
+<small>[Compare with 0.25.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.25.1...0.25.2)</small>
+
+### Code Refactoring
+
+- Give precedence to Markdown heading level (`##`) ([2e5f89e](https://github.com/mkdocstrings/mkdocstrings/commit/2e5f89e8cef11e6447425d3700c29558cd6d241b) by Timothée Mazzucotelli).
+
 ## [0.25.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.25.1) - 2024-05-05
 
 <small>[Compare with 0.25.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.25.0...0.25.1)</small>
