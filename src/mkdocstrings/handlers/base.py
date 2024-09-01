@@ -15,7 +15,7 @@ from jinja2 import Environment, FileSystemLoader
 from markdown import Markdown
 from markdown.extensions.toc import TocTreeprocessor
 from markupsafe import Markup
-from mkdocs_autorefs.references import AutoRefInlineProcessor
+from mkdocs_autorefs.references import AutorefsInlineProcessor
 
 from mkdocstrings.handlers.rendering import (
     HeadingShiftingTreeprocessor,
@@ -34,7 +34,7 @@ else:
     from importlib.metadata import entry_points
 
 if TYPE_CHECKING:
-    from mkdocs_autorefs.references import AutoRefHookInterface
+    from mkdocs_autorefs.references import AutorefsHookInterface
 
 CollectorItem = Any
 
@@ -257,7 +257,7 @@ class BaseHandler:
         html_id: str = "",
         *,
         strip_paragraph: bool = False,
-        autoref_hook: AutoRefHookInterface | None = None,
+        autoref_hook: AutorefsHookInterface | None = None,
     ) -> Markup:
         """Render Markdown text; for use inside templates.
 
@@ -276,7 +276,7 @@ class BaseHandler:
         treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph  # type: ignore[attr-defined]
 
         if autoref_hook:
-            self._md.inlinePatterns[AutoRefInlineProcessor.name].hook = autoref_hook
+            self._md.inlinePatterns[AutorefsInlineProcessor.name].hook = autoref_hook  # type: ignore[attr-defined]
 
         try:
             return Markup(self._md.convert(text))
@@ -284,7 +284,7 @@ class BaseHandler:
             treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0  # type: ignore[attr-defined]
             treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""  # type: ignore[attr-defined]
             treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False  # type: ignore[attr-defined]
-            self._md.inlinePatterns[AutoRefInlineProcessor.name].hook = None
+            self._md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # type: ignore[attr-defined]
             self._md.reset()
 
     def do_heading(
