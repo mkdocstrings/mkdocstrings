@@ -5,6 +5,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.26.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.26.0) - 2024-09-02
+
+<small>[Compare with 0.25.2](https://github.com/mkdocstrings/mkdocstrings/compare/0.25.2...0.26.0)</small>
+
+### Build
+
+- Upgrade Python-Markdown lower bound to 3.6 ([28565f9](https://github.com/mkdocstrings/mkdocstrings/commit/28565f97f21bf81b2bc554679c641fba3f639882) by Timothée Mazzucotelli).
+
+### Dependencies
+
+- Depend on mkdocs-autorefs v1 ([33aa573](https://github.com/mkdocstrings/mkdocstrings/commit/33aa573efb17b13e7b9da77e29aeccb3fbddd8e8) by Timothée Mazzucotelli).
+
+### Features
+
+- Allow hooking into autorefs when converting Markdown docstrings ([b63e726](https://github.com/mkdocstrings/mkdocstrings/commit/b63e72691a8f92dd59b56304125de4a19e0d028c) by Timothée Mazzucotelli). [Based-on-PR-autorefs#46](https://github.com/mkdocstrings/autorefs/pull/46)
+
 ## [0.25.2](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.25.2) - 2024-07-25
 
 <small>[Compare with 0.25.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.25.1...0.25.2)</small>
