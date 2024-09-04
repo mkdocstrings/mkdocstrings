@@ -78,13 +78,14 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
 
 ## Installation
 
-With `pip`:
+Use `pip` to install mkdocstrings *without support for any languages*:
 
 ```bash
 pip install mkdocstrings
 ```
 
-You can install support for specific languages using extras, for example:
+You must install support for specific languages using extras. For example,
+the following installs mkdocstrings with support for Crystal and Python:
 
 ```bash
 pip install 'mkdocstrings[crystal,python]'
