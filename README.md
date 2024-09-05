@@ -78,24 +78,31 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
 
 ## Installation
 
-With `pip`:
+The `mkdocstrings` package doesn't provide support for any language: it's just a common base for language handlers.
+It means you likely want to install it with one or more official handlers, using [extras](https://packaging.python.org/en/latest/specifications/dependency-specifiers/#extras).
+For example, to install it with Python support:
 
 ```bash
-pip install mkdocstrings
+pip install 'mkdocstrings[python]'
 ```
 
-You can install support for specific languages using extras, for example:
+Alternatively, you can directly install the language handlers themselves,
+which depend on `mkdocstrings` anyway:
 
 ```bash
-pip install 'mkdocstrings[crystal,python]'
+pip install mkdocstrings-python
 ```
 
-See the [available language handlers](https://mkdocstrings.github.io/handlers/overview/).
+This will give you more control over the accepted range of versions for the handlers themselves.
+
+See the [official language handlers](https://mkdocstrings.github.io/handlers/overview/).
+
+---
 
 With `conda`:
 
 ```bash
-conda install -c conda-forge mkdocstrings
+conda install -c conda-forge mkdocstrings mkdocstrings-python
 ```
 
 ## Quick usage
