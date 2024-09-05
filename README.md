@@ -83,7 +83,7 @@ It means you likely want to install it with one or more official handlers, using
 For example, to install it with Python support:
 
 ```bash
-pip install mkdocstrings[python]
+pip install 'mkdocstrings[python]'
 ```
 
 Alternatively, you can directly install the language handlers themselves,
