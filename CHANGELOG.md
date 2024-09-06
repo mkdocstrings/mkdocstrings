@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.26.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.26.1) - 2024-09-06
+
+<small>[Compare with 0.26.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.26.0...0.26.1)</small>
+
+### Bug Fixes
+
+- Instantiate config of the autorefs plugin when it is not enabled by the user ([db2ab34](https://github.com/mkdocstrings/mkdocstrings/commit/db2ab3403a95034987d574a517ddc426a4b4e1bd) by Timothée Mazzucotelli). [Issue-autorefs#57](https://github.com/mkdocstrings/autorefs/issues/57)
+
 ## [0.26.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.26.0) - 2024-09-02
 
 <small>[Compare with 0.25.2](https://github.com/mkdocstrings/mkdocstrings/compare/0.25.2...0.26.0)</small>
