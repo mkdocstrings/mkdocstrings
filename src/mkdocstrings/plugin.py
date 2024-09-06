@@ -26,7 +26,7 @@ from mkdocs.config import Config
 from mkdocs.config import config_options as opt
 from mkdocs.plugins import BasePlugin
 from mkdocs.utils import write_file
-from mkdocs_autorefs.plugin import AutorefsPlugin
+from mkdocs_autorefs.plugin import AutorefsConfig, AutorefsPlugin
 
 from mkdocstrings._cache import download_and_cache_url, download_url_with_gz
 from mkdocstrings.extension import MkdocstringsExtension
@@ -181,6 +181,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
         except KeyError:
             # Otherwise, add a limited instance of it that acts only on what's added through `register_anchor`.
             autorefs = AutorefsPlugin()
+            autorefs.config = AutorefsConfig()
             autorefs.scan_toc = False
             config.plugins["autorefs"] = autorefs
             log.debug(f"Added a subdued autorefs instance {autorefs!r}")
