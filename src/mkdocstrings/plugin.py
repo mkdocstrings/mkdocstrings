@@ -98,6 +98,8 @@ class PluginConfig(Config):
     """Whether to enable object inventory creation."""
     enabled = opt.Type(bool, default=True)
     """Whether to enable the plugin. Default is true. If false, *mkdocstrings* will not collect or render anything."""
+    css_filename = opt.Type(str, default="assets/_mkdocstrings.css")
+    """Filename to use for the mkdocstrings stylesheet."""
 
 
 class MkdocstringsPlugin(BasePlugin[PluginConfig]):
@@ -112,8 +114,6 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
     Check the [Developing Plugins](https://www.mkdocs.org/user-guide/plugins/#developing-plugins) page of `mkdocs`
     for more information about its plugin system.
     """
-
-    css_filename = "assets/_mkdocstrings.css"
 
     def __init__(self) -> None:
         """Initialize the object."""
@@ -228,6 +228,15 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             Whether the plugin is enabled.
         """
         return self.config.enabled
+    
+    @property
+    def css_filename(self) -> str:
+        """The css filename to use for the mkdocstrings generated stylesheet.
+
+        Returns:
+            path to stylesheet.
+        """
+        return self.config.css_filename
 
     def on_env(self, env: Environment, config: MkDocsConfig, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
         """Extra actions that need to happen after all Markdown rendering and before HTML rendering.

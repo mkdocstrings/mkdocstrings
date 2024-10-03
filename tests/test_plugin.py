@@ -45,6 +45,7 @@ def test_plugin_default_config(tmp_path: Path) -> None:
     assert plugin.config == {
         "handlers": {},
         "default_handler": "python",
+        "css_filename": "assets/_mkdocstrings.css",
         "custom_templates": None,
         "enable_inventory": None,
         "enabled": True,
@@ -65,7 +66,26 @@ def test_plugin_config_custom_templates(tmp_path: Path) -> None:
     assert plugin.config == {
         "handlers": {},
         "default_handler": "python",
+        "css_filename": "assets/_mkdocstrings.css",
         "custom_templates": str(template_dir),
+        "enable_inventory": None,
+        "enabled": True,
+    }
+
+
+def test_plugin_config_custom_css_file(tmp_path: Path) -> None:
+    """Test custom_templates option is relative to config file."""
+    config_file_path = tmp_path / "mkdocs.yml"
+    options = {"css_filename": "changed.css"}
+    plugin = MkdocstringsPlugin()
+    errors, warnings = plugin.load_config(options, config_file_path=str(config_file_path))
+    assert errors == []
+    assert warnings == []
+    assert plugin.config == {
+        "handlers": {},
+        "default_handler": "python",
+        "css_filename": "changed.css",
+        "custom_templates": None,
         "enable_inventory": None,
         "enabled": True,
     }

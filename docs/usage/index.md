@@ -116,6 +116,7 @@ The above is equivalent to:
 - `enabled` **(New in version 0.20)**: Whether to enable the plugin. Defaults to `true`.
   Can be used to reduce build times when doing local development.
   Especially useful when used with environment variables (see example below).
+- `css_filename`: The css path and filename to create the stylesheet.
 
 !!! example
     ```yaml title="mkdocs.yml"
