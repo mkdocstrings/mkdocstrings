@@ -228,7 +228,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             Whether the plugin is enabled.
         """
         return self.config.enabled
-    
+
     @property
     def css_filename(self) -> str:
         """The css filename to use for the mkdocstrings generated stylesheet.
