@@ -18,9 +18,10 @@ import datetime
 import functools
 import os
 import sys
+from collections.abc import Iterable, Mapping
 from concurrent import futures
 from io import BytesIO
-from typing import TYPE_CHECKING, Any, Callable, Iterable, List, Mapping, Tuple, TypeVar
+from typing import TYPE_CHECKING, Any, Callable, TypeVar
 
 from mkdocs.config import Config
 from mkdocs.config import config_options as opt
@@ -44,8 +45,8 @@ else:
 
 log = get_logger(__name__)
 
-InventoryImportType = List[Tuple[str, Mapping[str, Any]]]
-InventoryLoaderType = Callable[..., Iterable[Tuple[str, str]]]
+InventoryImportType = list[tuple[str, Mapping[str, Any]]]
+InventoryLoaderType = Callable[..., Iterable[tuple[str, str]]]
 
 P = ParamSpec("P")
 R = TypeVar("R")
@@ -306,7 +307,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
     @classmethod
     # lru_cache does not allow mutable arguments such lists, but that is what we load from YAML config.
     @list_to_tuple
-    @functools.lru_cache(maxsize=None)
+    @functools.cache
     def _load_inventory(cls, loader: InventoryLoaderType, url: str, **kwargs: Any) -> Mapping[str, str]:
         """Download and process inventory files using a handler.
 

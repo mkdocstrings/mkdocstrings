@@ -25,7 +25,7 @@ from __future__ import annotations
 
 import re
 from collections import ChainMap
-from typing import TYPE_CHECKING, Any, MutableSequence
+from typing import TYPE_CHECKING, Any
 from xml.etree.ElementTree import Element
 
 import yaml
@@ -39,6 +39,8 @@ from mkdocstrings.handlers.base import BaseHandler, CollectionError, CollectorIt
 from mkdocstrings.loggers import get_logger
 
 if TYPE_CHECKING:
+    from collections.abc import MutableSequence
+
     from markdown import Markdown
     from markdown.blockparser import BlockParser
     from mkdocs_autorefs.plugin import AutorefsPlugin

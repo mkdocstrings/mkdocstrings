@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 from contextlib import suppress
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Callable, MutableMapping, Sequence
+from typing import TYPE_CHECKING, Any, Callable
 
 try:
     from jinja2 import pass_context
@@ -21,6 +21,8 @@ else:
 
 
 if TYPE_CHECKING:
+    from collections.abc import MutableMapping, Sequence
+
     from jinja2.runtime import Context
 
 

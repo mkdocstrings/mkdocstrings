@@ -8,7 +8,10 @@ from __future__ import annotations
 import re
 import zlib
 from textwrap import dedent
-from typing import BinaryIO, Collection
+from typing import TYPE_CHECKING, BinaryIO
+
+if TYPE_CHECKING:
+    from collections.abc import Collection
 
 
 class InventoryItem:

@@ -8,7 +8,7 @@ from __future__ import annotations
 import importlib
 import sys
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar, Iterable, Iterator, Mapping, MutableMapping, Sequence, cast
+from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar, cast
 from xml.etree.ElementTree import Element, tostring
 
 from jinja2 import Environment, FileSystemLoader
@@ -34,6 +34,8 @@ else:
     from importlib.metadata import entry_points
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable, Iterator, Mapping, MutableMapping, Sequence
+
     from mkdocs_autorefs.references import AutorefsHookInterface
 
 CollectorItem = Any
