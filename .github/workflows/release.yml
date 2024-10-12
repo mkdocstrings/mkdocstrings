@@ -14,32 +14,30 @@ jobs:
     - name: Fetch all tags
       run: git fetch --depth=1 --tags
     - name: Setup Python
-      uses: actions/setup-python@v4
-    - name: Install build
-      if: github.repository_owner == 'pawamoy-insiders'
-      run: python -m pip install build
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: Setup uv
+      uses: astral-sh/setup-uv@v3
     - name: Build dists
       if: github.repository_owner == 'pawamoy-insiders'
-      run: python -m build
+      run: uv tool run --from build pyproject-build
     - name: Upload dists artifact
       uses: actions/upload-artifact@v4
       if: github.repository_owner == 'pawamoy-insiders'
       with:
         name: mkdocstrings-insiders
         path: ./dist/*
-    - name: Install git-changelog
-      if: github.repository_owner != 'pawamoy-insiders'
-      run: pip install git-changelog
     - name: Prepare release notes
       if: github.repository_owner != 'pawamoy-insiders'
-      run: git-changelog --release-notes > release-notes.md
+      run: uv tool run git-changelog --release-notes > release-notes.md
     - name: Create release with assets
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       if: github.repository_owner == 'pawamoy-insiders'
       with:
         files: ./dist/*
     - name: Create release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       if: github.repository_owner != 'pawamoy-insiders'
       with:
         body_path: release-notes.md

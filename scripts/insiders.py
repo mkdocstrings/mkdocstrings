@@ -10,12 +10,15 @@ from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from itertools import chain
 from pathlib import Path
-from typing import Iterable, cast
+from typing import TYPE_CHECKING, cast
 from urllib.error import HTTPError
 from urllib.parse import urljoin
 from urllib.request import urlopen
 
 import yaml
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
 
 logger = logging.getLogger(f"mkdocs.logs.{__name__}")
 

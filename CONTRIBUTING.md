@@ -23,12 +23,11 @@ make setup
 > You can install it with:
 >
 > ```bash
-> python3 -m pip install --user pipx
-> pipx install uv
+> curl -LsSf https://astral.sh/uv/install.sh | sh
 > ```
 >
 > Now you can try running `make setup` again,
-> or simply `uv install`.
+> or simply `uv sync`.
 
 You now have the dependencies installed.
 

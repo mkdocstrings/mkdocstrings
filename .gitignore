@@ -15,6 +15,7 @@
 /.pdm-build/
 /htmlcov/
 /site/
+uv.lock
 
 # cache
 .cache/

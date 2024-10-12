@@ -156,13 +156,15 @@ plugins:
           show_root_heading: true
           show_root_full_path: false
           show_signature_annotations: true
+          show_source: false
           show_symbol_type_heading: true
           show_symbol_type_toc: true
           signature_crossrefs: true
           summary: true
-- git-committers:
+- git-revision-date-localized:
     enabled: !ENV [DEPLOY, false]
-    repository: mkdocstrings/mkdocstrings
+    enable_creation_date: true
+    type: timeago
 - redirects:
     redirect_maps:
       theming.md: usage/theming.md

@@ -5,17 +5,18 @@ from __future__ import annotations
 import os
 import sys
 from collections import defaultdict
+from collections.abc import Iterable
 from importlib.metadata import distributions
 from itertools import chain
 from pathlib import Path
 from textwrap import dedent
-from typing import Dict, Iterable, Union
+from typing import Union
 
 from jinja2 import StrictUndefined
 from jinja2.sandbox import SandboxedEnvironment
 from packaging.requirements import Requirement
 
-# TODO: Remove once support for Python 3.10 is dropped.
+# YORE: EOL 3.10: Replace block with line 2.
 if sys.version_info >= (3, 11):
     import tomllib
 else:
@@ -26,11 +27,10 @@ with project_dir.joinpath("pyproject.toml").open("rb") as pyproject_file:
     pyproject = tomllib.load(pyproject_file)
 project = pyproject["project"]
 project_name = project["name"]
-with project_dir.joinpath("devdeps.txt").open() as devdeps_file:
-    devdeps = [line.strip() for line in devdeps_file if line.strip() and not line.strip().startswith(("-e", "#"))]
+devdeps = [dep for dep in pyproject["tool"]["uv"]["dev-dependencies"] if not dep.startswith("-e")]
 
-PackageMetadata = Dict[str, Union[str, Iterable[str]]]
-Metadata = Dict[str, PackageMetadata]
+PackageMetadata = dict[str, Union[str, Iterable[str]]]
+Metadata = dict[str, PackageMetadata]
 
 
 def _merge_fields(metadata: dict) -> PackageMetadata:

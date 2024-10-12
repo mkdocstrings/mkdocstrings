@@ -7,11 +7,13 @@ import sys
 from contextlib import contextmanager
 from importlib.metadata import version as pkgversion
 from pathlib import Path
-from typing import TYPE_CHECKING, Iterator
+from typing import TYPE_CHECKING
 
 from duty import duty, tools
 
 if TYPE_CHECKING:
+    from collections.abc import Iterator
+
     from duty.context import Context
 
 
@@ -53,7 +55,7 @@ def changelog(ctx: Context, bump: str = "") -> None:
     ctx.run(tools.git_changelog(bump=bump or None), title="Updating changelog")
 
 
-@duty(pre=["check_quality", "check_types", "check_docs", "check_dependencies", "check-api"])
+@duty(pre=["check-quality", "check-types", "check-docs", "check-api"])
 def check(ctx: Context) -> None:
     """Check it all!"""
 
@@ -116,21 +118,31 @@ def docs(ctx: Context, *cli_args: str, host: str = "127.0.0.1", port: int = 8000
 
 
 @duty
-def docs_deploy(ctx: Context) -> None:
-    """Deploy the documentation to GitHub pages."""
+def docs_deploy(ctx: Context, *, force: bool = False) -> None:
+    """Deploy the documentation to GitHub pages.
+
+    Parameters:
+        force: Whether to force deployment, even from non-Insiders version.
+    """
     os.environ["DEPLOY"] = "true"
     with material_insiders() as insiders:
         if not insiders:
             ctx.run(lambda: False, title="Not deploying docs without Material for MkDocs Insiders!")
-        origin = ctx.run("git config --get remote.origin.url", silent=True)
+        origin = ctx.run("git config --get remote.origin.url", silent=True, allow_overrides=False)
         if "pawamoy-insiders/mkdocstrings" in origin:
             ctx.run(
                 "git remote add org-pages git@github.com:mkdocstrings/mkdocstrings.github.io",
                 silent=True,
                 nofail=True,
+                allow_overrides=False,
             )
             ctx.run(
                 tools.mkdocs.gh_deploy(remote_name="upstream", force=True),
+                title="Deploying documentation",
+            )
+        elif force:
+            ctx.run(
+                tools.mkdocs.gh_deploy(force=True),
                 title="Deploying documentation",
             )
         else:
