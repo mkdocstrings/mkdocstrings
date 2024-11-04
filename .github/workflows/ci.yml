@@ -26,9 +26,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-
-    - name: Fetch all tags
-      run: git fetch --depth=1 --tags
+      with:
+        fetch-depth: 0
+        fetch-tags: true
 
     - name: Setup Python
       uses: actions/setup-python@v5
@@ -106,6 +106,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        fetch-tags: true
 
     - name: Setup Python
       uses: actions/setup-python@v5
