@@ -7,10 +7,19 @@ Every little bit helps, and credit will always be given.
 
 Nothing easier!
 
-Fork and clone the repository, then:
+Fork and clone the repository. The project uses dynamic versioning, so to get the correct package version when building, make sure to pull Git tags:
 
 ```bash
 cd mkdocstrings
+
+# Assuming you authenticate with SSH.
+git remote add upstream git@github.com:mkdocstrings/mkdocstrings
+git pull upstream --tags
+```
+
+Then:
+
+```bash
 make setup
 ```
 
