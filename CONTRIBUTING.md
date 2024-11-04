@@ -7,8 +7,7 @@ Every little bit helps, and credit will always be given.
 
 Nothing easier!
 
-Fork and clone the repository. `mkdocstrings` uses dynamical versioning, so to get the correct
-package version when building, make sure to pull tags as well:
+Fork and clone the repository. The project uses dynamic versioning, so to get the correct package version when building, make sure to pull Git tags:
 
 ```bash
 cd mkdocstrings
