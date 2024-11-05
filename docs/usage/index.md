@@ -31,8 +31,8 @@ The YAML block is optional, and contains some configuration options:
   `default_handler` key, or `"python"`.
 - `options`: a dictionary of options passed to the handler's methods responsible both
   for collecting and rendering the documentation. These options can be defined
-  globally (in `mkdocs.yml`, see [Global options](#global-options)), 
-  locally (as described here), or both. 
+  globally (in `mkdocs.yml`, see [Global options](#global-options)),
+  locally (as described here), or both.
 
 !!! example "Example with the Python handler"
     === "docs/my_page.md"
@@ -176,7 +176,7 @@ is possible to link to with `[example][full.path.object1]`, regardless of the cu
 
 ### Cross-references to any Markdown heading
 
-TIP: **Changed in version 0.15.**  
+TIP: **Changed in version 0.15.**
 Linking to any Markdown heading used to be the default, but now opt-in is required.
 
 If you want to link to *any* Markdown heading, not just *mkdocstrings*-inserted items, please
@@ -318,6 +318,18 @@ plugins:
 
 Absolute URLs to cross-referenced items will then be based
 on `https://docs.example.com/version/` instead of `https://cdn.example.com/version/`.
+
+If you need authentication to access the inventory file, you can provide the credentials as environment variables in the URL, either as `username:password`:
+
+```yaml
+- url: https://$MY_USERNAME:$MY_PASSWORD@private.example.com/version/objects.inv
+```
+
+or with token authentication:
+
+```yaml
+- url: https://$TOKEN@private.example.com/version/objects.inv
+```
 
 Reciprocally, *mkdocstrings* also allows to *generate* an inventory file in the Sphinx format.
 It will be enabled by default if the Python handler is used, and generated as `objects.inv` in the final site directory.
