@@ -1,3 +1,4 @@
+import base64
 import datetime
 import gzip
 import hashlib
@@ -57,7 +58,8 @@ def _create_auth_header(user_env_var: str, pwd_env_var: Union[str, None] = None)
     # Else, we assume that the user is using user:password
     pwd = _get_environment_variable(pwd_env_var)
     log.debug("Using basic authentication")
-    return {"Authorization": f"Basic {user}:{pwd}"}
+    credentials = base64.encodebytes(f"{user}:{pwd}".encode()).decode().strip()
+    return {"Authorization": f"Basic {credentials}"}
 
 
 def _get_environment_variable(env_var: str) -> str:

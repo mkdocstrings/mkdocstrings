@@ -28,7 +28,7 @@ def test_create_auth_header_basic_auth(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("MY_PASSWORD", "pass456")
 
     auth_header = _cache._create_auth_header(user_env_var="$MY_USERNAME", pwd_env_var="$MY_PASSWORD")  # noqa: S106
-    assert auth_header == {"Authorization": "Basic user123:pass456"}
+    assert auth_header == {"Authorization": "Basic dXNlcjEyMzpwYXNzNDU2"}
 
 
 def test_create_auth_header_bearer_auth(monkeypatch: pytest.MonkeyPatch) -> None:
