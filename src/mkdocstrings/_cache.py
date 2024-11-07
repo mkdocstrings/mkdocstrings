@@ -3,13 +3,13 @@ import datetime
 import gzip
 import hashlib
 import os
+import re
 import urllib.parse
 import urllib.request
 from typing import BinaryIO, Callable, Union
 
 import click
 import platformdirs
-import regex as re
 
 from mkdocstrings.loggers import get_logger
 
