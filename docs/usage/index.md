@@ -319,16 +319,22 @@ plugins:
 Absolute URLs to cross-referenced items will then be based
 on `https://docs.example.com/version/` instead of `https://cdn.example.com/version/`.
 
-If you need authentication to access the inventory file, you can provide the credentials as environment variables in the URL, either as `username:password`:
+If you need authentication to access the inventory file, you can provide the credentials in the URL, either as `username:password`:
 
 ```yaml
-- url: https://$MY_USERNAME:$MY_PASSWORD@private.example.com/version/objects.inv
+- url: https://username:password@private.example.com/version/objects.inv
 ```
 
 or with token authentication:
 
 ```yaml
-- url: https://$TOKEN@private.example.com/version/objects.inv
+- url: https://token123@private.example.com/version/objects.inv
+```
+
+The credentials can also be specified using environment variables in the form `${ENV_VAR}`:
+
+```yaml
+- url: https://${USERNAME}:${PASSWORD}@private.example.com/version/objects.inv
 ```
 
 Reciprocally, *mkdocstrings* also allows to *generate* an inventory file in the Sphinx format.
