@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import re
+
 import pytest
 
 from mkdocstrings import _cache
@@ -27,7 +29,7 @@ def test_create_auth_header_basic_auth(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("MY_USERNAME", "user123")
     monkeypatch.setenv("MY_PASSWORD", "pass456")
 
-    auth_header = _cache._create_auth_header(user_env_var="$MY_USERNAME", pwd_env_var="$MY_PASSWORD")  # noqa: S106
+    auth_header = _cache._create_auth_header(user_env_var="${MY_USERNAME}", pwd_env_var="${MY_PASSWORD}")  # noqa: S106
     assert auth_header == {"Authorization": "Basic dXNlcjEyMzpwYXNzNDU2"}
 
 
@@ -35,19 +37,20 @@ def test_create_auth_header_bearer_auth(monkeypatch: pytest.MonkeyPatch) -> None
     """Test creating the Authorization header for bearer token authentication."""
     monkeypatch.setenv("MY_TOKEN", "token123")
 
-    auth_header = _cache._create_auth_header(user_env_var="$MY_TOKEN")
+    auth_header = _cache._create_auth_header(user_env_var="${MY_TOKEN}")
     assert auth_header == {"Authorization": "Bearer token123"}
 
 
 @pytest.mark.parametrize(
     ("env_var", "value"),
     [
-        ("$MY_USERNAME", "some_user"),
+        ("${MY_USERNAME}", "some_user"),
     ],
 )
 def test_get_environment_variable_valid(monkeypatch: pytest.MonkeyPatch, env_var: str, value: str) -> None:
     """Test getting an environment variable."""
-    monkeypatch.setenv(env_var.replace("$", ""), value)
+    env_var_name = re.sub(_cache.ENV_VAR_PATTERN, r"\1", env_var)
+    monkeypatch.setenv(env_var_name, value)
     result_value = _cache._get_environment_variable(env_var)
     assert result_value == value
 
@@ -57,19 +60,23 @@ def test_get_environment_variable_invalid(monkeypatch: pytest.MonkeyPatch) -> No
     env_var = "MY_USERNAME"
     monkeypatch.delenv(f"{env_var}", raising=False)
     with pytest.raises(ValueError, match=r"Environment variable .*? is not set"):
-        _cache._get_environment_variable(f"${env_var}")
+        _cache._get_environment_variable(f"${{{env_var}}}")
 
 
 @pytest.mark.parametrize(
     ("var", "match"),
     [
-        ("$var", "var"),
-        ("$VAR", "VAR"),
-        ("$_VAR", "_VAR"),
-        ("$VAR123", "VAR123"),
-        ("$VAR123_", "VAR123_"),
+        ("${var}", "var"),
+        ("${VAR}", "VAR"),
+        ("${_}", "_"),
+        ("${_VAR}", "_VAR"),
+        ("${VAR123}", "VAR123"),
+        ("${VAR123_}", "VAR123_"),
         ("VAR", None),
         ("$1VAR", None),
+        ("${1VAR}", None),
+        ("${}", None),
+        ("${ }", None),
     ],
 )
 def test_env_var_pattern(var: str, match: str | None) -> None:

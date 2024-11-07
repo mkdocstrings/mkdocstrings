@@ -16,7 +16,7 @@ from mkdocstrings.loggers import get_logger
 log = get_logger(__name__)
 
 # Regex pattern for an environment variable
-ENV_VAR_PATTERN = re.compile(r"^\$([A-Za-z_][A-Za-z0-9_]*)$")
+ENV_VAR_PATTERN = re.compile(r"^\$\{([A-Za-z_][A-Za-z0-9_]*)\}$")
 
 
 def download_url_with_gz(url: str) -> bytes:
