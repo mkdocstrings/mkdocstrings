@@ -2,19 +2,61 @@
 
 from __future__ import annotations
 
-import re
+import logging
+from typing import TYPE_CHECKING
 
 import pytest
 
 from mkdocstrings import _cache
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
+
+
+@pytest.mark.parametrize(
+    ("credential", "expected", "env"),
+    [
+        ("USER", "USER", {"USER": "testuser"}),
+        ("$USER", "$USER", {"USER": "testuser"}),
+        ("${USER", "${USER", {"USER": "testuser"}),
+        ("$USER}", "$USER}", {"USER": "testuser"}),
+        ("${TOKEN}", "testtoken", {"TOKEN": "testtoken"}),
+        ("${USER}:${PASSWORD}", "${USER}:testpass", {"PASSWORD": "testpass"}),
+        ("${USER}:${PASSWORD}", "testuser:testpass", {"USER": "testuser", "PASSWORD": "testpass"}),
+        (
+            "user_prefix_${USER}_user_$uffix:pwd_prefix_${PASSWORD}_pwd_${uffix",
+            "user_prefix_testuser_user_$uffix:pwd_prefix_testpass_pwd_${uffix",
+            {"USER": "testuser", "PASSWORD": "testpass"},
+        ),
+    ],
+)
+def test_expand_env_vars(credential: str, expected: str, env: Mapping[str, str]) -> None:
+    """Test expanding environment variables."""
+    assert _cache._expand_env_vars(credential, env=env) == expected
+
+
+def test_expand_env_vars_with_missing_env_var(caplog: pytest.LogCaptureFixture) -> None:
+    """Test expanding environment variables with a missing environment variable."""
+    caplog.set_level(logging.WARNING, logger="mkdocs.plugins.mkdocstrings._cache")
+
+    credential = "${USER}"
+    env: dict[str, str] = {}
+    assert _cache._expand_env_vars(credential, env=env) == "${USER}"
+
+    output = caplog.records[0].getMessage()
+    assert "'USER' is not set" in output
 
 
 @pytest.mark.parametrize(
     ("url", "expected_url"),
     [
         ("http://host/path", "http://host/path"),
-        ("http://username:password@host/path", "http://host/path"),
         ("http://token@host/path", "http://host/path"),
+        ("http://${token}@host/path", "http://host/path"),
+        ("http://username:password@host/path", "http://host/path"),
+        ("http://username:${PASSWORD}@host/path", "http://host/path"),
+        ("http://${USERNAME}:${PASSWORD}@host/path", "http://host/path"),
+        ("http://prefix${USERNAME}suffix:prefix${PASSWORD}suffix@host/path", "http://host/path"),
     ],
 )
 def test_extract_auth_from_url(monkeypatch: pytest.MonkeyPatch, url: str, expected_url: str) -> None:
@@ -24,43 +66,16 @@ def test_extract_auth_from_url(monkeypatch: pytest.MonkeyPatch, url: str, expect
     assert result_url == expected_url
 
 
-def test_create_auth_header_basic_auth(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_create_auth_header_basic_auth() -> None:
     """Test creating the Authorization header for basic authentication."""
-    monkeypatch.setenv("MY_USERNAME", "user123")
-    monkeypatch.setenv("MY_PASSWORD", "pass456")
-
-    auth_header = _cache._create_auth_header(user_env_var="${MY_USERNAME}", pwd_env_var="${MY_PASSWORD}")  # noqa: S106
-    assert auth_header == {"Authorization": "Basic dXNlcjEyMzpwYXNzNDU2"}
+    auth_header = _cache._create_auth_header(credential="testuser:testpass")
+    assert auth_header == {"Authorization": "Basic dGVzdHVzZXI6dGVzdHBhc3M="}
 
 
-def test_create_auth_header_bearer_auth(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_create_auth_header_bearer_auth() -> None:
     """Test creating the Authorization header for bearer token authentication."""
-    monkeypatch.setenv("MY_TOKEN", "token123")
-
-    auth_header = _cache._create_auth_header(user_env_var="${MY_TOKEN}")
+    auth_header = _cache._create_auth_header(credential="token123")
     assert auth_header == {"Authorization": "Bearer token123"}
-
-
-@pytest.mark.parametrize(
-    ("env_var", "value"),
-    [
-        ("${MY_USERNAME}", "some_user"),
-    ],
-)
-def test_get_environment_variable_valid(monkeypatch: pytest.MonkeyPatch, env_var: str, value: str) -> None:
-    """Test getting an environment variable."""
-    env_var_name = re.sub(_cache.ENV_VAR_PATTERN, r"\1", env_var)
-    monkeypatch.setenv(env_var_name, value)
-    result_value = _cache._get_environment_variable(env_var)
-    assert result_value == value
-
-
-def test_get_environment_variable_invalid(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Test that an exception is raised when the environment variable is not set."""
-    env_var = "MY_USERNAME"
-    monkeypatch.delenv(f"{env_var}", raising=False)
-    with pytest.raises(ValueError, match=r"Environment variable .*? is not set"):
-        _cache._get_environment_variable(f"${{{env_var}}}")
 
 
 @pytest.mark.parametrize(

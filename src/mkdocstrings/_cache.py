@@ -6,7 +6,8 @@ import os
 import re
 import urllib.parse
 import urllib.request
-from typing import BinaryIO, Callable, Union
+from collections.abc import Mapping
+from typing import BinaryIO, Callable, Optional
 
 import click
 import platformdirs
@@ -15,8 +16,8 @@ from mkdocstrings.loggers import get_logger
 
 log = get_logger(__name__)
 
-# Regex pattern for an environment variable
-ENV_VAR_PATTERN = re.compile(r"^\$\{([A-Za-z_][A-Za-z0-9_]*)\}$")
+# Regex pattern for an environment variable in the form ${ENV_VAR}
+ENV_VAR_PATTERN = re.compile(r"\$\{([A-Za-z_][A-Za-z0-9_]*)\}")
 
 
 def download_url_with_gz(url: str) -> bytes:
@@ -33,45 +34,55 @@ def download_url_with_gz(url: str) -> bytes:
         return content.read()
 
 
+def _expand_env_vars(credential: str, env: Optional[Mapping[str, str]] = None) -> str:
+    """A safe implementation of env var substitution.
+
+    It only supports the following forms:
+
+        ${ENV_VAR}
+
+    Neither $ENV_VAR and %ENV_VAR is supported.
+    """
+    if env is None:
+        env = os.environ
+
+    def replace_func(match: re.Match) -> str:
+        try:
+            return env[match.group(1)]
+        except KeyError:
+            log.warning(f"Environment variable '{match.group(1)}' is not set")
+            return match.group(0)
+
+    return re.sub(ENV_VAR_PATTERN, replace_func, credential)
+
+
 def _extract_auth_from_url(url: str) -> tuple[str, dict[str, str]]:
     """Extracts the username and password from the URL, if present, and returns the URL and the auth header."""
-    parsed_url = urllib.parse.urlparse(url)
+    scheme, netloc, *rest = urllib.parse.urlparse(url)
 
     auth_header: dict[str, str] = {}
-    if parsed_url.username:
-        # If the URL contains a username, we assume the user is trying to authenticate
-        auth_header = _create_auth_header(user_env_var=parsed_url.username, pwd_env_var=parsed_url.password)
-        # Remove the auth part from the URL
-        url = parsed_url._replace(netloc=parsed_url.hostname or "").geturl()
+    if "@" in netloc:
+        auth, host = netloc.split("@", 1)
+        auth = _expand_env_vars(credential=auth)
+        auth_header = _create_auth_header(credential=auth)
+        netloc = host
+
+    url = urllib.parse.urlunparse((scheme, netloc, *rest))
     return url, auth_header
 
 
-def _create_auth_header(user_env_var: str, pwd_env_var: Union[str, None] = None) -> dict[str, str]:
+def _create_auth_header(credential: str) -> dict[str, str]:
     """Creates the Authorization header for basic authentication."""
-    user = _get_environment_variable(user_env_var)
-
-    if pwd_env_var is None:
-        # If password is not provided, we assume that the user is using a token
+    if ":" not in credential:
+        # We assume that the user is using a token
         log.debug("Using bearer token for authentication")
-        return {"Authorization": f"Bearer {user}"}
+        return {"Authorization": f"Bearer {credential}"}
 
     # Else, we assume that the user is using user:password
-    pwd = _get_environment_variable(pwd_env_var)
+    user, pwd = credential.split(":", 1)
     log.debug("Using basic authentication")
     credentials = base64.encodebytes(f"{user}:{pwd}".encode()).decode().strip()
     return {"Authorization": f"Basic {credentials}"}
-
-
-def _get_environment_variable(env_var: str) -> str:
-    """Extracts the environment variable name from env_var and returns its value."""
-    match = ENV_VAR_PATTERN.match(env_var)
-    if not match:
-        raise ValueError("URL authentication must be specified as environment variables")
-
-    try:
-        return os.environ[match.group(1)]
-    except KeyError as exc:
-        raise ValueError(f"Environment variable '{match.group(1)}' is not set") from exc
 
 
 # This is mostly a copy of https://github.com/mkdocs/mkdocs/blob/master/mkdocs/utils/cache.py
