@@ -4,6 +4,6 @@ in-place = true
 output = "CHANGELOG.md"
 parse-refs = false
 parse-trailers = true
-sections = ["build", "deps", "feat", "fix", "refactor"]
+sections = ["build", "deps", "feat", "fix", "perf", "refactor"]
 template = "keepachangelog"
 versioning = "pep440"

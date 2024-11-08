@@ -1,10 +1,27 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.27.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.27.0) - 2024-11-08
+
+<small>[Compare with 0.26.2](https://github.com/mkdocstrings/mkdocstrings/compare/0.26.2...0.27.0)</small>
+
+### Features
+
+- Add support for authentication in inventory file URLs ([1c23c1b](https://github.com/mkdocstrings/mkdocstrings/commit/1c23c1b0fc4a9bdec5e0eb43c8647beab66fec55) by Stefan Mejlgaard). [Issue-707](https://github.com/mkdocstrings/mkdocstrings/issues/707), [PR-710](https://github.com/mkdocstrings/mkdocstrings/pull/710)
+
+### Performance Improvements
+
+- Reduce footprint of template debug messages ([5648e5a](https://github.com/mkdocstrings/mkdocstrings/commit/5648e5aca80a5d8ba9e5456efb36b517b9f3cdeb) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Use %-formatting for logging messages ([0bbb8ca](https://github.com/mkdocstrings/mkdocstrings/commit/0bbb8caddf34b0a4faa0ed6f26e33102dc892fc8) by Timothée Mazzucotelli).
+
 ## [0.26.2](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.26.2) - 2024-10-12
 
 <small>[Compare with 0.26.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.26.1...0.26.2)</small>
