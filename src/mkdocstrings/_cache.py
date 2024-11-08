@@ -1,10 +1,13 @@
+import base64
 import datetime
 import gzip
 import hashlib
 import os
+import re
 import urllib.parse
 import urllib.request
-from typing import BinaryIO, Callable
+from collections.abc import Mapping
+from typing import BinaryIO, Callable, Optional
 
 import click
 import platformdirs
@@ -13,17 +16,70 @@ from mkdocstrings.loggers import get_logger
 
 log = get_logger(__name__)
 
+# Regex pattern for an environment variable in the form ${ENV_VAR}.
+ENV_VAR_PATTERN = re.compile(r"\$\{([A-Za-z_][A-Za-z0-9_]*)\}")
+
 
 def download_url_with_gz(url: str) -> bytes:
+    url, auth_header = _extract_auth_from_url(url)
+
     req = urllib.request.Request(  # noqa: S310
         url,
-        headers={"Accept-Encoding": "gzip", "User-Agent": "mkdocstrings/0.15.0"},
+        headers={"Accept-Encoding": "gzip", "User-Agent": "mkdocstrings/0.15.0", **auth_header},
     )
     with urllib.request.urlopen(req) as resp:  # noqa: S310
         content: BinaryIO = resp
         if "gzip" in resp.headers.get("content-encoding", ""):
             content = gzip.GzipFile(fileobj=resp)  # type: ignore[assignment]
         return content.read()
+
+
+def _expand_env_vars(credential: str, url: str, env: Optional[Mapping[str, str]] = None) -> str:
+    """A safe implementation of environment variable substitution.
+
+    It only supports the following forms: `${ENV_VAR}`.
+    Neither `$ENV_VAR` or `%ENV_VAR` are supported.
+    """
+    if env is None:
+        env = os.environ
+
+    def replace_func(match: re.Match) -> str:
+        try:
+            return env[match.group(1)]
+        except KeyError:
+            log.warning(f"Environment variable '{match.group(1)}' is not set, but is used in inventory URL {url}")
+            return match.group(0)
+
+    return re.sub(ENV_VAR_PATTERN, replace_func, credential)
+
+
+# Implementation adapted from PDM: https://github.com/pdm-project/pdm.
+def _extract_auth_from_url(url: str) -> tuple[str, dict[str, str]]:
+    """Extract credentials from the URL if present, and return the URL and the appropriate auth header for the credentials."""
+    if "@" not in url:
+        return url, {}
+
+    scheme, netloc, *rest = urllib.parse.urlparse(url)
+    auth, host = netloc.split("@", 1)
+    auth = _expand_env_vars(credential=auth, url=url)
+    auth_header = _create_auth_header(credential=auth, url=url)
+
+    url = urllib.parse.urlunparse((scheme, host, *rest))
+    return url, auth_header
+
+
+def _create_auth_header(credential: str, url: str) -> dict[str, str]:
+    """Create the Authorization header for basic or bearer authentication, depending on credential."""
+    if ":" not in credential:
+        # We assume that the user is using a token.
+        log.debug(f"Using bearer token for authentication for {url}")
+        return {"Authorization": f"Bearer {credential}"}
+
+    # Else, we assume that the user is using user:password.
+    user, pwd = credential.split(":", 1)
+    log.debug(f"Using basic authentication for {url}")
+    credentials = base64.encodebytes(f"{user}:{pwd}".encode()).decode().strip()
+    return {"Authorization": f"Basic {credentials}"}
 
 
 # This is mostly a copy of https://github.com/mkdocs/mkdocs/blob/master/mkdocs/utils/cache.py
