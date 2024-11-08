@@ -56,7 +56,9 @@ def _expand_env_vars(credential: str, env: Optional[Mapping[str, str]] = None) -
     return re.sub(ENV_VAR_PATTERN, replace_func, credential)
 
 
+# Implementation adapted from PDM: https://github.com/pdm-project/pdm
 def _extract_auth_from_url(url: str) -> tuple[str, dict[str, str]]:
+    """Extracts credentials from the URL, if present, and returns the URL and the appropriate auth header for the credentials."""
     if "@" not in url:
         return url, {}
 
@@ -70,7 +72,7 @@ def _extract_auth_from_url(url: str) -> tuple[str, dict[str, str]]:
 
 
 def _create_auth_header(credential: str) -> dict[str, str]:
-    """Creates the Authorization header for basic authentication."""
+    """Creates the Authorization header for basic or bearer authentication, depending on credential."""
     if ":" not in credential:
         # We assume that the user is using a token
         log.debug("Using bearer token for authentication")
