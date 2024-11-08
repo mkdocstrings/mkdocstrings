@@ -47,7 +47,7 @@ def _expand_env_vars(credential: str, url: str, env: Optional[Mapping[str, str]]
         try:
             return env[match.group(1)]
         except KeyError:
-            log.warning(f"Environment variable '{match.group(1)}' is not set, but is used in inventory URL {url}")
+            log.warning("Environment variable '%s' is not set, but is used in inventory URL %s", match.group(1), url)
             return match.group(0)
 
     return re.sub(ENV_VAR_PATTERN, replace_func, credential)
@@ -72,12 +72,12 @@ def _create_auth_header(credential: str, url: str) -> dict[str, str]:
     """Create the Authorization header for basic or bearer authentication, depending on credential."""
     if ":" not in credential:
         # We assume that the user is using a token.
-        log.debug(f"Using bearer token for authentication for {url}")
+        log.debug("Using bearer token authentication for %s", url)
         return {"Authorization": f"Bearer {credential}"}
 
     # Else, we assume that the user is using user:password.
     user, pwd = credential.split(":", 1)
-    log.debug(f"Using basic authentication for {url}")
+    log.debug("Using basic authentication for %s", url)
     credentials = base64.encodebytes(f"{user}:{pwd}".encode()).decode().strip()
     return {"Authorization": f"Basic {credentials}"}
 
@@ -117,13 +117,13 @@ def download_and_cache_url(
                     line = line[len(prefix) :]
                     timestamp = int(line)
                     if datetime.timedelta(seconds=(now - timestamp)) <= cache_duration:
-                        log.debug(f"Using cached '{path}' for '{url}'")
+                        log.debug("Using cached '%s' for '%s'", path, url)
                         return f.read()
         except (OSError, ValueError) as e:
-            log.debug(f"{type(e).__name__}: {e}")
+            log.debug("%s: %s", type(e).__name__, e)
 
     # Download and cache the file
-    log.debug(f"Downloading '{url}' to '{path}'")
+    log.debug("Downloading '%s' to '%s'", url, path)
     content = download(url)
     os.makedirs(directory, exist_ok=True)
     with click.open_file(path, "wb", atomic=True) as f:

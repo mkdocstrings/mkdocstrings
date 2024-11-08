@@ -125,7 +125,7 @@ class AutoDocProcessor(BlockProcessor):
         if match:
             identifier = match["name"]
             heading_level = match["heading"].count("#")
-            log.debug(f"Matched '::: {identifier}'")
+            log.debug("Matched '::: %s'", identifier)
 
             html, handler, data = self._process_block(identifier, block, heading_level)
             el = Element("div", {"class": "mkdocstrings"})
@@ -201,7 +201,7 @@ class AutoDocProcessor(BlockProcessor):
         config = yaml.safe_load(yaml_block) or {}
         handler_name = self._handlers.get_handler_name(config)
 
-        log.debug(f"Using handler '{handler_name}'")
+        log.debug("Using handler '%s'", handler_name)
         handler_config = self._handlers.get_handler_config(handler_name)
         handler = self._handlers.get_handler(handler_name, handler_config)
 
@@ -217,7 +217,7 @@ class AutoDocProcessor(BlockProcessor):
         try:
             data: CollectorItem = handler.collect(identifier, options)
         except CollectionError as exception:
-            log.error(str(exception))  # noqa: TRY400
+            log.error("%s", exception)  # noqa: TRY400
             raise PluginError(f"Could not collect '{identifier}'") from exception
 
         if handler_name not in self._updated_envs:  # We haven't seen this handler before on this document.
@@ -231,7 +231,10 @@ class AutoDocProcessor(BlockProcessor):
         except TemplateNotFound as exc:
             theme_name = self._config["theme_name"]
             log.error(  # noqa: TRY400
-                f"Template '{exc.name}' not found for '{handler_name}' handler and theme '{theme_name}'.",
+                "Template '%s' not found for '%s' handler and theme '%s'.",
+                exc.name,
+                handler_name,
+                theme_name,
             )
             raise
 

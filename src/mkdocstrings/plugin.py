@@ -178,14 +178,14 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
         try:
             # If autorefs plugin is explicitly enabled, just use it.
             autorefs = config.plugins["autorefs"]  # type: ignore[assignment]
-            log.debug(f"Picked up existing autorefs instance {autorefs!r}")
+            log.debug("Picked up existing autorefs instance %r", autorefs)
         except KeyError:
             # Otherwise, add a limited instance of it that acts only on what's added through `register_anchor`.
             autorefs = AutorefsPlugin()
             autorefs.config = AutorefsConfig()
             autorefs.scan_toc = False
             config.plugins["autorefs"] = autorefs
-            log.debug(f"Added a subdued autorefs instance {autorefs!r}")
+            log.debug("Added a subdued autorefs instance %r", autorefs)
         # Add collector-based fallback in either case.
         autorefs.get_fallback_anchor = self.handlers.get_anchors
 
@@ -250,7 +250,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
                 write_file(inv_contents, os.path.join(config.site_dir, "objects.inv"))
 
         if self._inv_futures:
-            log.debug(f"Waiting for {len(self._inv_futures)} inventory download(s)")
+            log.debug("Waiting for %s inventory download(s)", len(self._inv_futures))
             futures.wait(self._inv_futures, timeout=30)
             results = {}
             # Reversed order so that pages from first futures take precedence:
@@ -260,7 +260,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
                 except Exception as error:  # noqa: BLE001
                     loader, import_item = self._inv_futures[fut]
                     loader_name = loader.__func__.__qualname__
-                    log.error(f"Couldn't load inventory {import_item} through {loader_name}: {error}")  # noqa: TRY400
+                    log.error("Couldn't load inventory %s through %s: %s", import_item, loader_name, error)  # noqa: TRY400
             for page, identifier in results.items():
                 config.plugins["autorefs"].register_url(page, identifier)  # type: ignore[attr-defined]
             self._inv_futures = {}
@@ -319,8 +319,8 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
         Returns:
             A mapping from identifier to absolute URL.
         """
-        log.debug(f"Downloading inventory from {url!r}")
+        log.debug("Downloading inventory from %s", url)
         content = download_and_cache_url(url, download_url_with_gz, datetime.timedelta(days=1))
         result = dict(loader(BytesIO(content), url=url, **kwargs))
-        log.debug(f"Loaded inventory from {url!r}: {len(result)} items")
+        log.debug("Loaded inventory from %s: %s items", url, len(result))
         return result
