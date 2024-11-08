@@ -32,7 +32,7 @@ if TYPE_CHECKING:
 )
 def test_expand_env_vars(credential: str, expected: str, env: Mapping[str, str]) -> None:
     """Test expanding environment variables."""
-    assert _cache._expand_env_vars(credential, env=env) == expected
+    assert _cache._expand_env_vars(credential, url="https://test.example.com", env=env) == expected
 
 
 def test_expand_env_vars_with_missing_env_var(caplog: pytest.LogCaptureFixture) -> None:
@@ -41,7 +41,7 @@ def test_expand_env_vars_with_missing_env_var(caplog: pytest.LogCaptureFixture) 
 
     credential = "${USER}"
     env: dict[str, str] = {}
-    assert _cache._expand_env_vars(credential, env=env) == "${USER}"
+    assert _cache._expand_env_vars(credential, url="https://test.example.com", env=env) == "${USER}"
 
     output = caplog.records[0].getMessage()
     assert "'USER' is not set" in output
@@ -68,13 +68,13 @@ def test_extract_auth_from_url(monkeypatch: pytest.MonkeyPatch, url: str, expect
 
 def test_create_auth_header_basic_auth() -> None:
     """Test creating the Authorization header for basic authentication."""
-    auth_header = _cache._create_auth_header(credential="testuser:testpass")
+    auth_header = _cache._create_auth_header(credential="testuser:testpass", url="https://test.example.com")
     assert auth_header == {"Authorization": "Basic dGVzdHVzZXI6dGVzdHBhc3M="}
 
 
 def test_create_auth_header_bearer_auth() -> None:
     """Test creating the Authorization header for bearer token authentication."""
-    auth_header = _cache._create_auth_header(credential="token123")
+    auth_header = _cache._create_auth_header(credential="token123", url="https://test.example.com")
     assert auth_header == {"Authorization": "Bearer token123"}
 
 
