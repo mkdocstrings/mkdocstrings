@@ -16,7 +16,7 @@ from mkdocstrings.loggers import get_logger
 
 log = get_logger(__name__)
 
-# Regex pattern for an environment variable in the form ${ENV_VAR}
+# Regex pattern for an environment variable in the form ${ENV_VAR}.
 ENV_VAR_PATTERN = re.compile(r"\$\{([A-Za-z_][A-Za-z0-9_]*)\}")
 
 
@@ -35,13 +35,10 @@ def download_url_with_gz(url: str) -> bytes:
 
 
 def _expand_env_vars(credential: str, env: Optional[Mapping[str, str]] = None) -> str:
-    """A safe implementation of env var substitution.
+    """A safe implementation of environment variable substitution.
 
-    It only supports the following forms:
-
-        ${ENV_VAR}
-
-    Neither $ENV_VAR and %ENV_VAR is supported.
+    It only supports the following forms: `${ENV_VAR}`.
+    Neither `$ENV_VAR` or `%ENV_VAR` are supported.
     """
     if env is None:
         env = os.environ
@@ -56,9 +53,9 @@ def _expand_env_vars(credential: str, env: Optional[Mapping[str, str]] = None) -
     return re.sub(ENV_VAR_PATTERN, replace_func, credential)
 
 
-# Implementation adapted from PDM: https://github.com/pdm-project/pdm
+# Implementation adapted from PDM: https://github.com/pdm-project/pdm.
 def _extract_auth_from_url(url: str) -> tuple[str, dict[str, str]]:
-    """Extracts credentials from the URL, if present, and returns the URL and the appropriate auth header for the credentials."""
+    """Extract credentials from the URL if present, and return the URL and the appropriate auth header for the credentials."""
     if "@" not in url:
         return url, {}
 
@@ -72,13 +69,13 @@ def _extract_auth_from_url(url: str) -> tuple[str, dict[str, str]]:
 
 
 def _create_auth_header(credential: str) -> dict[str, str]:
-    """Creates the Authorization header for basic or bearer authentication, depending on credential."""
+    """Create the Authorization header for basic or bearer authentication, depending on credential."""
     if ":" not in credential:
-        # We assume that the user is using a token
+        # We assume that the user is using a token.
         log.debug("Using bearer token for authentication")
         return {"Authorization": f"Bearer {credential}"}
 
-    # Else, we assume that the user is using user:password
+    # Else, we assume that the user is using user:password.
     user, pwd = credential.split(":", 1)
     log.debug("Using basic authentication")
     credentials = base64.encodebytes(f"{user}:{pwd}".encode()).decode().strip()

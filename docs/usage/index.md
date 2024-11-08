@@ -176,7 +176,7 @@ is possible to link to with `[example][full.path.object1]`, regardless of the cu
 
 ### Cross-references to any Markdown heading
 
-TIP: **Changed in version 0.15.**
+TIP: **Changed in version 0.15.**  
 Linking to any Markdown heading used to be the default, but now opt-in is required.
 
 If you want to link to *any* Markdown heading, not just *mkdocstrings*-inserted items, please
@@ -325,7 +325,7 @@ If you need authentication to access the inventory file, you can provide the cre
 - url: https://username:password@private.example.com/version/objects.inv
 ```
 
-or with token authentication:
+...or with token authentication:
 
 ```yaml
 - url: https://token123@private.example.com/version/objects.inv
