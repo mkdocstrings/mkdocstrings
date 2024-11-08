@@ -57,17 +57,15 @@ def _expand_env_vars(credential: str, env: Optional[Mapping[str, str]] = None) -
 
 
 def _extract_auth_from_url(url: str) -> tuple[str, dict[str, str]]:
-    """Extracts the username and password from the URL, if present, and returns the URL and the auth header."""
+    if "@" not in url:
+        return url, {}
+
     scheme, netloc, *rest = urllib.parse.urlparse(url)
+    auth, host = netloc.split("@", 1)
+    auth = _expand_env_vars(credential=auth)
+    auth_header = _create_auth_header(credential=auth)
 
-    auth_header: dict[str, str] = {}
-    if "@" in netloc:
-        auth, host = netloc.split("@", 1)
-        auth = _expand_env_vars(credential=auth)
-        auth_header = _create_auth_header(credential=auth)
-        netloc = host
-
-    url = urllib.parse.urlunparse((scheme, netloc, *rest))
+    url = urllib.parse.urlunparse((scheme, host, *rest))
     return url, auth_header
 
 
