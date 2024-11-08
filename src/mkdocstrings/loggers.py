@@ -116,6 +116,27 @@ class TemplateLogger:
         self.critical = get_template_logger_function(logger.critical)
 
 
+class _Lazy:
+    unset = object()
+
+    def __init__(self, func: Callable, *args: Any, **kwargs: Any):
+        self.func = func
+        self.args = args
+        self.kwargs = kwargs
+        self.result = self.unset
+
+    def __call__(self):
+        if self.result is self.unset:
+            self.result = self.func(*self.args, **self.kwargs)
+        return self.result
+
+    def __str__(self) -> str:
+        return str(self())
+
+    def __repr__(self) -> str:
+        return repr(self())
+
+
 def get_template_logger_function(logger_func: Callable) -> Callable:
     """Create a wrapper function that automatically receives the Jinja template context.
 
@@ -127,7 +148,7 @@ def get_template_logger_function(logger_func: Callable) -> Callable:
     """
 
     @pass_context
-    def wrapper(context: Context, msg: str | None = None, **kwargs: Any) -> str:
+    def wrapper(context: Context, msg: str | None = None, *args: Any, **kwargs: Any) -> str:
         """Log a message.
 
         Arguments:
@@ -138,8 +159,7 @@ def get_template_logger_function(logger_func: Callable) -> Callable:
         Returns:
             An empty string.
         """
-        template_path = get_template_path(context)
-        logger_func(f"{template_path}: {msg or 'Rendering'}", **kwargs)
+        logger_func(f"%s: {msg or 'Rendering'}", _Lazy(get_template_path, context), *args, **kwargs)
         return ""
 
     return wrapper
