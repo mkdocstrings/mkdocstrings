@@ -40,6 +40,7 @@ html[data-theme="dark"] {
 .pyodide-output {
     width: 100%;
     margin-bottom: -15px;
+    min-height: 46px;
     max-height: 400px
 }
 

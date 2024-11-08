@@ -21,6 +21,26 @@ function getJSON(url, callback) {
     xhr.send();
 }
 
+function updatePremiumSponsors(dataURL, rank) {
+    let capRank = rank.charAt(0).toUpperCase() + rank.slice(1);
+    getJSON(dataURL + `/sponsors${capRank}.json`, function (err, sponsors) {
+        const sponsorsDiv = document.getElementById(`${rank}-sponsors`);
+        if (sponsors.length > 0) {
+            let html = '';
+            html += `<b>${capRank} sponsors</b><p>`
+            sponsors.forEach(function (sponsor) {
+                html += `
+                    <a href="${sponsor.url}" target="_blank" title="${sponsor.name}">
+                        <img alt="${sponsor.name}" src="${sponsor.image}" style="height: ${sponsor.imageHeight}px;">
+                    </a>
+                `
+            });
+            html += '</p>'
+            sponsorsDiv.innerHTML = html;
+        }
+    });
+}
+
 function updateInsidersPage(author_username) {
     const sponsorURL = `https://github.com/sponsors/${author_username}`
     const dataURL = `https://raw.githubusercontent.com/${author_username}/sponsors/main`;
@@ -48,20 +68,7 @@ function updateInsidersPage(author_username) {
             }
         });
     });
-    getJSON(dataURL + '/sponsorsBronze.json', function (err, sponsors) {
-        const bronzeSponsors = document.getElementById("bronze-sponsors");
-        if (sponsors) {
-            let html = '';
-            html += '<b>Bronze sponsors</b><p>'
-            sponsors.forEach(function (sponsor) {
-                html += `
-                    <a href="${sponsor.url}" target="_blank" title="${sponsor.name}">
-                        <img alt="${sponsor.name}" src="${sponsor.image}" style="height: ${sponsor.imageHeight}px;">
-                    </a>
-                `
-            });
-            html += '</p>'
-            bronzeSponsors.innerHTML = html;
-        }
-    });
+    updatePremiumSponsors(dataURL, "gold");
+    updatePremiumSponsors(dataURL, "silver");
+    updatePremiumSponsors(dataURL, "bronze");
 }

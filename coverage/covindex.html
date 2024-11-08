@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Coverage report</title>
-    <link rel="icon" sizes="32x32" href="favicon_32.png">
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <script type="text/javascript" src="coverage_html.js" defer></script>
+    <link rel="icon" sizes="32x32" href="favicon_32_cb_58284776.png">
+    <link rel="stylesheet" href="style_cb_8e611ae1.css" type="text/css">
+    <script src="coverage_html_cb_6fb7b396.js" defer></script>
 </head>
 <body class="indexfile">
 <header>
     <div class="content">
         <h1>Coverage report:
-            <span class="pc_cov">83.61%</span>
+            <span class="pc_cov">70.97%</span>
         </h1>
         <aside id="help_panel_wrapper">
             <input id="help_panel_state" type="checkbox">
             <label for="help_panel_state">
-                <img id="keyboard_icon" src="keybd_closed.png" alt="Show/hide keyboard shortcuts" />
+                <img id="keyboard_icon" src="keybd_closed_cb_ce680311.png" alt="Show/hide keyboard shortcuts">
             </label>
             <div id="help_panel">
                 <p class="legend">Shortcuts on this page</p>
                 <div class="keyhelp">
                     <p>
-                        <kbd>n</kbd>
+                        <kbd>f</kbd>
                         <kbd>s</kbd>
                         <kbd>m</kbd>
                         <kbd>x</kbd>
@@ -43,11 +43,20 @@
             </div>
         </aside>
         <form id="filter_container">
-            <input id="filter" type="text" value="" placeholder="filter..." />
+            <input id="filter" type="text" value="" placeholder="filter...">
+            <div>
+                <input id="hide100" type="checkbox" >
+                <label for="hide100">hide covered</label>
+            </div>
         </form>
+        <h2>
+                <a class="button current">Files</a>
+                <a class="button" href="function_index.html">Functions</a>
+                <a class="button" href="class_index.html">Classes</a>
+        </h2>
         <p class="text">
-            <a class="nav" href="https://coverage.readthedocs.io/en/7.3.2">coverage.py v7.3.2</a>,
-            created at 2023-11-14 19:41 +0100
+            <a class="nav" href="https://coverage.readthedocs.io/en/7.6.2">coverage.py v7.6.2</a>,
+            created at 2024-10-12 18:55 +0200
         </p>
     </div>
 </header>
@@ -55,45 +64,45 @@
     <table class="index" data-sortable>
         <thead>
             <tr class="tablehead" title="Click to sort">
-                <th class="name left" aria-sort="none" data-shortcut="n">Module</th>
-                <th aria-sort="none" data-default-sort-order="descending" data-shortcut="s">statements</th>
-                <th aria-sort="none" data-default-sort-order="descending" data-shortcut="m">missing</th>
-                <th aria-sort="none" data-default-sort-order="descending" data-shortcut="x">excluded</th>
-                <th aria-sort="none" data-default-sort-order="descending" data-shortcut="b">branches</th>
-                <th aria-sort="none" data-default-sort-order="descending" data-shortcut="p">partial</th>
-                <th class="right" aria-sort="none" data-shortcut="c">coverage</th>
+                <th id="file" class="name left" aria-sort="none" data-shortcut="f">File<span class="arrows"></span></th>
+                <th id="statements" aria-sort="none" data-default-sort-order="descending" data-shortcut="s">statements<span class="arrows"></span></th>
+                <th id="missing" aria-sort="none" data-default-sort-order="descending" data-shortcut="m">missing<span class="arrows"></span></th>
+                <th id="excluded" aria-sort="none" data-default-sort-order="descending" data-shortcut="x">excluded<span class="arrows"></span></th>
+                <th id="branches" aria-sort="none" data-default-sort-order="descending" data-shortcut="b">branches<span class="arrows"></span></th>
+                <th id="partial" aria-sort="none" data-default-sort-order="descending" data-shortcut="p">partial<span class="arrows"></span></th>
+                <th id="coverage" class="right" aria-sort="none" data-shortcut="c">coverage<span class="arrows"></span></th>
             </tr>
         </thead>
         <tbody>
-            <tr class="file">
-                <td class="name left"><a href="d_7c5e48b88f50e873__cache_py.html">src/mkdocstrings/_cache.py</a></td>
+            <tr class="region">
+                <td class="name left"><a href="z_7c5e48b88f50e873__cache_py.html">src/mkdocstrings/_cache.py</a></td>
                 <td>43</td>
-                <td>15</td>
+                <td>30</td>
                 <td>0</td>
-                <td>15</td>
-                <td>4</td>
-                <td class="right" data-ratio="33 58">56.90%</td>
+                <td>8</td>
+                <td>0</td>
+                <td class="right" data-ratio="13 51">25.49%</td>
             </tr>
-            <tr class="file">
-                <td class="name left"><a href="d_7c5e48b88f50e873_debug_py.html">src/mkdocstrings/debug.py</a></td>
-                <td>61</td>
-                <td>61</td>
+            <tr class="region">
+                <td class="name left"><a href="z_7c5e48b88f50e873_debug_py.html">src/mkdocstrings/debug.py</a></td>
+                <td>63</td>
+                <td>63</td>
                 <td>0</td>
-                <td>20</td>
+                <td>10</td>
                 <td>0</td>
-                <td class="right" data-ratio="0 81">0.00%</td>
+                <td class="right" data-ratio="0 73">0.00%</td>
             </tr>
-            <tr class="file">
-                <td class="name left"><a href="d_7c5e48b88f50e873_extension_py.html">src/mkdocstrings/extension.py</a></td>
-                <td>114</td>
-                <td>13</td>
-                <td>4</td>
-                <td>32</td>
+            <tr class="region">
+                <td class="name left"><a href="z_7c5e48b88f50e873_extension_py.html">src/mkdocstrings/extension.py</a></td>
+                <td>123</td>
+                <td>22</td>
                 <td>5</td>
-                <td class="right" data-ratio="126 146">86.30%</td>
+                <td>36</td>
+                <td>6</td>
+                <td class="right" data-ratio="123 159">77.36%</td>
             </tr>
-            <tr class="file">
-                <td class="name left"><a href="d_fca87304f13ef3fa___init___py.html">src/mkdocstrings/handlers/__init__.py</a></td>
+            <tr class="region">
+                <td class="name left"><a href="z_fca87304f13ef3fa___init___py.html">src/mkdocstrings/handlers/__init__.py</a></td>
                 <td>0</td>
                 <td>0</td>
                 <td>0</td>
@@ -101,89 +110,98 @@
                 <td>0</td>
                 <td class="right" data-ratio="0 0">100.00%</td>
             </tr>
-            <tr class="file">
-                <td class="name left"><a href="d_fca87304f13ef3fa_base_py.html">src/mkdocstrings/handlers/base.py</a></td>
-                <td>173</td>
-                <td>18</td>
-                <td>0</td>
-                <td>54</td>
-                <td>10</td>
-                <td class="right" data-ratio="195 227">85.90%</td>
+            <tr class="region">
+                <td class="name left"><a href="z_fca87304f13ef3fa_base_py.html">src/mkdocstrings/handlers/base.py</a></td>
+                <td>174</td>
+                <td>27</td>
+                <td>3</td>
+                <td>48</td>
+                <td>14</td>
+                <td class="right" data-ratio="175 222">78.83%</td>
             </tr>
-            <tr class="file">
-                <td class="name left"><a href="d_fca87304f13ef3fa_rendering_py.html">src/mkdocstrings/handlers/rendering.py</a></td>
-                <td>117</td>
-                <td>7</td>
+            <tr class="region">
+                <td class="name left"><a href="z_fca87304f13ef3fa_rendering_py.html">src/mkdocstrings/handlers/rendering.py</a></td>
+                <td>123</td>
+                <td>6</td>
                 <td>3</td>
                 <td>44</td>
                 <td>5</td>
-                <td class="right" data-ratio="147 161">91.30%</td>
+                <td class="right" data-ratio="154 167">92.22%</td>
             </tr>
-            <tr class="file">
-                <td class="name left"><a href="d_7c5e48b88f50e873_inventory_py.html">src/mkdocstrings/inventory.py</a></td>
+            <tr class="region">
+                <td class="name left"><a href="z_7c5e48b88f50e873_inventory_py.html">src/mkdocstrings/inventory.py</a></td>
                 <td>56</td>
+                <td>34</td>
+                <td>2</td>
+                <td>16</td>
                 <td>1</td>
-                <td>0</td>
-                <td>26</td>
+                <td class="right" data-ratio="23 72">31.94%</td>
+            </tr>
+            <tr class="region">
+                <td class="name left"><a href="z_7c5e48b88f50e873_loggers_py.html">src/mkdocstrings/loggers.py</a></td>
+                <td>58</td>
+                <td>5</td>
                 <td>3</td>
-                <td class="right" data-ratio="78 82">95.12%</td>
+                <td>8</td>
+                <td>1</td>
+                <td class="right" data-ratio="60 66">90.91%</td>
             </tr>
-            <tr class="file">
-                <td class="name left"><a href="d_7c5e48b88f50e873_loggers_py.html">src/mkdocstrings/loggers.py</a></td>
-                <td>50</td>
-                <td>9</td>
-                <td>2</td>
-                <td>10</td>
-                <td>2</td>
-                <td class="right" data-ratio="47 60">78.33%</td>
-            </tr>
-            <tr class="file">
-                <td class="name left"><a href="d_7c5e48b88f50e873_plugin_py.html">src/mkdocstrings/plugin.py</a></td>
-                <td>140</td>
-                <td>7</td>
+            <tr class="region">
+                <td class="name left"><a href="z_7c5e48b88f50e873_plugin_py.html">src/mkdocstrings/plugin.py</a></td>
+                <td>142</td>
+                <td>48</td>
                 <td>3</td>
-                <td>60</td>
-                <td>10</td>
-                <td class="right" data-ratio="183 200">91.50%</td>
+                <td>38</td>
+                <td>6</td>
+                <td class="right" data-ratio="106 180">58.89%</td>
             </tr>
-            <tr class="file">
-                <td class="name left"><a href="d_a44f0ac069e85531_conftest_py.html">tests/conftest.py</a></td>
+            <tr class="region">
+                <td class="name left"><a href="z_a44f0ac069e85531_conftest_py.html">tests/conftest.py</a></td>
                 <td>27</td>
                 <td>0</td>
-                <td>4</td>
-                <td>8</td>
+                <td>5</td>
+                <td>2</td>
                 <td>0</td>
-                <td class="right" data-ratio="35 35">100.00%</td>
+                <td class="right" data-ratio="29 29">100.00%</td>
             </tr>
-            <tr class="file">
-                <td class="name left"><a href="d_a44f0ac069e85531_test_extension_py.html">tests/test_extension.py</a></td>
-                <td>62</td>
+            <tr class="region">
+                <td class="name left"><a href="z_a44f0ac069e85531_test_extension_py.html">tests/test_extension.py</a></td>
+                <td>78</td>
                 <td>0</td>
                 <td>3</td>
-                <td>14</td>
-                <td>1</td>
-                <td class="right" data-ratio="75 76">98.68%</td>
+                <td>4</td>
+                <td>0</td>
+                <td class="right" data-ratio="82 82">100.00%</td>
             </tr>
-            <tr class="file">
-                <td class="name left"><a href="d_a44f0ac069e85531_test_handlers_py.html">tests/test_handlers.py</a></td>
+            <tr class="region">
+                <td class="name left"><a href="z_a44f0ac069e85531_test_handlers_py.html">tests/test_handlers.py</a></td>
                 <td>40</td>
                 <td>0</td>
                 <td>3</td>
-                <td>10</td>
                 <td>0</td>
-                <td class="right" data-ratio="50 50">100.00%</td>
+                <td>0</td>
+                <td class="right" data-ratio="40 40">100.00%</td>
             </tr>
-            <tr class="file">
-                <td class="name left"><a href="d_a44f0ac069e85531_test_inventory_py.html">tests/test_inventory.py</a></td>
+            <tr class="region">
+                <td class="name left"><a href="z_a44f0ac069e85531_test_inventory_py.html">tests/test_inventory.py</a></td>
                 <td>34</td>
-                <td>0</td>
+                <td>24</td>
                 <td>2</td>
-                <td>16</td>
+                <td>4</td>
                 <td>0</td>
-                <td class="right" data-ratio="50 50">100.00%</td>
+                <td class="right" data-ratio="10 38">26.32%</td>
             </tr>
-            <tr class="file">
-                <td class="name left"><a href="d_a44f0ac069e85531_test_plugin_py.html">tests/test_plugin.py</a></td>
+            <tr class="region">
+                <td class="name left"><a href="z_a44f0ac069e85531_test_loggers_py.html">tests/test_loggers.py</a></td>
+                <td>30</td>
+                <td>0</td>
+                <td>0</td>
+                <td>8</td>
+                <td>0</td>
+                <td class="right" data-ratio="38 38">100.00%</td>
+            </tr>
+            <tr class="region">
+                <td class="name left"><a href="z_a44f0ac069e85531_test_plugin_py.html">tests/test_plugin.py</a></td>
                 <td>37</td>
                 <td>0</td>
                 <td>2</td>
@@ -195,12 +213,12 @@
         <tfoot>
             <tr class="total">
                 <td class="name left">Total</td>
-                <td>954</td>
-                <td>131</td>
-                <td>26</td>
-                <td>309</td>
-                <td>40</td>
-                <td class="right" data-ratio="1056 1263">83.61%</td>
+                <td>1028</td>
+                <td>259</td>
+                <td>34</td>
+                <td>226</td>
+                <td>33</td>
+                <td class="right" data-ratio="890 1254">70.97%</td>
             </tr>
         </tfoot>
     </table>
@@ -211,16 +229,16 @@
 <footer>
     <div class="content">
         <p>
-            <a class="nav" href="https://coverage.readthedocs.io/en/7.3.2">coverage.py v7.3.2</a>,
-            created at 2023-11-14 19:41 +0100
+            <a class="nav" href="https://coverage.readthedocs.io/en/7.6.2">coverage.py v7.6.2</a>,
+            created at 2024-10-12 18:55 +0200
         </p>
     </div>
     <aside class="hidden">
-        <a id="prevFileLink" class="nav" href="d_a44f0ac069e85531_test_plugin_py.html"/>
-        <a id="nextFileLink" class="nav" href="d_7c5e48b88f50e873__cache_py.html"/>
-        <button type="button" class="button_prev_file" data-shortcut="["/>
-        <button type="button" class="button_next_file" data-shortcut="]"/>
-        <button type="button" class="button_show_hide_help" data-shortcut="?"/>
+        <a id="prevFileLink" class="nav" href="z_a44f0ac069e85531_test_plugin_py.html"></a>
+        <a id="nextFileLink" class="nav" href="z_7c5e48b88f50e873__cache_py.html"></a>
+        <button type="button" class="button_prev_file" data-shortcut="["></button>
+        <button type="button" class="button_next_file" data-shortcut="]"></button>
+        <button type="button" class="button_show_hide_help" data-shortcut="?"></button>
     </aside>
 </footer>
 </body>

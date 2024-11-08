@@ -18,7 +18,7 @@ a.autorefs-external::after {
 
   height: 1em;
   width: 1em;
-  background-color: var(--md-typeset-a-color);
+  background-color: currentColor;
 }
 
 a.external:hover::after,
@@ -29,4 +29,14 @@ a.autorefs-external:hover::after {
 /* Avoid breaking parameters name, etc. in table cells. */
 td code {
   word-break: normal !important;
+}
+
+[data-md-color-scheme="default"] {
+  --doc-symbol-parameter-fg-color: #d3a81b;
+  --doc-symbol-parameter-bg-color: #d3a81b1a;
+}
+
+[data-md-color-scheme="slate"] {
+  --doc-symbol-parameter-fg-color: #dfbe50;
+  --doc-symbol-parameter-bg-color: #dfbe501a;
 }
