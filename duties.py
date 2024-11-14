@@ -137,12 +137,12 @@ def docs_deploy(ctx: Context, *, force: bool = False) -> None:
                 allow_overrides=False,
             )
             ctx.run(
-                tools.mkdocs.gh_deploy(remote_name="upstream", force=True),
+                tools.mkdocs.gh_deploy(remote_name="org-pages", force=True),
                 title="Deploying documentation",
             )
         elif force:
             ctx.run(
-                tools.mkdocs.gh_deploy(force=True),
+                tools.mkdocs.gh_deploy(remote_name="org-pages", force=True),
                 title="Deploying documentation",
             )
         else:
