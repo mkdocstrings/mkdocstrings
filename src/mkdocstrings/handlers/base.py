@@ -41,6 +41,15 @@ if TYPE_CHECKING:
 CollectorItem = Any
 
 
+# Autodoc instructions can appear in nested Markdown,
+# so we need to keep track of the Markdown conversion layer we're in.
+# Since any handler can be called from any Markdown conversion layer,
+# we need to keep track of the layer globally.
+# This global variable is incremented/decremented in `do_convert_markdown`,
+# and used in `outer_layer`.
+_markdown_conversion_layer: int = 0
+
+
 class CollectionError(Exception):
     """An exception raised when some collection of data failed."""
 
@@ -252,6 +261,11 @@ class BaseHandler:
         """
         return ()
 
+    @property
+    def outer_layer(self) -> bool:
+        """Whether we're in the outer Markdown conversion layer."""
+        return _markdown_conversion_layer == 0
+
     def do_convert_markdown(
         self,
         text: str,
@@ -272,6 +286,8 @@ class BaseHandler:
         Returns:
             An HTML string.
         """
+        global _markdown_conversion_layer  # noqa: PLW0603
+        _markdown_conversion_layer += 1
         treeprocessors = self._md.treeprocessors
         treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = heading_level  # type: ignore[attr-defined]
         treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"  # type: ignore[attr-defined]
@@ -288,6 +304,7 @@ class BaseHandler:
             treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False  # type: ignore[attr-defined]
             self._md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # type: ignore[attr-defined]
             self._md.reset()
+            _markdown_conversion_layer -= 1
 
     def do_heading(
         self,
