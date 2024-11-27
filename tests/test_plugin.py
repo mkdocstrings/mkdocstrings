@@ -48,6 +48,7 @@ def test_plugin_default_config(tmp_path: Path) -> None:
         "custom_templates": None,
         "enable_inventory": None,
         "enabled": True,
+        "language": None,
     }
 
 
@@ -68,4 +69,5 @@ def test_plugin_config_custom_templates(tmp_path: Path) -> None:
         "custom_templates": str(template_dir),
         "enable_inventory": None,
         "enabled": True,
+        "language": None,
     }
