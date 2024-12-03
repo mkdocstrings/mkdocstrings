@@ -441,7 +441,7 @@ markdown_extensions:
 
 Then in your docstrings, indented code blocks will be highlighted as Python code:
 
-```
+```python
 def my_function():
     """This is my function.
 
@@ -452,5 +452,5 @@ def my_function():
 
     End of the docstring.
     """
-    ...
+    pass
 ```
