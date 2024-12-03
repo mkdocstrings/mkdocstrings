@@ -405,3 +405,24 @@ Try to select the following code block's text:
 ...     print(word, end=" ")
 Hello mkdocstrings!
 ```
+
+## Hide documentation strings from source code blocks
+
+Since documentation strings are rendered by handlers, it can sometimes feel redundant to show these same documentation strings in source code blocks (when handlers render those).
+
+There is a general workaround to hide these docstrings from source blocks using CSS:
+
+```css
+/* These CSS classes depend on the handler. */
+.doc-contents details .highlight code {
+  line-height: 0;
+}
+.doc-contents details .highlight code > * {
+  line-height: initial;
+}
+.doc-contents details .highlight code > .sd {  /* Literal.String.Doc */
+  display: none;
+}
+```
+
+Note that this is considered a workaround and not a proper solution, because it has side-effects like also removing blank lines.
