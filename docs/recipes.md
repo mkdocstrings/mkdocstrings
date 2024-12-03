@@ -3,6 +3,8 @@ for *mkdocstrings* and more generally Markdown documentation.
 
 ## Automatic code reference pages
 
+TIP: **[mkdocs-autoapi](https://github.com/jcayers20/mkdocs-autoapi) is a MkDocs plugin that automatically generates API documentation from your project's source code. It was inspired by the recipe below.**
+
 *mkdocstrings* allows to inject documentation for any object
 into Markdown pages. But as the project grows, it quickly becomes
 quite tedious to keep the autodoc instructions, or even the dedicated

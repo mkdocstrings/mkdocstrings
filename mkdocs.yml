@@ -100,7 +100,8 @@ extra_javascript:
 markdown_extensions:
 - attr_list
 - admonition
-- callouts
+- callouts:
+    strip_period: false
 - footnotes
 - pymdownx.details
 - pymdownx.emoji:
