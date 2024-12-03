@@ -426,3 +426,29 @@ There is a general workaround to hide these docstrings from source blocks using 
 ```
 
 Note that this is considered a workaround and not a proper solution, because it has side-effects like also removing blank lines.
+
+## Automatic highlighting for indented code blocks in docstrings
+
+Depending on the language used in your code base and the mkdocstrings handler used to document it, you might want to set a default syntax for code blocks added to your docstrings. For example, to default to the Python syntax:
+
+```yaml title="mkdocs.yml"
+markdown_extensions:
+- pymdownx.highlight:
+    default_lang: python
+```
+
+Then in your docstrings, indented code blocks will be highlighted as Python code:
+
+```
+def my_function():
+    """This is my function.
+
+    The following code will be highlighted as Python:
+
+        result = my_function()
+        print(result)
+
+    End of the docstring.
+    """
+    ...
+```
