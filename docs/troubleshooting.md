@@ -289,5 +289,18 @@ def my_function():
     """
 ```
 
+### Submodules are not rendered
+
+In previous versions of mkdocstrings-python, submodules were rendered by default. This was changed and you now need to set the following option:
+
+```yaml title="mkdocs.yml"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_submodules: true
+```
+
 [bugtracker]: https://github.com/mkdocstrings/mkdocstrings
 [markdown-katex]: https://gitlab.com/mbarkhau/markdown-katex
