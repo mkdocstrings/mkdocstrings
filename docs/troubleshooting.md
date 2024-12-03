@@ -238,5 +238,56 @@ def my_function(*args, **kwargs):
     print(*args, **kwargs)
 ```
 
+## Footnotes do not render
+
+The library that parses docstrings, [Griffe](https://mkdocstrings.github.io/griffe/), splits docstrings in several "sections" (example: [Google-style sections syntax](https://mkdocstrings.github.io/griffe/reference/docstrings/#google-syntax)). If a footnote is used in a section, while referenced in another, mkdocstrings won't be able to render it correctly. The footnote and its reference must appear in the same section.
+
+```python
+def my_function():
+    """Summary.
+
+    This is the first section[^1].
+
+    Note:
+        This is the second section[^2].
+
+    Note:
+        This is the third section[^3].
+
+    References at the end are part of yet another section (fourth here)[^4].
+
+    [^1]: Some text.
+    [^2]: Some text.
+    [^3]: Some text.
+    [^4]: Some text.
+    """
+```
+
+Here only the fourth footnote will work, because it is the only one that appear in the same section as its reference. To fix this, make sure all footnotes appear in the same section as their references:
+
+```python
+def my_function():
+    """Summary.
+
+    This is the first section[^1].
+
+    [^1]: Some text.
+
+    Note:
+        This is the second section[^2].
+
+        [^2]: Some text.
+
+    Note:
+        This is the third section[^3].
+    
+        [^3]: Some text.
+
+    References at the end are part of yet another section (fourth here)[^4].
+
+    [^4]: Some text.
+    """
+```
+
 [bugtracker]: https://github.com/mkdocstrings/mkdocstrings
 [markdown-katex]: https://gitlab.com/mbarkhau/markdown-katex
