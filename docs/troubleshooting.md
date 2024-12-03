@@ -238,7 +238,7 @@ def my_function(*args, **kwargs):
     print(*args, **kwargs)
 ```
 
-## Footnotes do not render
+### Footnotes do not render
 
 The library that parses docstrings, [Griffe](https://mkdocstrings.github.io/griffe/), splits docstrings in several "sections" (example: [Google-style sections syntax](https://mkdocstrings.github.io/griffe/reference/docstrings/#google-syntax)). If a footnote is used in a section, while referenced in another, mkdocstrings won't be able to render it correctly. The footnote and its reference must appear in the same section.
 
