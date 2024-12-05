@@ -69,10 +69,13 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
 [Apache](https://streampipes.apache.org/docs/docs/python/latest/reference/client/client/),
 [FastAPI](https://fastapi.tiangolo.com/reference/fastapi/),
 [Google](https://docs.kidger.site/jaxtyping/api/runtime-type-checking/),
+[IBM](https://ds4sd.github.io/docling/api_reference/document_converter/),
 [Jitsi](https://jitsi.github.io/jiwer/reference/alignment/),
 [Microsoft](https://microsoft.github.io/presidio/api/analyzer_python/),
+[NVIDIA](https://nvidia.github.io/bionemo-framework/API_reference/bionemo/core/api/),
 [Prefect](https://docs.prefect.io/2.10.12/api-ref/prefect/agent/),
 [Pydantic](https://docs.pydantic.dev/dev-v2/api/main/),
+[Textual](https://textual.textualize.io/api/app/),
 [and more...](https://github.com/mkdocstrings/mkdocstrings/network/dependents)
 
 ## Installation
