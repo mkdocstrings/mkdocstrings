@@ -587,6 +587,17 @@ class Handlers:
         """
         return config.get("handler", self._default)
 
+    def get_handler_config(self, name: str) -> dict:
+        """Return the global configuration of the given handler.
+
+        Arguments:
+            name: The name of the handler to get the global configuration of.
+
+        Returns:
+            The global configuration of the given handler. It can be an empty dictionary.
+        """
+        return self._handlers_config.get(name, None) or {}
+
     def get_handler(self, name: str, handler_config: dict | None = None) -> BaseHandler:
         """Get a handler thanks to its name.
 
