@@ -6,9 +6,11 @@ This module contains the base classes for implementing handlers.
 from __future__ import annotations
 
 import importlib
+import inspect
 import sys
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar, cast
+from warnings import warn
 from xml.etree.ElementTree import Element, tostring
 
 from jinja2 import Environment, FileSystemLoader
@@ -34,11 +36,14 @@ else:
     from importlib.metadata import entry_points
 
 if TYPE_CHECKING:
-    from collections.abc import Iterable, Iterator, Mapping, MutableMapping, Sequence
+    from collections.abc import Iterable, Iterator, Mapping, Sequence
 
+    from markdown import Extension
     from mkdocs_autorefs.references import AutorefsHookInterface
 
+
 CollectorItem = Any
+HandlerConfig = Any
 
 
 # Autodoc instructions can appear in nested Markdown,
@@ -89,44 +94,122 @@ class BaseHandler:
     To add custom CSS, add an `extra_css` variable or create an 'style.css' file beside the templates.
     """
 
-    # TODO: Make name mandatory?
-    name: str = ""
+    # YORE: Bump 1: Replace ` = ""` with `` within line.
+    name: ClassVar[str] = ""
     """The handler's name, for example "python"."""
-    domain: str = "default"
+
+    # YORE: Bump 1: Replace ` = ""` with `` within line.
+    domain: ClassVar[str] = ""
     """The handler's domain, used to register objects in the inventory, for example "py"."""
-    enable_inventory: bool = False
+
+    enable_inventory: ClassVar[bool] = False
     """Whether the inventory creation is enabled."""
+
     fallback_config: ClassVar[dict] = {}
     """Fallback configuration when searching anchors for identifiers."""
-    fallback_theme: str = ""
+
+    fallback_theme: ClassVar[str] = ""
     """Fallback theme to use when a template isn't found in the configured theme."""
-    extra_css = ""
+
+    extra_css: str = ""
     """Extra CSS."""
 
-    def __init__(self, handler: str, theme: str, custom_templates: str | None = None) -> None:
+    def __init__(
+        self,
+        # YORE: Bump 1: Remove line.
+        *args: Any,
+        # YORE: Bump 1: Remove line.
+        **kwargs: Any,
+        # YORE: Bump 1: Replace `# ` with `` within block.
+        # *,
+        # theme: str,
+        # custom_templates: str | None,
+        # mdx: Sequence[str | Extension],
+        # mdx_config: Mapping[str, Any],
+    ) -> None:
         """Initialize the object.
 
         If the given theme is not supported (it does not exist), it will look for a `fallback_theme` attribute
         in `self` to use as a fallback theme.
 
-        Arguments:
-            handler: The name of the handler.
-            theme: The name of theme to use.
-            custom_templates: Directory containing custom templates.
+        Keyword Arguments:
+            theme (str): The theme to use.
+            custom_templates (str | None): The path to custom templates.
+            mdx (list[str | Extension]): A list of Markdown extensions to use.
+            mdx_config (Mapping[str, Mapping[str, Any]]): Configuration for the Markdown extensions.
         """
+        # YORE: Bump 1: Remove block.
+        handler = ""
+        theme = ""
+        custom_templates = None
+        if args:
+            handler, args = args[0], args[1:]
+        if args:
+            theme, args = args[0], args[1:]
+            warn(
+                "The `theme` argument must be passed as a keyword argument.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+        if args:
+            custom_templates, args = args[0], args[1:]
+            warn(
+                "The `custom_templates` argument must be passed as a keyword argument.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+        handler = kwargs.pop("handler", handler)
+        theme = kwargs.pop("theme", theme)
+        custom_templates = kwargs.pop("custom_templates", custom_templates)
+        mdx = kwargs.pop("mdx", None)
+        mdx_config = kwargs.pop("mdx_config", None)
+        if handler:
+            if not self.name:
+                type(self).name = handler
+            warn(
+                "The `handler` argument is deprecated. The handler name must be specified as a class attribute.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+        if not self.domain:
+            warn(
+                "The `domain` attribute must be specified as a class attribute.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+        if mdx is None:
+            warn(
+                "The `mdx` argument must be provided (as a keyword argument).",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+        if mdx_config is None:
+            warn(
+                "The `mdx_config` argument must be provided (as a keyword argument).",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+
+        self.theme = theme
+        self.custom_templates = custom_templates
+        self.mdx = mdx
+        self.mdx_config = mdx_config
+        self._md: Markdown | None = None
+        self._headings: list[Element] = []
+
         paths = []
 
         # add selected theme templates
-        themes_dir = self.get_templates_dir(handler)
-        paths.append(themes_dir / theme)
+        themes_dir = self.get_templates_dir(self.name)
+        paths.append(themes_dir / self.theme)
 
         # add extended theme templates
-        extended_templates_dirs = self.get_extended_templates_dirs(handler)
+        extended_templates_dirs = self.get_extended_templates_dirs(self.name)
         for templates_dir in extended_templates_dirs:
-            paths.append(templates_dir / theme)
+            paths.append(templates_dir / self.theme)
 
         # add fallback theme templates
-        if self.fallback_theme and self.fallback_theme != theme:
+        if self.fallback_theme and self.fallback_theme != self.theme:
             paths.append(themes_dir / self.fallback_theme)
 
             # add fallback theme of extended templates
@@ -139,8 +222,8 @@ class BaseHandler:
                 self.extra_css += "\n" + css_path.read_text(encoding="utf-8")
                 break
 
-        if custom_templates is not None:
-            paths.insert(0, Path(custom_templates) / handler / theme)
+        if self.custom_templates is not None:
+            paths.insert(0, Path(self.custom_templates) / self.name / self.theme)
 
         self.env = Environment(
             autoescape=True,
@@ -150,8 +233,16 @@ class BaseHandler:
         self.env.filters["any"] = do_any
         self.env.globals["log"] = get_template_logger(self.name)
 
-        self._headings: list[Element] = []
-        self._md: Markdown = None  # type: ignore[assignment]  # To be populated in `update_env`.
+    @property
+    def md(self) -> Markdown:
+        """The Markdown instance.
+
+        Raises:
+            RuntimeError: When the Markdown instance is not set yet.
+        """
+        if self._md is None:
+            raise RuntimeError("Markdown instance not set yet")
+        return self._md
 
     @classmethod
     def load_inventory(
@@ -288,22 +379,22 @@ class BaseHandler:
         """
         global _markdown_conversion_layer  # noqa: PLW0603
         _markdown_conversion_layer += 1
-        treeprocessors = self._md.treeprocessors
+        treeprocessors = self.md.treeprocessors
         treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = heading_level  # type: ignore[attr-defined]
         treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"  # type: ignore[attr-defined]
         treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph  # type: ignore[attr-defined]
 
         if autoref_hook:
-            self._md.inlinePatterns[AutorefsInlineProcessor.name].hook = autoref_hook  # type: ignore[attr-defined]
+            self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = autoref_hook  # type: ignore[attr-defined]
 
         try:
-            return Markup(self._md.convert(text))
+            return Markup(self.md.convert(text))
         finally:
             treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0  # type: ignore[attr-defined]
             treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""  # type: ignore[attr-defined]
             treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False  # type: ignore[attr-defined]
-            self._md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # type: ignore[attr-defined]
-            self._md.reset()
+            self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # type: ignore[attr-defined]
+            self.md.reset()
             _markdown_conversion_layer -= 1
 
     def do_heading(
@@ -355,7 +446,7 @@ class BaseHandler:
         el = Element(f"h{heading_level}", attributes)
         el.append(Element("mkdocstrings-placeholder"))
         # Tell the inner 'toc' extension to make its additions if configured so.
-        toc = cast(TocTreeprocessor, self._md.treeprocessors["toc"])
+        toc = cast(TocTreeprocessor, self.md.treeprocessors["toc"])
         if toc.use_anchors:
             toc.add_anchor(el, attributes["id"])
         if toc.use_permalinks:
@@ -381,29 +472,45 @@ class BaseHandler:
         self._headings.clear()
         return result
 
-    def update_env(self, md: Markdown, config: dict) -> None:  # noqa: ARG002
-        """Update the Jinja environment.
+    # YORE: Bump 1: Replace `*args: Any, **kwargs: Any` with `config: Any`.
+    def update_env(self, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
+        """Update the Jinja environment."""
+        # YORE: Bump 1: Remove line.
+        warn("No need to call `super().update_env()` anymore.", DeprecationWarning, stacklevel=2)
 
-        Arguments:
-            md: The Markdown instance. Useful to add functions able to convert Markdown into the environment filters.
-            config: Configuration options for `mkdocs` and `mkdocstrings`, read from `mkdocs.yml`. See the source code
-                of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.
-        """
-        self._md = md
-        self.env.filters["highlight"] = Highlighter(md).highlight
-        self.env.filters["convert_markdown"] = self.do_convert_markdown
-        self.env.filters["heading"] = self.do_heading
-
-    def _update_env(self, md: Markdown, config: dict) -> None:
+    def _update_env(self, md: Markdown, *, config: Any | None = None) -> None:
         """Update our handler to point to our configured Markdown instance, grabbing some of the config from `md`."""
-        extensions = config["mdx"] + [MkdocstringsInnerExtension(self._headings)]
+        # YORE: Bump 1: Remove block.
+        if self.mdx is None and config is not None:
+            self.mdx = config.get("mdx", None) or config.get("markdown_extensions", None) or ()
+        if self.mdx_config is None and config is not None:
+            self.mdx_config = config.get("mdx_config", None) or config.get("mdx_configs", None) or {}
 
-        new_md = Markdown(extensions=extensions, extension_configs=config["mdx_configs"])
+        extensions: list[str | Extension] = [*self.mdx, MkdocstringsInnerExtension(self._headings)]
+
+        new_md = Markdown(extensions=extensions, extension_configs=self.mdx_config)
+
         # MkDocs adds its own (required) extension that's not part of the config. Propagate it.
         if "relpath" in md.treeprocessors:
             new_md.treeprocessors.register(md.treeprocessors["relpath"], "relpath", priority=0)
 
-        self.update_env(new_md, config)
+        self._md = new_md
+
+        self.env.filters["highlight"] = Highlighter(new_md).highlight
+        self.env.filters["convert_markdown"] = self.do_convert_markdown
+        self.env.filters["heading"] = self.do_heading
+
+        # YORE: Bump 1: Replace block with `self.update_env(config)`.
+        parameters = inspect.signature(self.update_env).parameters
+        if "md" in parameters:
+            warn(
+                "The `update_env(md)` parameter is deprecated. Use `self.md` instead.",
+                DeprecationWarning,
+                stacklevel=1,
+            )
+            self.update_env(new_md, config)
+        elif "config" in parameters:
+            self.update_env(config)
 
 
 class Handlers:
@@ -413,16 +520,42 @@ class Handlers:
     this for the purpose of caching. Use [mkdocstrings.plugin.MkdocstringsPlugin.get_handler][] for convenient access.
     """
 
-    def __init__(self, config: dict) -> None:
+    def __init__(
+        self,
+        *,
+        theme: str,
+        default: str,
+        inventory_project: str,
+        inventory_version: str = "0.0.0",
+        handlers_config: dict[str, HandlerConfig] | None = None,
+        custom_templates: str | None = None,
+        mdx: Sequence[str | Extension] | None = None,
+        mdx_config: Mapping[str, Any] | None = None,
+        tool_config: Any,
+    ) -> None:
         """Initialize the object.
 
         Arguments:
-            config: Configuration options for `mkdocs` and `mkdocstrings`, read from `mkdocs.yml`. See the source code
-                of [mkdocstrings.plugin.MkdocstringsPlugin.on_config][] to see what's in this dictionary.
+            theme: The theme to use.
+            default: The default handler to use.
+            inventory_project: The project name to use in the inventory.
+            inventory_version: The project version to use in the inventory.
+            handlers_config: The handlers configuration.
+            custom_templates: The path to custom templates.
+            mdx: A list of Markdown extensions to use.
+            mdx_config: Configuration for the Markdown extensions.
+            tool_config: Tool configuration to pass down to handlers.
         """
-        self._config = config
+        self._theme = theme
+        self._default = default
+        self._handlers_config = handlers_config or {}
+        self._custom_templates = custom_templates
+        self._mdx = mdx or []
+        self._mdx_config = mdx_config or {}
         self._handlers: dict[str, BaseHandler] = {}
-        self.inventory: Inventory = Inventory(project=self._config["mkdocs"]["site_name"])
+        self._tool_config = tool_config
+
+        self.inventory: Inventory = Inventory(project=inventory_project, version=inventory_version)
 
     def get_anchors(self, identifier: str) -> tuple[str, ...]:
         """Return the canonical HTML anchor for the identifier, if any of the seen handlers can collect it.
@@ -452,24 +585,7 @@ class Handlers:
         Returns:
             The name of the handler to use.
         """
-        global_config = self._config["mkdocstrings"]
-        if "handler" in config:
-            return config["handler"]
-        return global_config["default_handler"]
-
-    def get_handler_config(self, name: str) -> dict:
-        """Return the global configuration of the given handler.
-
-        Arguments:
-            name: The name of the handler to get the global configuration of.
-
-        Returns:
-            The global configuration of the given handler. It can be an empty dictionary.
-        """
-        handlers = self._config["mkdocstrings"].get("handlers", {})
-        if handlers:
-            return handlers.get(name, {})
-        return {}
+        return config.get("handler", self._default)
 
     def get_handler(self, name: str, handler_config: dict | None = None) -> BaseHandler:
         """Get a handler thanks to its name.
@@ -489,14 +605,15 @@ class Handlers:
         """
         if name not in self._handlers:
             if handler_config is None:
-                handler_config = self.get_handler_config(name)
-            handler_config.update(self._config)
+                handler_config = self._handlers_config.get(name, {})
             module = importlib.import_module(f"mkdocstrings_handlers.{name}")
             self._handlers[name] = module.get_handler(
-                theme=self._config["theme_name"],
-                custom_templates=self._config["mkdocstrings"]["custom_templates"],
-                config_file_path=self._config["mkdocs"]["config_file_path"],
-                **handler_config,
+                theme=self._theme,
+                custom_templates=self._custom_templates,
+                mdx=self._mdx,
+                mdx_config=self._mdx_config,
+                handler_config=handler_config,
+                tool_config=self._tool_config,
             )
         return self._handlers[name]
 

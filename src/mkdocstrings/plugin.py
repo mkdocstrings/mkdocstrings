@@ -156,8 +156,6 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             return config
         log.debug("Adding extension to the list")
 
-        theme_name = config.theme.name or os.path.dirname(config.theme.dirs[0])
-
         to_import: InventoryImportType = []
         for handler_name, conf in self.config.handlers.items():
             for import_item in conf.pop("import", ()):
@@ -165,14 +163,17 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
                     import_item = {"url": import_item}  # noqa: PLW2901
                 to_import.append((handler_name, import_item))
 
-        extension_config = {
-            "theme_name": theme_name,
-            "mdx": config.markdown_extensions,
-            "mdx_configs": config.mdx_configs,
-            "mkdocstrings": self.config,
-            "mkdocs": config,
-        }
-        self._handlers = Handlers(extension_config)
+        handlers = Handlers(
+            default=self.config.default_handler,
+            handlers_config=self.config.handlers,
+            theme=config.theme.name or os.path.dirname(config.theme.dirs[0]),
+            custom_templates=self.config.custom_templates,
+            mdx=config.markdown_extensions,
+            mdx_config=config.mdx_configs,
+            inventory_project=config.site_name,
+            inventory_version="0.0.0",  # TODO: Find a way to get actual version.
+            tool_config=config,
+        )
 
         autorefs: AutorefsPlugin
         try:
@@ -187,18 +188,20 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             config.plugins["autorefs"] = autorefs
             log.debug("Added a subdued autorefs instance %r", autorefs)
         # Add collector-based fallback in either case.
-        autorefs.get_fallback_anchor = self.handlers.get_anchors
+        autorefs.get_fallback_anchor = handlers.get_anchors
 
-        mkdocstrings_extension = MkdocstringsExtension(extension_config, self.handlers, autorefs)
+        mkdocstrings_extension = MkdocstringsExtension(handlers, autorefs)
         config.markdown_extensions.append(mkdocstrings_extension)  # type: ignore[arg-type]
 
         config.extra_css.insert(0, self.css_filename)  # So that it has lower priority than user files.
+
+        self._handlers = handlers
 
         self._inv_futures = {}
         if to_import:
             inv_loader = futures.ThreadPoolExecutor(4)
             for handler_name, import_item in to_import:
-                loader = self.get_handler(handler_name).load_inventory
+                loader = handlers.get_handler(handler_name).load_inventory
                 future = inv_loader.submit(
                     self._load_inventory,  # type: ignore[misc]
                     loader,
