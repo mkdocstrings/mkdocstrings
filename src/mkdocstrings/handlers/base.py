@@ -265,7 +265,7 @@ class BaseHandler:
         """
         yield from ()
 
-    def collect(self, identifier: str, config: MutableMapping[str, Any]) -> CollectorItem:
+    def collect(self, identifier: str, config: Mapping[str, Any]) -> CollectorItem:
         """Collect data given an identifier and user configuration.
 
         In the implementation, you typically call a subprocess that returns JSON, and load that JSON again into
