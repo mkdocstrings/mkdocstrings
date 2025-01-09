@@ -167,9 +167,9 @@ def math_function(x, y):
 
 ### My docstrings in comments (`#:`) are not picked up
 
-It's because we do not support type annotations in comments.
+We only support docstrings in comments through the [griffe-sphinx](https://mkdocstrings.github.io/griffe-sphinx) extension.
 
-So instead of:
+Alternatively, instead of:
 
 ```python
 import enum
@@ -187,15 +187,11 @@ import enum
 
 
 class MyEnum(enum.Enum):
-    """My enum.
-
-    Attributes:
-        v1: The first choice.
-        v2: The second choice.
-    """
-
     v1 = 1
+    """The first choice."""
+
     v2 = 2
+    """The second choice."""
 ```
 
 Or:
@@ -205,11 +201,15 @@ import enum
 
 
 class MyEnum(enum.Enum):
-    v1 = 1
-    """The first choice."""
+    """My enum.
 
+    Attributes:
+        v1: The first choice.
+        v2: The second choice.
+    """
+
+    v1 = 1
     v2 = 2
-    """The second choice."""
 ```
 
 ### My wrapped function shows documentation/code for its wrapper instead of its own
