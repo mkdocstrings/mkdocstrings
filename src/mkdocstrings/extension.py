@@ -42,7 +42,6 @@ if TYPE_CHECKING:
     from collections.abc import MutableSequence
 
     from markdown import Markdown
-    from markdown.blockparser import BlockParser
     from mkdocs_autorefs.plugin import AutorefsPlugin
 
 
@@ -63,24 +62,20 @@ class AutoDocProcessor(BlockProcessor):
 
     def __init__(
         self,
-        parser: BlockParser,
         md: Markdown,
-        config: dict,
+        *,
         handlers: Handlers,
         autorefs: AutorefsPlugin,
     ) -> None:
         """Initialize the object.
 
         Arguments:
-            parser: A `markdown.blockparser.BlockParser` instance.
             md: A `markdown.Markdown` instance.
-            config: The [configuration][mkdocstrings.plugin.PluginConfig] of the `mkdocstrings` plugin.
             handlers: The handlers container.
             autorefs: The autorefs plugin instance.
         """
-        super().__init__(parser=parser)
+        super().__init__(parser=md.parser)
         self.md = md
-        self._config = config
         self._handlers = handlers
         self._autorefs = autorefs
         self._updated_envs: set = set()
@@ -187,19 +182,18 @@ class AutoDocProcessor(BlockProcessor):
 
         if handler_name not in self._updated_envs:  # We haven't seen this handler before on this document.
             log.debug("Updating handler's rendering env")
-            handler._update_env(self.md, self._config)
+            handler._update_env(self.md, config=self._handlers._tool_config)
             self._updated_envs.add(handler_name)
 
         log.debug("Rendering templates")
         try:
             rendered = handler.render(data, options)
         except TemplateNotFound as exc:
-            theme_name = self._config["theme_name"]
             log.error(  # noqa: TRY400
                 "Template '%s' not found for '%s' handler and theme '%s'.",
                 exc.name,
                 handler_name,
-                theme_name,
+                self._handlers._theme,
             )
             raise
 
@@ -304,18 +298,15 @@ class MkdocstringsExtension(Extension):
     It cannot work outside of `mkdocstrings`.
     """
 
-    def __init__(self, config: dict, handlers: Handlers, autorefs: AutorefsPlugin, **kwargs: Any) -> None:
+    def __init__(self, handlers: Handlers, autorefs: AutorefsPlugin, **kwargs: Any) -> None:
         """Initialize the object.
 
         Arguments:
-            config: The configuration items from `mkdocs` and `mkdocstrings` that must be passed to the block processor
-                when instantiated in [`extendMarkdown`][mkdocstrings.extension.MkdocstringsExtension.extendMarkdown].
             handlers: The handlers container.
             autorefs: The autorefs plugin instance.
             **kwargs: Keyword arguments used by `markdown.extensions.Extension`.
         """
         super().__init__(**kwargs)
-        self._config = config
         self._handlers = handlers
         self._autorefs = autorefs
 
@@ -328,7 +319,7 @@ class MkdocstringsExtension(Extension):
             md: A `markdown.Markdown` instance.
         """
         md.parser.blockprocessors.register(
-            AutoDocProcessor(md.parser, md, self._config, self._handlers, self._autorefs),
+            AutoDocProcessor(md, handlers=self._handlers, autorefs=self._autorefs),
             "mkdocstrings",
             priority=75,  # Right before markdown.blockprocessors.HashHeaderProcessor
         )
