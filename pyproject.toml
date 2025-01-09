@@ -30,13 +30,12 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
-    "click>=7.0",
     "Jinja2>=2.11.1",
     "Markdown>=3.6",
     "MarkupSafe>=1.1",
     "mkdocs>=1.4",
     "mkdocs-autorefs>=1.2",
-    "platformdirs>=2.2",
+    "mkdocs-get-deps>=0.2",  # TODO: Remove when we depend on mkdocs>=1.5.
     "pymdown-extensions>=6.3",
     "importlib-metadata>=4.6; python_version < '3.10'",
     "typing-extensions>=4.1; python_version < '3.10'",

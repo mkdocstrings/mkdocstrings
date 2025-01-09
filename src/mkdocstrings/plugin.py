@@ -29,7 +29,10 @@ from mkdocs.plugins import BasePlugin
 from mkdocs.utils import write_file
 from mkdocs_autorefs.plugin import AutorefsConfig, AutorefsPlugin
 
-from mkdocstrings._cache import download_and_cache_url, download_url_with_gz
+# TODO: Replace with `from mkdocs.utils.cache import download_and_cache_url` when we depend on mkdocs>=1.5.
+from mkdocs_get_deps.cache import download_and_cache_url
+
+from mkdocstrings._cache import download_url_with_gz
 from mkdocstrings.extension import MkdocstringsExtension
 from mkdocstrings.handlers.base import BaseHandler, Handlers
 from mkdocstrings.loggers import get_logger
@@ -323,7 +326,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             A mapping from identifier to absolute URL.
         """
         log.debug("Downloading inventory from %s", url)
-        content = download_and_cache_url(url, download_url_with_gz, datetime.timedelta(days=1))
+        content = download_and_cache_url(url, datetime.timedelta(days=1), download=download_url_with_gz)
         result = dict(loader(BytesIO(content), url=url, **kwargs))
         log.debug("Loaded inventory from %s: %s items", url, len(result))
         return result
