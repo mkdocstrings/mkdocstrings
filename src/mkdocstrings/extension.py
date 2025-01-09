@@ -233,7 +233,20 @@ class AutoDocProcessor(BlockProcessor):
         if page is not None:
             for heading in headings:
                 rendered_anchor = heading.attrib["id"]
-                self._autorefs.register_anchor(page, rendered_anchor)
+                self._autorefs.register_anchor(page, rendered_anchor, primary=True)
+
+                # Register all identifiers for this object
+                # both in the autorefs plugin and in the inventory.
+                try:
+                    data_object = handler.collect(rendered_anchor, handler.fallback_config)
+                except CollectionError:
+                    anchors = ()
+                else:
+                    anchors = handler.get_anchors(data_object)
+
+                for anchor in anchors:
+                    if anchor != rendered_anchor:
+                        self._autorefs.register_anchor(page, anchor, rendered_anchor, primary=False)
 
                 if "data-role" in heading.attrib:
                     self._handlers.inventory.register(
@@ -243,13 +256,7 @@ class AutoDocProcessor(BlockProcessor):
                         priority=1,  # Register with standard priority.
                         uri=f"{page}#{rendered_anchor}",
                     )
-
-                    # Also register other anchors for this object in the inventory.
-                    try:
-                        data_object = handler.collect(rendered_anchor, handler.fallback_config)
-                    except CollectionError:
-                        continue
-                    for anchor in handler.get_anchors(data_object):
+                    for anchor in anchors:
                         if anchor not in self._handlers.inventory:
                             self._handlers.inventory.register(
                                 name=anchor,
