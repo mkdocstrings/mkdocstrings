@@ -143,6 +143,8 @@ plugins:
         - https://mkdocstrings.github.io/autorefs/objects.inv
         - https://www.mkdocs.org/objects.inv
         - https://python-markdown.github.io/objects.inv
+        - https://jinja.palletsprojects.com/en/stable/objects.inv
+        - https://markupsafe.palletsprojects.com/en/stable/objects.inv
         paths: [src]
         options:
           docstring_options:
