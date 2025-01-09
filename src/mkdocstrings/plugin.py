@@ -37,14 +37,15 @@ from mkdocstrings.extension import MkdocstringsExtension
 from mkdocstrings.handlers.base import BaseHandler, Handlers
 from mkdocstrings.loggers import get_logger
 
-if TYPE_CHECKING:
-    from jinja2.environment import Environment
-    from mkdocs.config.defaults import MkDocsConfig
-
 if sys.version_info < (3, 10):
     from typing_extensions import ParamSpec
 else:
     from typing import ParamSpec
+
+if TYPE_CHECKING:
+    from jinja2.environment import Environment
+    from mkdocs.config.defaults import MkDocsConfig
+
 
 log = get_logger(__name__)
 
