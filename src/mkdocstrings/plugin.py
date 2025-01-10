@@ -191,7 +191,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             autorefs.scan_toc = False
             config.plugins["autorefs"] = autorefs
             log.debug("Added a subdued autorefs instance %r", autorefs)
-        # Add collector-based fallback in either case.
+        # YORE: Bump 1: Remove line.
         autorefs.get_fallback_anchor = handlers.get_anchors
 
         mkdocstrings_extension = MkdocstringsExtension(handlers, autorefs)

@@ -573,6 +573,7 @@ class Handlers:
 
         self.inventory: Inventory = Inventory(project=inventory_project, version=inventory_version)
 
+    # YORE: Bump 1: Remove block.
     def get_anchors(self, identifier: str) -> tuple[str, ...]:
         """Return the canonical HTML anchor for the identifier, if any of the seen handlers can collect it.
 
