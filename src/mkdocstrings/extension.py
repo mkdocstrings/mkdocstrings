@@ -225,7 +225,7 @@ class AutoDocProcessor(BlockProcessor):
         element.extend(headings)
         # These duplicated headings will later be removed by our `_HeadingsPostProcessor` processor,
         # which runs right after `toc` (see `MkdocstringsExtension.extendMarkdown`).
-
+        #
         # If we were in an inner handler layer, we wouldn't do any of this
         # and would just let headings bubble up to the outer handler layer.
 
