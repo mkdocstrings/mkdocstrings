@@ -26,6 +26,7 @@ from __future__ import annotations
 import re
 from collections import ChainMap
 from typing import TYPE_CHECKING, Any
+from warnings import warn
 from xml.etree.ElementTree import Element
 
 import yaml
@@ -232,38 +233,50 @@ class AutoDocProcessor(BlockProcessor):
         page = self._autorefs.current_page
         if page is not None:
             for heading in headings:
-                rendered_anchor = heading.attrib["id"]
-                self._autorefs.register_anchor(page, rendered_anchor, primary=True)
+                rendered_id = heading.attrib["id"]
+                self._autorefs.register_anchor(page, rendered_id, primary=True)
 
                 # Register all identifiers for this object
                 # both in the autorefs plugin and in the inventory.
-                try:
-                    data_object = handler.collect(rendered_anchor, handler.fallback_config)
-                except CollectionError:
-                    anchors = ()
+                aliases: tuple[str, ...]
+                # YORE: Bump 1: Replace block with line 16.
+                if hasattr(handler, "get_anchors"):
+                    warn(
+                        "The `get_anchors` method is deprecated. "
+                        "Declare a `get_aliases` method instead, accepting a string (identifier) "
+                        "instead of a collected object.",
+                        DeprecationWarning,
+                        stacklevel=1,
+                    )
+                    try:
+                        data_object = handler.collect(rendered_id, handler.fallback_config)
+                    except CollectionError:
+                        aliases = ()
+                    else:
+                        aliases = handler.get_anchors(data_object)
                 else:
-                    anchors = handler.get_anchors(data_object)
+                    aliases = handler.get_aliases(rendered_id)
 
-                for anchor in anchors:
-                    if anchor != rendered_anchor:
-                        self._autorefs.register_anchor(page, anchor, rendered_anchor, primary=False)
+                for alias in aliases:
+                    if alias != rendered_id:
+                        self._autorefs.register_anchor(page, alias, rendered_id, primary=False)
 
                 if "data-role" in heading.attrib:
                     self._handlers.inventory.register(
-                        name=rendered_anchor,
+                        name=rendered_id,
                         domain=handler.domain,
                         role=heading.attrib["data-role"],
                         priority=1,  # Register with standard priority.
-                        uri=f"{page}#{rendered_anchor}",
+                        uri=f"{page}#{rendered_id}",
                     )
-                    for anchor in anchors:
-                        if anchor not in self._handlers.inventory:
+                    for alias in aliases:
+                        if alias not in self._handlers.inventory:
                             self._handlers.inventory.register(
-                                name=anchor,
+                                name=alias,
                                 domain=handler.domain,
                                 role=heading.attrib["data-role"],
                                 priority=2,  # Register with lower priority.
-                                uri=f"{page}#{rendered_anchor}",
+                                uri=f"{page}#{rendered_id}",
                             )
 
 

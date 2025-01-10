@@ -341,14 +341,14 @@ class BaseHandler:
         discovered_extensions = entry_points(group=f"mkdocstrings.{handler}.templates")
         return [extension.load()() for extension in discovered_extensions]
 
-    def get_anchors(self, data: CollectorItem) -> tuple[str, ...]:  # noqa: ARG002
-        """Return the possible identifiers (HTML anchors) for a collected item.
+    def get_aliases(self, identifier: str) -> tuple[str, ...]:  # noqa: ARG002
+        """Return the possible aliases for a given identifier.
 
         Arguments:
-            data: The collected data.
+            identifier: The identifier to get the aliases of.
 
         Returns:
-            The HTML anchors (without '#'), or an empty tuple if this item doesn't have an anchor.
+            A tuple of strings - aliases.
         """
         return ()
 
@@ -567,13 +567,22 @@ class Handlers:
             A tuple of strings - anchors without '#', or an empty tuple if there isn't any identifier familiar with it.
         """
         for handler in self._handlers.values():
-            fallback_config = getattr(handler, "fallback_config", {})
             try:
-                anchors = handler.get_anchors(handler.collect(identifier, fallback_config))
+                if hasattr(handler, "get_anchors"):
+                    warn(
+                        "The `get_anchors` method is deprecated. "
+                        "Declare a `get_aliases` method instead, accepting a string (identifier) "
+                        "instead of a collected object.",
+                        DeprecationWarning,
+                        stacklevel=1,
+                    )
+                    aliases = handler.get_anchors(handler.collect(identifier, handler.fallback_config))
+                else:
+                    aliases = handler.get_aliases(identifier)
             except CollectionError:
                 continue
-            if anchors:
-                return anchors
+            if aliases:
+                return aliases
         return ()
 
     def get_handler_name(self, config: dict) -> str:
