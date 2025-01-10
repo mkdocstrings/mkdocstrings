@@ -59,12 +59,12 @@ Funding = "https://github.com/sponsors/pawamoy"
 [project.entry-points."mkdocs.plugins"]
 mkdocstrings = "mkdocstrings.plugin:MkdocstringsPlugin"
 
-[tool.pdm]
-version = {source = "scm"}
+[tool.pdm.version]
+source = "call"
+getter = "scripts.get_version:get_version"
 
 [tool.pdm.build]
-package-dir = "src"
-editable-backend = "editables"
+# Include as much as possible in the source distribution, to help redistributors.
 excludes = ["**/.pytest_cache"]
 source-includes = [
     "config",
@@ -79,15 +79,15 @@ source-includes = [
 ]
 
 [tool.pdm.build.wheel-data]
+# Manual pages can be included in the wheel.
+# Depending on the installation tool, they will be accessible to users.
+# pipx supports it, uv does not yet, see https://github.com/astral-sh/uv/issues/4731.
 data = [
     {path = "share/**/*", relative-to = "."},
 ]
 
-[tool.uv]
-dev-dependencies = [
-    # dev
-    "editables>=0.5",
-
+[dependency-groups]
+dev = [
     # maintenance
     "build>=1.2",
     "git-changelog>=2.5",
