@@ -231,6 +231,8 @@ class BaseHandler:
             loader=FileSystemLoader(paths),
             auto_reload=False,  # Editing a template in the middle of a build is not useful.
         )
+        self.env.filters["convert_markdown"] = self.do_convert_markdown
+        self.env.filters["heading"] = self.do_heading
         self.env.filters["any"] = do_any
         self.env.globals["log"] = get_template_logger(self.name)
 
@@ -513,8 +515,6 @@ class BaseHandler:
         self._md = new_md
 
         self.env.filters["highlight"] = Highlighter(new_md).highlight
-        self.env.filters["convert_markdown"] = self.do_convert_markdown
-        self.env.filters["heading"] = self.do_heading
 
         # YORE: Bump 1: Replace block with `self.update_env(config)`.
         parameters = inspect.signature(self.update_env).parameters
