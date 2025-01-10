@@ -154,16 +154,16 @@ def test_use_custom_handler(ext_markdown: Markdown) -> None:
         ext_markdown.convert("::: tests.fixtures.headings\n    handler: not_here")
 
 
-def test_dont_register_every_identifier_as_anchor(plugin: MkdocstringsPlugin, ext_markdown: Markdown) -> None:
+def test_register_every_identifier_alias(plugin: MkdocstringsPlugin, ext_markdown: Markdown) -> None:
     """Assert that we don't preemptively register all identifiers of a rendered object."""
     handler = plugin._handlers.get_handler("python")  # type: ignore[union-attr]
     ids = ("id1", "id2", "id3")
     handler.get_anchors = lambda _: ids  # type: ignore[method-assign]
-    ext_markdown.convert("::: tests.fixtures.headings")
     autorefs = ext_markdown.parser.blockprocessors["mkdocstrings"]._autorefs  # type: ignore[attr-defined]
+    autorefs.current_page = "foo"
+    ext_markdown.convert("::: tests.fixtures.headings")
     for identifier in ids:
-        assert identifier not in autorefs._url_map
-        assert identifier not in autorefs._abs_url_map
+        assert identifier in autorefs._secondary_url_map
 
 
 def test_use_options_yaml_key(ext_markdown: Markdown) -> None:
