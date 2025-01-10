@@ -24,7 +24,6 @@ instruction:
 from __future__ import annotations
 
 import re
-from collections import ChainMap
 from typing import TYPE_CHECKING, Any
 from warnings import warn
 from xml.etree.ElementTree import Element
@@ -159,20 +158,30 @@ class AutoDocProcessor(BlockProcessor):
         Returns:
             Rendered HTML, the handler that was used, and the collected item.
         """
-        config = yaml.safe_load(yaml_block) or {}
-        handler_name = self._handlers.get_handler_name(config)
+        local_config = yaml.safe_load(yaml_block) or {}
+        handler_name = self._handlers.get_handler_name(local_config)
 
         log.debug("Using handler '%s'", handler_name)
-        handler_config = self._handlers.get_handler_config(handler_name)
-        handler = self._handlers.get_handler(handler_name, handler_config)
+        handler = self._handlers.get_handler(handler_name)
 
-        global_options = handler_config.get("options", {})
-        local_options = config.get("options", {})
-        options = ChainMap(local_options, global_options)
-
+        local_options = local_config.get("options", {})
         if heading_level:
             # Heading level obtained from Markdown (`##`) takes precedence.
-            options = ChainMap({"heading_level": heading_level}, options)
+            local_options["heading_level"] = heading_level
+
+        # YORE: Bump 1: Replace block with line 2.
+        if handler.get_options is not BaseHandler.get_options:
+            options = handler.get_options(local_options)
+        else:
+            warn(
+                "mkdocstrings v1 will start using your handler's `get_options` method to build options "
+                "instead of merging the global and local options (dictionaries). ",
+                DeprecationWarning,
+                stacklevel=1,
+            )
+            handler_config = self._handlers.get_handler_config(handler_name)
+            global_options = handler_config.get("options", {})
+            options = {**global_options, **local_options}
 
         log.debug("Collecting data")
         try:

@@ -44,6 +44,7 @@ if TYPE_CHECKING:
 
 CollectorItem = Any
 HandlerConfig = Any
+HandlerOptions = Any
 
 
 # Autodoc instructions can appear in nested Markdown,
@@ -265,7 +266,22 @@ class BaseHandler:
         """
         yield from ()
 
-    def collect(self, identifier: str, config: Mapping[str, Any]) -> CollectorItem:
+    def get_options(self, local_options: Mapping[str, Any]) -> HandlerOptions:
+        """Get combined options.
+
+        Override this method to customize how options are combined,
+        for example by merging the global options with the local options.
+        By combining options here, you don't have to do it twice in `collect` and `render`.
+
+        Arguments:
+            local_options: The local options.
+
+        Returns:
+            The combined options.
+        """
+        return local_options
+
+    def collect(self, identifier: str, options: HandlerOptions) -> CollectorItem:
         """Collect data given an identifier and user configuration.
 
         In the implementation, you typically call a subprocess that returns JSON, and load that JSON again into
@@ -275,19 +291,19 @@ class BaseHandler:
             identifier: An identifier for which to collect data. For example, in Python,
                 it would be 'mkdocstrings.handlers' to collect documentation about the handlers module.
                 It can be anything that you can feed to the tool of your choice.
-            config: The handler's configuration options.
+            options: The final configuration options.
 
         Returns:
             Anything you want, as long as you can feed it to the handler's `render` method.
         """
         raise NotImplementedError
 
-    def render(self, data: CollectorItem, config: Mapping[str, Any]) -> str:
+    def render(self, data: CollectorItem, options: HandlerOptions) -> str:
         """Render a template using provided data and configuration options.
 
         Arguments:
             data: The collected data to render.
-            config: The handler's configuration options.
+            options: The final configuration options.
 
         Returns:
             The rendered template as HTML.
