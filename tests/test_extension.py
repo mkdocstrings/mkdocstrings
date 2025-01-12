@@ -158,6 +158,8 @@ def test_register_every_identifier_alias(plugin: MkdocstringsPlugin, ext_markdow
     """Assert that we don't preemptively register all identifiers of a rendered object."""
     handler = plugin._handlers.get_handler("python")  # type: ignore[union-attr]
     ids = ("id1", "id2", "id3")
+    # TODO: Remove line when Python handler removes its `get_anchors` method.
+    handler.get_anchors = lambda _: ids  # type: ignore[union-attr]
     handler.get_aliases = lambda _: ids  # type: ignore[method-assign]
     autorefs = ext_markdown.parser.blockprocessors["mkdocstrings"]._autorefs  # type: ignore[attr-defined]
     autorefs.current_page = "foo"
