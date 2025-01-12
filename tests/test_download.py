@@ -1,4 +1,4 @@
-"""Tests for the internal mkdocstrings _cache module."""
+"""Tests for the internal mkdocstrings _download module."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 
 import pytest
 
-from mkdocstrings import _cache
+from mkdocstrings import _download
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
@@ -32,16 +32,16 @@ if TYPE_CHECKING:
 )
 def test_expand_env_vars(credential: str, expected: str, env: Mapping[str, str]) -> None:
     """Test expanding environment variables."""
-    assert _cache._expand_env_vars(credential, url="https://test.example.com", env=env) == expected
+    assert _download._expand_env_vars(credential, url="https://test.example.com", env=env) == expected
 
 
 def test_expand_env_vars_with_missing_env_var(caplog: pytest.LogCaptureFixture) -> None:
     """Test expanding environment variables with a missing environment variable."""
-    caplog.set_level(logging.WARNING, logger="mkdocs.plugins.mkdocstrings._cache")
+    caplog.set_level(logging.WARNING, logger="mkdocs.plugins.mkdocstrings._download")
 
     credential = "${USER}"
     env: dict[str, str] = {}
-    assert _cache._expand_env_vars(credential, url="https://test.example.com", env=env) == "${USER}"
+    assert _download._expand_env_vars(credential, url="https://test.example.com", env=env) == "${USER}"
 
     output = caplog.records[0].getMessage()
     assert "'USER' is not set" in output
@@ -61,20 +61,20 @@ def test_expand_env_vars_with_missing_env_var(caplog: pytest.LogCaptureFixture) 
 )
 def test_extract_auth_from_url(monkeypatch: pytest.MonkeyPatch, url: str, expected_url: str) -> None:
     """Test extracting the auth part from the URL."""
-    monkeypatch.setattr(_cache, "_create_auth_header", lambda *args, **kwargs: {})
-    result_url, _result_auth_header = _cache._extract_auth_from_url(url)
+    monkeypatch.setattr(_download, "_create_auth_header", lambda *args, **kwargs: {})
+    result_url, _result_auth_header = _download._extract_auth_from_url(url)
     assert result_url == expected_url
 
 
 def test_create_auth_header_basic_auth() -> None:
     """Test creating the Authorization header for basic authentication."""
-    auth_header = _cache._create_auth_header(credential="testuser:testpass", url="https://test.example.com")
+    auth_header = _download._create_auth_header(credential="testuser:testpass", url="https://test.example.com")
     assert auth_header == {"Authorization": "Basic dGVzdHVzZXI6dGVzdHBhc3M="}
 
 
 def test_create_auth_header_bearer_auth() -> None:
     """Test creating the Authorization header for bearer token authentication."""
-    auth_header = _cache._create_auth_header(credential="token123", url="https://test.example.com")
+    auth_header = _download._create_auth_header(credential="token123", url="https://test.example.com")
     assert auth_header == {"Authorization": "Bearer token123"}
 
 
@@ -96,7 +96,7 @@ def test_create_auth_header_bearer_auth() -> None:
 )
 def test_env_var_pattern(var: str, match: str | None) -> None:
     """Test the environment variable regex pattern."""
-    _match = _cache.ENV_VAR_PATTERN.match(var)
+    _match = _download.ENV_VAR_PATTERN.match(var)
     if _match is None:
         assert match is _match
     else:

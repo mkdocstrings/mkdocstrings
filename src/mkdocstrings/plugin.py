@@ -14,13 +14,9 @@ during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on
 
 from __future__ import annotations
 
-import datetime
-import functools
 import os
 import sys
 from collections.abc import Iterable, Mapping
-from concurrent import futures
-from io import BytesIO
 from typing import TYPE_CHECKING, Any, Callable, TypeVar
 
 from mkdocs.config import Config
@@ -29,10 +25,6 @@ from mkdocs.plugins import BasePlugin
 from mkdocs.utils import write_file
 from mkdocs_autorefs.plugin import AutorefsConfig, AutorefsPlugin
 
-# TODO: Replace with `from mkdocs.utils.cache import download_and_cache_url` when we depend on mkdocs>=1.5.
-from mkdocs_get_deps.cache import download_and_cache_url
-
-from mkdocstrings._cache import download_url_with_gz
 from mkdocstrings.extension import MkdocstringsExtension
 from mkdocstrings.handlers.base import BaseHandler, Handlers
 from mkdocstrings.loggers import get_logger
@@ -160,13 +152,6 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             return config
         log.debug("Adding extension to the list")
 
-        to_import: InventoryImportType = []
-        for handler_name, conf in self.config.handlers.items():
-            for import_item in conf.pop("import", ()):
-                if isinstance(import_item, str):
-                    import_item = {"url": import_item}  # noqa: PLW2901
-                to_import.append((handler_name, import_item))
-
         handlers = Handlers(
             default=self.config.default_handler,
             handlers_config=self.config.handlers,
@@ -178,6 +163,8 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             inventory_version="0.0.0",  # TODO: Find a way to get actual version.
             tool_config=config,
         )
+
+        handlers._download_inventories()
 
         autorefs: AutorefsPlugin
         try:
@@ -200,20 +187,6 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
         config.extra_css.insert(0, self.css_filename)  # So that it has lower priority than user files.
 
         self._handlers = handlers
-
-        self._inv_futures = {}
-        if to_import:
-            inv_loader = futures.ThreadPoolExecutor(4)
-            for handler_name, import_item in to_import:
-                loader = handlers.get_handler(handler_name).load_inventory
-                future = inv_loader.submit(
-                    self._load_inventory,  # type: ignore[misc]
-                    loader,
-                    **import_item,
-                )
-                self._inv_futures[future] = (loader, import_item)
-            inv_loader.shutdown(wait=False)
-
         return config
 
     @property
@@ -247,6 +220,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
         """
         if not self.plugin_enabled:
             return
+
         if self._handlers:
             css_content = "\n".join(handler.extra_css for handler in self.handlers.seen_handlers)
             write_file(css_content.encode("utf-8"), os.path.join(config.site_dir, self.css_filename))
@@ -256,21 +230,9 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
                 inv_contents = self.handlers.inventory.format_sphinx()
                 write_file(inv_contents, os.path.join(config.site_dir, "objects.inv"))
 
-        if self._inv_futures:
-            log.debug("Waiting for %s inventory download(s)", len(self._inv_futures))
-            futures.wait(self._inv_futures, timeout=30)
-            results = {}
-            # Reversed order so that pages from first futures take precedence:
-            for fut in reversed(list(self._inv_futures)):
-                try:
-                    results.update(fut.result())
-                except Exception as error:  # noqa: BLE001
-                    loader, import_item = self._inv_futures[fut]
-                    loader_name = loader.__func__.__qualname__
-                    log.error("Couldn't load inventory %s through %s: %s", import_item, loader_name, error)  # noqa: TRY400
-            for page, identifier in results.items():
-                config.plugins["autorefs"].register_url(page, identifier)  # type: ignore[attr-defined]
-            self._inv_futures = {}
+            register = config.plugins["autorefs"].register_url  # type: ignore[attr-defined]
+            for identifier, url in self._handlers._yield_inventory_items():
+                register(identifier, url)
 
     def on_post_build(
         self,
@@ -293,9 +255,6 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
         if not self.plugin_enabled:
             return
 
-        for future in self._inv_futures:
-            future.cancel()
-
         if self._handlers:
             log.debug("Tearing handlers down")
             self.handlers.teardown()
@@ -310,24 +269,3 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler].
         """
         return self.handlers.get_handler(handler_name)
-
-    @classmethod
-    # lru_cache does not allow mutable arguments such lists, but that is what we load from YAML config.
-    @list_to_tuple
-    @functools.cache
-    def _load_inventory(cls, loader: InventoryLoaderType, url: str, **kwargs: Any) -> Mapping[str, str]:
-        """Download and process inventory files using a handler.
-
-        Arguments:
-            loader: A function returning a sequence of pairs (identifier, url).
-            url: The URL to download and process.
-            **kwargs: Extra arguments to pass to the loader.
-
-        Returns:
-            A mapping from identifier to absolute URL.
-        """
-        log.debug("Downloading inventory from %s", url)
-        content = download_and_cache_url(url, datetime.timedelta(days=1), download=download_url_with_gz)
-        result = dict(loader(BytesIO(content), url=url, **kwargs))
-        log.debug("Loaded inventory from %s: %s items", url, len(result))
-        return result

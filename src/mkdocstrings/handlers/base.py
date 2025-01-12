@@ -5,9 +5,12 @@ This module contains the base classes for implementing handlers.
 
 from __future__ import annotations
 
+import datetime
 import importlib
 import inspect
 import sys
+from concurrent import futures
+from io import BytesIO
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar, cast
 from warnings import warn
@@ -19,6 +22,10 @@ from markdown.extensions.toc import TocTreeprocessor
 from markupsafe import Markup
 from mkdocs_autorefs.references import AutorefsInlineProcessor
 
+# TODO: Replace with `from mkdocs.utils.cache import download_and_cache_url` when we depend on mkdocs>=1.5.
+from mkdocs_get_deps.cache import download_and_cache_url
+
+from mkdocstrings._download import download_url_with_gz
 from mkdocstrings.handlers.rendering import (
     HeadingShiftingTreeprocessor,
     Highlighter,
@@ -27,7 +34,7 @@ from mkdocstrings.handlers.rendering import (
     ParagraphStrippingTreeprocessor,
 )
 from mkdocstrings.inventory import Inventory
-from mkdocstrings.loggers import get_template_logger
+from mkdocstrings.loggers import get_logger, get_template_logger
 
 # TODO: remove once support for Python 3.9 is dropped
 if sys.version_info < (3, 10):
@@ -41,6 +48,7 @@ if TYPE_CHECKING:
     from markdown import Extension
     from mkdocs_autorefs.references import AutorefsHookInterface
 
+log = get_logger(__name__)
 
 CollectorItem = Any
 HandlerConfig = Any
@@ -247,6 +255,10 @@ class BaseHandler:
         if self._md is None:
             raise RuntimeError("Markdown instance not set yet")
         return self._md
+
+    def get_inventory_urls(self) -> list[tuple[str, dict[str, Any]]]:
+        """Return the URLs (and configuration options) of the inventory files to download."""
+        return []
 
     @classmethod
     def load_inventory(
@@ -574,6 +586,8 @@ class Handlers:
 
         self.inventory: Inventory = Inventory(project=inventory_project, version=inventory_version)
 
+        self._inv_futures: dict[futures.Future, tuple[BaseHandler, str, Any]] = {}
+
     # YORE: Bump 1: Remove block.
     def get_anchors(self, identifier: str) -> tuple[str, ...]:
         """Return the canonical HTML anchor for the identifier, if any of the seen handlers can collect it.
@@ -655,6 +669,58 @@ class Handlers:
             )
         return self._handlers[name]
 
+    def _download_inventories(self) -> None:
+        """Download an inventory file from an URL.
+
+        Arguments:
+            url: The URL of the inventory.
+        """
+        to_download: list[tuple[BaseHandler, str, Any]] = []
+
+        for handler_name, conf in self._handlers_config.items():
+            handler = self.get_handler(handler_name)
+
+            if handler.get_inventory_urls.__func__ is BaseHandler.get_inventory_urls:  # type: ignore[attr-defined]
+                if inv_configs := conf.pop("import", ()):
+                    warn(
+                        "mkdocstrings v1 will stop handling 'import' in handlers configuration. "
+                        "Instead your handler must define a `get_inventory_urls` method "
+                        "that returns a list of URLs to download. ",
+                        DeprecationWarning,
+                        stacklevel=1,
+                    )
+                    inv_configs = [{"url": inv} if isinstance(inv, str) else inv for inv in inv_configs]
+                    inv_configs = [(inv.pop("url"), inv) for inv in inv_configs]
+            else:
+                inv_configs = handler.get_inventory_urls()
+
+            to_download.extend((handler, url, conf) for url, conf in inv_configs)
+
+        if to_download:
+            thread_pool = futures.ThreadPoolExecutor(4)
+            for handler, url, conf in to_download:
+                log.debug("Downloading inventory from %s", url)
+                future = thread_pool.submit(
+                    download_and_cache_url,
+                    url,
+                    datetime.timedelta(days=1),
+                    download=download_url_with_gz,
+                )
+                self._inv_futures[future] = (handler, url, conf)
+            thread_pool.shutdown(wait=False)
+
+    def _yield_inventory_items(self) -> Iterator[tuple[str, str]]:
+        if self._inv_futures:
+            log.debug("Waiting for %s inventory download(s)", len(self._inv_futures))
+            futures.wait(self._inv_futures, timeout=30)
+            # Reversed order so that pages from first futures take precedence:
+            for fut, (handler, url, conf) in reversed(self._inv_futures.items()):
+                try:
+                    yield from handler.load_inventory(BytesIO(fut.result()), url, **conf)
+                except Exception as error:  # noqa: BLE001
+                    log.error("Couldn't load inventory %s through handler '%s': %s", conf, handler.name, error)  # noqa: TRY400
+            self._inv_futures = {}
+
     @property
     def seen_handlers(self) -> Iterable[BaseHandler]:
         """Get the handlers that were encountered so far throughout the build.
@@ -667,6 +733,8 @@ class Handlers:
 
     def teardown(self) -> None:
         """Teardown all cached handlers and clear the cache."""
+        for future in self._inv_futures:
+            future.cancel()
         for handler in self.seen_handlers:
             handler.teardown()
         self._handlers.clear()
