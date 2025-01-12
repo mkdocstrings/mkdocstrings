@@ -170,7 +170,7 @@ class AutoDocProcessor(BlockProcessor):
             local_options["heading_level"] = heading_level
 
         # YORE: Bump 1: Replace block with line 2.
-        if handler.get_options is not BaseHandler.get_options:
+        if handler.get_options.__func__ is not BaseHandler.get_options:  # type: ignore[attr-defined]
             options = handler.get_options(local_options)
         else:
             warn(
