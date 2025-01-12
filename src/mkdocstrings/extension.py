@@ -258,7 +258,7 @@ class AutoDocProcessor(BlockProcessor):
                         stacklevel=1,
                     )
                     try:
-                        data_object = handler.collect(rendered_id, handler.fallback_config)
+                        data_object = handler.collect(rendered_id, getattr(handler, "fallback_config", {}))
                     except CollectionError:
                         aliases = ()
                     else:

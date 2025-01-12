@@ -106,6 +106,7 @@ class BaseHandler:
     enable_inventory: ClassVar[bool] = False
     """Whether the inventory creation is enabled."""
 
+    # YORE: Bump 1: Remove block.
     fallback_config: ClassVar[dict] = {}
     """Fallback configuration when searching anchors for identifiers."""
 
@@ -593,7 +594,7 @@ class Handlers:
                         DeprecationWarning,
                         stacklevel=1,
                     )
-                    aliases = handler.get_anchors(handler.collect(identifier, handler.fallback_config))
+                    aliases = handler.get_anchors(handler.collect(identifier, getattr(handler, "fallback_config", {})))
                 else:
                     aliases = handler.get_aliases(identifier)
             except CollectionError:
