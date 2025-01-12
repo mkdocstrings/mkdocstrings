@@ -14,12 +14,9 @@ A handler is what makes it possible to collect and render documentation for a pa
 
 ## About the Python handlers
 
-Since version 0.18, a new, experimental Python handler is available.
+Since version 0.18, a new Python handler is available.
 It is based on [Griffe](https://github.com/mkdocstrings/griffe),
 which is an improved version of [pytkdocs](https://github.com/mkdocstrings/pytkdocs).
-
-Note that the experimental handler does not yet support all third-party libraries
-that the legacy handler supported.
 
 If you want to keep using the legacy handler as long as possible,
 you can depend on `mkdocstrings-python-legacy` directly,
@@ -37,9 +34,9 @@ dependencies = [
 The legacy handler will continue to "work" for many releases,
 as long as the new handler does not cover all previous use-cases.
 
-### Migrate to the experimental Python handler
+### Migrate to the new Python handler
 
-To use the new, experimental Python handler,
+To use the new Python handler,
 you can depend on `mkdocstrings-python` directly,
 or specify the `python` extra when depending on *mkdocstrings*:
 
@@ -131,26 +128,41 @@ NOTE: **Note the absence of `__init__.py` module in `mkdocstrings_handlers`!**
 ### Code
 
 A handler is a subclass of the base handler provided by *mkdocstrings*.
-
 See the documentation for the [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler].
-Subclasses of the base handler must implement the `collect` and `render` methods at least.
-The `collect` method is responsible for collecting and returning data (extracting
-documentation from source code, loading introspecting objects in memory, other sources? etc.)
-while the `render` method is responsible for actually rendering the data to HTML,
-using the Jinja templates provided by your package.
 
-You must implement a `get_handler` method at the module level.
+Subclasses of the base handler must declare a `name` and `domain` as class attributes,
+as well as implement the following methods:
+
+- `collect(identifier, options)` (**required**): method responsible for collecting and returning data (extracting
+  documentation from source code, loading introspecting objects in memory, other sources? etc.)
+- `render(identifier, options)` (**required**): method responsible for actually rendering the data to HTML,
+  using the Jinja templates provided by your package.
+- `get_options(local_options)` (**required**): method responsible for combining global options with local ones.
+- `get_aliases(identifier)` (**recommended**): method responsible for returning known aliases of object identifiers,
+  in order to register cross-references in the autorefs plugin.
+- `get_inventory_urls()` (optional): method responsible for returning a list of URLs to download (object inventories)
+  along with configuration options (for loading the inventory with `load_inventory`).
+- `load_inventory(in_file, url, **options)` (optional): method responsible for loading an inventory (binary file-handle)
+  and yielding tuples of identifiers and URLs.
+- `update_env(config)` (optional): Gives you a chance to customize the Jinja environment used to render templates,
+  for examples by adding/removing Jinja filters and global context variables.
+- `teardown()` (optional): Clean up / teardown anything that needs it at the end of the build.
+
+You must implement a `get_handler` method at the module level,
+which returns an instance of your handler.
 This function takes the following parameters:
 
 - `theme` (string, theme name)
 - `custom_templates` (optional string, path to custom templates directory)
-- `config_file_path` (optional string, path to the config file)
+- `mdx` (list, Markdown extensions)
+- `mdx_config` (dict, extensions configuration)
+- `handler_config` (dict, handle configuration)
+- `tool_config` (dict, the whole MkDocs configuration)
 
 These arguments are all passed as keyword arguments, so you can ignore them
-by adding `**kwargs` or similar to your signature. You can also accept
-additional parameters: the handler's global-only options and/or the root
-config options. This gives flexibility and access to the mkdocs config, mkdocstring
-config etc.. You should never modify the root config but can use it to get
+by adding `**kwargs` or similar to your signature.
+
+You should not modify the MkDocs config but can use it to get
 information about the MkDocs instance such as where the current `site_dir` lives.
 See the [Mkdocs Configuration](https://www.mkdocs.org/user-guide/configuration/) for
 more info about what is accessible from it.
