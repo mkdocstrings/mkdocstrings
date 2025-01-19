@@ -145,7 +145,7 @@ See [Python handler: Finding modules](https://mkdocstrings.github.io/python/usag
 ### LaTeX in docstrings is not rendered correctly
 
 If you are using a Markdown extension like
-[Arithmatex Mathjax](https://squidfunk.github.io/mkdocs-material/extensions/pymdown/#arithmatex-mathjax)
+[Arithmatex Mathjax](https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#arithmatex)
 or [`markdown-katex`][markdown-katex] to render LaTeX,
 add `r` in front of your docstring to make sure nothing is escaped.
 You'll still maybe have to play with escaping to get things right.
