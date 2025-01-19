@@ -718,7 +718,7 @@ class Handlers:
                 try:
                     yield from handler.load_inventory(BytesIO(fut.result()), url, **conf)
                 except Exception as error:  # noqa: BLE001
-                    log.error("Couldn't load inventory %s through handler '%s': %s", conf, handler.name, error)  # noqa: TRY400
+                    log.error("Couldn't load inventory %s through handler '%s': %s", url, handler.name, error)  # noqa: TRY400
             self._inv_futures = {}
 
     @property
