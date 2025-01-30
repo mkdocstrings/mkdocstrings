@@ -115,8 +115,8 @@ dev = [
     "mkdocs-literate-nav>=0.6",
     "mkdocs-material>=9.5",
     "mkdocs-minify-plugin>=0.8",
-    "mkdocs-redirects>=1.2",
-    "mkdocstrings[python]>=0.25",
+    "mkdocs-redirects>=1.2.1",
+    "mkdocstrings-python>=1.13",
     # YORE: EOL 3.10: Remove line.
     "tomli>=2.0; python_version < '3.11'",
 ]
