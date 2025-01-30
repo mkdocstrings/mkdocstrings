@@ -659,14 +659,35 @@ class Handlers:
             if handler_config is None:
                 handler_config = self._handlers_config.get(name, {})
             module = importlib.import_module(f"mkdocstrings_handlers.{name}")
-            self._handlers[name] = module.get_handler(
-                theme=self._theme,
-                custom_templates=self._custom_templates,
-                mdx=self._mdx,
-                mdx_config=self._mdx_config,
-                handler_config=handler_config,
-                tool_config=self._tool_config,
-            )
+
+            # YORE: Bump 1: Remove block.
+            kwargs = {
+                "theme": self._theme,
+                "custom_templates": self._custom_templates,
+                "mdx": self._mdx,
+                "mdx_config": self._mdx_config,
+                "handler_config": handler_config,
+                "tool_config": self._tool_config,
+            }
+            if "config_file_path" in inspect.signature(module.get_handler).parameters:
+                kwargs["config_file_path"] = self._tool_config.get("config_file_path")
+                warn(
+                    "The `config_file_path` argument in `get_handler` functions is deprecated. "
+                    "Use `tool_config.get('config_file_path')` instead.",
+                    DeprecationWarning,
+                    stacklevel=1,
+                )
+            self._handlers[name] = module.get_handler(**kwargs)
+
+            # YORE: Bump 1: Replace `# ` with `` within block.
+            # self._handlers[name] = module.get_handler(
+            #     theme=self._theme,
+            #     custom_templates=self._custom_templates,
+            #     mdx=self._mdx,
+            #     mdx_config=self._mdx_config,
+            #     handler_config=handler_config,
+            #     tool_config=self._tool_config,
+            # )
         return self._handlers[name]
 
     def _download_inventories(self) -> None:
