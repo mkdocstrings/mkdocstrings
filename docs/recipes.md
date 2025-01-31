@@ -3,7 +3,7 @@ for *mkdocstrings* and more generally Markdown documentation.
 
 ## Automatic code reference pages
 
-TIP: **[mkdocs-autoapi](https://github.com/jcayers20/mkdocs-autoapi) is a MkDocs plugin that automatically generates API documentation from your project's source code. It was inspired by the recipe below.**
+TIP: **[mkdocs-autoapi](https://github.com/jcayers20/mkdocs-autoapi) and [mkdocs-api-autonav](https://github.com/tlambert03/mkdocs-api-autonav) are MkDocs plugins that automatically generate API documentation from your project's source code. They were inspired by the recipe below.**
 
 *mkdocstrings* allows to inject documentation for any object
 into Markdown pages. But as the project grows, it quickly becomes
@@ -366,16 +366,16 @@ extra_css:
 > To target `pycon` code blocks more specifically, you can configure the
 > `pymdownx.highlight` extension to use Pygments and set language classes
 > on code blocks:
-> 
+>
 > ```yaml title="mkdocs.yml"
 > markdown_extensions:
 > - pymdownx.highlight:
 >     use_pygments: true
 >     pygments_lang_class: true
 > ```
-> 
+>
 > Then you can update the CSS selector like this:
-> 
+>
 > ```css title="docs/css/code_select.css"
 > .language-pycon .gp, .language-pycon .go { /* Generic.Prompt, Generic.Output */
 >     user-select: none;
