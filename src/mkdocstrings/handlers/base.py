@@ -523,7 +523,9 @@ class BaseHandler:
 
         # MkDocs adds its own (required) extension that's not part of the config. Propagate it.
         if "relpath" in md.treeprocessors:
-            new_md.treeprocessors.register(md.treeprocessors["relpath"], "relpath", priority=0)
+            relpath = md.treeprocessors["relpath"]
+            new_relpath = type(relpath)(relpath.file, relpath.files, relpath.config)  # type: ignore[attr-defined,call-arg]
+            new_md.treeprocessors.register(new_relpath, "relpath", priority=0)
 
         self._md = new_md
 
