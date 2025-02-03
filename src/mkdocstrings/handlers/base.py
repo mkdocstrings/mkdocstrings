@@ -20,7 +20,7 @@ from jinja2 import Environment, FileSystemLoader
 from markdown import Markdown
 from markdown.extensions.toc import TocTreeprocessor
 from markupsafe import Markup
-from mkdocs_autorefs.references import AutorefsInlineProcessor
+from mkdocs_autorefs.references import AutorefsInlineProcessor, BacklinksTreeProcessor
 
 # TODO: Replace with `from mkdocs.utils.cache import download_and_cache_url` when we depend on mkdocs>=1.5.
 from mkdocs_get_deps.cache import download_and_cache_url
@@ -325,6 +325,10 @@ class BaseHandler:
         """
         raise NotImplementedError
 
+    def render_backlinks(self, backlinks: Mapping[str, Iterable[str]]) -> str:  # noqa: ARG002
+        """Render backlinks."""
+        return ""
+
     def teardown(self) -> None:
         """Teardown the handler.
 
@@ -414,6 +418,7 @@ class BaseHandler:
         treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = heading_level  # type: ignore[attr-defined]
         treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"  # type: ignore[attr-defined]
         treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph  # type: ignore[attr-defined]
+        treeprocessors[BacklinksTreeProcessor.name].initial_id = html_id  # type: ignore[attr-defined]
 
         if autoref_hook:
             self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = autoref_hook  # type: ignore[attr-defined]
@@ -424,6 +429,7 @@ class BaseHandler:
             treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0  # type: ignore[attr-defined]
             treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""  # type: ignore[attr-defined]
             treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False  # type: ignore[attr-defined]
+            treeprocessors[BacklinksTreeProcessor.name].initial_id = None  # type: ignore[attr-defined]
             self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # type: ignore[attr-defined]
             self.md.reset()
             _markdown_conversion_layer -= 1
@@ -467,6 +473,8 @@ class BaseHandler:
         el.set("data-toc-label", toc_label)
         if role:
             el.set("data-role", role)
+        if content:
+            el.text = str(content).strip()
         self._headings.append(el)
 
         if hidden:

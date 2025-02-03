@@ -15,14 +15,16 @@ during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on
 from __future__ import annotations
 
 import os
+import re
 import sys
 from collections.abc import Iterable, Mapping
+from re import Match
 from typing import TYPE_CHECKING, Any, Callable, TypeVar
 from warnings import catch_warnings, simplefilter
 
 from mkdocs.config import Config
 from mkdocs.config import config_options as opt
-from mkdocs.plugins import BasePlugin
+from mkdocs.plugins import BasePlugin, CombinedEvent, event_priority
 from mkdocs.utils import write_file
 from mkdocs_autorefs.plugin import AutorefsConfig, AutorefsPlugin
 
@@ -38,6 +40,7 @@ else:
 if TYPE_CHECKING:
     from jinja2.environment import Environment
     from mkdocs.config.defaults import MkDocsConfig
+    from mkdocs.structure.files import Files
 
 
 log = get_logger(__name__)
@@ -189,6 +192,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
 
         config.extra_css.insert(0, self.css_filename)  # So that it has lower priority than user files.
 
+        self._autorefs = autorefs
         self._handlers = handlers
         return config
 
@@ -213,29 +217,69 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
         """
         return self.config.enabled
 
-    def on_env(self, env: Environment, config: MkDocsConfig, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
-        """Extra actions that need to happen after all Markdown rendering and before HTML rendering.
-
-        Hook for the [`on_env` event](https://www.mkdocs.org/user-guide/plugins/#on_env).
-
-        - Write mkdocstrings' extra files into the site dir.
-        - Gather results from background inventory download tasks.
-        """
-        if not self.plugin_enabled:
-            return
-
-        if self._handlers:
-            css_content = "\n".join(handler.extra_css for handler in self.handlers.seen_handlers)
-            write_file(css_content.encode("utf-8"), os.path.join(config.site_dir, self.css_filename))
-
-            if self.inventory_enabled:
-                log.debug("Creating inventory file objects.inv")
-                inv_contents = self.handlers.inventory.format_sphinx()
-                write_file(inv_contents, os.path.join(config.site_dir, "objects.inv"))
-
+    @event_priority(50)  # Early, before autorefs' starts applying cross-refs and collecting backlinks.
+    def _on_env_load_inventories(self, env: Environment, config: MkDocsConfig, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
+        if self.plugin_enabled and self._handlers:
             register = config.plugins["autorefs"].register_url  # type: ignore[attr-defined]
             for identifier, url in self._handlers._yield_inventory_items():
                 register(identifier, url)
+
+    @event_priority(-20)  # Late, not important.
+    def _on_env_add_css(self, env: Environment, config: MkDocsConfig, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
+        if self.plugin_enabled and self._handlers:
+            css_content = "\n".join(handler.extra_css for handler in self.handlers.seen_handlers)
+            write_file(css_content.encode("utf-8"), os.path.join(config.site_dir, self.css_filename))
+
+    @event_priority(-20)  # Late, not important.
+    def _on_env_write_inventory(self, env: Environment, config: MkDocsConfig, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
+        if self.plugin_enabled and self._handlers and self.inventory_enabled:
+            log.debug("Creating inventory file objects.inv")
+            inv_contents = self.handlers.inventory.format_sphinx()
+            write_file(inv_contents, os.path.join(config.site_dir, "objects.inv"))
+
+    @event_priority(-100)  # Last, after autorefs has finished applying cross-refs and collecting backlinks.
+    def _on_env_apply_backlinks(self, env: Environment, /, *, config: MkDocsConfig, files: Files) -> Environment:  # noqa: ARG002
+        """Apply backlinks to the HTML output.
+
+        Hook for the [`on_post_page` event](https://www.mkdocs.org/user-guide/plugins/#on_post_page).
+        In this hook, we replace `<backlinks>` elements in the HTML output with actual backlinks.
+
+        Arguments:
+            output: HTML converted from Markdown.
+            page: The related MkDocs page instance.
+            kwargs: Additional arguments passed by MkDocs.
+
+        Returns:
+            The unmodified environment.
+        """
+        regex = r"<backlinks\s+identifier=\"([^\"]+)\"\s+handler=\"([^\"]+)\"\s*/?>"
+
+        def repl(match: Match) -> str:
+            identifier = match.group(1)
+            handler_name = match.group(2)
+            handler = self.handlers.get_handler(handler_name)
+            aliases = handler.get_aliases(identifier)
+            backlinks = self._autorefs.get_backlinks(identifier, *aliases, from_url=file.page.url)  # type: ignore[attr-defined,union-attr]
+            if not backlinks:
+                return ""
+            return handler.render_backlinks(backlinks)
+
+        for file in files:
+            if file.page and file.page.content:
+                log.debug("Applying backlinks in page %s", file.page.file.src_path)
+                file.page.content = re.sub(regex, repl, file.page.content)
+
+        return env
+
+    on_env = CombinedEvent(_on_env_load_inventories, _on_env_add_css, _on_env_write_inventory, _on_env_apply_backlinks)
+    """Extra actions that need to happen after all Markdown-to-HTML page rendering.
+
+    Hook for the [`on_env` event](https://www.mkdocs.org/user-guide/plugins/#on_env).
+
+    - Gather results from background inventory download tasks.
+    - Write mkdocstrings' extra files (CSS, inventory) into the site directory.
+    - Apply backlinks to the HTML output of each page.
+    """
 
     def on_post_build(
         self,
