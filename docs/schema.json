@@ -39,7 +39,7 @@
               "markdownDescription": "https://mkdocstrings.github.io/handlers/overview/",
               "anyOf": [
                 {
-                  "$ref": "https://raw.githubusercontent.com/mkdocstrings/python/main/docs/schema.json"
+                  "$ref": "https://mkdocstrings.github.io/python/schema.json"
                 }
               ]
             }
