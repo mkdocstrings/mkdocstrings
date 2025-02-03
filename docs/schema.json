@@ -37,15 +37,11 @@
             "handlers": {
               "title": "The handlers global configuration.",
               "markdownDescription": "https://mkdocstrings.github.io/handlers/overview/",
-              "type": "object",
-              "default": null,
-              "items": {
-                "oneOf": [
-                  {
-                    "$ref": "https://raw.githubusercontent.com/mkdocstrings/python/master/docs/schema.json"
-                  }
-                ]
-              }
+              "anyOf": [
+                {
+                  "$ref": "https://raw.githubusercontent.com/mkdocstrings/python/main/docs/schema.json"
+                }
+              ]
             }
           },
           "additionalProperties": false
