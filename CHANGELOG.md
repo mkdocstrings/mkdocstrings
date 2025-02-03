@@ -6,6 +6,203 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.28.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.28.0) - 2025-02-03
+
+<small>[Compare with 0.27.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.27.0...0.28.0)</small>
+
+### Breaking Changes
+
+Although the following changes are "breaking" in terms of public API, we didn't find any public use of these classes and methods on GitHub.
+
+- `mkdocstrings.extension.AutoDocProcessor.__init__(parser)`: *Parameter was removed*
+- `mkdocstrings.extension.AutoDocProcessor.__init__(md)`: *Positional parameter was moved*
+- `mkdocstrings.extension.AutoDocProcessor.__init__(config)`: *Parameter was removed*
+- `mkdocstrings.extension.AutoDocProcessor.__init__(handlers)`: *Parameter kind was changed*: `positional or keyword` -> `keyword-only`
+- `mkdocstrings.extension.AutoDocProcessor.__init__(autorefs)`: *Parameter kind was changed*: `positional or keyword` -> `keyword-only`
+- `mkdocstrings.extension.MkdocstringsExtension.__init__(config)`: *Parameter was removed*
+- `mkdocstrings.extension.MkdocstringsExtension.__init__(handlers)`: *Positional parameter was moved*
+- `mkdocstrings.extension.MkdocstringsExtension.__init__(autorefs)`: *Positional parameter was moved*
+- `mkdocstrings.handlers.base.Handlers.__init__(config)`: *Parameter was removed*
+- `mkdocstrings.handlers.base.Handlers.__init__(theme)`: *Parameter was added as required*
+- `mkdocstrings.handlers.base.Handlers.__init__(default)`: *Parameter was added as required*
+- `mkdocstrings.handlers.base.Handlers.__init__(inventory_project)`: *Parameter was added as required*
+- `mkdocstrings.handlers.base.Handlers.__init__(tool_config)`: *Parameter was added as required*
+
+Similarly, the following parameters were renamed, but the methods are only called from our own code, using positional arguments.
+
+- `mkdocstrings.handlers.base.BaseHandler.collect(config)`: *Parameter was renamed `options`*
+- `mkdocstrings.handlers.base.BaseHandler.render(config)`: *Parameter was renamed `options`*
+
+Finally, the following method was removed, but this is again taken into account in our own code:
+
+- `mkdocstrings.handlers.base.BaseHandler.get_anchors`: *Public object was removed*
+
+For these reasons, and because we're still in v0, we do not bump to v1 yet. See following deprecations.
+
+### Deprecations
+
+*mkdocstrings* 0.28 will start emitting these deprecations warnings:
+
+> The `handler` argument is deprecated. The handler name must be specified as a class attribute.
+
+Previously, the `get_handler` function would pass a `handler` (name) argument to the handler constructor. This name must now be set on the handler's class directly.
+
+```python
+class MyHandler:
+    name = "myhandler"
+```
+
+> The `domain` attribute must be specified as a class attribute.
+
+The `domain` class attribute on handlers is now mandatory and cannot be an empty string.
+
+```python
+class MyHandler:
+    domain = "mh"
+```
+
+> The `theme` argument must be passed as a keyword argument.
+
+This argument could previously be passed as a positional argument (from the `get_handler` function), and must now be passed as a keyword argument.
+
+> The `custom_templates` argument must be passed as a keyword argument.
+
+Same as for `theme`, but with `custom_templates`.
+
+> The `mdx` argument must be provided (as a keyword argument).
+
+The `get_handler` function now receives a `mdx` argument, which it must forward to the handler constructor and then to the base handler, either explicitly or through `**kwargs`:
+
+=== "Explicitly"
+
+    ```python
+    def get_handler(..., mdx, ...):
+        return MyHandler(..., mdx=mdx, ...)
+
+
+    class MyHandler:
+        def __init__(self, ..., mdx, ...):
+            super().__init__(..., mdx=mdx, ...)
+    ```
+
+=== "Through `**kwargs`"
+
+    ```python
+    def get_handler(..., **kwargs):
+        return MyHandler(..., **kwargs)
+
+
+    class MyHandler:
+        def __init__(self, ..., **kwargs):
+            super().__init__(**kwargs)
+    ```
+
+In the meantime we still retrieve this `mdx` value at a different moment, by reading it from the MkDocs configuration.
+
+> The `mdx_config` argument must be provided (as a keyword argument).
+
+Same as for `mdx`, but with `mdx_config`.
+
+> mkdocstrings v1 will stop handling 'import' in handlers configuration. Instead your handler must define a `get_inventory_urls` method that returns a list of URLs to download.
+
+Previously, mkdocstrings would pop the `import` key from a handler's configuration to download each item (URLs). Items could be strings, or dictionaries with a `url` key. Now mkdocstrings gives back control to handlers, which must store this inventory configuration within them, and expose it again through a `get_inventory_urls` method. This method returns a list of tuples: an URL, and a dictionary of options that will be passed again to their `load_inventory` method. Handlers have now full control over the "inventory" setting.
+
+```python
+from copy import deepcopy
+
+
+def get_handler(..., handler_config, ...):
+    return MyHandler(..., config=handler_config, ...)
+
+
+class MyHandler:
+    def __init__(self, ..., config, ...):
+        self.config = config
+
+    def get_inventory_urls(self):
+        config = deepcopy(self.config["import"])
+        return [(inv, {}) if isinstance(inv, str) else (inv.pop("url"), inv) for inv in config]
+```
+
+Changing the name of the key (for example from `import` to `inventories`) involves a change in user configuration, and both keys will have to be supported by your handler for some time.
+
+```python
+def get_handler(..., handler_config, ...):
+    if "inventories" not in handler_config and "import" in handler_config:
+        warn("The 'import' key is renamed 'inventories'", FutureWarning)
+        handler_config["inventories"] = handler_config.pop("import")
+    return MyHandler(..., config=handler_config, ...)
+```
+
+> Setting a fallback anchor function is deprecated and will be removed in a future release.
+
+This comes from mkdocstrings and mkdocs-autorefs, and will disappear with mkdocstrings v0.28.
+
+> mkdocstrings v1 will start using your handler's `get_options` method to build options instead of merging the global and local options (dictionaries).
+
+Handlers must now store their own global options (in an instance attribute), and implement a `get_options` method that receives `local_options` (a dict) and returns combined options (dict or custom object). These combined options are then passed to `collect` and `render`, so that these methods can use them right away.
+
+```python
+def get_handler(..., handler_config, ...):
+    return MyHandler(..., config=handler_config, ...)
+
+
+class MyHandler:
+    def __init__(self, ..., config, ...):
+        self.config = config
+
+    def get_options(local_options):
+        return {**self.default_options, **self.config["options"], **local_options}
+```
+
+> The `update_env(md)` parameter is deprecated. Use `self.md` instead.
+
+Handlers can remove the `md` parameter from their `update_env` method implementation, and use `self.md` instead, if they need it.
+
+> No need to call `super().update_env()` anymore.
+
+Handlers don't have to call the parent `update_env` method from their own implementation anymore, and can just drop the call.
+
+>  The `get_anchors` method is deprecated. Declare a `get_aliases` method instead, accepting a string (identifier) instead of a collected object.
+
+Previously, handlers would implement a `get_anchors` method that received a data object (typed `CollectorItem`) to return aliases for this object. This forced mkdocstrings to collect this object through the handler's `collect` method, which then required some logic with "fallback config" as to prevent unwanted collection. mkdocstrings gives back control to handlers and now calls `get_aliases` instead, which accepts an `identifier` (string) and lets the handler decide how to return aliases for this identifier. For example, it can replicate previous behavior by calling its own `collect` method with its own "fallback config", or do something different (cache lookup, etc.).
+
+```python
+class MyHandler:
+    def get_aliases(identifier):
+        try:
+            obj = self.collect(identifier, self.fallback_config)
+            # or obj = self._objects_cache[identifier]
+        except CollectionError:  # or KeyError
+            return ()
+        return ...  # previous logic in `get_anchors`
+```
+
+> The `config_file_path` argument in `get_handler` functions is deprecated. Use `tool_config.get('config_file_path')` instead.
+
+The `config_file_path` argument is now deprecated and only passed to `get_handler` functions if they accept it. If you used it to compute a "base directory", you can now use the `tool_config` argument instead, which is the configuration of the SSG tool in use (here MkDocs):
+
+```python
+base_dir = Path(tool_config.config_file_path or "./mkdocs.yml").parent
+```
+
+**Most of these warnings will disappear with the next version of mkdocstrings-python.**
+
+### Bug Fixes
+
+- Update handlers in JSON schema to be an object instead of an array ([3cf7d51](https://github.com/mkdocstrings/mkdocstrings/commit/3cf7d51704378adc50d4ea50080aacae39e0e731) by Matthew Messinger). [Issue-733](https://github.com/mkdocstrings/mkdocstrings/issues/733), [PR-734](https://github.com/mkdocstrings/mkdocstrings/pull/734)
+- Fix broken table of contents when nesting autodoc instructions ([12c8f82](https://github.com/mkdocstrings/mkdocstrings/commit/12c8f82e9a959ce32cada09f0d2b5c651a705fdb) by Timothée Mazzucotelli). [Issue-348](https://github.com/mkdocstrings/mkdocstrings/issues/348)
+
+### Code Refactoring
+
+- Pass `config_file_path` to `get_handler` if it expects it ([8c476ee](https://github.com/mkdocstrings/mkdocstrings/commit/8c476ee0b82c09a5b20d7a773ecaf4be17b9e4d1) by Timothée Mazzucotelli).
+- Give back inventory control to handlers ([b84653f](https://github.com/mkdocstrings/mkdocstrings/commit/b84653f2b175824c73bd0291fafff8343ba80125) by Timothée Mazzucotelli). [Related-to-issue-719](https://github.com/mkdocstrings/mkdocstrings/issues/719)
+- Give back control to handlers on how they want to handle global/local options ([c00de7a](https://github.com/mkdocstrings/mkdocstrings/commit/c00de7a42b9072cbaa47ecbf18e3e15a6d5ab634) by Timothée Mazzucotelli). [Issue-719](https://github.com/mkdocstrings/mkdocstrings/issues/719)
+- Deprecate base handler's `get_anchors` method in favor of `get_aliases` method ([7a668f0](https://github.com/mkdocstrings/mkdocstrings/commit/7a668f0f731401b07123bd02aafbbfc55cd24c0d) by Timothée Mazzucotelli).
+- Register all identifiers of rendered objects into autorefs ([434d8c7](https://github.com/mkdocstrings/mkdocstrings/commit/434d8c7cd1e3edbdb9d4c45a9b44b290b19d88f1) by Timothée Mazzucotelli).
+- Use mkdocs-get-deps' download utility to remove duplicated code ([bb87cd8](https://github.com/mkdocstrings/mkdocstrings/commit/bb87cd833f2333e77cb2c2926aa24a434c97391f) by Timothée Mazzucotelli).
+- Clean up data passed down from plugin to extension and handlers ([b8e8703](https://github.com/mkdocstrings/mkdocstrings/commit/b8e87036e0e1ec5c181b4a2ec5931f1a60636a32) by Timothée Mazzucotelli). [PR-726](https://github.com/mkdocstrings/mkdocstrings/pull/726)
+
 ## [0.27.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.27.0) - 2024-11-08
 
 <small>[Compare with 0.26.2](https://github.com/mkdocstrings/mkdocstrings/compare/0.26.2...0.27.0)</small>
