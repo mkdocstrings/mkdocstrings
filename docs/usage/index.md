@@ -271,7 +271,7 @@ plugins:
 - mkdocstrings:
     handlers:
       python:
-        import:
+        inventories:
         - https://installer.readthedocs.io/en/stable/objects.inv
 ```
 
@@ -298,7 +298,7 @@ plugins:
 - mkdocstrings:
     handlers:
       python:
-        import:
+        inventories:
         # latest instead of stable
         - https://installer.readthedocs.io/en/latest/objects.inv
 ```
@@ -311,7 +311,7 @@ plugins:
 - mkdocstrings:
     handlers:
       python:
-        import:
+        inventories:
         - url: https://cdn.example.com/version/objects.inv
           base_url: https://docs.example.com/version
 ```
