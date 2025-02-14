@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.28.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.28.1) - 2025-02-14
+
+<small>[Compare with 0.28.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.28.0...0.28.1)</small>
+
+### Bug Fixes
+
+- Renew MkDocs' `relpath` processor instead of using same instance ([4ab180d](https://github.com/mkdocstrings/mkdocstrings/commit/4ab180d01964c3ef8005cd72c8d91ba3fd241e27) by Timothée Mazzucotelli). [Issue-mkdocs-3919](https://github.com/mkdocs/mkdocs/issues/3919)
+
 ## [0.28.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.28.0) - 2025-02-03
 
 <small>[Compare with 0.27.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.27.0...0.28.0)</small>
