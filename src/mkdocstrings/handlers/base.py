@@ -20,7 +20,7 @@ from jinja2 import Environment, FileSystemLoader
 from markdown import Markdown
 from markdown.extensions.toc import TocTreeprocessor
 from markupsafe import Markup
-from mkdocs_autorefs.references import AutorefsInlineProcessor
+from mkdocs_autorefs import AutorefsInlineProcessor
 
 # TODO: Replace with `from mkdocs.utils.cache import download_and_cache_url` when we depend on mkdocs>=1.5.
 from mkdocs_get_deps.cache import download_and_cache_url
@@ -46,7 +46,7 @@ if TYPE_CHECKING:
     from collections.abc import Iterable, Iterator, Mapping, Sequence
 
     from markdown import Extension
-    from mkdocs_autorefs.references import AutorefsHookInterface
+    from mkdocs_autorefs import AutorefsHookInterface
 
 log = get_logger(__name__)
 

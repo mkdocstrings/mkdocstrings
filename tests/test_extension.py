@@ -162,7 +162,11 @@ def test_register_every_identifier_alias(plugin: MkdocstringsPlugin, ext_markdow
     handler.get_anchors = lambda _: ids  # type: ignore[union-attr]
     handler.get_aliases = lambda _: ids  # type: ignore[method-assign]
     autorefs = ext_markdown.parser.blockprocessors["mkdocstrings"]._autorefs  # type: ignore[attr-defined]
-    autorefs.current_page = "foo"
+
+    class Page:
+        url = "foo"
+
+    autorefs.current_page = Page()
     ext_markdown.convert("::: tests.fixtures.headings")
     for identifier in ids:
         assert identifier in autorefs._secondary_url_map

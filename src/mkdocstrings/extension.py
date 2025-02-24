@@ -42,7 +42,7 @@ if TYPE_CHECKING:
     from collections.abc import MutableSequence
 
     from markdown import Markdown
-    from mkdocs_autorefs.plugin import AutorefsPlugin
+    from mkdocs_autorefs import AutorefsPlugin
 
 
 log = get_logger(__name__)

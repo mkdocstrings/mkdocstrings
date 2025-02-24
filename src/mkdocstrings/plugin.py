@@ -24,7 +24,7 @@ from mkdocs.config import Config
 from mkdocs.config import config_options as opt
 from mkdocs.plugins import BasePlugin
 from mkdocs.utils import write_file
-from mkdocs_autorefs.plugin import AutorefsConfig, AutorefsPlugin
+from mkdocs_autorefs import AutorefsConfig, AutorefsPlugin
 
 from mkdocstrings.extension import MkdocstringsExtension
 from mkdocstrings.handlers.base import BaseHandler, Handlers
