@@ -19,10 +19,8 @@ from jinja2 import Environment, FileSystemLoader
 from markdown import Markdown
 from markdown.extensions.toc import TocTreeprocessor
 from markupsafe import Markup
+from mkdocs.utils.cache import download_and_cache_url
 from mkdocs_autorefs import AutorefsInlineProcessor
-
-# TODO: Replace with `from mkdocs.utils.cache import download_and_cache_url` when we depend on mkdocs>=1.5.
-from mkdocs_get_deps.cache import download_and_cache_url
 
 from mkdocstrings._internal.download import _download_url_with_gz
 from mkdocstrings._internal.handlers.rendering import (
