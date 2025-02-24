@@ -20,7 +20,7 @@ from markdown import Markdown
 from markdown.extensions.toc import TocTreeprocessor
 from markupsafe import Markup
 from mkdocs.utils.cache import download_and_cache_url
-from mkdocs_autorefs import AutorefsInlineProcessor
+from mkdocs_autorefs import AutorefsInlineProcessor, BacklinksTreeProcessor
 
 from mkdocstrings._internal.download import _download_url_with_gz
 from mkdocstrings._internal.handlers.rendering import (
@@ -43,7 +43,7 @@ if TYPE_CHECKING:
     from collections.abc import Iterable, Iterator, Mapping, Sequence
 
     from markdown import Extension
-    from mkdocs_autorefs import AutorefsHookInterface
+    from mkdocs_autorefs import AutorefsHookInterface, Backlink
 
 _logger = get_logger(__name__)
 
@@ -331,6 +331,10 @@ class BaseHandler:
         """
         raise NotImplementedError
 
+    def render_backlinks(self, backlinks: Mapping[str, Iterable[Backlink]]) -> str:  # noqa: ARG002
+        """Render backlinks."""
+        return ""
+
     def teardown(self) -> None:
         """Teardown the handler.
 
@@ -420,6 +424,8 @@ class BaseHandler:
         treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = heading_level  # type: ignore[attr-defined]
         treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"  # type: ignore[attr-defined]
         treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph  # type: ignore[attr-defined]
+        if BacklinksTreeProcessor.name in treeprocessors:
+            treeprocessors[BacklinksTreeProcessor.name].initial_id = html_id  # type: ignore[attr-defined]
 
         if autoref_hook:
             self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = autoref_hook  # type: ignore[attr-defined]
@@ -430,6 +436,8 @@ class BaseHandler:
             treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0  # type: ignore[attr-defined]
             treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""  # type: ignore[attr-defined]
             treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False  # type: ignore[attr-defined]
+            if BacklinksTreeProcessor.name in treeprocessors:
+                treeprocessors[BacklinksTreeProcessor.name].initial_id = None  # type: ignore[attr-defined]
             self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # type: ignore[attr-defined]
             self.md.reset()
             _markdown_conversion_layer -= 1
