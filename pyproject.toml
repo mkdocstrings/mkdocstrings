@@ -105,7 +105,6 @@ dev = [
     "types-pyyaml>=6.0",
 
     # docs
-    "black>=24.4",
     "markdown-callouts>=0.4",
     "markdown-exec>=1.8",
     "mkdocs>=1.6",
