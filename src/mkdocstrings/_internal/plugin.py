@@ -14,24 +14,18 @@
 from __future__ import annotations
 
 import os
-import sys
 from typing import TYPE_CHECKING, Any
 from warnings import catch_warnings, simplefilter
 
 from mkdocs.config import Config
 from mkdocs.config import config_options as opt
-from mkdocs.plugins import BasePlugin
+from mkdocs.plugins import BasePlugin, CombinedEvent, event_priority
 from mkdocs.utils import write_file
 from mkdocs_autorefs import AutorefsConfig, AutorefsPlugin
 
 from mkdocstrings._internal.extension import MkdocstringsExtension
 from mkdocstrings._internal.handlers.base import BaseHandler, Handlers
 from mkdocstrings._internal.loggers import get_logger
-
-if sys.version_info < (3, 10):
-    pass
-else:
-    pass
 
 if TYPE_CHECKING:
     from jinja2.environment import Environment
@@ -194,29 +188,34 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
         """
         return self.config.enabled
 
-    def on_env(self, env: Environment, config: MkDocsConfig, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
-        """Extra actions that need to happen after all Markdown rendering and before HTML rendering.
-
-        Hook for the [`on_env` event](https://www.mkdocs.org/user-guide/plugins/#on_env).
-
-        - Write mkdocstrings' extra files into the site dir.
-        - Gather results from background inventory download tasks.
-        """
-        if not self.plugin_enabled:
-            return
-
-        if self._handlers:
-            css_content = "\n".join(handler.extra_css for handler in self.handlers.seen_handlers)
-            write_file(css_content.encode("utf-8"), os.path.join(config.site_dir, self.css_filename))
-
-            if self.inventory_enabled:
-                _logger.debug("Creating inventory file objects.inv")
-                inv_contents = self.handlers.inventory.format_sphinx()
-                write_file(inv_contents, os.path.join(config.site_dir, "objects.inv"))
-
+    @event_priority(50)  # Early, before autorefs' starts applying cross-refs and collecting backlinks.
+    def _on_env_load_inventories(self, env: Environment, config: MkDocsConfig, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
+        if self.plugin_enabled and self._handlers:
             register = config.plugins["autorefs"].register_url  # type: ignore[attr-defined]
             for identifier, url in self._handlers._yield_inventory_items():
                 register(identifier, url)
+
+    @event_priority(-20)  # Late, not important.
+    def _on_env_add_css(self, env: Environment, config: MkDocsConfig, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
+        if self.plugin_enabled and self._handlers:
+            css_content = "\n".join(handler.extra_css for handler in self.handlers.seen_handlers)
+            write_file(css_content.encode("utf-8"), os.path.join(config.site_dir, self.css_filename))
+
+    @event_priority(-20)  # Late, not important.
+    def _on_env_write_inventory(self, env: Environment, config: MkDocsConfig, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
+        if self.plugin_enabled and self._handlers and self.inventory_enabled:
+            _logger.debug("Creating inventory file objects.inv")
+            inv_contents = self.handlers.inventory.format_sphinx()
+            write_file(inv_contents, os.path.join(config.site_dir, "objects.inv"))
+
+    on_env = CombinedEvent(_on_env_load_inventories, _on_env_add_css, _on_env_write_inventory)
+    """Extra actions that need to happen after all Markdown-to-HTML page rendering.
+
+    Hook for the [`on_env` event](https://www.mkdocs.org/user-guide/plugins/#on_env).
+
+    - Gather results from background inventory download tasks.
+    - Write mkdocstrings' extra files (CSS, inventory) into the site directory.
+    """
 
     def on_post_build(
         self,
