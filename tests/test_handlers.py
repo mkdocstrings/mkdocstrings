@@ -6,9 +6,9 @@ from textwrap import dedent
 from typing import TYPE_CHECKING
 
 import pytest
+from dirty_equals import IsStr
 from jinja2.exceptions import TemplateNotFound
 from markdown import Markdown
-from dirty_equals import IsStr
 
 from mkdocstrings.handlers.base import Highlighter
 
