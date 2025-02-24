@@ -240,54 +240,56 @@ class AutoDocProcessor(BlockProcessor):
         # If we were in an inner handler layer, we wouldn't do any of this
         # and would just let headings bubble up to the outer handler layer.
 
-        page = self._autorefs.current_page
-        if page is not None:
-            for heading in headings:
-                rendered_id = heading.attrib["id"]
-                self._autorefs.register_anchor(page, rendered_id, primary=True)
+        if (page := self._autorefs.current_page) is None:
+            return
 
-                # Register all identifiers for this object
-                # both in the autorefs plugin and in the inventory.
-                aliases: tuple[str, ...]
-                # YORE: Bump 1: Replace block with line 16.
-                if hasattr(handler, "get_anchors"):
-                    warn(
-                        "The `get_anchors` method is deprecated. "
-                        "Declare a `get_aliases` method instead, accepting a string (identifier) "
-                        "instead of a collected object.",
-                        DeprecationWarning,
-                        stacklevel=1,
-                    )
-                    try:
-                        data_object = handler.collect(rendered_id, getattr(handler, "fallback_config", {}))
-                    except CollectionError:
-                        aliases = ()
-                    else:
-                        aliases = handler.get_anchors(data_object)
+        for heading in headings:
+            rendered_id = heading.attrib["id"]
+            # The title is registered to be used as tooltip by autorefs.
+            self._autorefs.register_anchor(page, rendered_id, title=heading.text, primary=True)
+
+            # Register all identifiers for this object
+            # both in the autorefs plugin and in the inventory.
+            aliases: tuple[str, ...]
+            # YORE: Bump 1: Replace block with line 16.
+            if hasattr(handler, "get_anchors"):
+                warn(
+                    "The `get_anchors` method is deprecated. "
+                    "Declare a `get_aliases` method instead, accepting a string (identifier) "
+                    "instead of a collected object.",
+                    DeprecationWarning,
+                    stacklevel=1,
+                )
+                try:
+                    data_object = handler.collect(rendered_id, getattr(handler, "fallback_config", {}))
+                except CollectionError:
+                    aliases = ()
                 else:
-                    aliases = handler.get_aliases(rendered_id)
+                    aliases = handler.get_anchors(data_object)
+            else:
+                aliases = handler.get_aliases(rendered_id)
 
+            for alias in aliases:
+                if alias != rendered_id:
+                    self._autorefs.register_anchor(page, alias, rendered_id, primary=False)
+
+            if "data-role" in heading.attrib:
+                self._handlers.inventory.register(
+                    name=rendered_id,
+                    domain=handler.domain,
+                    role=heading.attrib["data-role"],
+                    priority=1,  # Register with standard priority.
+                    uri=f"{page.url}#{rendered_id}",
+                )
                 for alias in aliases:
-                    if alias != rendered_id:
-                        self._autorefs.register_anchor(page, alias, rendered_id, primary=False)
-
-                if "data-role" in heading.attrib:
-                    self._handlers.inventory.register(
-                        name=rendered_id,
-                        domain=handler.domain,
-                        role=heading.attrib["data-role"],
-                        priority=1,  # Register with standard priority.
-                        uri=f"{page}#{rendered_id}",
-                    )
-                    for alias in aliases:
-                        if alias not in self._handlers.inventory:
-                            self._handlers.inventory.register(
-                                name=alias,
-                                domain=handler.domain,
-                                role=heading.attrib["data-role"],
-                                priority=2,  # Register with lower priority.
-                                uri=f"{page}#{rendered_id}",
-                            )
+                    if alias not in self._handlers.inventory:
+                        self._handlers.inventory.register(
+                            name=alias,
+                            domain=handler.domain,
+                            role=heading.attrib["data-role"],
+                            priority=2,  # Register with lower priority.
+                            uri=f"{page.url}#{rendered_id}",
+                        )
 
 
 class _HeadingsPostProcessor(Treeprocessor):

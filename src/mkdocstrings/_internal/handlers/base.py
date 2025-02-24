@@ -473,6 +473,8 @@ class BaseHandler:
         el.set("data-toc-label", toc_label)
         if role:
             el.set("data-role", role)
+        if content:
+            el.text = str(content).strip()
         self._headings.append(el)
 
         if hidden:
