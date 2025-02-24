@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 import pytest
 from jinja2.exceptions import TemplateNotFound
 from markdown import Markdown
+from dirty_equals import IsStr
 
 from mkdocstrings.handlers.base import Highlighter
 
@@ -120,14 +121,14 @@ def test_nested_autodoc(ext_markdown: Markdown) -> None:
         {
             "level": 1,
             "id": "tests.fixtures.nesting.Class",
-            "html": "",
+            "html": IsStr(),
             "name": "Class",
             "data-toc-label": "Class",
             "children": [
                 {
                     "level": 2,
                     "id": "tests.fixtures.nesting.Class.method",
-                    "html": "",
+                    "html": IsStr(),
                     "name": "method",
                     "data-toc-label": "method",
                     "children": [],

@@ -94,6 +94,7 @@ dev = [
     "twine>=5.1",
 
     # ci
+    "dirty-equals>=0.9.0",
     "duty>=1.4",
     "ruff>=0.4",
     "pytest>=8.2",
