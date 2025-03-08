@@ -148,7 +148,7 @@ class IdPrependingTreeprocessor(Treeprocessor):
         super().__init__(md)
         self.id_prefix = id_prefix
 
-    def run(self, root: Element) -> None:  # noqa: D102 (ignore missing docstring)
+    def run(self, root: Element) -> None:
         if self.id_prefix:
             self._prefix_ids(root)
 
@@ -205,7 +205,7 @@ class HeadingShiftingTreeprocessor(Treeprocessor):
         super().__init__(md)
         self.shift_by = shift_by
 
-    def run(self, root: Element) -> None:  # noqa: D102 (ignore missing docstring)
+    def run(self, root: Element) -> None:
         if not self.shift_by:
             return
         for el in root.iter():
@@ -247,7 +247,7 @@ class ParagraphStrippingTreeprocessor(Treeprocessor):
     name = "mkdocstrings_strip_paragraph"
     strip = False
 
-    def run(self, root: Element) -> Element | None:  # noqa: D102 (ignore missing docstring)
+    def run(self, root: Element) -> Element | None:
         if self.strip and len(root) == 1 and root[0].tag == "p":
             # Turn the single <p> element into the root element and inherit its tag name (it's significant!)
             root[0].tag = root.tag

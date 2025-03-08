@@ -7,7 +7,7 @@ import urllib.request
 from collections.abc import Mapping
 from typing import BinaryIO, Optional
 
-from mkdocstrings.loggers import get_logger
+from mkdocstrings._internal.loggers import get_logger
 
 log = get_logger(__name__)
 

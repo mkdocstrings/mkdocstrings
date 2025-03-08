@@ -35,8 +35,8 @@ from markdown.extensions import Extension
 from markdown.treeprocessors import Treeprocessor
 from mkdocs.exceptions import PluginError
 
+from mkdocstrings._internal.loggers import get_logger
 from mkdocstrings.handlers.base import BaseHandler, CollectionError, CollectorItem, Handlers
-from mkdocstrings.loggers import get_logger
 
 if TYPE_CHECKING:
     from collections.abc import MutableSequence

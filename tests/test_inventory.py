@@ -10,7 +10,7 @@ import pytest
 from mkdocs.commands.build import build
 from mkdocs.config import load_config
 
-from mkdocstrings.inventory import Inventory, InventoryItem
+from mkdocstrings._internal.inventory import Inventory, InventoryItem
 
 sphinx = pytest.importorskip("sphinx.util.inventory", reason="Sphinx is not installed")
 

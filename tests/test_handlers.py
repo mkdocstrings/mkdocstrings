@@ -15,7 +15,7 @@ from mkdocstrings.handlers.base import Highlighter
 if TYPE_CHECKING:
     from pathlib import Path
 
-    from mkdocstrings.plugin import MkdocstringsPlugin
+    from mkdocstrings._internal.plugin import MkdocstringsPlugin
 
 
 @pytest.mark.parametrize("extension_name", ["codehilite", "pymdownx.highlight"])

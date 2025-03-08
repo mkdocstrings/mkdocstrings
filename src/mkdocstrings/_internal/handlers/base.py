@@ -25,7 +25,9 @@ from mkdocs_autorefs import AutorefsInlineProcessor
 # TODO: Replace with `from mkdocs.utils.cache import download_and_cache_url` when we depend on mkdocs>=1.5.
 from mkdocs_get_deps.cache import download_and_cache_url
 
-from mkdocstrings._download import download_url_with_gz
+from mkdocstrings._internal.download import download_url_with_gz
+from mkdocstrings._internal.inventory import Inventory
+from mkdocstrings._internal.loggers import get_logger, get_template_logger
 from mkdocstrings.handlers.rendering import (
     HeadingShiftingTreeprocessor,
     Highlighter,
@@ -33,8 +35,6 @@ from mkdocstrings.handlers.rendering import (
     MkdocstringsInnerExtension,
     ParagraphStrippingTreeprocessor,
 )
-from mkdocstrings.inventory import Inventory
-from mkdocstrings.loggers import get_logger, get_template_logger
 
 # TODO: remove once support for Python 3.9 is dropped
 if sys.version_info < (3, 10):

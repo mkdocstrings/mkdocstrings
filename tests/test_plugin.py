@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 from mkdocs.commands.build import build
 from mkdocs.config import load_config
 
-from mkdocstrings.plugin import MkdocstringsPlugin
+from mkdocstrings._internal.plugin import MkdocstringsPlugin
 
 if TYPE_CHECKING:
     from pathlib import Path
@@ -28,7 +28,7 @@ def test_disabling_plugin(tmp_path: Path) -> None:
         plugins:
         - mkdocstrings:
             enabled: false
-        """
+        """,
     )
 
     mkdocs_config = load_config(str(config_file))

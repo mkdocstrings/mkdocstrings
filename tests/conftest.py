@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
     from mkdocs import config
 
-    from mkdocstrings.plugin import MkdocstringsPlugin
+    from mkdocstrings._internal.plugin import MkdocstringsPlugin
 
 
 @pytest.fixture(name="mkdocs_conf")

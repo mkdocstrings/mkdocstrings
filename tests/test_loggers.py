@@ -4,7 +4,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from mkdocstrings.loggers import get_logger, get_template_logger
+from mkdocstrings._internal.loggers import get_logger, get_template_logger
 
 
 @pytest.mark.parametrize(

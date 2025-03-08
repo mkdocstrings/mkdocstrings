@@ -26,9 +26,9 @@ from mkdocs.plugins import BasePlugin
 from mkdocs.utils import write_file
 from mkdocs_autorefs import AutorefsConfig, AutorefsPlugin
 
-from mkdocstrings.extension import MkdocstringsExtension
+from mkdocstrings._internal.extension import MkdocstringsExtension
+from mkdocstrings._internal.loggers import get_logger
 from mkdocstrings.handlers.base import BaseHandler, Handlers
-from mkdocstrings.loggers import get_logger
 
 if sys.version_info < (3, 10):
     from typing_extensions import ParamSpec
