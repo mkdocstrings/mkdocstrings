@@ -20,11 +20,20 @@ def test_disabling_plugin(tmp_path: Path) -> None:
     docs_dir.mkdir()
     site_dir.mkdir()
     docs_dir.joinpath("index.md").write_text("::: mkdocstrings")
+    config_file = tmp_path / "mkdocs.yml"
+    config_file.write_text(
+        """
+        site_name: Test
+        theme: mkdocs
+        plugins:
+        - mkdocstrings:
+            enabled: false
+        """
+    )
 
-    mkdocs_config = load_config()
+    mkdocs_config = load_config(str(config_file))
     mkdocs_config["docs_dir"] = str(docs_dir)
     mkdocs_config["site_dir"] = str(site_dir)
-    mkdocs_config["plugins"]["mkdocstrings"].config["enabled"] = False
     mkdocs_config["plugins"].run_event("startup", command="build", dirty=False)
     try:
         build(mkdocs_config)
