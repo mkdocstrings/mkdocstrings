@@ -126,6 +126,7 @@ markdown_extensions:
 
 plugins:
 - search
+- autorefs
 - markdown-exec
 - gen-files:
     scripts:
