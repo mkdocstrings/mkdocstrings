@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.28.3](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.28.3) - 2025-03-08
+
+<small>[Compare with 0.28.2](https://github.com/mkdocstrings/mkdocstrings/compare/0.28.2...0.28.3)</small>
+
+### Deprecations
+
+All public objects must now be imported from the top-level `mkdocstrings` module. Importing from submodules is deprecated, and will raise errors starting with v1. This should be the last deprecation before v1.
+
+### Build
+
+- Make `python` extra depend on latest mkdocstrings-python (1.16.2) ([ba9003e](https://github.com/mkdocstrings/mkdocstrings/commit/ba9003e96c8e5e01900743d5c464cbd228d732f4) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Finish exposing/hiding public/internal objects ([0723fc2](https://github.com/mkdocstrings/mkdocstrings/commit/0723fc25fdf5d45bc3b949f370712a706b85fbab) by Timothée Mazzucotelli).
+- Re-expose public API in the top-level `mkdocstrings` module ([e66e080](https://github.com/mkdocstrings/mkdocstrings/commit/e66e08096d45f6790492d9a0b767d512e42f67a9) by Timothée Mazzucotelli).
+- Move modules to internal folder ([23fe23f](https://github.com/mkdocstrings/mkdocstrings/commit/23fe23f11011d0470a6342ca85e060e5ac2b6bd6) by Timothée Mazzucotelli).
+
 ## [0.28.2](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.28.2) - 2025-02-24
 
 <small>[Compare with 0.28.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.28.1...0.28.2)</small>
