@@ -35,8 +35,7 @@ nav:
     - Recipes: recipes.md
     - Troubleshooting: troubleshooting.md
 # defer to gen-files + literate-nav
-- API reference:
-  - mkdocstrings: reference/
+- API reference: reference/
 - Development:
   - Contributing: contributing.md
   - Code of Conduct: code_of_conduct.md
