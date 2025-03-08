@@ -249,7 +249,7 @@ In the example below you see the identifier to be linked is `foo.bar--tips`, bec
 
 The above tip about [Finding out the anchor](#finding-out-the-anchor) also applies the same way here.
 
-You may also notice that such a heading does not get rendered as a `<h1>` element directly, but rather the level gets shifted to fit the encompassing document structure. If you're curious about the implementation, check out [mkdocstrings.handlers.rendering.HeadingShiftingTreeprocessor][] and others.
+You may also notice that such a heading does not get rendered as a `<h1>` element directly, but rather the level gets shifted to fit the encompassing document structure. If you're curious about the implementation, check out [mkdocstrings.HeadingShiftingTreeprocessor][] and others.
 
 ### Cross-references to other projects / inventories
 

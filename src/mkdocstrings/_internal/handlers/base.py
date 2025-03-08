@@ -26,15 +26,15 @@ from mkdocs_autorefs import AutorefsInlineProcessor
 from mkdocs_get_deps.cache import download_and_cache_url
 
 from mkdocstrings._internal.download import download_url_with_gz
-from mkdocstrings._internal.inventory import Inventory
-from mkdocstrings._internal.loggers import get_logger, get_template_logger
-from mkdocstrings.handlers.rendering import (
+from mkdocstrings._internal.handlers.rendering import (
     HeadingShiftingTreeprocessor,
     Highlighter,
     IdPrependingTreeprocessor,
     MkdocstringsInnerExtension,
     ParagraphStrippingTreeprocessor,
 )
+from mkdocstrings._internal.inventory import Inventory
+from mkdocstrings._internal.loggers import get_logger, get_template_logger
 
 # TODO: remove once support for Python 3.9 is dropped
 if sys.version_info < (3, 10):
@@ -547,8 +547,8 @@ class BaseHandler:
 class Handlers:
     """A collection of handlers.
 
-    Do not instantiate this directly. [The plugin][mkdocstrings.plugin.MkdocstringsPlugin] will keep one instance of
-    this for the purpose of caching. Use [mkdocstrings.plugin.MkdocstringsPlugin.get_handler][] for convenient access.
+    Do not instantiate this directly. [The plugin][mkdocstrings.MkdocstringsPlugin] will keep one instance of
+    this for the purpose of caching. Use [mkdocstrings.MkdocstringsPlugin.get_handler][] for convenient access.
     """
 
     def __init__(
@@ -595,7 +595,7 @@ class Handlers:
         """Return the canonical HTML anchor for the identifier, if any of the seen handlers can collect it.
 
         Arguments:
-            identifier: The identifier (one that [collect][mkdocstrings.handlers.base.BaseHandler.collect] can accept).
+            identifier: The identifier (one that [collect][mkdocstrings.BaseHandler.collect] can accept).
 
         Returns:
             A tuple of strings - anchors without '#', or an empty tuple if there isn't any identifier familiar with it.
@@ -654,7 +654,7 @@ class Handlers:
             handler_config: Configuration passed to the handler.
 
         Returns:
-            An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler],
+            An instance of a subclass of [`BaseHandler`][mkdocstrings.BaseHandler],
                 as instantiated by the `get_handler` method of the handler's module.
         """
         if name not in self._handlers:
@@ -749,7 +749,7 @@ class Handlers:
         """Get the handlers that were encountered so far throughout the build.
 
         Returns:
-            An iterable of instances of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler]
+            An iterable of instances of [`BaseHandler`][mkdocstrings.BaseHandler]
             (usable only to loop through it).
         """
         return self._handlers.values()

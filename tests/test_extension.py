@@ -12,7 +12,7 @@ import pytest
 if TYPE_CHECKING:
     from markdown import Markdown
 
-    from mkdocstrings._internal.plugin import MkdocstringsPlugin
+    from mkdocstrings import MkdocstringsPlugin
 
 
 @pytest.mark.parametrize("ext_markdown", [{"markdown_extensions": [{"footnotes": {}}]}], indirect=["ext_markdown"])

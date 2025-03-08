@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 from mkdocs.commands.build import build
 from mkdocs.config import load_config
 
-from mkdocstrings._internal.plugin import MkdocstringsPlugin
+from mkdocstrings import MkdocstringsPlugin
 
 if TYPE_CHECKING:
     from pathlib import Path

@@ -58,7 +58,7 @@ Gitter = "https://gitter.im/mkdocstrings/community"
 Funding = "https://github.com/sponsors/pawamoy"
 
 [project.entry-points."mkdocs.plugins"]
-mkdocstrings = "mkdocstrings.plugin:MkdocstringsPlugin"
+mkdocstrings = "mkdocstrings:MkdocstringsPlugin"
 
 [tool.pdm.version]
 source = "call"

@@ -1,11 +1,11 @@
 """This module contains the "mkdocstrings" plugin for MkDocs.
 
-The plugin instantiates a Markdown extension ([`MkdocstringsExtension`][mkdocstrings.extension.MkdocstringsExtension]),
+The plugin instantiates a Markdown extension ([`MkdocstringsExtension`][mkdocstrings.MkdocstringsExtension]),
 and adds it to the list of Markdown extensions used by `mkdocs`
 during the [`on_config` event hook](https://www.mkdocs.org/user-guide/plugins/#on_config).
 
 Once the documentation is built, the [`on_post_build` event hook](https://www.mkdocs.org/user-guide/plugins/#on_post_build)
-is triggered and calls the [`handlers.teardown()` method][mkdocstrings.handlers.base.Handlers.teardown]. This method is
+is triggered and calls the [`handlers.teardown()` method][mkdocstrings.Handlers.teardown]. This method is
 used to teardown the handlers that were instantiated during documentation buildup.
 
 Finally, when serving the documentation, it can add directories to watch
@@ -27,8 +27,8 @@ from mkdocs.utils import write_file
 from mkdocs_autorefs import AutorefsConfig, AutorefsPlugin
 
 from mkdocstrings._internal.extension import MkdocstringsExtension
+from mkdocstrings._internal.handlers.base import BaseHandler, Handlers
 from mkdocstrings._internal.loggers import get_logger
-from mkdocstrings.handlers.base import BaseHandler, Handlers
 
 if sys.version_info < (3, 10):
     from typing_extensions import ParamSpec
@@ -120,13 +120,13 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
 
     @property
     def handlers(self) -> Handlers:
-        """Get the instance of [mkdocstrings.handlers.base.Handlers][] for this plugin/build.
+        """Get the instance of [mkdocstrings.Handlers][] for this plugin/build.
 
         Raises:
             RuntimeError: If the plugin hasn't been initialized with a config.
 
         Returns:
-            An instance of [mkdocstrings.handlers.base.Handlers][] (the same throughout the build).
+            An instance of [mkdocstrings.Handlers][] (the same throughout the build).
         """
         if not self._handlers:
             raise RuntimeError("The plugin hasn't been initialized with a config yet")
@@ -136,7 +136,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
         """Instantiate our Markdown extension.
 
         Hook for the [`on_config` event](https://www.mkdocs.org/user-guide/plugins/#on_config).
-        In this hook, we instantiate our [`MkdocstringsExtension`][mkdocstrings.extension.MkdocstringsExtension]
+        In this hook, we instantiate our [`MkdocstringsExtension`][mkdocstrings.MkdocstringsExtension]
         and add it to the list of Markdown extensions used by `mkdocs`.
 
         We pass this plugin's configuration dictionary to the extension when instantiating it (it will need it
@@ -263,12 +263,12 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             self.handlers.teardown()
 
     def get_handler(self, handler_name: str) -> BaseHandler:
-        """Get a handler by its name. See [mkdocstrings.handlers.base.Handlers.get_handler][].
+        """Get a handler by its name. See [mkdocstrings.Handlers.get_handler][].
 
         Arguments:
             handler_name: The name of the handler.
 
         Returns:
-            An instance of a subclass of [`BaseHandler`][mkdocstrings.handlers.base.BaseHandler].
+            An instance of a subclass of [`BaseHandler`][mkdocstrings.BaseHandler].
         """
         return self.handlers.get_handler(handler_name)

@@ -3,7 +3,7 @@
 The extension is composed of a Markdown [block processor](https://python-markdown.github.io/extensions/api/#blockparser)
 that matches indented blocks starting with a line like `::: identifier`.
 
-For each of these blocks, it uses a [handler][mkdocstrings.handlers.base.BaseHandler] to collect documentation about
+For each of these blocks, it uses a [handler][mkdocstrings.BaseHandler] to collect documentation about
 the given identifier and render it with Jinja templates.
 
 Both the collection and rendering process can be configured by adding YAML configuration under the "autodoc"
@@ -35,8 +35,8 @@ from markdown.extensions import Extension
 from markdown.treeprocessors import Treeprocessor
 from mkdocs.exceptions import PluginError
 
+from mkdocstrings._internal.handlers.base import BaseHandler, CollectionError, CollectorItem, Handlers
 from mkdocstrings._internal.loggers import get_logger
-from mkdocstrings.handlers.base import BaseHandler, CollectionError, CollectorItem, Handlers
 
 if TYPE_CHECKING:
     from collections.abc import MutableSequence
@@ -51,8 +51,8 @@ log = get_logger(__name__)
 class AutoDocProcessor(BlockProcessor):
     """Our "autodoc" Markdown block processor.
 
-    It has a [`test` method][mkdocstrings.extension.AutoDocProcessor.test] that tells if a block matches a criterion,
-    and a [`run` method][mkdocstrings.extension.AutoDocProcessor.run] that processes it.
+    It has a [`test` method][mkdocstrings.AutoDocProcessor.test] that tells if a block matches a criterion,
+    and a [`run` method][mkdocstrings.AutoDocProcessor.run] that processes it.
 
     It also has utility methods allowing to get handlers and their configuration easily, useful when processing
     a matched block.
@@ -342,7 +342,7 @@ class MkdocstringsExtension(Extension):
     def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
         """Register the extension.
 
-        Add an instance of our [`AutoDocProcessor`][mkdocstrings.extension.AutoDocProcessor] to the Markdown parser.
+        Add an instance of our [`AutoDocProcessor`][mkdocstrings.AutoDocProcessor] to the Markdown parser.
 
         Arguments:
             md: A `markdown.Markdown` instance.

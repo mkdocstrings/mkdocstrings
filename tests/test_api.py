@@ -10,7 +10,7 @@ import griffe
 import pytest
 
 import mkdocstrings
-from mkdocstrings._internal.inventory import Inventory
+from mkdocstrings import Inventory
 
 if TYPE_CHECKING:
     from collections.abc import Iterator

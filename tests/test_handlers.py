@@ -10,12 +10,12 @@ from dirty_equals import IsStr
 from jinja2.exceptions import TemplateNotFound
 from markdown import Markdown
 
-from mkdocstrings.handlers.base import Highlighter
+from mkdocstrings import Highlighter
 
 if TYPE_CHECKING:
     from pathlib import Path
 
-    from mkdocstrings._internal.plugin import MkdocstringsPlugin
+    from mkdocstrings import MkdocstringsPlugin
 
 
 @pytest.mark.parametrize("extension_name", ["codehilite", "pymdownx.highlight"])
