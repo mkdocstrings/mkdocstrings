@@ -34,8 +34,7 @@ nav:
   - Guides:
     - Recipes: recipes.md
     - Troubleshooting: troubleshooting.md
-# defer to gen-files + literate-nav
-- API reference: reference/
+- API reference: reference/mkdocstrings.md
 - Development:
   - Contributing: contributing.md
   - Code of Conduct: code_of_conduct.md
@@ -130,11 +129,6 @@ plugins:
 - autorefs
 - markdown-exec
 - section-index
-- gen-files:
-    scripts:
-    - scripts/gen_api_ref.py
-- literate-nav:
-    nav_file: SUMMARY.txt
 - coverage
 - mkdocstrings:
     handlers:
@@ -185,6 +179,14 @@ plugins:
     redirect_maps:
       theming.md: usage/theming.md
       handlers/overview.md: usage/handlers.md
+      reference/index.md: reference/mkdocstrings.md#mkdocstrings
+      reference/extension.md: reference/mkdocstrings.md#mkdocstrings.extension
+      reference/handlers/index.md: reference/mkdocstrings.md#mkdocstrings.handlers
+      reference/handlers/base.md: reference/mkdocstrings.md#mkdocstrings.handlers.base
+      reference/handlers/rendering.md: reference/mkdocstrings.md#mkdocstrings.handlers.rendering
+      reference/inventory.md: reference/mkdocstrings.md#mkdocstrings.inventory
+      reference/loggers.md: reference/mkdocstrings.md#mkdocstrings.loggers
+      reference/plugin.md: reference/mkdocstrings.md#mkdocstrings.plugin
 - minify:
     minify_html: !ENV [DEPLOY, false]
 - group:
