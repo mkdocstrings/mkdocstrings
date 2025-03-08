@@ -47,17 +47,24 @@ ignore = [
 ]
 
 [lint.per-file-ignores]
-"src/*/cli.py" = [
+"src/**/cli.py" = [
     "T201",  # Print statement
 ]
 "src/*/debug.py" = [
     "T201",  # Print statement
 ]
+"!src/*/*.py" = [
+    "D100",  # Missing docstring in public module
+]
+"!src/**.py" = [
+    "D101",  # Missing docstring in public class
+    "D103",  # Missing docstring in public function
+]
 "scripts/*.py" = [
     "INP001",  # File is part of an implicit namespace package
     "T201",  # Print statement
 ]
-"tests/*.py" = [
+"tests/**.py" = [
     "ARG005",  # Unused lambda argument
     "FBT001",  # Boolean positional arg in function definition
     "PLR2004",  # Magic value used in comparison

@@ -1,5 +1,5 @@
-# Changes here will be overwritten by Copier
-_commit: 1.5.6
+# Changes here will be overwritten by Copier.
+_commit: 1.7.1
 _src_path: gh:pawamoy/copier-uv
 author_email: dev@pawamoy.fr
 author_fullname: Timothée Mazzucotelli
@@ -7,7 +7,7 @@ author_username: pawamoy
 copyright_date: '2019'
 copyright_holder: Timothée Mazzucotelli
 copyright_holder_email: dev@pawamoy.fr
-copyright_license: ISC License
+copyright_license: ISC
 insiders: true
 insiders_email: insiders@pawamoy.fr
 insiders_repository_name: mkdocstrings

@@ -1,4 +1,4 @@
-"""Get current project version from Git tags or changelog."""
+# Get current project version from Git tags or changelog.
 
 import re
 from contextlib import suppress
@@ -13,7 +13,6 @@ _default_scm_version = SCMVersion(Version("0.0.0"), None, False, None, None)  # 
 
 
 def get_version() -> str:
-    """Get current project version from Git tags or changelog."""
     scm_version = get_version_from_scm(_root) or _default_scm_version
     if scm_version.version <= Version("0.1"):  # Missing Git tags?
         with suppress(OSError, StopIteration):  # noqa: SIM117

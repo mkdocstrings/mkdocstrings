@@ -7,7 +7,17 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "justMyCode": false
+            "justMyCode": false,
+            "args": "${command:pickArgs}"
+        },
+        {
+            "name": "run",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "mkdocstrings",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": "${command:pickArgs}"
         },
         {
             "name": "docs",

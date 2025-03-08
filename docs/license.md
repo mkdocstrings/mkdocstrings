@@ -1,4 +1,5 @@
 ---
+title: License
 hide:
 - feedback
 ---

@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import os
+import re
 import sys
 from contextlib import contextmanager
+from functools import wraps
 from importlib.metadata import version as pkgversion
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any, Callable
 
 from duty import duty, tools
 
@@ -26,15 +28,30 @@ PTY = not WINDOWS and not CI
 MULTIRUN = os.environ.get("MULTIRUN", "0") == "1"
 
 
-def pyprefix(title: str) -> str:  # noqa: D103
+def pyprefix(title: str) -> str:
     if MULTIRUN:
         prefix = f"(python{sys.version_info.major}.{sys.version_info.minor})"
         return f"{prefix:14}{title}"
     return title
 
 
+def not_from_insiders(func: Callable) -> Callable:
+    @wraps(func)
+    def wrapper(ctx: Context, *args: Any, **kwargs: Any) -> None:
+        origin = ctx.run("git config --get remote.origin.url", silent=True)
+        if "pawamoy-insiders/griffe" in origin:
+            ctx.run(
+                lambda: False,
+                title="Not running this task from insiders repository (do that from public repo instead!)",
+            )
+            return
+        func(ctx, *args, **kwargs)
+
+    return wrapper
+
+
 @contextmanager
-def material_insiders() -> Iterator[bool]:  # noqa: D103
+def material_insiders() -> Iterator[bool]:
     if "+insiders" in pkgversion("mkdocs-material"):
         os.environ["MATERIAL_INSIDERS"] = "true"
         try:
@@ -45,6 +62,12 @@ def material_insiders() -> Iterator[bool]:  # noqa: D103
         yield False
 
 
+def _get_changelog_version() -> str:
+    changelog_version_re = re.compile(r"^## \[(\d+\.\d+\.\d+)\].*$")
+    with Path(__file__).parent.joinpath("CHANGELOG.md").open("r", encoding="utf8") as file:
+        return next(filter(bool, map(changelog_version_re.match, file))).group(1)  # type: ignore[union-attr]
+
+
 @duty
 def changelog(ctx: Context, bump: str = "") -> None:
     """Update the changelog in-place with latest commits.
@@ -53,6 +76,7 @@ def changelog(ctx: Context, bump: str = "") -> None:
         bump: Bump option passed to git-changelog.
     """
     ctx.run(tools.git_changelog(bump=bump or None), title="Updating changelog")
+    ctx.run(tools.yore.check(bump=bump or _get_changelog_version()), title="Checking legacy code")
 
 
 @duty(pre=["check-quality", "check-types", "check-docs", "check-api"])
@@ -85,6 +109,7 @@ def check_docs(ctx: Context) -> None:
 def check_types(ctx: Context) -> None:
     """Check that the code is correctly typed."""
     os.environ["MYPYPATH"] = "src"
+    os.environ["FORCE_COLOR"] = "1"
     ctx.run(
         tools.mypy(*PY_SRC_LIST, config_file="config/mypy.ini"),
         title=pyprefix("Type-checking"),
@@ -174,6 +199,7 @@ def build(ctx: Context) -> None:
 
 
 @duty
+@not_from_insiders
 def publish(ctx: Context) -> None:
     """Publish source and wheel distributions to PyPI."""
     if not Path("dist").exists():
@@ -187,18 +213,13 @@ def publish(ctx: Context) -> None:
 
 
 @duty(post=["build", "publish", "docs-deploy"])
+@not_from_insiders
 def release(ctx: Context, version: str = "") -> None:
     """Release a new Python package.
 
     Parameters:
         version: The new version number to use.
     """
-    origin = ctx.run("git config --get remote.origin.url", silent=True)
-    if "pawamoy-insiders/mkdocstrings" in origin:
-        ctx.run(
-            lambda: False,
-            title="Not releasing from insiders repository (do that from public repo instead!)",
-        )
     if not (version := (version or input("> Version to release: ")).strip()):
         ctx.run("false", title="A version must be provided")
     ctx.run("git add pyproject.toml CHANGELOG.md", title="Staging files", pty=PTY)

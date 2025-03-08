@@ -6,7 +6,8 @@ build-backend = "pdm.backend"
 name = "mkdocstrings"
 description = "Automatic documentation from sources, for MkDocs."
 authors = [{name = "Timothée Mazzucotelli", email = "dev@pawamoy.fr"}]
-license = {text = "ISC"}
+license = "ISC"
+license-files = ["LICENSE"]
 readme = "README.md"
 requires-python = ">=3.9"
 keywords = ["mkdocs", "mkdocs-plugin", "docstrings", "autodoc", "documentation"]
@@ -87,15 +88,15 @@ data = [
 ]
 
 [dependency-groups]
-dev = [
-    # maintenance
+maintain = [
     "build>=1.2",
     "git-changelog>=2.5",
     "twine>=5.1",
-
-    # ci
-    "dirty-equals>=0.9.0",
-    "duty>=1.4",
+    "yore>=0.3.3",
+]
+ci = [
+    "dirty-equals>=0.9",
+    "duty>=1.6",
     "ruff>=0.4",
     "pytest>=8.2",
     "pytest-cov>=5.0",
@@ -104,8 +105,8 @@ dev = [
     "mypy>=1.10",
     "types-markdown>=3.6",
     "types-pyyaml>=6.0",
-
-    # docs
+]
+ docs = [
     "markdown-callouts>=0.4",
     "markdown-exec>=1.8",
     "mkdocs>=1.6",
@@ -113,10 +114,15 @@ dev = [
     "mkdocs-gen-files>=0.5",
     "mkdocs-git-revision-date-localized-plugin>=1.2",
     "mkdocs-literate-nav>=0.6",
+    "mkdocs-llmstxt>=0.1",
     "mkdocs-material>=9.5",
     "mkdocs-minify-plugin>=0.8",
     "mkdocs-redirects>=1.2.1",
+    "mkdocs-section-index>=0.3",
     "mkdocstrings-python>=1.16.2",
     # YORE: EOL 3.10: Remove line.
     "tomli>=2.0; python_version < '3.11'",
 ]
+
+[tool.uv]
+default-groups = ["maintain", "ci", "docs"]
