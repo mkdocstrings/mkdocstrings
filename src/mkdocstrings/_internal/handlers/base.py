@@ -1,7 +1,6 @@
-"""Base module for handlers.
-
-This module contains the base classes for implementing handlers.
-"""
+# Base module for handlers.
+#
+# This module contains the base classes for implementing handlers.
 
 from __future__ import annotations
 
@@ -25,7 +24,7 @@ from mkdocs_autorefs import AutorefsInlineProcessor
 # TODO: Replace with `from mkdocs.utils.cache import download_and_cache_url` when we depend on mkdocs>=1.5.
 from mkdocs_get_deps.cache import download_and_cache_url
 
-from mkdocstrings._internal.download import download_url_with_gz
+from mkdocstrings._internal.download import _download_url_with_gz
 from mkdocstrings._internal.handlers.rendering import (
     HeadingShiftingTreeprocessor,
     Highlighter,
@@ -48,11 +47,14 @@ if TYPE_CHECKING:
     from markdown import Extension
     from mkdocs_autorefs import AutorefsHookInterface
 
-log = get_logger(__name__)
+_logger = get_logger(__name__)
 
 CollectorItem = Any
+"""The type of the item returned by the `collect` method of a handler."""
 HandlerConfig = Any
+"""The type of the configuration of a handler."""
 HandlerOptions = Any
+"""The type of the options passed to a handler."""
 
 
 # Autodoc instructions can appear in nested Markdown,
@@ -201,9 +203,13 @@ class BaseHandler:
             )
 
         self.theme = theme
+        """The selected theme."""
         self.custom_templates = custom_templates
+        """The path to custom templates."""
         self.mdx = mdx
+        """The Markdown extensions to use."""
         self.mdx_config = mdx_config
+        """The configuration for the Markdown extensions."""
         self._md: Markdown | None = None
         self._headings: list[Element] = []
 
@@ -240,6 +246,8 @@ class BaseHandler:
             loader=FileSystemLoader(paths),
             auto_reload=False,  # Editing a template in the middle of a build is not useful.
         )
+        """The Jinja environment."""
+
         self.env.filters["convert_markdown"] = self.do_convert_markdown
         self.env.filters["heading"] = self.do_heading
         self.env.filters["any"] = do_any
@@ -587,6 +595,7 @@ class Handlers:
         self._tool_config = tool_config
 
         self.inventory: Inventory = Inventory(project=inventory_project, version=inventory_version)
+        """The objects inventory."""
 
         self._inv_futures: dict[futures.Future, tuple[BaseHandler, str, Any]] = {}
 
@@ -722,26 +731,26 @@ class Handlers:
         if to_download:
             thread_pool = futures.ThreadPoolExecutor(4)
             for handler, url, conf in to_download:
-                log.debug("Downloading inventory from %s", url)
+                _logger.debug("Downloading inventory from %s", url)
                 future = thread_pool.submit(
                     download_and_cache_url,
                     url,
                     datetime.timedelta(days=1),
-                    download=download_url_with_gz,
+                    download=_download_url_with_gz,
                 )
                 self._inv_futures[future] = (handler, url, conf)
             thread_pool.shutdown(wait=False)
 
     def _yield_inventory_items(self) -> Iterator[tuple[str, str]]:
         if self._inv_futures:
-            log.debug("Waiting for %s inventory download(s)", len(self._inv_futures))
+            _logger.debug("Waiting for %s inventory download(s)", len(self._inv_futures))
             futures.wait(self._inv_futures, timeout=30)
             # Reversed order so that pages from first futures take precedence:
             for fut, (handler, url, conf) in reversed(self._inv_futures.items()):
                 try:
                     yield from handler.load_inventory(BytesIO(fut.result()), url, **conf)
                 except Exception as error:  # noqa: BLE001
-                    log.error("Couldn't load inventory %s through handler '%s': %s", url, handler.name, error)  # noqa: TRY400
+                    _logger.error("Couldn't load inventory %s through handler '%s': %s", url, handler.name, error)  # noqa: TRY400
             self._inv_futures = {}
 
     @property

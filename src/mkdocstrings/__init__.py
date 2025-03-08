@@ -25,6 +25,7 @@ from mkdocstrings._internal.handlers.rendering import (
 )
 from mkdocstrings._internal.inventory import Inventory, InventoryItem
 from mkdocstrings._internal.loggers import (
+    TEMPLATES_DIRS,
     LoggerAdapter,
     TemplateLogger,
     get_logger,
@@ -32,15 +33,10 @@ from mkdocstrings._internal.loggers import (
     get_template_logger_function,
     get_template_path,
 )
-from mkdocstrings._internal.plugin import (
-    InventoryImportType,
-    InventoryLoaderType,
-    MkdocstringsPlugin,
-    PluginConfig,
-    list_to_tuple,
-)
+from mkdocstrings._internal.plugin import MkdocstringsPlugin, PluginConfig
 
 __all__: list[str] = [
+    "TEMPLATES_DIRS",
     "AutoDocProcessor",
     "BaseHandler",
     "CollectionError",
@@ -52,9 +48,7 @@ __all__: list[str] = [
     "Highlighter",
     "IdPrependingTreeprocessor",
     "Inventory",
-    "InventoryImportType",
     "InventoryItem",
-    "InventoryLoaderType",
     "LoggerAdapter",
     "MkdocstringsExtension",
     "MkdocstringsInnerExtension",
@@ -68,5 +62,4 @@ __all__: list[str] = [
     "get_template_logger",
     "get_template_logger_function",
     "get_template_path",
-    "list_to_tuple",
 ]

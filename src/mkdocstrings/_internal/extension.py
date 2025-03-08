@@ -1,25 +1,24 @@
-"""This module holds the code of the Markdown extension responsible for matching "autodoc" instructions.
-
-The extension is composed of a Markdown [block processor](https://python-markdown.github.io/extensions/api/#blockparser)
-that matches indented blocks starting with a line like `::: identifier`.
-
-For each of these blocks, it uses a [handler][mkdocstrings.BaseHandler] to collect documentation about
-the given identifier and render it with Jinja templates.
-
-Both the collection and rendering process can be configured by adding YAML configuration under the "autodoc"
-instruction:
-
-```yaml
-::: some.identifier
-    handler: python
-    options:
-      option1: value1
-      option2:
-      - value2a
-      - value2b
-      option_x: etc
-```
-"""
+# This module holds the code of the Markdown extension responsible for matching "autodoc" instructions.
+#
+# The extension is composed of a Markdown [block processor](https://python-markdown.github.io/extensions/api/#blockparser)
+# that matches indented blocks starting with a line like `::: identifier`.
+#
+# For each of these blocks, it uses a [handler][mkdocstrings.BaseHandler] to collect documentation about
+# the given identifier and render it with Jinja templates.
+#
+# Both the collection and rendering process can be configured by adding YAML configuration under the "autodoc"
+# instruction:
+#
+# ```yaml
+# ::: some.identifier
+#     handler: python
+#     options:
+#       option1: value1
+#       option2:
+#       - value2a
+#       - value2b
+#       option_x: etc
+# ```
 
 from __future__ import annotations
 
@@ -45,7 +44,7 @@ if TYPE_CHECKING:
     from mkdocs_autorefs import AutorefsPlugin
 
 
-log = get_logger(__name__)
+_logger = get_logger(__name__)
 
 
 class AutoDocProcessor(BlockProcessor):
@@ -59,6 +58,7 @@ class AutoDocProcessor(BlockProcessor):
     """
 
     regex = re.compile(r"^(?P<heading>#{1,6} *|)::: ?(?P<name>.+?) *$", flags=re.MULTILINE)
+    """The regular expression to match our autodoc instructions."""
 
     def __init__(
         self,
@@ -76,6 +76,7 @@ class AutoDocProcessor(BlockProcessor):
         """
         super().__init__(parser=md.parser)
         self.md = md
+        """The Markdown instance."""
         self._handlers = handlers
         self._autorefs = autorefs
         self._updated_envs: set = set()
@@ -120,7 +121,7 @@ class AutoDocProcessor(BlockProcessor):
         if match:
             identifier = match["name"]
             heading_level = match["heading"].count("#")
-            log.debug("Matched '::: %s'", identifier)
+            _logger.debug("Matched '::: %s'", identifier)
 
             html, handler, data = self._process_block(identifier, block, heading_level)
             el = Element("div", {"class": "mkdocstrings"})
@@ -161,7 +162,7 @@ class AutoDocProcessor(BlockProcessor):
         local_config = yaml.safe_load(yaml_block) or {}
         handler_name = self._handlers.get_handler_name(local_config)
 
-        log.debug("Using handler '%s'", handler_name)
+        _logger.debug("Using handler '%s'", handler_name)
         handler = self._handlers.get_handler(handler_name)
 
         local_options = local_config.get("options", {})
@@ -183,23 +184,23 @@ class AutoDocProcessor(BlockProcessor):
             global_options = handler_config.get("options", {})
             options = {**global_options, **local_options}
 
-        log.debug("Collecting data")
+        _logger.debug("Collecting data")
         try:
             data: CollectorItem = handler.collect(identifier, options)
         except CollectionError as exception:
-            log.error("%s", exception)  # noqa: TRY400
+            _logger.error("%s", exception)  # noqa: TRY400
             raise PluginError(f"Could not collect '{identifier}'") from exception
 
         if handler_name not in self._updated_envs:  # We haven't seen this handler before on this document.
-            log.debug("Updating handler's rendering env")
+            _logger.debug("Updating handler's rendering env")
             handler._update_env(self.md, config=self._handlers._tool_config)
             self._updated_envs.add(handler_name)
 
-        log.debug("Rendering templates")
+        _logger.debug("Rendering templates")
         try:
             rendered = handler.render(data, options)
         except TemplateNotFound as exc:
-            log.error(  # noqa: TRY400
+            _logger.error(  # noqa: TRY400
                 "Template '%s' not found for '%s' handler and theme '%s'.",
                 exc.name,
                 handler_name,

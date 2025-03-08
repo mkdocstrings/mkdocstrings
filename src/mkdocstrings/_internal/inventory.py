@@ -1,7 +1,7 @@
-"""Module responsible for the objects inventory."""
-
+# Module responsible for the objects inventory.
+#
 # Credits to Brian Skinn and the sphobjinv project:
-# https://github.com/bskinn/sphobjinv
+# https://github.com/bskinn/sphobjinv.
 
 from __future__ import annotations
 
@@ -37,11 +37,17 @@ class InventoryItem:
             dispname: The item display name.
         """
         self.name: str = name
+        """The item name."""
         self.domain: str = domain
+        """The item domain."""
         self.role: str = role
+        """The item role."""
         self.uri: str = uri
+        """The item URI."""
         self.priority: int = priority
+        """The item priority."""
         self.dispname: str = dispname or name
+        """The item display name."""
 
     def format_sphinx(self) -> str:
         """Format this item as a Sphinx inventory line.
@@ -58,6 +64,7 @@ class InventoryItem:
         return f"{self.name} {self.domain}:{self.role} {self.priority} {uri} {dispname}"
 
     sphinx_item_regex = re.compile(r"^(.+?)\s+(\S+):(\S+)\s+(-?\d+)\s+(\S+)\s*(.*)$")
+    """Regex to parse a Sphinx v2 inventory line."""
 
     @classmethod
     def parse_sphinx(cls, line: str) -> InventoryItem:
@@ -89,7 +96,9 @@ class Inventory(dict):
         for item in items:
             self[item.name] = item
         self.project = project
+        """The project name."""
         self.version = version
+        """The project version."""
 
     def register(
         self,

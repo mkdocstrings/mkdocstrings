@@ -1,4 +1,4 @@
-"""Logging functions."""
+# Logging functions.
 
 from __future__ import annotations
 
@@ -12,18 +12,19 @@ try:
 except ImportError:  # TODO: remove once Jinja2 < 3.1 is dropped
     from jinja2 import contextfunction as pass_context  # type: ignore[attr-defined,no-redef]
 
+if TYPE_CHECKING:
+    from collections.abc import MutableMapping, Sequence
+
+    from jinja2.runtime import Context
+
+
 try:
     import mkdocstrings_handlers
 except ImportError:
     TEMPLATES_DIRS: Sequence[Path] = ()
 else:
     TEMPLATES_DIRS = tuple(mkdocstrings_handlers.__path__)
-
-
-if TYPE_CHECKING:
-    from collections.abc import MutableMapping, Sequence
-
-    from jinja2.runtime import Context
+    """The directories where the handler templates are located."""
 
 
 class LoggerAdapter(logging.LoggerAdapter):
@@ -56,6 +57,7 @@ class LoggerAdapter(logging.LoggerAdapter):
         """
         super().__init__(logger, {})
         self.prefix = prefix
+        """The prefix to insert in front of every message."""
         self._logged: set[tuple[LoggerAdapter, str]] = set()
 
     def process(self, msg: str, kwargs: MutableMapping[str, Any]) -> tuple[str, Any]:
@@ -110,10 +112,15 @@ class TemplateLogger:
             logger: A logger adapter.
         """
         self.debug = get_template_logger_function(logger.debug)
+        """Log a DEBUG message."""
         self.info = get_template_logger_function(logger.info)
+        """Log an INFO message."""
         self.warning = get_template_logger_function(logger.warning)
+        """Log a WARNING message."""
         self.error = get_template_logger_function(logger.error)
+        """Log an ERROR message."""
         self.critical = get_template_logger_function(logger.critical)
+        """Log a CRITICAL message."""
 
 
 class _Lazy:

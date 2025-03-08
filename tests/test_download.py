@@ -96,7 +96,7 @@ def test_create_auth_header_bearer_auth() -> None:
 )
 def test_env_var_pattern(var: str, match: str | None) -> None:
     """Test the environment variable regex pattern."""
-    _match = download.ENV_VAR_PATTERN.match(var)
+    _match = download._ENV_VAR_PATTERN.match(var)
     if _match is None:
         assert match is _match
     else:

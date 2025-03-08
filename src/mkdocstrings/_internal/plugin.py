@@ -1,23 +1,21 @@
-"""This module contains the "mkdocstrings" plugin for MkDocs.
-
-The plugin instantiates a Markdown extension ([`MkdocstringsExtension`][mkdocstrings.MkdocstringsExtension]),
-and adds it to the list of Markdown extensions used by `mkdocs`
-during the [`on_config` event hook](https://www.mkdocs.org/user-guide/plugins/#on_config).
-
-Once the documentation is built, the [`on_post_build` event hook](https://www.mkdocs.org/user-guide/plugins/#on_post_build)
-is triggered and calls the [`handlers.teardown()` method][mkdocstrings.Handlers.teardown]. This method is
-used to teardown the handlers that were instantiated during documentation buildup.
-
-Finally, when serving the documentation, it can add directories to watch
-during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on_serve).
-"""
+# This module contains the "mkdocstrings" plugin for MkDocs.
+#
+# The plugin instantiates a Markdown extension ([`MkdocstringsExtension`][mkdocstrings.MkdocstringsExtension]),
+# and adds it to the list of Markdown extensions used by `mkdocs`
+# during the [`on_config` event hook](https://www.mkdocs.org/user-guide/plugins/#on_config).
+#
+# Once the documentation is built, the [`on_post_build` event hook](https://www.mkdocs.org/user-guide/plugins/#on_post_build)
+# is triggered and calls the [`handlers.teardown()` method][mkdocstrings.Handlers.teardown]. This method is
+# used to teardown the handlers that were instantiated during documentation buildup.
+#
+# Finally, when serving the documentation, it can add directories to watch
+# during the [`on_serve` event hook](https://www.mkdocs.org/user-guide/plugins/#on_serve).
 
 from __future__ import annotations
 
 import os
 import sys
-from collections.abc import Iterable, Mapping
-from typing import TYPE_CHECKING, Any, Callable, TypeVar
+from typing import TYPE_CHECKING, Any
 from warnings import catch_warnings, simplefilter
 
 from mkdocs.config import Config
@@ -31,34 +29,16 @@ from mkdocstrings._internal.handlers.base import BaseHandler, Handlers
 from mkdocstrings._internal.loggers import get_logger
 
 if sys.version_info < (3, 10):
-    from typing_extensions import ParamSpec
+    pass
 else:
-    from typing import ParamSpec
+    pass
 
 if TYPE_CHECKING:
     from jinja2.environment import Environment
     from mkdocs.config.defaults import MkDocsConfig
 
 
-log = get_logger(__name__)
-
-InventoryImportType = list[tuple[str, Mapping[str, Any]]]
-InventoryLoaderType = Callable[..., Iterable[tuple[str, str]]]
-
-P = ParamSpec("P")
-R = TypeVar("R")
-
-
-def list_to_tuple(function: Callable[P, R]) -> Callable[P, R]:
-    """Decorater to convert lists to tuples in the arguments."""
-
-    def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:
-        safe_args = [tuple(item) if isinstance(item, list) else item for item in args]
-        if kwargs:
-            kwargs = {key: tuple(value) if isinstance(value, list) else value for key, value in kwargs.items()}  # type: ignore[assignment]
-        return function(*safe_args, **kwargs)  # type: ignore[arg-type]
-
-    return wrapper
+_logger = get_logger(__name__)
 
 
 class PluginConfig(Config):
@@ -111,7 +91,8 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
     for more information about its plugin system.
     """
 
-    css_filename = "assets/_mkdocstrings.css"
+    css_filename: str = "assets/_mkdocstrings.css"
+    """The path of the CSS file to write in the site directory."""
 
     def __init__(self) -> None:
         """Initialize the object."""
@@ -149,9 +130,9 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             The modified config.
         """
         if not self.plugin_enabled:
-            log.debug("Plugin is not enabled. Skipping.")
+            _logger.debug("Plugin is not enabled. Skipping.")
             return config
-        log.debug("Adding extension to the list")
+        _logger.debug("Adding extension to the list")
 
         handlers = Handlers(
             default=self.config.default_handler,
@@ -171,14 +152,14 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
         try:
             # If autorefs plugin is explicitly enabled, just use it.
             autorefs = config.plugins["autorefs"]  # type: ignore[assignment]
-            log.debug("Picked up existing autorefs instance %r", autorefs)
+            _logger.debug("Picked up existing autorefs instance %r", autorefs)
         except KeyError:
             # Otherwise, add a limited instance of it that acts only on what's added through `register_anchor`.
             autorefs = AutorefsPlugin()
             autorefs.config = AutorefsConfig()
             autorefs.scan_toc = False
             config.plugins["autorefs"] = autorefs
-            log.debug("Added a subdued autorefs instance %r", autorefs)
+            _logger.debug("Added a subdued autorefs instance %r", autorefs)
         # YORE: Bump 1: Remove block.
         with catch_warnings():
             simplefilter("ignore", category=DeprecationWarning)
@@ -229,7 +210,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             write_file(css_content.encode("utf-8"), os.path.join(config.site_dir, self.css_filename))
 
             if self.inventory_enabled:
-                log.debug("Creating inventory file objects.inv")
+                _logger.debug("Creating inventory file objects.inv")
                 inv_contents = self.handlers.inventory.format_sphinx()
                 write_file(inv_contents, os.path.join(config.site_dir, "objects.inv"))
 
@@ -259,7 +240,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             return
 
         if self._handlers:
-            log.debug("Tearing handlers down")
+            _logger.debug("Tearing handlers down")
             self.handlers.teardown()
 
     def get_handler(self, handler_name: str) -> BaseHandler:

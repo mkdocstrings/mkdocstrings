@@ -1,4 +1,4 @@
-"""This module holds helpers responsible for augmentations to the Markdown sub-documents produced by handlers."""
+# This module holds helpers responsible for augmentations to the Markdown sub-documents produced by handlers.
 
 from __future__ import annotations
 
@@ -133,7 +133,8 @@ class Highlighter(Highlight):
 class IdPrependingTreeprocessor(Treeprocessor):
     """Prepend the configured prefix to IDs of all HTML elements."""
 
-    name = "mkdocstrings_ids"
+    name: str = "mkdocstrings_ids"
+    """The name of the treeprocessor."""
 
     id_prefix: str
     """The prefix to add to every ID. It is prepended without any separator; specify your own separator if needed."""
@@ -149,6 +150,7 @@ class IdPrependingTreeprocessor(Treeprocessor):
         self.id_prefix = id_prefix
 
     def run(self, root: Element) -> None:
+        """Prepend the configured prefix to all IDs in the document."""
         if self.id_prefix:
             self._prefix_ids(root)
 
@@ -189,8 +191,11 @@ class IdPrependingTreeprocessor(Treeprocessor):
 class HeadingShiftingTreeprocessor(Treeprocessor):
     """Shift levels of all Markdown headings according to the configured base level."""
 
-    name = "mkdocstrings_headings"
-    regex = re.compile(r"([Hh])([1-6])")
+    name: str = "mkdocstrings_headings"
+    """The name of the treeprocessor."""
+
+    regex: re.Pattern = re.compile(r"([Hh])([1-6])")
+    """The regex to match heading tags."""
 
     shift_by: int
     """The number of heading "levels" to add to every heading. `<h2>` with `shift_by = 3` becomes `<h5>`."""
@@ -206,6 +211,7 @@ class HeadingShiftingTreeprocessor(Treeprocessor):
         self.shift_by = shift_by
 
     def run(self, root: Element) -> None:
+        """Shift the levels of all headings in the document."""
         if not self.shift_by:
             return
         for el in root.iter():
@@ -219,8 +225,11 @@ class HeadingShiftingTreeprocessor(Treeprocessor):
 class _HeadingReportingTreeprocessor(Treeprocessor):
     """Records the heading elements encountered in the document."""
 
-    name = "mkdocstrings_headings_list"
-    regex = re.compile(r"[Hh][1-6]")
+    name: str = "mkdocstrings_headings_list"
+    """The name of the treeprocessor."""
+
+    regex: re.Pattern = re.compile(r"[Hh][1-6]")
+    """The regex to match heading tags."""
 
     headings: list[Element]
     """The list (the one passed in the initializer) that is used to record the heading elements (by appending to it)."""
@@ -230,6 +239,7 @@ class _HeadingReportingTreeprocessor(Treeprocessor):
         self.headings = headings
 
     def run(self, root: Element) -> None:
+        """Record all heading elements encountered in the document."""
         permalink_class = self.md.treeprocessors["toc"].permalink_class  # type: ignore[attr-defined]
         for el in root.iter():
             if self.regex.fullmatch(el.tag):
@@ -244,10 +254,14 @@ class _HeadingReportingTreeprocessor(Treeprocessor):
 class ParagraphStrippingTreeprocessor(Treeprocessor):
     """Unwraps the <p> element around the whole output."""
 
-    name = "mkdocstrings_strip_paragraph"
-    strip = False
+    name: str = "mkdocstrings_strip_paragraph"
+    """The name of the treeprocessor."""
+
+    strip: bool = False
+    """Whether to strip `<p>` elements or not."""
 
     def run(self, root: Element) -> Element | None:
+        """Unwrap the root element if it's a single `<p>` element."""
         if self.strip and len(root) == 1 and root[0].tag == "p":
             # Turn the single <p> element into the root element and inherit its tag name (it's significant!)
             root[0].tag = root.tag
@@ -266,6 +280,7 @@ class MkdocstringsInnerExtension(Extension):
         """
         super().__init__()
         self.headings = headings
+        """The list that will be populated with all HTML heading elements encountered in the document."""
 
     def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
         """Register the extension.

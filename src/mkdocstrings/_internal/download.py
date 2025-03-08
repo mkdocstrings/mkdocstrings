@@ -9,13 +9,13 @@ from typing import BinaryIO, Optional
 
 from mkdocstrings._internal.loggers import get_logger
 
-log = get_logger(__name__)
+_logger = get_logger(__name__)
 
 # Regex pattern for an environment variable in the form ${ENV_VAR}.
-ENV_VAR_PATTERN = re.compile(r"\$\{([A-Za-z_][A-Za-z0-9_]*)\}")
+_ENV_VAR_PATTERN = re.compile(r"\$\{([A-Za-z_][A-Za-z0-9_]*)\}")
 
 
-def download_url_with_gz(url: str) -> bytes:
+def _download_url_with_gz(url: str) -> bytes:
     url, auth_header = _extract_auth_from_url(url)
 
     req = urllib.request.Request(  # noqa: S310
@@ -42,10 +42,14 @@ def _expand_env_vars(credential: str, url: str, env: Optional[Mapping[str, str]]
         try:
             return env[match.group(1)]
         except KeyError:
-            log.warning("Environment variable '%s' is not set, but is used in inventory URL %s", match.group(1), url)
+            _logger.warning(
+                "Environment variable '%s' is not set, but is used in inventory URL %s",
+                match.group(1),
+                url,
+            )
             return match.group(0)
 
-    return re.sub(ENV_VAR_PATTERN, replace_func, credential)
+    return re.sub(_ENV_VAR_PATTERN, replace_func, credential)
 
 
 # Implementation adapted from PDM: https://github.com/pdm-project/pdm.
@@ -67,11 +71,11 @@ def _create_auth_header(credential: str, url: str) -> dict[str, str]:
     """Create the Authorization header for basic or bearer authentication, depending on credential."""
     if ":" not in credential:
         # We assume that the user is using a token.
-        log.debug("Using bearer token authentication for %s", url)
+        _logger.debug("Using bearer token authentication for %s", url)
         return {"Authorization": f"Bearer {credential}"}
 
     # Else, we assume that the user is using user:password.
     user, pwd = credential.split(":", 1)
-    log.debug("Using basic authentication for %s", url)
+    _logger.debug("Using basic authentication for %s", url)
     credentials = base64.encodebytes(f"{user}:{pwd}".encode()).decode().strip()
     return {"Authorization": f"Basic {credentials}"}
