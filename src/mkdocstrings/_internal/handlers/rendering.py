@@ -252,7 +252,7 @@ class _HeadingReportingTreeprocessor(Treeprocessor):
 
 
 class ParagraphStrippingTreeprocessor(Treeprocessor):
-    """Unwraps the <p> element around the whole output."""
+    """Unwraps the `<p>` element around the whole output."""
 
     name: str = "mkdocstrings_strip_paragraph"
     """The name of the treeprocessor."""
@@ -263,7 +263,7 @@ class ParagraphStrippingTreeprocessor(Treeprocessor):
     def run(self, root: Element) -> Element | None:
         """Unwrap the root element if it's a single `<p>` element."""
         if self.strip and len(root) == 1 and root[0].tag == "p":
-            # Turn the single <p> element into the root element and inherit its tag name (it's significant!)
+            # Turn the single `<p>` element into the root element and inherit its tag name (it's significant!)
             root[0].tag = root.tag
             return root[0]
         return None

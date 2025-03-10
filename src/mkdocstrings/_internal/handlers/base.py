@@ -411,7 +411,7 @@ class BaseHandler:
             text: The text to convert.
             heading_level: The base heading level to start all Markdown headings from.
             html_id: The HTML id of the element that's considered the parent of this element.
-            strip_paragraph: Whether to exclude the <p> tag from around the whole output.
+            strip_paragraph: Whether to exclude the `<p>` tag from around the whole output.
 
         Returns:
             An HTML string.
