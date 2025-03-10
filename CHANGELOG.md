@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.29.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.29.0) - 2025-03-10
+
+<small>[Compare with 0.28.3](https://github.com/mkdocstrings/mkdocstrings/compare/0.28.3...0.29.0)</small>
+
+**This is the last version before v1!**
+
+### Build
+
+- Depend on MkDocs 1.6 ([11bc400](https://github.com/mkdocstrings/mkdocstrings/commit/11bc400ab7089a47755f24a790c08f2f904c570b) by Timothée Mazzucotelli).
+
+### Features
+
+- Support rendering backlinks through handlers ([d4c7b9c](https://github.com/mkdocstrings/mkdocstrings/commit/d4c7b9c42f2de5df234c1ffefae0405a120e383c) by Timothée Mazzucotelli). [Issue-723](https://github.com/mkdocstrings/mkdocstrings/issues/723), [Issue-mkdocstrings-python-153](https://github.com/mkdocstrings/python/issues/153), [PR-739](https://github.com/mkdocstrings/mkdocstrings/pull/739)
+
+### Code Refactoring
+
+- Save and forward titles to autorefs ([f49fb29](https://github.com/mkdocstrings/mkdocstrings/commit/f49fb29582714795ca03febf1ee243aa2992917e) by Timothée Mazzucotelli).
+- Use a combined event (each split with a different priority) for `on_env` ([8d1dd75](https://github.com/mkdocstrings/mkdocstrings/commit/8d1dd754b4babd3c4f9e6c1d8856be57fe4ba9ea) by Timothée Mazzucotelli).
+
 ## [0.28.3](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.28.3) - 2025-03-08
 
 <small>[Compare with 0.28.2](https://github.com/mkdocstrings/mkdocstrings/compare/0.28.2...0.28.3)</small>
