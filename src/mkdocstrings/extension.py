@@ -1,5 +1,7 @@
 """Deprecated. Import from `mkdocstrings` directly."""
 
+# YORE: Bump 1: Remove file.
+
 import warnings
 from typing import Any
 

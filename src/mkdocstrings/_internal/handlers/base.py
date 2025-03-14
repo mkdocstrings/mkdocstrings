@@ -33,7 +33,8 @@ from mkdocstrings._internal.handlers.rendering import (
 from mkdocstrings._internal.inventory import Inventory
 from mkdocstrings._internal.loggers import get_logger, get_template_logger
 
-# TODO: remove once support for Python 3.9 is dropped
+
+# YORE: EOL 3.9: Replace block with line 4.
 if sys.version_info < (3, 10):
     from importlib_metadata import entry_points
 else:
