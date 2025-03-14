@@ -36,7 +36,6 @@ def test_sphinx_load_inventory_file(our_inv: Inventory) -> None:
         assert item.name in sphinx_inv[f"{item.domain}:{item.role}"]
 
 
-@pytest.mark.skipif(sys.version_info < (3, 7), reason="using plugins that require Python 3.7")
 def test_sphinx_load_mkdocstrings_inventory_file() -> None:
     """Perform the 'live' inventory load test on mkdocstrings own inventory."""
     mkdocs_config = load_config()

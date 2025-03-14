@@ -60,7 +60,6 @@ def test_reference_inside_autodoc(ext_markdown: Markdown) -> None:
     assert re.search(r"Link to <.*something\.Else.*>something\.Else<.*>\.", output)
 
 
-@pytest.mark.skipif(sys.version_info < (3, 8), reason="typing.Literal requires Python 3.8")
 def test_quote_inside_annotation(ext_markdown: Markdown) -> None:
     """Assert that inline highlighting doesn't double-escape HTML."""
     output = ext_markdown.convert("::: tests.fixtures.string_annotation.Foo")
