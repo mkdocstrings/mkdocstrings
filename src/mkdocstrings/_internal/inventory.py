@@ -8,7 +8,7 @@ from __future__ import annotations
 import re
 import zlib
 from textwrap import dedent
-from typing import TYPE_CHECKING, BinaryIO
+from typing import TYPE_CHECKING, BinaryIO, Literal, overload
 
 if TYPE_CHECKING:
     from collections.abc import Collection
@@ -66,11 +66,21 @@ class InventoryItem:
     sphinx_item_regex = re.compile(r"^(.+?)\s+(\S+):(\S+)\s+(-?\d+)\s+(\S+)\s*(.*)$")
     """Regex to parse a Sphinx v2 inventory line."""
 
+    @overload
     @classmethod
-    def parse_sphinx(cls, line: str) -> InventoryItem:
+    def parse_sphinx(cls, line: str, *, return_none: Literal[False]) -> InventoryItem: ...
+
+    @overload
+    @classmethod
+    def parse_sphinx(cls, line: str, *, return_none: Literal[True]) -> InventoryItem | None: ...
+
+    @classmethod
+    def parse_sphinx(cls, line: str, *, return_none: bool = False) -> InventoryItem | None:
         """Parse a line from a Sphinx v2 inventory file and return an `InventoryItem` from it."""
         match = cls.sphinx_item_regex.search(line)
         if not match:
+            if return_none:
+                return None
             raise ValueError(line)
         name, domain, role, priority, uri, dispname = match.groups()
         if uri.endswith("$"):
@@ -167,7 +177,9 @@ class Inventory(dict):
         for _ in range(4):
             in_file.readline()
         lines = zlib.decompress(in_file.read()).splitlines()
-        items = [InventoryItem.parse_sphinx(line.decode("utf8")) for line in lines]
+        items: list[InventoryItem] = [
+            item for line in lines if (item := InventoryItem.parse_sphinx(line.decode("utf8"), return_none=True))
+        ]
         if domain_filter:
             items = [item for item in items if item.domain in domain_filter]
         return cls(items)
