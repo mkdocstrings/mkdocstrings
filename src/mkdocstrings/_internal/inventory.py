@@ -167,7 +167,20 @@ class Inventory(dict):
         for _ in range(4):
             in_file.readline()
         lines = zlib.decompress(in_file.read()).splitlines()
-        items = [InventoryItem.parse_sphinx(line.decode("utf8")) for line in lines]
+        items: list[InventoryItem] = []
+        for line in lines:
+            if len(line) == 0 and len(items) == 0:
+                # Skip empty lines at start of inventory section
+                continue
+
+            decoded_line = line.decode("utf8")
+            try:
+                item = InventoryItem.parse_sphinx(decoded_line)
+            except ValueError:
+                # If a line fails to parse, it is a continuation
+                items[-1].dispname += "\n" + decoded_line
+            else:
+                items.append(item)
         if domain_filter:
             items = [item for item in items if item.domain in domain_filter]
         return cls(items)
