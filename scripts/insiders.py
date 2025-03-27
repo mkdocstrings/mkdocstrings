@@ -168,6 +168,6 @@ goals = funding_goals(data_source, funding=current_funding)
 ongoing_goals = [goal for goal in goals.values() if not goal.complete]
 unreleased_features = sorted(
     (ft for ft in feature_list(ongoing_goals) if ft.since),
-    key=lambda ft: cast(date, ft.since),
+    key=lambda ft: cast("date", ft.since),
     reverse=True,
 )

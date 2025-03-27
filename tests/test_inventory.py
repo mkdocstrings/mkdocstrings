@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import sys
 from io import BytesIO
 from os.path import join
 
