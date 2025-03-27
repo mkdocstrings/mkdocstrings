@@ -43,6 +43,7 @@ ignore = [
     "PLR0913",  # Too many arguments to function call
     "PLR0915",  # Too many statements
     "SLF001", # Private member accessed
+    "S704", # Unsafe use of `markupsafe.Markup`
     "TRY003",  # Avoid specifying long messages outside the exception class
 ]
 

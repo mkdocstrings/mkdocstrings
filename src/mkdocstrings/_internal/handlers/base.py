@@ -17,7 +17,6 @@ from xml.etree.ElementTree import Element, tostring
 
 from jinja2 import Environment, FileSystemLoader
 from markdown import Markdown
-from markdown.extensions.toc import TocTreeprocessor
 from markupsafe import Markup
 from mkdocs.utils.cache import download_and_cache_url
 from mkdocs_autorefs import AutorefsInlineProcessor, BacklinksTreeProcessor
@@ -33,7 +32,6 @@ from mkdocstrings._internal.handlers.rendering import (
 from mkdocstrings._internal.inventory import Inventory
 from mkdocstrings._internal.loggers import get_logger, get_template_logger
 
-
 # YORE: EOL 3.9: Replace block with line 4.
 if sys.version_info < (3, 10):
     from importlib_metadata import entry_points
@@ -44,6 +42,7 @@ if TYPE_CHECKING:
     from collections.abc import Iterable, Iterator, Mapping, Sequence
 
     from markdown import Extension
+    from markdown.extensions.toc import TocTreeprocessor
     from mkdocs_autorefs import AutorefsHookInterface, Backlink
 
 _logger = get_logger(__name__)
@@ -494,7 +493,7 @@ class BaseHandler:
         el = Element(f"h{heading_level}", attributes)
         el.append(Element("mkdocstrings-placeholder"))
         # Tell the inner 'toc' extension to make its additions if configured so.
-        toc = cast(TocTreeprocessor, self.md.treeprocessors["toc"])
+        toc = cast("TocTreeprocessor", self.md.treeprocessors["toc"])
         if toc.use_anchors:
             toc.add_anchor(el, attributes["id"])
         if toc.use_permalinks:
