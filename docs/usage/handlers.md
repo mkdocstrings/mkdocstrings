@@ -4,12 +4,12 @@ A handler is what makes it possible to collect and render documentation for a pa
 
 ## Available handlers
 
-- [C](https://mkdocstrings.github.io/c/){ .external } [:octicons-heart-fill-24:{ .heart .pulse title="Sponsors only" }](../insiders/index.md)
+- [C](https://mkdocstrings.github.io/c/){ .external }
 - [Crystal](https://mkdocstrings.github.io/crystal/){ .external }
 - [Python](https://mkdocstrings.github.io/python/){ .external }
 - [Python (Legacy)](https://mkdocstrings.github.io/python-legacy/){ .external }
 - [Shell](https://mkdocstrings.github.io/shell/){ .external }
-- [TypeScript](https://mkdocstrings.github.io/typescript/){ .external } [:octicons-heart-fill-24:{ .heart .pulse title="Sponsors only" }](../insiders/index.md)
+- [TypeScript](https://mkdocstrings.github.io/typescript/){ .external }
 - [VBA](https://pypi.org/project/mkdocstrings-vba/){ .external }
 
 ## About the Python handlers
