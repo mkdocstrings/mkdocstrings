@@ -20,17 +20,7 @@ from mkdocstrings import Inventory, InventoryItem
         Inventory([InventoryItem(name="object_path", domain="py", role="obj", uri="page_url")]),
         Inventory([InventoryItem(name="object_path", domain="py", role="obj", uri="page_url#object_path")]),
         Inventory([InventoryItem(name="object_path", domain="py", role="obj", uri="page_url#other_anchor")]),
-        Inventory(
-            [
-                InventoryItem(
-                    name="object_path",
-                    domain="py",
-                    role="obj",
-                    uri="page_url#other_anchor",
-                    dispname="first line\nsecond line",
-                ),
-            ],
-        ),
+        Inventory([InventoryItem(name="o", domain="py", role="obj", uri="u#o", dispname="first line\nsecond line")]),
     ],
 )
 def test_sphinx_load_inventory_file(our_inv: Inventory) -> None:
