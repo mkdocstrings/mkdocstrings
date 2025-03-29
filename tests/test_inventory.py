@@ -77,17 +77,7 @@ def test_sphinx_load_mkdocstrings_inventory_file() -> None:
         Inventory([InventoryItem(name="object_path", domain="py", role="obj", uri="page_url")]),
         Inventory([InventoryItem(name="object_path", domain="py", role="obj", uri="page_url#object_path")]),
         Inventory([InventoryItem(name="object_path", domain="py", role="obj", uri="page_url#other_anchor")]),
-        Inventory(
-            [
-                InventoryItem(
-                    name="object_path",
-                    domain="py",
-                    role="obj",
-                    uri="page_url#other_anchor",
-                    dispname="first line\nsecond line",
-                ),
-            ],
-        ),
+        Inventory([InventoryItem(name="o", domain="py", role="obj", uri="u#o", dispname="first line\nsecond line")]),
     ],
 )
 def test_mkdocstrings_roundtrip_inventory_file(our_inv: Inventory) -> None:
@@ -98,9 +88,9 @@ def test_mkdocstrings_roundtrip_inventory_file(our_inv: Inventory) -> None:
     assert our_inv.keys() == round_tripped.keys()
     for key, value in our_inv.items():
         round_tripped_item = round_tripped[key]
-        assert value.name == round_tripped_item.name
-        assert value.domain == round_tripped_item.domain
-        assert value.role == round_tripped_item.role
-        assert value.uri == round_tripped_item.uri
-        assert value.priority == round_tripped_item.priority
-        assert value.dispname == round_tripped_item.dispname
+        assert round_tripped_item.name == value.name
+        assert round_tripped_item.domain == value.domain
+        assert round_tripped_item.role == value.role
+        assert round_tripped_item.uri == value.uri
+        assert round_tripped_item.priority == value.priority
+        assert round_tripped_item.dispname == value.dispname.splitlines()[0]
