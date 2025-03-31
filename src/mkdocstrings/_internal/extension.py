@@ -44,7 +44,7 @@ if TYPE_CHECKING:
     from mkdocs_autorefs import AutorefsPlugin
 
 
-_logger = get_logger(__name__)
+_logger = get_logger("mkdocstrings")
 
 
 class AutoDocProcessor(BlockProcessor):

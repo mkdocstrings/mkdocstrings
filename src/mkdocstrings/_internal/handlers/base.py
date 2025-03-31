@@ -45,7 +45,7 @@ if TYPE_CHECKING:
     from markdown.extensions.toc import TocTreeprocessor
     from mkdocs_autorefs import AutorefsHookInterface, Backlink
 
-_logger = get_logger(__name__)
+_logger = get_logger("mkdocstrings")
 
 CollectorItem = Any
 """The type of the item returned by the `collect` method of a handler."""

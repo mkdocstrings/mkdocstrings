@@ -9,7 +9,7 @@ from typing import BinaryIO, Optional
 
 from mkdocstrings._internal.loggers import get_logger
 
-_logger = get_logger(__name__)
+_logger = get_logger("mkdocstrings")
 
 # Regex pattern for an environment variable in the form ${ENV_VAR}.
 _ENV_VAR_PATTERN = re.compile(r"\$\{([A-Za-z_][A-Za-z0-9_]*)\}")

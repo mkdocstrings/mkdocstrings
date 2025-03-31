@@ -35,7 +35,7 @@ if TYPE_CHECKING:
     from mkdocs.structure.files import Files
 
 
-_logger = get_logger(__name__)
+_logger = get_logger("mkdocstrings")
 
 
 class PluginConfig(Config):
