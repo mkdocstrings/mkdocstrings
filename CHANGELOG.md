@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.29.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.29.1) - 2025-03-31
+
+<small>[Compare with 0.29.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.29.0...0.29.1)</small>
+
+### Dependencies
+
+- Remove unused typing-extensions dependency ([ba98661](https://github.com/mkdocstrings/mkdocstrings/commit/ba98661b50e2cde19d8696d6c8ceecdbb49ce83f) by Timothée Mazzucotelli).
+
+### Bug Fixes
+
+- Ignore invalid inventory lines ([81caff5](https://github.com/mkdocstrings/mkdocstrings/commit/81caff5ff76f1a6606da9d2980e81ae9d2e02246) by Josh Mitchell). [PR-748](https://github.com/mkdocstrings/mkdocstrings/pull/748)
+
+### Code Refactoring
+
+- Rename loggers to "mkdocstrings" ([1a98040](https://github.com/mkdocstrings/mkdocstrings/commit/1a980402c39728ce265d8998b396c34bf76a113d) by Timothée Mazzucotelli).
+
 ## [0.29.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.29.0) - 2025-03-10
 
 <small>[Compare with 0.28.3](https://github.com/mkdocstrings/mkdocstrings/compare/0.28.3...0.29.0)</small>
