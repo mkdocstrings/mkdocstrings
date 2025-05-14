@@ -44,7 +44,7 @@ dependencies = [
 
 [project.optional-dependencies]
 crystal = ["mkdocstrings-crystal>=0.3.4"]
-python-legacy = ["mkdocstrings-python-legacy>=0.2.1"]
+python-legacy = ["mkdocstrings-python-legacy>=0.2.5"]
 python = ["mkdocstrings-python>=1.16.2"]
 
 [project.urls]
