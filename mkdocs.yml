@@ -24,16 +24,17 @@ nav:
   - Theming: usage/theming.md
   - Handlers: usage/handlers.md
   - All handlers:
+    - C: https://mkdocstrings.github.io/c/
     - Crystal: https://mkdocstrings.github.io/crystal/
     - Python: https://mkdocstrings.github.io/python/
     - Python (Legacy): https://mkdocstrings.github.io/python-legacy/
     - Shell: https://mkdocstrings.github.io/shell/
+    - TypeScript: https://mkdocstrings.github.io/typescript/
+    - VBA: https://pypi.org/project/mkdocstrings-vba
   - Guides:
     - Recipes: recipes.md
     - Troubleshooting: troubleshooting.md
-# defer to gen-files + literate-nav
-- API reference:
-  - mkdocstrings: reference/
+- API reference: reference/mkdocstrings.md
 - Development:
   - Contributing: contributing.md
   - Code of Conduct: code_of_conduct.md
@@ -57,7 +58,8 @@ theme:
   - content.code.copy
   - content.tooltips
   - navigation.footer
-  - navigation.indexes
+  - navigation.instant.preview
+  - navigation.path
   - navigation.sections
   - navigation.tabs
   - navigation.tabs.sticky
@@ -91,15 +93,21 @@ extra_css:
 - css/mkdocstrings.css
 - css/insiders.css
 
+extra_javascript:
+- js/feedback.js
+
 markdown_extensions:
 - attr_list
 - admonition
-- callouts
+- callouts:
+    strip_period: false
 - footnotes
 - pymdownx.details
 - pymdownx.emoji:
     emoji_index: !!python/name:material.extensions.emoji.twemoji
     emoji_generator: !!python/name:material.extensions.emoji.to_svg
+- pymdownx.highlight:
+    pygments_lang_class: true
 - pymdownx.magiclink
 - pymdownx.snippets:
     base_path: [!relative $config_dir]
@@ -118,20 +126,21 @@ markdown_extensions:
 
 plugins:
 - search
+- autorefs
 - markdown-exec
-- gen-files:
-    scripts:
-    - scripts/gen_ref_nav.py
-- literate-nav:
-    nav_file: SUMMARY.md
+- section-index
 - coverage
 - mkdocstrings:
     handlers:
       python:
-        import:
+        inventories:
         - https://docs.python.org/3/objects.inv
         - https://installer.readthedocs.io/en/stable/objects.inv  # demonstration purpose in the docs
         - https://mkdocstrings.github.io/autorefs/objects.inv
+        - https://www.mkdocs.org/objects.inv
+        - https://python-markdown.github.io/objects.inv
+        - https://jinja.palletsprojects.com/en/stable/objects.inv
+        - https://markupsafe.palletsprojects.com/en/stable/objects.inv
         paths: [src]
         options:
           docstring_options:
@@ -141,21 +150,43 @@ plugins:
           heading_level: 1
           inherited_members: true
           merge_init_into_class: true
+          parameter_headings: true
           separate_signature: true
           show_root_heading: true
           show_root_full_path: false
           show_signature_annotations: true
+          show_source: false
           show_symbol_type_heading: true
           show_symbol_type_toc: true
           signature_crossrefs: true
           summary: true
-- git-committers:
+- llmstxt:
+    files:
+    - output: llms-full.txt
+      inputs:
+      - index.md
+      - usage/index.md
+      - usage/handlers.md
+      - usage/theming.md
+      - recipes.md
+      - troubleshooting.md
+      - reference/**.md
+- git-revision-date-localized:
     enabled: !ENV [DEPLOY, false]
-    repository: mkdocstrings/mkdocstrings
+    enable_creation_date: true
+    type: timeago
 - redirects:
     redirect_maps:
       theming.md: usage/theming.md
       handlers/overview.md: usage/handlers.md
+      reference/index.md: reference/mkdocstrings.md#mkdocstrings
+      reference/extension.md: reference/mkdocstrings.md#mkdocstrings.extension
+      reference/handlers/index.md: reference/mkdocstrings.md#mkdocstrings.handlers
+      reference/handlers/base.md: reference/mkdocstrings.md#mkdocstrings.handlers.base
+      reference/handlers/rendering.md: reference/mkdocstrings.md#mkdocstrings.handlers.rendering
+      reference/inventory.md: reference/mkdocstrings.md#mkdocstrings.inventory
+      reference/loggers.md: reference/mkdocstrings.md#mkdocstrings.loggers
+      reference/plugin.md: reference/mkdocstrings.md#mkdocstrings.plugin
 - minify:
     minify_html: !ENV [DEPLOY, false]
 - group:
@@ -175,3 +206,15 @@ extra:
     link: https://gitter.im/mkdocstrings/community
   - icon: fontawesome/brands/python
     link: https://pypi.org/project/mkdocstrings/
+  analytics:
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: Let us know how we can improve this page.

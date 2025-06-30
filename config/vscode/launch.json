@@ -3,15 +3,36 @@
     "configurations": [
         {
             "name": "python (current file)",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "justMyCode": false
+            "justMyCode": false,
+            "args": "${command:pickArgs}"
+        },
+        {
+            "name": "run",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "mkdocstrings",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "args": "${command:pickArgs}"
+        },
+        {
+            "name": "docs",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "mkdocs",
+            "justMyCode": false,
+            "args": [
+                "serve",
+                "-v"
+            ]
         },
         {
             "name": "test",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "pytest",
             "justMyCode": false,

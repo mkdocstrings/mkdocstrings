@@ -2,18 +2,20 @@
 
 from __future__ import annotations
 
+from textwrap import dedent
 from typing import TYPE_CHECKING
 
 import pytest
+from dirty_equals import IsStr
 from jinja2.exceptions import TemplateNotFound
 from markdown import Markdown
 
-from mkdocstrings.handlers.base import Highlighter
+from mkdocstrings import Highlighter
 
 if TYPE_CHECKING:
     from pathlib import Path
 
-    from mkdocstrings.plugin import MkdocstringsPlugin
+    from mkdocstrings import MkdocstringsPlugin
 
 
 @pytest.mark.parametrize("extension_name", ["codehilite", "pymdownx.highlight"])
@@ -94,3 +96,43 @@ def test_extended_templates(tmp_path: Path, plugin: MkdocstringsPlugin) -> None:
     base_theme.mkdir()
     base_theme.joinpath("new.html").write_text("base new")
     assert handler.env.get_template("new.html").render() == "base new"
+
+
+@pytest.mark.parametrize(
+    "ext_markdown",
+    [{"markdown_extensions": [{"toc": {"permalink": True}}]}],
+    indirect=["ext_markdown"],
+)
+def test_nested_autodoc(ext_markdown: Markdown) -> None:
+    """Assert that nested autodocs render well and do not mess up the TOC."""
+    output = ext_markdown.convert(
+        dedent(
+            """
+            # ::: tests.fixtures.nesting.Class
+                options:
+                    members: false
+                    show_root_heading: true
+            """,
+        ),
+    )
+    assert 'id="tests.fixtures.nesting.Class"' in output
+    assert 'id="tests.fixtures.nesting.Class.method"' in output
+    assert ext_markdown.toc_tokens == [  # type: ignore[attr-defined]
+        {
+            "level": 1,
+            "id": "tests.fixtures.nesting.Class",
+            "html": IsStr(),
+            "name": "Class",
+            "data-toc-label": "Class",
+            "children": [
+                {
+                    "level": 2,
+                    "id": "tests.fixtures.nesting.Class.method",
+                    "html": IsStr(),
+                    "name": "method",
+                    "data-toc-label": "method",
+                    "children": [],
+                },
+            ],
+        },
+    ]

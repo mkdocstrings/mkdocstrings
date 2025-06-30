@@ -3,6 +3,8 @@ for *mkdocstrings* and more generally Markdown documentation.
 
 ## Automatic code reference pages
 
+TIP: **[mkdocs-autoapi](https://github.com/jcayers20/mkdocs-autoapi) and [mkdocs-api-autonav](https://github.com/tlambert03/mkdocs-api-autonav) are MkDocs plugins that automatically generate API documentation from your project's source code. They were inspired by the recipe below.**
+
 *mkdocstrings* allows to inject documentation for any object
 into Markdown pages. But as the project grows, it quickly becomes
 quite tedious to keep the autodoc instructions, or even the dedicated
@@ -81,7 +83,8 @@ from pathlib import Path
 
 import mkdocs_gen_files
 
-src = Path(__file__).parent.parent / "src"  # (1)!
+root = Path(__file__).parent.parent
+src = root / "src"  # (1)!
 
 for path in sorted(src.rglob("*.py")):  # (2)!
     module_path = path.relative_to(src).with_suffix("")  # (3)!
@@ -99,7 +102,7 @@ for path in sorted(src.rglob("*.py")):  # (2)!
         identifier = ".".join(parts)  # (8)!
         print("::: " + identifier, file=fd)  # (9)!
 
-    mkdocs_gen_files.set_edit_path(full_doc_path, path)  # (10)!
+    mkdocs_gen_files.set_edit_path(full_doc_path, path.relative_to(root))  # (10)!
 ```
 
 1. It's important to build a path relative to the script itself,
@@ -203,7 +206,7 @@ plugins:
 
 Then, the previous script is updated like so:
 
-```python title="scripts/gen_ref_pages.py" hl_lines="7 23 31 32"
+```python title="scripts/gen_ref_pages.py" hl_lines="7 24 32 33"
 """Generate the code reference pages and navigation."""
 
 from pathlib import Path
@@ -212,7 +215,8 @@ import mkdocs_gen_files
 
 nav = mkdocs_gen_files.Nav()
 
-src = Path(__file__).parent.parent / "src"
+root = Path(__file__).parent.parent
+src = root / "src"
 
 for path in sorted(src.rglob("*.py")):
     module_path = path.relative_to(src).with_suffix("")
@@ -232,7 +236,7 @@ for path in sorted(src.rglob("*.py")):
         ident = ".".join(parts)
         fd.write(f"::: {ident}")
 
-    mkdocs_gen_files.set_edit_path(full_doc_path, path)
+    mkdocs_gen_files.set_edit_path(full_doc_path, path.relative_to(root))
 
 with mkdocs_gen_files.open("reference/SUMMARY.md", "w") as nav_file:  # (2)!
     nav_file.writelines(nav.build_literate_nav())  # (3)!
@@ -276,7 +280,7 @@ Well, this is possible thanks to a third plugin:
 
 Update the script like this:
 
-```python title="scripts/gen_ref_pages.py" hl_lines="20 21"
+```python title="scripts/gen_ref_pages.py" hl_lines="21 22"
 """Generate the code reference pages and navigation."""
 
 from pathlib import Path
@@ -285,7 +289,8 @@ import mkdocs_gen_files
 
 nav = mkdocs_gen_files.Nav()
 
-src = Path(__file__).parent.parent / "src"
+root = Path(__file__).parent.parent
+src = root / "src"
 
 for path in sorted(src.rglob("*.py")):
     module_path = path.relative_to(src).with_suffix("")
@@ -307,7 +312,7 @@ for path in sorted(src.rglob("*.py")):
         ident = ".".join(parts)
         fd.write(f"::: {ident}")
 
-    mkdocs_gen_files.set_edit_path(full_doc_path, path)
+    mkdocs_gen_files.set_edit_path(full_doc_path, path.relative_to(root))
 
 with mkdocs_gen_files.open("reference/SUMMARY.md", "w") as nav_file:
     nav_file.writelines(nav.build_literate_nav())
@@ -361,16 +366,16 @@ extra_css:
 > To target `pycon` code blocks more specifically, you can configure the
 > `pymdownx.highlight` extension to use Pygments and set language classes
 > on code blocks:
-> 
+>
 > ```yaml title="mkdocs.yml"
 > markdown_extensions:
 > - pymdownx.highlight:
 >     use_pygments: true
 >     pygments_lang_class: true
 > ```
-> 
+>
 > Then you can update the CSS selector like this:
-> 
+>
 > ```css title="docs/css/code_select.css"
 > .language-pycon .gp, .language-pycon .go { /* Generic.Prompt, Generic.Output */
 >     user-select: none;
@@ -401,4 +406,51 @@ Try to select the following code block's text:
 >>> for word in ("Hello", "mkdocstrings!"):
 ...     print(word, end=" ")
 Hello mkdocstrings!
+```
+
+## Hide documentation strings from source code blocks
+
+Since documentation strings are rendered by handlers, it can sometimes feel redundant to show these same documentation strings in source code blocks (when handlers render those).
+
+There is a general workaround to hide these docstrings from source blocks using CSS:
+
+```css
+/* These CSS classes depend on the handler. */
+.doc-contents details .highlight code {
+  line-height: 0;
+}
+.doc-contents details .highlight code > * {
+  line-height: initial;
+}
+.doc-contents details .highlight code > .sd {  /* Literal.String.Doc */
+  display: none;
+}
+```
+
+Note that this is considered a workaround and not a proper solution, because it has side-effects like also removing blank lines.
+
+## Automatic highlighting for indented code blocks in docstrings
+
+Depending on the language used in your code base and the mkdocstrings handler used to document it, you might want to set a default syntax for code blocks added to your docstrings. For example, to default to the Python syntax:
+
+```yaml title="mkdocs.yml"
+markdown_extensions:
+- pymdownx.highlight:
+    default_lang: python
+```
+
+Then in your docstrings, indented code blocks will be highlighted as Python code:
+
+```python
+def my_function():
+    """This is my function.
+
+    The following code will be highlighted as Python:
+
+        result = my_function()
+        print(result)
+
+    End of the docstring.
+    """
+    pass
 ```

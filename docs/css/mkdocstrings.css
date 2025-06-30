@@ -18,7 +18,7 @@ a.autorefs-external::after {
 
   height: 1em;
   width: 1em;
-  background-color: var(--md-typeset-a-color);
+  background-color: currentColor;
 }
 
 a.external:hover::after,
@@ -29,4 +29,9 @@ a.autorefs-external:hover::after {
 /* Avoid breaking parameters name, etc. in table cells. */
 td code {
   word-break: normal !important;
+}
+
+/* Hide parameters in ToC. */
+li.md-nav__item:has(> a[href*="("]) {
+  display: none;
 }

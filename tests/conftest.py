@@ -3,18 +3,19 @@
 from __future__ import annotations
 
 from collections import ChainMap
-from typing import TYPE_CHECKING, Any, Iterator
+from typing import TYPE_CHECKING, Any
 
 import pytest
 from markdown.core import Markdown
 from mkdocs.config.defaults import MkDocsConfig
 
 if TYPE_CHECKING:
+    from collections.abc import Iterator
     from pathlib import Path
 
     from mkdocs import config
 
-    from mkdocstrings.plugin import MkdocstringsPlugin
+    from mkdocstrings._internal.plugin import MkdocstringsPlugin
 
 
 @pytest.fixture(name="mkdocs_conf")

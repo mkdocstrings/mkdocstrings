@@ -145,7 +145,7 @@ See [Python handler: Finding modules](https://mkdocstrings.github.io/python/usag
 ### LaTeX in docstrings is not rendered correctly
 
 If you are using a Markdown extension like
-[Arithmatex Mathjax](https://squidfunk.github.io/mkdocs-material/extensions/pymdown/#arithmatex-mathjax)
+[Arithmatex Mathjax](https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#arithmatex)
 or [`markdown-katex`][markdown-katex] to render LaTeX,
 add `r` in front of your docstring to make sure nothing is escaped.
 You'll still maybe have to play with escaping to get things right.
@@ -167,9 +167,9 @@ def math_function(x, y):
 
 ### My docstrings in comments (`#:`) are not picked up
 
-It's because we do not support type annotations in comments.
+We only support docstrings in comments through the [griffe-sphinx](https://mkdocstrings.github.io/griffe-sphinx) extension.
 
-So instead of:
+Alternatively, instead of:
 
 ```python
 import enum
@@ -187,15 +187,11 @@ import enum
 
 
 class MyEnum(enum.Enum):
-    """My enum.
-
-    Attributes:
-        v1: The first choice.
-        v2: The second choice.
-    """
-
     v1 = 1
+    """The first choice."""
+
     v2 = 2
+    """The second choice."""
 ```
 
 Or:
@@ -205,11 +201,15 @@ import enum
 
 
 class MyEnum(enum.Enum):
-    v1 = 1
-    """The first choice."""
+    """My enum.
 
+    Attributes:
+        v1: The first choice.
+        v2: The second choice.
+    """
+
+    v1 = 1
     v2 = 2
-    """The second choice."""
 ```
 
 ### My wrapped function shows documentation/code for its wrapper instead of its own
@@ -236,6 +236,70 @@ def my_decorator(function):
 def my_function(*args, **kwargs):
     """The function docs."""
     print(*args, **kwargs)
+```
+
+### Footnotes do not render
+
+The library that parses docstrings, [Griffe](https://mkdocstrings.github.io/griffe/), splits docstrings in several "sections" (example: [Google-style sections syntax](https://mkdocstrings.github.io/griffe/reference/docstrings/#google-syntax)). If a footnote is used in a section, while referenced in another, mkdocstrings won't be able to render it correctly. The footnote and its reference must appear in the same section.
+
+```python
+def my_function():
+    """Summary.
+
+    This is the first section[^1].
+
+    Note:
+        This is the second section[^2].
+
+    Note:
+        This is the third section[^3].
+
+    References at the end are part of yet another section (fourth here)[^4].
+
+    [^1]: Some text.
+    [^2]: Some text.
+    [^3]: Some text.
+    [^4]: Some text.
+    """
+```
+
+Here only the fourth footnote will work, because it is the only one that appear in the same section as its reference. To fix this, make sure all footnotes appear in the same section as their references:
+
+```python
+def my_function():
+    """Summary.
+
+    This is the first section[^1].
+
+    [^1]: Some text.
+
+    Note:
+        This is the second section[^2].
+
+        [^2]: Some text.
+
+    Note:
+        This is the third section[^3].
+    
+        [^3]: Some text.
+
+    References at the end are part of yet another section (fourth here)[^4].
+
+    [^4]: Some text.
+    """
+```
+
+### Submodules are not rendered
+
+In previous versions of mkdocstrings-python, submodules were rendered by default. This was changed and you now need to set the following option:
+
+```yaml title="mkdocs.yml"
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_submodules: true
 ```
 
 [bugtracker]: https://github.com/mkdocstrings/mkdocstrings

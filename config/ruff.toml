@@ -1,53 +1,26 @@
-target-version = "py38"
-line-length = 132
+target-version = "py39"
+line-length = 120
+
+[lint]
 exclude = [
-    "fixtures",
-    "site",
+    "tests/fixtures/*.py",
 ]
 select = [
-    "A",
-    "ANN",
-    "ARG",
-    "B",
-    "BLE",
-    "C",
-    "C4",
+    "A", "ANN", "ARG",
+    "B", "BLE",
+    "C", "C4",
     "COM",
-    "D",
-    "DTZ",
-    "E",
-    "ERA",
-    "EXE",
-    "F",
-    "FBT",
+    "D", "DTZ",
+    "E", "ERA", "EXE",
+    "F", "FBT",
     "G",
-    "I",
-    "ICN",
-    "INP",
-    "ISC",
+    "I", "ICN", "INP", "ISC",
     "N",
-    "PGH",
-    "PIE",
-    "PL",
-    "PLC",
-    "PLE",
-    "PLR",
-    "PLW",
-    "PT",
-    "PYI",
+    "PGH", "PIE", "PL", "PLC", "PLE", "PLR", "PLW", "PT", "PYI",
     "Q",
-    "RUF",
-    "RSE",
-    "RET",
-    "S",
-    "SIM",
-    "SLF",
-    "T",
-    "T10",
-    "T20",
-    "TCH",
-    "TID",
-    "TRY",
+    "RUF", "RSE", "RET",
+    "S", "SIM", "SLF",
+    "T", "T10", "T20", "TCH", "TID", "TRY",
     "UP",
     "W",
     "YTT",
@@ -70,35 +43,50 @@ ignore = [
     "PLR0913",  # Too many arguments to function call
     "PLR0915",  # Too many statements
     "SLF001", # Private member accessed
+    "S704", # Unsafe use of `markupsafe.Markup`
     "TRY003",  # Avoid specifying long messages outside the exception class
 ]
 
-[per-file-ignores]
-"src/*/cli.py" = [
+[lint.per-file-ignores]
+"src/**/cli.py" = [
     "T201",  # Print statement
 ]
 "src/*/debug.py" = [
     "T201",  # Print statement
 ]
+"!src/*/*.py" = [
+    "D100",  # Missing docstring in public module
+]
+"!src/**.py" = [
+    "D101",  # Missing docstring in public class
+    "D103",  # Missing docstring in public function
+]
 "scripts/*.py" = [
     "INP001",  # File is part of an implicit namespace package
     "T201",  # Print statement
 ]
-"tests/*.py" = [
+"tests/**.py" = [
     "ARG005",  # Unused lambda argument
     "FBT001",  # Boolean positional arg in function definition
     "PLR2004",  # Magic value used in comparison
     "S101",  # Use of assert detected
 ]
 
-[flake8-quotes]
+[lint.flake8-quotes]
 docstring-quotes = "double"
 
-[flake8-tidy-imports]
+[lint.flake8-tidy-imports]
 ban-relative-imports = "all"
 
-[isort]
+[lint.isort]
 known-first-party = ["mkdocstrings"]
 
-[pydocstyle]
+[lint.pydocstyle]
 convention = "google"
+
+[format]
+exclude = [
+    "tests/fixtures/*.py",
+]
+docstring-code-format = true
+docstring-code-line-length = 80

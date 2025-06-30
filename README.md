@@ -1,18 +1,17 @@
 # mkdocstrings
 
 [![ci](https://github.com/mkdocstrings/mkdocstrings/workflows/ci/badge.svg)](https://github.com/mkdocstrings/mkdocstrings/actions?query=workflow%3Aci)
-[![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://mkdocstrings.github.io/)
+[![documentation](https://img.shields.io/badge/docs-mkdocs-708FCC.svg?style=flat)](https://mkdocstrings.github.io/)
 [![pypi version](https://img.shields.io/pypi/v/mkdocstrings.svg)](https://pypi.org/project/mkdocstrings/)
 [![conda version](https://img.shields.io/conda/vn/conda-forge/mkdocstrings)](https://anaconda.org/conda-forge/mkdocstrings)
-[![gitpod](https://img.shields.io/badge/gitpod-workspace-blue.svg?style=flat)](https://gitpod.io/#https://github.com/mkdocstrings/mkdocstrings)
 [![gitter](https://badges.gitter.im/join%20chat.svg)](https://app.gitter.im/#/room/#mkdocstrings:gitter.im)
 
-Automatic documentation from sources, for [MkDocs](https://mkdocs.org/).
+Automatic documentation from sources, for [MkDocs](https://www.mkdocs.org/).
 Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdocstrings/community).
 
 ---
 
-**[Features](#features)** - **[Requirements](#requirements)** - **[Installation](#installation)** - **[Quick usage](#quick-usage)**
+**[Features](#features)** - **[Installation](#installation)** - **[Quick usage](#quick-usage)**
 
 ![mkdocstrings_gif1](https://user-images.githubusercontent.com/3999221/77157604-fb807480-6aa1-11ea-99e0-d092371d4de0.gif)
 
@@ -22,8 +21,12 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
   just like *MkDocs*, *mkdocstrings* is written in Python but is language-agnostic.
   It means you can use it with any programming language, as long as there is a
   [**handler**](https://mkdocstrings.github.io/reference/handlers/base/) for it.
-  We currently have [handlers](https://mkdocstrings.github.io/handlers/overview/)
-  for the [Crystal](https://mkdocstrings.github.io/crystal/) and [Python](https://mkdocstrings.github.io/python/) languages,
+  We currently have [handlers](https://mkdocstrings.github.io/handlers/overview/) for the
+  [C](https://mkdocstrings.github.io/c/),
+  [Crystal](https://mkdocstrings.github.io/crystal/),
+  [Python](https://mkdocstrings.github.io/python/),
+  [TypeScript](https://mkdocstrings.github.io/typescript/), and
+  [VBA](https://pypi.org/project/mkdocstrings-vba/) languages,
   as well as for [shell scripts/libraries](https://mkdocstrings.github.io/shell/).
   Maybe you'd like to add another one to the list? :wink:
 
@@ -56,9 +59,6 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
   each handler can be configured globally in `mkdocs.yml`, and locally for each
   "autodoc" instruction.
 
-- ~~**Watch source code directories:**~~
-  this feature was removed as it is now [built in MkDocs](https://www.mkdocs.org/user-guide/configuration/#watch). 
-
 - **Reasonable defaults:**
   you should be able to just drop the plugin in your configuration and enjoy your auto-generated docs.
 
@@ -67,33 +67,44 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
 *mkdocstrings* is used by well-known companies, projects and scientific teams:
 [Ansible](https://molecule.readthedocs.io/configuration/),
 [Apache](https://streampipes.apache.org/docs/docs/python/latest/reference/client/client/),
+[FastAPI](https://fastapi.tiangolo.com/reference/fastapi/),
 [Google](https://docs.kidger.site/jaxtyping/api/runtime-type-checking/),
+[IBM](https://ds4sd.github.io/docling/api_reference/document_converter/),
 [Jitsi](https://jitsi.github.io/jiwer/reference/alignment/),
 [Microsoft](https://microsoft.github.io/presidio/api/analyzer_python/),
+[NVIDIA](https://nvidia.github.io/bionemo-framework/API_reference/bionemo/core/api/),
 [Prefect](https://docs.prefect.io/2.10.12/api-ref/prefect/agent/),
 [Pydantic](https://docs.pydantic.dev/dev-v2/api/main/),
+[Textual](https://textual.textualize.io/api/app/),
 [and more...](https://github.com/mkdocstrings/mkdocstrings/network/dependents)
 
 ## Installation
 
-With `pip`:
+The `mkdocstrings` package doesn't provide support for any language: it's just a common base for language handlers.
+It means you likely want to install it with one or more official handlers, using [extras](https://packaging.python.org/en/latest/specifications/dependency-specifiers/#extras).
+For example, to install it with Python support:
 
 ```bash
-pip install mkdocstrings
+pip install 'mkdocstrings[python]'
 ```
 
-You can install support for specific languages using extras, for example:
+Alternatively, you can directly install the language handlers themselves,
+which depend on `mkdocstrings` anyway:
 
 ```bash
-pip install 'mkdocstrings[crystal,python]'
+pip install mkdocstrings-python
 ```
 
-See the [available language handlers](https://mkdocstrings.github.io/handlers/overview/).
+This will give you more control over the accepted range of versions for the handlers themselves.
+
+See the [official language handlers](https://mkdocstrings.github.io/handlers/overview/).
+
+---
 
 With `conda`:
 
 ```bash
-conda install -c conda-forge mkdocstrings
+conda install -c conda-forge mkdocstrings mkdocstrings-python
 ```
 
 ## Quick usage

@@ -62,7 +62,7 @@ to modify small part of the templates without copy-pasting the whole files.
 See the documentation about templates for:
 
 - the Crystal handler: https://mkdocstrings.github.io/crystal/styling.html
-- the Python handler: https://mkdocstrings.github.io/python/customization/#templates
+- the Python handler: https://mkdocstrings.github.io/python/usage/customization/#templates
 
 #### Debugging
 
@@ -86,11 +86,11 @@ we cannot list them all here. See the documentation about CSS classes for:
 
 ### Syntax highlighting
 
-Code blocks that occur in the docstring of an item inserted with *mkdocstrings*, as well as code blocks (such as *Source code*) that *mkdocstrings* inserts itself, are syntax-highlighted according to the same rules as other normal code blocks in your document. See more details in [mkdocstrings.handlers.rendering.Highlighter][].
+Code blocks that occur in the docstring of an item inserted with *mkdocstrings*, as well as code blocks (such as *Source code*) that *mkdocstrings* inserts itself, are syntax-highlighted according to the same rules as other normal code blocks in your document. See more details in [mkdocstrings.Highlighter][].
 
 As for the CSS class used for code blocks -- it will also match the "normal" config, so the default (`.codehilite` or `.highlight`) will match your chosen Markdown extension for highlighting.
 
-IMPORTANT: **Changed in version 0.15.**  
+IMPORTANT: **Changed in version 0.15.**
 The CSS class used to always be `.highlight`, but now it depends on the configuration.
 
 Long story short, you probably should add `pymdownx.highlight` to your `markdown_extensions`, and then use `.doc-contents .highlight` as the CSS selector in case you want to change something about *mkdocstrings'* code blocks specifically.

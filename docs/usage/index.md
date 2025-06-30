@@ -16,7 +16,7 @@ The syntax is as follows:
 > Here are some resources that other users found useful to better
 > understand YAML's peculiarities.
 >
-> - [YAML idiosyncrasies](https://docs.saltproject.io/en/3000/topics/troubleshooting/yaml_idiosyncrasies.html)
+> - [YAML idiosyncrasies](https://salt-zh.readthedocs.io/en/latest/topics/troubleshooting/yaml_idiosyncrasies.html)
 > - [YAML multiline](https://yaml-multiline.info/)
 
 The `identifier` is a string identifying the object you want to document.
@@ -31,8 +31,8 @@ The YAML block is optional, and contains some configuration options:
   `default_handler` key, or `"python"`.
 - `options`: a dictionary of options passed to the handler's methods responsible both
   for collecting and rendering the documentation. These options can be defined
-  globally (in `mkdocs.yml`, see [Global options](#global-options)), 
-  locally (as described here), or both. 
+  globally (in `mkdocs.yml`, see [Global options](#global-options)),
+  locally (as described here), or both.
 
 !!! example "Example with the Python handler"
     === "docs/my_page.md"
@@ -193,7 +193,7 @@ is possible to link to with `[example][full.path.object1]`, regardless of the cu
 
 ### Cross-references to any Markdown heading
 
-TIP: **Changed in version 0.15.**  
+TIP: **Changed in version 0.15.**
 Linking to any Markdown heading used to be the default, but now opt-in is required.
 
 If you want to link to *any* Markdown heading, not just *mkdocstrings*-inserted items, please
@@ -266,7 +266,7 @@ In the example below you see the identifier to be linked is `foo.bar--tips`, bec
 
 The above tip about [Finding out the anchor](#finding-out-the-anchor) also applies the same way here.
 
-You may also notice that such a heading does not get rendered as a `<h1>` element directly, but rather the level gets shifted to fit the encompassing document structure. If you're curious about the implementation, check out [mkdocstrings.handlers.rendering.HeadingShiftingTreeprocessor][] and others.
+You may also notice that such a heading does not get rendered as a `<h1>` element directly, but rather the level gets shifted to fit the encompassing document structure. If you're curious about the implementation, check out [mkdocstrings.HeadingShiftingTreeprocessor][] and others.
 
 ### Cross-references to other projects / inventories
 
@@ -288,7 +288,7 @@ plugins:
 - mkdocstrings:
     handlers:
       python:
-        import:
+        inventories:
         - https://installer.readthedocs.io/en/stable/objects.inv
 ```
 
@@ -315,7 +315,7 @@ plugins:
 - mkdocstrings:
     handlers:
       python:
-        import:
+        inventories:
         # latest instead of stable
         - https://installer.readthedocs.io/en/latest/objects.inv
 ```
@@ -328,13 +328,31 @@ plugins:
 - mkdocstrings:
     handlers:
       python:
-        import:
+        inventories:
         - url: https://cdn.example.com/version/objects.inv
           base_url: https://docs.example.com/version
 ```
 
 Absolute URLs to cross-referenced items will then be based
 on `https://docs.example.com/version/` instead of `https://cdn.example.com/version/`.
+
+If you need authentication to access the inventory file, you can provide the credentials in the URL, either as `username:password`:
+
+```yaml
+- url: https://username:password@private.example.com/version/objects.inv
+```
+
+...or with token authentication:
+
+```yaml
+- url: https://token123@private.example.com/version/objects.inv
+```
+
+The credentials can also be specified using environment variables in the form `${ENV_VAR}`:
+
+```yaml
+- url: https://${USERNAME}:${PASSWORD}@private.example.com/version/objects.inv
+```
 
 Reciprocally, *mkdocstrings* also allows to *generate* an inventory file in the Sphinx format.
 It will be enabled by default if the Python handler is used, and generated as `objects.inv` in the final site directory.

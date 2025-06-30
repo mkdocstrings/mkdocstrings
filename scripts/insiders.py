@@ -1,4 +1,4 @@
-"""Functions related to Insiders funding goals."""
+# Functions related to Insiders funding goals.
 
 from __future__ import annotations
 
@@ -10,35 +10,34 @@ from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from itertools import chain
 from pathlib import Path
-from typing import Iterable, cast
+from typing import TYPE_CHECKING, cast
 from urllib.error import HTTPError
 from urllib.parse import urljoin
 from urllib.request import urlopen
 
 import yaml
 
+if TYPE_CHECKING:
+    from collections.abc import Iterable
+
 logger = logging.getLogger(f"mkdocs.logs.{__name__}")
 
 
-def human_readable_amount(amount: int) -> str:  # noqa: D103
+def human_readable_amount(amount: int) -> str:
     str_amount = str(amount)
     if len(str_amount) >= 4:  # noqa: PLR2004
-        return f"{str_amount[:len(str_amount)-3]},{str_amount[-3:]}"
+        return f"{str_amount[: len(str_amount) - 3]},{str_amount[-3:]}"
     return str_amount
 
 
 @dataclass
 class Project:
-    """Class representing an Insiders project."""
-
     name: str
     url: str
 
 
 @dataclass
 class Feature:
-    """Class representing an Insiders feature."""
-
     name: str
     ref: str | None
     since: date | None
@@ -65,8 +64,6 @@ class Feature:
 
 @dataclass
 class Goal:
-    """Class representing an Insiders goal."""
-
     name: str
     amount: int
     features: list[Feature]
@@ -78,22 +75,19 @@ class Goal:
 
     def render(self, rel_base: str = "..") -> None:  # noqa: D102
         print(f"#### $ {self.human_readable_amount} — {self.name}\n")
-        for feature in self.features:
-            feature.render(rel_base)
-        print("")
+        if self.features:
+            for feature in self.features:
+                feature.render(rel_base)
+            print("")
+        else:
+            print("There are no features in this goal for this project.  ")
+            print(
+                "[See the features in this goal **for all Insiders projects.**]"
+                f"(https://pawamoy.github.io/insiders/#{self.amount}-{self.name.lower().replace(' ', '-')})",
+            )
 
 
 def load_goals(data: str, funding: int = 0, project: Project | None = None) -> dict[int, Goal]:
-    """Load goals from JSON data.
-
-    Parameters:
-        data: The JSON data.
-        funding: The current total funding, per month.
-        origin: The origin of the data (URL).
-
-    Returns:
-        A dictionaries of goals, keys being their target monthly amount.
-    """
     goals_data = yaml.safe_load(data)["goals"]
     return {
         amount: Goal(
@@ -104,8 +98,7 @@ def load_goals(data: str, funding: int = 0, project: Project | None = None) -> d
                 Feature(
                     name=feature_data["name"],
                     ref=feature_data.get("ref"),
-                    since=feature_data.get("since")
-                    and datetime.strptime(feature_data["since"], "%Y/%m/%d").date(),  # noqa: DTZ007
+                    since=feature_data.get("since") and datetime.strptime(feature_data["since"], "%Y/%m/%d").date(),  # noqa: DTZ007
                     project=project,
                 )
                 for feature_data in goal_data["features"]
@@ -142,20 +135,11 @@ def _load_goals(source: str | tuple[str, str, str], funding: int = 0) -> dict[in
 
 
 def funding_goals(source: str | list[str | tuple[str, str, str]], funding: int = 0) -> dict[int, Goal]:
-    """Load funding goals from a given data source.
-
-    Parameters:
-        source: The data source (local file path or URL).
-        funding: The current total funding, per month.
-
-    Returns:
-        A dictionaries of goals, keys being their target monthly amount.
-    """
     if isinstance(source, str):
         return _load_goals_from_disk(source, funding)
     goals = {}
     for src in source:
-        source_goals = _load_goals(src)
+        source_goals = _load_goals(src, funding)
         for amount, goal in source_goals.items():
             if amount not in goals:
                 goals[amount] = goal
@@ -165,18 +149,10 @@ def funding_goals(source: str | list[str | tuple[str, str, str]], funding: int =
 
 
 def feature_list(goals: Iterable[Goal]) -> list[Feature]:
-    """Extract feature list from funding goals.
-
-    Parameters:
-        goals: A list of funding goals.
-
-    Returns:
-        A list of features.
-    """
     return list(chain.from_iterable(goal.features for goal in goals))
 
 
-def load_json(url: str) -> str | list | dict:  # noqa: D103
+def load_json(url: str) -> str | list | dict:
     with urlopen(url) as response:  # noqa: S310
         return json.loads(response.read().decode())
 
@@ -192,6 +168,6 @@ goals = funding_goals(data_source, funding=current_funding)
 ongoing_goals = [goal for goal in goals.values() if not goal.complete]
 unreleased_features = sorted(
     (ft for ft in feature_list(ongoing_goals) if ft.since),
-    key=lambda ft: cast(date, ft.since),
+    key=lambda ft: cast("date", ft.since),
     reverse=True,
 )

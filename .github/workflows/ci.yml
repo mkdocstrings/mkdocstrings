@@ -15,6 +15,7 @@ env:
   LC_ALL: en_US.utf-8
   PYTHONIOENCODING: UTF-8
   PYTHONPATH: docs
+  PYTHON_VERSIONS: ""
 
 jobs:
 
@@ -24,36 +25,42 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
-
-    - name: Fetch all tags
-      run: git fetch --depth=1 --tags
-
-    - name: Set up PDM
-      uses: pdm-project/setup-pdm@v3
+      uses: actions/checkout@v4
       with:
-        python-version: "3.8"
+        fetch-depth: 0
+        fetch-tags: true
 
-    - name: Resolving dependencies
-      run: pdm lock -v --no-cross-platform -G ci-quality
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Setup uv
+      uses: astral-sh/setup-uv@v5
+      with:
+        enable-cache: true
+        cache-dependency-glob: pyproject.toml
 
     - name: Install dependencies
-      run: pdm install -G ci-quality
+      run: make setup
 
     - name: Check if the documentation builds correctly
-      run: pdm run duty check-docs
+      run: make check-docs
 
     - name: Check the code quality
-      run: pdm run duty check-quality
+      run: make check-quality
 
     - name: Check if the code is correctly typed
-      run: pdm run duty check-types
-
-    - name: Check for vulnerabilities in dependencies
-      run: pdm run duty check-dependencies
+      run: make check-types
 
     - name: Check for breaking changes in the API
-      run: pdm run duty check-api
+      run: make check-api
+
+    - name: Store objects inventory for tests
+      uses: actions/upload-artifact@v4
+      with:
+        name: objects.inv
+        path: site/objects.inv
 
   exclude-test-jobs:
     runs-on: ubuntu-latest
@@ -66,50 +73,74 @@ jobs:
           echo 'jobs=[
             {"os": "macos-latest"},
             {"os": "windows-latest"},
-            {"python-version": "3.9"},
             {"python-version": "3.10"},
             {"python-version": "3.11"},
-            {"python-version": "3.12"}
+            {"python-version": "3.12"},
+            {"python-version": "3.13"},
+            {"python-version": "3.14"}
           ]' | tr -d '[:space:]' >> $GITHUB_OUTPUT
         else
-          echo 'jobs=[]' >> $GITHUB_OUTPUT
+          echo 'jobs=[
+            {"os": "macos-latest", "resolution": "lowest-direct"},
+            {"os": "windows-latest", "resolution": "lowest-direct"}
+          ]' | tr -d '[:space:]' >> $GITHUB_OUTPUT
         fi
 
   tests:
 
-    needs: exclude-test-jobs
+    needs:
+    - quality
+    - exclude-test-jobs
     strategy:
-      max-parallel: 4
       matrix:
         os:
         - ubuntu-latest
         - macos-latest
         - windows-latest
         python-version:
-        - "3.8"
         - "3.9"
         - "3.10"
         - "3.11"
         - "3.12"
+        - "3.13"
+        - "3.14"
+        resolution:
+        - highest
+        - lowest-direct
         exclude: ${{ fromJSON(needs.exclude-test-jobs.outputs.jobs) }}
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.python-version == '3.12' }}
+    continue-on-error: ${{ matrix.python-version == '3.14' }}
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        fetch-tags: true
 
-    - name: Set up PDM
-      uses: pdm-project/setup-pdm@v3
+    - name: Setup Python
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-        allow-python-prereleases: true
+        allow-prereleases: true
 
-    - name: Resolving dependencies
-      run: pdm lock -v --no-cross-platform -G ci-tests
+    - name: Setup uv
+      uses: astral-sh/setup-uv@v5
+      with:
+        enable-cache: true
+        cache-dependency-glob: pyproject.toml
+        cache-suffix: ${{ matrix.resolution }}
 
     - name: Install dependencies
-      run: pdm install --no-editable -G ci-tests
+      env:
+        UV_RESOLUTION: ${{ matrix.resolution }}
+      run: make setup
+
+    - name: Download objects inventory
+      uses: actions/download-artifact@v4
+      with:
+        name: objects.inv
+        path: site/
 
     - name: Run the test suite
-      run: pdm run duty test
+      run: make test

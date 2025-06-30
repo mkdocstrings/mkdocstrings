@@ -1,10 +1,379 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.29.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.29.1) - 2025-03-31
+
+<small>[Compare with 0.29.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.29.0...0.29.1)</small>
+
+### Dependencies
+
+- Remove unused typing-extensions dependency ([ba98661](https://github.com/mkdocstrings/mkdocstrings/commit/ba98661b50e2cde19d8696d6c8ceecdbb49ce83f) by Timothée Mazzucotelli).
+
+### Bug Fixes
+
+- Ignore invalid inventory lines ([81caff5](https://github.com/mkdocstrings/mkdocstrings/commit/81caff5ff76f1a6606da9d2980e81ae9d2e02246) by Josh Mitchell). [PR-748](https://github.com/mkdocstrings/mkdocstrings/pull/748)
+
+### Code Refactoring
+
+- Rename loggers to "mkdocstrings" ([1a98040](https://github.com/mkdocstrings/mkdocstrings/commit/1a980402c39728ce265d8998b396c34bf76a113d) by Timothée Mazzucotelli).
+
+## [0.29.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.29.0) - 2025-03-10
+
+<small>[Compare with 0.28.3](https://github.com/mkdocstrings/mkdocstrings/compare/0.28.3...0.29.0)</small>
+
+**This is the last version before v1!**
+
+### Build
+
+- Depend on MkDocs 1.6 ([11bc400](https://github.com/mkdocstrings/mkdocstrings/commit/11bc400ab7089a47755f24a790c08f2f904c570b) by Timothée Mazzucotelli).
+
+### Features
+
+- Support rendering backlinks through handlers ([d4c7b9c](https://github.com/mkdocstrings/mkdocstrings/commit/d4c7b9c42f2de5df234c1ffefae0405a120e383c) by Timothée Mazzucotelli). [Issue-723](https://github.com/mkdocstrings/mkdocstrings/issues/723), [Issue-mkdocstrings-python-153](https://github.com/mkdocstrings/python/issues/153), [PR-739](https://github.com/mkdocstrings/mkdocstrings/pull/739)
+
+### Code Refactoring
+
+- Save and forward titles to autorefs ([f49fb29](https://github.com/mkdocstrings/mkdocstrings/commit/f49fb29582714795ca03febf1ee243aa2992917e) by Timothée Mazzucotelli).
+- Use a combined event (each split with a different priority) for `on_env` ([8d1dd75](https://github.com/mkdocstrings/mkdocstrings/commit/8d1dd754b4babd3c4f9e6c1d8856be57fe4ba9ea) by Timothée Mazzucotelli).
+
+## [0.28.3](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.28.3) - 2025-03-08
+
+<small>[Compare with 0.28.2](https://github.com/mkdocstrings/mkdocstrings/compare/0.28.2...0.28.3)</small>
+
+### Deprecations
+
+All public objects must now be imported from the top-level `mkdocstrings` module. Importing from submodules is deprecated, and will raise errors starting with v1. This should be the last deprecation before v1.
+
+### Build
+
+- Make `python` extra depend on latest mkdocstrings-python (1.16.2) ([ba9003e](https://github.com/mkdocstrings/mkdocstrings/commit/ba9003e96c8e5e01900743d5c464cbd228d732f4) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Finish exposing/hiding public/internal objects ([0723fc2](https://github.com/mkdocstrings/mkdocstrings/commit/0723fc25fdf5d45bc3b949f370712a706b85fbab) by Timothée Mazzucotelli).
+- Re-expose public API in the top-level `mkdocstrings` module ([e66e080](https://github.com/mkdocstrings/mkdocstrings/commit/e66e08096d45f6790492d9a0b767d512e42f67a9) by Timothée Mazzucotelli).
+- Move modules to internal folder ([23fe23f](https://github.com/mkdocstrings/mkdocstrings/commit/23fe23f11011d0470a6342ca85e060e5ac2b6bd6) by Timothée Mazzucotelli).
+
+## [0.28.2](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.28.2) - 2025-02-24
+
+<small>[Compare with 0.28.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.28.1...0.28.2)</small>
+
+### Build
+
+- Depend on mkdocs-autorefs >= 1.4 ([2c22bdc](https://github.com/mkdocstrings/mkdocstrings/commit/2c22bdc49f6bf5600aefd5ec711747686fda96a8) by Timothée Mazzucotelli).
+
+## [0.28.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.28.1) - 2025-02-14
+
+<small>[Compare with 0.28.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.28.0...0.28.1)</small>
+
+### Bug Fixes
+
+- Renew MkDocs' `relpath` processor instead of using same instance ([4ab180d](https://github.com/mkdocstrings/mkdocstrings/commit/4ab180d01964c3ef8005cd72c8d91ba3fd241e27) by Timothée Mazzucotelli). [Issue-mkdocs-3919](https://github.com/mkdocs/mkdocs/issues/3919)
+
+## [0.28.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.28.0) - 2025-02-03
+
+<small>[Compare with 0.27.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.27.0...0.28.0)</small>
+
+### Breaking Changes
+
+Although the following changes are "breaking" in terms of public API, we didn't find any public use of these classes and methods on GitHub.
+
+- `mkdocstrings.extension.AutoDocProcessor.__init__(parser)`: *Parameter was removed*
+- `mkdocstrings.extension.AutoDocProcessor.__init__(md)`: *Positional parameter was moved*
+- `mkdocstrings.extension.AutoDocProcessor.__init__(config)`: *Parameter was removed*
+- `mkdocstrings.extension.AutoDocProcessor.__init__(handlers)`: *Parameter kind was changed*: `positional or keyword` -> `keyword-only`
+- `mkdocstrings.extension.AutoDocProcessor.__init__(autorefs)`: *Parameter kind was changed*: `positional or keyword` -> `keyword-only`
+- `mkdocstrings.extension.MkdocstringsExtension.__init__(config)`: *Parameter was removed*
+- `mkdocstrings.extension.MkdocstringsExtension.__init__(handlers)`: *Positional parameter was moved*
+- `mkdocstrings.extension.MkdocstringsExtension.__init__(autorefs)`: *Positional parameter was moved*
+- `mkdocstrings.handlers.base.Handlers.__init__(config)`: *Parameter was removed*
+- `mkdocstrings.handlers.base.Handlers.__init__(theme)`: *Parameter was added as required*
+- `mkdocstrings.handlers.base.Handlers.__init__(default)`: *Parameter was added as required*
+- `mkdocstrings.handlers.base.Handlers.__init__(inventory_project)`: *Parameter was added as required*
+- `mkdocstrings.handlers.base.Handlers.__init__(tool_config)`: *Parameter was added as required*
+
+Similarly, the following parameters were renamed, but the methods are only called from our own code, using positional arguments.
+
+- `mkdocstrings.handlers.base.BaseHandler.collect(config)`: *Parameter was renamed `options`*
+- `mkdocstrings.handlers.base.BaseHandler.render(config)`: *Parameter was renamed `options`*
+
+Finally, the following method was removed, but this is again taken into account in our own code:
+
+- `mkdocstrings.handlers.base.BaseHandler.get_anchors`: *Public object was removed*
+
+For these reasons, and because we're still in v0, we do not bump to v1 yet. See following deprecations.
+
+### Deprecations
+
+*mkdocstrings* 0.28 will start emitting these deprecations warnings:
+
+> The `handler` argument is deprecated. The handler name must be specified as a class attribute.
+
+Previously, the `get_handler` function would pass a `handler` (name) argument to the handler constructor. This name must now be set on the handler's class directly.
+
+```python
+class MyHandler:
+    name = "myhandler"
+```
+
+> The `domain` attribute must be specified as a class attribute.
+
+The `domain` class attribute on handlers is now mandatory and cannot be an empty string.
+
+```python
+class MyHandler:
+    domain = "mh"
+```
+
+> The `theme` argument must be passed as a keyword argument.
+
+This argument could previously be passed as a positional argument (from the `get_handler` function), and must now be passed as a keyword argument.
+
+> The `custom_templates` argument must be passed as a keyword argument.
+
+Same as for `theme`, but with `custom_templates`.
+
+> The `mdx` argument must be provided (as a keyword argument).
+
+The `get_handler` function now receives a `mdx` argument, which it must forward to the handler constructor and then to the base handler, either explicitly or through `**kwargs`:
+
+=== "Explicitly"
+
+    ```python
+    def get_handler(..., mdx, ...):
+        return MyHandler(..., mdx=mdx, ...)
+
+
+    class MyHandler:
+        def __init__(self, ..., mdx, ...):
+            super().__init__(..., mdx=mdx, ...)
+    ```
+
+=== "Through `**kwargs`"
+
+    ```python
+    def get_handler(..., **kwargs):
+        return MyHandler(..., **kwargs)
+
+
+    class MyHandler:
+        def __init__(self, ..., **kwargs):
+            super().__init__(**kwargs)
+    ```
+
+In the meantime we still retrieve this `mdx` value at a different moment, by reading it from the MkDocs configuration.
+
+> The `mdx_config` argument must be provided (as a keyword argument).
+
+Same as for `mdx`, but with `mdx_config`.
+
+> mkdocstrings v1 will stop handling 'import' in handlers configuration. Instead your handler must define a `get_inventory_urls` method that returns a list of URLs to download.
+
+Previously, mkdocstrings would pop the `import` key from a handler's configuration to download each item (URLs). Items could be strings, or dictionaries with a `url` key. Now mkdocstrings gives back control to handlers, which must store this inventory configuration within them, and expose it again through a `get_inventory_urls` method. This method returns a list of tuples: an URL, and a dictionary of options that will be passed again to their `load_inventory` method. Handlers have now full control over the "inventory" setting.
+
+```python
+from copy import deepcopy
+
+
+def get_handler(..., handler_config, ...):
+    return MyHandler(..., config=handler_config, ...)
+
+
+class MyHandler:
+    def __init__(self, ..., config, ...):
+        self.config = config
+
+    def get_inventory_urls(self):
+        config = deepcopy(self.config["import"])
+        return [(inv, {}) if isinstance(inv, str) else (inv.pop("url"), inv) for inv in config]
+```
+
+Changing the name of the key (for example from `import` to `inventories`) involves a change in user configuration, and both keys will have to be supported by your handler for some time.
+
+```python
+def get_handler(..., handler_config, ...):
+    if "inventories" not in handler_config and "import" in handler_config:
+        warn("The 'import' key is renamed 'inventories'", FutureWarning)
+        handler_config["inventories"] = handler_config.pop("import")
+    return MyHandler(..., config=handler_config, ...)
+```
+
+> Setting a fallback anchor function is deprecated and will be removed in a future release.
+
+This comes from mkdocstrings and mkdocs-autorefs, and will disappear with mkdocstrings v0.28.
+
+> mkdocstrings v1 will start using your handler's `get_options` method to build options instead of merging the global and local options (dictionaries).
+
+Handlers must now store their own global options (in an instance attribute), and implement a `get_options` method that receives `local_options` (a dict) and returns combined options (dict or custom object). These combined options are then passed to `collect` and `render`, so that these methods can use them right away.
+
+```python
+def get_handler(..., handler_config, ...):
+    return MyHandler(..., config=handler_config, ...)
+
+
+class MyHandler:
+    def __init__(self, ..., config, ...):
+        self.config = config
+
+    def get_options(local_options):
+        return {**self.default_options, **self.config["options"], **local_options}
+```
+
+> The `update_env(md)` parameter is deprecated. Use `self.md` instead.
+
+Handlers can remove the `md` parameter from their `update_env` method implementation, and use `self.md` instead, if they need it.
+
+> No need to call `super().update_env()` anymore.
+
+Handlers don't have to call the parent `update_env` method from their own implementation anymore, and can just drop the call.
+
+>  The `get_anchors` method is deprecated. Declare a `get_aliases` method instead, accepting a string (identifier) instead of a collected object.
+
+Previously, handlers would implement a `get_anchors` method that received a data object (typed `CollectorItem`) to return aliases for this object. This forced mkdocstrings to collect this object through the handler's `collect` method, which then required some logic with "fallback config" as to prevent unwanted collection. mkdocstrings gives back control to handlers and now calls `get_aliases` instead, which accepts an `identifier` (string) and lets the handler decide how to return aliases for this identifier. For example, it can replicate previous behavior by calling its own `collect` method with its own "fallback config", or do something different (cache lookup, etc.).
+
+```python
+class MyHandler:
+    def get_aliases(identifier):
+        try:
+            obj = self.collect(identifier, self.fallback_config)
+            # or obj = self._objects_cache[identifier]
+        except CollectionError:  # or KeyError
+            return ()
+        return ...  # previous logic in `get_anchors`
+```
+
+> The `config_file_path` argument in `get_handler` functions is deprecated. Use `tool_config.get('config_file_path')` instead.
+
+The `config_file_path` argument is now deprecated and only passed to `get_handler` functions if they accept it. If you used it to compute a "base directory", you can now use the `tool_config` argument instead, which is the configuration of the SSG tool in use (here MkDocs):
+
+```python
+base_dir = Path(tool_config.config_file_path or "./mkdocs.yml").parent
+```
+
+**Most of these warnings will disappear with the next version of mkdocstrings-python.**
+
+### Bug Fixes
+
+- Update handlers in JSON schema to be an object instead of an array ([3cf7d51](https://github.com/mkdocstrings/mkdocstrings/commit/3cf7d51704378adc50d4ea50080aacae39e0e731) by Matthew Messinger). [Issue-733](https://github.com/mkdocstrings/mkdocstrings/issues/733), [PR-734](https://github.com/mkdocstrings/mkdocstrings/pull/734)
+- Fix broken table of contents when nesting autodoc instructions ([12c8f82](https://github.com/mkdocstrings/mkdocstrings/commit/12c8f82e9a959ce32cada09f0d2b5c651a705fdb) by Timothée Mazzucotelli). [Issue-348](https://github.com/mkdocstrings/mkdocstrings/issues/348)
+
+### Code Refactoring
+
+- Pass `config_file_path` to `get_handler` if it expects it ([8c476ee](https://github.com/mkdocstrings/mkdocstrings/commit/8c476ee0b82c09a5b20d7a773ecaf4be17b9e4d1) by Timothée Mazzucotelli).
+- Give back inventory control to handlers ([b84653f](https://github.com/mkdocstrings/mkdocstrings/commit/b84653f2b175824c73bd0291fafff8343ba80125) by Timothée Mazzucotelli). [Related-to-issue-719](https://github.com/mkdocstrings/mkdocstrings/issues/719)
+- Give back control to handlers on how they want to handle global/local options ([c00de7a](https://github.com/mkdocstrings/mkdocstrings/commit/c00de7a42b9072cbaa47ecbf18e3e15a6d5ab634) by Timothée Mazzucotelli). [Issue-719](https://github.com/mkdocstrings/mkdocstrings/issues/719)
+- Deprecate base handler's `get_anchors` method in favor of `get_aliases` method ([7a668f0](https://github.com/mkdocstrings/mkdocstrings/commit/7a668f0f731401b07123bd02aafbbfc55cd24c0d) by Timothée Mazzucotelli).
+- Register all identifiers of rendered objects into autorefs ([434d8c7](https://github.com/mkdocstrings/mkdocstrings/commit/434d8c7cd1e3edbdb9d4c45a9b44b290b19d88f1) by Timothée Mazzucotelli).
+- Use mkdocs-get-deps' download utility to remove duplicated code ([bb87cd8](https://github.com/mkdocstrings/mkdocstrings/commit/bb87cd833f2333e77cb2c2926aa24a434c97391f) by Timothée Mazzucotelli).
+- Clean up data passed down from plugin to extension and handlers ([b8e8703](https://github.com/mkdocstrings/mkdocstrings/commit/b8e87036e0e1ec5c181b4a2ec5931f1a60636a32) by Timothée Mazzucotelli). [PR-726](https://github.com/mkdocstrings/mkdocstrings/pull/726)
+
+## [0.27.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.27.0) - 2024-11-08
+
+<small>[Compare with 0.26.2](https://github.com/mkdocstrings/mkdocstrings/compare/0.26.2...0.27.0)</small>
+
+### Features
+
+- Add support for authentication in inventory file URLs ([1c23c1b](https://github.com/mkdocstrings/mkdocstrings/commit/1c23c1b0fc4a9bdec5e0eb43c8647beab66fec55) by Stefan Mejlgaard). [Issue-707](https://github.com/mkdocstrings/mkdocstrings/issues/707), [PR-710](https://github.com/mkdocstrings/mkdocstrings/pull/710)
+
+### Performance Improvements
+
+- Reduce footprint of template debug messages ([5648e5a](https://github.com/mkdocstrings/mkdocstrings/commit/5648e5aca80a5d8ba9e5456efb36b517b9f3cdeb) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Use %-formatting for logging messages ([0bbb8ca](https://github.com/mkdocstrings/mkdocstrings/commit/0bbb8caddf34b0a4faa0ed6f26e33102dc892fc8) by Timothée Mazzucotelli).
+
+## [0.26.2](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.26.2) - 2024-10-12
+
+<small>[Compare with 0.26.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.26.1...0.26.2)</small>
+
+### Build
+
+- Drop support for Python 3.8 ([f26edeb](https://github.com/mkdocstrings/mkdocstrings/commit/f26edebe01337caa802a98c13240acdd8332a5fa) by Timothée Mazzucotelli).
+
+## [0.26.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.26.1) - 2024-09-06
+
+<small>[Compare with 0.26.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.26.0...0.26.1)</small>
+
+### Bug Fixes
+
+- Instantiate config of the autorefs plugin when it is not enabled by the user ([db2ab34](https://github.com/mkdocstrings/mkdocstrings/commit/db2ab3403a95034987d574a517ddc426a4b4e1bd) by Timothée Mazzucotelli). [Issue-autorefs#57](https://github.com/mkdocstrings/autorefs/issues/57)
+
+## [0.26.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.26.0) - 2024-09-02
+
+<small>[Compare with 0.25.2](https://github.com/mkdocstrings/mkdocstrings/compare/0.25.2...0.26.0)</small>
+
+### Build
+
+- Upgrade Python-Markdown lower bound to 3.6 ([28565f9](https://github.com/mkdocstrings/mkdocstrings/commit/28565f97f21bf81b2bc554679c641fba3f639882) by Timothée Mazzucotelli).
+
+### Dependencies
+
+- Depend on mkdocs-autorefs v1 ([33aa573](https://github.com/mkdocstrings/mkdocstrings/commit/33aa573efb17b13e7b9da77e29aeccb3fbddd8e8) by Timothée Mazzucotelli).
+
+### Features
+
+- Allow hooking into autorefs when converting Markdown docstrings ([b63e726](https://github.com/mkdocstrings/mkdocstrings/commit/b63e72691a8f92dd59b56304125de4a19e0d028c) by Timothée Mazzucotelli). [Based-on-PR-autorefs#46](https://github.com/mkdocstrings/autorefs/pull/46)
+
+## [0.25.2](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.25.2) - 2024-07-25
+
+<small>[Compare with 0.25.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.25.1...0.25.2)</small>
+
+### Code Refactoring
+
+- Give precedence to Markdown heading level (`##`) ([2e5f89e](https://github.com/mkdocstrings/mkdocstrings/commit/2e5f89e8cef11e6447425d3700c29558cd6d241b) by Timothée Mazzucotelli).
+
+## [0.25.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.25.1) - 2024-05-05
+
+<small>[Compare with 0.25.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.25.0...0.25.1)</small>
+
+### Bug Fixes
+
+- Always descend into sub-headings when re-applying their label ([cb86e08](https://github.com/mkdocstrings/mkdocstrings/commit/cb86e08bbc5e8057393aa1cd7ca29bc2b40ab5eb) by Timothée Mazzucotelli). [Issue-mkdocstrings/python-158](https://github.com/mkdocstrings/python/issues/158)
+
+## [0.25.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.25.0) - 2024-04-27
+
+<small>[Compare with 0.24.3](https://github.com/mkdocstrings/mkdocstrings/compare/0.24.3...0.25.0)</small>
+
+### Features
+
+- Support `once` parameter in logging methods, allowing to log a message only once with a given logger ([1532b59](https://github.com/mkdocstrings/mkdocstrings/commit/1532b59a6efd99fed846cf7edfd0b26525700d3f) by Timothée Mazzucotelli).
+- Support blank line between `::: path` and YAML options ([d799d2f](https://github.com/mkdocstrings/mkdocstrings/commit/d799d2f3903bce44fb751f8cf3fb8078d25549da) by Timothée Mazzucotelli). [Issue-450](https://github.com/mkdocstrings/mkdocstrings/issues/450)
+
+### Code Refactoring
+
+- Allow specifying name of template loggers ([c5b5f69](https://github.com/mkdocstrings/mkdocstrings/commit/c5b5f697c83271d961c7ac795412d6b4964ba2b7) by Timothée Mazzucotelli).
+
+## [0.24.3](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.24.3) - 2024-04-05
+
+<small>[Compare with 0.24.2](https://github.com/mkdocstrings/mkdocstrings/compare/0.24.2...0.24.3)</small>
+
+### Bug Fixes
+
+- Support HTML toc labels with Python-Markdown 3.6+ (uncomment code...) ([7fe3e5f](https://github.com/mkdocstrings/mkdocstrings/commit/7fe3e5f28239c08094fb656728369998f52630ea) by Timothée Mazzucotelli).
+
+## [0.24.2](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.24.2) - 2024-04-02
+
+<small>[Compare with 0.24.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.24.1...0.24.2)</small>
+
+### Bug Fixes
+
+- Support HTML toc labels with Python-Markdown 3.6+ ([c0d0090](https://github.com/mkdocstrings/mkdocstrings/commit/c0d009000678a2ccbfb0c8adfeff3dc83845ee41) by Timothée Mazzucotelli). [Issue-mkdocstrings/python-143](https://github.com/mkdocstrings/python/issues/143)
+
+## [0.24.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.24.1) - 2024-02-27
+
+<small>[Compare with 0.24.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.24.0...0.24.1)</small>
+
+### Code Refactoring
+
+- Support new pymdownx-highlight options ([a7a2907](https://github.com/mkdocstrings/mkdocstrings/commit/a7a29079aebcd79be84ac38ce275797920e4c75e) by Timothée Mazzucotelli).
+- Backup anchors with id and no href, for compatibility with autorefs' Markdown anchors ([b5236b4](https://github.com/mkdocstrings/mkdocstrings/commit/b5236b4333ebde9648c84f6e4b0f4c2b10f3ecd4) by Timothée Mazzucotelli). [PR-#651](https://github.com/mkdocstrings/mkdocstrings/pull/651), [Related-to-mkdocs-autorefs#39](https://github.com/mkdocstrings/autorefs/pull/39), Co-authored-by: Oleh Prypin <oleh@pryp.in>
+
 ## [0.24.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.24.0) - 2023-11-14
 
 <small>[Compare with 0.23.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.23.0...0.24.0)</small>
