@@ -73,6 +73,8 @@ class PluginConfig(Config):
     """Whether to enable object inventory creation."""
     enabled = opt.Type(bool, default=True)
     """Whether to enable the plugin. Default is true. If false, *mkdocstrings* will not collect or render anything."""
+    locale = opt.Optional(opt.Type(str))
+    """The locale to use for translations."""
 
 
 class MkdocstringsPlugin(BasePlugin[PluginConfig]):
@@ -131,6 +133,9 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             return config
         _logger.debug("Adding extension to the list")
 
+        locale = self.config.locale or config.theme.get("language") or config.theme.get("locale") or "en"
+        locale = str(locale).replace("_", "-")
+
         handlers = Handlers(
             default=self.config.default_handler,
             handlers_config=self.config.handlers,
@@ -140,6 +145,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             mdx_config=config.mdx_configs,
             inventory_project=config.site_name,
             inventory_version="0.0.0",  # TODO: Find a way to get actual version.
+            locale=locale,
             tool_config=config,
         )
 
