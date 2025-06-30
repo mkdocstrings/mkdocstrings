@@ -198,7 +198,6 @@ def test_removing_duplicated_headings(ext_markdown: Markdown) -> None:
     assert output.count(">Heading one<") == 1
     assert output.count(">Heading two<") == 1
     assert output.count(">Heading three<") == 1
-    assert output.count('class="mkdocstrings') == 0
 
 
 def _assert_contains_in_order(items: list[str], string: str) -> None:

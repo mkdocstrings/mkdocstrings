@@ -34,7 +34,7 @@ nav:
   - Guides:
     - Recipes: recipes.md
     - Troubleshooting: troubleshooting.md
-- API reference: reference/mkdocstrings.md
+- API reference: reference/api.md
 - Development:
   - Contributing: contributing.md
   - Code of Conduct: code_of_conduct.md
@@ -143,6 +143,7 @@ plugins:
         - https://markupsafe.palletsprojects.com/en/stable/objects.inv
         paths: [src]
         options:
+          backlinks: tree
           docstring_options:
             ignore_init_summary: true
           docstring_section_style: list
@@ -161,16 +162,17 @@ plugins:
           signature_crossrefs: true
           summary: true
 - llmstxt:
-    files:
-    - output: llms-full.txt
-      inputs:
+    full_output: llms-full.txt
+    sections:
+      Usage:
       - index.md
       - usage/index.md
       - usage/handlers.md
       - usage/theming.md
       - recipes.md
       - troubleshooting.md
-      - reference/**.md
+      API:
+      - reference/api.md
 - git-revision-date-localized:
     enabled: !ENV [DEPLOY, false]
     enable_creation_date: true
@@ -179,14 +181,15 @@ plugins:
     redirect_maps:
       theming.md: usage/theming.md
       handlers/overview.md: usage/handlers.md
-      reference/index.md: reference/mkdocstrings.md#mkdocstrings
-      reference/extension.md: reference/mkdocstrings.md#mkdocstrings.extension
-      reference/handlers/index.md: reference/mkdocstrings.md#mkdocstrings.handlers
-      reference/handlers/base.md: reference/mkdocstrings.md#mkdocstrings.handlers.base
-      reference/handlers/rendering.md: reference/mkdocstrings.md#mkdocstrings.handlers.rendering
-      reference/inventory.md: reference/mkdocstrings.md#mkdocstrings.inventory
-      reference/loggers.md: reference/mkdocstrings.md#mkdocstrings.loggers
-      reference/plugin.md: reference/mkdocstrings.md#mkdocstrings.plugin
+      reference/mkdocstrings.md: reference/api.md
+      reference/index.md: reference/api.md#mkdocstrings
+      reference/extension.md: reference/api.md#mkdocstrings.extension
+      reference/handlers/index.md: reference/api.md#mkdocstrings.handlers
+      reference/handlers/base.md: reference/api.md#mkdocstrings.handlers.base
+      reference/handlers/rendering.md: reference/api.md#mkdocstrings.handlers.rendering
+      reference/inventory.md: reference/api.md#mkdocstrings.inventory
+      reference/loggers.md: reference/api.md#mkdocstrings.loggers
+      reference/plugin.md: reference/api.md#mkdocstrings.plugin
 - minify:
     minify_html: !ENV [DEPLOY, false]
 - group:
