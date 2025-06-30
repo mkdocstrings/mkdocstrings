@@ -359,7 +359,7 @@ class BaseHandler:
         """
         handler = handler or self.name
         try:
-            import mkdocstrings_handlers
+            import mkdocstrings_handlers  # noqa: PLC0415
         except ModuleNotFoundError as error:
             raise ModuleNotFoundError(f"Handler '{handler}' not found, is it installed?") from error
 

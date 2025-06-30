@@ -66,7 +66,7 @@ getter = "scripts.get_version:get_version"
 
 [tool.pdm.build]
 # Include as much as possible in the source distribution, to help redistributors.
-excludes = ["**/.pytest_cache"]
+excludes = ["**/.pytest_cache", "**/.mypy_cache"]
 source-includes = [
     "config",
     "docs",
@@ -112,7 +112,7 @@ ci = [
     "mkdocs>=1.6",
     "mkdocs-coverage>=1.0",
     "mkdocs-git-revision-date-localized-plugin>=1.2",
-    "mkdocs-llmstxt>=0.1",
+    "mkdocs-llmstxt>=0.2",
     "mkdocs-material>=9.5",
     "mkdocs-minify-plugin>=0.8",
     "mkdocs-redirects>=1.2.1",

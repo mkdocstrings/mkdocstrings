@@ -155,7 +155,11 @@ def test_inventory_matches_api(
     public_api_paths = {obj.path for obj in public_objects}
     public_api_paths.add("mkdocstrings")
     for item in inventory.values():
-        if item.domain == "py" and "(" not in item.name:
+        if (
+            item.domain == "py"
+            and "(" not in item.name
+            and (item.name == "mkdocstrings" or item.name.startswith("mkdocstrings."))
+        ):
             obj = loader.modules_collection[item.name]
             # YORE: Bump 1: Remove block.
             if any(obj.path.startswith(f"mkdocstrings.{module}") for module in deprecated_modules):
