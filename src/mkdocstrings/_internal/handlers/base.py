@@ -319,20 +319,29 @@ class BaseHandler:
         """
         raise NotImplementedError
 
-    def render(self, data: CollectorItem, options: HandlerOptions) -> str:
+    def render(self, data: CollectorItem, options: HandlerOptions, *, locale: str | None = None) -> str:
         """Render a template using provided data and configuration options.
 
         Arguments:
             data: The collected data to render.
             options: The final configuration options.
+            locale: The locale to use for translations, if any.
 
         Returns:
             The rendered template as HTML.
         """
         raise NotImplementedError
 
-    def render_backlinks(self, backlinks: Mapping[str, Iterable[Backlink]]) -> str:  # noqa: ARG002
-        """Render backlinks."""
+    def render_backlinks(self, backlinks: Mapping[str, Iterable[Backlink]], *, locale: str | None = None) -> str:  # noqa: ARG002
+        """Render backlinks.
+
+        Parameters:
+            backlinks: A mapping of identifiers to backlinks.
+            locale: The locale to use for translations, if any.
+
+        Returns:
+            The rendered backlinks as HTML.
+        """
         return ""
 
     def teardown(self) -> None:
@@ -578,6 +587,7 @@ class Handlers:
         custom_templates: str | None = None,
         mdx: Sequence[str | Extension] | None = None,
         mdx_config: Mapping[str, Any] | None = None,
+        locale: str = "en",
         tool_config: Any,
     ) -> None:
         """Initialize the object.
@@ -591,6 +601,7 @@ class Handlers:
             custom_templates: The path to custom templates.
             mdx: A list of Markdown extensions to use.
             mdx_config: Configuration for the Markdown extensions.
+            locale: The locale to use for translations.
             tool_config: Tool configuration to pass down to handlers.
         """
         self._theme = theme
@@ -600,6 +611,7 @@ class Handlers:
         self._mdx = mdx or []
         self._mdx_config = mdx_config or {}
         self._handlers: dict[str, BaseHandler] = {}
+        self._locale = locale
         self._tool_config = tool_config
 
         self.inventory: Inventory = Inventory(project=inventory_project, version=inventory_version)

@@ -133,6 +133,9 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             return config
         _logger.debug("Adding extension to the list")
 
+        locale = self.config.locale or config.theme.get("language") or config.theme.get("locale") or "en"
+        locale = str(locale).replace("_", "-")
+
         handlers = Handlers(
             default=self.config.default_handler,
             handlers_config=self.config.handlers,
@@ -142,6 +145,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             mdx_config=config.mdx_configs,
             inventory_project=config.site_name,
             inventory_version="0.0.0",  # TODO: Find a way to get actual version.
+            locale=locale,
             tool_config=config,
         )
 
@@ -169,9 +173,6 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
         config.markdown_extensions.append(mkdocstrings_extension)  # type: ignore[arg-type]
 
         config.extra_css.insert(0, self.css_filename)  # So that it has lower priority than user files.
-
-        if self.config.locale is None:
-            self.config.locale = config.theme.get("language", str(config.theme.locale).replace("_", "-"))
 
         self._autorefs = autorefs
         self._handlers = handlers

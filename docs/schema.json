@@ -28,8 +28,8 @@
               "type": "string",
               "default": "python"
             },
-            "language": {
-              "title": "The language to use for output.",
+            "locale": {
+              "title": "The locale to use for translations.",
               "markdownDescription": "https://mkdocstrings.github.io/usage/#global-options",
               "type": "string",
               "default": null

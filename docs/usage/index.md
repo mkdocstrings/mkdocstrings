@@ -113,7 +113,7 @@ The above is equivalent to:
 - `handlers`: The handlers' global configuration.
 - `enable_inventory`: Whether to enable inventory file generation.
   See [Cross-references to other projects / inventories](#cross-references-to-other-projects-inventories)
-- `language`: The language to use for output.
+- `locale`: The locale used for translations.
   See [Internationalization](#internationalization-i18n).
 - `enabled` **(New in version 0.20)**: Whether to enable the plugin. Defaults to `true`.
   Can be used to reduce build times when doing local development.
@@ -146,17 +146,13 @@ Check the documentation for your handler of interest in [Handlers](handlers.md).
 
 ## Internationalization (i18n)
 
-Some handlers support changing the language of the output.
+Some handlers support multiple languages.
 
-If the handler supports localization, the language it uses is determined by the following order of precedence:
+If the handler supports localization, the locale it uses is determined by the following order of precedence:
 
-- `language` in [global options](#global-options)
+- `locale` in [global options](#global-options)
 - `theme.language`: used by the [MkDocs Material theme](https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/)
 - `theme.locale` in [MkDocs configuration](https://www.mkdocs.org/user-guide/configuration/#theme)
-
-Currently, the following handlers support changing the language:
-
-- [Python](https://mkdocstrings.github.io/python/usage/#internationalization-i18n)
 
 ## Cross-references
 
