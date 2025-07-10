@@ -113,8 +113,7 @@ The above is equivalent to:
 - `handlers`: The handlers' global configuration.
 - `enable_inventory`: Whether to enable inventory file generation.
   See [Cross-references to other projects / inventories](#cross-references-to-other-projects-inventories)
-- `locale`: The locale used for translations.
-  See [Internationalization](#internationalization-i18n).
+- `locale`: The locale used for translations. See [Internationalization](#internationalization-i18n).
 - `enabled` **(New in version 0.20)**: Whether to enable the plugin. Defaults to `true`.
   Can be used to reduce build times when doing local development.
   Especially useful when used with environment variables (see example below).
@@ -126,7 +125,7 @@ The above is equivalent to:
         enabled: !ENV [ENABLE_MKDOCSTRINGS, true]
         custom_templates: templates
         default_handler: python
-        language: en
+        locale: en
         handlers:
           python:
             options:
@@ -144,7 +143,7 @@ The above is equivalent to:
 Some handlers accept additional global configuration.
 Check the documentation for your handler of interest in [Handlers](handlers.md).
 
-## Internationalization (i18n)
+## Internationalization (I18N)
 
 Some handlers support multiple languages.
 
