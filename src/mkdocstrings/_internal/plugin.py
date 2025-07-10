@@ -15,6 +15,8 @@ from __future__ import annotations
 
 import os
 import re
+from functools import partial
+from inspect import signature
 from re import Match
 from typing import TYPE_CHECKING, Any
 from warnings import catch_warnings, simplefilter
@@ -240,7 +242,12 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             if not backlinks:
                 return ""
 
-            return handler.render_backlinks(backlinks)
+            if "locale" in signature(handler.render_backlinks).parameters:
+                render_backlinks = partial(handler.render_backlinks, locale=self.handlers._locale)
+            else:
+                render_backlinks = handler.render_backlinks  # type: ignore[assignment]
+
+            return render_backlinks(backlinks)
 
         for file in files:
             if file.page and file.page.content:
