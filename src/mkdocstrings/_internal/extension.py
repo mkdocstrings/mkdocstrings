@@ -23,6 +23,8 @@
 from __future__ import annotations
 
 import re
+from functools import partial
+from inspect import signature
 from typing import TYPE_CHECKING, Any
 from warnings import warn
 from xml.etree.ElementTree import Element
@@ -197,8 +199,12 @@ class AutoDocProcessor(BlockProcessor):
             self._updated_envs.add(handler_name)
 
         _logger.debug("Rendering templates")
+        if "locale" in signature(handler.render).parameters:
+            render = partial(handler.render, locale=self._handlers._locale)
+        else:
+            render = handler.render  # type: ignore[assignment]
         try:
-            rendered = handler.render(data, options)
+            rendered = render(data, options)
         except TemplateNotFound as exc:
             _logger.error(  # noqa: TRY400
                 "Template '%s' not found for '%s' handler and theme '%s'.",

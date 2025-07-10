@@ -15,6 +15,8 @@ from __future__ import annotations
 
 import os
 import re
+from functools import partial
+from inspect import signature
 from re import Match
 from typing import TYPE_CHECKING, Any
 from warnings import catch_warnings, simplefilter
@@ -73,6 +75,8 @@ class PluginConfig(Config):
     """Whether to enable object inventory creation."""
     enabled = opt.Type(bool, default=True)
     """Whether to enable the plugin. Default is true. If false, *mkdocstrings* will not collect or render anything."""
+    locale = opt.Optional(opt.Type(str))
+    """The locale to use for translations."""
 
 
 class MkdocstringsPlugin(BasePlugin[PluginConfig]):
@@ -131,6 +135,9 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             return config
         _logger.debug("Adding extension to the list")
 
+        locale = self.config.locale or config.theme.get("language") or config.theme.get("locale") or "en"
+        locale = str(locale).replace("_", "-")
+
         handlers = Handlers(
             default=self.config.default_handler,
             handlers_config=self.config.handlers,
@@ -140,6 +147,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             mdx_config=config.mdx_configs,
             inventory_project=config.site_name,
             inventory_version="0.0.0",  # TODO: Find a way to get actual version.
+            locale=locale,
             tool_config=config,
         )
 
@@ -234,7 +242,12 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             if not backlinks:
                 return ""
 
-            return handler.render_backlinks(backlinks)
+            if "locale" in signature(handler.render_backlinks).parameters:
+                render_backlinks = partial(handler.render_backlinks, locale=self.handlers._locale)
+            else:
+                render_backlinks = handler.render_backlinks  # type: ignore[assignment]
+
+            return render_backlinks(backlinks)
 
         for file in files:
             if file.page and file.page.content:
