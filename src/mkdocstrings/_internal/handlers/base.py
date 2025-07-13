@@ -461,7 +461,7 @@ class BaseHandler:
             role: An optional role for the object bound to this heading.
             hidden: If True, only register it for the table of contents, don't render anything.
             toc_label: The title to use in the table of contents ('data-toc-label' attribute).
-            skip_inventory: Flags element to not be registered in the inventory ('data-skip-inventory' attribute).
+            skip_inventory: Flag element to not be registered in the inventory ('data-skip-inventory' attribute).
             **attributes: Any extra HTML attributes of the heading.
 
         Returns:
