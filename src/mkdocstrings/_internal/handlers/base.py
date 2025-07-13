@@ -450,7 +450,7 @@ class BaseHandler:
         role: str | None = None,
         hidden: bool = False,
         toc_label: str | None = None,
-        skip_inventory: bool = True,
+        skip_inventory: bool = False,
         **attributes: str,
     ) -> Markup:
         """Render an HTML heading and register it for the table of contents. For use inside templates.
