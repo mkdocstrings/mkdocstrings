@@ -459,6 +459,7 @@ class BaseHandler:
         role: str | None = None,
         hidden: bool = False,
         toc_label: str | None = None,
+        skip_inventory: bool = False,
         **attributes: str,
     ) -> Markup:
         """Render an HTML heading and register it for the table of contents. For use inside templates.
@@ -469,6 +470,7 @@ class BaseHandler:
             role: An optional role for the object bound to this heading.
             hidden: If True, only register it for the table of contents, don't render anything.
             toc_label: The title to use in the table of contents ('data-toc-label' attribute).
+            skip_inventory: Flag element to not be registered in the inventory (by setting a `data-skip-inventory` attribute).
             **attributes: Any extra HTML attributes of the heading.
 
         Returns:
@@ -488,6 +490,8 @@ class BaseHandler:
         if toc_label is None:
             toc_label = content.unescape() if isinstance(content, Markup) else content
         el.set("data-toc-label", toc_label)
+        if skip_inventory:
+            el.set("data-skip-inventory", "true")
         if role:
             el.set("data-role", role)
         if content:

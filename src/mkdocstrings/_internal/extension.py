@@ -251,6 +251,15 @@ class AutoDocProcessor(BlockProcessor):
 
         for heading in headings:
             rendered_id = heading.attrib["id"]
+
+            skip_inventory = "data-skip-inventory" in heading.attrib
+            if skip_inventory:
+                _logger.debug(
+                    "Skipping heading with id %r because data-skip-inventory is present",
+                    rendered_id,
+                )
+                continue
+
             # The title is registered to be used as tooltip by autorefs.
             self._autorefs.register_anchor(page, rendered_id, title=heading.text, primary=True)
 
