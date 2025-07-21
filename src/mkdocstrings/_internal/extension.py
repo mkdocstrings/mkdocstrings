@@ -246,7 +246,7 @@ class AutoDocProcessor(BlockProcessor):
         for heading in headings:
             rendered_id = heading.attrib["id"]
 
-            skip_inventory = heading.attrib.get("data-skip-inventory") is not None
+            skip_inventory = "data-skip-inventory" in heading.attrib
             if skip_inventory:
                 _logger.debug(
                     "Skipping heading with id %r because data-skip-inventory is present",
