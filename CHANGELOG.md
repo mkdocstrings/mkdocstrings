@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.30.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.30.0) - 2025-07-23
+
+<small>[Compare with 0.29.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.29.1...0.30.0)</small>
+
+### Features
+
+- Add `data-skip-inventory` boolean attribute for elements to skip registration in local inventory ([f856160](https://github.com/mkdocstrings/mkdocstrings/commit/f856160b03b2c27e1d75fdf4f315c273cb9d9247) by Bartosz Sławecki). [Issue-671](https://github.com/mkdocstrings/mkdocstrings/issues/671), [PR-774](https://github.com/mkdocstrings/mkdocstrings/pull/774)
+- Add I18N support (translations) ([2b4ed54](https://github.com/mkdocstrings/mkdocstrings/commit/2b4ed541bc707e55d959092d950ebeecc4fbd136) by Nyuan Zhang). [PR-645](https://github.com/mkdocstrings/mkdocstrings/pull/645), Co-authored-by: Timothée Mazzucotelli <dev@pawamoy.fr>
+
 ## [0.29.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.29.1) - 2025-03-31
 
 <small>[Compare with 0.29.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.29.0...0.29.1)</small>
