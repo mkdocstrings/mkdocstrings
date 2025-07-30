@@ -72,7 +72,7 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
 [IBM](https://ds4sd.github.io/docling/api_reference/document_converter/),
 [Jitsi](https://jitsi.github.io/jiwer/reference/alignment/),
 [Microsoft](https://microsoft.github.io/presidio/api/analyzer_python/),
-[NVIDIA](https://nvidia.github.io/bionemo-framework/),
+[NVIDIA](https://nvidia.github.io/bionemo-framework/main/references/API_reference/bionemo/core/api/),
 [Prefect](https://docs.prefect.io/2.10.12/api-ref/prefect/agent/),
 [Pydantic](https://docs.pydantic.dev/dev-v2/api/main/),
 [Textual](https://textual.textualize.io/api/app/),
