@@ -28,6 +28,7 @@ nav:
     - Crystal: https://mkdocstrings.github.io/crystal/
     - Python: https://mkdocstrings.github.io/python/
     - Python (Legacy): https://mkdocstrings.github.io/python-legacy/
+    - MATLAB: https://watermarkhu.nl/mkdocstrings-matlab/
     - Shell: https://mkdocstrings.github.io/shell/
     - TypeScript: https://mkdocstrings.github.io/typescript/
     - VBA: https://pypi.org/project/mkdocstrings-vba

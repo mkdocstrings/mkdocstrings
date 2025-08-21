@@ -25,6 +25,7 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
   [C](https://mkdocstrings.github.io/c/),
   [Crystal](https://mkdocstrings.github.io/crystal/),
   [Python](https://mkdocstrings.github.io/python/),
+  [MATLAB](https://watermarkhu.nl/mkdocstrings-matlab/),
   [TypeScript](https://mkdocstrings.github.io/typescript/), and
   [VBA](https://pypi.org/project/mkdocstrings-vba/) languages,
   as well as for [shell scripts/libraries](https://mkdocstrings.github.io/shell/).
