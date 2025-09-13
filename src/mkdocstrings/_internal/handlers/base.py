@@ -8,6 +8,7 @@ import datetime
 import importlib
 import inspect
 import sys
+import ssl
 from concurrent import futures
 from io import BytesIO
 from pathlib import Path
@@ -753,6 +754,9 @@ class Handlers:
             to_download.extend((handler, url, conf) for url, conf in inv_configs)
 
         if to_download:
+            # NOTE: Simply creating default context somehow fixes
+            # https://github.com/mkdocstrings/mkdocstrings/issues/796
+            _ = ssl.create_default_context()
             thread_pool = futures.ThreadPoolExecutor(4)
             for handler, url, conf in to_download:
                 _logger.debug("Downloading inventory from %s", url)
