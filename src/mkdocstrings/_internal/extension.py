@@ -125,7 +125,7 @@ class AutoDocProcessor(BlockProcessor):
             heading_level = match["heading"].count("#")
             _logger.debug("Matched '::: %s'", identifier)
 
-            html, handler, data = self._process_block(identifier, block, heading_level)
+            html, handler, _ = self._process_block(identifier, block, heading_level)
             el = Element("div", {"class": "mkdocstrings"})
             # The final HTML is inserted as opaque to subsequent processing, and only revealed at the end.
             el.text = self.md.htmlStash.store(html)
