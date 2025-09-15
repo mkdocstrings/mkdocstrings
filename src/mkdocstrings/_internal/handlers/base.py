@@ -754,9 +754,11 @@ class Handlers:
             to_download.extend((handler, url, conf) for url, conf in inv_configs)
 
         if to_download:
-            # NOTE: Simply creating default context somehow fixes
-            # https://github.com/mkdocstrings/mkdocstrings/issues/796
+            # YORE: EOL 3.12: Remove block.
+            # NOTE: Create context in main thread to fix issue
+            # https://github.com/mkdocstrings/mkdocstrings/issues/796.
             _ = ssl.create_default_context()
+
             thread_pool = futures.ThreadPoolExecutor(4)
             for handler, url, conf in to_download:
                 _logger.debug("Downloading inventory from %s", url)
