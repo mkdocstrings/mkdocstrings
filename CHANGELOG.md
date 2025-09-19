@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.30.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.30.1) - 2025-09-19
+
+<small>[Compare with 0.30.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.30.0...0.30.1)</small>
+
+### Bug Fixes
+
+- Create default SSL context in main thread before downloading inventories ([eec7fb4](https://github.com/mkdocstrings/mkdocstrings/commit/eec7fb4bab948ef6db594fc1d1688be0554c5780) by Çağlar Kutlu). [Issue-796](https://github.com/mkdocstrings/mkdocstrings/issue/796), [PR-797](https://github.com/mkdocstrings/mkdocstrings/pull/797)
+
 ## [0.30.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.30.0) - 2025-07-23
 
 <small>[Compare with 0.29.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.29.1...0.30.0)</small>
