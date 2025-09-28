@@ -24,6 +24,7 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
   We currently have [handlers](https://mkdocstrings.github.io/handlers/overview/) for the
   [C](https://mkdocstrings.github.io/c/),
   [Crystal](https://mkdocstrings.github.io/crystal/),
+  [GitHub Actions](https://watermarkhu.nl/mkdocstrings-github/),
   [Python](https://mkdocstrings.github.io/python/),
   [MATLAB](https://watermarkhu.nl/mkdocstrings-matlab/),
   [TypeScript](https://mkdocstrings.github.io/typescript/), and
