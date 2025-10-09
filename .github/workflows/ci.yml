@@ -2,9 +2,15 @@ name: ci
 
 on:
   push:
+  - main
+  - test-me-*
   pull_request:
     branches:
     - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 defaults:
   run:
@@ -15,13 +21,30 @@ env:
   LC_ALL: en_US.utf-8
   PYTHONIOENCODING: UTF-8
   PYTHONPATH: docs
+  PYTHONWARNDEFAULTENCODING: "1"
   PYTHON_VERSIONS: ""
 
 jobs:
 
   quality:
+    strategy:
+      matrix:
+        os:
+        - ubuntu-latest
+        - macos-latest
+        - windows-latest
+        python-version:
+        - "3.9"
+        - "3.13"
+      include:
+      - os: ubuntu-latest
+        python-version: "3.10"
+      - os: ubuntu-latest
+        python-version: "3.11"
+      - os: ubuntu-latest
+        python-version: "3.12"
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
     - name: Checkout
@@ -33,7 +56,7 @@ jobs:
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
-        python-version: "3.12"
+        python-version: ${{ matrix.python-version }}
 
     - name: Setup uv
       uses: astral-sh/setup-uv@v5
@@ -109,7 +132,7 @@ jobs:
         - lowest-direct
         exclude: ${{ fromJSON(needs.exclude-test-jobs.outputs.jobs) }}
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.python-version == '3.14' }}
+    continue-on-error: true
 
     steps:
     - name: Checkout

@@ -29,11 +29,14 @@ function updatePremiumSponsors(dataURL, rank) {
             let html = '';
             html += `<b>${capRank} sponsors</b><p>`
             sponsors.forEach(function (sponsor) {
-                html += `
-                    <a href="${sponsor.url}" target="_blank" title="${sponsor.name}">
-                        <img alt="${sponsor.name}" src="${sponsor.image}" style="height: ${sponsor.imageHeight}px;">
-                    </a>
-                `
+                html += `<a href="${sponsor.url}" target="_blank" title="${sponsor.name}">`
+                if (sponsor.image) {
+                    html += `<img alt="${sponsor.name}" src="${sponsor.image}" style="height: ${sponsor.imageHeight}px;">`
+                } else if (sponsor.imageLight && sponsor.imageDark) {
+                    html += `<img alt="${sponsor.name}" src="${sponsor.imageLight}#only-light" style="height: ${sponsor.imageHeight}px;">`
+                    html += `<img alt="${sponsor.name}" src="${sponsor.imageDark}#only-dark" style="height: ${sponsor.imageHeight}px;">`
+                }
+                html += '</a>';
             });
             html += '</p>'
             sponsorsDiv.innerHTML = html;

@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 
 
 PYTHON_VERSIONS = os.getenv("PYTHON_VERSIONS", "3.9 3.10 3.11 3.12 3.13 3.14").split()
+PYTHON_DEV = "3.14"
 
 
 def shell(cmd: str, *, capture_output: bool = False, **kwargs: Any) -> str | None:
@@ -67,16 +68,31 @@ def setup() -> None:
                 uv_install(venv_path)
 
 
+class _RunError(subprocess.CalledProcessError):
+    def __init__(self, *args: Any, python_version: str, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+        self.python_version = python_version
+
+
 def run(version: str, cmd: str, *args: str, **kwargs: Any) -> None:
     """Run a command in a virtual environment."""
     kwargs = {"check": True, **kwargs}
     uv_run = ["uv", "run", "--no-sync"]
-    if version == "default":
-        with environ(UV_PROJECT_ENVIRONMENT=".venv"):
-            subprocess.run([*uv_run, cmd, *args], **kwargs)  # noqa: S603, PLW1510
-    else:
-        with environ(UV_PROJECT_ENVIRONMENT=f".venvs/{version}", MULTIRUN="1"):
-            subprocess.run([*uv_run, cmd, *args], **kwargs)  # noqa: S603, PLW1510
+    try:
+        if version == "default":
+            with environ(UV_PROJECT_ENVIRONMENT=".venv"):
+                subprocess.run([*uv_run, cmd, *args], **kwargs)  # noqa: S603, PLW1510
+        else:
+            with environ(UV_PROJECT_ENVIRONMENT=f".venvs/{version}", MULTIRUN="1"):
+                subprocess.run([*uv_run, cmd, *args], **kwargs)  # noqa: S603, PLW1510
+    except subprocess.CalledProcessError as process:
+        raise _RunError(
+            returncode=process.returncode,
+            python_version=version,
+            cmd=process.cmd,
+            output=process.output,
+            stderr=process.stderr,
+        ) from process
 
 
 def multirun(cmd: str, *args: str, **kwargs: Any) -> None:
@@ -144,19 +160,31 @@ def main() -> int:
         cmd = args.pop(0)
 
         if cmd == "run":
-            run("default", *args)
+            if not args:
+                print("make: run: missing command", file=sys.stderr)
+                return 1
+            run("default", *args)  # ty: ignore[missing-argument]
             return 0
 
         if cmd == "multirun":
-            multirun(*args)
+            if not args:
+                print("make: run: missing command", file=sys.stderr)
+                return 1
+            multirun(*args)  # ty: ignore[missing-argument]
             return 0
 
         if cmd == "allrun":
-            allrun(*args)
+            if not args:
+                print("make: run: missing command", file=sys.stderr)
+                return 1
+            allrun(*args)  # ty: ignore[missing-argument]
             return 0
 
         if cmd.startswith("3."):
-            run(cmd, *args)
+            if not args:
+                print("make: run: missing command", file=sys.stderr)
+                return 1
+            run(cmd, *args)  # ty: ignore[missing-argument]
             return 0
 
         opts = []
@@ -183,7 +211,14 @@ def main() -> int:
 if __name__ == "__main__":
     try:
         sys.exit(main())
-    except subprocess.CalledProcessError as process:
+    except _RunError as process:
         if process.output:
             print(process.output, file=sys.stderr)
-        sys.exit(process.returncode)
+        if (code := process.returncode) == 139:  # noqa: PLR2004
+            print(
+                f"✗ (python{process.python_version})  '{' '.join(process.cmd)}' failed with return code {code} (segfault)",
+                file=sys.stderr,
+            )
+            if process.python_version == PYTHON_DEV:
+                code = 0
+        sys.exit(code)

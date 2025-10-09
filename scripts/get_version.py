@@ -4,7 +4,12 @@ import re
 from contextlib import suppress
 from pathlib import Path
 
-from pdm.backend.hooks.version import SCMVersion, Version, default_version_formatter, get_version_from_scm
+from pdm.backend.hooks.version import (  # ty: ignore[unresolved-import]
+    SCMVersion,
+    Version,
+    default_version_formatter,
+    get_version_from_scm,
+)
 
 _root = Path(__file__).parent.parent
 _changelog = _root / "CHANGELOG.md"

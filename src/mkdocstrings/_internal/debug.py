@@ -85,7 +85,7 @@ def _get_debug_info() -> _Environment:
         interpreter_version=py_version,
         interpreter_path=sys.executable,
         platform=platform.platform(),
-        variables=[_Variable(var, val) for var in variables if (val := os.getenv(var))],
+        variables=[_Variable(var, val) for var in variables if (val := os.getenv(var))],  # ty: ignore[invalid-argument-type]
         packages=[_Package(pkg, _get_version(pkg)) for pkg in packages],
     )
 
