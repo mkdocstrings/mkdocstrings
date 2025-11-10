@@ -1,0 +1,26 @@
+name: Update sponsors
+
+on:
+  schedule:
+  - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Update README and create PR
+      uses: pawamoy/readme-insert@main
+      with:
+        markup-url: https://pawamoy.github.io/sponsors.txt
+        start-marker: '<!-- sponsors-start -->'
+        end-marker: '<!-- sponsors-end -->'
+        commit-message: 'chore: Update sponsors section in README'
+        pr-title: 'chore: Update sponsors section in README'
+        pr-body: 'This PR updates the sponsors section in the README file.'

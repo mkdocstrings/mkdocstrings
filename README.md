@@ -133,3 +133,8 @@ In one of your markdown files:
 ```
 
 See the [Usage](https://mkdocstrings.github.io/usage) section of the docs for more examples!
+
+## Sponsors
+
+<!-- sponsors-start -->
+<!-- sponsors-end -->

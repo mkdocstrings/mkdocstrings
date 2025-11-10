@@ -15,30 +15,15 @@ jobs:
         fetch-depth: 0
         fetch-tags: true
     - name: Setup Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
-        python-version: "3.12"
+        python-version: "3.13"
     - name: Setup uv
       uses: astral-sh/setup-uv@v5
-    - name: Build dists
-      if: github.repository_owner == 'pawamoy-insiders'
-      run: uv tool run --from build pyproject-build
-    - name: Upload dists artifact
-      uses: actions/upload-artifact@v4
-      if: github.repository_owner == 'pawamoy-insiders'
-      with:
-        name: mkdocstrings-insiders
-        path: ./dist/*
     - name: Prepare release notes
-      if: github.repository_owner != 'pawamoy-insiders'
       run: uv tool run git-changelog --release-notes > release-notes.md
-    - name: Create release with assets
-      uses: softprops/action-gh-release@v2
-      if: github.repository_owner == 'pawamoy-insiders'
-      with:
-        files: ./dist/*
     - name: Create release
       uses: softprops/action-gh-release@v2
-      if: github.repository_owner != 'pawamoy-insiders'
       with:
         body_path: release-notes.md
+

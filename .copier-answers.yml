@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier.
-_commit: 1.10.2
+_commit: 1.11.1
 _src_path: gh:pawamoy/copier-uv
 author_email: dev@pawamoy.fr
 author_fullname: Timothée Mazzucotelli
@@ -8,12 +8,8 @@ copyright_date: '2019'
 copyright_holder: Timothée Mazzucotelli
 copyright_holder_email: dev@pawamoy.fr
 copyright_license: ISC
-insiders: true
-insiders_email: insiders@pawamoy.fr
-insiders_repository_name: mkdocstrings
 project_description: Automatic documentation from sources, for MkDocs.
 project_name: mkdocstrings
-public_release: true
 python_package_command_line_name: ''
 python_package_distribution_name: mkdocstrings
 python_package_import_name: mkdocstrings
