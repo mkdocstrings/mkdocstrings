@@ -436,8 +436,7 @@ class BaseHandler:
         treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph  # type: ignore[attr-defined]
         if BacklinksTreeProcessor.name in treeprocessors:
             treeprocessors[BacklinksTreeProcessor.name].initial_id = html_id  # type: ignore[attr-defined]
-
-        if autoref_hook:
+        if autoref_hook and AutorefsInlineProcessor.name in self.md.inlinePatterns:
             self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = autoref_hook  # type: ignore[attr-defined]
 
         try:
@@ -448,7 +447,8 @@ class BaseHandler:
             treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False  # type: ignore[attr-defined]
             if BacklinksTreeProcessor.name in treeprocessors:
                 treeprocessors[BacklinksTreeProcessor.name].initial_id = None  # type: ignore[attr-defined]
-            self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # type: ignore[attr-defined]
+            if AutorefsInlineProcessor.name in self.md.inlinePatterns:
+                self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # type: ignore[attr-defined]
             self.md.reset()
             _markdown_conversion_layer -= 1
 

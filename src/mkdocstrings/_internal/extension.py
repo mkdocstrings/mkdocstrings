@@ -35,6 +35,7 @@ from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.treeprocessors import Treeprocessor
 from mkdocs.exceptions import PluginError
+from mkdocs_autorefs import AutorefsConfig, AutorefsPlugin
 
 from mkdocstrings._internal.handlers.base import BaseHandler, CollectionError, CollectorItem, Handlers
 from mkdocstrings._internal.loggers import get_logger
@@ -43,7 +44,6 @@ if TYPE_CHECKING:
     from collections.abc import MutableSequence
 
     from markdown import Markdown
-    from mkdocs_autorefs import AutorefsPlugin
 
 
 _logger = get_logger("mkdocstrings")
@@ -380,3 +380,80 @@ class MkdocstringsExtension(Extension):
             "mkdocstrings_post_toc_labels",
             priority=4,  # Right after 'toc'.
         )
+
+
+# -----------------------------------------------------------------------------
+# The following is only used by Zensical. The goal is to provide temporary
+# compatibility for users migrating from MkDocs (and Material for MkDocs)
+# to Zensical. When detecting the use of the mkdocstrings plugin in mkdocs.yml,
+# Zensical will add the mkdocstrings extension to its Markdown extensions.
+
+_default_config: dict[str, Any] = {
+    "default_handler": "python",
+    "handlers": {},
+    "custom_templates": None,
+    "locale": "en",
+    "enable_inventory": True,
+    "enabled": True,
+}
+
+
+def _split_configs(markdown_extensions: list[str | dict]) -> tuple[list[str], dict[str, Any]]:
+    # Split markdown extensions and their configs from mkdocs.yml
+    mdx: list[str] = []
+    mdx_config: dict[str, Any] = {}
+    for item in markdown_extensions:
+        if isinstance(item, str):
+            mdx.append(item)
+        elif isinstance(item, dict):
+            for key, value in item.items():
+                mdx.append(key)
+                mdx_config[key] = value
+                break  # Only one item per dict
+    return mdx, mdx_config
+
+
+def makeExtension(  # noqa: N802
+    *args: Any,  # noqa: ARG001
+    **kwargs: Any,
+) -> MkdocstringsExtension:
+    """Create the extension instance."""
+    from zensical.config import _yaml_load  # noqa: PLC0415
+
+    with open("mkdocs.yml", encoding="utf-8") as f:
+        mkdocs_config = _yaml_load(f)
+
+    mkdocstrings_config = mkdocs_config.get("plugins", None)
+    if isinstance(mkdocstrings_config, dict):
+        mkdocstrings_config = mkdocstrings_config.get("mkdocstrings", {})
+    elif isinstance(mkdocstrings_config, list):
+        for plugin in mkdocstrings_config:
+            if isinstance(plugin, dict) and "mkdocstrings" in plugin:
+                mkdocstrings_config = plugin["mkdocstrings"]
+                break
+        else:
+            mkdocstrings_config = _default_config
+    else:
+        mkdocstrings_config = _default_config
+
+    mdx, mdx_config = _split_configs(mkdocs_config.get("markdown_extensions", []))
+
+    handlers = Handlers(
+        theme="material",
+        default=mkdocstrings_config.get("default_handler", _default_config["default_handler"]),
+        inventory_project=mkdocs_config.get("site_name", "Project"),
+        handlers_config=mkdocstrings_config.get("handlers", _default_config["handlers"]),
+        custom_templates=mkdocstrings_config.get("custom_templates", _default_config["custom_templates"]),
+        mdx=mdx,
+        mdx_config=mdx_config,
+        locale=mkdocstrings_config.get("locale", _default_config["locale"]),
+        tool_config=mkdocs_config,
+    )
+
+    handlers._download_inventories()
+
+    autorefs = AutorefsPlugin()
+    autorefs.config = AutorefsConfig()
+    autorefs.scan_toc = False
+
+    return MkdocstringsExtension(handlers=handlers, autorefs=autorefs, **kwargs)
