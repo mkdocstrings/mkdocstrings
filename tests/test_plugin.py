@@ -41,7 +41,7 @@ def test_disabling_plugin(tmp_path: Path) -> None:
         mkdocs_config["plugins"].run_event("shutdown")
 
     # make sure the instruction was not processed
-    assert "::: mkdocstrings" in site_dir.joinpath("index.html").read_text()
+    assert "::: mkdocstrings" in site_dir.joinpath("index.html").read_text(encoding="utf8")
 
 
 def test_plugin_default_config(tmp_path: Path) -> None:
