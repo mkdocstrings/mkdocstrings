@@ -6,6 +6,37 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.0.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/1.0.0) - 2025-11-27
+
+<small>[Compare with 0.30.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.30.1...1.0.0)</small>
+
+### Breaking Changes
+
+- `BaseHandler.name`: *Attribute value was changed*: `''` -> unset
+- `BaseHandler.domain`: *Attribute value was changed*: `''` -> unset
+- `BaseHandler.fallback_config`: *Public object was removed*
+- `BaseHandler.__init__(args)`: *Parameter was removed*
+- `BaseHandler.__init__(kwargs)`: *Parameter was removed*
+- `BaseHandler.__init__(theme)`: *Parameter was added as required*
+- `BaseHandler.__init__(custom_templates)`: *Parameter was added as required*
+- `BaseHandler.__init__(mdx)`: *Parameter was added as required*
+- `BaseHandler.__init__(mdx_config)`: *Parameter was added as required*
+- `BaseHandler.update_env(args)`: *Parameter was removed*
+- `BaseHandler.update_env(kwargs)`: *Parameter was removed*
+- `BaseHandler.update_env(config)`: *Parameter was added as required*
+- `Handlers.get_anchors`: *Public object was removed* (import from `mkdocstrings` directly)
+- `mkdocstrings.plugin`: *Public module was removed* (import from `mkdocstrings` directly)
+- `mkdocstrings.loggers`: *Public module was removed* (import from `mkdocstrings` directly)
+- `mkdocstrings.inventory`: *Public module was removed* (import from `mkdocstrings` directly)
+- `mkdocstrings.extension`: *Public module was removed* (import from `mkdocstrings` directly)
+- `mkdocstrings.handlers`: *Public module was removed* (import from `mkdocstrings` directly)
+
+### Code Refactoring
+
+- Remove deprecated code before v1 ([de34044](https://github.com/mkdocstrings/mkdocstrings/commit/de34044a02b45250e215af0f969dca581dfb82c5) by Timothée Mazzucotelli).
+- Expect Zensical to pass extension configuration instead of loading it again from YAML ([6b73d5a](https://github.com/mkdocstrings/mkdocstrings/commit/6b73d5a2f455062ab6c68376c85adce6adc037a3) by Timothée Mazzucotelli).
+- Expose the Markdown extension, to make mkdocstrings compatible with Zensical ([6de2667](https://github.com/mkdocstrings/mkdocstrings/commit/6de266759b79eb72cddd300e6a0a8576085fae40) by Timothée Mazzucotelli).
+
 ## [0.30.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/0.30.1) - 2025-09-19
 
 <small>[Compare with 0.30.0](https://github.com/mkdocstrings/mkdocstrings/compare/0.30.0...0.30.1)</small>
