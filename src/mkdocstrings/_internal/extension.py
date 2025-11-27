@@ -413,47 +413,47 @@ def _split_configs(markdown_extensions: list[str | dict]) -> tuple[list[str], di
     return mdx, mdx_config
 
 
+class _ToolConfig:
+    def __init__(self, config_file_path: str | None = None) -> None:
+        self.config_file_path = config_file_path
+
+
 def makeExtension(  # noqa: N802
-    *args: Any,  # noqa: ARG001
-    **kwargs: Any,
+    *,
+    default_handler: str | None = None,
+    inventory_project: str | None = None,
+    inventory_version: str | None = None,
+    handlers: dict[str, dict] | None = None,
+    custom_templates: str | None = None,
+    markdown_extensions: list[str | dict] | None = None,
+    locale: str | None = None,
+    config_file_path: str | None = None,
 ) -> MkdocstringsExtension:
-    """Create the extension instance."""
-    from zensical.config import _yaml_load  # noqa: PLC0415
+    """Create the extension instance.
 
-    with open("mkdocs.yml", encoding="utf-8") as f:
-        mkdocs_config = _yaml_load(f)
+    We only support this function being used by Zensical.
+    Consider this function private API.
+    """
+    mdx, mdx_config = _split_configs(markdown_extensions or [])
+    tool_config = _ToolConfig(config_file_path=config_file_path)
 
-    mkdocstrings_config = mkdocs_config.get("plugins", None)
-    if isinstance(mkdocstrings_config, dict):
-        mkdocstrings_config = mkdocstrings_config.get("mkdocstrings", {})
-    elif isinstance(mkdocstrings_config, list):
-        for plugin in mkdocstrings_config:
-            if isinstance(plugin, dict) and "mkdocstrings" in plugin:
-                mkdocstrings_config = plugin["mkdocstrings"]
-                break
-        else:
-            mkdocstrings_config = _default_config
-    else:
-        mkdocstrings_config = _default_config
-
-    mdx, mdx_config = _split_configs(mkdocs_config.get("markdown_extensions", []))
-
-    handlers = Handlers(
+    handlers_instance = Handlers(
         theme="material",
-        default=mkdocstrings_config.get("default_handler", _default_config["default_handler"]),
-        inventory_project=mkdocs_config.get("site_name", "Project"),
-        handlers_config=mkdocstrings_config.get("handlers", _default_config["handlers"]),
-        custom_templates=mkdocstrings_config.get("custom_templates", _default_config["custom_templates"]),
+        default=default_handler or _default_config["default_handler"],
+        inventory_project=inventory_project or "Project",
+        inventory_version=inventory_version or "0.0.0",
+        handlers_config=handlers or _default_config["handlers"],
+        custom_templates=custom_templates or _default_config["custom_templates"],
         mdx=mdx,
         mdx_config=mdx_config,
-        locale=mkdocstrings_config.get("locale", _default_config["locale"]),
-        tool_config=mkdocs_config,
+        locale=locale or _default_config["locale"],
+        tool_config=tool_config,
     )
 
-    handlers._download_inventories()
+    handlers_instance._download_inventories()
 
     autorefs = AutorefsPlugin()
     autorefs.config = AutorefsConfig()
     autorefs.scan_toc = False
 
-    return MkdocstringsExtension(handlers=handlers, autorefs=autorefs, **kwargs)
+    return MkdocstringsExtension(handlers=handlers_instance, autorefs=autorefs)
