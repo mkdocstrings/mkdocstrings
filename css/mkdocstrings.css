@@ -31,12 +31,52 @@ td code {
   word-break: normal !important;
 }
 
-[data-md-color-scheme="default"] {
-  --doc-symbol-parameter-fg-color: #d3a81b;
-  --doc-symbol-parameter-bg-color: #d3a81b1a;
+/* Hide parameters in ToC. */
+li.md-nav__item:has(> a[href*="("]) {
+  display: none;
 }
 
-[data-md-color-scheme="slate"] {
-  --doc-symbol-parameter-fg-color: #dfbe50;
-  --doc-symbol-parameter-bg-color: #dfbe501a;
+/* Tree-like output for backlinks. */
+.doc-backlink-list {
+  --tree-clr: var(--md-default-fg-color);
+  --tree-font-size: 1rem;
+  --tree-item-height: 1;
+  --tree-offset: 1rem;
+  --tree-thickness: 1px;
+  --tree-style: solid;
+  display: grid;
+  list-style: none !important;
+}
+
+.doc-backlink-list li > span:first-child {
+  text-indent: .3rem;
+}
+.doc-backlink-list li {
+  padding-inline-start: var(--tree-offset);
+  border-left: var(--tree-thickness) var(--tree-style) var(--tree-clr);
+  position: relative;
+  margin-left: 0 !important;
+
+  &:last-child {
+    border-color: transparent;
+  }
+  &::before{
+    content: '';
+    position: absolute;
+    top: calc(var(--tree-item-height) / 2 * -1 * var(--tree-font-size) + var(--tree-thickness));
+    left: calc(var(--tree-thickness) * -1);
+    width: calc(var(--tree-offset) + var(--tree-thickness) * 2);
+    height: calc(var(--tree-item-height)  * var(--tree-font-size));
+    border-left: var(--tree-thickness) var(--tree-style) var(--tree-clr);
+    border-bottom: var(--tree-thickness) var(--tree-style) var(--tree-clr);
+  }
+  &::after{
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background-color: var(--tree-clr);
+    top: calc(var(--tree-item-height) / 2 * 1rem);
+    left: var(--tree-offset) ;
+    translate: calc(var(--tree-thickness) * -1) calc(var(--tree-thickness) * -1);
+  }
 }

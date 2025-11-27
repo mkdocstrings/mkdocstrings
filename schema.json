@@ -28,6 +28,12 @@
               "type": "string",
               "default": "python"
             },
+            "locale": {
+              "title": "The locale to use for translations.",
+              "markdownDescription": "https://mkdocstrings.github.io/usage/#global-options",
+              "type": "string",
+              "default": null
+            },
             "enable_inventory": {
               "title": "Whether to enable inventory file generation.",
               "markdownDescription": "https://mkdocstrings.github.io/usage/#cross-references-to-other-projects-inventories",
@@ -37,15 +43,11 @@
             "handlers": {
               "title": "The handlers global configuration.",
               "markdownDescription": "https://mkdocstrings.github.io/handlers/overview/",
-              "type": "object",
-              "default": null,
-              "items": {
-                "oneOf": [
-                  {
-                    "$ref": "https://raw.githubusercontent.com/mkdocstrings/python/master/docs/schema.json"
-                  }
-                ]
-              }
+              "anyOf": [
+                {
+                  "$ref": "https://mkdocstrings.github.io/python/schema.json"
+                }
+              ]
             }
           },
           "additionalProperties": false

@@ -1,0 +1,4827 @@
+# mkdocstrings
+
+> Automatic documentation from sources, for MkDocs.
+
+# Usage
+
+# mkdocstrings
+
+Automatic documentation from sources, for [MkDocs](https://www.mkdocs.org/). Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdocstrings/community).
+
+______________________________________________________________________
+
+**[Features](#features)** - **[Installation](#installation)** - **[Quick usage](#quick-usage)**
+
+## Features
+
+- [**Language-agnostic:**](https://mkdocstrings.github.io/handlers/overview/) just like *MkDocs*, *mkdocstrings* is written in Python but is language-agnostic. It means you can use it with any programming language, as long as there is a [**handler**](https://mkdocstrings.github.io/reference/handlers/base/) for it. We currently have [handlers](https://mkdocstrings.github.io/handlers/overview/) for the [C](https://mkdocstrings.github.io/c/), [Crystal](https://mkdocstrings.github.io/crystal/), [GitHub Actions](https://watermarkhu.nl/mkdocstrings-github/), [Python](https://mkdocstrings.github.io/python/), [MATLAB](https://watermarkhu.nl/mkdocstrings-matlab/), [TypeScript](https://mkdocstrings.github.io/typescript/), and [VBA](https://pypi.org/project/mkdocstrings-vba/) languages, as well as for [shell scripts/libraries](https://mkdocstrings.github.io/shell/). Maybe you'd like to add another one to the list?
+
+- [**Multiple themes support:**](https://mkdocstrings.github.io/theming/) each handler can offer multiple themes. Currently, we offer the [Material theme](https://squidfunk.github.io/mkdocs-material/) as well as basic support for the ReadTheDocs and MkDocs themes for the Python handler.
+
+- [**Cross-references across pages:**](https://mkdocstrings.github.io/usage/#cross-references) *mkdocstrings* makes it possible to reference headings in other Markdown files with the classic Markdown linking syntax: `[identifier][]` or `[title][identifier]` -- and you don't need to remember which exact page this object was on. This works for any heading that's produced by a *mkdocstrings* language handler, and you can opt to include *any* Markdown heading into the global referencing scheme.
+
+  **Note**: in versions prior to 0.15 *all* Markdown headers were included, but now you need to [opt in](https://mkdocstrings.github.io/usage/#cross-references-to-any-markdown-heading).
+
+- [**Cross-references across sites:**](https://mkdocstrings.github.io/usage/#cross-references-to-other-projects-inventories) similarly to [Sphinx's intersphinx extension](https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html), *mkdocstrings* can reference API items from other libraries, given they provide an inventory and you load that inventory in your MkDocs configuration.
+
+- [**Inline injection in Markdown:**](https://mkdocstrings.github.io/usage/) instead of generating Markdown files, *mkdocstrings* allows you to inject documentation anywhere in your Markdown contents. The syntax is simple: `::: identifier` followed by a 4-spaces indented YAML block. The identifier and YAML configuration will be passed to the appropriate handler to collect and render documentation.
+
+- [**Global and local configuration:**](https://mkdocstrings.github.io/usage/#global-options) each handler can be configured globally in `mkdocs.yml`, and locally for each "autodoc" instruction.
+
+- **Reasonable defaults:** you should be able to just drop the plugin in your configuration and enjoy your auto-generated docs.
+
+## Used by
+
+*mkdocstrings* is used by well-known companies, projects and scientific teams: [Ansible](https://molecule.readthedocs.io/configuration/), [Apache](https://streampipes.apache.org/docs/docs/python/latest/reference/client/client/), [FastAPI](https://fastapi.tiangolo.com/reference/fastapi/), [Google](https://docs.kidger.site/jaxtyping/api/runtime-type-checking/), [IBM](https://ds4sd.github.io/docling/api_reference/document_converter/), [Jitsi](https://jitsi.github.io/jiwer/reference/alignment/), [Microsoft](https://microsoft.github.io/presidio/api/analyzer_python/), [NVIDIA](https://nvidia.github.io/bionemo-framework/main/references/API_reference/bionemo/core/api/), [Prefect](https://docs.prefect.io/2.10.12/api-ref/prefect/agent/), [Pydantic](https://docs.pydantic.dev/dev-v2/api/main/), [Textual](https://textual.textualize.io/api/app/), [and more...](https://github.com/mkdocstrings/mkdocstrings/network/dependents)
+
+## Installation
+
+The `mkdocstrings` package doesn't provide support for any language: it's just a common base for language handlers. It means you likely want to install it with one or more official handlers, using [extras](https://packaging.python.org/en/latest/specifications/dependency-specifiers/#extras). For example, to install it with Python support:
+
+```bash
+pip install 'mkdocstrings[python]'
+```
+
+Alternatively, you can directly install the language handlers themselves, which depend on `mkdocstrings` anyway:
+
+```bash
+pip install mkdocstrings-python
+```
+
+This will give you more control over the accepted range of versions for the handlers themselves.
+
+See the [official language handlers](https://mkdocstrings.github.io/handlers/overview/).
+
+______________________________________________________________________
+
+With `conda`:
+
+```bash
+conda install -c conda-forge mkdocstrings mkdocstrings-python
+```
+
+## Quick usage
+
+In `mkdocs.yml`:
+
+```yaml
+site_name: "My Library"
+
+theme:
+  name: "material"
+
+plugins:
+- search
+- mkdocstrings
+```
+
+In one of your markdown files:
+
+```markdown
+# Reference
+
+::: my_library.my_module.my_class
+```
+
+See the [Usage](https://mkdocstrings.github.io/usage) section of the docs for more examples!
+
+## Sponsors
+
+**Silver sponsors**
+
+**Bronze sponsors**
+
+______________________________________________________________________
+
+*And 8 more private sponsor(s).*
+
+# Usage
+
+## Autodoc syntax
+
+*mkdocstrings* works by processing special expressions in your Markdown files.
+
+The syntax is as follows:
+
+```md
+::: identifier
+    YAML block
+```
+
+Resources on YAML.
+
+YAML can sometimes be a bit tricky, particularly on indentation. Here are some resources that other users found useful to better understand YAML's peculiarities.
+
+- [YAML idiosyncrasies](https://salt-zh.readthedocs.io/en/latest/topics/troubleshooting/yaml_idiosyncrasies.html)
+- [YAML multiline](https://yaml-multiline.info/)
+
+The `identifier` is a string identifying the object you want to document. The format of an identifier can vary from one handler to another. For example, the Python handler expects the full dotted-path to a Python object: `my_package.my_module.MyClass.my_method`.
+
+The YAML block is optional, and contains some configuration options:
+
+- `handler`: the name of the handler to use to collect and render this object. By default, it will use the value defined in the [Global options](#global-options)'s `default_handler` key, or `"python"`.
+- `options`: a dictionary of options passed to the handler's methods responsible both for collecting and rendering the documentation. These options can be defined globally (in `mkdocs.yml`, see [Global options](#global-options)), locally (as described here), or both.
+
+Example with the Python handler
+
+```md
+# Documentation for `MyClass`
+
+::: my_package.my_module.MyClass
+    handler: python
+    options:
+      members:
+        - method_a
+        - method_b
+      show_root_heading: false
+      show_source: false
+```
+
+```yaml
+nav:
+  - "My page": my_page.md
+```
+
+```python
+class MyClass:
+    """Print print print!"""
+
+    def method_a(self):
+        """Print A!"""
+        print("A!")
+
+    def method_b(self):
+        """Print B!"""
+        print("B!")
+
+    def method_c(self):
+        """Print C!"""
+        print("C!")
+```
+
+### Documentation for `MyClass`
+
+Print print print!
+
+#### `method_a(self)`
+
+Print A!
+
+#### `method_b(self)`
+
+Print B!
+
+It is also possible to integrate a mkdocstrings identifier into a Markdown header:
+
+```md
+## ::: my_package.my_module.MyClass
+    options:
+      show_source: false
+```
+
+The above is equivalent to:
+
+```md
+::: my_package.my_module.MyClass
+    options:
+      show_source: false
+      heading_level: 2
+```
+
+## Global options
+
+*mkdocstrings* accepts a few top-level configuration options in `mkdocs.yml`:
+
+- `default_handler`: The handler that is used by default when no handler is specified.
+- `custom_templates`: The path to a directory containing custom templates. The path is relative to the MkDocs configuration file. See [Theming](theming/).
+- `handlers`: The handlers' global configuration.
+- `enable_inventory`: Whether to enable inventory file generation. See [Cross-references to other projects / inventories](#cross-references-to-other-projects-inventories)
+- `locale`: The locale used for translations. See [Internationalization](#internationalization-i18n).
+- `enabled` **(New in version 0.20)**: Whether to enable the plugin. Defaults to `true`. Can be used to reduce build times when doing local development. Especially useful when used with environment variables (see example below).
+
+Example
+
+mkdocs.yml
+
+```yaml
+plugins:
+- mkdocstrings:
+    enabled: !ENV [ENABLE_MKDOCSTRINGS, true]
+    custom_templates: templates
+    default_handler: python
+    locale: en
+    handlers:
+      python:
+        options:
+          show_source: false
+```
+
+The handlers global configuration can then be overridden by local configurations:
+
+docs/some_page.md
+
+```yaml
+::: my_package.my_module.MyClass
+    options:
+      show_source: true
+```
+
+Some handlers accept additional global configuration. Check the documentation for your handler of interest in [Handlers](handlers/).
+
+## Internationalization (I18N)
+
+Some handlers support multiple languages.
+
+If the handler supports localization, the locale it uses is determined by the following order of precedence:
+
+- `locale` in [global options](#global-options)
+- `theme.language`: used by the [MkDocs Material theme](https://squidfunk.github.io/mkdocs-material/setup/changing-the-language/)
+- `theme.locale` in [MkDocs configuration](https://www.mkdocs.org/user-guide/configuration/#theme)
+
+## Cross-references
+
+Cross-references are written as Markdown *reference-style* links:
+
+```md
+With a custom title:
+[`Object 1`][full.path.object1]
+
+With the identifier as title:
+[full.path.object2][]
+```
+
+```html
+<p>With a custom title:
+<a href="https://example.com/page1#full.path.object1"><code>Object 1</code></a><p>
+<p>With the identifier as title:
+<a href="https://example.com/page2#full.path.object2">full.path.object2</a></p>
+```
+
+Any item that was inserted using the [autodoc syntax](#autodoc-syntax) (e.g. `::: full.path.object1`) is possible to link to by using the same identifier with the cross-reference syntax (`[example][full.path.object1]`). But the cross-references are also applicable to the items' children that get pulled in.
+
+### Finding out the anchor
+
+If you're not sure which exact identifier a doc item uses, you can look at its "anchor", which your Web browser will show in the URL bar when clicking an item's entry in the table of contents. If the URL is `https://example.com/some/page.html#full.path.object1` then you know that this item is possible to link to with `[example][full.path.object1]`, regardless of the current page.
+
+### Cross-references to any Markdown heading
+
+Changed in version 0.15.
+
+Linking to any Markdown heading used to be the default, but now opt-in is required.
+
+If you want to link to *any* Markdown heading, not just *mkdocstrings*-inserted items, please enable the [*autorefs* plugin for *MkDocs*](https://github.com/mkdocstrings/autorefs) by adding `autorefs` to `plugins`:
+
+mkdocs.yml
+
+```yaml
+plugins:
+- search
+- autorefs
+- mkdocstrings:
+    [...]
+```
+
+Note that you don't need to (`pip`) install anything more; this plugin is guaranteed to be pulled in with *mkdocstrings*.
+
+Example
+
+```md
+## Hello, world!
+
+Testing
+```
+
+```md
+## Something else
+
+Please see the [Hello, World!][hello-world] section.
+```
+
+```html
+<p>Please see the <a href="doc1.html#hello-world">Hello, World!</a> section.</p>
+```
+
+### Cross-references to a sub-heading in a docstring
+
+New in version 0.14.
+
+If you have a Markdown heading *inside* your docstring, you can also link directly to it. In the example below you see the identifier to be linked is `foo.bar--tips`, because it's the "Tips" heading that's part of the `foo.bar` object, joined with "`--`".
+
+Example
+
+```python
+def bar():
+    """Hello, world!
+
+    # Tips
+
+    - Stay hydrated.
+    """
+```
+
+```md
+::: foo.bar
+```
+
+```md
+Check out the [tips][foo.bar--tips]
+```
+
+```html
+<p>Check out the <a href="doc1.html#foo.bar--tips">tips</a></p>
+```
+
+The above tip about [Finding out the anchor](#finding-out-the-anchor) also applies the same way here.
+
+You may also notice that such a heading does not get rendered as a `<h1>` element directly, but rather the level gets shifted to fit the encompassing document structure. If you're curious about the implementation, check out mkdocstrings.HeadingShiftingTreeprocessor and others.
+
+### Cross-references to other projects / inventories
+
+New in version 0.16.
+
+Python developers coming from Sphinx might know about its `intersphinx` extension, that allows to cross-reference items between several projects. *mkdocstrings* has a similar feature.
+
+To reference an item from another project, you must first tell *mkdocstrings* to load the inventory it provides. Each handler will be responsible of loading inventories specific to its language. For example, the Python handler can load Sphinx-generated inventories (`objects.inv`).
+
+In the following snippet, we load the inventory provided by `installer`:
+
+mkdocs.yml
+
+```yaml
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        inventories:
+        - https://installer.readthedocs.io/en/stable/objects.inv
+```
+
+Now it is possible to cross-reference `installer`'s items. For example:
+
+```md
+See [installer.records][] to learn about records.
+```
+
+```html
+<p>See <a href="https://installer.readthedocs.io/en/stable/api/records/#module-installer.records">installer.records</a>
+to learn about records.</p>
+```
+
+See installer.records to learn about records.
+
+You can of course select another version of the inventory, for example:
+
+```yaml
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        inventories:
+        # latest instead of stable
+        - https://installer.readthedocs.io/en/latest/objects.inv
+```
+
+In case the inventory file is not served under the base documentation URL, you can explicitly specify both URLs:
+
+```yaml
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        inventories:
+        - url: https://cdn.example.com/version/objects.inv
+          base_url: https://docs.example.com/version
+```
+
+Absolute URLs to cross-referenced items will then be based on `https://docs.example.com/version/` instead of `https://cdn.example.com/version/`.
+
+If you need authentication to access the inventory file, you can provide the credentials in the URL, either as `username:password`:
+
+```yaml
+- url: https://username:password@private.example.com/version/objects.inv
+```
+
+...or with token authentication:
+
+```yaml
+- url: https://token123@private.example.com/version/objects.inv
+```
+
+The credentials can also be specified using environment variables in the form `${ENV_VAR}`:
+
+```yaml
+- url: https://${USERNAME}:${PASSWORD}@private.example.com/version/objects.inv
+```
+
+Reciprocally, *mkdocstrings* also allows to *generate* an inventory file in the Sphinx format. It will be enabled by default if the Python handler is used, and generated as `objects.inv` in the final site directory. Other projects will be able to cross-reference items from your project.
+
+To explicitly enable or disable the generation of the inventory file, use the global `enable_inventory` option:
+
+```yaml
+plugins:
+- mkdocstrings:
+    enable_inventory: false
+```
+
+# Handlers
+
+A handler is what makes it possible to collect and render documentation for a particular language.
+
+## Available handlers
+
+- [C](https://mkdocstrings.github.io/c/)
+- [Crystal](https://mkdocstrings.github.io/crystal/)
+- [GitHub Actions](https://watermarkhu.nl/mkdocstrings-github/)
+- [Python](https://mkdocstrings.github.io/python/)
+- [Python (Legacy)](https://mkdocstrings.github.io/python-legacy/)
+- [MATLAB](https://watermarkhu.nl/mkdocstrings-matlab/)
+- [Shell](https://mkdocstrings.github.io/shell/)
+- [TypeScript](https://mkdocstrings.github.io/typescript/)
+- [VBA](https://pypi.org/project/mkdocstrings-vba/)
+
+## About the Python handlers
+
+Since version 0.18, a new Python handler is available. It is based on [Griffe](https://github.com/mkdocstrings/griffe), which is an improved version of [pytkdocs](https://github.com/mkdocstrings/pytkdocs).
+
+If you want to keep using the legacy handler as long as possible, you can depend on `mkdocstrings-python-legacy` directly, or specify the `python-legacy` extra when depending on *mkdocstrings*:
+
+pyproject.toml
+
+```toml
+# PEP 621 dependencies declaration
+# adapt to your dependencies manager
+[project]
+dependencies = [
+    "mkdocstrings[python-legacy]>=0.18",
+]
+```
+
+The legacy handler will continue to "work" for many releases, as long as the new handler does not cover all previous use-cases.
+
+### Migrate to the new Python handler
+
+To use the new Python handler, you can depend on `mkdocstrings-python` directly, or specify the `python` extra when depending on *mkdocstrings*:
+
+pyproject.toml
+
+```toml
+# PEP 621 dependencies declaration
+# adapt to your dependencies manager
+[project]
+dependencies = [
+    "mkdocstrings[python]>=0.18",
+]
+```
+
+#### Selection options
+
+Warning
+
+Since *mkdocstrings* 0.19, the YAML `selection` key is merged into the `options` key.
+
+- `filters` is implemented, and used as before.
+- `members` is implemented, and used as before.
+- `inherited_members` is implemented.
+- `docstring_style` is implemented, and used as before, except for the `restructured-text` style which is renamed `sphinx`. Numpy-style is now built-in, so you can stop depending on `pytkdocs[numpy-style]` or `docstring_parser`.
+- `docstring_options` is implemented, and used as before. Refer to the [`griffe` documentation](https://mkdocstrings.github.io/griffe/docstrings/#parsing-options) for the updated list of supported docstring options.
+- `new_path_syntax` is irrelevant now. If you were setting it to True, remove the option and replace every colon (`:`) in your autodoc identifiers by dots (`.`).
+
+See [all the handler's options](https://mkdocstrings.github.io/python/usage/).
+
+#### Rendering options
+
+Warning
+
+Since *mkdocstrings* 0.19, the YAML `rendering` key is merged into the `options` key.
+
+Every previous option is supported. Additional options are available:
+
+- `separate_signature`: Render the signature (or attribute value) in a code block below the heading, instead as inline code. Useful for long signatures. If Black is installed, the signature is formatted. Default: `False`.
+- `line_length`: The maximum line length to use when formatting signatures. Default: `60`.
+- `show_submodules`: Whether to render submodules of a module when iterating on children. Default: `False`.
+- `docstring_section_style`: The style to use to render docstring sections such as attributes, parameters, etc. Available styles: `"table"` (default), `"list"` and `"spacy"`. The SpaCy style is a poor implementation of their [table style](https://spacy.io/api/doc/#init). We are open to improvements through PRs!
+
+See [all the handler's options](https://mkdocstrings.github.io/python/usage/).
+
+#### Templates
+
+Templates are mostly the same as before, but the file layout has changed, as well as some file names. See [the documentation about the Python handler templates](https://mkdocstrings.github.io/python/usage/customization/#templates).
+
+## Custom handlers
+
+Since version 0.14, you can create and use custom handlers thanks to namespace packages. For more information about namespace packages, [see their documentation](https://packaging.python.org/guides/packaging-namespace-packages/).
+
+TL;DR - Project template for handlers.
+
+*mkdocstrings* provides a [Copier](https://github.com/copier-org/copier) template to kickstart new handlers: <https://github.com/mkdocstrings/handler-template>. To use it, install Copier (`pipx install copier`), then run `copier gh:mkdocstrings/handler-template my_handler` to generate a new project. See [its upstream documentation](https://pawamoy.github.io/copier-pdm/) to learn how to work on the generated project.
+
+### Packaging
+
+For *mkdocstrings*, a custom handler package would have the following structure:
+
+```text
+📁 your_repository
+└─╴📁 mkdocstrings_handlers
+   └─╴📁 custom_handler
+      ├─╴📁 templates
+      │  ├─╴📁 material
+      │  ├─╴📁 mkdocs
+      │  └─╴📁 readthedocs
+      └─╴📄 __init__.py
+```
+
+Note the absence of `__init__.py` module in `mkdocstrings_handlers`!
+
+### Code
+
+A handler is a subclass of the base handler provided by *mkdocstrings*. See the documentation for the BaseHandler.
+
+Subclasses of the base handler must declare a `name` and `domain` as class attributes, as well as implement the following methods:
+
+- `collect(identifier, options)` (**required**): method responsible for collecting and returning data (extracting documentation from source code, loading introspecting objects in memory, other sources? etc.)
+- `render(identifier, options)` (**required**): method responsible for actually rendering the data to HTML, using the Jinja templates provided by your package.
+- `get_options(local_options)` (**required**): method responsible for combining global options with local ones.
+- `get_aliases(identifier)` (**recommended**): method responsible for returning known aliases of object identifiers, in order to register cross-references in the autorefs plugin.
+- `get_inventory_urls()` (optional): method responsible for returning a list of URLs to download (object inventories) along with configuration options (for loading the inventory with `load_inventory`).
+- `load_inventory(in_file, url, **options)` (optional): method responsible for loading an inventory (binary file-handle) and yielding tuples of identifiers and URLs.
+- `update_env(config)` (optional): Gives you a chance to customize the Jinja environment used to render templates, for examples by adding/removing Jinja filters and global context variables.
+- `teardown()` (optional): Clean up / teardown anything that needs it at the end of the build.
+
+You must implement a `get_handler` method at the module level, which returns an instance of your handler. This function takes the following parameters:
+
+- `theme` (string, theme name)
+- `custom_templates` (optional string, path to custom templates directory)
+- `mdx` (list, Markdown extensions)
+- `mdx_config` (dict, extensions configuration)
+- `handler_config` (dict, handle configuration)
+- `tool_config` (dict, the whole MkDocs configuration)
+
+These arguments are all passed as keyword arguments, so you can ignore them by adding `**kwargs` or similar to your signature.
+
+You should not modify the MkDocs config but can use it to get information about the MkDocs instance such as where the current `site_dir` lives. See the [Mkdocs Configuration](https://www.mkdocs.org/user-guide/configuration/) for more info about what is accessible from it.
+
+Check out how the [Python handler](https://github.com/mkdocstrings/python/blob/master/src/mkdocstrings_handlers/python) is written for inspiration.
+
+### Templates
+
+Your handler's implementation should normally be backed by templates, which go to the directory `mkdocstrings_handlers/custom_handler/templates/some_theme` (`custom_handler` here should be replaced with the actual name of your handler, and `some_theme` should be the name of an actual MkDocs theme that you support, e.g. `material`).
+
+With that structure, you can use `self.env.get_template("foo.html")` inside your `render` method. This already chooses the subdirectory based on the current MkDocs theme.
+
+If you wish to support *any* MkDocs theme, rather than a few specifically selected ones, you can pick one theme's subdirectory to be the fallback for when an unknown theme is encountered. Then you just need to set the `fallback_theme` variable on your handler subclass. The fallback directory can be used even for themes you explicitly support: you can omit some template from one of the other theme directories in case they're exactly the same as in the fallback theme.
+
+If your theme's HTML requires CSS to go along with it, put it into a file named `mkdocstrings_handlers/custom_handler/templates/some_theme/style.css`, then this will be included into the final site automatically if this handler is ever used. Alternatively, you can put the CSS as a string into the `extra_css` variable of your handler.
+
+Finally, it's possible to entirely omit templates, and tell *mkdocstrings* to use the templates of another handler. In you handler, override the `get_templates_dir()` method to return the other handlers templates path:
+
+```python
+from pathlib import Path
+from mkdocstrings.handlers.base import BaseHandler
+
+
+class CobraHandler(BaseHandler):
+    def get_templates_dir(self, handler: str | None = None) -> Path:
+        # use the python handler templates
+        # (it assumes the python handler is installed)
+        return super().get_templates_dir("python")
+```
+
+### Usage
+
+When a custom handler is installed, it is then available to *mkdocstrings*. You can configure it as usual:
+
+mkdocs.yml
+
+```yaml
+plugins:
+- mkdocstrings:
+    handlers:
+      custom_handler:
+        handler_config_option: yes
+        options:
+          some_config_option: "a"
+          other_config_option: 0
+```
+
+...and use it in your autodoc instructions:
+
+docs/some_page.md
+
+```md
+# Documentation for an object
+
+::: some.objects.path
+    handler: custom_handler
+    options:
+      some_config_option: "b"
+      other_config_option: 1
+```
+
+## Handler extensions
+
+*mkdocstrings* provides a way for third-party packages to extend or alter the behavior of handlers. For example, an extension of the Python handler could add specific support for another Python library.
+
+Note
+
+This feature is intended for developers. If you are a user and want to customize how objects are rendered, see [Theming / Customization](../theming/#customization).
+
+Such extensions can register additional template folders that will be used when rendering collected data. Extensions are responsible for synchronizing with the handler itself so that it uses the additional templates.
+
+An extension is a Python package that defines an entry-point for a specific handler:
+
+pyproject.toml
+
+```toml
+[project.entry-points."mkdocstrings.python.templates"] # (1)!
+extension-name = "extension_package:get_templates_path" # (2)!
+```
+
+1. Replace `python` by the name of the handler you want to add templates to.
+1. Replace `extension-name` by any name you want, and replace `extension_package:get_templates_path` by the actual module path and function name in your package.
+
+This entry-point assumes that the extension provides a `get_templates_path` function directly under the `extension_package` package:
+
+```bash
+ pyproject.toml
+📁 extension_package/
+├──  __init__.py
+└── 📁 templates/
+```
+
+extension_package/__init__.py
+
+```python
+from pathlib import Path
+
+
+def get_templates_path() -> Path:
+    return Path(__file__).parent / "templates"
+```
+
+This function doesn't accept any argument and returns the path (pathlib.Path or str) to a directory containing templates. The directory must contain one subfolder for each supported theme, even if empty (see "fallback theme" in [custom handlers templates](#templates_1)). For example:
+
+```bash
+ pyproject.toml
+📁 extension_package/
+├──  __init__.py
+└── 📁 templates/
+    ├── 📁 material/
+    ├── 📁 readthedocs/
+    └── 📁 mkdocs/
+```
+
+*mkdocstrings* will add the folders corresponding to the user-selected theme, and to the handler's defined fallback theme, as usual.
+
+The names of the extension templates must not overlap with the handler's original templates.
+
+The extension is then responsible, in collaboration with its target handler, for mutating the collected data in order to instruct the handler to use one of the extension template when rendering particular objects. See each handler's docs to see if they support extensions, and how.
+
+# Themes
+
+*mkdocstrings* can support multiple MkDocs themes. It currently supports the *[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/)* theme and, partially, the built-in MkDocs and ReadTheDocs themes.
+
+Each handler can fallback to a particular theme when the user selected theme is not supported. For example, the Python handler will fallback to the *Material for MkDocs* templates.
+
+## Customization
+
+There is some degree of customization possible in *mkdocstrings*. First, you can write custom templates to override the theme templates. Second, the provided templates make use of CSS classes, so you can tweak the look and feel with extra CSS rules.
+
+### Templates
+
+To use custom templates and override the theme ones, specify the relative path from your configuration file to your templates directory with the `custom_templates` global configuration option:
+
+mkdocs.yml
+
+```yaml
+plugins:
+- mkdocstrings:
+    custom_templates: templates
+```
+
+Your directory structure must be identical to the provided templates one:
+
+```text
+📁 templates/
+├─╴📁 <HANDLER 1>/
+│   ├── 📁 <THEME 1>/
+│   └── 📁 <THEME 2>/
+└── 📁 <HANDLER 2>/
+    ├── 📁 <THEME 1>/
+    └── 📁 <THEME 2>/
+```
+
+For example, check out the Python [template tree](https://github.com/mkdocstrings/python/tree/master/src/mkdocstrings_handlers/python/templates/) on GitHub.
+
+You don't have to replicate the whole tree, only the handlers, themes or templates you want to override. For example, to override some templates of the *Material* theme for Python:
+
+```text
+📁 templates/
+└── 📁 python/
+    └── 📁 material/
+        ├── 📄 parameters.html
+        └── 📄 exceptions.html
+```
+
+In the HTML files, replace the original contents with your modified version. In the future, the templates will use Jinja blocks, so it will be easier to modify small part of the templates without copy-pasting the whole files.
+
+See the documentation about templates for:
+
+- the Crystal handler: <https://mkdocstrings.github.io/crystal/styling.html>
+- the Python handler: <https://mkdocstrings.github.io/python/usage/customization/#templates>
+
+#### Debugging
+
+Every template has access to a `log` function, allowing to log messages as usual:
+
+```jinja
+{{ log.debug("A DEBUG message.") }}
+{{ log.info("An INFO message.") }}
+{{ log.warning("A WARNING message.") }}
+{{ log.error("An ERROR message.") }}
+{{ log.critical("A CRITICAL message.") }}
+```
+
+### CSS classes
+
+Since each handler provides its own set of templates, with their own CSS classes, we cannot list them all here. See the documentation about CSS classes for:
+
+- the Crystal handler: <https://mkdocstrings.github.io/crystal/styling.html#custom-styles>
+- the Python handler: <https://mkdocstrings.github.io/python/usage/customization/#css-classes>
+
+### Syntax highlighting
+
+Code blocks that occur in the docstring of an item inserted with *mkdocstrings*, as well as code blocks (such as *Source code*) that *mkdocstrings* inserts itself, are syntax-highlighted according to the same rules as other normal code blocks in your document. See more details in mkdocstrings.Highlighter.
+
+As for the CSS class used for code blocks -- it will also match the "normal" config, so the default (`.codehilite` or `.highlight`) will match your chosen Markdown extension for highlighting.
+
+Changed in version 0.15.
+
+The CSS class used to always be `.highlight`, but now it depends on the configuration.
+
+Long story short, you probably should add `pymdownx.highlight` to your `markdown_extensions`, and then use `.doc-contents .highlight` as the CSS selector in case you want to change something about *mkdocstrings'* code blocks specifically.
+
+On this page you will find various recipes, tips and tricks for *mkdocstrings* and more generally Markdown documentation.
+
+## Automatic code reference pages
+
+[mkdocs-autoapi](https://github.com/jcayers20/mkdocs-autoapi) and [mkdocs-api-autonav](https://github.com/tlambert03/mkdocs-api-autonav) are MkDocs plugins that automatically generate API documentation from your project's source code. They were inspired by the recipe below.
+
+*mkdocstrings* allows to inject documentation for any object into Markdown pages. But as the project grows, it quickly becomes quite tedious to keep the autodoc instructions, or even the dedicated Markdown files in sync with all your source files and objects.
+
+In this recipe, we will iteratively automate the process of generating these pages at each build of the documentation.
+
+______________________________________________________________________
+
+Let say you have a project called `project`. This project has a lot of source files, or modules, which live in the `src` folder:
+
+```bash
+📁 repo/
+└── 📁 src/
+    └── 📁 project/
+        ├──  lorem
+        ├──  ipsum
+        ├──  dolor
+        ├──  sit
+        └──  amet
+```
+
+Without an automatic process, you will have to manually create a Markdown page for each one of these modules, with the corresponding autodoc instruction, for example `::: project.lorem`, and also add entry in MkDocs' navigation option (`nav` in `mkdocs.yml`). With a lot of modules, this is quickly getting cumbersome.
+
+Lets fix that.
+
+### Generate pages on-the-fly
+
+In this recipe, we suggest to use the [mkdocs-gen-files plugin](https://github.com/oprypin/mkdocs-gen-files). This plugin exposes utilities to generate files at build time. These files won't be written to the docs directory: you don't have to track and version them. They are transparently generated each time you build your docs. This is perfect for our use-case!
+
+Add `mkdocs-gen-files` to your project's docs dependencies, and configure it like so:
+
+mkdocs.yml
+
+```yaml
+plugins:
+- search  # (1)!
+- gen-files:
+    scripts:
+    - scripts/gen_ref_pages.py  # (2)!
+- mkdocstrings
+```
+
+1. Don't forget to load the `search` plugin when redefining the `plugins` item.
+1. The magic happens here, see below how it works.
+
+mkdocs-gen-files is able to run Python scripts at build time. The Python script that we will execute lives in a scripts folder, and is named `gen_ref_pages.py`, like "generate code reference pages".
+
+```bash
+📁 repo/
+├── 📁 docs/
+│   └──  index.md
+├── 📁 scripts/
+│   └──  gen_ref_pages.py
+├── 📁 src/
+│   └── 📁 project/
+└──  mkdocs.yml
+```
+
+scripts/gen_ref_pages.py
+
+```python
+"""Generate the code reference pages."""
+
+from pathlib import Path
+
+import mkdocs_gen_files
+
+root = Path(__file__).parent.parent
+src = root / "src"  # (1)!
+
+for path in sorted(src.rglob("*.py")):  # (2)!
+    module_path = path.relative_to(src).with_suffix("")  # (3)!
+    doc_path = path.relative_to(src).with_suffix(".md")  # (4)!
+    full_doc_path = Path("reference", doc_path)  # (5)!
+
+    parts = tuple(module_path.parts)
+
+    if parts[-1] == "__init__":  # (6)!
+        parts = parts[:-1]
+    elif parts[-1] == "__main__":
+        continue
+
+    with mkdocs_gen_files.open(full_doc_path, "w") as fd:  # (7)!
+        identifier = ".".join(parts)  # (8)!
+        print("::: " + identifier, file=fd)  # (9)!
+
+    mkdocs_gen_files.set_edit_path(full_doc_path, path.relative_to(root))  # (10)!
+```
+
+1. It's important to build a path relative to the script itself, to make it possible to build the docs with MkDocs' [`-f` option](https://www.mkdocs.org/user-guide/cli/#mkdocs-build).
+1. Here we recursively list all `.py` files, but you can adapt the code to list files with other extensions of course, supporting other languages than Python.
+1. The module path will look like `project/lorem`. It will be used to build the *mkdocstrings* autodoc identifier.
+1. This is the partial path of the Markdown page for the module.
+1. This is the full path of the Markdown page within the docs. Here we put all reference pages into a `reference` folder.
+1. This part is only relevant for Python modules. We skip `__main__` modules and remove `__init__` from the module parts as it's implicit during imports.
+1. Magic! Add the file to MkDocs pages, without actually writing it in the docs folder.
+1. Build the autodoc identifier. Here we document Python modules, so the identifier is a dot-separated path, like `project.lorem`.
+1. Actually write to the magic file.
+1. We can even set the `edit_uri` on the pages.
+
+Note
+
+It is important to look out for correct edit page behaviour when using generated pages. For example, if we have `edit_uri` set to `blob/master/docs/` and the following file structure:
+
+```bash
+📁 repo/
+├──  mkdocs.yml
+├── 📁 docs/
+│   └──  index.md
+├── 📁 scripts/
+│   └──  gen_ref_pages.py
+└── 📁 src/
+    └── 📁 project/
+        ├──  lorem.py
+        ├──  ipsum.py
+        ├──  dolor.py
+        ├──  sit.py
+        └──  amet.py
+```
+
+Then we will have to change our `set_edit_path` call to:
+
+```python
+mkdocs_gen_files.set_edit_path(full_doc_path, Path("../") / path)  # (1)!
+```
+
+1. Path can be used to traverse the structure in any way you may need, but remember to use relative paths!
+
+...so that it correctly sets the edit path of (for example) `lorem.py` to `<repo_url>/blob/master/src/project/lorem.py` instead of `<repo_url>/blob/master/docs/src/project/lorem.py`.
+
+With this script, a `reference` folder is automatically created each time we build our docs. This folder contains a Markdown page for each of our source modules, and each of these pages contains a single line of the form `::: project.module` (module being `lorem`, `ipsum`, etc.). Great! But, we still have to actually add those pages into our MkDocs navigation:
+
+mkdocs.yml
+
+```yaml
+nav:
+# rest of the navigation...
+- Code Reference:
+  - project:
+    - lorem: reference/project/lorem.md
+    - ipsum: reference/project/ipsum.md
+    - dolor: reference/project/dolor.md
+    - sit: reference/project/sit.md
+    - amet: reference/project/amet.md
+# rest of the navigation...
+```
+
+Err... so this process is only semi-automatic? Yes, but don't worry, we can fully automate it.
+
+### Generate a literate navigation file
+
+mkdocs-gen-files is able to generate a literate navigation file. But to make use of it, we will need an additional plugin: [mkdocs-literate-nav](https://github.com/oprypin/mkdocs-literate-nav). This plugin allows to specify the whole navigation, or parts of it, into Markdown pages, as plain Markdown lists. We use it here to specify the navigation for the code reference pages.
+
+First, add `mkdocs-literate-nav` to your project's docs dependencies, and configure the plugin in your MkDocs configuration:
+
+mkdocs.yml
+
+```yaml
+plugins:
+- search
+- gen-files:
+    scripts:
+    - scripts/gen_ref_pages.py
+- literate-nav:
+    nav_file: SUMMARY.md
+- mkdocstrings
+```
+
+Then, the previous script is updated like so:
+
+scripts/gen_ref_pages.py
+
+```python
+"""Generate the code reference pages and navigation."""
+
+from pathlib import Path
+
+import mkdocs_gen_files
+
+nav = mkdocs_gen_files.Nav()
+
+root = Path(__file__).parent.parent
+src = root / "src"
+
+for path in sorted(src.rglob("*.py")):
+    module_path = path.relative_to(src).with_suffix("")
+    doc_path = path.relative_to(src).with_suffix(".md")
+    full_doc_path = Path("reference", doc_path)
+
+    parts = tuple(module_path.parts)
+
+    if parts[-1] == "__init__":
+        parts = parts[:-1]
+    elif parts[-1] == "__main__":
+        continue
+
+    nav[parts] = doc_path.as_posix()  # (1)!
+
+    with mkdocs_gen_files.open(full_doc_path, "w") as fd:
+        ident = ".".join(parts)
+        fd.write(f"::: {ident}")
+
+    mkdocs_gen_files.set_edit_path(full_doc_path, path.relative_to(root))
+
+with mkdocs_gen_files.open("reference/SUMMARY.md", "w") as nav_file:  # (2)!
+    nav_file.writelines(nav.build_literate_nav())  # (3)!
+```
+
+1. Progressively build the navigation object.
+1. At the end, create a magic, literate navigation file called `SUMMARY.md` in the `reference` folder.
+1. Write the navigation as a Markdown list in the literate navigation file.
+
+Now we are able to remove our hard-coded navigation in `mkdocs.yml`, and replace it with a single line!
+
+mkdocs.yml
+
+```yaml
+nav:
+# rest of the navigation...
+# defer to gen-files + literate-nav
+- Code Reference: reference/  # (1)!
+# rest of the navigation...
+```
+
+1. Note the trailing slash! It is needed so that `mkdocs-literate-nav` knows it has to look for a `SUMMARY.md` file in that folder.
+
+At this point, we should be able to see the tree of our modules in the navigation.
+
+### Bind pages to sections themselves
+
+There's a last improvement we can do. With the current script, sections, corresponding to folders, will expand or collapse when you click on them, revealing `__init__` modules under them (or equivalent modules in other languages, if relevant). Since we are documenting a public API, and given users never explicitly import `__init__` modules, it would be nice if we could get rid of them and instead render their documentation inside the section itself.
+
+Well, this is possible thanks to a third plugin: [mkdocs-section-index](https://github.com/oprypin/mkdocs-section-index).
+
+Update the script like this:
+
+scripts/gen_ref_pages.py
+
+```python
+"""Generate the code reference pages and navigation."""
+
+from pathlib import Path
+
+import mkdocs_gen_files
+
+nav = mkdocs_gen_files.Nav()
+
+root = Path(__file__).parent.parent
+src = root / "src"
+
+for path in sorted(src.rglob("*.py")):
+    module_path = path.relative_to(src).with_suffix("")
+    doc_path = path.relative_to(src).with_suffix(".md")
+    full_doc_path = Path("reference", doc_path)
+
+    parts = tuple(module_path.parts)
+
+    if parts[-1] == "__init__":
+        parts = parts[:-1]
+        doc_path = doc_path.with_name("index.md")
+        full_doc_path = full_doc_path.with_name("index.md")
+    elif parts[-1] == "__main__":
+        continue
+
+    nav[parts] = doc_path.as_posix()
+
+    with mkdocs_gen_files.open(full_doc_path, "w") as fd:
+        ident = ".".join(parts)
+        fd.write(f"::: {ident}")
+
+    mkdocs_gen_files.set_edit_path(full_doc_path, path.relative_to(root))
+
+with mkdocs_gen_files.open("reference/SUMMARY.md", "w") as nav_file:
+    nav_file.writelines(nav.build_literate_nav())
+```
+
+And update your MkDocs configuration to list the plugin:
+
+mkdocs.yml
+
+```yaml
+plugins:
+- search
+- gen-files:
+    scripts:
+    - scripts/gen_ref_pages.py
+- literate-nav:
+    nav_file: SUMMARY.md
+- section-index
+- mkdocstrings
+```
+
+With this, `__init__` modules will be documented and bound to the sections themselves, better reflecting our public API.
+
+## Prevent selection of prompts and output in Python code blocks
+
+To prevent the selection of `>>>`, `...` and output in Python "Console" code blocks, you can use the `pycon` syntax highlighting on your code blocks, and add global CSS rules to your site using MkDocs `extra_css` option:
+
+````md
+```pycon
+>>> for word in ("Hello", "mkdocstrings!"):
+...     print(word, end=" ")
+...
+Hello mkdocstrings!
+````
+
+````
+
+docs/css/code_select.css
+
+```css
+.highlight .gp, .highlight .go { /* Generic.Prompt, Generic.Output */
+    user-select: none;
+}
+````
+
+mkdocs.yml
+
+```yaml
+extra_css:
+- css/code_select.css
+```
+
+Warning
+
+The `.highlight .gp, .highlight .go` CSS selector can have unintended side-effects. To target `pycon` code blocks more specifically, you can configure the `pymdownx.highlight` extension to use Pygments and set language classes on code blocks:
+
+mkdocs.yml
+
+```yaml
+markdown_extensions:
+- pymdownx.highlight:
+    use_pygments: true
+    pygments_lang_class: true
+```
+
+Then you can update the CSS selector like this:
+
+docs/css/code_select.css
+
+```css
+.language-pycon .gp, .language-pycon .go { /* Generic.Prompt, Generic.Output */
+    user-select: none;
+}
+```
+
+If you don't want to enable this globally, you can still use `style` tags in the relevant pages, with more accurate CSS selectors:
+
+```html
+<style>
+#my-div .highlight .gp, #my-div .highlight .go { /* Generic.Prompt, Generic.Output */
+    user-select: none;
+}
+</style>
+```
+
+Try to select the following code block's text:
+
+```pycon
+>>> for word in ("Hello", "mkdocstrings!"):
+...     print(word, end=" ")
+Hello mkdocstrings!
+```
+
+## Hide documentation strings from source code blocks
+
+Since documentation strings are rendered by handlers, it can sometimes feel redundant to show these same documentation strings in source code blocks (when handlers render those).
+
+There is a general workaround to hide these docstrings from source blocks using CSS:
+
+```css
+/* These CSS classes depend on the handler. */
+.doc-contents details .highlight code {
+  line-height: 0;
+}
+.doc-contents details .highlight code > * {
+  line-height: initial;
+}
+.doc-contents details .highlight code > .sd {  /* Literal.String.Doc */
+  display: none;
+}
+```
+
+Note that this is considered a workaround and not a proper solution, because it has side-effects like also removing blank lines.
+
+## Automatic highlighting for indented code blocks in docstrings
+
+Depending on the language used in your code base and the mkdocstrings handler used to document it, you might want to set a default syntax for code blocks added to your docstrings. For example, to default to the Python syntax:
+
+mkdocs.yml
+
+```yaml
+markdown_extensions:
+- pymdownx.highlight:
+    default_lang: python
+```
+
+Then in your docstrings, indented code blocks will be highlighted as Python code:
+
+```python
+def my_function():
+    """This is my function.
+
+    The following code will be highlighted as Python:
+
+        result = my_function()
+        print(result)
+
+    End of the docstring.
+    """
+    pass
+```
+
+# Troubleshooting
+
+## Code blocks in admonitions (in docstrings or else) are not rendered correctly
+
+To render code blocks in admonitions, you need to add the `pymdownx.superfences` extensions to the list of Markdown extensions in `mkdocs.yml`. For example:
+
+````markdown
+!!! note
+    Some text.
+
+    ```bash
+    echo "some code"
+    ```
+````
+
+mkdocs.yml
+
+```yaml
+markdown_extensions:
+- admonition
+- codehilite
+- pymdownx.superfences
+```
+
+For code blocks in docstrings, make sure to escape newlines (`\n` -> `\\n`), or prefix the entire docstring with 'r' to make it a raw-docstring: `r"""`. Indeed, docstrings are still strings and therefore subject to how Python parses strings.
+
+## Footnotes are duplicated or overridden
+
+Before version 0.14, footnotes could be duplicated over a page. Please upgrade to version 0.14 or higher.
+
+See also:
+
+- [Issue #186](https://github.com/mkdocstrings/mkdocstrings/issues/186)
+- [Tabs in docstrings (from `pymdownx.tabbed`) are not working properly](#tabs-in-docstrings-from-pymdownxtabbed-are-not-working-properly).
+
+## MkDocs warns me about links to unfound documentation files
+
+A warning like this one:
+
+> WARNING - Documentation file 'reference/parsers/docstrings.md' contains a link to 'reference/parsers/pytkdocs.parsers.docstrings.Section' which is not found in the documentation files.
+
+...generally means you used parentheses `()` instead of brackets `[]` for a cross-reference. Notice the dots in `reference/parsers/pytkdocs.parsers.docstrings.Section`? It shows that it's probably a cross-reference, not a direct link. It's probably written like `[Section](pytkdocs.parsers.docstrings.Section)` in the docs, when it should be `[Section][pytkdocs.parsers.docstrings.Section]`.
+
+## Some objects are not rendered (they do not appear in the generated docs)
+
+- Make sure the configuration options of the handler are correct. Check the documentation for [Handlers](../usage/handlers/) to see the available options for each handler.
+- Also make sure your documentation in your source code is formatted correctly. For Python code, check the [supported docstring styles](https://mkdocstrings.github.io/python/usage/#supported-docstrings-styles) page.
+- Re-run the Mkdocs command with `-v`, and carefully read any traceback.
+
+## Tabs in docstrings (from `pymdownx.tabbed`) are not working properly
+
+Before version 0.14, multiple tab blocks injected on the same page would result in broken links: clicking on a tab would bring the user to the wrong one. Please upgrade to version 0.14 or higher.
+
+See also:
+
+- [Issue #193](https://github.com/mkdocstrings/mkdocstrings/issues/193)
+- [Footnotes are duplicated or overridden](#footnotes-are-duplicated-or-overridden).
+
+If you are stuck on a version before 0.14, and want to use multiple tab blocks in one page, use this workaround.
+
+JavaScript workaround
+
+Put the following code in a .js file, and list it in MkDocs' `extra_javascript`:
+
+```javascript
+// Credits to Nikolaos Zioulis (@zuru on GitHub)
+function setID(){
+    var tabs = document.getElementsByClassName("tabbed-set");
+    for (var i = 0; i < tabs.length; i++) {
+        children = tabs[i].children;
+        var counter = 0;
+        var iscontent = 0;
+        for(var j = 0; j < children.length;j++){
+            if(typeof children[j].htmlFor === 'undefined'){
+                if((iscontent + 1) % 2 == 0){
+                    // check if it is content
+                    if(iscontent == 1){
+                        btn = children[j].childNodes[1].getElementsByTagName("button");
+                    }
+                }
+                else{
+                    // if not change the id
+                    children[j].id = "__tabbed_" + String(i + 1) + "_" + String(counter + 1);
+                    children[j].name = "__tabbed_" + String(i + 1);
+                    // make default tab open
+                    if(j == 0)
+                        children[j].click();
+                }
+                iscontent++;
+            }
+            else{
+                // link to the correct tab
+                children[j].htmlFor = "__tabbed_" + String(i+1) + "_" + String(counter + 1);
+                counter ++;
+            }
+        }
+    }
+}
+setID();
+```
+
+This code will correctly reset the IDs for tabs on a same page.
+
+## The generated documentation does not look good
+
+Please open an ticket on the [bugtracker](https://github.com/mkdocstrings/mkdocstrings) with a detailed explanation and screenshots of the bad-looking parts. Note that you can always [customize the look](../usage/theming/) of *mkdocstrings* blocks -- through both HTML and CSS.
+
+## Warning: could not find cross-reference target
+
+New in version 0.15.
+
+Cross-linking used to include any Markdown heading, but now it's only for *mkdocstrings* identifiers by default. See [Cross-references to any Markdown heading](../usage/#cross-references-to-any-markdown-heading) to opt back in.
+
+Make sure the referenced object is properly rendered: verify your configuration options.
+
+For false-positives, you can wrap the text in backticks (`) to prevent `mkdocstrings\` from trying to process it.
+
+______________________________________________________________________
+
+## Python specifics
+
+### Nothing is rendered at all
+
+Is your package available in the Python path?
+
+See [Python handler: Finding modules](https://mkdocstrings.github.io/python/usage/#finding-modules).
+
+### LaTeX in docstrings is not rendered correctly
+
+If you are using a Markdown extension like [Arithmatex Mathjax](https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#arithmatex) or [`markdown-katex`](https://gitlab.com/mbarkhau/markdown-katex) to render LaTeX, add `r` in front of your docstring to make sure nothing is escaped. You'll still maybe have to play with escaping to get things right.
+
+Example:
+
+````python
+def math_function(x, y):
+    r"""
+    Look at these formulas:
+
+    ```math
+    f(x) = \int_{-\infty}^\infty
+    \hat f(\xi)\,e^{2 \pi i \xi x}
+    \,d\xi
+    ```
+    """
+````
+
+### My docstrings in comments (`#:`) are not picked up
+
+We only support docstrings in comments through the [griffe-sphinx](https://mkdocstrings.github.io/griffe-sphinx) extension.
+
+Alternatively, instead of:
+
+```python
+import enum
+
+
+class MyEnum(enum.Enum):
+    v1 = 1  #: The first choice.
+    v2 = 2  #: The second choice.
+```
+
+You can use:
+
+```python
+import enum
+
+
+class MyEnum(enum.Enum):
+    v1 = 1
+    """The first choice."""
+
+    v2 = 2
+    """The second choice."""
+```
+
+Or:
+
+```python
+import enum
+
+
+class MyEnum(enum.Enum):
+    """My enum.
+
+    Attributes:
+        v1: The first choice.
+        v2: The second choice.
+    """
+
+    v1 = 1
+    v2 = 2
+```
+
+### My wrapped function shows documentation/code for its wrapper instead of its own
+
+Use [`functools.wraps()`](https://docs.python.org/3.6/library/functools.html#functools.wraps):
+
+```python
+from functools import wraps
+
+
+def my_decorator(function):
+    """The decorator docs."""
+
+    @wraps(function)
+    def wrapped_function(*args, **kwargs):
+        print("hello")
+        function(*args, **kwargs)
+        print("bye")
+
+    return wrapped_function
+
+
+@my_decorator
+def my_function(*args, **kwargs):
+    """The function docs."""
+    print(*args, **kwargs)
+```
+
+### Footnotes do not render
+
+The library that parses docstrings, [Griffe](https://mkdocstrings.github.io/griffe/), splits docstrings in several "sections" (example: [Google-style sections syntax](https://mkdocstrings.github.io/griffe/reference/docstrings/#google-syntax)). If a footnote is used in a section, while referenced in another, mkdocstrings won't be able to render it correctly. The footnote and its reference must appear in the same section.
+
+```python
+def my_function():
+    """Summary.
+
+    This is the first section[^1].
+
+    Note:
+        This is the second section[^2].
+
+    Note:
+        This is the third section[^3].
+
+    References at the end are part of yet another section (fourth here)[^4].
+
+    [^1]: Some text.
+    [^2]: Some text.
+    [^3]: Some text.
+    [^4]: Some text.
+    """
+```
+
+Here only the fourth footnote will work, because it is the only one that appear in the same section as its reference. To fix this, make sure all footnotes appear in the same section as their references:
+
+```python
+def my_function():
+    """Summary.
+
+    This is the first section[^1].
+
+    [^1]: Some text.
+
+    Note:
+        This is the second section[^2].
+
+        [^2]: Some text.
+
+    Note:
+        This is the third section[^3].
+
+        [^3]: Some text.
+
+    References at the end are part of yet another section (fourth here)[^4].
+
+    [^4]: Some text.
+    """
+```
+
+### Submodules are not rendered
+
+In previous versions of mkdocstrings-python, submodules were rendered by default. This was changed and you now need to set the following option:
+
+mkdocs.yml
+
+```yaml
+plugins:
+- mkdocstrings:
+    handlers:
+      python:
+        options:
+          show_submodules: true
+```
+# API
+
+# mkdocstrings
+
+mkdocstrings package.
+
+Automatic documentation from sources, for MkDocs.
+
+Classes:
+
+- **`AutoDocProcessor`** – Our "autodoc" Markdown block processor.
+- **`BaseHandler`** – The base handler class.
+- **`CollectionError`** – An exception raised when some collection of data failed.
+- **`Handlers`** – A collection of handlers.
+- **`HeadingShiftingTreeprocessor`** – Shift levels of all Markdown headings according to the configured base level.
+- **`Highlighter`** – Code highlighter that tries to match the Markdown configuration.
+- **`IdPrependingTreeprocessor`** – Prepend the configured prefix to IDs of all HTML elements.
+- **`Inventory`** – Inventory of collected and rendered objects.
+- **`InventoryItem`** – Inventory item.
+- **`LoggerAdapter`** – A logger adapter to prefix messages.
+- **`MkdocstringsExtension`** – Our Markdown extension.
+- **`MkdocstringsInnerExtension`** – Extension that should always be added to Markdown sub-documents that handlers request (and only them).
+- **`MkdocstringsPlugin`** – An mkdocs plugin.
+- **`ParagraphStrippingTreeprocessor`** – Unwraps the <p> element around the whole output.
+- **`PluginConfig`** – The configuration options of mkdocstrings, written in mkdocs.yml.
+- **`TemplateLogger`** – A wrapper class to allow logging in templates.
+- **`ThemeNotSupported`** – An exception raised to tell a theme is not supported.
+
+Functions:
+
+- **`do_any`** – Check if at least one of the item in the sequence evaluates to true.
+- **`get_logger`** – Return a pre-configured logger.
+- **`get_template_logger`** – Return a logger usable in templates.
+- **`get_template_logger_function`** – Create a wrapper function that automatically receives the Jinja template context.
+- **`get_template_path`** – Return the path to the template currently using the given context.
+- **`makeExtension`** – Create the extension instance.
+
+Attributes:
+
+- **`CollectorItem`** – The type of the item returned by the collect method of a handler.
+- **`HandlerConfig`** – The type of the configuration of a handler.
+- **`HandlerOptions`** – The type of the options passed to a handler.
+- **`TEMPLATES_DIRS`** (`Sequence[Path]`) – The directories where the handler templates are located.
+
+## CollectorItem
+
+```python
+CollectorItem = Any
+```
+
+The type of the item returned by the `collect` method of a handler.
+
+## HandlerConfig
+
+```python
+HandlerConfig = Any
+```
+
+The type of the configuration of a handler.
+
+## HandlerOptions
+
+```python
+HandlerOptions = Any
+```
+
+The type of the options passed to a handler.
+
+## TEMPLATES_DIRS
+
+```python
+TEMPLATES_DIRS: Sequence[Path] = tuple(__path__)
+```
+
+The directories where the handler templates are located.
+
+## AutoDocProcessor
+
+```python
+AutoDocProcessor(
+    md: Markdown,
+    *,
+    handlers: Handlers,
+    autorefs: AutorefsPlugin,
+)
+```
+
+Bases: `BlockProcessor`
+
+Our "autodoc" Markdown block processor.
+
+It has a test method that tells if a block matches a criterion, and a run method that processes it.
+
+It also has utility methods allowing to get handlers and their configuration easily, useful when processing a matched block.
+
+Parameters:
+
+- ### **`md`**
+
+  (`Markdown`) – A markdown.Markdown instance.
+
+- ### **`handlers`**
+
+  (`Handlers`) – The handlers container.
+
+- ### **`autorefs`**
+
+  (`AutorefsPlugin`) – The autorefs plugin instance.
+
+Methods:
+
+- **`run`** – Run code on the matched blocks.
+- **`test`** – Match our autodoc instructions.
+
+Attributes:
+
+- **`md`** – The Markdown instance.
+- **`regex`** – The regular expression to match our autodoc instructions.
+
+Source code in `src/mkdocstrings/_internal/extension.py`
+
+```python
+def __init__(
+    self,
+    md: Markdown,
+    *,
+    handlers: Handlers,
+    autorefs: AutorefsPlugin,
+) -> None:
+    """Initialize the object.
+
+    Arguments:
+        md: A `markdown.Markdown` instance.
+        handlers: The handlers container.
+        autorefs: The autorefs plugin instance.
+    """
+    super().__init__(parser=md.parser)
+    self.md = md
+    """The Markdown instance."""
+    self._handlers = handlers
+    self._autorefs = autorefs
+    self._updated_envs: set = set()
+```
+
+### md
+
+```python
+md = md
+```
+
+The Markdown instance.
+
+### regex
+
+```python
+regex = compile(
+    "^(?P<heading>#{1,6} *|)::: ?(?P<name>.+?) *$",
+    flags=MULTILINE,
+)
+```
+
+The regular expression to match our autodoc instructions.
+
+### run
+
+```python
+run(parent: Element, blocks: MutableSequence[str]) -> None
+```
+
+Run code on the matched blocks.
+
+The identifier and configuration lines are retrieved from a matched block and used to collect and render an object.
+
+Parameters:
+
+- #### **`parent`**
+
+  (`Element`) – The parent element in the XML tree.
+
+- #### **`blocks`**
+
+  (`MutableSequence[str]`) – The rest of the blocks to be processed.
+
+Source code in `src/mkdocstrings/_internal/extension.py`
+
+```python
+def run(self, parent: Element, blocks: MutableSequence[str]) -> None:
+    """Run code on the matched blocks.
+
+    The identifier and configuration lines are retrieved from a matched block
+    and used to collect and render an object.
+
+    Arguments:
+        parent: The parent element in the XML tree.
+        blocks: The rest of the blocks to be processed.
+    """
+    block = blocks.pop(0)
+    match = self.regex.search(block)
+
+    if match:
+        if match.start() > 0:
+            self.parser.parseBlocks(parent, [block[: match.start()]])
+        # removes the first line
+        block = block[match.end() :]
+
+    block, the_rest = self.detab(block)
+
+    if not block and blocks and blocks[0].startswith(("    handler:", "    options:")):
+        # YAML options were separated from the `:::` line by a blank line.
+        block = blocks.pop(0)
+
+    if match:
+        identifier = match["name"]
+        heading_level = match["heading"].count("#")
+        _logger.debug("Matched '::: %s'", identifier)
+
+        html, handler, _ = self._process_block(identifier, block, heading_level)
+        el = Element("div", {"class": "mkdocstrings"})
+        # The final HTML is inserted as opaque to subsequent processing, and only revealed at the end.
+        el.text = self.md.htmlStash.store(html)
+
+        if handler.outer_layer:
+            self._process_headings(handler, el)
+
+        parent.append(el)
+
+    if the_rest:
+        # This block contained unindented line(s) after the first indented
+        # line. Insert these lines as the first block of the master blocks
+        # list for future processing.
+        blocks.insert(0, the_rest)
+```
+
+### test
+
+```python
+test(parent: Element, block: str) -> bool
+```
+
+Match our autodoc instructions.
+
+Parameters:
+
+- #### **`parent`**
+
+  (`Element`) – The parent element in the XML tree.
+
+- #### **`block`**
+
+  (`str`) – The block to be tested.
+
+Returns:
+
+- `bool` – Whether this block should be processed or not.
+
+Source code in `src/mkdocstrings/_internal/extension.py`
+
+```python
+def test(self, parent: Element, block: str) -> bool:  # noqa: ARG002
+    """Match our autodoc instructions.
+
+    Arguments:
+        parent: The parent element in the XML tree.
+        block: The block to be tested.
+
+    Returns:
+        Whether this block should be processed or not.
+    """
+    return bool(self.regex.search(block))
+```
+
+## BaseHandler
+
+```python
+BaseHandler(
+    *,
+    theme: str,
+    custom_templates: str | None,
+    mdx: Sequence[str | Extension],
+    mdx_config: Mapping[str, Any],
+)
+```
+
+The base handler class.
+
+Inherit from this class to implement a handler.
+
+You will have to implement the `collect` and `render` methods. You can also implement the `teardown` method, and override the `update_env` method, to add more filters to the Jinja environment, making them available in your Jinja templates.
+
+To define a fallback theme, add a `fallback_theme` class-variable. To add custom CSS, add an `extra_css` variable or create an 'style.css' file beside the templates.
+
+If the given theme is not supported (it does not exist), it will look for a `fallback_theme` attribute in `self` to use as a fallback theme.
+
+Other Parameters:
+
+- **`theme`** (`str`) – The theme to use.
+- **`custom_templates`** (`str | None`) – The path to custom templates.
+- **`mdx`** (`list[str | Extension]`) – A list of Markdown extensions to use.
+- **`mdx_config`** (`Mapping[str, Mapping[str, Any]]`) – Configuration for the Markdown extensions.
+
+Methods:
+
+- **`collect`** – Collect data given an identifier and user configuration.
+- **`do_convert_markdown`** – Render Markdown text; for use inside templates.
+- **`do_heading`** – Render an HTML heading and register it for the table of contents. For use inside templates.
+- **`get_aliases`** – Return the possible aliases for a given identifier.
+- **`get_extended_templates_dirs`** – Load template extensions for the given handler, return their templates directories.
+- **`get_headings`** – Return and clear the headings gathered so far.
+- **`get_inventory_urls`** – Return the URLs (and configuration options) of the inventory files to download.
+- **`get_options`** – Get combined options.
+- **`get_templates_dir`** – Return the path to the handler's templates directory.
+- **`load_inventory`** – Yield items and their URLs from an inventory file streamed from in_file.
+- **`render`** – Render a template using provided data and configuration options.
+- **`render_backlinks`** – Render backlinks.
+- **`teardown`** – Teardown the handler.
+- **`update_env`** – Update the Jinja environment.
+
+Attributes:
+
+- **`custom_templates`** – The path to custom templates.
+- **`domain`** (`str`) – The handler's domain, used to register objects in the inventory, for example "py".
+- **`enable_inventory`** (`bool`) – Whether the inventory creation is enabled.
+- **`env`** – The Jinja environment.
+- **`extra_css`** (`str`) – Extra CSS.
+- **`fallback_theme`** (`str`) – Fallback theme to use when a template isn't found in the configured theme.
+- **`md`** (`Markdown`) – The Markdown instance.
+- **`mdx`** – The Markdown extensions to use.
+- **`mdx_config`** – The configuration for the Markdown extensions.
+- **`name`** (`str`) – The handler's name, for example "python".
+- **`outer_layer`** (`bool`) – Whether we're in the outer Markdown conversion layer.
+- **`theme`** – The selected theme.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def __init__(
+    self,
+    *,
+    theme: str,
+    custom_templates: str | None,
+    mdx: Sequence[str | Extension],
+    mdx_config: Mapping[str, Any],
+) -> None:
+    """Initialize the object.
+
+    If the given theme is not supported (it does not exist), it will look for a `fallback_theme` attribute
+    in `self` to use as a fallback theme.
+
+    Keyword Arguments:
+        theme (str): The theme to use.
+        custom_templates (str | None): The path to custom templates.
+        mdx (list[str | Extension]): A list of Markdown extensions to use.
+        mdx_config (Mapping[str, Mapping[str, Any]]): Configuration for the Markdown extensions.
+    """
+    self.theme = theme
+    """The selected theme."""
+    self.custom_templates = custom_templates
+    """The path to custom templates."""
+    self.mdx = mdx
+    """The Markdown extensions to use."""
+    self.mdx_config = mdx_config
+    """The configuration for the Markdown extensions."""
+    self._md: Markdown | None = None
+    self._headings: list[Element] = []
+
+    paths = []
+
+    # add selected theme templates
+    themes_dir = self.get_templates_dir(self.name)
+    paths.append(themes_dir / self.theme)
+
+    # add extended theme templates
+    extended_templates_dirs = self.get_extended_templates_dirs(self.name)
+    for templates_dir in extended_templates_dirs:
+        paths.append(templates_dir / self.theme)
+
+    # add fallback theme templates
+    if self.fallback_theme and self.fallback_theme != self.theme:
+        paths.append(themes_dir / self.fallback_theme)
+
+        # add fallback theme of extended templates
+        for templates_dir in extended_templates_dirs:
+            paths.append(templates_dir / self.fallback_theme)
+
+    for path in paths:
+        css_path = path / "style.css"
+        if css_path.is_file():
+            self.extra_css += "\n" + css_path.read_text(encoding="utf-8")
+            break
+
+    if self.custom_templates is not None:
+        paths.insert(0, Path(self.custom_templates) / self.name / self.theme)
+
+    self.env = Environment(
+        autoescape=True,
+        loader=FileSystemLoader(paths),
+        auto_reload=False,  # Editing a template in the middle of a build is not useful.
+    )
+    """The Jinja environment."""
+
+    self.env.filters["convert_markdown"] = self.do_convert_markdown
+    self.env.filters["heading"] = self.do_heading
+    self.env.filters["any"] = do_any
+    self.env.globals["log"] = get_template_logger(self.name)
+```
+
+### custom_templates
+
+```python
+custom_templates = custom_templates
+```
+
+The path to custom templates.
+
+### domain
+
+```python
+domain: str
+```
+
+The handler's domain, used to register objects in the inventory, for example "py".
+
+### enable_inventory
+
+```python
+enable_inventory: bool = False
+```
+
+Whether the inventory creation is enabled.
+
+### env
+
+```python
+env = Environment(
+    autoescape=True,
+    loader=FileSystemLoader(paths),
+    auto_reload=False,
+)
+```
+
+The Jinja environment.
+
+### extra_css
+
+```python
+extra_css: str = ''
+```
+
+Extra CSS.
+
+### fallback_theme
+
+```python
+fallback_theme: str = ''
+```
+
+Fallback theme to use when a template isn't found in the configured theme.
+
+### md
+
+```python
+md: Markdown
+```
+
+The Markdown instance.
+
+Raises:
+
+- `RuntimeError` – When the Markdown instance is not set yet.
+
+### mdx
+
+```python
+mdx = mdx
+```
+
+The Markdown extensions to use.
+
+### mdx_config
+
+```python
+mdx_config = mdx_config
+```
+
+The configuration for the Markdown extensions.
+
+### name
+
+```python
+name: str
+```
+
+The handler's name, for example "python".
+
+### outer_layer
+
+```python
+outer_layer: bool
+```
+
+Whether we're in the outer Markdown conversion layer.
+
+### theme
+
+```python
+theme = theme
+```
+
+The selected theme.
+
+### collect
+
+```python
+collect(
+    identifier: str, options: HandlerOptions
+) -> CollectorItem
+```
+
+Collect data given an identifier and user configuration.
+
+In the implementation, you typically call a subprocess that returns JSON, and load that JSON again into a Python dictionary for example, though the implementation is completely free.
+
+Parameters:
+
+- #### **`identifier`**
+
+  (`str`) – An identifier for which to collect data. For example, in Python, it would be 'mkdocstrings.handlers' to collect documentation about the handlers module. It can be anything that you can feed to the tool of your choice.
+
+- #### **`options`**
+
+  (`HandlerOptions`) – The final configuration options.
+
+Returns:
+
+- `CollectorItem` – Anything you want, as long as you can feed it to the handler's render method.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def collect(self, identifier: str, options: HandlerOptions) -> CollectorItem:
+    """Collect data given an identifier and user configuration.
+
+    In the implementation, you typically call a subprocess that returns JSON, and load that JSON again into
+    a Python dictionary for example, though the implementation is completely free.
+
+    Arguments:
+        identifier: An identifier for which to collect data. For example, in Python,
+            it would be 'mkdocstrings.handlers' to collect documentation about the handlers module.
+            It can be anything that you can feed to the tool of your choice.
+        options: The final configuration options.
+
+    Returns:
+        Anything you want, as long as you can feed it to the handler's `render` method.
+    """
+    raise NotImplementedError
+```
+
+### do_convert_markdown
+
+```python
+do_convert_markdown(
+    text: str,
+    heading_level: int,
+    html_id: str = "",
+    *,
+    strip_paragraph: bool = False,
+    autoref_hook: AutorefsHookInterface | None = None,
+) -> Markup
+```
+
+Render Markdown text; for use inside templates.
+
+Parameters:
+
+- #### **`text`**
+
+  (`str`) – The text to convert.
+
+- #### **`heading_level`**
+
+  (`int`) – The base heading level to start all Markdown headings from.
+
+- #### **`html_id`**
+
+  (`str`, default: `''` ) – The HTML id of the element that's considered the parent of this element.
+
+- #### **`strip_paragraph`**
+
+  (`bool`, default: `False` ) – Whether to exclude the <p> tag from around the whole output.
+
+Returns:
+
+- `Markup` – An HTML string.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def do_convert_markdown(
+    self,
+    text: str,
+    heading_level: int,
+    html_id: str = "",
+    *,
+    strip_paragraph: bool = False,
+    autoref_hook: AutorefsHookInterface | None = None,
+) -> Markup:
+    """Render Markdown text; for use inside templates.
+
+    Arguments:
+        text: The text to convert.
+        heading_level: The base heading level to start all Markdown headings from.
+        html_id: The HTML id of the element that's considered the parent of this element.
+        strip_paragraph: Whether to exclude the `<p>` tag from around the whole output.
+
+    Returns:
+        An HTML string.
+    """
+    global _markdown_conversion_layer  # noqa: PLW0603
+    _markdown_conversion_layer += 1
+    treeprocessors = self.md.treeprocessors
+    treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = heading_level  # type: ignore[attr-defined]
+    treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"  # type: ignore[attr-defined]
+    treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph  # type: ignore[attr-defined]
+    if BacklinksTreeProcessor.name in treeprocessors:
+        treeprocessors[BacklinksTreeProcessor.name].initial_id = html_id  # type: ignore[attr-defined]
+    if autoref_hook and AutorefsInlineProcessor.name in self.md.inlinePatterns:
+        self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = autoref_hook  # type: ignore[attr-defined]
+
+    try:
+        return Markup(self.md.convert(text))
+    finally:
+        treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0  # type: ignore[attr-defined]
+        treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""  # type: ignore[attr-defined]
+        treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False  # type: ignore[attr-defined]
+        if BacklinksTreeProcessor.name in treeprocessors:
+            treeprocessors[BacklinksTreeProcessor.name].initial_id = None  # type: ignore[attr-defined]
+        if AutorefsInlineProcessor.name in self.md.inlinePatterns:
+            self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # type: ignore[attr-defined]
+        self.md.reset()
+        _markdown_conversion_layer -= 1
+```
+
+### do_heading
+
+```python
+do_heading(
+    content: Markup,
+    heading_level: int,
+    *,
+    role: str | None = None,
+    hidden: bool = False,
+    toc_label: str | None = None,
+    skip_inventory: bool = False,
+    **attributes: str,
+) -> Markup
+```
+
+Render an HTML heading and register it for the table of contents. For use inside templates.
+
+Parameters:
+
+- #### **`content`**
+
+  (`Markup`) – The HTML within the heading.
+
+- #### **`heading_level`**
+
+  (`int`) – The level of heading (e.g. 3 -> h3).
+
+- #### **`role`**
+
+  (`str | None`, default: `None` ) – An optional role for the object bound to this heading.
+
+- #### **`hidden`**
+
+  (`bool`, default: `False` ) – If True, only register it for the table of contents, don't render anything.
+
+- #### **`toc_label`**
+
+  (`str | None`, default: `None` ) – The title to use in the table of contents ('data-toc-label' attribute).
+
+- #### **`skip_inventory`**
+
+  (`bool`, default: `False` ) – Flag element to not be registered in the inventory (by setting a data-skip-inventory attribute).
+
+- #### **`**attributes`**
+
+  (`str`, default: `{}` ) – Any extra HTML attributes of the heading.
+
+Returns:
+
+- `Markup` – An HTML string.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def do_heading(
+    self,
+    content: Markup,
+    heading_level: int,
+    *,
+    role: str | None = None,
+    hidden: bool = False,
+    toc_label: str | None = None,
+    skip_inventory: bool = False,
+    **attributes: str,
+) -> Markup:
+    """Render an HTML heading and register it for the table of contents. For use inside templates.
+
+    Arguments:
+        content: The HTML within the heading.
+        heading_level: The level of heading (e.g. 3 -> `h3`).
+        role: An optional role for the object bound to this heading.
+        hidden: If True, only register it for the table of contents, don't render anything.
+        toc_label: The title to use in the table of contents ('data-toc-label' attribute).
+        skip_inventory: Flag element to not be registered in the inventory (by setting a `data-skip-inventory` attribute).
+        **attributes: Any extra HTML attributes of the heading.
+
+    Returns:
+        An HTML string.
+    """
+    # Produce a heading element that will be used later, in `AutoDocProcessor.run`, to:
+    # - register it in the ToC: right now we're in the inner Markdown conversion layer,
+    #   so we have to bubble up the information to the outer Markdown conversion layer,
+    #   for the ToC extension to pick it up.
+    # - register it in autorefs: right now we don't know what page is being rendered,
+    #   so we bubble up the information again to where autorefs knows the page,
+    #   and can correctly register the heading anchor (id) to its full URL.
+    # - register it in the objects inventory: same as for autorefs,
+    #   we don't know the page here, or the handler (and its domain),
+    #   so we bubble up the information to where the mkdocstrings extension knows that.
+    el = Element(f"h{heading_level}", attributes)
+    if toc_label is None:
+        toc_label = content.unescape() if isinstance(content, Markup) else content
+    el.set("data-toc-label", toc_label)
+    if skip_inventory:
+        el.set("data-skip-inventory", "true")
+    if role:
+        el.set("data-role", role)
+    if content:
+        el.text = str(content).strip()
+    self._headings.append(el)
+
+    if hidden:
+        return Markup('<a id="{0}"></a>').format(attributes["id"])
+
+    # Now produce the actual HTML to be rendered. The goal is to wrap the HTML content into a heading.
+    # Start with a heading that has just attributes (no text), and add a placeholder into it.
+    el = Element(f"h{heading_level}", attributes)
+    el.append(Element("mkdocstrings-placeholder"))
+    # Tell the inner 'toc' extension to make its additions if configured so.
+    toc = cast("TocTreeprocessor", self.md.treeprocessors["toc"])
+    if toc.use_anchors:
+        toc.add_anchor(el, attributes["id"])
+    if toc.use_permalinks:
+        toc.add_permalink(el, attributes["id"])
+
+    # The content we received is HTML, so it can't just be inserted into the tree. We had marked the middle
+    # of the heading with a placeholder that can never occur (text can't directly contain angle brackets).
+    # Now this HTML wrapper can be "filled" by replacing the placeholder.
+    html_with_placeholder = tostring(el, encoding="unicode")
+    assert (  # noqa: S101
+        html_with_placeholder.count("<mkdocstrings-placeholder />") == 1
+    ), f"Bug in mkdocstrings: failed to replace in {html_with_placeholder!r}"
+    html = html_with_placeholder.replace("<mkdocstrings-placeholder />", content)
+    return Markup(html)
+```
+
+### get_aliases
+
+```python
+get_aliases(identifier: str) -> tuple[str, ...]
+```
+
+Return the possible aliases for a given identifier.
+
+Parameters:
+
+- #### **`identifier`**
+
+  (`str`) – The identifier to get the aliases of.
+
+Returns:
+
+- `tuple[str, ...]` – A tuple of strings - aliases.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def get_aliases(self, identifier: str) -> tuple[str, ...]:  # noqa: ARG002
+    """Return the possible aliases for a given identifier.
+
+    Arguments:
+        identifier: The identifier to get the aliases of.
+
+    Returns:
+        A tuple of strings - aliases.
+    """
+    return ()
+```
+
+### get_extended_templates_dirs
+
+```python
+get_extended_templates_dirs(handler: str) -> list[Path]
+```
+
+Load template extensions for the given handler, return their templates directories.
+
+Parameters:
+
+- #### **`handler`**
+
+  (`str`) – The name of the handler to get the extended templates directory of.
+
+Returns:
+
+- `list[Path]` – The extensions templates directories.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def get_extended_templates_dirs(self, handler: str) -> list[Path]:
+    """Load template extensions for the given handler, return their templates directories.
+
+    Arguments:
+        handler: The name of the handler to get the extended templates directory of.
+
+    Returns:
+        The extensions templates directories.
+    """
+    discovered_extensions = entry_points(group=f"mkdocstrings.{handler}.templates")
+    return [extension.load()() for extension in discovered_extensions]
+```
+
+### get_headings
+
+```python
+get_headings() -> Sequence[Element]
+```
+
+Return and clear the headings gathered so far.
+
+Returns:
+
+- `Sequence[Element]` – A list of HTML elements.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def get_headings(self) -> Sequence[Element]:
+    """Return and clear the headings gathered so far.
+
+    Returns:
+        A list of HTML elements.
+    """
+    result = list(self._headings)
+    self._headings.clear()
+    return result
+```
+
+### get_inventory_urls
+
+```python
+get_inventory_urls() -> list[tuple[str, dict[str, Any]]]
+```
+
+Return the URLs (and configuration options) of the inventory files to download.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def get_inventory_urls(self) -> list[tuple[str, dict[str, Any]]]:
+    """Return the URLs (and configuration options) of the inventory files to download."""
+    return []
+```
+
+### get_options
+
+```python
+get_options(
+    local_options: Mapping[str, Any],
+) -> HandlerOptions
+```
+
+Get combined options.
+
+Override this method to customize how options are combined, for example by merging the global options with the local options. By combining options here, you don't have to do it twice in `collect` and `render`.
+
+Parameters:
+
+- #### **`local_options`**
+
+  (`Mapping[str, Any]`) – The local options.
+
+Returns:
+
+- `HandlerOptions` – The combined options.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def get_options(self, local_options: Mapping[str, Any]) -> HandlerOptions:
+    """Get combined options.
+
+    Override this method to customize how options are combined,
+    for example by merging the global options with the local options.
+    By combining options here, you don't have to do it twice in `collect` and `render`.
+
+    Arguments:
+        local_options: The local options.
+
+    Returns:
+        The combined options.
+    """
+    return local_options
+```
+
+### get_templates_dir
+
+```python
+get_templates_dir(handler: str | None = None) -> Path
+```
+
+Return the path to the handler's templates directory.
+
+Override to customize how the templates directory is found.
+
+Parameters:
+
+- #### **`handler`**
+
+  (`str | None`, default: `None` ) – The name of the handler to get the templates directory of.
+
+Raises:
+
+- `ModuleNotFoundError` – When no such handler is installed.
+- `FileNotFoundError` – When the templates directory cannot be found.
+
+Returns:
+
+- `Path` – The templates directory path.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def get_templates_dir(self, handler: str | None = None) -> Path:
+    """Return the path to the handler's templates directory.
+
+    Override to customize how the templates directory is found.
+
+    Arguments:
+        handler: The name of the handler to get the templates directory of.
+
+    Raises:
+        ModuleNotFoundError: When no such handler is installed.
+        FileNotFoundError: When the templates directory cannot be found.
+
+    Returns:
+        The templates directory path.
+    """
+    handler = handler or self.name
+    try:
+        import mkdocstrings_handlers  # noqa: PLC0415
+    except ModuleNotFoundError as error:
+        raise ModuleNotFoundError(f"Handler '{handler}' not found, is it installed?") from error
+
+    for path in mkdocstrings_handlers.__path__:
+        theme_path = Path(path, handler, "templates")
+        if theme_path.exists():
+            return theme_path
+
+    raise FileNotFoundError(f"Can't find 'templates' folder for handler '{handler}'")
+```
+
+### load_inventory
+
+```python
+load_inventory(
+    in_file: BinaryIO,
+    url: str,
+    base_url: str | None = None,
+    **kwargs: Any,
+) -> Iterator[tuple[str, str]]
+```
+
+Yield items and their URLs from an inventory file streamed from `in_file`.
+
+Parameters:
+
+- #### **`in_file`**
+
+  (`BinaryIO`) – The binary file-like object to read the inventory from.
+
+- #### **`url`**
+
+  (`str`) – The URL that this file is being streamed from (used to guess base_url).
+
+- #### **`base_url`**
+
+  (`str | None`, default: `None` ) – The URL that this inventory's sub-paths are relative to.
+
+- #### **`**kwargs`**
+
+  (`Any`, default: `{}` ) – Ignore additional arguments passed from the config.
+
+Yields:
+
+- `tuple[str, str]` – Tuples of (item identifier, item URL).
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+@classmethod
+def load_inventory(
+    cls,
+    in_file: BinaryIO,  # noqa: ARG003
+    url: str,  # noqa: ARG003
+    base_url: str | None = None,  # noqa: ARG003
+    **kwargs: Any,  # noqa: ARG003
+) -> Iterator[tuple[str, str]]:
+    """Yield items and their URLs from an inventory file streamed from `in_file`.
+
+    Arguments:
+        in_file: The binary file-like object to read the inventory from.
+        url: The URL that this file is being streamed from (used to guess `base_url`).
+        base_url: The URL that this inventory's sub-paths are relative to.
+        **kwargs: Ignore additional arguments passed from the config.
+
+    Yields:
+        Tuples of (item identifier, item URL).
+    """
+    yield from ()
+```
+
+### render
+
+```python
+render(
+    data: CollectorItem,
+    options: HandlerOptions,
+    *,
+    locale: str | None = None,
+) -> str
+```
+
+Render a template using provided data and configuration options.
+
+Parameters:
+
+- #### **`data`**
+
+  (`CollectorItem`) – The collected data to render.
+
+- #### **`options`**
+
+  (`HandlerOptions`) – The final configuration options.
+
+- #### **`locale`**
+
+  (`str | None`, default: `None` ) – The locale to use for translations, if any.
+
+Returns:
+
+- `str` – The rendered template as HTML.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def render(self, data: CollectorItem, options: HandlerOptions, *, locale: str | None = None) -> str:
+    """Render a template using provided data and configuration options.
+
+    Arguments:
+        data: The collected data to render.
+        options: The final configuration options.
+        locale: The locale to use for translations, if any.
+
+    Returns:
+        The rendered template as HTML.
+    """
+    raise NotImplementedError
+```
+
+### render_backlinks
+
+```python
+render_backlinks(
+    backlinks: Mapping[str, Iterable[Backlink]],
+    *,
+    locale: str | None = None,
+) -> str
+```
+
+Render backlinks.
+
+Parameters:
+
+- #### **`backlinks`**
+
+  (`Mapping[str, Iterable[Backlink]]`) – A mapping of identifiers to backlinks.
+
+- #### **`locale`**
+
+  (`str | None`, default: `None` ) – The locale to use for translations, if any.
+
+Returns:
+
+- `str` – The rendered backlinks as HTML.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def render_backlinks(self, backlinks: Mapping[str, Iterable[Backlink]], *, locale: str | None = None) -> str:  # noqa: ARG002
+    """Render backlinks.
+
+    Parameters:
+        backlinks: A mapping of identifiers to backlinks.
+        locale: The locale to use for translations, if any.
+
+    Returns:
+        The rendered backlinks as HTML.
+    """
+    return ""
+```
+
+### teardown
+
+```python
+teardown() -> None
+```
+
+Teardown the handler.
+
+This method should be implemented to, for example, terminate a subprocess that was started when creating the handler instance.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def teardown(self) -> None:
+    """Teardown the handler.
+
+    This method should be implemented to, for example, terminate a subprocess
+    that was started when creating the handler instance.
+    """
+```
+
+### update_env
+
+```python
+update_env(config: Any) -> None
+```
+
+Update the Jinja environment.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def update_env(self, config: Any) -> None:
+    """Update the Jinja environment."""
+```
+
+## CollectionError
+
+Bases: `Exception`
+
+An exception raised when some collection of data failed.
+
+## Handlers
+
+```python
+Handlers(
+    *,
+    theme: str,
+    default: str,
+    inventory_project: str,
+    inventory_version: str = "0.0.0",
+    handlers_config: dict[str, HandlerConfig] | None = None,
+    custom_templates: str | None = None,
+    mdx: Sequence[str | Extension] | None = None,
+    mdx_config: Mapping[str, Any] | None = None,
+    locale: str = "en",
+    tool_config: Any,
+)
+```
+
+A collection of handlers.
+
+Do not instantiate this directly. The plugin will keep one instance of this for the purpose of caching. Use mkdocstrings.MkdocstringsPlugin.get_handler for convenient access.
+
+Parameters:
+
+- ### **`theme`**
+
+  (`str`) – The theme to use.
+
+- ### **`default`**
+
+  (`str`) – The default handler to use.
+
+- ### **`inventory_project`**
+
+  (`str`) – The project name to use in the inventory.
+
+- ### **`inventory_version`**
+
+  (`str`, default: `'0.0.0'` ) – The project version to use in the inventory.
+
+- ### **`handlers_config`**
+
+  (`dict[str, HandlerConfig] | None`, default: `None` ) – The handlers configuration.
+
+- ### **`custom_templates`**
+
+  (`str | None`, default: `None` ) – The path to custom templates.
+
+- ### **`mdx`**
+
+  (`Sequence[str | Extension] | None`, default: `None` ) – A list of Markdown extensions to use.
+
+- ### **`mdx_config`**
+
+  (`Mapping[str, Any] | None`, default: `None` ) – Configuration for the Markdown extensions.
+
+- ### **`locale`**
+
+  (`str`, default: `'en'` ) – The locale to use for translations.
+
+- ### **`tool_config`**
+
+  (`Any`) – Tool configuration to pass down to handlers.
+
+Methods:
+
+- **`get_handler`** – Get a handler thanks to its name.
+- **`get_handler_config`** – Return the global configuration of the given handler.
+- **`get_handler_name`** – Return the handler name defined in an "autodoc" instruction YAML configuration, or the global default handler.
+- **`teardown`** – Teardown all cached handlers and clear the cache.
+
+Attributes:
+
+- **`inventory`** (`Inventory`) – The objects inventory.
+- **`seen_handlers`** (`Iterable[BaseHandler]`) – Get the handlers that were encountered so far throughout the build.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def __init__(
+    self,
+    *,
+    theme: str,
+    default: str,
+    inventory_project: str,
+    inventory_version: str = "0.0.0",
+    handlers_config: dict[str, HandlerConfig] | None = None,
+    custom_templates: str | None = None,
+    mdx: Sequence[str | Extension] | None = None,
+    mdx_config: Mapping[str, Any] | None = None,
+    locale: str = "en",
+    tool_config: Any,
+) -> None:
+    """Initialize the object.
+
+    Arguments:
+        theme: The theme to use.
+        default: The default handler to use.
+        inventory_project: The project name to use in the inventory.
+        inventory_version: The project version to use in the inventory.
+        handlers_config: The handlers configuration.
+        custom_templates: The path to custom templates.
+        mdx: A list of Markdown extensions to use.
+        mdx_config: Configuration for the Markdown extensions.
+        locale: The locale to use for translations.
+        tool_config: Tool configuration to pass down to handlers.
+    """
+    self._theme = theme
+    self._default = default
+    self._handlers_config = handlers_config or {}
+    self._custom_templates = custom_templates
+    self._mdx = mdx or []
+    self._mdx_config = mdx_config or {}
+    self._handlers: dict[str, BaseHandler] = {}
+    self._locale = locale
+    self._tool_config = tool_config
+
+    self.inventory: Inventory = Inventory(project=inventory_project, version=inventory_version)
+    """The objects inventory."""
+
+    self._inv_futures: dict[futures.Future, tuple[BaseHandler, str, Any]] = {}
+```
+
+### inventory
+
+```python
+inventory: Inventory = Inventory(
+    project=inventory_project, version=inventory_version
+)
+```
+
+The objects inventory.
+
+### seen_handlers
+
+```python
+seen_handlers: Iterable[BaseHandler]
+```
+
+Get the handlers that were encountered so far throughout the build.
+
+Returns:
+
+- `Iterable[BaseHandler]` – An iterable of instances of BaseHandler
+- `Iterable[BaseHandler]` – (usable only to loop through it).
+
+### get_handler
+
+```python
+get_handler(
+    name: str, handler_config: dict | None = None
+) -> BaseHandler
+```
+
+Get a handler thanks to its name.
+
+This function dynamically imports a module named "mkdocstrings.handlers.NAME", calls its `get_handler` method to get an instance of a handler, and caches it in dictionary. It means that during one run (for each reload when serving, or once when building), a handler is instantiated only once, and reused for each "autodoc" instruction asking for it.
+
+Parameters:
+
+- #### **`name`**
+
+  (`str`) – The name of the handler. Really, it's the name of the Python module holding it.
+
+- #### **`handler_config`**
+
+  (`dict | None`, default: `None` ) – Configuration passed to the handler.
+
+Returns:
+
+- `BaseHandler` – An instance of a subclass of BaseHandler, as instantiated by the get_handler method of the handler's module.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def get_handler(self, name: str, handler_config: dict | None = None) -> BaseHandler:
+    """Get a handler thanks to its name.
+
+    This function dynamically imports a module named "mkdocstrings.handlers.NAME", calls its
+    `get_handler` method to get an instance of a handler, and caches it in dictionary.
+    It means that during one run (for each reload when serving, or once when building),
+    a handler is instantiated only once, and reused for each "autodoc" instruction asking for it.
+
+    Arguments:
+        name: The name of the handler. Really, it's the name of the Python module holding it.
+        handler_config: Configuration passed to the handler.
+
+    Returns:
+        An instance of a subclass of [`BaseHandler`][mkdocstrings.BaseHandler],
+            as instantiated by the `get_handler` method of the handler's module.
+    """
+    if name not in self._handlers:
+        if handler_config is None:
+            handler_config = self._handlers_config.get(name, {})
+        module = importlib.import_module(f"mkdocstrings_handlers.{name}")
+
+        self._handlers[name] = module.get_handler(
+            theme=self._theme,
+            custom_templates=self._custom_templates,
+            mdx=self._mdx,
+            mdx_config=self._mdx_config,
+            handler_config=handler_config,
+            tool_config=self._tool_config,
+        )
+    return self._handlers[name]
+```
+
+### get_handler_config
+
+```python
+get_handler_config(name: str) -> dict
+```
+
+Return the global configuration of the given handler.
+
+Parameters:
+
+- #### **`name`**
+
+  (`str`) – The name of the handler to get the global configuration of.
+
+Returns:
+
+- `dict` – The global configuration of the given handler. It can be an empty dictionary.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def get_handler_config(self, name: str) -> dict:
+    """Return the global configuration of the given handler.
+
+    Arguments:
+        name: The name of the handler to get the global configuration of.
+
+    Returns:
+        The global configuration of the given handler. It can be an empty dictionary.
+    """
+    return self._handlers_config.get(name, None) or {}
+```
+
+### get_handler_name
+
+```python
+get_handler_name(config: dict) -> str
+```
+
+Return the handler name defined in an "autodoc" instruction YAML configuration, or the global default handler.
+
+Parameters:
+
+- #### **`config`**
+
+  (`dict`) – A configuration dictionary, obtained from YAML below the "autodoc" instruction.
+
+Returns:
+
+- `str` – The name of the handler to use.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def get_handler_name(self, config: dict) -> str:
+    """Return the handler name defined in an "autodoc" instruction YAML configuration, or the global default handler.
+
+    Arguments:
+        config: A configuration dictionary, obtained from YAML below the "autodoc" instruction.
+
+    Returns:
+        The name of the handler to use.
+    """
+    return config.get("handler", self._default)
+```
+
+### teardown
+
+```python
+teardown() -> None
+```
+
+Teardown all cached handlers and clear the cache.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def teardown(self) -> None:
+    """Teardown all cached handlers and clear the cache."""
+    for future in self._inv_futures:
+        future.cancel()
+    for handler in self.seen_handlers:
+        handler.teardown()
+    self._handlers.clear()
+```
+
+## HeadingShiftingTreeprocessor
+
+```python
+HeadingShiftingTreeprocessor(md: Markdown, shift_by: int)
+```
+
+Bases: `Treeprocessor`
+
+Shift levels of all Markdown headings according to the configured base level.
+
+Parameters:
+
+- ### **`md`**
+
+  (`Markdown`) – A markdown.Markdown instance.
+
+- ### **`shift_by`**
+
+  (`int`) – The number of heading "levels" to add to every heading.
+
+Methods:
+
+- **`run`** – Shift the levels of all headings in the document.
+
+Attributes:
+
+- **`name`** (`str`) – The name of the treeprocessor.
+- **`regex`** (`Pattern`) – The regex to match heading tags.
+- **`shift_by`** (`int`) – The number of heading "levels" to add to every heading. <h2> with shift_by = 3 becomes <h5>.
+
+Source code in `src/mkdocstrings/_internal/handlers/rendering.py`
+
+```python
+def __init__(self, md: Markdown, shift_by: int):
+    """Initialize the object.
+
+    Arguments:
+        md: A `markdown.Markdown` instance.
+        shift_by: The number of heading "levels" to add to every heading.
+    """
+    super().__init__(md)
+    self.shift_by = shift_by
+```
+
+### name
+
+```python
+name: str = 'mkdocstrings_headings'
+```
+
+The name of the treeprocessor.
+
+### regex
+
+```python
+regex: Pattern = compile('([Hh])([1-6])')
+```
+
+The regex to match heading tags.
+
+### shift_by
+
+```python
+shift_by: int = shift_by
+```
+
+The number of heading "levels" to add to every heading. `<h2>` with `shift_by = 3` becomes `<h5>`.
+
+### run
+
+```python
+run(root: Element) -> None
+```
+
+Shift the levels of all headings in the document.
+
+Source code in `src/mkdocstrings/_internal/handlers/rendering.py`
+
+```python
+def run(self, root: Element) -> None:
+    """Shift the levels of all headings in the document."""
+    if not self.shift_by:
+        return
+    for el in root.iter():
+        match = self.regex.fullmatch(el.tag)
+        if match:
+            level = int(match[2]) + self.shift_by
+            level = max(1, min(level, 6))
+            el.tag = f"{match[1]}{level}"
+```
+
+## Highlighter
+
+```python
+Highlighter(md: Markdown)
+```
+
+Bases: `Highlight`
+
+Code highlighter that tries to match the Markdown configuration.
+
+Picking up the global config and defaults works only if you use the `codehilite` or `pymdownx.highlight` (recommended) Markdown extension.
+
+- If you use `pymdownx.highlight`, highlighting settings are picked up from it, and the default CSS class is `.highlight`. This also means the default of `guess_lang: false`.
+- Otherwise, if you use the `codehilite` extension, settings are picked up from it, and the default CSS class is `.codehilite`. Also consider setting `guess_lang: false`.
+- If neither are added to `markdown_extensions`, highlighting is enabled anyway. This is for backwards compatibility. If you really want to disable highlighting even in *mkdocstrings*, add one of these extensions anyway and set `use_pygments: false`.
+
+The underlying implementation is `pymdownx.highlight` regardless.
+
+Parameters:
+
+- ### **`md`**
+
+  (`Markdown`) – The Markdown instance to read configs from.
+
+Methods:
+
+- **`highlight`** – Highlight a code-snippet.
+
+Source code in `src/mkdocstrings/_internal/handlers/rendering.py`
+
+```python
+def __init__(self, md: Markdown):
+    """Configure to match a `markdown.Markdown` instance.
+
+    Arguments:
+        md: The Markdown instance to read configs from.
+    """
+    config: dict[str, Any] = {}
+    self._highlighter: str | None = None
+    for ext in md.registeredExtensions:
+        if isinstance(ext, HighlightExtension) and (ext.enabled or not config):
+            self._highlighter = "highlight"
+            config = ext.getConfigs()
+            break  # This one takes priority, no need to continue looking
+        if isinstance(ext, CodeHiliteExtension) and not config:
+            self._highlighter = "codehilite"
+            config = ext.getConfigs()
+            config["language_prefix"] = config["lang_prefix"]
+    self._css_class = config.pop("css_class", "highlight")
+    super().__init__(**{name: opt for name, opt in config.items() if name in self._highlight_config_keys})
+```
+
+### highlight
+
+```python
+highlight(
+    src: str,
+    language: str | None = None,
+    *,
+    inline: bool = False,
+    dedent: bool = True,
+    linenums: bool | None = None,
+    **kwargs: Any,
+) -> str
+```
+
+Highlight a code-snippet.
+
+Parameters:
+
+- #### **`src`**
+
+  (`str`) – The code to highlight.
+
+- #### **`language`**
+
+  (`str | None`, default: `None` ) – Explicitly tell what language to use for highlighting.
+
+- #### **`inline`**
+
+  (`bool`, default: `False` ) – Whether to highlight as inline.
+
+- #### **`dedent`**
+
+  (`bool`, default: `True` ) – Whether to dedent the code before highlighting it or not.
+
+- #### **`linenums`**
+
+  (`bool | None`, default: `None` ) – Whether to add line numbers in the result.
+
+- #### **`**kwargs`**
+
+  (`Any`, default: `{}` ) – Pass on to pymdownx.highlight.Highlight.highlight.
+
+Returns:
+
+- `str` – The highlighted code as HTML text, marked safe (not escaped for HTML).
+
+Source code in `src/mkdocstrings/_internal/handlers/rendering.py`
+
+```python
+def highlight(
+    self,
+    src: str,
+    language: str | None = None,
+    *,
+    inline: bool = False,
+    dedent: bool = True,
+    linenums: bool | None = None,
+    **kwargs: Any,
+) -> str:
+    """Highlight a code-snippet.
+
+    Arguments:
+        src: The code to highlight.
+        language: Explicitly tell what language to use for highlighting.
+        inline: Whether to highlight as inline.
+        dedent: Whether to dedent the code before highlighting it or not.
+        linenums: Whether to add line numbers in the result.
+        **kwargs: Pass on to `pymdownx.highlight.Highlight.highlight`.
+
+    Returns:
+        The highlighted code as HTML text, marked safe (not escaped for HTML).
+    """
+    if isinstance(src, Markup):
+        src = src.unescape()
+    if dedent:
+        src = textwrap.dedent(src)
+
+    kwargs.setdefault("css_class", self._css_class)
+    old_linenums = self.linenums  # type: ignore[has-type]
+    if linenums is not None:
+        self.linenums = linenums
+    try:
+        result = super().highlight(src, language, inline=inline, **kwargs)
+    finally:
+        self.linenums = old_linenums
+
+    if inline:
+        # From the maintainer of codehilite, the codehilite CSS class, as defined by the user,
+        # should never be added to inline code, because codehilite does not support inline code.
+        # See https://github.com/Python-Markdown/markdown/issues/1220#issuecomment-1692160297.
+        css_class = "" if self._highlighter == "codehilite" else kwargs["css_class"]
+        return Markup(f'<code class="{css_class} language-{language}">{result.text}</code>')
+    return Markup(result)
+```
+
+## IdPrependingTreeprocessor
+
+```python
+IdPrependingTreeprocessor(md: Markdown, id_prefix: str)
+```
+
+Bases: `Treeprocessor`
+
+Prepend the configured prefix to IDs of all HTML elements.
+
+Parameters:
+
+- ### **`md`**
+
+  (`Markdown`) – A markdown.Markdown instance.
+
+- ### **`id_prefix`**
+
+  (`str`) – The prefix to add to every ID. It is prepended without any separator.
+
+Methods:
+
+- **`run`** – Prepend the configured prefix to all IDs in the document.
+
+Attributes:
+
+- **`id_prefix`** (`str`) – The prefix to add to every ID. It is prepended without any separator; specify your own separator if needed.
+- **`name`** (`str`) – The name of the treeprocessor.
+
+Source code in `src/mkdocstrings/_internal/handlers/rendering.py`
+
+```python
+def __init__(self, md: Markdown, id_prefix: str):
+    """Initialize the object.
+
+    Arguments:
+        md: A `markdown.Markdown` instance.
+        id_prefix: The prefix to add to every ID. It is prepended without any separator.
+    """
+    super().__init__(md)
+    self.id_prefix = id_prefix
+```
+
+### id_prefix
+
+```python
+id_prefix: str = id_prefix
+```
+
+The prefix to add to every ID. It is prepended without any separator; specify your own separator if needed.
+
+### name
+
+```python
+name: str = 'mkdocstrings_ids'
+```
+
+The name of the treeprocessor.
+
+### run
+
+```python
+run(root: Element) -> None
+```
+
+Prepend the configured prefix to all IDs in the document.
+
+Source code in `src/mkdocstrings/_internal/handlers/rendering.py`
+
+```python
+def run(self, root: Element) -> None:
+    """Prepend the configured prefix to all IDs in the document."""
+    if self.id_prefix:
+        self._prefix_ids(root)
+```
+
+## Inventory
+
+```python
+Inventory(
+    items: list[InventoryItem] | None = None,
+    project: str = "project",
+    version: str = "0.0.0",
+)
+```
+
+Bases: `dict`
+
+Inventory of collected and rendered objects.
+
+Parameters:
+
+- ### **`items`**
+
+  (`list[InventoryItem] | None`, default: `None` ) – A list of items.
+
+- ### **`project`**
+
+  (`str`, default: `'project'` ) – The project name.
+
+- ### **`version`**
+
+  (`str`, default: `'0.0.0'` ) – The project version.
+
+Methods:
+
+- **`format_sphinx`** – Format this inventory as a Sphinx objects.inv file.
+- **`parse_sphinx`** – Parse a Sphinx v2 inventory file and return an Inventory from it.
+- **`register`** – Create and register an item.
+
+Attributes:
+
+- **`project`** – The project name.
+- **`version`** – The project version.
+
+Source code in `src/mkdocstrings/_internal/inventory.py`
+
+```python
+def __init__(self, items: list[InventoryItem] | None = None, project: str = "project", version: str = "0.0.0"):
+    """Initialize the object.
+
+    Arguments:
+        items: A list of items.
+        project: The project name.
+        version: The project version.
+    """
+    super().__init__()
+    items = items or []
+    for item in items:
+        self[item.name] = item
+    self.project = project
+    """The project name."""
+    self.version = version
+    """The project version."""
+```
+
+### project
+
+```python
+project = project
+```
+
+The project name.
+
+### version
+
+```python
+version = version
+```
+
+The project version.
+
+### format_sphinx
+
+```python
+format_sphinx() -> bytes
+```
+
+Format this inventory as a Sphinx `objects.inv` file.
+
+Returns:
+
+- `bytes` – The inventory as bytes.
+
+Source code in `src/mkdocstrings/_internal/inventory.py`
+
+```python
+def format_sphinx(self) -> bytes:
+    """Format this inventory as a Sphinx `objects.inv` file.
+
+    Returns:
+        The inventory as bytes.
+    """
+    header = (
+        dedent(
+            f"""
+            # Sphinx inventory version 2
+            # Project: {self.project}
+            # Version: {self.version}
+            # The remainder of this file is compressed using zlib.
+            """,
+        )
+        .lstrip()
+        .encode("utf8")
+    )
+
+    lines = [
+        item.format_sphinx().encode("utf8")
+        for item in sorted(self.values(), key=lambda item: (item.domain, item.name))
+    ]
+    return header + zlib.compress(b"\n".join(lines) + b"\n", 9)
+```
+
+### parse_sphinx
+
+```python
+parse_sphinx(
+    in_file: BinaryIO,
+    *,
+    domain_filter: Collection[str] = (),
+) -> Inventory
+```
+
+Parse a Sphinx v2 inventory file and return an `Inventory` from it.
+
+Parameters:
+
+- #### **`in_file`**
+
+  (`BinaryIO`) – The binary file-like object to read from.
+
+- #### **`domain_filter`**
+
+  (`Collection[str]`, default: `()` ) – A collection of domain values to allow (and filter out all other ones).
+
+Returns:
+
+- `Inventory` – An inventory containing the collected items.
+
+Source code in `src/mkdocstrings/_internal/inventory.py`
+
+```python
+@classmethod
+def parse_sphinx(cls, in_file: BinaryIO, *, domain_filter: Collection[str] = ()) -> Inventory:
+    """Parse a Sphinx v2 inventory file and return an `Inventory` from it.
+
+    Arguments:
+        in_file: The binary file-like object to read from.
+        domain_filter: A collection of domain values to allow (and filter out all other ones).
+
+    Returns:
+        An inventory containing the collected items.
+    """
+    for _ in range(4):
+        in_file.readline()
+    lines = zlib.decompress(in_file.read()).splitlines()
+    items: list[InventoryItem] = [
+        item for line in lines if (item := InventoryItem.parse_sphinx(line.decode("utf8"), return_none=True))
+    ]
+    if domain_filter:
+        items = [item for item in items if item.domain in domain_filter]
+    return cls(items)
+```
+
+### register
+
+```python
+register(
+    name: str,
+    domain: str,
+    role: str,
+    uri: str,
+    priority: int = 1,
+    dispname: str | None = None,
+) -> None
+```
+
+Create and register an item.
+
+Parameters:
+
+- #### **`name`**
+
+  (`str`) – The item name.
+
+- #### **`domain`**
+
+  (`str`) – The item domain, like 'python' or 'crystal'.
+
+- #### **`role`**
+
+  (`str`) – The item role, like 'class' or 'method'.
+
+- #### **`uri`**
+
+  (`str`) – The item URI.
+
+- #### **`priority`**
+
+  (`int`, default: `1` ) – The item priority. Only used internally by mkdocstrings and Sphinx.
+
+- #### **`dispname`**
+
+  (`str | None`, default: `None` ) – The item display name.
+
+Source code in `src/mkdocstrings/_internal/inventory.py`
+
+```python
+def register(
+    self,
+    name: str,
+    domain: str,
+    role: str,
+    uri: str,
+    priority: int = 1,
+    dispname: str | None = None,
+) -> None:
+    """Create and register an item.
+
+    Arguments:
+        name: The item name.
+        domain: The item domain, like 'python' or 'crystal'.
+        role: The item role, like 'class' or 'method'.
+        uri: The item URI.
+        priority: The item priority. Only used internally by mkdocstrings and Sphinx.
+        dispname: The item display name.
+    """
+    self[name] = InventoryItem(
+        name=name,
+        domain=domain,
+        role=role,
+        uri=uri,
+        priority=priority,
+        dispname=dispname,
+    )
+```
+
+## InventoryItem
+
+```python
+InventoryItem(
+    name: str,
+    domain: str,
+    role: str,
+    uri: str,
+    priority: int = 1,
+    dispname: str | None = None,
+)
+```
+
+Inventory item.
+
+Parameters:
+
+- ### **`name`**
+
+  (`str`) – The item name.
+
+- ### **`domain`**
+
+  (`str`) – The item domain, like 'python' or 'crystal'.
+
+- ### **`role`**
+
+  (`str`) – The item role, like 'class' or 'method'.
+
+- ### **`uri`**
+
+  (`str`) – The item URI.
+
+- ### **`priority`**
+
+  (`int`, default: `1` ) – The item priority. Only used internally by mkdocstrings and Sphinx.
+
+- ### **`dispname`**
+
+  (`str | None`, default: `None` ) – The item display name.
+
+Methods:
+
+- **`format_sphinx`** – Format this item as a Sphinx inventory line.
+- **`parse_sphinx`** – Parse a line from a Sphinx v2 inventory file and return an InventoryItem from it.
+
+Attributes:
+
+- **`dispname`** (`str`) – The item display name.
+- **`domain`** (`str`) – The item domain.
+- **`name`** (`str`) – The item name.
+- **`priority`** (`int`) – The item priority.
+- **`role`** (`str`) – The item role.
+- **`sphinx_item_regex`** – Regex to parse a Sphinx v2 inventory line.
+- **`uri`** (`str`) – The item URI.
+
+Source code in `src/mkdocstrings/_internal/inventory.py`
+
+```python
+def __init__(
+    self,
+    name: str,
+    domain: str,
+    role: str,
+    uri: str,
+    priority: int = 1,
+    dispname: str | None = None,
+):
+    """Initialize the object.
+
+    Arguments:
+        name: The item name.
+        domain: The item domain, like 'python' or 'crystal'.
+        role: The item role, like 'class' or 'method'.
+        uri: The item URI.
+        priority: The item priority. Only used internally by mkdocstrings and Sphinx.
+        dispname: The item display name.
+    """
+    self.name: str = name
+    """The item name."""
+    self.domain: str = domain
+    """The item domain."""
+    self.role: str = role
+    """The item role."""
+    self.uri: str = uri
+    """The item URI."""
+    self.priority: int = priority
+    """The item priority."""
+    self.dispname: str = dispname or name
+    """The item display name."""
+```
+
+### dispname
+
+```python
+dispname: str = dispname or name
+```
+
+The item display name.
+
+### domain
+
+```python
+domain: str = domain
+```
+
+The item domain.
+
+### name
+
+```python
+name: str = name
+```
+
+The item name.
+
+### priority
+
+```python
+priority: int = priority
+```
+
+The item priority.
+
+### role
+
+```python
+role: str = role
+```
+
+The item role.
+
+### sphinx_item_regex
+
+```python
+sphinx_item_regex = compile(
+    "^(.+?)\\s+(\\S+):(\\S+)\\s+(-?\\d+)\\s+(\\S+)\\s*(.*)$"
+)
+```
+
+Regex to parse a Sphinx v2 inventory line.
+
+### uri
+
+```python
+uri: str = uri
+```
+
+The item URI.
+
+### format_sphinx
+
+```python
+format_sphinx() -> str
+```
+
+Format this item as a Sphinx inventory line.
+
+Returns:
+
+- `str` – A line formatted for an objects.inv file.
+
+Source code in `src/mkdocstrings/_internal/inventory.py`
+
+```python
+def format_sphinx(self) -> str:
+    """Format this item as a Sphinx inventory line.
+
+    Returns:
+        A line formatted for an `objects.inv` file.
+    """
+    dispname = self.dispname
+    if dispname == self.name:
+        dispname = "-"
+    uri = self.uri
+    if uri.endswith(self.name):
+        uri = uri[: -len(self.name)] + "$"
+    return f"{self.name} {self.domain}:{self.role} {self.priority} {uri} {dispname}"
+```
+
+### parse_sphinx
+
+```python
+parse_sphinx(
+    line: str, *, return_none: Literal[False]
+) -> InventoryItem
+```
+
+```python
+parse_sphinx(
+    line: str, *, return_none: Literal[True]
+) -> InventoryItem | None
+```
+
+```python
+parse_sphinx(
+    line: str, *, return_none: bool = False
+) -> InventoryItem | None
+```
+
+Parse a line from a Sphinx v2 inventory file and return an `InventoryItem` from it.
+
+Source code in `src/mkdocstrings/_internal/inventory.py`
+
+```python
+@classmethod
+def parse_sphinx(cls, line: str, *, return_none: bool = False) -> InventoryItem | None:
+    """Parse a line from a Sphinx v2 inventory file and return an `InventoryItem` from it."""
+    match = cls.sphinx_item_regex.search(line)
+    if not match:
+        if return_none:
+            return None
+        raise ValueError(line)
+    name, domain, role, priority, uri, dispname = match.groups()
+    if uri.endswith("$"):
+        uri = uri[:-1] + name
+    if dispname == "-":
+        dispname = name
+    return cls(name, domain, role, uri, int(priority), dispname)
+```
+
+## LoggerAdapter
+
+```python
+LoggerAdapter(prefix: str, logger: Logger)
+```
+
+Bases: `LoggerAdapter`
+
+A logger adapter to prefix messages.
+
+This adapter also adds an additional parameter to logging methods called `once`: if `True`, the message will only be logged once.
+
+Examples:
+
+In Python code:
+
+```pycon
+>>> logger = get_logger("myplugin")
+>>> logger.debug("This is a debug message.")
+>>> logger.info("This is an info message.", once=True)
+```
+
+In Jinja templates (logger available in context as `log`):
+
+```jinja
+{{ log.debug("This is a debug message.") }}
+{{ log.info("This is an info message.", once=True) }}
+```
+
+Parameters:
+
+- ### **`prefix`**
+
+  (`str`) – The string to insert in front of every message.
+
+- ### **`logger`**
+
+  (`Logger`) – The logger instance.
+
+Methods:
+
+- **`log`** – Log a message.
+- **`process`** – Process the message.
+
+Attributes:
+
+- **`prefix`** – The prefix to insert in front of every message.
+
+Source code in `src/mkdocstrings/_internal/loggers.py`
+
+```python
+def __init__(self, prefix: str, logger: logging.Logger):
+    """Initialize the object.
+
+    Arguments:
+        prefix: The string to insert in front of every message.
+        logger: The logger instance.
+    """
+    super().__init__(logger, {})
+    self.prefix = prefix
+    """The prefix to insert in front of every message."""
+    self._logged: set[tuple[LoggerAdapter, str]] = set()
+```
+
+### prefix
+
+```python
+prefix = prefix
+```
+
+The prefix to insert in front of every message.
+
+### log
+
+```python
+log(
+    level: int, msg: object, *args: object, **kwargs: object
+) -> None
+```
+
+Log a message.
+
+Parameters:
+
+- #### **`level`**
+
+  (`int`) – The logging level.
+
+- #### **`msg`**
+
+  (`object`) – The message.
+
+- #### **`*args`**
+
+  (`object`, default: `()` ) – Additional arguments passed to parent method.
+
+- #### **`**kwargs`**
+
+  (`object`, default: `{}` ) – Additional keyword arguments passed to parent method.
+
+Source code in `src/mkdocstrings/_internal/loggers.py`
+
+```python
+def log(self, level: int, msg: object, *args: object, **kwargs: object) -> None:
+    """Log a message.
+
+    Arguments:
+        level: The logging level.
+        msg: The message.
+        *args: Additional arguments passed to parent method.
+        **kwargs: Additional keyword arguments passed to parent method.
+    """
+    if kwargs.pop("once", False):
+        if (key := (self, str(msg))) in self._logged:
+            return
+        self._logged.add(key)
+    super().log(level, msg, *args, **kwargs)  # type: ignore[arg-type]
+```
+
+### process
+
+```python
+process(
+    msg: str, kwargs: MutableMapping[str, Any]
+) -> tuple[str, Any]
+```
+
+Process the message.
+
+Parameters:
+
+- #### **`msg`**
+
+  (`str`) – The message:
+
+- #### **`kwargs`**
+
+  (`MutableMapping[str, Any]`) – Remaining arguments.
+
+Returns:
+
+- `tuple[str, Any]` – The processed message.
+
+Source code in `src/mkdocstrings/_internal/loggers.py`
+
+```python
+def process(self, msg: str, kwargs: MutableMapping[str, Any]) -> tuple[str, Any]:
+    """Process the message.
+
+    Arguments:
+        msg: The message:
+        kwargs: Remaining arguments.
+
+    Returns:
+        The processed message.
+    """
+    return f"{self.prefix}: {msg}", kwargs
+```
+
+## MkdocstringsExtension
+
+```python
+MkdocstringsExtension(
+    handlers: Handlers,
+    autorefs: AutorefsPlugin,
+    **kwargs: Any,
+)
+```
+
+Bases: `Extension`
+
+Our Markdown extension.
+
+It cannot work outside of `mkdocstrings`.
+
+Parameters:
+
+- ### **`handlers`**
+
+  (`Handlers`) – The handlers container.
+
+- ### **`autorefs`**
+
+  (`AutorefsPlugin`) – The autorefs plugin instance.
+
+- ### **`**kwargs`**
+
+  (`Any`, default: `{}` ) – Keyword arguments used by markdown.extensions.Extension.
+
+Methods:
+
+- **`extendMarkdown`** – Register the extension.
+
+Source code in `src/mkdocstrings/_internal/extension.py`
+
+```python
+def __init__(self, handlers: Handlers, autorefs: AutorefsPlugin, **kwargs: Any) -> None:
+    """Initialize the object.
+
+    Arguments:
+        handlers: The handlers container.
+        autorefs: The autorefs plugin instance.
+        **kwargs: Keyword arguments used by `markdown.extensions.Extension`.
+    """
+    super().__init__(**kwargs)
+    self._handlers = handlers
+    self._autorefs = autorefs
+```
+
+### extendMarkdown
+
+```python
+extendMarkdown(md: Markdown) -> None
+```
+
+Register the extension.
+
+Add an instance of our AutoDocProcessor to the Markdown parser.
+
+Parameters:
+
+- #### **`md`**
+
+  (`Markdown`) – A markdown.Markdown instance.
+
+Source code in `src/mkdocstrings/_internal/extension.py`
+
+```python
+def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
+    """Register the extension.
+
+    Add an instance of our [`AutoDocProcessor`][mkdocstrings.AutoDocProcessor] to the Markdown parser.
+
+    Arguments:
+        md: A `markdown.Markdown` instance.
+    """
+    md.parser.blockprocessors.register(
+        AutoDocProcessor(md, handlers=self._handlers, autorefs=self._autorefs),
+        "mkdocstrings",
+        priority=75,  # Right before markdown.blockprocessors.HashHeaderProcessor
+    )
+    md.treeprocessors.register(
+        _HeadingsPostProcessor(md),
+        "mkdocstrings_post_headings",
+        priority=4,  # Right after 'toc'.
+    )
+    md.treeprocessors.register(
+        _TocLabelsTreeProcessor(md),
+        "mkdocstrings_post_toc_labels",
+        priority=4,  # Right after 'toc'.
+    )
+```
+
+## MkdocstringsInnerExtension
+
+```python
+MkdocstringsInnerExtension(headings: list[Element])
+```
+
+Bases: `Extension`
+
+Extension that should always be added to Markdown sub-documents that handlers request (and *only* them).
+
+Parameters:
+
+- ### **`headings`**
+
+  (`list[Element]`) – A list that will be populated with all HTML heading elements encountered in the document.
+
+Methods:
+
+- **`extendMarkdown`** – Register the extension.
+
+Attributes:
+
+- **`headings`** – The list that will be populated with all HTML heading elements encountered in the document.
+
+Source code in `src/mkdocstrings/_internal/handlers/rendering.py`
+
+```python
+def __init__(self, headings: list[Element]):
+    """Initialize the object.
+
+    Arguments:
+        headings: A list that will be populated with all HTML heading elements encountered in the document.
+    """
+    super().__init__()
+    self.headings = headings
+    """The list that will be populated with all HTML heading elements encountered in the document."""
+```
+
+### headings
+
+```python
+headings = headings
+```
+
+The list that will be populated with all HTML heading elements encountered in the document.
+
+### extendMarkdown
+
+```python
+extendMarkdown(md: Markdown) -> None
+```
+
+Register the extension.
+
+Parameters:
+
+- #### **`md`**
+
+  (`Markdown`) – A markdown.Markdown instance.
+
+Source code in `src/mkdocstrings/_internal/handlers/rendering.py`
+
+```python
+def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
+    """Register the extension.
+
+    Arguments:
+        md: A `markdown.Markdown` instance.
+    """
+    md.registerExtension(self)
+    md.treeprocessors.register(
+        HeadingShiftingTreeprocessor(md, 0),
+        HeadingShiftingTreeprocessor.name,
+        priority=12,
+    )
+    md.treeprocessors.register(
+        IdPrependingTreeprocessor(md, ""),
+        IdPrependingTreeprocessor.name,
+        priority=4,  # Right after 'toc' (needed because that extension adds ids to headers).
+    )
+    md.treeprocessors.register(
+        _HeadingReportingTreeprocessor(md, self.headings),
+        _HeadingReportingTreeprocessor.name,
+        priority=1,  # Close to the end.
+    )
+    md.treeprocessors.register(
+        ParagraphStrippingTreeprocessor(md),
+        ParagraphStrippingTreeprocessor.name,
+        priority=0.99,  # Close to the end.
+    )
+```
+
+## MkdocstringsPlugin
+
+```python
+MkdocstringsPlugin()
+```
+
+Bases: `BasePlugin[PluginConfig]`
+
+An `mkdocs` plugin.
+
+This plugin defines the following event hooks:
+
+- `on_config`
+- `on_env`
+- `on_post_build`
+
+Check the [Developing Plugins](https://www.mkdocs.org/user-guide/plugins/#developing-plugins) page of `mkdocs` for more information about its plugin system.
+
+Methods:
+
+- **`get_handler`** – Get a handler by its name. See mkdocstrings.Handlers.get_handler.
+- **`on_config`** – Instantiate our Markdown extension.
+- **`on_post_build`** – Teardown the handlers.
+
+Attributes:
+
+- **`css_filename`** (`str`) – The path of the CSS file to write in the site directory.
+- **`handlers`** (`Handlers`) – Get the instance of mkdocstrings.Handlers for this plugin/build.
+- **`inventory_enabled`** (`bool`) – Tell if the inventory is enabled or not.
+- **`on_env`** – Extra actions that need to happen after all Markdown-to-HTML page rendering.
+- **`plugin_enabled`** (`bool`) – Tell if the plugin is enabled or not.
+
+Source code in `src/mkdocstrings/_internal/plugin.py`
+
+```python
+def __init__(self) -> None:
+    """Initialize the object."""
+    super().__init__()
+    self._handlers: Handlers | None = None
+```
+
+### css_filename
+
+```python
+css_filename: str = 'assets/_mkdocstrings.css'
+```
+
+The path of the CSS file to write in the site directory.
+
+### handlers
+
+```python
+handlers: Handlers
+```
+
+Get the instance of mkdocstrings.Handlers for this plugin/build.
+
+Raises:
+
+- `RuntimeError` – If the plugin hasn't been initialized with a config.
+
+Returns:
+
+- `Handlers` – An instance of mkdocstrings.Handlers (the same throughout the build).
+
+### inventory_enabled
+
+```python
+inventory_enabled: bool
+```
+
+Tell if the inventory is enabled or not.
+
+Returns:
+
+- `bool` – Whether the inventory is enabled.
+
+### on_env
+
+```python
+on_env = CombinedEvent(
+    _on_env_load_inventories,
+    _on_env_add_css,
+    _on_env_write_inventory,
+    _on_env_apply_backlinks,
+)
+```
+
+Extra actions that need to happen after all Markdown-to-HTML page rendering.
+
+Hook for the [`on_env` event](https://www.mkdocs.org/user-guide/plugins/#on_env).
+
+- Gather results from background inventory download tasks.
+- Write mkdocstrings' extra files (CSS, inventory) into the site directory.
+- Apply backlinks to the HTML output of each page.
+
+### plugin_enabled
+
+```python
+plugin_enabled: bool
+```
+
+Tell if the plugin is enabled or not.
+
+Returns:
+
+- `bool` – Whether the plugin is enabled.
+
+### get_handler
+
+```python
+get_handler(handler_name: str) -> BaseHandler
+```
+
+Get a handler by its name. See mkdocstrings.Handlers.get_handler.
+
+Parameters:
+
+- #### **`handler_name`**
+
+  (`str`) – The name of the handler.
+
+Returns:
+
+- `BaseHandler` – An instance of a subclass of BaseHandler.
+
+Source code in `src/mkdocstrings/_internal/plugin.py`
+
+```python
+def get_handler(self, handler_name: str) -> BaseHandler:
+    """Get a handler by its name. See [mkdocstrings.Handlers.get_handler][].
+
+    Arguments:
+        handler_name: The name of the handler.
+
+    Returns:
+        An instance of a subclass of [`BaseHandler`][mkdocstrings.BaseHandler].
+    """
+    return self.handlers.get_handler(handler_name)
+```
+
+### on_config
+
+```python
+on_config(config: MkDocsConfig) -> MkDocsConfig | None
+```
+
+Instantiate our Markdown extension.
+
+Hook for the [`on_config` event](https://www.mkdocs.org/user-guide/plugins/#on_config). In this hook, we instantiate our MkdocstringsExtension and add it to the list of Markdown extensions used by `mkdocs`.
+
+We pass this plugin's configuration dictionary to the extension when instantiating it (it will need it later when processing markdown to get handlers and their global configurations).
+
+Parameters:
+
+- #### **`config`**
+
+  (`MkDocsConfig`) – The MkDocs config object.
+
+Returns:
+
+- `MkDocsConfig | None` – The modified config.
+
+Source code in `src/mkdocstrings/_internal/plugin.py`
+
+```python
+def on_config(self, config: MkDocsConfig) -> MkDocsConfig | None:
+    """Instantiate our Markdown extension.
+
+    Hook for the [`on_config` event](https://www.mkdocs.org/user-guide/plugins/#on_config).
+    In this hook, we instantiate our [`MkdocstringsExtension`][mkdocstrings.MkdocstringsExtension]
+    and add it to the list of Markdown extensions used by `mkdocs`.
+
+    We pass this plugin's configuration dictionary to the extension when instantiating it (it will need it
+    later when processing markdown to get handlers and their global configurations).
+
+    Arguments:
+        config: The MkDocs config object.
+
+    Returns:
+        The modified config.
+    """
+    if not self.plugin_enabled:
+        _logger.debug("Plugin is not enabled. Skipping.")
+        return config
+    _logger.debug("Adding extension to the list")
+
+    locale = self.config.locale or config.theme.get("language") or config.theme.get("locale") or "en"
+    locale = str(locale).replace("_", "-")
+
+    handlers = Handlers(
+        default=self.config.default_handler,
+        handlers_config=self.config.handlers,
+        theme=config.theme.name or os.path.dirname(config.theme.dirs[0]),
+        custom_templates=self.config.custom_templates,
+        mdx=config.markdown_extensions,
+        mdx_config=config.mdx_configs,
+        inventory_project=config.site_name,
+        inventory_version="0.0.0",  # TODO: Find a way to get actual version.
+        locale=locale,
+        tool_config=config,
+    )
+
+    handlers._download_inventories()
+
+    AutorefsPlugin.record_backlinks = True
+    autorefs: AutorefsPlugin
+    try:
+        # If autorefs plugin is explicitly enabled, just use it.
+        autorefs = config.plugins["autorefs"]  # type: ignore[assignment]
+        _logger.debug("Picked up existing autorefs instance %r", autorefs)
+    except KeyError:
+        # Otherwise, add a limited instance of it that acts only on what's added through `register_anchor`.
+        autorefs = AutorefsPlugin()
+        autorefs.config = AutorefsConfig()
+        autorefs.scan_toc = False
+        config.plugins["autorefs"] = autorefs
+        _logger.debug("Added a subdued autorefs instance %r", autorefs)
+
+    mkdocstrings_extension = MkdocstringsExtension(handlers, autorefs)
+    config.markdown_extensions.append(mkdocstrings_extension)  # type: ignore[arg-type]
+
+    config.extra_css.insert(0, self.css_filename)  # So that it has lower priority than user files.
+
+    self._autorefs = autorefs
+    self._handlers = handlers
+    return config
+```
+
+### on_post_build
+
+```python
+on_post_build(config: MkDocsConfig, **kwargs: Any) -> None
+```
+
+Teardown the handlers.
+
+Hook for the [`on_post_build` event](https://www.mkdocs.org/user-guide/plugins/#on_post_build). This hook is used to teardown all the handlers that were instantiated and cached during documentation buildup.
+
+For example, a handler could open a subprocess in the background and keep it open to feed it "autodoc" instructions and get back JSON data. If so, it should then close the subprocess at some point: the proper place to do this is in the handler's `teardown` method, which is indirectly called by this hook.
+
+Parameters:
+
+- #### **`config`**
+
+  (`MkDocsConfig`) – The MkDocs config object.
+
+- #### **`**kwargs`**
+
+  (`Any`, default: `{}` ) – Additional arguments passed by MkDocs.
+
+Source code in `src/mkdocstrings/_internal/plugin.py`
+
+```python
+def on_post_build(
+    self,
+    config: MkDocsConfig,  # noqa: ARG002
+    **kwargs: Any,  # noqa: ARG002
+) -> None:
+    """Teardown the handlers.
+
+    Hook for the [`on_post_build` event](https://www.mkdocs.org/user-guide/plugins/#on_post_build).
+    This hook is used to teardown all the handlers that were instantiated and cached during documentation buildup.
+
+    For example, a handler could open a subprocess in the background and keep it open
+    to feed it "autodoc" instructions and get back JSON data. If so, it should then close the subprocess at some point:
+    the proper place to do this is in the handler's `teardown` method, which is indirectly called by this hook.
+
+    Arguments:
+        config: The MkDocs config object.
+        **kwargs: Additional arguments passed by MkDocs.
+    """
+    if not self.plugin_enabled:
+        return
+
+    if self._handlers:
+        _logger.debug("Tearing handlers down")
+        self.handlers.teardown()
+```
+
+## ParagraphStrippingTreeprocessor
+
+Bases: `Treeprocessor`
+
+Unwraps the `<p>` element around the whole output.
+
+Methods:
+
+- **`run`** – Unwrap the root element if it's a single <p> element.
+
+Attributes:
+
+- **`name`** (`str`) – The name of the treeprocessor.
+- **`strip`** (`bool`) – Whether to strip <p> elements or not.
+
+### name
+
+```python
+name: str = 'mkdocstrings_strip_paragraph'
+```
+
+The name of the treeprocessor.
+
+### strip
+
+```python
+strip: bool = False
+```
+
+Whether to strip `<p>` elements or not.
+
+### run
+
+```python
+run(root: Element) -> Element | None
+```
+
+Unwrap the root element if it's a single `<p>` element.
+
+Source code in `src/mkdocstrings/_internal/handlers/rendering.py`
+
+```python
+def run(self, root: Element) -> Element | None:
+    """Unwrap the root element if it's a single `<p>` element."""
+    if self.strip and len(root) == 1 and root[0].tag == "p":
+        # Turn the single `<p>` element into the root element and inherit its tag name (it's significant!)
+        root[0].tag = root.tag
+        return root[0]
+    return None
+```
+
+## PluginConfig
+
+Bases: `Config`
+
+The configuration options of `mkdocstrings`, written in `mkdocs.yml`.
+
+Attributes:
+
+- **`custom_templates`** – Location of custom templates to use when rendering API objects.
+- **`default_handler`** – The default handler to use. The value is the name of the handler module. Default is "python".
+- **`enable_inventory`** – Whether to enable object inventory creation.
+- **`enabled`** – Whether to enable the plugin. Default is true. If false, mkdocstrings will not collect or render anything.
+- **`handlers`** – Global configuration of handlers.
+- **`locale`** – The locale to use for translations.
+
+### custom_templates
+
+```python
+custom_templates = Optional(Dir(exists=True))
+```
+
+Location of custom templates to use when rendering API objects.
+
+Value should be the path of a directory relative to the MkDocs configuration file.
+
+### default_handler
+
+```python
+default_handler = Type(str, default='python')
+```
+
+The default handler to use. The value is the name of the handler module. Default is "python".
+
+### enable_inventory
+
+```python
+enable_inventory = Optional(Type(bool))
+```
+
+Whether to enable object inventory creation.
+
+### enabled
+
+```python
+enabled = Type(bool, default=True)
+```
+
+Whether to enable the plugin. Default is true. If false, *mkdocstrings* will not collect or render anything.
+
+### handlers
+
+```python
+handlers = Type(dict, default={})
+```
+
+Global configuration of handlers.
+
+You can set global configuration per handler, applied everywhere, but overridable in each "autodoc" instruction. Example:
+
+```yaml
+plugins:
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            option1: true
+            option2: "value"
+        rust:
+          options:
+            option9: 2
+```
+
+### locale
+
+```python
+locale = Optional(Type(str))
+```
+
+The locale to use for translations.
+
+## TemplateLogger
+
+```python
+TemplateLogger(logger: LoggerAdapter)
+```
+
+A wrapper class to allow logging in templates.
+
+The logging methods provided by this class all accept two parameters:
+
+- `msg`: The message to log.
+- `once`: If `True`, the message will only be logged once.
+
+Methods:
+
+- **`debug`** – Function to log a DEBUG message.
+- **`info`** – Function to log an INFO message.
+- **`warning`** – Function to log a WARNING message.
+- **`error`** – Function to log an ERROR message.
+- **`critical`** – Function to log a CRITICAL message.
+
+Parameters:
+
+- ### **`logger`**
+
+  (`LoggerAdapter`) – A logger adapter.
+
+Attributes:
+
+- **`critical`** – Log a CRITICAL message.
+- **`debug`** – Log a DEBUG message.
+- **`error`** – Log an ERROR message.
+- **`info`** – Log an INFO message.
+- **`warning`** – Log a WARNING message.
+
+Source code in `src/mkdocstrings/_internal/loggers.py`
+
+```python
+def __init__(self, logger: LoggerAdapter):
+    """Initialize the object.
+
+    Arguments:
+        logger: A logger adapter.
+    """
+    self.debug = get_template_logger_function(logger.debug)
+    """Log a DEBUG message."""
+    self.info = get_template_logger_function(logger.info)
+    """Log an INFO message."""
+    self.warning = get_template_logger_function(logger.warning)
+    """Log a WARNING message."""
+    self.error = get_template_logger_function(logger.error)
+    """Log an ERROR message."""
+    self.critical = get_template_logger_function(logger.critical)
+    """Log a CRITICAL message."""
+```
+
+### critical
+
+```python
+critical = get_template_logger_function(critical)
+```
+
+Log a CRITICAL message.
+
+### debug
+
+```python
+debug = get_template_logger_function(debug)
+```
+
+Log a DEBUG message.
+
+### error
+
+```python
+error = get_template_logger_function(error)
+```
+
+Log an ERROR message.
+
+### info
+
+```python
+info = get_template_logger_function(info)
+```
+
+Log an INFO message.
+
+### warning
+
+```python
+warning = get_template_logger_function(warning)
+```
+
+Log a WARNING message.
+
+## ThemeNotSupported
+
+Bases: `Exception`
+
+An exception raised to tell a theme is not supported.
+
+## do_any
+
+```python
+do_any(seq: Sequence, attribute: str | None = None) -> bool
+```
+
+Check if at least one of the item in the sequence evaluates to true.
+
+The `any` builtin as a filter for Jinja templates.
+
+Parameters:
+
+- ### **`seq`**
+
+  (`Sequence`) – An iterable object.
+
+- ### **`attribute`**
+
+  (`str | None`, default: `None` ) – The attribute name to use on each object of the iterable.
+
+Returns:
+
+- `bool` – A boolean telling if any object of the iterable evaluated to True.
+
+Source code in `src/mkdocstrings/_internal/handlers/base.py`
+
+```python
+def do_any(seq: Sequence, attribute: str | None = None) -> bool:
+    """Check if at least one of the item in the sequence evaluates to true.
+
+    The `any` builtin as a filter for Jinja templates.
+
+    Arguments:
+        seq: An iterable object.
+        attribute: The attribute name to use on each object of the iterable.
+
+    Returns:
+        A boolean telling if any object of the iterable evaluated to True.
+    """
+    if attribute is None:
+        return any(seq)
+    return any(_[attribute] for _ in seq)
+```
+
+## get_logger
+
+```python
+get_logger(name: str) -> LoggerAdapter
+```
+
+Return a pre-configured logger.
+
+Parameters:
+
+- ### **`name`**
+
+  (`str`) – The name to use with logging.getLogger.
+
+Returns:
+
+- `LoggerAdapter` – A logger configured to work well in MkDocs.
+
+Source code in `src/mkdocstrings/_internal/loggers.py`
+
+```python
+def get_logger(name: str) -> LoggerAdapter:
+    """Return a pre-configured logger.
+
+    Arguments:
+        name: The name to use with `logging.getLogger`.
+
+    Returns:
+        A logger configured to work well in MkDocs.
+    """
+    logger = logging.getLogger(f"mkdocs.plugins.{name}")
+    return LoggerAdapter(name.split(".", 1)[0], logger)
+```
+
+## get_template_logger
+
+```python
+get_template_logger(
+    handler_name: str | None = None,
+) -> TemplateLogger
+```
+
+Return a logger usable in templates.
+
+Parameters:
+
+- ### **`handler_name`**
+
+  (`str | None`, default: `None` ) – The name of the handler.
+
+Returns:
+
+- `TemplateLogger` – A template logger.
+
+Source code in `src/mkdocstrings/_internal/loggers.py`
+
+```python
+def get_template_logger(handler_name: str | None = None) -> TemplateLogger:
+    """Return a logger usable in templates.
+
+    Parameters:
+        handler_name: The name of the handler.
+
+    Returns:
+        A template logger.
+    """
+    handler_name = handler_name or "base"
+    return TemplateLogger(get_logger(f"mkdocstrings_handlers.{handler_name}.templates"))
+```
+
+## get_template_logger_function
+
+```python
+get_template_logger_function(
+    logger_func: Callable,
+) -> Callable
+```
+
+Create a wrapper function that automatically receives the Jinja template context.
+
+Parameters:
+
+- ### **`logger_func`**
+
+  (`Callable`) – The logger function to use within the wrapper.
+
+Returns:
+
+- `Callable` – A function.
+
+Source code in `src/mkdocstrings/_internal/loggers.py`
+
+```python
+def get_template_logger_function(logger_func: Callable) -> Callable:
+    """Create a wrapper function that automatically receives the Jinja template context.
+
+    Arguments:
+        logger_func: The logger function to use within the wrapper.
+
+    Returns:
+        A function.
+    """
+
+    @pass_context
+    def wrapper(context: Context, msg: str | None = None, *args: Any, **kwargs: Any) -> str:
+        """Log a message.
+
+        Arguments:
+            context: The template context, automatically provided by Jinja.
+            msg: The message to log.
+            **kwargs: Additional arguments passed to the logger function.
+
+        Returns:
+            An empty string.
+        """
+        logger_func(f"%s: {msg or 'Rendering'}", _Lazy(get_template_path, context), *args, **kwargs)
+        return ""
+
+    return wrapper
+```
+
+## get_template_path
+
+```python
+get_template_path(context: Context) -> str
+```
+
+Return the path to the template currently using the given context.
+
+Parameters:
+
+- ### **`context`**
+
+  (`Context`) – The template context.
+
+Returns:
+
+- `str` – The relative path to the template.
+
+Source code in `src/mkdocstrings/_internal/loggers.py`
+
+```python
+def get_template_path(context: Context) -> str:
+    """Return the path to the template currently using the given context.
+
+    Arguments:
+        context: The template context.
+
+    Returns:
+        The relative path to the template.
+    """
+    context_name: str = str(context.name)
+    filename = context.environment.get_template(context_name).filename
+    if filename:
+        for template_dir in TEMPLATES_DIRS:
+            with suppress(ValueError):
+                return str(Path(filename).relative_to(template_dir))
+        with suppress(ValueError):
+            return str(Path(filename).relative_to(Path.cwd()))
+        return filename
+    return context_name
+```
+
+## makeExtension
+
+```python
+makeExtension(
+    *,
+    default_handler: str | None = None,
+    inventory_project: str | None = None,
+    inventory_version: str | None = None,
+    handlers: dict[str, dict] | None = None,
+    custom_templates: str | None = None,
+    markdown_extensions: list[str | dict] | None = None,
+    locale: str | None = None,
+    config_file_path: str | None = None,
+) -> MkdocstringsExtension
+```
+
+Create the extension instance.
+
+We only support this function being used by Zensical. Consider this function private API.
+
+Source code in `src/mkdocstrings/_internal/extension.py`
+
+```python
+def makeExtension(  # noqa: N802
+    *,
+    default_handler: str | None = None,
+    inventory_project: str | None = None,
+    inventory_version: str | None = None,
+    handlers: dict[str, dict] | None = None,
+    custom_templates: str | None = None,
+    markdown_extensions: list[str | dict] | None = None,
+    locale: str | None = None,
+    config_file_path: str | None = None,
+) -> MkdocstringsExtension:
+    """Create the extension instance.
+
+    We only support this function being used by Zensical.
+    Consider this function private API.
+    """
+    mdx, mdx_config = _split_configs(markdown_extensions or [])
+    tool_config = _ToolConfig(config_file_path=config_file_path)
+
+    handlers_instance = Handlers(
+        theme="material",
+        default=default_handler or _default_config["default_handler"],
+        inventory_project=inventory_project or "Project",
+        inventory_version=inventory_version or "0.0.0",
+        handlers_config=handlers or _default_config["handlers"],
+        custom_templates=custom_templates or _default_config["custom_templates"],
+        mdx=mdx,
+        mdx_config=mdx_config,
+        locale=locale or _default_config["locale"],
+        tool_config=tool_config,
+    )
+
+    handlers_instance._download_inventories()
+
+    autorefs = AutorefsPlugin()
+    autorefs.config = AutorefsConfig()
+    autorefs.scan_toc = False
+
+    return MkdocstringsExtension(handlers=handlers_instance, autorefs=autorefs)
+```

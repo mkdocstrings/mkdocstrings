@@ -13,8 +13,6 @@ html[data-theme="dark"] {
 
 .pyodide-editor {
     width: 100%;
-    min-height: 200px;
-    max-height: 400px;
     font-size: .85em;
 }
 
@@ -47,4 +45,9 @@ html[data-theme="dark"] {
 .pyodide-clickable {
     cursor: pointer;
     text-align: right;
+}
+
+/* For themes other than Material. */
+.pyodide .twemoji svg {
+    width: 1rem;
 }
