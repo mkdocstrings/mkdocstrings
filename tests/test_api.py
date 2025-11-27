@@ -152,8 +152,6 @@ def test_inventory_matches_api(
 ) -> None:
     """The inventory doesn't contain any additional Python object."""
     not_in_api = []
-    # YORE: Bump 1: Remove line.
-    deprecated_modules = {"extension", "handlers", "inventory", "loggers", "plugin"}
     public_api_paths = {obj.path for obj in public_objects}
     public_api_paths.add("mkdocstrings")
     for item in inventory.values():
@@ -163,9 +161,6 @@ def test_inventory_matches_api(
             and (item.name == "mkdocstrings" or item.name.startswith("mkdocstrings."))
         ):
             obj = loader.modules_collection[item.name]
-            # YORE: Bump 1: Remove block.
-            if any(obj.path.startswith(f"mkdocstrings.{module}") for module in deprecated_modules):
-                continue
 
             if obj.path not in public_api_paths and not any(path in public_api_paths for path in obj.aliases):
                 not_in_api.append(item.name)

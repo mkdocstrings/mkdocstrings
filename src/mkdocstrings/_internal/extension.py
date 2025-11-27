@@ -26,7 +26,6 @@ import re
 from functools import partial
 from inspect import signature
 from typing import TYPE_CHECKING, Any
-from warnings import warn
 from xml.etree.ElementTree import Element
 
 import yaml
@@ -172,19 +171,7 @@ class AutoDocProcessor(BlockProcessor):
             # Heading level obtained from Markdown (`##`) takes precedence.
             local_options["heading_level"] = heading_level
 
-        # YORE: Bump 1: Replace block with line 2.
-        if handler.get_options.__func__ is not BaseHandler.get_options:  # type: ignore[attr-defined]
-            options = handler.get_options(local_options)
-        else:
-            warn(
-                "mkdocstrings v1 will start using your handler's `get_options` method to build options "
-                "instead of merging the global and local options (dictionaries). ",
-                DeprecationWarning,
-                stacklevel=1,
-            )
-            handler_config = self._handlers.get_handler_config(handler_name)
-            global_options = handler_config.get("options", {})
-            options = {**global_options, **local_options}
+        options = handler.get_options(local_options)
 
         _logger.debug("Collecting data")
         try:
@@ -266,23 +253,7 @@ class AutoDocProcessor(BlockProcessor):
             # Register all identifiers for this object
             # both in the autorefs plugin and in the inventory.
             aliases: tuple[str, ...]
-            # YORE: Bump 1: Replace block with line 16.
-            if hasattr(handler, "get_anchors"):
-                warn(
-                    "The `get_anchors` method is deprecated. "
-                    "Declare a `get_aliases` method instead, accepting a string (identifier) "
-                    "instead of a collected object.",
-                    DeprecationWarning,
-                    stacklevel=1,
-                )
-                try:
-                    data_object = handler.collect(rendered_id, getattr(handler, "fallback_config", {}))
-                except CollectionError:
-                    aliases = ()
-                else:
-                    aliases = handler.get_anchors(data_object)
-            else:
-                aliases = handler.get_aliases(rendered_id)
+            aliases = handler.get_aliases(rendered_id)
 
             for alias in aliases:
                 if alias != rendered_id:

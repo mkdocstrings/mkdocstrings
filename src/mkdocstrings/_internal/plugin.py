@@ -19,7 +19,6 @@ from functools import partial
 from inspect import signature
 from re import Match
 from typing import TYPE_CHECKING, Any
-from warnings import catch_warnings, simplefilter
 
 from mkdocs.config import Config
 from mkdocs.config import config_options as opt
@@ -166,10 +165,6 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             autorefs.scan_toc = False
             config.plugins["autorefs"] = autorefs
             _logger.debug("Added a subdued autorefs instance %r", autorefs)
-        # YORE: Bump 1: Remove block.
-        with catch_warnings():
-            simplefilter("ignore", category=DeprecationWarning)
-            autorefs.get_fallback_anchor = handlers.get_anchors
 
         mkdocstrings_extension = MkdocstringsExtension(handlers, autorefs)
         config.markdown_extensions.append(mkdocstrings_extension)  # type: ignore[arg-type]

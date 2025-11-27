@@ -7,11 +7,7 @@ from contextlib import suppress
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Callable
 
-# YORE: Bump 1: Replace block with line 2.
-try:
-    from jinja2 import pass_context
-except ImportError:
-    from jinja2 import contextfunction as pass_context  # type: ignore[attr-defined,no-redef]
+from jinja2 import pass_context
 
 if TYPE_CHECKING:
     from collections.abc import MutableMapping, Sequence

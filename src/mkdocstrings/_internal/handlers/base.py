@@ -6,10 +6,9 @@ from __future__ import annotations
 
 import datetime
 import importlib
-import inspect
 import ssl
-import sys
 from concurrent import futures
+from importlib.metadata import entry_points
 from io import BytesIO
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, BinaryIO, ClassVar, cast
@@ -32,12 +31,6 @@ from mkdocstrings._internal.handlers.rendering import (
 )
 from mkdocstrings._internal.inventory import Inventory
 from mkdocstrings._internal.loggers import get_logger, get_template_logger
-
-# YORE: EOL 3.9: Replace block with line 4.
-if sys.version_info < (3, 10):
-    from importlib_metadata import entry_points
-else:
-    from importlib.metadata import entry_points
 
 if TYPE_CHECKING:
     from collections.abc import Iterable, Iterator, Mapping, Sequence
@@ -104,20 +97,14 @@ class BaseHandler:
     To add custom CSS, add an `extra_css` variable or create an 'style.css' file beside the templates.
     """
 
-    # YORE: Bump 1: Replace ` = ""` with `` within line.
-    name: ClassVar[str] = ""
+    name: ClassVar[str]
     """The handler's name, for example "python"."""
 
-    # YORE: Bump 1: Replace ` = ""` with `` within line.
-    domain: ClassVar[str] = ""
+    domain: ClassVar[str]
     """The handler's domain, used to register objects in the inventory, for example "py"."""
 
     enable_inventory: ClassVar[bool] = False
     """Whether the inventory creation is enabled."""
-
-    # YORE: Bump 1: Remove block.
-    fallback_config: ClassVar[dict] = {}
-    """Fallback configuration when searching anchors for identifiers."""
 
     fallback_theme: ClassVar[str] = ""
     """Fallback theme to use when a template isn't found in the configured theme."""
@@ -127,16 +114,11 @@ class BaseHandler:
 
     def __init__(
         self,
-        # YORE: Bump 1: Remove line.
-        *args: Any,
-        # YORE: Bump 1: Remove line.
-        **kwargs: Any,
-        # YORE: Bump 1: Replace `# ` with `` within block.
-        # *,
-        # theme: str,
-        # custom_templates: str | None,
-        # mdx: Sequence[str | Extension],
-        # mdx_config: Mapping[str, Any],
+        *,
+        theme: str,
+        custom_templates: str | None,
+        mdx: Sequence[str | Extension],
+        mdx_config: Mapping[str, Any],
     ) -> None:
         """Initialize the object.
 
@@ -149,58 +131,6 @@ class BaseHandler:
             mdx (list[str | Extension]): A list of Markdown extensions to use.
             mdx_config (Mapping[str, Mapping[str, Any]]): Configuration for the Markdown extensions.
         """
-        # YORE: Bump 1: Remove block.
-        handler = ""
-        theme = ""
-        custom_templates = None
-        if args:
-            handler, args = args[0], args[1:]
-        if args:
-            theme, args = args[0], args[1:]
-            warn(
-                "The `theme` argument must be passed as a keyword argument.",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-        if args:
-            custom_templates, args = args[0], args[1:]
-            warn(
-                "The `custom_templates` argument must be passed as a keyword argument.",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-        handler = kwargs.pop("handler", handler)
-        theme = kwargs.pop("theme", theme)
-        custom_templates = kwargs.pop("custom_templates", custom_templates)
-        mdx = kwargs.pop("mdx", None)
-        mdx_config = kwargs.pop("mdx_config", None)
-        if handler:
-            if not self.name:
-                type(self).name = handler
-            warn(
-                "The `handler` argument is deprecated. The handler name must be specified as a class attribute.",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-        if not self.domain:
-            warn(
-                "The `domain` attribute must be specified as a class attribute.",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-        if mdx is None:
-            warn(
-                "The `mdx` argument must be provided (as a keyword argument).",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-        if mdx_config is None:
-            warn(
-                "The `mdx_config` argument must be provided (as a keyword argument).",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-
         self.theme = theme
         """The selected theme."""
         self.custom_templates = custom_templates
@@ -533,20 +463,11 @@ class BaseHandler:
         self._headings.clear()
         return result
 
-    # YORE: Bump 1: Replace `*args: Any, **kwargs: Any` with `config: Any`.
-    def update_env(self, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
+    def update_env(self, config: Any) -> None:
         """Update the Jinja environment."""
-        # YORE: Bump 1: Remove line.
-        warn("No need to call `super().update_env()` anymore.", DeprecationWarning, stacklevel=2)
 
     def _update_env(self, md: Markdown, *, config: Any | None = None) -> None:
         """Update our handler to point to our configured Markdown instance, grabbing some of the config from `md`."""
-        # YORE: Bump 1: Remove block.
-        if self.mdx is None and config is not None:
-            self.mdx = config.get("mdx", None) or config.get("markdown_extensions", None) or ()
-        if self.mdx_config is None and config is not None:
-            self.mdx_config = config.get("mdx_config", None) or config.get("mdx_configs", None) or {}
-
         extensions: list[str | Extension] = [*self.mdx, MkdocstringsInnerExtension(self._headings)]
 
         new_md = Markdown(extensions=extensions, extension_configs=self.mdx_config)
@@ -561,17 +482,7 @@ class BaseHandler:
 
         self.env.filters["highlight"] = Highlighter(new_md).highlight
 
-        # YORE: Bump 1: Replace block with `self.update_env(config)`.
-        parameters = inspect.signature(self.update_env).parameters
-        if "md" in parameters:
-            warn(
-                "The `update_env(md)` parameter is deprecated. Use `self.md` instead.",
-                DeprecationWarning,
-                stacklevel=1,
-            )
-            self.update_env(new_md, config)
-        elif "config" in parameters:
-            self.update_env(config)
+        self.update_env(config)
 
 
 class Handlers:
@@ -624,35 +535,6 @@ class Handlers:
 
         self._inv_futures: dict[futures.Future, tuple[BaseHandler, str, Any]] = {}
 
-    # YORE: Bump 1: Remove block.
-    def get_anchors(self, identifier: str) -> tuple[str, ...]:
-        """Return the canonical HTML anchor for the identifier, if any of the seen handlers can collect it.
-
-        Arguments:
-            identifier: The identifier (one that [collect][mkdocstrings.BaseHandler.collect] can accept).
-
-        Returns:
-            A tuple of strings - anchors without '#', or an empty tuple if there isn't any identifier familiar with it.
-        """
-        for handler in self._handlers.values():
-            try:
-                if hasattr(handler, "get_anchors"):
-                    warn(
-                        "The `get_anchors` method is deprecated. "
-                        "Declare a `get_aliases` method instead, accepting a string (identifier) "
-                        "instead of a collected object.",
-                        DeprecationWarning,
-                        stacklevel=1,
-                    )
-                    aliases = handler.get_anchors(handler.collect(identifier, getattr(handler, "fallback_config", {})))
-                else:
-                    aliases = handler.get_aliases(identifier)
-            except CollectionError:
-                continue
-            if aliases:
-                return aliases
-        return ()
-
     def get_handler_name(self, config: dict) -> str:
         """Return the handler name defined in an "autodoc" instruction YAML configuration, or the global default handler.
 
@@ -696,34 +578,14 @@ class Handlers:
                 handler_config = self._handlers_config.get(name, {})
             module = importlib.import_module(f"mkdocstrings_handlers.{name}")
 
-            # YORE: Bump 1: Remove block.
-            kwargs = {
-                "theme": self._theme,
-                "custom_templates": self._custom_templates,
-                "mdx": self._mdx,
-                "mdx_config": self._mdx_config,
-                "handler_config": handler_config,
-                "tool_config": self._tool_config,
-            }
-            if "config_file_path" in inspect.signature(module.get_handler).parameters:
-                kwargs["config_file_path"] = self._tool_config.get("config_file_path")
-                warn(
-                    "The `config_file_path` argument in `get_handler` functions is deprecated. "
-                    "Use `tool_config.get('config_file_path')` instead.",
-                    DeprecationWarning,
-                    stacklevel=1,
-                )
-            self._handlers[name] = module.get_handler(**kwargs)
-
-            # YORE: Bump 1: Replace `# ` with `` within block.
-            # self._handlers[name] = module.get_handler(
-            #     theme=self._theme,
-            #     custom_templates=self._custom_templates,
-            #     mdx=self._mdx,
-            #     mdx_config=self._mdx_config,
-            #     handler_config=handler_config,
-            #     tool_config=self._tool_config,
-            # )
+            self._handlers[name] = module.get_handler(
+                theme=self._theme,
+                custom_templates=self._custom_templates,
+                mdx=self._mdx,
+                mdx_config=self._mdx_config,
+                handler_config=handler_config,
+                tool_config=self._tool_config,
+            )
         return self._handlers[name]
 
     def _download_inventories(self) -> None:

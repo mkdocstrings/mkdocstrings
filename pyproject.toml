@@ -30,15 +30,12 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
-    # YORE: Bump 1: Replace `2.11.1` with `3.1` within line.
-    "Jinja2>=2.11.1",
+    "Jinja2>=3.1",
     "Markdown>=3.6",
     "MarkupSafe>=1.1",
     "mkdocs>=1.6",
     "mkdocs-autorefs>=1.4",
     "pymdown-extensions>=6.3",
-    # YORE: EOL 3.9: Remove line.
-    "importlib-metadata>=4.6; python_version < '3.10'",
 ]
 
 [project.optional-dependencies]
