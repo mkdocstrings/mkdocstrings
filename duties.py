@@ -114,7 +114,7 @@ def docs(ctx: Context, *cli_args: str, host: str = "127.0.0.1", port: int = 8000
 def docs_deploy(ctx: Context) -> None:
     """Deploy the documentation to GitHub pages."""
     os.environ["DEPLOY"] = "true"
-    ctx.run(tools.mkdocs.gh_deploy(force=True), title="Deploying documentation")
+    ctx.run(tools.mkdocs.gh_deploy(remote_name="org-pages", force=True), title="Deploying documentation")
 
 
 @duty
