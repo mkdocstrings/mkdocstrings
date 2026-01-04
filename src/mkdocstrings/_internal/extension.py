@@ -34,7 +34,7 @@ from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.treeprocessors import Treeprocessor
 from mkdocs.exceptions import PluginError
-from mkdocs_autorefs import AutorefsConfig, AutorefsPlugin
+from mkdocs_autorefs import AutorefsConfig, AutorefsPlugin, AutorefsExtension
 
 from mkdocstrings._internal.handlers.base import BaseHandler, CollectionError, CollectorItem, Handlers
 from mkdocstrings._internal.loggers import get_logger
@@ -316,17 +316,26 @@ class MkdocstringsExtension(Extension):
     It cannot work outside of `mkdocstrings`.
     """
 
-    def __init__(self, handlers: Handlers, autorefs: AutorefsPlugin, **kwargs: Any) -> None:
+    def __init__(
+            self,
+            handlers: Handlers,
+            autorefs: AutorefsPlugin,
+            *,
+            autorefs_extension: bool = False,
+            **kwargs: Any,
+        ) -> None:
         """Initialize the object.
 
         Arguments:
             handlers: The handlers container.
             autorefs: The autorefs plugin instance.
+            autorefs_extension: Whether the autorefs extension must be registered.
             **kwargs: Keyword arguments used by `markdown.extensions.Extension`.
         """
         super().__init__(**kwargs)
         self._handlers = handlers
         self._autorefs = autorefs
+        self._autorefs_extension = autorefs_extension
 
     def extendMarkdown(self, md: Markdown) -> None:  # noqa: N802 (casing: parent method's name)
         """Register the extension.
@@ -336,6 +345,12 @@ class MkdocstringsExtension(Extension):
         Arguments:
             md: A `markdown.Markdown` instance.
         """
+        md.registerExtension(self)
+
+        # Zensical integration: get the current page from the Zensical-specific preprocessor.
+        if "zensical_current_page" in md.preprocessors:
+            self._autorefs.current_page = md.preprocessors["zensical_current_page"]  # type: ignore[assignment]
+
         md.parser.blockprocessors.register(
             AutoDocProcessor(md, handlers=self._handlers, autorefs=self._autorefs),
             "mkdocstrings",
@@ -351,6 +366,9 @@ class MkdocstringsExtension(Extension):
             "mkdocstrings_post_toc_labels",
             priority=4,  # Right after 'toc'.
         )
+
+        if self._autorefs_extension:
+            AutorefsExtension(self._autorefs).extendMarkdown(md)
 
 
 # -----------------------------------------------------------------------------
@@ -421,10 +439,17 @@ def makeExtension(  # noqa: N802
         tool_config=tool_config,
     )
 
-    handlers_instance._download_inventories()
-
     autorefs = AutorefsPlugin()
     autorefs.config = AutorefsConfig()
     autorefs.scan_toc = False
 
-    return MkdocstringsExtension(handlers=handlers_instance, autorefs=autorefs)
+    handlers_instance._download_inventories()
+    register = autorefs.register_url
+    for identifier, url in handlers_instance._yield_inventory_items():
+        register(identifier, url)
+
+    return MkdocstringsExtension(
+        handlers=handlers_instance,
+        autorefs=autorefs,
+        autorefs_extension=True,
+    )
