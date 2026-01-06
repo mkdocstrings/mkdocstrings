@@ -441,7 +441,12 @@ def makeExtension(  # noqa: N802
 
     autorefs = AutorefsPlugin()
     autorefs.config = AutorefsConfig()
+    autorefs.config.resolve_closest = True
+    autorefs.config.link_titles = "auto"
+    autorefs.config.strip_title_tags = "auto"
     autorefs.scan_toc = False
+    autorefs._link_titles = "external"
+    autorefs._strip_title_tags = False
 
     handlers_instance._download_inventories()
     register = autorefs.register_url
