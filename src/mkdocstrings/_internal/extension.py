@@ -34,7 +34,7 @@ from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.treeprocessors import Treeprocessor
 from mkdocs.exceptions import PluginError
-from mkdocs_autorefs import AutorefsConfig, AutorefsPlugin, AutorefsExtension
+from mkdocs_autorefs import AutorefsConfig, AutorefsExtension, AutorefsPlugin
 
 from mkdocstrings._internal.handlers.base import BaseHandler, CollectionError, CollectorItem, Handlers
 from mkdocstrings._internal.loggers import get_logger
@@ -317,13 +317,13 @@ class MkdocstringsExtension(Extension):
     """
 
     def __init__(
-            self,
-            handlers: Handlers,
-            autorefs: AutorefsPlugin,
-            *,
-            autorefs_extension: bool = False,
-            **kwargs: Any,
-        ) -> None:
+        self,
+        handlers: Handlers,
+        autorefs: AutorefsPlugin,
+        *,
+        autorefs_extension: bool = False,
+        **kwargs: Any,
+    ) -> None:
         """Initialize the object.
 
         Arguments:
