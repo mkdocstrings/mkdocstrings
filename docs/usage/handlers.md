@@ -205,7 +205,7 @@ to use the templates of another handler. In you handler, override the
 
 ```python
 from pathlib import Path
-from mkdocstrings.handlers.base import BaseHandler
+from mkdocstrings import BaseHandler
 
 
 class CobraHandler(BaseHandler):

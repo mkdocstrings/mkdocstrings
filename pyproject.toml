@@ -113,7 +113,7 @@ ci = [
     "mkdocs-minify-plugin>=0.8",
     "mkdocs-redirects>=1.2.1",
     "mkdocs-section-index>=0.3",
-    "mkdocstrings-python>=1.16.2",
+    "mkdocstrings-python>=2.0",
     # YORE: EOL 3.10: Remove line.
     "tomli>=2.0; python_version < '3.11'",
 ]

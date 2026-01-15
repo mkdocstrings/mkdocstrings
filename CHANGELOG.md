@@ -952,8 +952,6 @@ See issue [#74](https://github.com/pawamoy/mkdocstrings/issues/74).
 ### Features
 - Prepare for new `pytkdocs` version ([336421a](https://github.com/pawamoy/mkdocstrings/commit/336421af95d752671276c2e88c5c173bff4093cc)).
   Add options `filters` and `members` to the Python collector to reflect the new `pytkdocs` options.
-  See [the default configuration of the Python collector](https://pawamoy.github.io/mkdocstrings/reference/handlers/python/#mkdocstrings.handlers.python.PythonCollector.DEFAULT_CONFIG).
-
 
 ## [0.9.1](https://github.com/pawamoy/mkdocstrings/releases/tag/0.9.1) - 2020-03-21
 
@@ -979,8 +977,7 @@ No identified breaking changes for end-users.
 - **Better cross-references:** cross-references now not only work between documented objects (between all languages,
   given the objects' identifiers are unique), but also for every heading of your Markdown pages.
 - **Configuration options:** the rendering of Python documentation can now be configured,
-  (globally and locally thanks to the handlers system),
-  [check the docs!](https://pawamoy.github.io/mkdocstrings/reference/handlers/python/#mkdocstrings.handlers.python.PythonRenderer.DEFAULT_CONFIG)
+  (globally and locally thanks to the handlers system).
   Also see the [recommended CSS](https://pawamoy.github.io/mkdocstrings/handlers/python/#recommended-style).
 - **Proper logging messages:** `mkdocstrings` now logs debug, warning and error messages, useful when troubleshooting.
 

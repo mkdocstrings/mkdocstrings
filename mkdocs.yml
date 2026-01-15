@@ -179,13 +179,6 @@ plugins:
       handlers/overview.md: usage/handlers.md
       reference/mkdocstrings.md: reference/api.md
       reference/index.md: reference/api.md#mkdocstrings
-      reference/extension.md: reference/api.md#mkdocstrings.extension
-      reference/handlers/index.md: reference/api.md#mkdocstrings.handlers
-      reference/handlers/base.md: reference/api.md#mkdocstrings.handlers.base
-      reference/handlers/rendering.md: reference/api.md#mkdocstrings.handlers.rendering
-      reference/inventory.md: reference/api.md#mkdocstrings.inventory
-      reference/loggers.md: reference/api.md#mkdocstrings.loggers
-      reference/plugin.md: reference/api.md#mkdocstrings.plugin
 - minify:
     minify_html: !ENV [DEPLOY, false]
 - typeset

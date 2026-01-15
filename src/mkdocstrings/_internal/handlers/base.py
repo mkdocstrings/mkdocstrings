@@ -241,7 +241,7 @@ class BaseHandler:
 
         Arguments:
             identifier: An identifier for which to collect data. For example, in Python,
-                it would be 'mkdocstrings.handlers' to collect documentation about the handlers module.
+                it would be 'mkdocstrings.BaseHandler' to collect documentation about the BaseHandler class.
                 It can be anything that you can feed to the tool of your choice.
             options: The final configuration options.
 
@@ -560,7 +560,7 @@ class Handlers:
     def get_handler(self, name: str, handler_config: dict | None = None) -> BaseHandler:
         """Get a handler thanks to its name.
 
-        This function dynamically imports a module named "mkdocstrings.handlers.NAME", calls its
+        This function dynamically imports a module named "mkdocstrings_handlers.NAME", calls its
         `get_handler` method to get an instance of a handler, and caches it in dictionary.
         It means that during one run (for each reload when serving, or once when building),
         a handler is instantiated only once, and reused for each "autodoc" instruction asking for it.
