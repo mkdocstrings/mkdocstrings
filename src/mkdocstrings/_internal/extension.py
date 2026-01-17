@@ -387,7 +387,7 @@ _default_config: dict[str, Any] = {
 }
 
 
-def _split_configs(markdown_extensions: list[str | dict]) -> tuple[list[str], dict[str, Any]]:
+def _split_configs(markdown_extensions: list[str | dict]) -> tuple[list[str | Extension], dict[str, Any]]:
     # Split markdown extensions and their configs from mkdocs.yml
     mdx: list[str] = []
     mdx_config: dict[str, Any] = {}
@@ -399,7 +399,7 @@ def _split_configs(markdown_extensions: list[str | dict]) -> tuple[list[str], di
                 mdx.append(key)
                 mdx_config[key] = value
                 break  # Only one item per dict
-    return mdx, mdx_config
+    return mdx, mdx_config  # type: ignore[return-value]
 
 
 class _ToolConfig:
@@ -426,6 +426,17 @@ def makeExtension(  # noqa: N802
     mdx, mdx_config = _split_configs(markdown_extensions or [])
     tool_config = _ToolConfig(config_file_path=config_file_path)
 
+    autorefs = AutorefsPlugin()
+    autorefs.config = AutorefsConfig()
+    autorefs.config.resolve_closest = True
+    autorefs.config.link_titles = "auto"
+    autorefs.config.strip_title_tags = "auto"
+    autorefs.scan_toc = True
+    autorefs._link_titles = "external"
+    autorefs._strip_title_tags = False
+
+    mdx.append(AutorefsExtension(autorefs))
+
     handlers_instance = Handlers(
         theme="material",
         default=default_handler or _default_config["default_handler"],
@@ -438,15 +449,6 @@ def makeExtension(  # noqa: N802
         locale=locale or _default_config["locale"],
         tool_config=tool_config,
     )
-
-    autorefs = AutorefsPlugin()
-    autorefs.config = AutorefsConfig()
-    autorefs.config.resolve_closest = True
-    autorefs.config.link_titles = "auto"
-    autorefs.config.strip_title_tags = "auto"
-    autorefs.scan_toc = True
-    autorefs._link_titles = "external"
-    autorefs._strip_title_tags = False
 
     handlers_instance._download_inventories()
     register = autorefs.register_url
