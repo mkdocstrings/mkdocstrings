@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.0.1](https://github.com/mkdocstrings/mkdocstrings/releases/tag/1.0.1) - 2026-01-19
+
+<small>[Compare with 1.0.0](https://github.com/mkdocstrings/mkdocstrings/compare/1.0.0...1.0.1)</small>
+
+### Code Refactoring
+
+- Support manual cross-references in Zensical too ([d37d907](https://github.com/mkdocstrings/mkdocstrings/commit/d37d9079e5381350b2e3ffc5f698e28a5b572d36) by Timothée Mazzucotelli).
+- Support cross-references in Zensical ([f43f1ee](https://github.com/mkdocstrings/mkdocstrings/commit/f43f1ee2cd38a0dba64fc7d0db3c5ffb037bf7f7) by Timothée Mazzucotelli). [PR-812](https://github.com/mkdocstrings/mkdocstrings/pull/812)
+
 ## [1.0.0](https://github.com/mkdocstrings/mkdocstrings/releases/tag/1.0.0) - 2025-11-27
 
 <small>[Compare with 0.30.1](https://github.com/mkdocstrings/mkdocstrings/compare/0.30.1...1.0.0)</small>
