@@ -407,6 +407,10 @@ class _ToolConfig:
         self.config_file_path = config_file_path
 
 
+_AUTOREFS = None
+_HANDLERS = None
+
+
 def makeExtension(  # noqa: N802
     *,
     default_handler: str | None = None,
@@ -423,40 +427,65 @@ def makeExtension(  # noqa: N802
     We only support this function being used by Zensical.
     Consider this function private API.
     """
-    mdx, mdx_config = _split_configs(markdown_extensions or [])
-    tool_config = _ToolConfig(config_file_path=config_file_path)
+    global _AUTOREFS  # noqa: PLW0603
+    if _AUTOREFS is None:
+        _AUTOREFS = AutorefsPlugin()
+        _AUTOREFS.config = AutorefsConfig()
+        _AUTOREFS.config.resolve_closest = True
+        _AUTOREFS.config.link_titles = "auto"
+        _AUTOREFS.config.strip_title_tags = "auto"
+        _AUTOREFS.scan_toc = True
+        _AUTOREFS._link_titles = "external"
+        _AUTOREFS._strip_title_tags = False
 
-    autorefs = AutorefsPlugin()
-    autorefs.config = AutorefsConfig()
-    autorefs.config.resolve_closest = True
-    autorefs.config.link_titles = "auto"
-    autorefs.config.strip_title_tags = "auto"
-    autorefs.scan_toc = True
-    autorefs._link_titles = "external"
-    autorefs._strip_title_tags = False
+    global _HANDLERS  # noqa: PLW0603
+    if _HANDLERS is None:
+        mdx, mdx_config = _split_configs(markdown_extensions or [])
+        tool_config = _ToolConfig(config_file_path=config_file_path)
+        mdx.append(AutorefsExtension(_AUTOREFS))
+        _HANDLERS = Handlers(
+            theme="material",
+            default=default_handler or _default_config["default_handler"],
+            inventory_project=inventory_project or "Project",
+            inventory_version=inventory_version or "0.0.0",
+            handlers_config=handlers or _default_config["handlers"],
+            custom_templates=custom_templates or _default_config["custom_templates"],
+            mdx=mdx,
+            mdx_config=mdx_config,
+            locale=locale or _default_config["locale"],
+            tool_config=tool_config,
+        )
 
-    mdx.append(AutorefsExtension(autorefs))
-
-    handlers_instance = Handlers(
-        theme="material",
-        default=default_handler or _default_config["default_handler"],
-        inventory_project=inventory_project or "Project",
-        inventory_version=inventory_version or "0.0.0",
-        handlers_config=handlers or _default_config["handlers"],
-        custom_templates=custom_templates or _default_config["custom_templates"],
-        mdx=mdx,
-        mdx_config=mdx_config,
-        locale=locale or _default_config["locale"],
-        tool_config=tool_config,
-    )
-
-    handlers_instance._download_inventories()
-    register = autorefs.register_url
-    for identifier, url in handlers_instance._yield_inventory_items():
-        register(identifier, url)
+        _HANDLERS._download_inventories()
+        register = _AUTOREFS.register_url
+        for identifier, url in _HANDLERS._yield_inventory_items():
+            register(identifier, url)
 
     return MkdocstringsExtension(
-        handlers=handlers_instance,
-        autorefs=autorefs,
+        handlers=_HANDLERS,
+        autorefs=_AUTOREFS,
         autorefs_extension=True,
     )
+
+
+def _reset() -> None:
+    global _AUTOREFS, _HANDLERS  # noqa: PLW0603
+    _AUTOREFS = None
+    _HANDLERS = None
+
+
+def _get_autorefs() -> dict[str, Any]:
+    if _AUTOREFS:
+        return {
+            "primary": _AUTOREFS._primary_url_map,
+            "secondary": _AUTOREFS._secondary_url_map,
+            "inventory": _AUTOREFS._abs_url_map,
+            "titles": _AUTOREFS._title_map,
+        }
+    return {}
+
+
+def _get_inventory() -> bytes:
+    if _HANDLERS:
+        return _HANDLERS.inventory.format_sphinx()
+    return b""
