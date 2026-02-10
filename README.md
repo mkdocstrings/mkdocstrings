@@ -142,7 +142,6 @@ See the [Usage](https://mkdocstrings.github.io/usage) section of the docs for mo
 
 <div id="silver-sponsors"><b>Silver sponsors</b><p>
 <a href="https://fastapi.tiangolo.com/"><img alt="FastAPI" src="https://raw.githubusercontent.com/tiangolo/fastapi/master/docs/en/docs/img/logo-margin/logo-teal.png" style="height: 200px; "></a><br>
-<a href="https://docs.pydantic.dev/latest/"><img alt="Pydantic" src="https://pydantic.dev/assets/for-external/pydantic_logfire_logo_endorsed_lithium_rgb.svg" style="height: 180px; "></a><br>
 </p></div>
 
 <div id="bronze-sponsors"><b>Bronze sponsors</b><p>
