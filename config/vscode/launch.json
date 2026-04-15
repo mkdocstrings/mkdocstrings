@@ -23,11 +23,10 @@
             "name": "docs",
             "type": "debugpy",
             "request": "launch",
-            "module": "mkdocs",
+            "module": "zensical",
             "justMyCode": false,
             "args": [
                 "serve",
-                "-v"
             ]
         },
         {

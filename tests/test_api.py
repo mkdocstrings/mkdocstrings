@@ -141,7 +141,7 @@ def test_api_matches_inventory(inventory: Inventory, public_objects: list[griffe
         for obj in public_objects
         if obj.name not in ignore_names and obj.path not in inventory
     ]
-    msg = "Objects not in the inventory (try running `make run mkdocs build`):\n{paths}"
+    msg = "Objects not in the inventory (try running `make run zensical build --clean`):\n{paths}"
     assert not not_in_inventory, msg.format(paths="\n".join(sorted(not_in_inventory)))
 
 
@@ -164,7 +164,7 @@ def test_inventory_matches_api(
 
             if obj.path not in public_api_paths and not any(path in public_api_paths for path in obj.aliases):
                 not_in_api.append(item.name)
-    msg = "Inventory objects not in public API (try running `make run mkdocs build`):\n{paths}"
+    msg = "Inventory objects not in public API (try running `make run zensical build --clean`):\n{paths}"
     assert not not_in_api, msg.format(paths="\n".join(sorted(not_in_api)))
 
 

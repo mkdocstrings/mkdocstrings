@@ -16,6 +16,7 @@
     "ruff.lint.args": [
         "--config=config/ruff.toml"
     ],
+    "ty.configurationFile": "config/ty.toml",
     "yaml.schemas": {
         "https://squidfunk.github.io/mkdocs-material/schema.json": "mkdocs.yml"
     },

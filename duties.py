@@ -58,7 +58,7 @@ def check(ctx: Context) -> None:
 def check_quality(ctx: Context) -> None:
     """Check the code quality."""
     ctx.run(
-        tools.ruff.check(*PY_SRC_LIST, config="config/ruff.toml"),
+        tools.ruff.check(*PY_SRC_LIST, config="config/ruff.toml", color=True),
         title=pyprefix("Checking code quality"),
     )
 
@@ -66,10 +66,8 @@ def check_quality(ctx: Context) -> None:
 @duty(nofail=PY_VERSION == PY_DEV)
 def check_docs(ctx: Context) -> None:
     """Check if the documentation builds correctly."""
-    Path("htmlcov").mkdir(parents=True, exist_ok=True)
-    Path("htmlcov/index.html").touch(exist_ok=True)
     ctx.run(
-        tools.mkdocs.build(strict=True, verbose=True),
+        tools.zensical.build(strict=True),
         title=pyprefix("Building documentation"),
     )
 
@@ -109,7 +107,7 @@ def docs(ctx: Context, *cli_args: str, host: str = "127.0.0.1", port: int = 8000
         port: The port to serve the docs on.
     """
     ctx.run(
-        tools.mkdocs.serve(dev_addr=f"{host}:{port}").add_args(*cli_args),
+        tools.zensical.serve(dev_addr=f"{host}:{port}").add_args(*cli_args),
         title="Serving documentation",
         capture=False,
     )
@@ -118,8 +116,22 @@ def docs(ctx: Context, *cli_args: str, host: str = "127.0.0.1", port: int = 8000
 @duty
 def docs_deploy(ctx: Context) -> None:
     """Deploy the documentation to GitHub pages."""
-    os.environ["DEPLOY"] = "true"
-    ctx.run(tools.mkdocs.gh_deploy(remote_name="org-pages", force=True), title="Deploying documentation")
+    from ghp_import import ghp_import  # noqa: PLC0415
+
+    ctx.run(tools.zensical.build(), title="Building documentation site")
+    ctx.run(
+        ghp_import,
+        kwargs={
+            "srcdir": "site",
+            "mesg": "chore: Update documentation",
+            "push": True,
+            "force": True,
+            "remote": "org-pages",
+        },
+        title="Deploying site to GitHub Pages",
+        command="ghp-import site -r org-pages -fpm 'chore: Update documentation'",
+        pty=PTY,
+    )
 
 
 @duty
@@ -136,8 +148,8 @@ def format(ctx: Context) -> None:
 def build(ctx: Context) -> None:
     """Build source and wheel distributions."""
     ctx.run(
-        tools.build(),
-        title="Building source and wheel distributions",
+        ["uv", "build"],
+        title="Building distributions",
         pty=PTY,
     )
 
@@ -147,10 +159,10 @@ def publish(ctx: Context) -> None:
     """Publish source and wheel distributions to PyPI."""
     if not Path("dist").exists():
         ctx.run("false", title="No distribution files found")
-    dists = [str(dist) for dist in Path("dist").iterdir()]
+    dists = [str(dist) for dist in Path("dist").iterdir() if dist.suffix in (".gz", ".whl")]
     ctx.run(
         tools.twine.upload(*dists, skip_existing=True),
-        title="Publishing source and wheel distributions to PyPI",
+        title="Publishing distributions to PyPI",
         pty=PTY,
     )
 
