@@ -154,7 +154,7 @@ def test_use_custom_handler(ext_markdown: Markdown) -> None:
 
 def test_register_every_identifier_alias(plugin: MkdocstringsPlugin, ext_markdown: Markdown) -> None:
     """Assert that we don't preemptively register all identifiers of a rendered object."""
-    handler = plugin._handlers.get_handler("python")  # ty: ignore[possibly-missing-attribute]
+    handler = plugin._handlers.get_handler("python")  # ty: ignore[unresolved-attribute]
     ids = ("id1", "id2", "id3")
     handler.get_aliases = lambda _: ids  # ty: ignore[invalid-assignment]
     autorefs = ext_markdown.parser.blockprocessors["mkdocstrings"]._autorefs

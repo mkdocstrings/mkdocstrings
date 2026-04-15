@@ -62,7 +62,7 @@ def test_extended_templates(tmp_path: Path, plugin: MkdocstringsPlugin) -> None:
         tmp_path: Temporary folder.
         plugin: Instance of our plugin.
     """
-    handler = plugin._handlers.get_handler("python")  # ty: ignore[possibly-missing-attribute]
+    handler = plugin._handlers.get_handler("python")  # ty: ignore[unresolved-attribute]
 
     # monkeypatch Jinja env search path
     search_paths = [

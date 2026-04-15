@@ -161,7 +161,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
         except KeyError:
             # Otherwise, add a limited instance of it that acts only on what's added through `register_anchor`.
             autorefs = AutorefsPlugin()
-            autorefs.config = AutorefsConfig()
+            autorefs.config = AutorefsConfig()  # ty:ignore[invalid-assignment]
             autorefs.scan_toc = False
             config.plugins["autorefs"] = autorefs
             _logger.debug("Added a subdued autorefs instance %r", autorefs)
@@ -199,7 +199,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
     @event_priority(50)  # Early, before autorefs' starts applying cross-refs and collecting backlinks.
     def _on_env_load_inventories(self, env: Environment, config: MkDocsConfig, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
         if self.plugin_enabled and self._handlers:
-            register = config.plugins["autorefs"].register_url  # ty: ignore[possibly-missing-attribute]
+            register = config.plugins["autorefs"].register_url  # ty: ignore[unresolved-attribute]
             for identifier, url in self._handlers._yield_inventory_items():
                 register(identifier, url)
 

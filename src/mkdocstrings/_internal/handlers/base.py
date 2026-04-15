@@ -178,7 +178,7 @@ class BaseHandler:
         self.env.filters["convert_markdown"] = self.do_convert_markdown
         self.env.filters["heading"] = self.do_heading
         self.env.filters["any"] = do_any
-        self.env.globals["log"] = get_template_logger(self.name)
+        self.env.globals["log"] = get_template_logger(self.name)  # ty:ignore[invalid-assignment]
 
     @property
     def md(self) -> Markdown:

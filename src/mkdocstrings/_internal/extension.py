@@ -432,7 +432,7 @@ def makeExtension(  # noqa: N802
     global _AUTOREFS  # noqa: PLW0603
     if _AUTOREFS is None:
         _AUTOREFS = AutorefsPlugin()
-        _AUTOREFS.config = AutorefsConfig()
+        _AUTOREFS.config = AutorefsConfig()  # ty:ignore[invalid-assignment]
         _AUTOREFS.config.resolve_closest = True
         _AUTOREFS.config.link_titles = "auto"
         _AUTOREFS.config.strip_title_tags = "auto"
