@@ -19,6 +19,9 @@ _logger = get_logger("mkdocstrings")
 # Regex pattern for an environment variable in the form ${ENV_VAR}.
 _ENV_VAR_PATTERN = re.compile(r"\$\{([A-Za-z_][A-Za-z0-9_]*)\}")
 
+# Timeout in seconds for downloading.
+_TIMEOUT = 10
+
 
 def _download_url_with_gz(url: str) -> bytes:
     url, auth_header = _extract_auth_from_url(url)
@@ -27,7 +30,7 @@ def _download_url_with_gz(url: str) -> bytes:
         url,
         headers={"Accept-Encoding": "gzip", "User-Agent": "mkdocstrings/0.15.0", **auth_header},
     )
-    with urllib.request.urlopen(req) as resp:  # noqa: S310
+    with urllib.request.urlopen(req, timeout=_TIMEOUT) as resp:  # noqa: S310
         content: BinaryIO = resp
         if "gzip" in resp.headers.get("content-encoding", ""):
             content = gzip.GzipFile(fileobj=resp)  # ty: ignore[invalid-assignment]
