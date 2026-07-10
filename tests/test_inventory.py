@@ -83,3 +83,11 @@ def test_mkdocstrings_roundtrip_inventory_file(our_inv: Inventory) -> None:
         assert round_tripped_item.uri == value.uri
         assert round_tripped_item.priority == value.priority
         assert round_tripped_item.dispname == value.dispname.splitlines()[0]
+
+
+def test_parse_inventory_project_and_version() -> None:
+    """Parse project and version in inventory header."""
+    base_inv = Inventory(project="hello", version="1000")
+    parsed_inv = Inventory.parse_sphinx(BytesIO(base_inv.format_sphinx()))
+    assert base_inv.project == parsed_inv.project
+    assert base_inv.version == parsed_inv.version

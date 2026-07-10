@@ -174,12 +174,15 @@ class Inventory(dict):
         Returns:
             An inventory containing the collected items.
         """
-        for _ in range(4):
-            in_file.readline()
+        in_file.readline()  # "Sphinx inventory version X"
+        project = in_file.readline().removeprefix(b"# Project: ").decode("utf8").rstrip()
+        version = in_file.readline().removeprefix(b"# Version: ").decode("utf8").rstrip()
+        in_file.readline()  # "The remainder of this file is compressed using zlib"
+
         lines = zlib.decompress(in_file.read()).splitlines()
         items: list[InventoryItem] = [
             item for line in lines if (item := InventoryItem.parse_sphinx(line.decode("utf8"), return_none=True))
         ]
         if domain_filter:
             items = [item for item in items if item.domain in domain_filter]
-        return cls(items)
+        return cls(items, project=project, version=version)
