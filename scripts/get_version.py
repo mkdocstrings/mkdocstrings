@@ -22,7 +22,7 @@ def get_version() -> str:
     if scm_version.version <= Version("0.1"):  # Missing Git tags?
         with suppress(OSError, StopIteration):  # noqa: SIM117
             with _changelog.open("r", encoding="utf8") as file:
-                match = next(filter(None, map(_changelog_version_re.match, file)))  # ty: ignore[invalid-argument-type]
+                match = next(filter(None, map(_changelog_version_re.match, file)))
                 scm_version = scm_version._replace(version=Version(match.group(1)))
     return default_version_formatter(scm_version)
 

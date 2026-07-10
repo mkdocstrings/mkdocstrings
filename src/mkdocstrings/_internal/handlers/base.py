@@ -376,7 +376,7 @@ class BaseHandler:
             if BacklinksTreeProcessor.name in treeprocessors:
                 treeprocessors[BacklinksTreeProcessor.name].initial_id = None
             if AutorefsInlineProcessor.name in self.md.inlinePatterns:
-                self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None
+                self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # ty: ignore[unresolved-attribute]
             self.md.reset()
             _markdown_conversion_layer -= 1
 
