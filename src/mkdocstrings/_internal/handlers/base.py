@@ -466,7 +466,17 @@ class BaseHandler:
 
     def _update_env(self, md: Markdown, *, config: Any | None = None) -> None:
         """Update our handler to point to our configured Markdown instance, grabbing some of the config from `md`."""
-        extensions: list[str | Extension] = [*self.mdx, MkdocstringsInnerExtension(self._headings)]
+        # Remove extensions that are not useful in the inner conversion layer.
+        # Zensical's `preview` is especially problematic because it expects to find
+        # the `zrelpath` treeprocessor while this treeprocessor is registered "manually"
+        # by Zensical, meaning that mkdocstrings cannot propagate it naturally.
+        # Previously we did propagate it ourselves, but Zensical recently started
+        # applying its logic onto HTML stashes, meaning the logic was applied twice:
+        # once by mkdocstrings-propagated `zrelpath` treeprocessor, and a second time
+        # by Zensical's `zrelpath` postprocessor. See zensical/zensical#818.
+        remove_names = ("zensical.extensions.preview",)
+        mdx = [ext for ext in self.mdx if ext not in remove_names]
+        extensions: list[str | Extension] = [*mdx, MkdocstringsInnerExtension(self._headings)]
 
         new_md = Markdown(extensions=extensions, extension_configs=self.mdx_config)
 
@@ -475,10 +485,6 @@ class BaseHandler:
             relpath = md.treeprocessors["relpath"]
             new_relpath = type(relpath)(relpath.file, relpath.files, relpath.config)
             new_md.treeprocessors.register(new_relpath, "relpath", priority=0)
-        elif "zrelpath" in md.treeprocessors:
-            zrelpath = md.treeprocessors["zrelpath"]
-            new_zrelpath = type(zrelpath)(new_md, zrelpath.path, zrelpath.use_directory_urls)
-            new_md.treeprocessors.register(new_zrelpath, "zrelpath", priority=0)
 
         self._md = new_md
 
