@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.0.6](https://github.com/mkdocstrings/mkdocstrings/releases/tag/1.0.6) - 2026-07-11
+
+<small>[Compare with 1.0.5](https://github.com/mkdocstrings/mkdocstrings/compare/1.0.5...1.0.6)</small>
+
+### Bug Fixes
+
+- Stop propagating Zensical's `zrelpath` treeprocessor and its `preview` extension ([4732798](https://github.com/mkdocstrings/mkdocstrings/commit/473279816aff4cc8ee3215fdf8b2d186517fc63d) by Timothée Mazzucotelli). [Issue-zensical-818](https://github.com/zensical/zensical/issues/818)
+
 ## [1.0.5](https://github.com/mkdocstrings/mkdocstrings/releases/tag/1.0.5) - 2026-07-10
 
 <small>[Compare with 1.0.4](https://github.com/mkdocstrings/mkdocstrings/compare/1.0.4...1.0.5)</small>
