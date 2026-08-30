@@ -29,7 +29,7 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
   [MATLAB](https://watermarkhu.nl/mkdocstrings-matlab/),
   [TypeScript](https://mkdocstrings.github.io/typescript/), and
   [VBA](https://pypi.org/project/mkdocstrings-vba/) languages,
-  as well as for [shell scripts/libraries](https://mkdocstrings.github.io/shell/).
+  as well as for [shell scripts/libraries](https://mkdocstrings.github.io/shell/latest/).
   Maybe you'd like to add another one to the list? :wink:
 
 - [**Multiple themes support:**](https://mkdocstrings.github.io/theming/)
