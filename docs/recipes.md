@@ -46,6 +46,11 @@ These files won't be written to the docs directory: you don't have
 to track and version them. They are transparently generated each
 time you build your docs. This is perfect for our use-case!
 
+> NOTE: **Using Zensical.**
+> Zensical does not support `mkdocs-gen-files` during a build.
+> Follow the [Zensical guidance for `mkdocs-gen-files`](https://zensical.org/docs/compatibility/mkdocs/plugins/#mkdocs-gen-files)
+> to run the scripts separately.
+
 Add `mkdocs-gen-files` to your project's docs dependencies,
 and configure it like so:
 
