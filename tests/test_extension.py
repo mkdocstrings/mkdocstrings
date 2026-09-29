@@ -21,6 +21,7 @@
 from __future__ import annotations
 
 import re
+from html import unescape
 from textwrap import dedent
 from typing import TYPE_CHECKING
 
@@ -79,15 +80,37 @@ def test_reference_inside_autodoc(ext_markdown: Markdown) -> None:
 
 def test_quote_inside_annotation(ext_markdown: Markdown) -> None:
     """Assert that inline highlighting doesn't double-escape HTML."""
-    output = ext_markdown.convert("::: tests.fixtures.string_annotation.Foo")
-    assert ";hi&" in output
+    # Show the annotation and hide the source so only inline highlighting is checked.
+    output = ext_markdown.convert(
+        dedent(
+            """
+            ::: tests.fixtures.string_annotation.Foo
+                options:
+                    show_signature_annotations: true
+                    show_source: false
+            """,
+        ),
+    )
+
+    # Quotes can be literal characters or HTML entities in the highlighted text.
+    assert "'hi'" in unescape(output)
     assert "&amp;" not in output
 
 
 def test_html_inside_heading(ext_markdown: Markdown) -> None:
     """Assert that headings don't double-escape HTML."""
-    output = ext_markdown.convert("::: tests.fixtures.html_tokens")
-    assert "&#39;&lt;" in output
+    # Hide the source so the escaped value must appear in the heading.
+    output = ext_markdown.convert(
+        dedent(
+            """
+            ::: tests.fixtures.html_tokens
+                options:
+                    show_source: false
+            """,
+        ),
+    )
+
+    assert "&lt;h1&gt;HELLO&lt;/h1&gt;" in output
     assert "&amp;" not in output
 
 
