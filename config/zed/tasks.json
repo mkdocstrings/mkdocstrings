@@ -1,0 +1,72 @@
+[
+  {
+    "label": "changelog",
+    "command": "scripts/make",
+    "args": ["changelog"]
+  },
+  {
+    "label": "check",
+    "command": "scripts/make",
+    "args": ["check"]
+  },
+  {
+    "label": "check-quality",
+    "command": "scripts/make",
+    "args": ["check-quality"]
+  },
+  {
+    "label": "check-types",
+    "command": "scripts/make",
+    "args": ["check-types"]
+  },
+  {
+    "label": "check-docs",
+    "command": "scripts/make",
+    "args": ["check-docs"]
+  },
+  {
+    "label": "check-api",
+    "command": "scripts/make",
+    "args": ["check-api"]
+  },
+  {
+    "label": "clean",
+    "command": "scripts/make",
+    "args": ["clean"]
+  },
+  {
+    "label": "docs",
+    "command": "scripts/make",
+    "args": ["docs"]
+  },
+  {
+    "label": "docs-deploy",
+    "command": "scripts/make",
+    "args": ["docs-deploy"]
+  },
+  {
+    "label": "format",
+    "command": "scripts/make",
+    "args": ["format"]
+  },
+  {
+    "label": "release",
+    "command": "scripts/make",
+    "args": ["release"]
+  },
+  {
+    "label": "setup",
+    "command": "scripts/make",
+    "args": ["setup"]
+  },
+  {
+    "label": "test",
+    "command": "scripts/make",
+    "args": ["test", "coverage"]
+  },
+  {
+    "label": "vscode",
+    "command": "scripts/make",
+    "args": ["vscode"]
+  }
+]

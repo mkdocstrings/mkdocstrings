@@ -5,6 +5,7 @@ site_author = "Timothée Mazzucotelli"
 site_url = "https://mkdocstrings.github.io/mkdocstrings"
 repo_url = "https://github.com/mkdocstrings/mkdocstrings"
 repo_name = "mkdocstrings/mkdocstrings"
+edit_uri = "edit/main/docs/"
 copyright = "Copyright &copy; 2019 Timothée Mazzucotelli"
 extra_css = ["css/apidocs.css"]
 extra_javascript = ["js/feedback.js"]

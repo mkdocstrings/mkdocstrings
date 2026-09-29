@@ -1,0 +1,44 @@
+// Project-local debug tasks
+//
+// For more documentation on how to configure debug tasks,
+// see: https://zed.dev/docs/debugger
+[
+  {
+    "label": "python (current file)",
+    "adapter": "Debugpy",
+    "request": "launch",
+    "program": "$ZED_FILE",
+    "justMyCode": false
+  },
+  {
+    "label": "run",
+    "adapter": "Debugpy",
+    "request": "launch",
+    "module": "mkdocstrings",
+    "justMyCode": false
+  },
+  {
+    "label": "docs",
+    "adapter": "Debugpy",
+    "request": "launch",
+    "module": "zensical",
+    "args": [
+      "serve"
+    ],
+    "justMyCode": false
+  },
+  {
+    "label": "test",
+    "adapter": "Debugpy",
+    "request": "launch",
+    "module": "pytest",
+    "args": [
+      "-c=config/pytest.ini",
+      "-vvv",
+      "--no-cov",
+      "--dist=no",
+      "tests"
+    ],
+    "justMyCode": false
+  }
+]

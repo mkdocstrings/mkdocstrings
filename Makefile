@@ -16,6 +16,7 @@ actions = \
 	check-api \
 	check-docs \
 	check-quality \
+	check-security \
 	check-types \
 	clean \
 	coverage \
