@@ -1,3 +1,21 @@
+# SPDX-License-Identifier: ISC
+#
+# ISC License
+#
+# Copyright (c) 2019, Timothée Mazzucotelli and contributors
+#
+# Permission to use, copy, modify, and/or distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
 """Tests for the extension module."""
 
 from __future__ import annotations
@@ -99,7 +117,7 @@ def test_no_double_toc(ext_markdown: Markdown, expect_permalink: str) -> None:
     )
     assert output.count(expect_permalink) == 5
     assert 'id="tests.fixtures.headings--foo"' in output
-    assert ext_markdown.toc_tokens == [  # ty: ignore[unresolved-attribute]
+    assert ext_markdown.toc_tokens == [  # ty:ignore[unresolved-attribute]
         {
             "level": 1,
             "id": "aa",
@@ -154,10 +172,10 @@ def test_use_custom_handler(ext_markdown: Markdown) -> None:
 
 def test_register_every_identifier_alias(plugin: MkdocstringsPlugin, ext_markdown: Markdown) -> None:
     """Assert that we don't preemptively register all identifiers of a rendered object."""
-    handler = plugin._handlers.get_handler("python")  # ty: ignore[unresolved-attribute]
+    handler = plugin._handlers.get_handler("python")  # ty:ignore[unresolved-attribute]
     ids = ("id1", "id2", "id3")
-    handler.get_aliases = lambda _: ids  # ty: ignore[invalid-assignment]
-    autorefs = ext_markdown.parser.blockprocessors["mkdocstrings"]._autorefs
+    handler.get_aliases = lambda _: ids  # ty:ignore[invalid-assignment]
+    autorefs = ext_markdown.parser.blockprocessors["mkdocstrings"]._autorefs  # ty:ignore[unresolved-attribute]
 
     class Page:
         url = "foo"

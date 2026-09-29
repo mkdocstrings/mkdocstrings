@@ -1,3 +1,21 @@
+# SPDX-License-Identifier: ISC
+#
+# ISC License
+#
+# Copyright (c) 2019, Timothée Mazzucotelli and contributors
+#
+# Permission to use, copy, modify, and/or distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
 # This module holds the code of the Markdown extension responsible for matching "autodoc" instructions.
 #
 # The extension is composed of a Markdown [block processor](https://python-markdown.github.io/extensions/api/#blockparser)
@@ -301,7 +319,7 @@ class _HeadingsPostProcessor(Treeprocessor):
 
 class _TocLabelsTreeProcessor(Treeprocessor):
     def run(self, root: Element) -> None:  # noqa: ARG002
-        self._override_toc_labels(self.md.toc_tokens)  # ty: ignore[unresolved-attribute]
+        self._override_toc_labels(self.md.toc_tokens)  # ty:ignore[unresolved-attribute]
 
     def _override_toc_labels(self, tokens: list[dict[str, Any]]) -> None:
         for token in tokens:
@@ -349,7 +367,7 @@ class MkdocstringsExtension(Extension):
 
         # Zensical integration: get the current page from the Zensical-specific preprocessor.
         if "zensical_current_page" in md.preprocessors:
-            self._autorefs.current_page = md.preprocessors["zensical_current_page"]
+            self._autorefs.current_page = md.preprocessors["zensical_current_page"]  # ty:ignore[invalid-assignment]
 
         md.parser.blockprocessors.register(
             AutoDocProcessor(md, handlers=self._handlers, autorefs=self._autorefs),

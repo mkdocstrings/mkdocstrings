@@ -1,3 +1,21 @@
+# SPDX-License-Identifier: ISC
+#
+# ISC License
+#
+# Copyright (c) 2019, Timothée Mazzucotelli and contributors
+#
+# Permission to use, copy, modify, and/or distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
 # Base module for handlers.
 #
 # This module contains the base classes for implementing handlers.
@@ -359,24 +377,24 @@ class BaseHandler:
         global _markdown_conversion_layer  # noqa: PLW0603
         _markdown_conversion_layer += 1
         treeprocessors = self.md.treeprocessors
-        treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = heading_level
-        treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"
-        treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph
+        treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = heading_level  # ty:ignore[unresolved-attribute]
+        treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"  # ty:ignore[unresolved-attribute]
+        treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph  # ty:ignore[unresolved-attribute]
         if BacklinksTreeProcessor.name in treeprocessors:
-            treeprocessors[BacklinksTreeProcessor.name].initial_id = html_id
+            treeprocessors[BacklinksTreeProcessor.name].initial_id = html_id  # ty:ignore[unresolved-attribute]
         if autoref_hook and AutorefsInlineProcessor.name in self.md.inlinePatterns:
-            self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = autoref_hook  # ty: ignore[unresolved-attribute]
+            self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = autoref_hook  # ty:ignore[unresolved-attribute]
 
         try:
             return Markup(self.md.convert(text))
         finally:
-            treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0
-            treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""
-            treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False
+            treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0  # ty:ignore[unresolved-attribute]
+            treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""  # ty:ignore[unresolved-attribute]
+            treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False  # ty:ignore[unresolved-attribute]
             if BacklinksTreeProcessor.name in treeprocessors:
-                treeprocessors[BacklinksTreeProcessor.name].initial_id = None
+                treeprocessors[BacklinksTreeProcessor.name].initial_id = None  # ty:ignore[unresolved-attribute]
             if AutorefsInlineProcessor.name in self.md.inlinePatterns:
-                self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # ty: ignore[unresolved-attribute]
+                self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # ty:ignore[unresolved-attribute]
             self.md.reset()
             _markdown_conversion_layer -= 1
 
@@ -483,7 +501,7 @@ class BaseHandler:
         # MkDocs adds its own (required) extension that's not part of the config. Propagate it.
         if "relpath" in md.treeprocessors:
             relpath = md.treeprocessors["relpath"]
-            new_relpath = type(relpath)(relpath.file, relpath.files, relpath.config)
+            new_relpath = type(relpath)(relpath.file, relpath.files, relpath.config)  # ty:ignore[unresolved-attribute,too-many-positional-arguments]
             new_md.treeprocessors.register(new_relpath, "relpath", priority=0)
 
         self._md = new_md

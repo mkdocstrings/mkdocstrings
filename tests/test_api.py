@@ -68,7 +68,7 @@ def _yield_public_objects(
                 if modules:
                     yield member
                 yield from _yield_public_objects(
-                    member,  # ty: ignore[invalid-argument-type]
+                    member,  # ty:ignore[invalid-argument-type]
                     modules=modules,
                     modulelevel=modulelevel,
                     inherited=inherited,
@@ -80,7 +80,7 @@ def _yield_public_objects(
                 continue
             if member.is_class and not modulelevel:
                 yield from _yield_public_objects(
-                    member,  # ty: ignore[invalid-argument-type]
+                    member,  # ty:ignore[invalid-argument-type]
                     modules=modules,
                     modulelevel=False,
                     inherited=inherited,

@@ -41,7 +41,7 @@ def fixture_mkdocs_conf(request: pytest.FixtureRequest, tmp_path: Path) -> Itera
     """Yield a MkDocs configuration object."""
     conf = MkDocsConfig()
     while hasattr(request, "_parent_request") and hasattr(request._parent_request, "_parent_request"):
-        request = request._parent_request  # ty: ignore[invalid-assignment]
+        request = request._parent_request  # ty:ignore[invalid-assignment]
 
     conf_dict = {
         "site_name": "foo",
@@ -51,7 +51,7 @@ def fixture_mkdocs_conf(request: pytest.FixtureRequest, tmp_path: Path) -> Itera
         **getattr(request, "param", {}),
     }
     # Re-create it manually as a workaround for https://github.com/mkdocs/mkdocs/issues/2289
-    mdx_configs: dict[str, Any] = dict(ChainMap(*conf_dict.get("markdown_extensions", [])))  # ty: ignore[invalid-argument-type,invalid-assignment]
+    mdx_configs: dict[str, Any] = dict(ChainMap(*conf_dict.get("markdown_extensions", [])))  # ty:ignore[invalid-argument-type]
 
     conf.load_dict(conf_dict)
     assert conf.validate() == ([], [])

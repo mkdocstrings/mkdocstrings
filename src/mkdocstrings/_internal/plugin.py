@@ -1,3 +1,21 @@
+# SPDX-License-Identifier: ISC
+#
+# ISC License
+#
+# Copyright (c) 2019, Timothée Mazzucotelli and contributors
+#
+# Permission to use, copy, modify, and/or distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
 # This module contains the "mkdocstrings" plugin for MkDocs.
 #
 # The plugin instantiates a Markdown extension ([`MkdocstringsExtension`][mkdocstrings.MkdocstringsExtension]),
@@ -156,7 +174,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
         autorefs: AutorefsPlugin
         try:
             # If autorefs plugin is explicitly enabled, just use it.
-            autorefs = config.plugins["autorefs"]  # ty: ignore[invalid-assignment]
+            autorefs = config.plugins["autorefs"]  # ty:ignore[invalid-assignment]
             _logger.debug("Picked up existing autorefs instance %r", autorefs)
         except KeyError:
             # Otherwise, add a limited instance of it that acts only on what's added through `register_anchor`.
@@ -167,7 +185,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
             _logger.debug("Added a subdued autorefs instance %r", autorefs)
 
         mkdocstrings_extension = MkdocstringsExtension(handlers, autorefs)
-        config.markdown_extensions.append(mkdocstrings_extension)  # ty: ignore[invalid-argument-type]
+        config.markdown_extensions.append(mkdocstrings_extension)  # ty:ignore[invalid-argument-type]
 
         config.extra_css.insert(0, self.css_filename)  # So that it has lower priority than user files.
 
@@ -199,7 +217,7 @@ class MkdocstringsPlugin(BasePlugin[PluginConfig]):
     @event_priority(50)  # Early, before autorefs' starts applying cross-refs and collecting backlinks.
     def _on_env_load_inventories(self, env: Environment, config: MkDocsConfig, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
         if self.plugin_enabled and self._handlers:
-            register = config.plugins["autorefs"].register_url  # ty: ignore[unresolved-attribute]
+            register = config.plugins["autorefs"].register_url  # ty:ignore[unresolved-attribute]
             for identifier, url in self._handlers._yield_inventory_items():
                 register(identifier, url)
 

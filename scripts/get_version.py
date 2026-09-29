@@ -22,7 +22,7 @@ import re
 from contextlib import suppress
 from pathlib import Path
 
-from pdm.backend.hooks.version import (  # ty: ignore[unresolved-import]
+from pdm.backend.hooks.version import (  # ty:ignore[unresolved-import]
     SCMVersion,
     Version,
     default_version_formatter,

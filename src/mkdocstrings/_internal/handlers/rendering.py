@@ -1,3 +1,21 @@
+# SPDX-License-Identifier: ISC
+#
+# ISC License
+#
+# Copyright (c) 2019, Timothée Mazzucotelli and contributors
+#
+# Permission to use, copy, modify, and/or distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
 # This module holds helpers responsible for augmentations to the Markdown sub-documents produced by handlers.
 
 from __future__ import annotations
@@ -84,7 +102,7 @@ class Highlighter(Highlight):
         self._css_class = config.pop("css_class", "highlight")
         super().__init__(**{name: opt for name, opt in config.items() if name in self._highlight_config_keys})
 
-    def highlight(  # ty: ignore[invalid-method-override]
+    def highlight(  # ty:ignore[invalid-method-override]
         self,
         src: str,
         language: str | None = None,
@@ -240,7 +258,7 @@ class _HeadingReportingTreeprocessor(Treeprocessor):
 
     def run(self, root: Element) -> None:
         """Record all heading elements encountered in the document."""
-        permalink_class = self.md.treeprocessors["toc"].permalink_class
+        permalink_class = self.md.treeprocessors["toc"].permalink_class  # ty:ignore[unresolved-attribute]
         for el in root.iter():
             if self.regex.fullmatch(el.tag):
                 el = copy.copy(el)  # noqa: PLW2901
