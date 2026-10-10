@@ -29,7 +29,7 @@ from textwrap import dedent
 from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
-    from collections.abc import Iterator
+    from collections.abc import Generator
 
 
 PYTHON_VERSIONS = os.getenv("PYTHON_VERSIONS", "3.10 3.11 3.12 3.13 3.14 3.15").split()
@@ -45,7 +45,7 @@ def shell(cmd: str, *, capture_output: bool = False, **kwargs: Any) -> str | Non
 
 
 @contextmanager
-def environ(**kwargs: str) -> Iterator[None]:
+def environ(**kwargs: str) -> Generator[None]:
     """Temporarily set environment variables."""
     original = dict(os.environ)
     os.environ.update(kwargs)

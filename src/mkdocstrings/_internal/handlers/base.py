@@ -22,10 +22,10 @@
 
 from __future__ import annotations
 
-import datetime
 import importlib
 import ssl
 from concurrent import futures
+from datetime import timedelta
 from importlib.metadata import entry_points
 from io import BytesIO
 from pathlib import Path
@@ -653,7 +653,7 @@ class Handlers:
                 future = thread_pool.submit(
                     download_and_cache_url,
                     url,
-                    datetime.timedelta(days=1),
+                    timedelta(days=1),
                     download=_download_url_with_gz,
                 )
                 self._inv_futures[future] = (handler, url, conf)
