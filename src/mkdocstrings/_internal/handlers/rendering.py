@@ -23,6 +23,7 @@ from __future__ import annotations
 import copy
 import re
 import textwrap
+from inspect import signature
 from typing import TYPE_CHECKING, Any
 
 from markdown.extensions import Extension
@@ -100,7 +101,10 @@ class Highlighter(Highlight):
                 config = ext.getConfigs()
                 config["language_prefix"] = config["lang_prefix"]
         self._css_class = config.pop("css_class", "highlight")
-        super().__init__(**{name: opt for name, opt in config.items() if name in self._highlight_config_keys})
+        options = {name: opt for name, opt in config.items() if name in self._highlight_config_keys}
+        if "md" in signature(Highlight).parameters:
+            options["md"] = md
+        super().__init__(**options)
 
     def highlight(  # ty:ignore[invalid-method-override]
         self,
