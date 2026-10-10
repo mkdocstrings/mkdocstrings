@@ -27,6 +27,7 @@ import pytest
 from dirty_equals import IsStr
 from jinja2.exceptions import TemplateNotFound
 from markdown import Markdown
+from pymdownx.highlight import Highlight
 
 from mkdocstrings import Highlighter
 
@@ -71,6 +72,21 @@ def test_highlighter_basic(extension_name: str | None, inline: bool) -> None:
     actual = hl.highlight("import foo", language="python", inline=inline)
     assert "import" in actual
     assert "import foo" not in actual  # Highlighting has split it up.
+
+
+def test_highlighter_passes_markdown(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Assert that constructors requiring Markdown receive the same instance."""
+    received: list[Markdown] = []
+
+    def init(_self: Highlight, md: Markdown) -> None:
+        received.append(md)
+
+    monkeypatch.setattr(Highlight, "__init__", init)
+    md = Markdown()
+    Highlighter(md)
+
+    assert len(received) == 1
+    assert received[0] is md
 
 
 def test_extended_templates(tmp_path: Path, plugin: MkdocstringsPlugin) -> None:
