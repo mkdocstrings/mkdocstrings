@@ -12,7 +12,7 @@ A handler is what makes it possible to collect and render documentation for a pa
 - [MATLAB](https://watermarkhu.nl/mkdocstrings-matlab/){ .external }
 - [Shell](https://mkdocstrings.github.io/shell/){ .external }
 - [TypeScript](https://mkdocstrings.github.io/typescript/){ .external }
-- [VBA](https://pypi.org/project/mkdocstrings-vba/){ .external }
+- [VBA](https://mkdocstrings.github.io/vba/){ .external }
 
 ## About the Python handlers
 
