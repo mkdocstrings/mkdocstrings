@@ -28,7 +28,7 @@ Come have a chat or ask questions on our [Gitter channel](https://gitter.im/mkdo
   [Python](https://mkdocstrings.github.io/python/),
   [MATLAB](https://watermarkhu.nl/mkdocstrings-matlab/),
   [TypeScript](https://mkdocstrings.github.io/typescript/), and
-  [VBA](https://pypi.org/project/mkdocstrings-vba/) languages,
+  [VBA](https://mkdocstrings.github.io/vba/) languages,
   as well as for [shell scripts/libraries](https://mkdocstrings.github.io/shell/).
   Maybe you'd like to add another one to the list? :wink:
 
