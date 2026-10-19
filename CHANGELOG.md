@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.0.8](https://github.com/mkdocstrings/mkdocstrings/releases/tag/1.0.8) - 2026-10-19
+
+<small>[Compare with 1.0.7](https://github.com/mkdocstrings/mkdocstrings/compare/1.0.7...1.0.8)</small>
+
+### Bug Fixes
+
+- Prefix code anchor/span IDs to avoid collisions ([f402d2c](https://github.com/mkdocstrings/mkdocstrings/commit/f402d2cd5cc99beb562cba616d0be776140f3387) by Timothée Mazzucotelli). [Issue-mkdocstrings-python-200](https://github.com/mkdocstrings/python/issues/200)
+
 ## [1.0.7](https://github.com/mkdocstrings/mkdocstrings/releases/tag/1.0.7) - 2026-10-10
 
 <small>[Compare with 1.0.6](https://github.com/mkdocstrings/mkdocstrings/compare/1.0.6...1.0.7)</small>
