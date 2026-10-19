@@ -23,6 +23,7 @@ from __future__ import annotations
 import copy
 import re
 import textwrap
+from contextlib import contextmanager
 from inspect import signature
 from typing import TYPE_CHECKING, Any
 
@@ -33,9 +34,36 @@ from markupsafe import Markup
 from pymdownx.highlight import Highlight, HighlightExtension
 
 if TYPE_CHECKING:
+    from collections.abc import Generator
     from xml.etree.ElementTree import Element
 
     from markdown import Markdown
+    from pymdownx.superfences import SuperFencesBlockPreprocessor
+
+
+@contextmanager
+def _prepend_code_ids(highlighter: Highlight | SuperFencesBlockPreprocessor, id_prefix: str) -> Generator[None]:
+    """Temporarily prefix generated code line IDs and their matching links."""
+    if not id_prefix:
+        yield
+        return
+
+    line_spans = getattr(highlighter, "line_spans", "")
+    line_anchors = getattr(highlighter, "line_anchors", "")
+    anchor_linenums = getattr(highlighter, "anchor_linenums", False)
+    if not (line_spans or line_anchors or anchor_linenums):
+        yield
+        return
+
+    try:
+        if line_spans:
+            highlighter.line_spans = id_prefix + line_spans
+        # Highlight supplies this default when clickable line numbers have no explicit anchor prefix.
+        if line_anchors or anchor_linenums:
+            highlighter.line_anchors = id_prefix + (line_anchors or "__codelineno")
+        yield
+    finally:
+        highlighter.line_spans, highlighter.line_anchors = line_spans, line_anchors
 
 
 class Highlighter(Highlight):
@@ -114,6 +142,7 @@ class Highlighter(Highlight):
         inline: bool = False,
         dedent: bool = True,
         linenums: bool | None = None,
+        id_prefix: str = "",
         **kwargs: Any,
     ) -> str:
         """Highlight a code-snippet.
@@ -124,6 +153,7 @@ class Highlighter(Highlight):
             inline: Whether to highlight as inline.
             dedent: Whether to dedent the code before highlighting it or not.
             linenums: Whether to add line numbers in the result.
+            id_prefix: The prefix to add to code line IDs and local links, without an added separator.
             **kwargs: Pass on to `pymdownx.highlight.Highlight.highlight`.
 
         Returns:
@@ -139,7 +169,8 @@ class Highlighter(Highlight):
         if linenums is not None:
             self.linenums = linenums
         try:
-            result = super().highlight(src, language, inline=inline, **kwargs)
+            with _prepend_code_ids(self, id_prefix):
+                result = super().highlight(src, language, inline=inline, **kwargs)
         finally:
             self.linenums = old_linenums
 

@@ -25,6 +25,7 @@ from __future__ import annotations
 import importlib
 import ssl
 from concurrent import futures
+from contextlib import ExitStack
 from datetime import timedelta
 from importlib.metadata import entry_points
 from io import BytesIO
@@ -38,6 +39,7 @@ from markdown import Markdown
 from markupsafe import Markup
 from mkdocs.utils.cache import download_and_cache_url
 from mkdocs_autorefs import AutorefsInlineProcessor, BacklinksTreeProcessor
+from pymdownx.superfences import SuperFencesBlockPreprocessor
 
 from mkdocstrings._internal.download import _download_url_with_gz
 from mkdocstrings._internal.handlers.rendering import (
@@ -46,6 +48,7 @@ from mkdocstrings._internal.handlers.rendering import (
     IdPrependingTreeprocessor,
     MkdocstringsInnerExtension,
     ParagraphStrippingTreeprocessor,
+    _prepend_code_ids,
 )
 from mkdocstrings._internal.inventory import Inventory
 from mkdocstrings._internal.loggers import get_logger, get_template_logger
@@ -376,26 +379,36 @@ class BaseHandler:
         """
         global _markdown_conversion_layer  # noqa: PLW0603
         _markdown_conversion_layer += 1
-        treeprocessors = self.md.treeprocessors
+        # Nested directives can replace self._md; finish and reset the converter that started this conversion.
+        md = self.md
+        treeprocessors = md.treeprocessors
+        id_prefix = html_id and html_id + "--"
         treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = heading_level  # ty:ignore[unresolved-attribute]
-        treeprocessors[IdPrependingTreeprocessor.name].id_prefix = html_id and html_id + "--"  # ty:ignore[unresolved-attribute]
+        treeprocessors[IdPrependingTreeprocessor.name].id_prefix = id_prefix  # ty:ignore[unresolved-attribute]
         treeprocessors[ParagraphStrippingTreeprocessor.name].strip = strip_paragraph  # ty:ignore[unresolved-attribute]
         if BacklinksTreeProcessor.name in treeprocessors:
             treeprocessors[BacklinksTreeProcessor.name].initial_id = html_id  # ty:ignore[unresolved-attribute]
-        if autoref_hook and AutorefsInlineProcessor.name in self.md.inlinePatterns:
-            self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = autoref_hook  # ty:ignore[unresolved-attribute]
+        if autoref_hook and AutorefsInlineProcessor.name in md.inlinePatterns:
+            md.inlinePatterns[AutorefsInlineProcessor.name].hook = autoref_hook  # ty:ignore[unresolved-attribute]
 
         try:
-            return Markup(self.md.convert(text))
+            with ExitStack() as stack:
+                if id_prefix and "fenced_code_block" in md.preprocessors:
+                    fences = md.preprocessors["fenced_code_block"]
+                    if isinstance(fences, SuperFencesBlockPreprocessor):
+                        # SuperFences caches Highlight settings, so prefix its active values before preprocessing.
+                        fences.get_hl_settings()
+                        stack.enter_context(_prepend_code_ids(fences, id_prefix))
+                return Markup(md.convert(text))
         finally:
             treeprocessors[HeadingShiftingTreeprocessor.name].shift_by = 0  # ty:ignore[unresolved-attribute]
             treeprocessors[IdPrependingTreeprocessor.name].id_prefix = ""  # ty:ignore[unresolved-attribute]
             treeprocessors[ParagraphStrippingTreeprocessor.name].strip = False  # ty:ignore[unresolved-attribute]
             if BacklinksTreeProcessor.name in treeprocessors:
                 treeprocessors[BacklinksTreeProcessor.name].initial_id = None  # ty:ignore[unresolved-attribute]
-            if AutorefsInlineProcessor.name in self.md.inlinePatterns:
-                self.md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # ty:ignore[unresolved-attribute]
-            self.md.reset()
+            if AutorefsInlineProcessor.name in md.inlinePatterns:
+                md.inlinePatterns[AutorefsInlineProcessor.name].hook = None  # ty:ignore[unresolved-attribute]
+            md.reset()
             _markdown_conversion_layer -= 1
 
     def do_heading(
